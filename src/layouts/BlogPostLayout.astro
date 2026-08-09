@@ -1,0 +1,134 @@
+---
+import type { MarkdownHeading } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+import { Clock3, Link } from '@lucide/astro'
+import BlogLayout from './BlogLayout.astro'
+
+interface Props {
+  categoryLabel: string
+  headings: MarkdownHeading[]
+  post: CollectionEntry<'blog'>
+}
+
+const { categoryLabel, headings, post } = Astro.props
+const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3)
+const published = post.data.pubDate.toISOString().slice(0, 10)
+const displayDate = published.replaceAll('-', '.')
+const canonical = new URL(`/blog/${post.data.slug}`, Astro.site).toString()
+const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').replace(/\s+/g, '').length / 500))
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  image: new URL(post.data.cover, Astro.site).toString(),
+  datePublished: published,
+  author: { '@type': 'Person', name: 'Phil', url: 'https://formulasearch.com' },
+  mainEntityOfPage: canonical,
+}
+---
+
+<BlogLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.cover}
+  ogType="article"
+  publishedTime={published}
+  structuredData={structuredData}
+>
+  <article class="article-page">
+    <nav class="article-context" aria-label="文章位置">
+      <div class="article-context__inner">
+        <a href="/blog"><span aria-hidden="true">⌂</span> Blog</a>
+        <span class="article-context__pill">{categoryLabel}</span>
+      </div>
+    </nav>
+
+    <div class="article-grid">
+      <header class="article-header">
+        <p class="article-meta"><time datetime={published}>{displayDate}</time></p>
+        <h1>{post.data.title}</h1>
+        <div class="article-byline">
+          <p class="article-author"><span class="article-author__mark" aria-hidden="true">P</span><strong>Phil</strong></p>
+          <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} />{readingMinutes} 分钟阅读</span><button class="article-copy" type="button" data-copy-url={canonical}><Link aria-hidden="true" size={14} stroke-width={1.7} />复制链接</button></p>
+        </div>
+      </header>
+
+      <figure class="article-cover">
+        <img src={post.data.cover} alt={post.data.coverAlt} decoding="async" fetchpriority="high" />
+      </figure>
+
+      {toc.length > 1 && (
+        <details class="article-toc" open>
+          <summary>本页目录</summary>
+          <nav aria-label="文章目录">
+            {toc.map((heading) => <a class:list={{ 'is-subheading': heading.depth === 3 }} href={`#${heading.slug}`}>{heading.text}</a>)}
+          </nav>
+        </details>
+      )}
+
+      <div class="article-prose"><slot /></div>
+
+      <footer class="article-footer">
+        <a href="/blog">← 返回 Blog</a>
+        <a href="/blog/archive">全部文章 →</a>
+      </footer>
+
+      {post.data.externalLinks.length > 0 && (
+        <aside class="article-sources">
+          <p>原文发布</p>
+          <div class="post-row__links" aria-label="原文平台">
+            {post.data.externalLinks.map((link) => <a href={link.url} target="_blank" rel="noreferrer">{link.label}<span aria-hidden="true">↗</span></a>)}
+          </div>
+        </aside>
+      )}
+    </div>
+  </article>
+
+  <script is:inline>
+    document.querySelectorAll('.article-copy').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const url = button.getAttribute('data-copy-url') || window.location.href
+        try {
+          await navigator.clipboard.writeText(url)
+          button.lastChild.textContent = ' 已复制'
+        } catch {
+          window.prompt('复制文章链接', url)
+        }
+      })
+    })
+
+    const tocLinks = [...document.querySelectorAll('.article-toc a')]
+    const articleHeadings = tocLinks
+      .map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))))
+      .filter(Boolean)
+
+    const updateCurrentHeading = () => {
+      if (!articleHeadings.length) return
+      let current = articleHeadings[0]
+      for (const heading of articleHeadings) {
+        if (heading.getBoundingClientRect().top <= 180) current = heading
+        else break
+      }
+      tocLinks.forEach((link) => {
+        const active = decodeURIComponent(link.hash.slice(1)) === current.id
+        link.classList.toggle('is-current', active)
+        if (active) link.setAttribute('aria-current', 'location')
+        else link.removeAttribute('aria-current')
+      })
+    }
+
+    let tocFrame = 0
+    const scheduleTocUpdate = () => {
+      if (tocFrame) return
+      tocFrame = requestAnimationFrame(() => {
+        updateCurrentHeading()
+        tocFrame = 0
+      })
+    }
+
+    updateCurrentHeading()
+    window.addEventListener('scroll', scheduleTocUpdate, { passive: true })
+    window.addEventListener('hashchange', scheduleTocUpdate)
+  </script>
+</BlogLayout>
