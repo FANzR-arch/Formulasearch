@@ -12,7 +12,7 @@ const { compact = false, post, showCategory = true } = Astro.props
 const isLocal = isLocalBlogPost(post)
 ---
 
-<article class:list={['post-row', { 'post-row--compact': compact }]}> 
+<article class:list={['post-row', { 'post-row--compact': compact }]}>
   {!compact && post.cover && (
     <a class="post-row__cover" href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noreferrer'} tabindex="-1" aria-hidden="true">
       <img src={post.cover} alt="" loading="lazy" decoding="async" />
