@@ -1,0 +1,13 @@
+# Formulasearch
+
+Phil / Fan Zheren is an independent builder working across AI tools, visual systems, websites, and writing.
+
+## Main pages
+
+- / — personal introduction and selected pathways
+- /work — selected projects and collaborations
+- /writing — essays and notes
+- /resources — reusable skills, tools, and templates
+- /about — biography and contact information
+
+This is an initial public-site foundation. Individual project and article pages will be added from verified source material.

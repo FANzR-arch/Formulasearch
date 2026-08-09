@@ -1,0 +1,41 @@
+---
+import '../styles/global.css'
+
+interface Props {
+  description?: string
+  title?: string
+}
+
+const {
+  description = 'Phil builds AI tools, visual systems, websites, and notes for turning fuzzy ideas into useful things.',
+  title = 'Phil / Formula',
+} = Astro.props
+
+const canonical = new URL(Astro.url.pathname, Astro.site)
+---
+
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <title>{title}</title>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Phil',
+      alternateName: ['Fan Zheren', 'Formulasearch'],
+      url: 'https://formulasearch.com',
+      jobTitle: 'Independent builder and designer',
+      knowsAbout: ['AI tools', 'Visual systems', 'Website design', 'Writing'],
+    })} />
+  </head>
+  <body><slot /></body>
+</html>

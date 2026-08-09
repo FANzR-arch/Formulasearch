@@ -1,0 +1,233 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { homeContent } from '../lib/home-content'
+
+const navItems = ['Blog', 'Projects', 'Talks', 'Sponsors']
+---
+
+<BaseLayout title="Phil / Formula" description="Phil builds AI tools, visual systems, websites, and writing.">
+  <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
+    <svg class="intro-screen" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="presentation">
+      <defs>
+        <path id="intro-logo-shape" pathLength="1" d="M363.48 29.18c19.12-.5 42.12 8.18 57.95 24.01s24.51 38.84 24 57.96c.51 19.12-8.17 42.12-24 57.96-15.83 15.84-38.83 24.52-57.95 24.02l-156.58.03c-11.39-1.15-24.29 11.75-23.14 23.14v211.01c-1.15 11.39 11.75 24.29 23.14 23.14 11.39 1.15 24.29-11.75 23.14-23.14v-152.31c-.15-5.15 3.38-10.3 8.22-12.3 4.84-2 10.98-.86 14.51 2.89l180.66 180.66c2.56 2.63 6.48 4.26 10.15 4.21h8.41c4.35.44 9.29-4.49 8.85-8.85v-111.21c.43-4.23-4.36-9.02-8.59-8.59-4.23-.43-9.02 4.36-8.59 8.59v52.77c.15 5.15-3.38 10.3-8.22 12.3-4.84 2-10.98.86-14.51-2.89l-147.59-147.59c-3.75-3.53-4.89-9.67-2.89-14.51 2-4.84 7.15-8.37 12.3-8.22l80.73-.02c25.91.68 57.07-11.08 78.53-32.55 21.46-21.46 33.21-52.63 32.53-78.54.69-25.91-11.07-57.08-32.53-78.54C420.56 11.14 389.4-.62 363.49.06L32.49 0C24.09-.07 15.6 3.47 9.59 9.48 3.57 15.5.03 23.98.1 32.39v385.67c-1.62 15.94 16.45 34 32.38 32.38 15.94 1.62 34-16.45 32.38-32.38v-181.24c-.73-7.16 7.39-15.28 14.55-14.55h60.13c7.16.73 15.28-7.39 14.55-14.55.73-7.16-7.39-15.28-14.55-14.55H79.41c-7.16.73-15.28-7.39-14.55-14.55V43.66c-.03-3.78 1.56-7.59 4.26-10.29 2.7-2.7 6.52-4.29 10.29-4.26l284.06.06" />
+        <pattern id="intro-grid" width="96" height="96" patternUnits="userSpaceOnUse">
+          <path d="M0 0h96M0 0v96" fill="none" stroke="currentColor" stroke-width="1" />
+        </pattern>
+        <mask id="intro-cutout" maskUnits="userSpaceOnUse" x="-40" y="-40" width="2000" height="1160">
+          <rect x="-40" y="-40" width="2000" height="1160" fill="white" />
+          <g transform="translate(829.5 416.1) scale(.55)">
+            <g class="intro-mark__motion">
+              <use class="intro-mark__cutout" href="#intro-logo-shape" />
+            </g>
+          </g>
+        </mask>
+      </defs>
+      <g mask="url(#intro-cutout)">
+        <rect class="intro-field" x="-40" y="-40" width="2000" height="1160" />
+        <rect class="intro-grid" x="-40" y="-40" width="2000" height="1160" fill="url(#intro-grid)" />
+      </g>
+      <g class="intro-mark" transform="translate(829.5 416.1) scale(.55)">
+        <g class="intro-mark__motion">
+          <use class="intro-mark__line" href="#intro-logo-shape" />
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div id="site-page" class="site-page">
+    <canvas id="ambient-flow" class="ambient-flow" aria-hidden="true"></canvas>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="monogram" href="#top" aria-label="Phil / Formula home"><img src="/brand/logo.svg" alt="Phil / Formula" /></a>
+      <nav>
+        {navItems.map((label) => <a href="#top">{label}</a>)}
+        <span class="nav-divider" aria-hidden="true"></span>
+        <a class="icon-link icon-link--brand icon-link--x" href="https://x.com/Formulasearch" target="_blank" rel="noreferrer" aria-label="Carlos Phil on X" title="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z" />
+          </svg>
+        </a>
+        <a class="icon-link icon-link--brand icon-link--github" href="https://github.com/FANzR-arch" target="_blank" rel="noreferrer" aria-label="Carlos Phil on GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+          </svg>
+        </a>
+        <a class="icon-link icon-link--ui icon-link--mail" href={`mailto:${homeContent.email}`} aria-label="给 Carlos Phil 发邮件" title="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+          </svg>
+        </a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换黑白主题" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path class="theme-icon__sun" d="M12 3v2m0 14v2M3 12h2m14 0h2m-2.64-6.36-1.42 1.42M6.06 17.94l1.42-1.42m0-9.46-1.42-1.42m12.02 12.02-1.42-1.42M15.5 12a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" />
+            <path class="theme-icon__moon" d="M18.5 15.32A7.2 7.2 0 0 1 8.68 5.5 7.2 7.2 0 1 0 18.5 15.32Z" />
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="intro" aria-labelledby="intro-title">
+        <h1 id="intro-title">{homeContent.name}</h1>
+        <p class="lead">{homeContent.intro.join(' ')}</p>
+        <div class="home-copy">
+          {homeContent.about.map((paragraph) => <p>{paragraph}</p>)}
+          {homeContent.interest.map((paragraph) => <p>{paragraph}</p>)}
+          <hr />
+          <div class="home-contact">
+            <p class="home-copy__label">在这里找到我</p>
+            <p>
+              <a class="text-link" href={homeContent.socialUrl} target="_blank" rel="noreferrer">{homeContent.socialLabel}</a>
+              <br />
+              或者给我发个邮件：<strong><a class="text-link" href={`mailto:${homeContent.email}`}>{homeContent.email}</a></strong>
+            </p>
+          </div>
+          <hr />
+          <p>{homeContent.sponsor}</p>
+        </div>
+        {homeContent.heroImage && <img class="hero-image" src={homeContent.heroImage} alt="Homepage photo" loading="eager" />}
+      </section>
+    </main>
+  </div>
+
+  <div id="background-lab" class="background-lab" aria-label="背景方案预览">
+    <span class="background-lab__label">背景</span>
+    <div class="background-lab__options" role="group" aria-label="选择背景方案">
+      <button type="button" data-background-variant="off">关闭</button>
+      <button type="button" data-background-variant="dither">Dither</button>
+      <button type="button" data-background-variant="molten">焦散</button>
+      <button type="button" data-background-variant="contour">柔波</button>
+    </div>
+  </div>
+
+  <noscript><style>.site-page { opacity: 1 !important; transform: none !important; }</style></noscript>
+  <script is:inline src="/scripts/liquid-background.js"></script>
+  <script is:inline>
+    const overlay = document.querySelector('#intro-overlay')
+    const page = document.querySelector('#site-page')
+    const themeToggle = document.querySelector('#theme-toggle')
+    const introMotion = document.querySelector('.intro-mark .intro-mark__motion')
+    const introLine = document.querySelector('.intro-mark__line')
+    const storageKey = 'formulasearch-intro-seen'
+    const isLocalPreview = ['127.0.0.1', 'localhost', '::1'].includes(window.location.hostname)
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let syncAmbientTheme = () => {}
+    let completed = false
+    let lineFrame = 0
+
+    const updateLineWeight = () => {
+      if (!introLine?.getScreenCTM) return
+      const matrix = introLine.getScreenCTM()
+      const scale = matrix ? Math.hypot(matrix.a, matrix.b) : 0
+      if (scale) introLine.style.strokeWidth = `${1.1 / scale}px`
+    }
+
+    const trackLineWeight = () => {
+      updateLineWeight()
+      lineFrame = window.requestAnimationFrame(trackLineWeight)
+    }
+
+    const stopTrackingLineWeight = () => {
+      if (lineFrame) window.cancelAnimationFrame(lineFrame)
+      lineFrame = 0
+      updateLineWeight()
+    }
+
+    updateLineWeight()
+
+    const unveilPage = () => page?.classList.add('is-visible')
+
+    const revealPage = () => {
+      if (completed) return
+      completed = true
+      stopTrackingLineWeight()
+      if (!isLocalPreview) {
+        try { sessionStorage.setItem(storageKey, 'true') } catch {}
+      }
+      unveilPage()
+      overlay?.classList.add('is-exiting')
+      const removeOverlay = () => overlay?.remove()
+      overlay?.addEventListener('transitionend', removeOverlay, { once: true })
+      window.setTimeout(removeOverlay, 450)
+    }
+
+    const setTheme = (theme) => {
+      document.documentElement.dataset.theme = theme
+      themeToggle?.setAttribute('aria-pressed', String(theme === 'dark'))
+      themeToggle?.setAttribute('aria-label', theme === 'dark' ? '切换到浅色主题' : '切换到深色主题')
+    }
+
+    const saveTheme = (theme) => {
+      setTheme(theme)
+      syncAmbientTheme()
+      try { localStorage.setItem('formulasearch-theme', theme) } catch {}
+    }
+
+    let savedTheme = ''
+    try { savedTheme = localStorage.getItem('formulasearch-theme') || '' } catch {}
+    setTheme(savedTheme === 'dark' ? 'dark' : 'light')
+    syncAmbientTheme = () => window.dispatchEvent(new CustomEvent('formulasearch:theme', {
+      detail: { theme: document.documentElement.dataset.theme },
+    }))
+    syncAmbientTheme()
+
+    let themeChanging = false
+    themeToggle?.addEventListener('click', () => {
+      if (themeChanging) return
+      const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
+      const commitTheme = () => saveTheme(nextTheme)
+
+      if (reduceMotion || !document.startViewTransition) {
+        commitTheme()
+        return
+      }
+
+      const rect = themeToggle.getBoundingClientRect()
+      const x = rect.left + rect.width / 2
+      const y = rect.top + rect.height / 2
+      const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
+
+      document.documentElement.style.setProperty('--theme-x', `${x}px`)
+      document.documentElement.style.setProperty('--theme-y', `${y}px`)
+      document.documentElement.style.setProperty('--theme-radius', `${radius}px`)
+      document.documentElement.classList.add('is-theme-switching')
+      themeChanging = true
+
+      try {
+        const transition = document.startViewTransition(commitTheme)
+        const finishThemeSwitch = () => {
+          themeChanging = false
+          document.documentElement.classList.remove('is-theme-switching')
+        }
+        transition.finished.then(finishThemeSwitch, finishThemeSwitch)
+      } catch {
+        commitTheme()
+        themeChanging = false
+        document.documentElement.classList.remove('is-theme-switching')
+      }
+    })
+
+    let playedBefore = false
+    if (!isLocalPreview) {
+      try { playedBefore = sessionStorage.getItem(storageKey) === 'true' } catch {}
+    }
+
+    if (reduceMotion || playedBefore) {
+      window.setTimeout(revealPage, reduceMotion ? 180 : 0)
+    } else {
+      const followIntroAnimation = (event) => {
+        if (event.target !== introMotion || event.animationName !== 'logo-zoom') return
+        if (event.type === 'animationstart') {
+          unveilPage()
+          trackLineWeight()
+        }
+        if (event.type === 'animationend') revealPage()
+      }
+
+      introMotion?.addEventListener('animationstart', followIntroAnimation)
+      introMotion?.addEventListener('animationend', followIntroAnimation)
+      window.setTimeout(unveilPage, 1200)
+      window.setTimeout(revealPage, 3200)
+    }
+  </script>
+</BaseLayout>

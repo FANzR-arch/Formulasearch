@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Astro and production output
+.astro/
+dist/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Logs and editor files
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local tooling
+.codex/
+.agents/
