@@ -1,30 +1,23 @@
 (() => {
   const canvas = document.querySelector('#ambient-flow')
-  const lab = document.querySelector('#background-lab')
+  const cycleButton = document.querySelector('#background-cycle')
   if (!(canvas instanceof HTMLCanvasElement)) return
 
-  const variants = ['off', 'dither', 'molten', 'contour']
-  const effectVariants = variants.filter((name) => name !== 'off')
-  const variantIndex = { off: 0, dither: 1, molten: 2, contour: 3 }
+  const variants = ['dither', 'molten', 'contour']
+  const variantIndex = { dither: 1, molten: 2, contour: 3 }
+  const variantNames = { dither: 'Dither', molten: '焦散', contour: '柔波' }
   const randomHistoryKey = 'formulasearch-background-last-random'
-  const isLocalPreview = ['127.0.0.1', 'localhost', '::1'].includes(window.location.hostname)
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   let previousVariant = ''
 
   try { previousVariant = sessionStorage.getItem(randomHistoryKey) || '' } catch {}
-  const randomPool = effectVariants.filter((name) => name !== previousVariant)
+  const randomPool = variants.filter((name) => name !== previousVariant)
   const randomValues = new Uint32Array(1)
   window.crypto?.getRandomValues?.(randomValues)
   const randomUnit = randomValues[0] ? randomValues[0] / 4294967296 : Math.random()
-  let variant = randomPool[Math.floor(randomUnit * randomPool.length)] || effectVariants[0]
+  let variant = randomPool[Math.floor(randomUnit * randomPool.length)] || variants[0]
 
   try { sessionStorage.setItem(randomHistoryKey, variant) } catch {}
-
-  if (isLocalPreview) {
-    lab?.classList.add('is-preview')
-  } else {
-    lab?.remove()
-  }
 
   const gl = canvas.getContext('webgl', {
     alpha: true,
@@ -120,30 +113,33 @@
     }
 
     vec4 renderDither(vec2 point) {
-      float time = uTime * 0.02;
-      vec2 p = point * 1.24;
+      float time = uTime * 0.028;
+      vec2 p = point * 1.18;
       vec2 firstWarp = vec2(
         fbm(p * 2.1 + vec2(time, -time * 0.7)),
         fbm(p * 2.0 + vec2(-time * 0.6, time) + 9.4)
       );
       float field = fbm(p * 4.8 + firstWarp * 1.08);
-      float wave = 1.0 - smoothstep(0.055, 0.30, abs(sin((field + p.y * 0.16) * 7.2)));
+      float primaryWave = 1.0 - smoothstep(0.045, 0.30, abs(sin((field + p.y * 0.16) * 7.2)));
+      float secondaryWave = 1.0 - smoothstep(0.04, 0.22, abs(sin((field * 0.72 + firstWarp.y * 0.28 - p.x * 0.14) * 10.4)));
+      float wave = clamp(primaryWave + secondaryWave * 0.34, 0.0, 1.0);
       float zones = previewZones(point, uTime);
-      float value = wave * zones;
-      float threshold = bayer4(gl_FragCoord.xy / 2.8);
-      float dithered = step(threshold, clamp(value * 1.18, 0.0, 1.0));
-      float alpha = dithered * (0.055 + value * mix(0.22, 0.34, uTheme));
+      float value = wave * pow(zones, 0.78);
+      float threshold = bayer4(gl_FragCoord.xy / 2.55);
+      float dithered = step(threshold, clamp(value * 1.28, 0.0, 1.0));
+      float alpha = dithered * (0.07 + value * mix(0.29, 0.42, uTheme));
       float colorPhase = 0.5 + 0.5 * sin(field * 8.0 + p.x * 3.4 - p.y * 2.2 + uTime * 0.13);
-      vec3 lightA = vec3(0.08, 0.35, 0.40);
-      vec3 lightB = vec3(0.66, 0.29, 0.18);
-      vec3 darkA = vec3(0.43, 0.84, 0.83);
-      vec3 darkB = vec3(0.95, 0.53, 0.28);
-      vec3 color = mix(mix(lightA, lightB, colorPhase), mix(darkA, darkB, colorPhase), uTheme);
+      float mineralPhase = 0.5 + 0.5 * cos(field * 5.2 - p.x * 2.0 + uTime * 0.08);
+      vec3 lightCool = mix(vec3(0.04, 0.40, 0.42), vec3(0.12, 0.24, 0.62), mineralPhase);
+      vec3 lightWarm = mix(vec3(0.70, 0.25, 0.12), vec3(0.82, 0.55, 0.15), mineralPhase);
+      vec3 darkCool = mix(vec3(0.16, 0.78, 0.75), vec3(0.30, 0.42, 0.96), mineralPhase);
+      vec3 darkWarm = mix(vec3(0.97, 0.38, 0.20), vec3(1.00, 0.70, 0.28), mineralPhase);
+      vec3 color = mix(mix(lightCool, lightWarm, colorPhase), mix(darkCool, darkWarm, colorPhase), uTheme);
       return vec4(color * alpha, alpha);
     }
 
     vec4 renderMolten(vec2 point) {
-      float time = uTime * 0.15;
+      float time = uTime * 0.17;
       vec2 p = 4.0 * point - 0.5;
       vec2 i = p;
       float c = 0.0;
@@ -164,30 +160,32 @@
           cos(t - i.x - r) + sin(t + i.y),
           sin(t - i.y) + cos(t + i.x) + r
         );
-        c += 0.125 / max(length(vec2(sin(i.x + t), cos(i.y + t))), 0.001);
+        c += 0.14 / max(length(vec2(sin(i.x + t), cos(i.y + t))), 0.001);
       }
 
-      c /= 6.0;
-      float intensity = max(c - 0.035, 0.0) * 1.22;
+      c /= 5.7;
+      float intensity = max(c - 0.028, 0.0) * 1.48;
       float perimeter = smoothstep(0.20, 0.66, length(point * vec2(0.78, 1.0)));
-      intensity *= mix(0.16, 1.0, perimeter);
-      float glow = clamp(intensity, 0.0, 1.0);
+      intensity *= mix(0.24, 1.0, perimeter);
+      float glow = pow(clamp(intensity, 0.0, 1.0), 0.82);
 
       float phaseA = 0.5 + 0.5 * sin(point.x * 4.2 - point.y * 3.1 + time * 1.7 + glow * 9.0);
       float phaseB = 0.5 + 0.5 * cos(point.x * 2.8 + point.y * 4.6 - time * 1.2);
-      vec3 lightCyan = vec3(0.06, 0.43, 0.50);
-      vec3 lightViolet = vec3(0.39, 0.20, 0.54);
-      vec3 lightCoral = vec3(0.76, 0.27, 0.16);
-      vec3 lightGold = vec3(0.82, 0.55, 0.12);
-      vec3 darkCyan = vec3(0.19, 0.72, 0.78);
-      vec3 darkViolet = vec3(0.65, 0.44, 0.86);
-      vec3 darkCoral = vec3(0.96, 0.39, 0.23);
-      vec3 darkGold = vec3(1.00, 0.73, 0.28);
-      vec3 cool = mix(mix(lightCyan, lightViolet, phaseA), mix(darkCyan, darkViolet, phaseA), uTheme);
-      vec3 warm = mix(mix(lightCoral, lightGold, phaseB), mix(darkCoral, darkGold, phaseB), uTheme);
-      vec3 color = mix(cool, warm, smoothstep(0.10, 0.78, glow));
-      color = mix(color, mix(vec3(0.92, 0.72, 0.45), vec3(1.00, 0.94, 0.76), uTheme), smoothstep(0.72, 1.0, glow));
-      float alpha = glow * mix(0.50, 0.68, uTheme);
+      vec3 lightCobalt = vec3(0.08, 0.20, 0.62);
+      vec3 lightPeacock = vec3(0.04, 0.46, 0.48);
+      vec3 lightAmber = vec3(0.84, 0.52, 0.13);
+      vec3 lightCopper = vec3(0.73, 0.25, 0.10);
+      vec3 darkCobalt = vec3(0.20, 0.34, 1.00);
+      vec3 darkPeacock = vec3(0.10, 0.82, 0.79);
+      vec3 darkAmber = vec3(1.00, 0.72, 0.27);
+      vec3 darkCopper = vec3(1.00, 0.38, 0.14);
+      vec3 cool = mix(mix(lightCobalt, lightPeacock, phaseA), mix(darkCobalt, darkPeacock, phaseA), uTheme);
+      vec3 warm = mix(mix(lightCopper, lightAmber, phaseB), mix(darkCopper, darkAmber, phaseB), uTheme);
+      float warmShift = smoothstep(0.18, 0.82, 0.58 * phaseB + 0.42 * glow);
+      vec3 color = mix(cool, warm, warmShift);
+      vec3 pearl = mix(vec3(0.90, 0.72, 0.47), vec3(1.00, 0.94, 0.78), uTheme);
+      color = mix(color, pearl, smoothstep(0.70, 1.0, glow));
+      float alpha = glow * mix(0.58, 0.74, uTheme);
       return vec4(color * alpha, alpha);
     }
 
@@ -206,15 +204,17 @@
       float field = fbm(point * 1.48 + secondWarp * 1.74 + slowTime * 0.25);
       float signedContour = sin((field + firstWarp.x * 0.34 - firstWarp.y * 0.18) * 8.6);
       float contour = abs(signedContour);
-      float halo = 1.0 - smoothstep(0.10, 0.45, contour);
-      float core = 1.0 - smoothstep(0.02, 0.13, contour);
-      float ribbon = (halo * 0.70 + core * 0.30) * previewZones(point, uTime + 8.0);
+      float halo = 1.0 - smoothstep(0.09, 0.50, contour);
+      float core = 1.0 - smoothstep(0.018, 0.14, contour);
+      float echo = 1.0 - smoothstep(0.035, 0.20, abs(contour - 0.52));
+      float zones = pow(previewZones(point, uTime + 8.0), 0.72);
+      float ribbon = (halo * 0.62 + core * 0.30 + echo * 0.16) * zones;
       float side = smoothstep(-0.10, 0.10, signedContour);
 
       float colorDrift = 0.5 + 0.5 * sin(field * 6.5 + slowTime * 3.0 + point.x * 2.0);
-      vec3 lightColor = mix(mix(vec3(0.12, 0.36, 0.38), vec3(0.62, 0.34, 0.20), colorDrift), vec3(0.24, 0.21, 0.26), side * 0.32);
-      vec3 darkColor = mix(mix(vec3(0.49, 0.74, 0.72), vec3(0.91, 0.57, 0.33), colorDrift), vec3(0.82, 0.72, 0.90), side * 0.30);
-      float alpha = ribbon * mix(0.18, 0.30, uTheme);
+      vec3 lightColor = mix(mix(vec3(0.10, 0.32, 0.30), vec3(0.64, 0.36, 0.20), colorDrift), vec3(0.30, 0.23, 0.36), side * 0.36);
+      vec3 darkColor = mix(mix(vec3(0.43, 0.76, 0.68), vec3(0.93, 0.61, 0.35), colorDrift), vec3(0.76, 0.68, 0.92), side * 0.34);
+      float alpha = ribbon * mix(0.32, 0.38, uTheme);
       vec3 color = mix(lightColor, darkColor, uTheme);
       return vec4(color * alpha, alpha);
     }
@@ -334,25 +334,44 @@
     if (!reduceMotion.matches && variant !== 'off') frame = window.requestAnimationFrame(animate)
   }
 
-  const updateControls = () => {
-    if (!isLocalPreview) return
-    lab?.querySelectorAll('[data-background-variant]').forEach((button) => {
-      button.setAttribute('aria-pressed', String(button.dataset.backgroundVariant === variant))
-    })
+  const updateCycleLabel = () => {
+    if (!(cycleButton instanceof HTMLButtonElement)) return
+    const currentIndex = variants.indexOf(variant)
+    const nextVariant = variants[(currentIndex + 1) % variants.length]
+    const label = `当前背景：${variantNames[variant]}。点击切换到${variantNames[nextVariant]}`
+    cycleButton.setAttribute('aria-label', label)
+    cycleButton.title = label
   }
 
   const setVariant = (nextVariant) => {
     if (!variants.includes(nextVariant)) return
     variant = nextVariant
     canvas.dataset.background = variant
-    updateControls()
+    updateCycleLabel()
     syncMotion()
   }
 
-  lab?.addEventListener('click', (event) => {
-    const button = event.target.closest('[data-background-variant]')
-    if (!(button instanceof HTMLButtonElement)) return
-    setVariant(button.dataset.backgroundVariant)
+  let switchTimer = 0
+  cycleButton?.addEventListener('click', () => {
+    if (switchTimer) return
+    const currentIndex = variants.indexOf(variant)
+    const nextVariant = variants[(currentIndex + 1) % variants.length]
+
+    if (reduceMotion.matches) {
+      setVariant(nextVariant)
+      return
+    }
+
+    canvas.classList.add('is-switching')
+    cycleButton.classList.add('is-cycling')
+    switchTimer = window.setTimeout(() => {
+      setVariant(nextVariant)
+      window.requestAnimationFrame(() => {
+        canvas.classList.remove('is-switching')
+        cycleButton.classList.remove('is-cycling')
+        switchTimer = 0
+      })
+    }, 140)
   })
 
   window.addEventListener('resize', () => {
@@ -370,6 +389,5 @@
   }
 
   resize()
-  updateControls()
-  syncMotion()
+  setVariant(variant)
 })()

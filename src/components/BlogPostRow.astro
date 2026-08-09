@@ -1,0 +1,30 @@
+---
+import type { BlogPost } from '../lib/blog-content'
+import { formatBlogDate, getPrimaryBlogLink, isLocalBlogPost } from '../lib/blog-content'
+
+interface Props {
+  compact?: boolean
+  post: BlogPost
+  showCategory?: boolean
+}
+
+const { compact = false, post, showCategory = true } = Astro.props
+const isLocal = isLocalBlogPost(post)
+---
+
+<article class:list={['post-row', { 'post-row--compact': compact }]}>
+  {!compact && post.cover && (
+    <a class="post-row__cover" href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noreferrer'} tabindex="-1" aria-hidden="true">
+      <img src={post.cover} alt="" loading="lazy" decoding="async" />
+    </a>
+  )}
+  <time datetime={post.date}>{formatBlogDate(post.date)}</time>
+  <div class="post-row__body">
+    {showCategory && <p class="post-row__meta">{post.category.titleEn}</p>}
+    <h2><a href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noreferrer'}>{post.title}</a></h2>
+    {!compact && <p class="post-row__summary">{post.summary}</p>}
+    <div class="post-row__links" aria-label="原文平台">
+      {post.links.map((link) => <a href={link.url} target="_blank" rel="noreferrer">{link.label}<span aria-hidden="true">↗</span></a>)}
+    </div>
+  </div>
+</article>

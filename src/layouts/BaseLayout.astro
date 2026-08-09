@@ -3,29 +3,41 @@ import '../styles/global.css'
 
 interface Props {
   description?: string
+  image?: string
+  ogType?: 'website' | 'article'
+  publishedTime?: string
+  structuredData?: Record<string, unknown>
   title?: string
 }
 
 const {
   description = 'Phil builds AI tools, visual systems, websites, and notes for turning fuzzy ideas into useful things.',
+  image,
+  ogType = 'website',
+  publishedTime,
+  structuredData,
   title = 'Phil / Formula',
 } = Astro.props
 
 const canonical = new URL(Astro.url.pathname, Astro.site)
+const socialImage = image ? new URL(image, Astro.site) : undefined
 ---
 
 <!doctype html>
 <html lang="zh-Hans">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
     <title>{title}</title>
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -36,6 +48,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site)
       jobTitle: 'Independent builder and designer',
       knowsAbout: ['AI tools', 'Visual systems', 'Website design', 'Writing'],
     })} />
+    {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
   </head>
   <body><slot /></body>
 </html>
