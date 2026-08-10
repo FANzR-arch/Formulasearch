@@ -1,67 +1,186 @@
 ---
+import { Aperture, ChevronDown, DraftingCompass, Globe, Menu, Moon, Sun, X } from '@lucide/astro'
+import LocalizedText from './LocalizedText.astro'
+
 interface Props {
-  active?: 'blog' | 'projects' | 'skills' | 'lab'
-  email: string
+  active?: 'blog' | 'projects' | 'skills' | 'lab' | 'photos' | 'architecture'
   logoMode?: 'background' | 'home'
 }
 
-const { active, email, logoMode = 'home' } = Astro.props
+const { active, logoMode = 'home' } = Astro.props
 
-const blogMenu = [
-  { href: '/blog', label: 'Latest', note: '最近发布' },
-  { href: '/blog/series', label: 'Series', note: '按主题阅读' },
-  { href: '/blog/archive', label: 'Archive', note: '全部文章' },
-]
+const labels = {
+  blog: { zh: '博客', en: 'Blog' },
+  projects: { zh: '项目', en: 'Projects' },
+  skills: { zh: '技能', en: 'Skills' },
+  lab: { zh: '实验', en: 'Lab' },
+} as const
+
+const menus = {
+  blog: [
+    { href: '/blog/series#ai-tools', label: { zh: 'AI 与工具', en: 'AI & Tools' }, note: { zh: 'AI 教程、工具与实践', en: 'Tutorials, tools, and practice' } },
+    { href: '/blog/series#aesthetic-systems', label: { zh: '美学系统', en: 'Aesthetic Systems' }, note: { zh: '视觉拆解、提示词与方法', en: 'Visual studies, prompts, and methods' } },
+    { href: '/blog/series#notes', label: { zh: '笔记', en: 'Notes' }, note: { zh: '个人观察与思考', en: 'Observations and ongoing thoughts' } },
+  ],
+  projects: [
+    { href: '/projects#products-tools', label: { zh: '产品与工具', en: 'Products & Tools' }, note: { zh: 'Seedo、RZFrame、UPet、X-studio', en: 'Seedo, RZFrame, UPet, and X-studio' } },
+    { href: '/projects#websites', label: { zh: '网站', en: 'Websites' }, note: { zh: '网站、交互页面与合作项目', en: 'Sites, interactive work, and collaborations' } },
+    { href: '/projects#all-projects', label: { zh: '全部项目', en: 'All Projects' }, note: { zh: '全部可公开的产出', en: 'Everything available to share' } },
+  ],
+  skills: [
+    { href: '/skills#design-skills', label: { zh: '设计技能', en: 'Design Skills' }, note: { zh: 'Phil Design Skills', en: 'Phil Design Skills' } },
+    { href: '/skills#agent-workflows', label: { zh: 'Agent 与工作流', en: 'Agent & Workflows' }, note: { zh: '工作流、SOP 与 Agent 工具', en: 'Workflows, SOPs, and agent tools' } },
+    { href: '/skills#all-skills', label: { zh: '全部技能', en: 'All Skills' }, note: { zh: '完整可复用资产索引', en: 'A reusable index of the full set' } },
+  ],
+  lab: [
+    { href: '/lab#experiments', label: { zh: '实验', en: 'Experiments' }, note: { zh: 'Aesthetic Formulas、动态视觉与原型', en: 'Aesthetic formulas, motion, and prototypes' } },
+    { href: '/lab#courses', label: { zh: '课程', en: 'Courses' }, note: { zh: 'SEO/GEO、Price Action 与学习产出', en: 'SEO/GEO, price action, and study notes' } },
+    { href: '/lab#now', label: { zh: '当下', en: 'Now' }, note: { zh: '正在学习、测试与推进的事', en: 'What is being learned, tested, and built' } },
+  ],
+} as const
 ---
 
-<header class="site-header" aria-label="Primary navigation">
+<header class="site-header" aria-label="网站主导航" data-aria-en="Primary navigation" data-aria-zh="网站主导航">
   {logoMode === 'background' ? (
-    <button id="background-cycle" class="monogram" type="button" aria-label="切换背景特效" title="切换背景特效">
+    <button id="background-cycle" class="monogram" type="button" aria-label="切换背景效果" data-aria-en="Change background effect" data-aria-zh="切换背景效果" title="切换背景效果" data-title-en="Change background effect" data-title-zh="切换背景效果">
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </button>
   ) : (
-    <a class="monogram" href="/" aria-label="返回首页" title="返回首页">
+    <a class="monogram" href="/" aria-label="返回首页" data-aria-en="Return home" data-aria-zh="返回首页" title="返回首页" data-title-en="Return home" data-title-zh="返回首页">
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </a>
   )}
 
-  <nav class="site-nav" aria-label="网站导航">
-    <div class="nav-menu">
-      <a class:list={['nav-link', { 'is-active': active === 'blog' }]} href="/blog" aria-haspopup="true">Blog</a>
-      <div class="nav-popover" aria-label="Blog 子菜单">
-        {blogMenu.map((item) => (
-          <a href={item.href}>
-            <span>{item.label}</span>
-            <small>{item.note}</small>
-          </a>
-        ))}
+  <button id="mobile-navigation-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="打开导航" data-aria-en="Open navigation" data-aria-zh="打开导航">
+    <Menu class="mobile-nav-toggle__menu" aria-hidden="true" />
+    <X class="mobile-nav-toggle__close" aria-hidden="true" />
+  </button>
+
+  <nav id="site-navigation" class="site-nav" aria-label="网站导航" data-aria-en="Site navigation" data-aria-zh="网站导航">
+    {(['blog', 'projects', 'skills', 'lab'] as const).map((section) => (
+      <div class="nav-menu">
+        <div class="nav-menu__trigger">
+          <a class:list={['nav-link', { 'is-active': active === section }]} href={`/${section}`} aria-current={active === section ? 'page' : undefined}><LocalizedText {...labels[section]} /></a>
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-controls={`nav-panel-${section}`} aria-label={`展开${labels[section].zh}分类`} data-aria-en={`Open ${labels[section].en} menu`} data-aria-zh={`展开${labels[section].zh}分类`}>
+            <ChevronDown aria-hidden="true" />
+          </button>
+        </div>
+        <div id={`nav-panel-${section}`} class="nav-popover" aria-label={`${labels[section].zh}子菜单`} data-aria-en={`${labels[section].en} menu`} data-aria-zh={`${labels[section].zh}子菜单`} inert>
+          {menus[section].map((item, index) => (
+            <a href={item.href}>
+              <small>{String(index + 1).padStart(2, '0')}</small>
+              <span><LocalizedText {...item.label} /></span>
+              <em><LocalizedText {...item.note} /></em>
+            </a>
+          ))}
+        </div>
       </div>
+    ))}
+    <div class="nav-utilities">
+      <span class="nav-divider nav-divider--archive" aria-hidden="true"></span>
+      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'photos' }]} href="/photos" aria-label="摄影" data-aria-en="Photography" data-aria-zh="摄影" title="摄影" data-title-en="Photography" data-title-zh="摄影">
+        <Aperture aria-hidden="true" />
+      </a>
+      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'architecture' }]} href="/architecture" aria-label="建筑" data-aria-en="Architecture" data-aria-zh="建筑" title="建筑" data-title-en="Architecture" data-title-zh="建筑">
+        <DraftingCompass aria-hidden="true" />
+      </a>
+      <span class="nav-divider nav-divider--social" aria-hidden="true"></span>
+      <a class="icon-link icon-link--brand icon-link--github" href="https://github.com/FANzR-arch" target="_blank" rel="noreferrer" aria-label="Phil 的 GitHub" data-aria-en="Phil on GitHub" data-aria-zh="Phil 的 GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+        </svg>
+      </a>
+      <button id="language-toggle" class="language-toggle" type="button" aria-label="切换到英文" title="切换到英文" aria-pressed="false">
+        <Globe aria-hidden="true" />
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换到深色主题" aria-pressed="false">
+        <Sun class="theme-icon__sun" aria-hidden="true" />
+        <Moon class="theme-icon__moon" aria-hidden="true" />
+      </button>
     </div>
-    <span class:list={['nav-link', 'nav-link--pending', { 'is-active': active === 'projects' }]} title="即将开放">Projects</span>
-    <span class:list={['nav-link', 'nav-link--pending', { 'is-active': active === 'skills' }]} title="即将开放">Skills</span>
-    <span class:list={['nav-link', 'nav-link--pending', { 'is-active': active === 'lab' }]} title="即将开放">Lab</span>
-    <span class="nav-divider" aria-hidden="true"></span>
-    <a class="icon-link icon-link--brand icon-link--x" href="https://x.com/Formulasearch" target="_blank" rel="noreferrer" aria-label="Carlos Phil on X" title="X">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z" />
-      </svg>
-    </a>
-    <a class="icon-link icon-link--brand icon-link--github" href="https://github.com/FANzR-arch" target="_blank" rel="noreferrer" aria-label="Carlos Phil on GitHub" title="GitHub">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-      </svg>
-    </a>
-    <a class="icon-link icon-link--ui icon-link--mail" href={`mailto:${email}`} aria-label="给 Carlos Phil 发邮件" title="Email">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-      </svg>
-    </a>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换黑白主题" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path class="theme-icon__sun" d="M12 3v2m0 14v2M3 12h2m14 0h2m-2.64-6.36-1.42 1.42M6.06 17.94l1.42-1.42m0-9.46-1.42-1.42m12.02 12.02-1.42-1.42M15.5 12a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" />
-        <path class="theme-icon__moon" d="M18.5 15.32A7.2 7.2 0 0 1 8.68 5.5 7.2 7.2 0 1 0 18.5 15.32Z" />
-      </svg>
-    </button>
   </nav>
 </header>
+
+<script is:inline>
+  const primaryNavigation = document.querySelector('.site-nav')
+  const mobileNavigationToggle = document.querySelector('#mobile-navigation-toggle')
+  const languageToggle = document.querySelector('#language-toggle')
+  const navMenus = primaryNavigation ? Array.from(primaryNavigation.querySelectorAll('.nav-menu')) : []
+  let navCloseTimer
+
+  const closeNavigationMenus = (except) => {
+    navMenus.forEach((menu) => {
+      if (menu === except) return
+      menu.classList.remove('is-open')
+      menu.querySelector('.nav-disclosure')?.setAttribute('aria-expanded', 'false')
+      menu.querySelector('.nav-popover')?.setAttribute('inert', '')
+    })
+  }
+
+  const closeMobileNavigation = () => {
+    document.querySelector('.site-header')?.classList.remove('is-nav-open')
+    mobileNavigationToggle?.setAttribute('aria-expanded', 'false')
+  }
+
+  const openNavigationMenu = (menu) => {
+    clearTimeout(navCloseTimer)
+    closeNavigationMenus(menu)
+    menu.classList.add('is-open')
+    menu.querySelector('.nav-disclosure')?.setAttribute('aria-expanded', 'true')
+    menu.querySelector('.nav-popover')?.removeAttribute('inert')
+  }
+
+  navMenus.forEach((menu) => {
+    const button = menu.querySelector('.nav-disclosure')
+    button?.addEventListener('click', () => {
+      if (menu.classList.contains('is-open')) closeNavigationMenus()
+      else openNavigationMenu(menu)
+    })
+
+    menu.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'mouse') openNavigationMenu(menu)
+    })
+    menu.addEventListener('pointerleave', (event) => {
+      if (event.pointerType !== 'mouse') return
+      navCloseTimer = window.setTimeout(() => closeNavigationMenus(), 180)
+    })
+  })
+
+  primaryNavigation?.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return
+    const openButton = primaryNavigation.querySelector('.nav-disclosure[aria-expanded="true"]')
+    closeNavigationMenus()
+    closeMobileNavigation()
+    openButton?.focus()
+  })
+
+  mobileNavigationToggle?.addEventListener('click', () => {
+    const isOpen = document.querySelector('.site-header')?.classList.toggle('is-nav-open') ?? false
+    mobileNavigationToggle.setAttribute('aria-expanded', String(isOpen))
+    if (!isOpen) closeNavigationMenus()
+  })
+
+  primaryNavigation?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => closeMobileNavigation())
+  })
+
+  document.addEventListener('pointerdown', (event) => {
+    if (primaryNavigation?.contains(event.target)) return
+    closeNavigationMenus()
+    closeMobileNavigation()
+  })
+
+  const updateLanguageToggle = () => {
+    const isEnglish = document.documentElement.dataset.locale === 'en'
+    languageToggle.setAttribute('aria-pressed', String(isEnglish))
+    languageToggle.setAttribute('aria-label', isEnglish ? 'Switch to Chinese' : '切换到英文')
+    languageToggle.setAttribute('title', isEnglish ? 'Switch to Chinese' : '切换到英文')
+  }
+
+  updateLanguageToggle()
+  languageToggle?.addEventListener('click', () => {
+    const nextLocale = document.documentElement.dataset.locale === 'en' ? 'zh' : 'en'
+    window.formulasearchSetLocale?.(nextLocale)
+  })
+  window.addEventListener('formulasearch:locale', updateLanguageToggle)
+</script>
