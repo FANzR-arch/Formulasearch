@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run blog:check && astro check && astro build",
+    "build": "npm run blog:check && astro check && astro build && npm run site:check",
     "preview": "astro preview",
     "check": "astro check",
     "blog:migrate": "node scripts/prepare-blog-content.mjs --write",
     "blog:import": "node scripts/import-blog-bodies.mjs",
     "blog:check": "node scripts/prepare-blog-content.mjs --check",
-    "photos:prepare": "node scripts/prepare-photo-archive.mjs"
+    "photos:prepare": "node scripts/prepare-photo-archive.mjs",
+    "site:check": "node scripts/check-site-output.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
