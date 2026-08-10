@@ -58,7 +58,14 @@ function workItems(value: string): WorkItem[] {
   })
 }
 
+const requiredSections = ['Intro', 'About', 'Interest', 'Find', 'Sponsor'] as const
+
 function parseHomeContent(raw: string): HomeContent {
+  const missingSections = requiredSections.filter((title) => !section(raw, title))
+  if (missingSections.length) {
+    throw new Error(`首页内容缺少必需章节: ${missingSections.join(', ')}`)
+  }
+
   const intro = paragraphs(section(raw, 'Intro'))
   const about = paragraphBlocks(section(raw, 'About'))
   const interest = paragraphBlocks(section(raw, 'Interest'))
