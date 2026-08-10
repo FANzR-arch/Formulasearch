@@ -998,7 +998,11 @@
     left: max(16px, calc(50vw - 504px));
     width: 220px;
   }
-  .article-sources { display: none; }
+  .article-sources {
+    display: block;
+    grid-column: 2;
+    margin-top: 16px;
+  }
 }
 
 @media (max-width: 920px) {
