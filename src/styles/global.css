@@ -5,6 +5,9 @@
   --paper: oklch(98% 0.01 85);
   --hairline: oklch(80% 0.015 75 / 72%);
   --accent: oklch(55% 0.13 52);
+  --code-paper: oklch(94% 0.006 85);
+  --code-ink: oklch(25% 0.01 75);
+  --media-placeholder: oklch(89% 0.014 85);
   --ease-out: cubic-bezier(.23, 1, .32, 1);
   --ease-in-out: cubic-bezier(.77, 0, .175, 1);
   --serif: "Iowan Old Style", "Source Han Serif SC", "Songti SC", STSong, serif;
@@ -18,6 +21,9 @@
   --paper: oklch(16% 0.012 72);
   --hairline: oklch(42% 0.014 72 / 72%);
   --accent: oklch(77% 0.1 72);
+  --code-paper: oklch(21% 0.012 72);
+  --code-ink: oklch(93% 0.01 85);
+  --media-placeholder: oklch(24% 0.012 72);
 }
 
 :root.is-theme-switching body { transition: none; }
@@ -410,7 +416,7 @@ a:hover, .theme-toggle:hover { color: var(--accent); }
 .archive-record--square { grid-column: span 4; margin-top: clamp(8px, 3vw, 42px); }
 .archive-record--wide { grid-column: span 8; margin-top: clamp(8px, 3vw, 42px); }
 .archive-record[hidden] { display: none; }
-.archive-record img { display: block; width: 100%; height: auto; min-height: 250px; object-fit: cover; background: oklch(89% .014 85); transition: filter 260ms ease, transform 600ms var(--ease-out); }
+.archive-record img { display: block; width: 100%; height: auto; min-height: 250px; object-fit: cover; background: var(--media-placeholder); transition: filter 260ms ease, transform 600ms var(--ease-out); }
 .archive-record--hero img { aspect-ratio: 1.5; }
 .archive-record--portrait img { aspect-ratio: .72; }
 .archive-record--landscape img,

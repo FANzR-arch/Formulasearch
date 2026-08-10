@@ -919,8 +919,8 @@
 }
 
 :root:not([data-theme='dark']) .article-prose pre.astro-code {
-  background: oklch(94% 0.006 85) !important;
-  color: oklch(25% 0.01 75) !important;
+  background: var(--code-paper) !important;
+  color: var(--code-ink) !important;
 }
 
 :root:not([data-theme='dark']) .article-prose pre.astro-code span {
