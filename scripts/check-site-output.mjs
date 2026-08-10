@@ -24,6 +24,12 @@ async function walk(directory) {
 const routeSource = await readFile(join(projectRoot, '..', 'src', 'data', 'site-routes.ts'), 'utf8')
 const staticRoutes = [...routeSource.matchAll(/^\s+'([^']+)',?$/gm)].map((match) => match[1])
 const htmlFiles = (await walk(distRoot)).filter((path) => path.endsWith('.html'))
+const htmlByRoute = new Map()
+for (const path of htmlFiles) {
+  const relativePath = path.slice(distRoot.length + 1).replaceAll('\\', '/')
+  const route = relativePath === 'index.html' ? '/' : `/${relativePath.replace(/\/index\.html$/, '')}`
+  htmlByRoute.set(route, path)
+}
 
 for (const route of staticRoutes) {
   const relativePath = route === '/' ? 'index.html' : `${route.slice(1)}/index.html`
@@ -42,10 +48,31 @@ for (const route of staticRoutes) {
 for (const path of htmlFiles) {
   const html = await readFile(path, 'utf8')
   const relativePath = path.slice(distRoot.length + 1)
+  const currentRoute = [...htmlByRoute.entries()].find(([, htmlPath]) => htmlPath === path)?.[0] || '/'
   if (!html.includes('<html lang=')) failures.push(`missing html lang: ${relativePath}`)
   if (!html.includes('<main id="main-content"')) failures.push(`missing main anchor: ${relativePath}`)
   if (/<a\b[^>]*target="_blank"(?![^>]*rel="[^"]*noopener)/.test(html)) failures.push(`unsafe external link: ${relativePath}`)
   if (/<img\b(?![^>]*\balt(?:\s|=))[^>]*>/.test(html)) failures.push(`image without alt: ${relativePath}`)
+
+  for (const [, href] of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
+    if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) continue
+    let url
+    try { url = new URL(href, `https://formulasearch.com${currentRoute}`) } catch { continue }
+    if (url.origin !== 'https://formulasearch.com') continue
+    const route = url.pathname === '/' ? '/' : url.pathname.replace(/\/$/, '')
+    const targetPath = htmlByRoute.get(route)
+    if (!targetPath) {
+      failures.push(`broken internal link: ${relativePath} -> ${href}`)
+      continue
+    }
+    if (url.hash) {
+      const targetHtml = await readFile(targetPath, 'utf8')
+      const fragment = decodeURIComponent(url.hash.slice(1))
+      if (!new RegExp(`(?:id|name)="${fragment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`).test(targetHtml)) {
+        failures.push(`broken fragment: ${relativePath} -> ${href}`)
+      }
+    }
+  }
 }
 
 const blogFiles = htmlFiles.filter((path) => path.includes(`${join('blog', '')}`) && !path.endsWith(`${join('blog', 'index.html')}`))
