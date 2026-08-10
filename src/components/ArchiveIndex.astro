@@ -31,6 +31,7 @@ interface Props {
 }
 
 const { active, description, filters, items, kicker, title } = Astro.props
+const initialVisibleItems = active === 'photos' ? 8 : items.length
 ---
 
 <section class:list={['visual-archive', { 'visual-archive--photos': active === 'photos' }]} aria-labelledby="archive-title">
@@ -57,9 +58,9 @@ const { active, description, filters, items, kicker, title } = Astro.props
     )}
   </div>
 
-  <div class="visual-archive__grid" data-archive-grid>
+  <div id="archive-grid" class="visual-archive__grid" data-archive-grid>
     {items.map((item, index) => (
-      <figure class:list={['archive-record', `archive-record--${item.layout}`]} data-archive-record={item.tags.join(' ')}>
+      <figure class:list={['archive-record', `archive-record--${item.layout}`]} data-archive-record={item.tags.join(' ')} data-archive-index={index} hidden={index >= initialVisibleItems}>
         {typeof item.image === 'string' ? (
           <img src={item.image} alt={item.alt} width={item.width} height={item.height} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
         ) : (
@@ -73,6 +74,14 @@ const { active, description, filters, items, kicker, title } = Astro.props
       </figure>
     ))}
   </div>
+
+  {items.length > initialVisibleItems && (
+    <div class="visual-archive__more">
+      <button type="button" data-archive-more aria-controls="archive-grid">
+        <LocalizedText zh="继续加载影像" en="Load more images" />
+      </button>
+    </div>
+  )}
 
   <footer class="visual-archive__note">
     <p><LocalizedText zh="持续整理中的公开视觉档案。" en="A public visual archive, continuously edited." /></p>
@@ -94,5 +103,13 @@ const { active, description, filters, items, kicker, title } = Astro.props
         record.toggleAttribute('hidden', !matches)
       })
     })
+  })
+
+  const moreButton = document.querySelector<HTMLButtonElement>('[data-archive-more]')
+  moreButton?.addEventListener('click', () => {
+    const hiddenRecords = [...document.querySelectorAll<HTMLElement>('[data-archive-index]')]
+      .filter((record) => record.hidden)
+    hiddenRecords.slice(0, 8).forEach((record) => record.removeAttribute('hidden'))
+    if (hiddenRecords.length <= 8) moreButton.hidden = true
   })
 </script>

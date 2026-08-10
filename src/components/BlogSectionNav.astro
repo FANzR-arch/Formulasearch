@@ -3,18 +3,20 @@ interface Props {
   active: 'latest' | 'series' | 'archive'
 }
 
+import LocalizedText from './LocalizedText.astro'
+
 const { active } = Astro.props
 const items = [
-  { id: 'latest', href: '/blog', label: 'Latest' },
-  { id: 'series', href: '/blog/series', label: 'Series' },
-  { id: 'archive', href: '/blog/archive', label: 'Archive' },
+  { id: 'latest', href: '/blog', label: { zh: '最新', en: 'Latest' } },
+  { id: 'series', href: '/blog/series', label: { zh: '主题', en: 'Topics' } },
+  { id: 'archive', href: '/blog/archive', label: { zh: '归档', en: 'Archive' } },
 ] as const
 ---
 
-<nav class="blog-section-nav" aria-label="Blog 页面">
+<nav class="blog-section-nav" aria-label="博客页面" data-aria-en="Blog sections" data-aria-zh="博客页面">
   {items.map((item) => (
     <a class:list={{ 'is-active': item.id === active }} href={item.href} aria-current={item.id === active ? 'page' : undefined}>
-      {item.label}
+      <LocalizedText {...item.label} />
     </a>
   ))}
 </nav>

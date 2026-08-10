@@ -1,5 +1,6 @@
 ---
 import BlogPostRow from '../../components/BlogPostRow.astro'
+import LocalizedText from '../../components/LocalizedText.astro'
 import BlogSectionNav from '../../components/BlogSectionNav.astro'
 import BlogLayout from '../../layouts/BlogLayout.astro'
 import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } from '../../lib/blog-content'
@@ -14,10 +15,10 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
 <BlogLayout title="Blog" description="Phil 关于 AI、设计、工具与实践的文章。">
   <header class="blog-hero blog-hero--journal" data-reveal>
     <div class="blog-hero__heading">
-      <p class="blog-hero__eyebrow">Writing / Notes / Experiments</p>
-      <h1><span>Blog</span></h1>
+      <p class="blog-hero__eyebrow"><LocalizedText zh="写作 / 笔记 / 实验" en="Writing / Notes / Experiments" /></p>
+      <h1><span><LocalizedText zh="博客" en="Blog" /></span></h1>
     </div>
-    <p class="blog-hero__intro">记录我如何把模糊的想法，变成可以使用、理解和继续迭代的东西。</p>
+    <p class="blog-hero__intro"><LocalizedText zh="记录我如何把模糊的想法，变成可以使用、理解和继续迭代的东西。" en="Notes on turning fuzzy ideas into things people can use, understand, and keep improving." /></p>
     <svg class="blog-hero__threads" viewBox="0 0 1180 360" preserveAspectRatio="none" aria-hidden="true">
       <path d="M-20 274C152 338 250 79 413 128s165 207 338 113 243-45 449 30" />
       <path d="M-30 312C168 181 238 307 389 229S628 43 769 132s230 137 451 29" />
@@ -54,14 +55,14 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
           )
         })}
         <div class="cover-stage__chrome" aria-hidden="true">
-          <span>Featured index</span>
+          <span><LocalizedText zh="精选索引" en="Featured index" /></span>
           <span data-stage-count>01 / {String(stagePosts.length).padStart(2, '0')}</span>
         </div>
       </div>
 
       <div class="cover-stage__details" data-stage-details>
         <p class="post-row__meta">
-          <span data-stage-category>{activePost.category.titleEn}</span>
+          <span data-stage-category><LocalizedText zh={activePost.category.title} en={activePost.category.titleEn} /></span>
           <span>·</span>
           <span data-stage-date>{formatBlogDate(activePost.date)}</span>
         </p>
@@ -77,7 +78,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
         <p class="cover-stage__summary" data-stage-summary>{activePost.summary}</p>
       </div>
 
-      <nav class="cover-stage__index" aria-label="重点文章">
+      <nav class="cover-stage__index" aria-label="重点文章" data-aria-en="Featured articles" data-aria-zh="重点文章">
         {stagePosts.map((post, index) => {
           const isLocal = isLocalBlogPost(post)
           return (
@@ -90,14 +91,15 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
               data-stage-trigger={index}
               data-stage-title={post.title}
               data-stage-summary={post.summary}
-              data-stage-category={post.category.titleEn}
+              data-stage-category-zh={post.category.title}
+              data-stage-category-en={post.category.titleEn}
               data-stage-date={formatBlogDate(post.date)}
               data-stage-href={getPrimaryBlogLink(post)}
               data-stage-external={String(!isLocal)}
             >
               <span>{String(index + 1).padStart(2, '0')}</span>
               <strong>{post.title}</strong>
-              <small>{post.category.titleEn}</small>
+              <small><LocalizedText zh={post.category.title} en={post.category.titleEn} /></small>
             </a>
           )
         })}
@@ -107,8 +109,8 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
 
   <section class="blog-list blog-list--contact-sheet" aria-labelledby="recent-title" data-reveal>
     <div class="section-heading section-heading--indexed">
-      <h2 id="recent-title">Recent</h2>
-      <span>{String(recentPosts.length).padStart(2, '0')} entries</span>
+      <h2 id="recent-title"><LocalizedText zh="最新文章" en="Recent" /></h2>
+      <span><LocalizedText zh={`${String(recentPosts.length).padStart(2, '0')} 篇`} en={`${String(recentPosts.length).padStart(2, '0')} entries`} /></span>
     </div>
     <div class="recent-stream">
       {recentPosts.map((post) => <BlogPostRow post={post} />)}
@@ -116,7 +118,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
   </section>
 
   <a class="archive-cta" href="/blog/archive" data-reveal>
-    <span>全部文章</span>
+    <span><LocalizedText zh="全部文章" en="All articles" /></span>
     <span aria-hidden="true">→</span>
   </a>
 
@@ -160,7 +162,9 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
       updateTimer = window.setTimeout(() => {
         if (stageTitle) stageTitle.textContent = trigger.dataset.stageTitle || ''
         if (stageSummary) stageSummary.textContent = trigger.dataset.stageSummary || ''
-        if (stageCategory) stageCategory.textContent = trigger.dataset.stageCategory || ''
+        if (stageCategory) stageCategory.textContent = document.documentElement.dataset.locale === 'en'
+          ? trigger.dataset.stageCategoryEn || ''
+          : trigger.dataset.stageCategoryZh || ''
         if (stageDate) stageDate.textContent = trigger.dataset.stageDate || ''
         if (stageLink) {
           stageLink.setAttribute('href', trigger.dataset.stageHref || '#')
@@ -179,6 +183,14 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
     triggers.forEach((trigger, index) => {
       trigger.addEventListener('mouseenter', () => activateStage(index))
       trigger.addEventListener('focus', () => activateStage(index))
+    })
+
+    window.addEventListener('formulasearch:locale', () => {
+      const activeTrigger = triggers[activeIndex]
+      if (!activeTrigger || !stageCategory) return
+      stageCategory.textContent = document.documentElement.dataset.locale === 'en'
+        ? activeTrigger.dataset.stageCategoryEn || ''
+        : activeTrigger.dataset.stageCategoryZh || ''
     })
 
     const revealItems = [

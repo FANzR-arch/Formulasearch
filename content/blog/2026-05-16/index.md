@@ -1,6 +1,6 @@
 ---
 title: "少即是多（实测篇）：给AI指明方向"
-description: "你有没有过这种经验：写了几百字的提示词，结果 AI 出的图乱七八糟：风格杂糅、画面油腻、构图四不像？"
+description: "提示词实测篇：用结构、约束和明确方向，让 AI 的视觉输出更稳定。"
 pubDate: 2026-04-22
 slug: less-is-more-2026-05-16
 category: less-is-more

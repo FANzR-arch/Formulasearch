@@ -12,11 +12,11 @@ const contentRoot = join(repoRoot, 'content', 'blog')
 const mediaRoot = join(repoRoot, 'public', 'uploads', 'blog')
 const imageExtensions = new Set(['.avif', '.jpeg', '.jpg', '.png', '.webp'])
 
-const readText = (directory, filename) => {
+const readText = (directory, filename, { allowEmpty = false } = {}) => {
   const path = join(directory, filename)
   if (!existsSync(path)) throw new Error(`缺少文件：${path}`)
   const value = readFileSync(path, 'utf8').replace(/^\uFEFF/, '').trim()
-  if (!value) throw new Error(`文件为空：${path}`)
+  if (!value && !allowEmpty) throw new Error(`文件为空：${path}`)
   return value
 }
 
@@ -59,7 +59,7 @@ const posts = readdirSync(contentRoot, { withFileTypes: true })
     const category = readText(directory, '分类.txt')
     if (!categoryIds.has(category)) throw new Error(`未知分类 ${category}：${date}`)
 
-    const externalLinks = readText(directory, '链接.txt')
+    const externalLinks = readText(directory, '链接.txt', { allowEmpty: true })
       .split(/\r?\n/)
       .map((url) => url.trim())
       .filter(Boolean)
@@ -83,9 +83,25 @@ const posts = readdirSync(contentRoot, { withFileTypes: true })
   .sort((a, b) => b.date.localeCompare(a.date))
 
 const slugs = new Set()
+const links = new Map()
+const summaries = new Map()
 for (const post of posts) {
   if (slugs.has(post.slug)) throw new Error(`文章 slug 重复：${post.slug}`)
   slugs.add(post.slug)
+
+  const previousSummary = summaries.get(post.summary)
+  if (previousSummary && previousSummary !== post.title) {
+    throw new Error(`不同标题共用同一摘要：${previousSummary} / ${post.title}`)
+  }
+  summaries.set(post.summary, post.title)
+
+  for (const link of post.externalLinks) {
+    const previousTitle = links.get(link.url)
+    if (previousTitle && previousTitle !== post.title) {
+      throw new Error(`不同文章共用同一外链：${previousTitle} / ${post.title}\n${link.url}`)
+    }
+    links.set(link.url, post.title)
+  }
 }
 
 const renderIndex = (post, featured) => [
@@ -112,23 +128,71 @@ const renderIndex = (post, featured) => [
   '',
 ].join('\n')
 
+const managedFields = (post) => ({
+  title: yamlString(post.title),
+  description: yamlString(post.summary),
+  slug: post.slug,
+  category: post.category,
+  cover: yamlString(post.cover),
+  coverAlt: yamlString(`${post.title}的文章封面`),
+})
+
+const syncIndex = (post, markdown) => {
+  const frontmatterEnd = markdown.indexOf('\n---', 4)
+  if (frontmatterEnd === -1) throw new Error(`Markdown 缺少 frontmatter 结束标记：${post.directory}`)
+
+  let frontmatter = markdown.slice(0, frontmatterEnd)
+  const body = markdown.slice(frontmatterEnd)
+  for (const [field, value] of Object.entries(managedFields(post))) {
+    const pattern = new RegExp(`^${field}:.*$`, 'm')
+    const line = `${field}: ${value}`
+    frontmatter = pattern.test(frontmatter) ? frontmatter.replace(pattern, line) : `${frontmatter}\n${line}`
+  }
+
+  const links = post.externalLinks.length
+    ? ['externalLinks:', ...post.externalLinks.flatMap((link) => [
+      `  - label: ${yamlString(link.label)}`,
+      `    url: ${yamlString(link.url)}`,
+    ])].join('\n')
+    : 'externalLinks: []'
+  const frontmatterLines = frontmatter.split(/\r?\n/)
+  const linksStart = frontmatterLines.findIndex((line) => line.startsWith('externalLinks:'))
+  if (linksStart === -1) {
+    frontmatterLines.push(...links.split('\n'))
+  } else {
+    let linksEnd = linksStart + 1
+    while (linksEnd < frontmatterLines.length && (frontmatterLines[linksEnd].startsWith('  - label:') || frontmatterLines[linksEnd].startsWith('    url:'))) linksEnd += 1
+    frontmatterLines.splice(linksStart, linksEnd - linksStart, ...links.split('\n'))
+  }
+  frontmatter = frontmatterLines.join('\n')
+  return `${frontmatter}${body}`
+}
+
 const mode = process.argv[2]
 
 if (mode === '--write') {
   let created = 0
-  let skipped = 0
+  let updated = 0
+  let unchanged = 0
 
   posts.forEach((post, index) => {
     const target = join(post.directory, 'index.md')
     if (existsSync(target)) {
-      skipped += 1
+      const before = readFileSync(target, 'utf8')
+      const after = syncIndex(post, before)
+      if (after !== before) {
+        writeFileSync(target, after, 'utf8')
+        updated += 1
+      } else {
+        unchanged += 1
+      }
       return
     }
     writeFileSync(target, renderIndex(post, index === 0), { encoding: 'utf8', flag: 'wx' })
     created += 1
   })
 
-  console.log(`Blog 索引生成完成：新增 ${created} 篇，保留 ${skipped} 篇，共 ${posts.length} 篇。`)
+  console.log(`Blog 索引同步完成：新增 ${created} 篇，更新 ${updated} 篇，未变化 ${unchanged} 篇，共 ${posts.length} 篇。`)
 } else if (mode === '--check') {
   for (const post of posts) {
     const target = join(post.directory, 'index.md')
@@ -140,9 +204,16 @@ if (mode === '--write') {
       `slug: ${post.slug}`,
       `category: ${post.category}`,
       `cover: ${yamlString(post.cover)}`,
+      `coverAlt: ${yamlString(`${post.title}的文章封面`)}`,
     ]
     for (const field of expectedFields) {
       if (!markdown.includes(field)) throw new Error(`Markdown 与现有索引不一致：${target}\n缺少：${field}`)
+    }
+
+    const markdownLinks = [...markdown.matchAll(/^\s+url:\s*["']([^"']+)["']\s*$/gm)].map((match) => match[1])
+    const sourceLinks = post.externalLinks.map((link) => link.url)
+    if (JSON.stringify(markdownLinks) !== JSON.stringify(sourceLinks)) {
+      throw new Error(`Markdown 与链接.txt 不一致：${target}`)
     }
   }
 

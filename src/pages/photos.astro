@@ -1,0 +1,18 @@
+---
+import ArchiveIndex from '../components/ArchiveIndex.astro'
+import { selectedPhotoArchive } from '../data/photo-archive'
+import CatalogLayout from '../layouts/CatalogLayout.astro'
+---
+
+<CatalogLayout active="photos" variant="archive" title="Photography" description="Phil 的摄影作品与影像档案。">
+  <ArchiveIndex
+    active="photos"
+    kicker={{ zh: '影像档案 / 01', en: 'Visual archive / 01' }}
+    title={{ zh: '记录自由', en: 'Photographic records' }}
+    description={{ zh: '持续收集的摄影作品与日常影像，按时间与地点整理并归档。', en: 'An ongoing collection of photographs and everyday images, organised and archived by time and place.' }}
+    filters={[
+      { id: 'all', zh: '全部', en: 'All' },
+    ]}
+    items={selectedPhotoArchive}
+  />
+</CatalogLayout>

@@ -10,15 +10,20 @@
     "check": "astro check",
     "blog:migrate": "node scripts/prepare-blog-content.mjs --write",
     "blog:import": "node scripts/import-blog-bodies.mjs",
-    "blog:check": "node scripts/prepare-blog-content.mjs --check"
+    "blog:check": "node scripts/prepare-blog-content.mjs --check",
+    "photos:prepare": "node scripts/prepare-photo-archive.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@types/node": "^24.0.0",
     "astro": "^7.2.0",
+    "sharp": "^0.35.3",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "@lucide/astro": "^1.31.0"
+  },
+  "registries": {
+    "@react-bits": "https://reactbits.dev/r/{name}.json"
   }
 }

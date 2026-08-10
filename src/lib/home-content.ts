@@ -1,4 +1,5 @@
-import raw from '../../content/site/home.md?raw'
+import rawEn from '../../content/site/home.en.md?raw'
+import rawZh from '../../content/site/home.md?raw'
 
 type WorkItem = { title: string; description: string }
 
@@ -21,12 +22,12 @@ export type HomeContent = {
   writing: string
 }
 
-function frontmatterValue(key: string) {
+function frontmatterValue(raw: string, key: string) {
   const match = raw.match(new RegExp(`^${key}:\\s*["']?([^\\n"']*)["']?\\s*$`, 'm'))
   return match?.[1]?.trim() ?? ''
 }
 
-function section(title: string) {
+function section(raw: string, title: string) {
   const heading = `\n## ${title}\n`
   const headingStart = raw.indexOf(heading)
   if (headingStart === -1) return ''
@@ -57,27 +58,34 @@ function workItems(value: string): WorkItem[] {
   })
 }
 
-const intro = paragraphs(section('Intro'))
-const about = paragraphBlocks(section('About'))
-const interest = paragraphBlocks(section('Interest'))
-const identity = list(section('Identity'))
-const now = list(section('Now')).slice(1).map((text, index) => ({ number: String(index + 1).padStart(2, '0'), text }))
+function parseHomeContent(raw: string): HomeContent {
+  const intro = paragraphs(section(raw, 'Intro'))
+  const about = paragraphBlocks(section(raw, 'About'))
+  const interest = paragraphBlocks(section(raw, 'Interest'))
+  const identity = list(section(raw, 'Identity'))
+  const now = list(section(raw, 'Now')).slice(1).map((text, index) => ({ number: String(index + 1).padStart(2, '0'), text }))
 
-export const homeContent: HomeContent = {
-  name: frontmatterValue('name') || 'Phil',
-  eyebrow: frontmatterValue('eyebrow'),
-  email: frontmatterValue('email'),
-  socialLabel: frontmatterValue('xLabel') || '@Formulasearch',
-  socialUrl: frontmatterValue('xUrl') || 'https://x.com/Formulasearch',
-  heroImage: frontmatterValue('heroImage'),
-  intro,
-  about,
-  interest,
-  sponsor: paragraphBlocks(section('Sponsor')).join(' '),
-  statement: paragraphs(section('Statement')).join(' '),
-  identity,
-  work: workItems(section('Work')),
-  writing: paragraphs(section('Writing')).join(' '),
-  resources: paragraphs(section('Resources')).join(' '),
-  now,
+  return {
+    name: frontmatterValue(raw, 'name') || 'Phil',
+    eyebrow: frontmatterValue(raw, 'eyebrow'),
+    email: frontmatterValue(raw, 'email'),
+    socialLabel: frontmatterValue(raw, 'xLabel') || '@Formulasearch',
+    socialUrl: frontmatterValue(raw, 'xUrl') || 'https://x.com/Formulasearch',
+    heroImage: frontmatterValue(raw, 'heroImage'),
+    intro,
+    about,
+    interest,
+    sponsor: paragraphBlocks(section(raw, 'Sponsor')).join(' '),
+    statement: paragraphs(section(raw, 'Statement')).join(' '),
+    identity,
+    work: workItems(section(raw, 'Work')),
+    writing: paragraphs(section(raw, 'Writing')).join(' '),
+    resources: paragraphs(section(raw, 'Resources')).join(' '),
+    now,
+  }
+}
+
+export const homeContent = {
+  en: parseHomeContent(rawEn),
+  zh: parseHomeContent(rawZh),
 }

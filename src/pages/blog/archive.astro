@@ -1,5 +1,6 @@
 ---
 import BlogPostRow from '../../components/BlogPostRow.astro'
+import LocalizedText from '../../components/LocalizedText.astro'
 import BlogSectionNav from '../../components/BlogSectionNav.astro'
 import BlogLayout from '../../layouts/BlogLayout.astro'
 import { getBlogPosts } from '../../lib/blog-content'
@@ -10,7 +11,7 @@ const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
 
 <BlogLayout title="Blog Archive" description="Phil 的全部文章归档。">
   <header class="blog-hero blog-hero--compact">
-    <h1>Archive</h1>
+    <h1><LocalizedText zh="归档" en="Archive" /></h1>
   </header>
 
   <BlogSectionNav active="archive" />
@@ -22,7 +23,7 @@ const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
         <section class="archive-year" aria-labelledby={`year-${year}`}>
           <header>
             <h2 id={`year-${year}`}>{year}</h2>
-            <span>{yearPosts.length} 篇</span>
+            <span><LocalizedText zh={`${yearPosts.length} 篇`} en={`${yearPosts.length} articles`} /></span>
           </header>
           <div>{yearPosts.map((post) => <BlogPostRow post={post} compact />)}</div>
         </section>

@@ -52,3 +52,5 @@ content/
 - `/projects`、`/skills`、`/lab`：当前为页面内目录数据
 - `/photos`：照片 manifest 来自 `src/data/photo-archive.ts`
 - `/architecture`：当前为页面内研究图像数据
+
+照片归档脚本支持通过 `PHOTO_ARCHIVE_SOURCE` 指向原始 JPG/PNG 目录，再运行 `npm run photos:prepare`；脚本会生成 WebP 和 manifest。不要直接把本机绝对路径写进页面代码。

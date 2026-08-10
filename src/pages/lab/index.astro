@@ -1,0 +1,28 @@
+---
+import CatalogLayout from '../../layouts/CatalogLayout.astro'
+import LocalizedText from '../../components/LocalizedText.astro'
+
+const sections = [
+  { id: 'experiments', label: '01', title: { zh: '实验', en: 'Experiments' }, description: { zh: '未必成熟，但已经值得被观看、试玩或继续推演的方向。', en: 'Directions not yet finished, but already worth seeing, trying, or extending.' }, items: [{ zh: 'Aesthetic Formulas', en: 'Aesthetic Formulas' }, { zh: '动态背景与交互视觉', en: 'Dynamic backgrounds and interactive visuals' }, { zh: '原型、生成式图像与数字人测试', en: 'Prototypes, generated images, and digital-human tests' }] },
+  { id: 'courses', label: '02', title: { zh: '课程', en: 'Courses' }, description: { zh: '把正在学习和已经验证的内容整理成可继续使用的课程入口。', en: 'A home for lessons in progress and knowledge that has already been tested.' }, items: [{ zh: 'SEO / GEO 学习与实践', en: 'SEO / GEO learning and practice' }, { zh: 'Price Action Course', en: 'Price Action Course' }, { zh: 'AI 辅助设计与生产实验', en: 'AI-assisted design and production experiments' }] },
+  { id: 'now', label: '03', title: { zh: '当下', en: 'Now' }, description: { zh: '不是成就墙，而是对正在做什么保持一个可追踪的公开切面。', en: 'Not a wall of achievements, but a public and traceable view of work in progress.' }, items: [{ zh: '把产品、网站、Skills 组织成长期系统', en: 'Organising products, sites, and Skills into long-term systems' }, { zh: '继续探索 AI、设计与互联网的交叉处', en: 'Exploring the intersection of AI, design, and the internet' }, { zh: '摄影、旅行与途中记录', en: 'Photography, travel, and field notes' }] },
+]
+---
+
+<CatalogLayout active="lab" title="Lab" description="Phil 正在测试、学习和推进的实验与课程。">
+  <header class="catalog-hero">
+    <p><LocalizedText zh="进行中 / 仍在形成" en="In progress / still becoming" /></p>
+    <h1><LocalizedText zh="实验室" en="Lab" /></h1>
+    <span><LocalizedText zh="实验、课程，以及尚在形成中的兴趣与方法。" en="Experiments, courses, and interests and methods still taking shape." /></span>
+  </header>
+  <nav class="catalog-index" aria-label="实验室分类" data-aria-en="Lab categories" data-aria-zh="实验室分类">
+    {sections.map((section) => <a href={`#${section.id}`}><span>{section.label}</span><LocalizedText {...section.title} /></a>)}
+  </nav>
+  <div class="catalog-sections">
+    {sections.map((section) => <section id={section.id} class="catalog-section">
+      <p class="catalog-section__number">{section.label}</p>
+      <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
+      <ul>{section.items.map((item) => <li><LocalizedText {...item} /></li>)}</ul>
+    </section>)}
+  </div>
+</CatalogLayout>

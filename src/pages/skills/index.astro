@@ -1,0 +1,28 @@
+---
+import CatalogLayout from '../../layouts/CatalogLayout.astro'
+import LocalizedText from '../../components/LocalizedText.astro'
+
+const sections = [
+  { id: 'design-skills', label: '01', title: { zh: '设计技能', en: 'Design Skills' }, description: { zh: '把视觉参考、版式与图像语言编译成可直接调用的 Skills。', en: 'Visual references, layouts, and image languages compiled into ready-to-use Skills.' }, items: [{ zh: 'Phil Design Skills — 视觉提示词与图像方向', en: 'Phil Design Skills — visual prompts and image direction' }, { zh: 'Aesthetic formulas — 视觉方法与样式实验', en: 'Aesthetic formulas — visual methods and style experiments' }, { zh: '中文排版与视觉身份扩展', en: 'Chinese typography and visual identity expansion' }] },
+  { id: 'agent-workflows', label: '02', title: { zh: 'Agent 与工作流', en: 'Agent & Workflows' }, description: { zh: '为重复判断和生产过程建立可复用的流程、约束与工具。', en: 'Reusable flows, constraints, and tools for repeated decisions and production.' }, items: [{ zh: 'agent-worklog — 跨 Agent 工作记录', en: 'agent-worklog — cross-agent work records' }, { zh: 'Numerologist Skills — 稳定推演流程', en: 'Numerologist Skills — a stable reasoning flow' }, { zh: '内容、SEO/GEO 与研究工作流', en: 'Content, SEO/GEO, and research workflows' }] },
+  { id: 'all-skills', label: '03', title: { zh: '全部技能', en: 'All Skills' }, description: { zh: '把可公开、可拿走的 Skill 与工作流放进一个持续整理的索引。', en: 'A continually maintained index of public Skills and workflows you can take and use.' }, items: [{ zh: '设计与图像生成', en: 'Design and image generation' }, { zh: '研究、记录与决策', en: 'Research, records, and decisions' }, { zh: '内容生产与发布', en: 'Content production and publishing' }] },
+]
+---
+
+<CatalogLayout active="skills" title="Skills" description="Phil 的设计 Skills、Agent 工具与可复用工作流。">
+  <header class="catalog-hero">
+    <p><LocalizedText zh="拿走、改造、变成自己的" en="Take it, adapt it, make it yours" /></p>
+    <h1><LocalizedText zh="技能" en="Skills" /></h1>
+    <span><LocalizedText zh="可以直接拿走使用的视觉方法、Agent 工具与工作流。" en="Visual methods, agent tools, and workflows you can use directly." /></span>
+  </header>
+  <nav class="catalog-index" aria-label="技能分类" data-aria-en="Skill categories" data-aria-zh="技能分类">
+    {sections.map((section) => <a href={`#${section.id}`}><span>{section.label}</span><LocalizedText {...section.title} /></a>)}
+  </nav>
+  <div class="catalog-sections">
+    {sections.map((section) => <section id={section.id} class="catalog-section">
+      <p class="catalog-section__number">{section.label}</p>
+      <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
+      <ul>{section.items.map((item) => <li><LocalizedText {...item} /></li>)}</ul>
+    </section>)}
+  </div>
+</CatalogLayout>

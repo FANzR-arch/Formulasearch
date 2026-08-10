@@ -1,0 +1,28 @@
+---
+import CatalogLayout from '../../layouts/CatalogLayout.astro'
+import LocalizedText from '../../components/LocalizedText.astro'
+
+const sections = [
+  { id: 'products-tools', label: '01', title: { zh: '产品与工具', en: 'Products & Tools' }, description: { zh: '可独立使用、下载或持续迭代的产品与工具。', en: 'Products and tools that can be used, downloaded, or iterated independently.' }, items: [{ zh: 'Seedo — 使用时长追踪与 AI 复盘', en: 'Seedo — screen-time tracking and AI reflection' }, { zh: 'RZFrame Pro — 照片 EXIF 展示图生成', en: 'RZFrame Pro — photo EXIF display cards' }, { zh: 'UPet — 精灵图桌宠', en: 'UPet — a pixel-art desktop pet' }, { zh: 'X-studio — X 内容工作台', en: 'X-studio — a workspace for X content' }] },
+  { id: 'websites', label: '02', title: { zh: '网站', en: 'Websites' }, description: { zh: '公开的网站、交互页面与合作项目；合作边界清晰后再补充完整案例。', en: 'Public sites, interactive work, and collaborations. Full cases follow when their boundaries are clear.' }, items: [{ zh: 'Formulasearch — 个人实践总站', en: 'Formulasearch — personal practice hub' }, { zh: 'ShuiTuAtelier — 伙伴网站', en: 'ShuiTuAtelier — partner site' }, { zh: 'WaterSystem — 伙伴网站', en: 'WaterSystem — partner site' }] },
+  { id: 'all-projects', label: '03', title: { zh: '全部项目', en: 'All Projects' }, description: { zh: '只收录已有明确产出，或能解释当前状态的项目。', en: 'Only work with a clear outcome or an explainable current state is included.' }, items: [{ zh: '视觉系统与生成式实验', en: 'Visual systems and generative experiments' }, { zh: 'AI 工具与个人生产力', en: 'AI tools and personal productivity' }, { zh: '网站与数字体验', en: 'Websites and digital experiences' }] },
+]
+---
+
+<CatalogLayout active="projects" title="Projects" description="Phil 的产品、工具、网站与公开项目。">
+  <header class="catalog-hero">
+    <p><LocalizedText zh="精选工作 / 有用的产出" en="Selected work / useful output" /></p>
+    <h1><LocalizedText zh="项目" en="Projects" /></h1>
+    <span><LocalizedText zh="产品、工具、网站与持续迭代的数字体验。" en="Products, tools, websites, and digital experiences in progress." /></span>
+  </header>
+  <nav class="catalog-index" aria-label="项目分类" data-aria-en="Project categories" data-aria-zh="项目分类">
+    {sections.map((section) => <a href={`#${section.id}`}><span>{section.label}</span><LocalizedText {...section.title} /></a>)}
+  </nav>
+  <div class="catalog-sections">
+    {sections.map((section) => <section id={section.id} class="catalog-section">
+      <p class="catalog-section__number">{section.label}</p>
+      <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
+      <ul>{section.items.map((item) => <li><LocalizedText {...item} /></li>)}</ul>
+    </section>)}
+  </div>
+</CatalogLayout>

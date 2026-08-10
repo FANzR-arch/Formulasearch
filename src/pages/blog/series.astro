@@ -1,37 +1,42 @@
 ---
 import BlogPostRow from '../../components/BlogPostRow.astro'
+import LocalizedText from '../../components/LocalizedText.astro'
 import BlogSectionNav from '../../components/BlogSectionNav.astro'
 import BlogLayout from '../../layouts/BlogLayout.astro'
-import { getBlogCategories, getBlogPosts } from '../../lib/blog-content'
+import { getBlogPosts } from '../../lib/blog-content'
 
 const posts = getBlogPosts()
-const series = getBlogCategories()
-  .map((category) => ({
-    category,
-    posts: posts.filter((post) => post.categoryId === category.id),
-  }))
+const categoryGroups = [
+  { id: 'ai-tools', title: { zh: 'AI 与工具', en: 'AI & Tools' }, description: { zh: 'AI 知识、工具与真实实践。', en: 'AI knowledge, tools, and hands-on practice.' }, categoryIds: ['ai-knowledge', 'ai-practice'] },
+  { id: 'aesthetic-systems', title: { zh: '美学系统', en: 'Aesthetic Systems' }, description: { zh: '提示词美学、视觉拆解与可复用的方法。', en: 'Prompt aesthetics, visual studies, and reusable methods.' }, categoryIds: ['prompt-aesthetic', 'less-is-more', 'prompt-sharing'] },
+  { id: 'notes', title: { zh: '笔记', en: 'Notes' }, description: { zh: '个人观察、职业思考与持续记录。', en: 'Personal observations, career thinking, and ongoing notes.' }, categoryIds: ['personal-thinking'] },
+]
+const series = categoryGroups.map((group) => ({
+  ...group,
+  posts: posts.filter((post) => group.categoryIds.includes(post.categoryId)),
+}))
   .filter((group) => group.posts.length > 0)
 ---
 
-<BlogLayout title="Blog Series" description="按主题浏览 Phil 的文章系列。">
+<BlogLayout title="Blog Topics" description="按内容方向浏览 Phil 的文章。">
   <header class="blog-hero blog-hero--compact">
-    <h1>Series</h1>
+    <h1><LocalizedText zh="主题" en="Topics" /></h1>
   </header>
 
   <BlogSectionNav active="series" />
 
   <div class="series-list">
     {series.map((group) => (
-      <section class="series-group" aria-labelledby={`series-${group.category.id}`}>
+      <section id={group.id} class="series-group" aria-labelledby={`series-${group.id}`}>
         <header class="series-group__header">
           <div>
-            <h2 id={`series-${group.category.id}`}>{group.category.title}</h2>
-            <p>{group.category.description}</p>
+            <h2 id={`series-${group.id}`}><LocalizedText {...group.title} /></h2>
+            <p><LocalizedText {...group.description} /></p>
           </div>
           <strong>{group.posts.length}</strong>
         </header>
         <div class="series-group__posts">
-          {group.posts.map((post) => <BlogPostRow post={post} compact showCategory={false} />)}
+        {group.posts.map((post) => <BlogPostRow post={post} compact showCategory={false} />)}
         </div>
       </section>
     ))}
