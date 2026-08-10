@@ -85,7 +85,7 @@ const menus = {
         <DraftingCompass aria-hidden="true" />
       </a>
       <span class="nav-divider nav-divider--social" aria-hidden="true"></span>
-      <a class="icon-link icon-link--brand icon-link--github" href="https://github.com/FANzR-arch" target="_blank" rel="noreferrer" aria-label="Phil 的 GitHub" data-aria-en="Phil on GitHub" data-aria-zh="Phil 的 GitHub" title="GitHub">
+      <a class="icon-link icon-link--brand icon-link--github" href="https://github.com/FANzR-arch" target="_blank" rel="noopener noreferrer" aria-label="Phil 的 GitHub" data-aria-en="Phil on GitHub" data-aria-zh="Phil 的 GitHub" title="GitHub">
         <img src="/brand/github-mark.svg" alt="" aria-hidden="true" />
       </a>
       <button id="language-toggle" class="language-toggle" type="button" aria-label="切换到英文" title="切换到英文" aria-pressed="false">
@@ -115,9 +115,12 @@ const menus = {
     })
   }
 
-  const closeMobileNavigation = () => {
-    document.querySelector('.site-header')?.classList.remove('is-nav-open')
+  const closeMobileNavigation = ({ restoreFocus = false } = {}) => {
+    const header = document.querySelector('.site-header')
+    const wasOpen = header?.classList.contains('is-nav-open')
+    header?.classList.remove('is-nav-open')
     mobileNavigationToggle?.setAttribute('aria-expanded', 'false')
+    if (restoreFocus && wasOpen) mobileNavigationToggle?.focus()
   }
 
   const openNavigationMenu = (menu) => {
@@ -142,20 +145,40 @@ const menus = {
       if (event.pointerType !== 'mouse') return
       navCloseTimer = window.setTimeout(() => closeNavigationMenus(), 180)
     })
+    menu.addEventListener('focusin', () => openNavigationMenu(menu))
   })
 
   primaryNavigation?.addEventListener('keydown', (event) => {
-    if (event.key !== 'Escape') return
-    const openButton = primaryNavigation.querySelector('.nav-disclosure[aria-expanded="true"]')
-    closeNavigationMenus()
-    closeMobileNavigation()
-    openButton?.focus()
+    if (event.key === 'Escape') {
+      const openButton = primaryNavigation.querySelector('.nav-disclosure[aria-expanded="true"]')
+      const mobileWasOpen = document.querySelector('.site-header')?.classList.contains('is-nav-open')
+      closeNavigationMenus()
+      closeMobileNavigation({ restoreFocus: mobileWasOpen && !openButton })
+      openButton?.focus()
+      return
+    }
+    if (event.key !== 'Tab' || !document.querySelector('.site-header')?.classList.contains('is-nav-open')) return
+    const focusable = [...primaryNavigation.querySelectorAll<HTMLElement>('a, button')].filter((element) => !element.hasAttribute('disabled') && !element.closest('[inert]') && element.getClientRects().length)
+    if (!focusable.length) return
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    if (event.shiftKey && event.target === first) {
+      event.preventDefault()
+      last.focus()
+    } else if (!event.shiftKey && event.target === last) {
+      event.preventDefault()
+      first.focus()
+    }
   })
 
   mobileNavigationToggle?.addEventListener('click', () => {
     const isOpen = document.querySelector('.site-header')?.classList.toggle('is-nav-open') ?? false
     mobileNavigationToggle.setAttribute('aria-expanded', String(isOpen))
-    if (!isOpen) closeNavigationMenus()
+    if (isOpen) {
+      requestAnimationFrame(() => primaryNavigation?.querySelector<HTMLElement>('a, button')?.focus())
+    } else {
+      closeNavigationMenus()
+    }
   })
 
   primaryNavigation?.querySelectorAll('a').forEach((link) => {

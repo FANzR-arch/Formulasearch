@@ -3,6 +3,7 @@ import BlogPostRow from '../../components/BlogPostRow.astro'
 import LocalizedText from '../../components/LocalizedText.astro'
 import BlogSectionNav from '../../components/BlogSectionNav.astro'
 import BlogLayout from '../../layouts/BlogLayout.astro'
+import { ArrowRight } from '@lucide/astro'
 import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } from '../../lib/blog-content'
 
 const posts = getBlogPosts()
@@ -38,7 +39,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
               class:list={['cover-stage__slide', { 'is-active': index === 0 }]}
               href={getPrimaryBlogLink(post)}
               target={isLocal ? undefined : '_blank'}
-              rel={isLocal ? undefined : 'noreferrer'}
+              rel={isLocal ? undefined : 'noopener noreferrer'}
               data-cover-slide={index}
               aria-hidden={index === 0 ? undefined : 'true'}
               tabindex={index === 0 ? undefined : '-1'}
@@ -70,7 +71,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
           <a
             href={getPrimaryBlogLink(activePost)}
             target={activePostIsLocal ? undefined : '_blank'}
-            rel={activePostIsLocal ? undefined : 'noreferrer'}
+            rel={activePostIsLocal ? undefined : 'noopener noreferrer'}
             data-stage-link
             data-stage-title
           >{activePost.title}</a>
@@ -86,7 +87,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
               class:list={{ 'is-active': index === 0 }}
               href={getPrimaryBlogLink(post)}
               target={isLocal ? undefined : '_blank'}
-              rel={isLocal ? undefined : 'noreferrer'}
+              rel={isLocal ? undefined : 'noopener noreferrer'}
               aria-current={index === 0 ? 'true' : undefined}
               data-stage-trigger={index}
               data-stage-title={post.title}
@@ -119,7 +120,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
 
   <a class="archive-cta" href="/blog/archive" data-reveal>
     <span><LocalizedText zh="全部文章" en="All articles" /></span>
-    <span aria-hidden="true">→</span>
+    <ArrowRight aria-hidden="true" size={16} stroke-width={1.7} />
   </a>
 
   <script is:inline>

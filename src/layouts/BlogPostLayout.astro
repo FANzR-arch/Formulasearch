@@ -1,7 +1,7 @@
 ---
 import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
-import { Clock3, Link } from '@lucide/astro'
+import { ArrowLeft, ArrowRight, ArrowUpRight, Clock3, House, Link } from '@lucide/astro'
 import LocalizedText from '../components/LocalizedText.astro'
 import BlogLayout from './BlogLayout.astro'
 
@@ -43,7 +43,7 @@ const structuredData = {
     <article class="article-page" lang={post.data.contentLanguage}>
     <nav class="article-context" aria-label="文章位置" data-aria-en="Article location" data-aria-zh="文章位置">
       <div class="article-context__inner">
-        <a href="/blog"><span aria-hidden="true">⌂</span> <LocalizedText zh="博客" en="Blog" /></a>
+        <a href="/blog"><House aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText zh="博客" en="Blog" /></a>
         <span class="article-context__pill"><LocalizedText zh={categoryLabel.title} en={categoryLabel.titleEn} /></span>
       </div>
     </nav>
@@ -74,15 +74,15 @@ const structuredData = {
       <div class="article-prose"><slot /></div>
 
       <footer class="article-footer">
-        <a href="/blog">← <LocalizedText zh="返回博客" en="Back to blog" /></a>
-        <a href="/blog/archive"><LocalizedText zh="全部文章" en="All articles" /> →</a>
+        <a href="/blog"><ArrowLeft aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText zh="返回博客" en="Back to blog" /></a>
+        <a href="/blog/archive"><LocalizedText zh="全部文章" en="All articles" /> <ArrowRight aria-hidden="true" size={14} stroke-width={1.7} /></a>
       </footer>
 
       {post.data.externalLinks.length > 0 && (
         <aside class="article-sources">
           <p><LocalizedText zh="原文发布" en="Originally published on" /></p>
           <div class="post-row__links" aria-label="原文平台" data-aria-en="Original publication" data-aria-zh="原文平台">
-            {post.data.externalLinks.map((link) => <a href={link.url} target="_blank" rel="noreferrer">{link.label === '微信' ? <LocalizedText zh="微信" en="WeChat" /> : link.label}<span aria-hidden="true">↗</span></a>)}
+            {post.data.externalLinks.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label === '微信' ? <LocalizedText zh="微信" en="WeChat" /> : link.label}<ArrowUpRight aria-hidden="true" size={13} stroke-width={1.7} /></a>)}
           </div>
         </aside>
       )}
