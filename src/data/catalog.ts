@@ -1,0 +1,27 @@
+import type { LocalizedCopy } from '../lib/i18n'
+
+export type CatalogSection = {
+  id: string
+  label: string
+  title: LocalizedCopy
+  description: LocalizedCopy
+  items: readonly LocalizedCopy[]
+}
+
+export const projectSections: readonly CatalogSection[] = [
+  { id: 'products-tools', label: '01', title: { zh: '产品与工具', en: 'Products & Tools' }, description: { zh: '可独立使用、下载或持续迭代的产品与工具。', en: 'Products and tools that can be used, downloaded, or iterated independently.' }, items: [{ zh: 'Seedo — 使用时长追踪与 AI 复盘', en: 'Seedo — screen-time tracking and AI reflection' }, { zh: 'RZFrame Pro — 照片 EXIF 展示图生成', en: 'RZFrame Pro — photo EXIF display cards' }, { zh: 'UPet — 精灵图桌宠', en: 'UPet — a pixel-art desktop pet' }, { zh: 'X-studio — X 内容工作台', en: 'X-studio — a workspace for X content' }] },
+  { id: 'websites', label: '02', title: { zh: '网站', en: 'Websites' }, description: { zh: '公开的网站、交互页面与合作项目；合作边界清晰后再补充完整案例。', en: 'Public sites, interactive work, and collaborations. Full cases follow when their boundaries are clear.' }, items: [{ zh: 'Formulasearch — 个人实践总站', en: 'Formulasearch — personal practice hub' }, { zh: 'ShuiTuAtelier — 伙伴网站', en: 'ShuiTuAtelier — partner site' }, { zh: 'WaterSystem — 伙伴网站', en: 'WaterSystem — partner site' }] },
+  { id: 'all-projects', label: '03', title: { zh: '全部项目', en: 'All Projects' }, description: { zh: '只收录已有明确产出，或能解释当前状态的项目。', en: 'Only work with a clear outcome or an explainable current state is included.' }, items: [{ zh: '视觉系统与生成式实验', en: 'Visual systems and generative experiments' }, { zh: 'AI 工具与个人生产力', en: 'AI tools and personal productivity' }, { zh: '网站与数字体验', en: 'Websites and digital experiences' }] },
+]
+
+export const skillSections: readonly CatalogSection[] = [
+  { id: 'design-skills', label: '01', title: { zh: '设计技能', en: 'Design Skills' }, description: { zh: '把视觉参考、版式与图像语言编译成可直接调用的 Skills。', en: 'Visual references, layouts, and image languages compiled into ready-to-use Skills.' }, items: [{ zh: 'Phil Design Skills — 视觉提示词与图像方向', en: 'Phil Design Skills — visual prompts and image direction' }, { zh: 'Aesthetic formulas — 视觉方法与样式实验', en: 'Aesthetic formulas — visual methods and style experiments' }, { zh: '中文排版与视觉身份扩展', en: 'Chinese typography and visual identity expansion' }] },
+  { id: 'agent-workflows', label: '02', title: { zh: 'Agent 与工作流', en: 'Agent & Workflows' }, description: { zh: '为重复判断和生产过程建立可复用的流程、约束与工具。', en: 'Reusable flows, constraints, and tools for repeated decisions and production.' }, items: [{ zh: 'agent-worklog — 跨 Agent 工作记录', en: 'agent-worklog — cross-agent work records' }, { zh: 'Numerologist Skills — 稳定推演流程', en: 'Numerologist Skills — a stable reasoning flow' }, { zh: '内容、SEO/GEO 与研究工作流', en: 'Content, SEO/GEO, and research workflows' }] },
+  { id: 'all-skills', label: '03', title: { zh: '全部技能', en: 'All Skills' }, description: { zh: '把可公开、可拿走的 Skill 与工作流放进一个持续整理的索引。', en: 'A continually maintained index of public Skills and workflows you can take and use.' }, items: [{ zh: '设计与图像生成', en: 'Design and image generation' }, { zh: '研究、记录与决策', en: 'Research, records, and decisions' }, { zh: '内容生产与发布', en: 'Content production and publishing' }] },
+]
+
+export const labSections: readonly CatalogSection[] = [
+  { id: 'experiments', label: '01', title: { zh: '实验', en: 'Experiments' }, description: { zh: '未必成熟，但已经值得被观看、试玩或继续推演的方向。', en: 'Directions not yet finished, but already worth seeing, trying, or extending.' }, items: [{ zh: 'Aesthetic Formulas', en: 'Aesthetic Formulas' }, { zh: '动态背景与交互视觉', en: 'Dynamic backgrounds and interactive visuals' }, { zh: '原型、生成式图像与数字人测试', en: 'Prototypes, generated images, and digital-human tests' }] },
+  { id: 'courses', label: '02', title: { zh: '课程', en: 'Courses' }, description: { zh: '把正在学习和已经验证的内容整理成可继续使用的课程入口。', en: 'A home for lessons in progress and knowledge that has already been tested.' }, items: [{ zh: 'SEO / GEO 学习与实践', en: 'SEO / GEO learning and practice' }, { zh: 'Price Action Course', en: 'Price Action Course' }, { zh: 'AI 辅助设计与生产实验', en: 'AI-assisted design and production experiments' }] },
+  { id: 'now', label: '03', title: { zh: '当下', en: 'Now' }, description: { zh: '不是成就墙，而是对正在做什么保持一个可追踪的公开切面。', en: 'Not a wall of achievements, but a public and traceable view of work in progress.' }, items: [{ zh: '把产品、网站、Skills 组织成长期系统', en: 'Organising products, sites, and Skills into long-term systems' }, { zh: '继续探索 AI、设计与互联网的交叉处', en: 'Exploring the intersection of AI, design, and the internet' }, { zh: '摄影、旅行与途中记录', en: 'Photography, travel, and field notes' }] },
+]
