@@ -9,7 +9,7 @@ const posts = getBlogPosts()
 const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
 ---
 
-<BlogLayout title="Blog Archive" description="Phil 的全部文章归档。">
+<BlogLayout title="博客归档" titleEn="Blog Archive" description="Phil 的全部文章归档。" descriptionEn="The complete archive of Phil's writing.">
   <header class="blog-hero blog-hero--compact">
     <h1><LocalizedText zh="归档" en="Archive" /></h1>
   </header>

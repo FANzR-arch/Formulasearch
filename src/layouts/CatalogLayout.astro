@@ -5,15 +5,15 @@ import BaseLayout from './BaseLayout.astro'
 
 interface Props {
   active: 'projects' | 'skills' | 'lab' | 'photos' | 'architecture'
-  description: string
-  title: string
+  description: { en: string; zh: string }
+  title: { en: string; zh: string }
   variant?: 'default' | 'archive'
 }
 
 const { active, description, title, variant = 'default' } = Astro.props
 ---
 
-<BaseLayout title={`${title} / Phil / Formula`} description={description}>
+<BaseLayout title={`${title.zh} / Phil / Formula`} titleEn={`${title.en} / Phil / Formula`} description={description.zh} descriptionEn={description.en}>
   <div class:list={['site-page', 'is-visible', 'catalog-site', { 'archive-catalog-site': variant === 'archive' }]}>
     <SiteHeader active={active} />
     <main id="main-content" class="catalog-main"><slot /></main>

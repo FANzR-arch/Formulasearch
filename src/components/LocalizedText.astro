@@ -1,7 +1,9 @@
 ---
+import type { LocalizedCopy } from '../lib/i18n'
+
 interface Props {
-  en: string
-  zh: string
+  en: LocalizedCopy['en']
+  zh: LocalizedCopy['zh']
 }
 
 const { en, zh } = Astro.props

@@ -16,6 +16,7 @@ const blog = defineCollection({
     slug: z.string().min(1),
     category: z.string().min(1),
     series: z.string().optional(),
+    contentLanguage: z.enum(['zh-Hans', 'en']).default('zh-Hans'),
     tags: z.array(z.string()).default([]),
     cover: z.string().min(1),
     coverAlt: z.string().min(1),

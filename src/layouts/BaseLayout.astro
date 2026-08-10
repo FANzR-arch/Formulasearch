@@ -3,48 +3,56 @@ import '../styles/global.css'
 
 interface Props {
   description?: string
+  descriptionEn?: string
   image?: string
   ogType?: 'website' | 'article'
   publishedTime?: string
   structuredData?: Record<string, unknown>
   title?: string
+  titleEn?: string
 }
 
 const {
   description = 'Phil builds AI tools, visual systems, websites, and notes for turning fuzzy ideas into useful things.',
+  descriptionEn,
   image,
   ogType = 'website',
   publishedTime,
   structuredData,
   title = 'Phil / Formula',
+  titleEn,
 } = Astro.props
 
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const socialImage = image ? new URL(image, Astro.site) : undefined
+const localizedTitleEn = titleEn ?? title
+const localizedDescriptionEn = descriptionEn ?? description
 ---
 
 <!doctype html>
-<html lang="zh-Hans" data-locale="zh" data-theme="light">
+<html lang="zh-Hans" data-locale="zh" data-theme="light" data-meta-title-zh={title} data-meta-title-en={localizedTitleEn} data-meta-description-zh={description} data-meta-description-en={localizedDescriptionEn}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f5f1e8" />
     <meta name="description" content={description} />
     <link rel="icon" href="/brand/logo.svg" type="image/svg+xml" />
+    <meta id="og-locale" property="og:locale" content="zh_CN" />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content={ogType} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta id="og-title" property="og:title" content={title} />
+    <meta id="og-description" property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     {socialImage && <meta property="og:image" content={socialImage} />}
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
+    <meta id="twitter-title" name="twitter:title" content={title} />
+    <meta id="twitter-description" name="twitter:description" content={description} />
     {socialImage && <meta name="twitter:image" content={socialImage} />}
     <title>{title}</title>
     <script is:inline>
       (() => {
         const root = document.documentElement
-        if (window.self !== window.top) root.classList.add('is-transition-preview')
         const localeStorageKey = 'formulasearch-locale'
         const themeStorageKey = 'formulasearch-theme'
 
@@ -52,6 +60,19 @@ const socialImage = image ? new URL(image, Astro.site) : undefined
           const nextLocale = locale === 'en' ? 'en' : 'zh'
           root.dataset.locale = nextLocale
           root.lang = nextLocale === 'en' ? 'en' : 'zh-Hans'
+          const titleValue = root.dataset[nextLocale === 'en' ? 'metaTitleEn' : 'metaTitleZh']
+          const descriptionValue = root.dataset[nextLocale === 'en' ? 'metaDescriptionEn' : 'metaDescriptionZh']
+          if (titleValue) {
+            document.title = titleValue
+            document.querySelector('#og-title')?.setAttribute('content', titleValue)
+            document.querySelector('#twitter-title')?.setAttribute('content', titleValue)
+          }
+          if (descriptionValue) {
+            document.querySelector('meta[name="description"]')?.setAttribute('content', descriptionValue)
+            document.querySelector('#og-description')?.setAttribute('content', descriptionValue)
+            document.querySelector('#twitter-description')?.setAttribute('content', descriptionValue)
+          }
+          document.querySelector('#og-locale')?.setAttribute('content', nextLocale === 'en' ? 'en_US' : 'zh_CN')
           document.querySelectorAll('[data-aria-en][data-aria-zh]').forEach((element) => {
             element.setAttribute('aria-label', element.dataset[`aria${nextLocale === 'en' ? 'En' : 'Zh'}`] || '')
           })
@@ -104,76 +125,9 @@ const socialImage = image ? new URL(image, Astro.site) : undefined
           window.dispatchEvent(new CustomEvent('formulasearch:theme', { detail: { theme: root.dataset.theme } }))
         }
 
-        const pageTransitionKey = 'formulasearch-page-transition'
-        const restorePageTransition = () => {
-          let savedTransition = ''
-          try { savedTransition = sessionStorage.getItem(pageTransitionKey) || '' } catch {}
-          if (!savedTransition) return
-          try { sessionStorage.removeItem(pageTransitionKey) } catch {}
-          try {
-            const { x, y, radius } = JSON.parse(savedTransition)
-            root.style.setProperty('--page-x', `${x}px`)
-            root.style.setProperty('--page-y', `${y}px`)
-            root.style.setProperty('--page-radius', `${radius}px`)
-            root.classList.add('is-page-entering')
-          } catch {}
-        }
-
-        const enablePageTransitions = () => {
-          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-          let navigating = false
-
-          document.addEventListener('click', (event) => {
-            if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
-            const anchor = event.target.closest?.('a[href]')
-            if (!anchor || anchor.target || anchor.hasAttribute('download')) return
-            const url = new URL(anchor.href, window.location.href)
-            if (url.origin !== window.location.origin || url.protocol !== window.location.protocol) return
-            if (url.pathname === window.location.pathname && url.search === window.location.search) return
-
-            if (reduceMotion) return
-            event.preventDefault()
-            if (navigating) return
-            navigating = true
-
-            const x = event.clientX
-            const y = event.clientY
-            const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y)) + 24
-            root.style.setProperty('--page-x', `${x}px`)
-            root.style.setProperty('--page-y', `${y}px`)
-            root.style.setProperty('--page-radius', `${radius}px`)
-
-            const frame = document.createElement('iframe')
-            frame.className = 'page-transition-frame'
-            frame.setAttribute('aria-hidden', 'true')
-            frame.setAttribute('tabindex', '-1')
-            frame.setAttribute('scrolling', 'no')
-            frame.src = url.href
-            document.body.append(frame)
-
-            let finished = false
-            const finishNavigation = () => {
-              if (finished) return
-              finished = true
-              try { sessionStorage.setItem(pageTransitionKey, JSON.stringify({ x, y, radius })) } catch {}
-              window.location.assign(url.href)
-            }
-
-            frame.addEventListener('load', () => {
-              requestAnimationFrame(() => frame.classList.add('is-ready'))
-            }, { once: true })
-            frame.addEventListener('animationend', finishNavigation, { once: true })
-            window.setTimeout(finishNavigation, 2400)
-          })
-        }
-
-        restorePageTransition()
-
         document.addEventListener('DOMContentLoaded', () => {
           applyLocale(root.dataset.locale || 'zh')
           applyTheme(root.dataset.theme || 'light')
-          if (root.classList.contains('is-page-entering')) window.setTimeout(() => root.classList.remove('is-page-entering'), 520)
-          enablePageTransitions()
 
           const themeToggle = document.querySelector('#theme-toggle')
           let themeChanging = false

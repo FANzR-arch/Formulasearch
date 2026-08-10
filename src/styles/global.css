@@ -22,34 +22,12 @@
 
 :root.is-theme-switching body { transition: none; }
 
-.page-transition-frame {
-  position: fixed;
-  z-index: 100;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  visibility: hidden;
-  pointer-events: none;
-  background: transparent;
-  clip-path: circle(0 at var(--page-x, 50%) var(--page-y, 50%));
-}
-.page-transition-frame.is-ready {
-  visibility: visible;
-  animation: page-content-reveal 520ms var(--ease-in-out) both;
-}
-
 * { box-sizing: border-box; }
 html {
   overflow-x: clip;
   overflow-y: scroll;
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
-}
-:root.is-transition-preview {
-  overflow: hidden;
-  scrollbar-gutter: auto;
 }
 body {
   min-width: 320px;
@@ -255,9 +233,11 @@ a:hover, .theme-toggle:hover { color: var(--accent); }
 }
 .icon-link { cursor: pointer; }
 .icon-link:hover, .language-toggle:hover, .theme-toggle:hover { transform: translateY(-1px); }
-.icon-link svg { display: block; }
+.icon-link svg, .icon-link img { display: block; }
 .icon-link--brand svg { width: 14.5px; height: 14.5px; fill: currentColor; }
-.icon-link--github svg { width: 15.5px; height: 15.5px; }
+.icon-link--brand img { width: 14.5px; height: 14.5px; }
+.icon-link--github svg, .icon-link--github img { width: 15.5px; height: 15.5px; }
+:root[data-theme='dark'] .icon-link--github img { filter: invert(1); }
 .icon-link--ui svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.65; }
 
 .theme-toggle {
@@ -496,11 +476,6 @@ h1 { margin-bottom: 26px; font-family: var(--serif); font-size: clamp(4.5rem, 9.
   from { clip-path: circle(0 at var(--theme-x) var(--theme-y)); }
   to { clip-path: circle(var(--theme-radius) at var(--theme-x) var(--theme-y)); }
 }
-@keyframes page-content-reveal {
-  from { clip-path: circle(0 at var(--page-x) var(--page-y)); }
-  to { clip-path: circle(var(--page-radius) at var(--page-x) var(--page-y)); }
-}
-
 ::view-transition-old(root) {
   animation: none;
   mix-blend-mode: normal;
@@ -610,7 +585,6 @@ h1 { margin-bottom: 26px; font-family: var(--serif); font-size: clamp(4.5rem, 9.
 
 @media (prefers-reduced-motion: reduce) {
   body, .site-page, .intro-overlay, .monogram img { transition-duration: 180ms; }
-  .page-transition-frame { display: none; }
   .ambient-flow { opacity: .55; }
   .intro-mark__line { animation: none; stroke-dashoffset: 0; }
   .intro-mark__cutout { animation: none; opacity: 1; }

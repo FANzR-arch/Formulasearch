@@ -6,17 +6,19 @@ import '../styles/blog.css'
 
 interface Props {
   description: string
+  descriptionEn?: string
   image?: string
   ogType?: 'website' | 'article'
   publishedTime?: string
   structuredData?: Record<string, unknown>
   title: string
+  titleEn?: string
 }
 
-const { description, image, ogType, publishedTime, structuredData, title } = Astro.props
+const { description, descriptionEn, image, ogType, publishedTime, structuredData, title, titleEn } = Astro.props
 ---
 
-<BaseLayout title={`${title} · Phil / Formula`} description={description} image={image} ogType={ogType} publishedTime={publishedTime} structuredData={structuredData}>
+<BaseLayout title={`${title} · Phil / Formula`} titleEn={`${titleEn ?? title} · Phil / Formula`} description={description} descriptionEn={descriptionEn} image={image} ogType={ogType} publishedTime={publishedTime} structuredData={structuredData}>
   <div class="site-page is-visible blog-site">
     <SiteHeader active="blog" />
     <main id="main-content" class="blog-main"><slot /></main>

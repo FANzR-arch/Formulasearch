@@ -17,6 +17,6 @@ const { Content, headings } = await render(post)
 const category = getBlogCategories().find((item) => item.id === post.data.category)
 ---
 
-<BlogPostLayout post={post} headings={headings} categoryLabel={category?.titleEn ?? post.data.category}>
+<BlogPostLayout post={post} headings={headings} categoryLabel={category ?? { title: post.data.category, titleEn: post.data.category }}>
   <Content />
 </BlogPostLayout>

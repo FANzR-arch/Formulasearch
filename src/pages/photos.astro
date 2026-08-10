@@ -4,7 +4,7 @@ import { selectedPhotoArchive } from '../data/photo-archive'
 import CatalogLayout from '../layouts/CatalogLayout.astro'
 ---
 
-<CatalogLayout active="photos" variant="archive" title="Photography" description="Phil 的摄影作品与影像档案。">
+<CatalogLayout active="photos" variant="archive" title={{ zh: '摄影', en: 'Photography' }} description={{ zh: 'Phil 的摄影作品与影像档案。', en: "Phil's photography and visual archive." }}>
   <ArchiveIndex
     active="photos"
     kicker={{ zh: '影像档案 / 01', en: 'Visual archive / 01' }}

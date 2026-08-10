@@ -1,14 +1,16 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
-
-const pages = ['/', '/blog', '/blog/series', '/blog/archive', '/projects', '/skills', '/lab', '/photos', '/architecture']
+import { staticSiteRoutes } from '../data/site-routes'
 type SitemapEntry = { path: string; lastmod?: string }
 
 export const GET: APIRoute = async () => {
   const posts = await getCollection('blog', ({ data }) => data.contentStatus === 'full' && !data.draft)
   const entries: SitemapEntry[] = [
-    ...pages.map((path) => ({ path })),
-    ...posts.map((post) => ({ path: `/blog/${post.data.slug}`, lastmod: post.data.pubDate.toISOString().slice(0, 10) })),
+    ...staticSiteRoutes.map((path) => ({ path })),
+    ...posts.map((post) => ({
+      path: `/blog/${post.data.slug}`,
+      lastmod: (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10),
+    })),
   ]
   const urls = entries
     .map(({ path, lastmod }) => `<url><loc>https://formulasearch.com${path}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}</url>`)

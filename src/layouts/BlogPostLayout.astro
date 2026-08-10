@@ -6,7 +6,7 @@ import LocalizedText from '../components/LocalizedText.astro'
 import BlogLayout from './BlogLayout.astro'
 
 interface Props {
-  categoryLabel: string
+  categoryLabel: { title: string; titleEn: string }
   headings: MarkdownHeading[]
   post: CollectionEntry<'blog'>
 }
@@ -14,6 +14,7 @@ interface Props {
 const { categoryLabel, headings, post } = Astro.props
 const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3)
 const published = post.data.pubDate.toISOString().slice(0, 10)
+const modified = (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10)
 const displayDate = published.replaceAll('-', '.')
 const canonical = new URL(`/blog/${post.data.slug}`, Astro.site).toString()
 const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').replace(/\s+/g, '').length / 500))
@@ -23,9 +24,11 @@ const structuredData = {
   headline: post.data.title,
   description: post.data.description,
   image: new URL(post.data.cover, Astro.site).toString(),
+  inLanguage: post.data.contentLanguage,
   datePublished: published,
   author: { '@type': 'Person', name: 'Phil', url: 'https://formulasearch.com' },
   mainEntityOfPage: canonical,
+  dateModified: modified,
 }
 ---
 
@@ -37,11 +40,11 @@ const structuredData = {
   publishedTime={published}
   structuredData={structuredData}
 >
-  <article class="article-page">
+    <article class="article-page" lang={post.data.contentLanguage}>
     <nav class="article-context" aria-label="文章位置" data-aria-en="Article location" data-aria-zh="文章位置">
       <div class="article-context__inner">
         <a href="/blog"><span aria-hidden="true">⌂</span> <LocalizedText zh="博客" en="Blog" /></a>
-        <span class="article-context__pill">{categoryLabel}</span>
+        <span class="article-context__pill"><LocalizedText zh={categoryLabel.title} en={categoryLabel.titleEn} /></span>
       </div>
     </nav>
 
