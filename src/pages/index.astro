@@ -40,7 +40,7 @@ import { homeContent } from '../lib/home-content'
 
     <main id="main-content">
       <section class="intro" aria-labelledby="intro-title">
-        <h1 id="intro-title">{homeContent.zh.name}</h1>
+        <h1 id="intro-title"><LocalizedText zh={homeContent.zh.name} en={homeContent.en.name} /></h1>
         <p class="lead"><LocalizedText zh={homeContent.zh.intro.join(' ')} en={homeContent.en.intro.join(' ')} /></p>
         <div class="home-copy">
           {homeContent.zh.about.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={homeContent.en.about[index] || paragraph} /></p>)}
