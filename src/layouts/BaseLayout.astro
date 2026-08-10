@@ -24,7 +24,7 @@ const socialImage = image ? new URL(image, Astro.site) : undefined
 ---
 
 <!doctype html>
-<html lang="zh-Hans">
+<html lang="zh-Hans" data-locale="zh" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -39,6 +39,171 @@ const socialImage = image ? new URL(image, Astro.site) : undefined
     <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
     {socialImage && <meta name="twitter:image" content={socialImage} />}
     <title>{title}</title>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement
+        if (window.self !== window.top) root.classList.add('is-transition-preview')
+        const localeStorageKey = 'formulasearch-locale'
+        const themeStorageKey = 'formulasearch-theme'
+
+        const applyLocale = (locale) => {
+          const nextLocale = locale === 'en' ? 'en' : 'zh'
+          root.dataset.locale = nextLocale
+          root.lang = nextLocale === 'en' ? 'en' : 'zh-Hans'
+          document.querySelectorAll('[data-aria-en][data-aria-zh]').forEach((element) => {
+            element.setAttribute('aria-label', element.dataset[`aria${nextLocale === 'en' ? 'En' : 'Zh'}`] || '')
+          })
+          document.querySelectorAll('[data-title-en][data-title-zh]').forEach((element) => {
+            element.setAttribute('title', element.dataset[`title${nextLocale === 'en' ? 'En' : 'Zh'}`] || '')
+          })
+        }
+
+        const getThemeLabel = (theme) => {
+          const isEnglish = root.dataset.locale === 'en'
+          if (isEnglish) return theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
+          return theme === 'dark' ? '切换到浅色主题' : '切换到深色主题'
+        }
+
+        const applyTheme = (theme) => {
+          const nextTheme = theme === 'dark' ? 'dark' : 'light'
+          root.dataset.theme = nextTheme
+          const themeToggle = document.querySelector('#theme-toggle')
+          themeToggle?.setAttribute('aria-pressed', String(nextTheme === 'dark'))
+          themeToggle?.setAttribute('aria-label', getThemeLabel(nextTheme))
+        }
+
+        const getInitialTheme = () => {
+          try {
+            const storedTheme = localStorage.getItem(themeStorageKey)
+            if (storedTheme === 'dark' || storedTheme === 'light') return storedTheme
+          } catch {}
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+
+        try { applyLocale(localStorage.getItem(localeStorageKey) || 'zh') } catch { applyLocale('zh') }
+        try { applyTheme(getInitialTheme()) } catch { applyTheme('light') }
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+        systemTheme.addEventListener?.('change', (event) => {
+          try {
+            if (!localStorage.getItem(themeStorageKey)) applyTheme(event.matches ? 'dark' : 'light')
+          } catch {}
+        })
+        window.formulasearchSetLocale = (locale) => {
+          applyLocale(locale)
+          applyTheme(root.dataset.theme || 'light')
+          try { localStorage.setItem(localeStorageKey, root.dataset.locale || 'zh') } catch {}
+          window.dispatchEvent(new CustomEvent('formulasearch:locale', { detail: { locale: root.dataset.locale } }))
+        }
+        window.formulasearchSetTheme = (theme) => {
+          applyTheme(theme)
+          try { localStorage.setItem(themeStorageKey, root.dataset.theme || 'light') } catch {}
+          window.dispatchEvent(new CustomEvent('formulasearch:theme', { detail: { theme: root.dataset.theme } }))
+        }
+
+        const pageTransitionKey = 'formulasearch-page-transition'
+        const restorePageTransition = () => {
+          let savedTransition = ''
+          try { savedTransition = sessionStorage.getItem(pageTransitionKey) || '' } catch {}
+          if (!savedTransition) return
+          try { sessionStorage.removeItem(pageTransitionKey) } catch {}
+          try {
+            const { x, y, radius } = JSON.parse(savedTransition)
+            root.style.setProperty('--page-x', `${x}px`)
+            root.style.setProperty('--page-y', `${y}px`)
+            root.style.setProperty('--page-radius', `${radius}px`)
+            root.classList.add('is-page-entering')
+          } catch {}
+        }
+
+        const enablePageTransitions = () => {
+          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          let navigating = false
+
+          document.addEventListener('click', (event) => {
+            if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+            const anchor = event.target.closest?.('a[href]')
+            if (!anchor || anchor.target || anchor.hasAttribute('download')) return
+            const url = new URL(anchor.href, window.location.href)
+            if (url.origin !== window.location.origin || url.protocol !== window.location.protocol) return
+            if (url.pathname === window.location.pathname && url.search === window.location.search) return
+
+            if (reduceMotion) return
+            event.preventDefault()
+            if (navigating) return
+            navigating = true
+
+            const x = event.clientX
+            const y = event.clientY
+            const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y)) + 24
+            root.style.setProperty('--page-x', `${x}px`)
+            root.style.setProperty('--page-y', `${y}px`)
+            root.style.setProperty('--page-radius', `${radius}px`)
+
+            const frame = document.createElement('iframe')
+            frame.className = 'page-transition-frame'
+            frame.setAttribute('aria-hidden', 'true')
+            frame.setAttribute('tabindex', '-1')
+            frame.setAttribute('scrolling', 'no')
+            frame.src = url.href
+            document.body.append(frame)
+
+            let finished = false
+            const finishNavigation = () => {
+              if (finished) return
+              finished = true
+              try { sessionStorage.setItem(pageTransitionKey, JSON.stringify({ x, y, radius })) } catch {}
+              window.location.assign(url.href)
+            }
+
+            frame.addEventListener('load', () => {
+              requestAnimationFrame(() => frame.classList.add('is-ready'))
+            }, { once: true })
+            frame.addEventListener('animationend', finishNavigation, { once: true })
+            window.setTimeout(finishNavigation, 2400)
+          })
+        }
+
+        restorePageTransition()
+
+        document.addEventListener('DOMContentLoaded', () => {
+          applyLocale(root.dataset.locale || 'zh')
+          applyTheme(root.dataset.theme || 'light')
+          if (root.classList.contains('is-page-entering')) window.setTimeout(() => root.classList.remove('is-page-entering'), 520)
+          enablePageTransitions()
+
+          const themeToggle = document.querySelector('#theme-toggle')
+          let themeChanging = false
+          themeToggle?.addEventListener('click', () => {
+            if (themeChanging) return
+            const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark'
+            const commitTheme = () => window.formulasearchSetTheme(nextTheme)
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !document.startViewTransition) return commitTheme()
+
+            const rect = themeToggle.getBoundingClientRect()
+            const x = rect.left + rect.width / 2
+            const y = rect.top + rect.height / 2
+            const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
+            root.style.setProperty('--theme-x', `${x}px`)
+            root.style.setProperty('--theme-y', `${y}px`)
+            root.style.setProperty('--theme-radius', `${radius}px`)
+            root.classList.add('is-theme-switching')
+            themeChanging = true
+            try {
+              const transition = document.startViewTransition(commitTheme)
+              const finish = () => {
+                themeChanging = false
+                root.classList.remove('is-theme-switching')
+              }
+              transition.finished.then(finish, finish)
+            } catch {
+              commitTheme()
+              themeChanging = false
+              root.classList.remove('is-theme-switching')
+            }
+          })
+        })
+      })()
+    </script>
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Person',
