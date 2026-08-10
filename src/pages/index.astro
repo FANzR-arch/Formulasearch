@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
+import LocalizedText from '../components/LocalizedText.astro'
 import SiteHeader from '../components/SiteHeader.astro'
 import { homeContent } from '../lib/home-content'
 ---
@@ -35,28 +36,28 @@ import { homeContent } from '../lib/home-content'
 
   <div id="site-page" class="site-page">
     <canvas id="ambient-flow" class="ambient-flow" aria-hidden="true"></canvas>
-    <SiteHeader logoMode="background" email={homeContent.email} />
+    <SiteHeader logoMode="background" />
 
-    <main id="top">
+    <main id="main-content">
       <section class="intro" aria-labelledby="intro-title">
-        <h1 id="intro-title">{homeContent.name}</h1>
-        <p class="lead">{homeContent.intro.join(' ')}</p>
+        <h1 id="intro-title">{homeContent.zh.name}</h1>
+        <p class="lead"><LocalizedText zh={homeContent.zh.intro.join(' ')} en={homeContent.en.intro.join(' ')} /></p>
         <div class="home-copy">
-          {homeContent.about.map((paragraph) => <p>{paragraph}</p>)}
-          {homeContent.interest.map((paragraph) => <p>{paragraph}</p>)}
+          {homeContent.zh.about.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={homeContent.en.about[index] || paragraph} /></p>)}
+          {homeContent.zh.interest.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={homeContent.en.interest[index] || paragraph} /></p>)}
           <hr />
           <div class="home-contact">
-            <p class="home-copy__label">在这里找到我</p>
+            <p class="home-copy__label"><LocalizedText zh="在这里找到我" en="Find me here" /></p>
             <p>
-              <a class="text-link" href={homeContent.socialUrl} target="_blank" rel="noreferrer">{homeContent.socialLabel}</a>
+              <a class="text-link" href={homeContent.zh.socialUrl} target="_blank" rel="noreferrer">{homeContent.zh.socialLabel}</a>
               <br />
-              或者给我发个邮件：<strong><a class="text-link" href={`mailto:${homeContent.email}`}>{homeContent.email}</a></strong>
+              <LocalizedText zh="或者给我发个邮件：" en="Or email me: " /><strong><a class="text-link" href={`mailto:${homeContent.zh.email}`}>{homeContent.zh.email}</a></strong>
             </p>
           </div>
           <hr />
-          <p>{homeContent.sponsor}</p>
+          <p><LocalizedText zh={homeContent.zh.sponsor} en={homeContent.en.sponsor} /></p>
         </div>
-        {homeContent.heroImage && <img class="hero-image" src={homeContent.heroImage} alt="Homepage photo" loading="eager" />}
+        {homeContent.zh.heroImage && <img class="hero-image" src={homeContent.zh.heroImage} alt="Homepage photo" loading="eager" />}
       </section>
     </main>
   </div>
@@ -66,11 +67,10 @@ import { homeContent } from '../lib/home-content'
   <script is:inline>
     const overlay = document.querySelector('#intro-overlay')
     const page = document.querySelector('#site-page')
-    const themeToggle = document.querySelector('#theme-toggle')
     const introMotion = document.querySelector('.intro-mark .intro-mark__motion')
     const introLine = document.querySelector('.intro-mark__line')
     const storageKey = 'formulasearch-intro-seen'
-    const isLocalPreview = ['127.0.0.1', 'localhost', '::1'].includes(window.location.hostname)
+    const enteredFromSite = document.documentElement.classList.contains('is-page-entering') || window.self !== window.top
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let syncAmbientTheme = () => {}
     let completed = false
@@ -102,9 +102,7 @@ import { homeContent } from '../lib/home-content'
       if (completed) return
       completed = true
       stopTrackingLineWeight()
-      if (!isLocalPreview) {
-        try { sessionStorage.setItem(storageKey, 'true') } catch {}
-      }
+      try { sessionStorage.setItem(storageKey, 'true') } catch {}
       unveilPage()
       overlay?.classList.add('is-exiting')
       const removeOverlay = () => overlay?.remove()
@@ -112,66 +110,15 @@ import { homeContent } from '../lib/home-content'
       window.setTimeout(removeOverlay, 450)
     }
 
-    const setTheme = (theme) => {
-      document.documentElement.dataset.theme = theme
-      themeToggle?.setAttribute('aria-pressed', String(theme === 'dark'))
-      themeToggle?.setAttribute('aria-label', theme === 'dark' ? '切换到浅色主题' : '切换到深色主题')
-    }
-
-    const saveTheme = (theme) => {
-      setTheme(theme)
-      syncAmbientTheme()
-      try { localStorage.setItem('formulasearch-theme', theme) } catch {}
-    }
-
-    let savedTheme = ''
-    try { savedTheme = localStorage.getItem('formulasearch-theme') || '' } catch {}
-    setTheme(savedTheme === 'dark' ? 'dark' : 'light')
     syncAmbientTheme = () => window.dispatchEvent(new CustomEvent('formulasearch:theme', {
       detail: { theme: document.documentElement.dataset.theme },
     }))
     syncAmbientTheme()
 
-    let themeChanging = false
-    themeToggle?.addEventListener('click', () => {
-      if (themeChanging) return
-      const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
-      const commitTheme = () => saveTheme(nextTheme)
-
-      if (reduceMotion || !document.startViewTransition) {
-        commitTheme()
-        return
-      }
-
-      const rect = themeToggle.getBoundingClientRect()
-      const x = rect.left + rect.width / 2
-      const y = rect.top + rect.height / 2
-      const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
-
-      document.documentElement.style.setProperty('--theme-x', `${x}px`)
-      document.documentElement.style.setProperty('--theme-y', `${y}px`)
-      document.documentElement.style.setProperty('--theme-radius', `${radius}px`)
-      document.documentElement.classList.add('is-theme-switching')
-      themeChanging = true
-
-      try {
-        const transition = document.startViewTransition(commitTheme)
-        const finishThemeSwitch = () => {
-          themeChanging = false
-          document.documentElement.classList.remove('is-theme-switching')
-        }
-        transition.finished.then(finishThemeSwitch, finishThemeSwitch)
-      } catch {
-        commitTheme()
-        themeChanging = false
-        document.documentElement.classList.remove('is-theme-switching')
-      }
-    })
+    if (enteredFromSite) overlay?.remove()
 
     let playedBefore = false
-    if (!isLocalPreview) {
-      try { playedBefore = sessionStorage.getItem(storageKey) === 'true' } catch {}
-    }
+    try { playedBefore = sessionStorage.getItem(storageKey) === 'true' } catch {}
 
     if (reduceMotion || playedBefore) {
       window.setTimeout(revealPage, reduceMotion ? 180 : 0)

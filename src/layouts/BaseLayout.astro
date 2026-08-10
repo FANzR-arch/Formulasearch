@@ -215,5 +215,11 @@ const socialImage = image ? new URL(image, Astro.site) : undefined
     })} />
     {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
   </head>
-  <body><slot /></body>
+  <body>
+    <a class="skip-link" href="#main-content">
+      <span class="localized-text__zh">跳到主要内容</span>
+      <span class="localized-text__en">Skip to content</span>
+    </a>
+    <slot />
+  </body>
 </html>

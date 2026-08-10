@@ -1,0 +1,26 @@
+---
+import SiteHeader from '../components/SiteHeader.astro'
+import LocalizedText from '../components/LocalizedText.astro'
+import BaseLayout from './BaseLayout.astro'
+
+interface Props {
+  active: 'projects' | 'skills' | 'lab' | 'photos' | 'architecture'
+  description: string
+  title: string
+  variant?: 'default' | 'archive'
+}
+
+const { active, description, title, variant = 'default' } = Astro.props
+---
+
+<BaseLayout title={`${title} / Phil / Formula`} description={description}>
+  <div class:list={['site-page', 'is-visible', 'catalog-site', { 'archive-catalog-site': variant === 'archive' }]}>
+    <SiteHeader active={active} />
+    <main id="main-content" class="catalog-main"><slot /></main>
+    <footer class="catalog-footer">
+      <span>© {new Date().getFullYear()} Phil / Formula</span>
+      <a href="/"><LocalizedText zh="返回首页" en="Return home" /></a>
+    </footer>
+  </div>
+
+</BaseLayout>
