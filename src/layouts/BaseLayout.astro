@@ -28,7 +28,9 @@ const socialImage = image ? new URL(image, Astro.site) : undefined
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f5f1e8" />
     <meta name="description" content={description} />
+    <link rel="icon" href="/brand/logo.svg" type="image/svg+xml" />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
@@ -68,8 +70,10 @@ const socialImage = image ? new URL(image, Astro.site) : undefined
           const nextTheme = theme === 'dark' ? 'dark' : 'light'
           root.dataset.theme = nextTheme
           const themeToggle = document.querySelector('#theme-toggle')
+          const themeColor = document.querySelector('meta[name="theme-color"]')
           themeToggle?.setAttribute('aria-pressed', String(nextTheme === 'dark'))
           themeToggle?.setAttribute('aria-label', getThemeLabel(nextTheme))
+          themeColor?.setAttribute('content', nextTheme === 'dark' ? '#292621' : '#f5f1e8')
         }
 
         const getInitialTheme = () => {

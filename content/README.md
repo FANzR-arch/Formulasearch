@@ -1,6 +1,6 @@
 # 这里是你更新网站的地方
 
-你不需要改 `src/`、`package.json` 或任何代码文件。以后只需要操作本文件夹。
+首页和 Blog 的日常内容可以只改本文件夹；Projects、Skills、Lab、Photos、Architecture 目前仍是首版目录数据，尚未迁移到统一内容模型。不要把“只改 content”理解为所有页面都已经支持无代码更新。
 
 ## 最常用的入口
 
@@ -8,7 +8,7 @@
 2. 放首页图片：把图片拖到 [`../public/uploads/home/`](../public/uploads/home/)；再把图片路径填进 `site/home.md` 顶部的 `heroImage`。
 3. 新增 Blog：复制 [`blog/2026-07-02`](blog/2026-07-02) 文件夹，改成新的发布日期，再修改里面四个文本文件；封面图片放进 `../public/uploads/blog/同一个日期/`。
 
-网站在本地预览运行时，保存文本或放入图片后会自动刷新。正式部署接通后，同样的文件变更会触发网站重新构建；不需要修改代码。
+网站在本地预览运行时，保存文本或放入图片后会自动刷新。正式部署接通后，同样的文件变更会触发网站重新构建。
 
 ## 不要动的地方
 
@@ -43,4 +43,12 @@ content/
 └─ projects/             后续接入，一个项目一个文件夹
 ```
 
-当前公开图片放在 `public/uploads/`，因为该目录会被网站直接发布。首页和 Blog 已经接入；Projects、Skills、Lab 等首批真实内容核验完毕后再逐项开放。
+当前公开图片放在 `public/uploads/`，因为该目录会被网站直接发布。首页和 Blog 已经接入；Projects、Skills、Lab、Photos、Architecture 已经开放首版页面，但其中部分条目仍需迁移到可编辑的内容数据文件。
+
+## 当前路由
+
+- `/`：首页，文案来自 `content/site/home.md` 和 `content/site/home.en.md`
+- `/blog`、`/blog/series`、`/blog/archive`：文章索引和归档
+- `/projects`、`/skills`、`/lab`：当前为页面内目录数据
+- `/photos`：照片 manifest 来自 `src/data/photo-archive.ts`
+- `/architecture`：当前为页面内研究图像数据
