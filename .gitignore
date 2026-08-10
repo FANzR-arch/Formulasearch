@@ -21,3 +21,6 @@ Thumbs.db
 .codex/
 .agents/
 output/
+
+# Local memory state accidentally created by tooling
+$HOME/
