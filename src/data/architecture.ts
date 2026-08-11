@@ -49,3 +49,10 @@ export const architectureItems = result.data.items.map((item) => ({
   ...item,
   image: imageMap[item.image],
 }))
+
+const itemIndexes = architectureItems.map((item) => item.index)
+const imageIds = result.data.items.map((item) => item.image)
+const filterIds = result.data.filters.map((filter) => filter.id)
+if (new Set(itemIndexes).size !== itemIndexes.length) throw new Error('Architecture content validation failed: duplicate item indexes.')
+if (new Set(imageIds).size !== imageIds.length) throw new Error('Architecture content validation failed: duplicate image ids.')
+if (new Set(filterIds).size !== filterIds.length) throw new Error('Architecture content validation failed: duplicate filter ids.')

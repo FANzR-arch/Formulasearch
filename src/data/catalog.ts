@@ -48,3 +48,12 @@ export const projectSections = result.data.projects
 export const skillSections = result.data.skills
 export const labSections = result.data.lab
 export const catalogPages = result.data.pages
+
+for (const [name, sections] of Object.entries({
+  projects: projectSections,
+  skills: skillSections,
+  lab: labSections,
+})) {
+  const ids = sections.map((section) => section.id)
+  if (new Set(ids).size !== ids.length) throw new Error(`Catalog content validation failed: duplicate ${name} section ids.`)
+}

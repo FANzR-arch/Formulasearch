@@ -46,3 +46,10 @@ if (!result.success) {
 export type PhotoArchiveItem = z.infer<typeof photoArchiveItemSchema>
 export const photoArchivePage = result.data
 export const selectedPhotoArchive = result.data.items
+
+const itemIndexes = selectedPhotoArchive.map((item) => item.index)
+const itemImages = selectedPhotoArchive.map((item) => item.image)
+const filterIds = photoArchivePage.filters.map((filter) => filter.id)
+if (new Set(itemIndexes).size !== itemIndexes.length) throw new Error('Photo archive validation failed: duplicate item indexes.')
+if (new Set(itemImages).size !== itemImages.length) throw new Error('Photo archive validation failed: duplicate image paths.')
+if (new Set(filterIds).size !== filterIds.length) throw new Error('Photo archive validation failed: duplicate filter ids.')

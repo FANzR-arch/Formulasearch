@@ -44,7 +44,7 @@ content/
 └─ projects/             后续接入，一个项目一个文件夹
 ```
 
-当前公开图片放在 `public/uploads/`，因为该目录会被网站直接发布。首页和 Blog 已经接入；Projects、Skills、Lab、Photos、Architecture 已经开放首版页面，但其中部分条目仍需迁移到可编辑的内容数据文件。
+当前公开图片放在 `public/uploads/`，因为该目录会被网站直接发布。首页、Blog、Projects、Skills、Lab、Photos、Architecture 的首版内容已经接入可编辑的数据文件；页面源码只保留布局、资源映射和交互逻辑。
 
 ## 当前路由
 

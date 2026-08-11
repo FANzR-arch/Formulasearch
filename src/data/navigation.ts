@@ -33,3 +33,9 @@ export type NavigationItem = z.infer<typeof navigationItemSchema>
 export type PrimaryNavigationItem = z.infer<typeof primaryNavigationItemSchema>
 
 export const primaryNavigation = result.data
+
+const sectionIds = primaryNavigation.map((section) => section.id)
+if (new Set(sectionIds).size !== sectionIds.length) throw new Error('Navigation content validation failed: duplicate primary ids.')
+for (const section of primaryNavigation) {
+  if (section.href !== `/${section.id}`) throw new Error(`Navigation content validation failed: ${section.id} href must match its id.`)
+}
