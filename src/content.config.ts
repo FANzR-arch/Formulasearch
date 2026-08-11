@@ -9,6 +9,7 @@ const reservedBlogSlugs = new Set(staticSiteRoutes
   .map((path) => path.slice('/blog/'.length)))
 
 const tagsSchema = z.array(z.string().trim().min(1)).refine((tags) => new Set(tags).size === tags.length, 'Tags must be unique.')
+const isCoverAltPlaceholder = (value: string) => /(?:文章封面|article cover)$/i.test(value.trim())
 const externalLinksSchema = z.array(z.object({
   label: z.enum(['wechat', 'x', 'original']),
   url: httpUrlSchema,
@@ -57,6 +58,12 @@ const blog = defineCollection({
     }
     if (data.contentLanguage === 'en' && !data.coverAltEn) {
       context.addIssue({ code: 'custom', path: ['coverAltEn'], message: 'English articles require an English coverAltEn.' })
+    }
+    if (isCoverAltPlaceholder(data.coverAlt)) {
+      context.addIssue({ code: 'custom', path: ['coverAlt'], message: 'coverAlt must describe the visible cover, not use a generic article-cover placeholder.' })
+    }
+    if (data.coverAltEn && isCoverAltPlaceholder(data.coverAltEn)) {
+      context.addIssue({ code: 'custom', path: ['coverAltEn'], message: 'coverAltEn must describe the visible cover, not use a generic article-cover placeholder.' })
     }
   }),
 })

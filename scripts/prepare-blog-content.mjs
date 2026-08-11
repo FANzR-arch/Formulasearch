@@ -41,6 +41,8 @@ const readFrontmatterBoolean = (markdown, field, fallback = false) => {
   throw new Error(`Invalid ${field} in blog frontmatter: ${value}`)
 }
 
+const isCoverAltPlaceholder = (value) => /(?:文章封面|article cover)$/i.test(value.trim())
+
 const getMarkdownBody = (markdown) => {
   const frontmatterEnd = markdown.indexOf('\n---', 4)
   if (frontmatterEnd === -1) return ''
@@ -257,7 +259,9 @@ if (mode === '--write') {
     for (const field of expectedFields) {
       if (!markdown.includes(field)) throw new Error(`Markdown 与现有索引不一致：${target}\n缺少：${field}`)
     }
-    if (!readFrontmatterField(markdown, 'coverAlt')) throw new Error(`Markdown 缺少非空 coverAlt：${target}`)
+    const coverAlt = readFrontmatterField(markdown, 'coverAlt')
+    if (!coverAlt) throw new Error(`Markdown 缺少非空 coverAlt：${target}`)
+    if (isCoverAltPlaceholder(coverAlt)) throw new Error(`Markdown 的 coverAlt 仍是通用占位描述：${target}`)
 
     const markdownLinks = [...markdown.matchAll(/^\s+url:\s*["']([^"']+)["']\s*$/gm)].map((match) => match[1])
     const sourceLinks = post.externalLinks.map((link) => link.url)

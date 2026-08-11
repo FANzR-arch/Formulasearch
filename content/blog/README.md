@@ -64,7 +64,7 @@ public/uploads/blog/
 2. 把文件夹改成新的 `YYYY-MM-DD` 配对键；
 3. 修改四个文字文件；
 4. 在 `public/uploads/blog/同一日期/` 放一张封面；
-5. 运行 `npm run blog:migrate`，为新目录生成或同步受管字段；
+5. 运行 `npm run blog:migrate`，为新目录生成或同步受管字段；然后把新生成的 `coverAlt` 占位改成基于画面的具体描述，构建不会接受通用占位；
 6. 如果正文已经确认，从 Philthink 导入或手工写入正文，并把 `contentStatus` 改成 `full`；否则保持 `index-only`；
 7. 运行 `npm run blog:check`、`npm run blog:images:check` 和 `npm run build`，确认分类、链接、Markdown、图片 alt 和页面都能被读取。
 
