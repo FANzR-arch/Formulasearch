@@ -19,7 +19,7 @@ export const archivePageBaseSchema = z.object({
 }).strict()
 
 export const archiveItemBaseSchema = z.object({
-  alt: z.string().min(1),
+  alt: localizedCopySchema,
   caption: localizedCopySchema,
   index: z.string().regex(/^\d+$/),
   layout: archiveLayoutSchema,

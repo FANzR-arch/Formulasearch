@@ -22,6 +22,7 @@
 - 两个文件的 `intro`、`about`、`interest` 数组必须逐项对应；构建会检查数量。
 - `email` 必须是有效邮箱，`social.url` 必须是完整 URL，必填文本不能是空字符串。
 - `heroImage` 留空时不显示首页图片；填写时使用 `public/` 下的公开路径，例如 `/uploads/home/portrait.jpg`，并在中英文文件中填写对应的 `heroImageAlt`。
+- Photography 与 Architecture 归档的每条 `alt` 都是 `{ zh, en }` 双语对象，必须描述画面内容，而不是只写“作品 + 编号”；摄影归档构建会拒绝已知的占位式 alt。
 
 `identity`、`now`、`work`、`writing`、`resources` 是预留字段。页面需要这些内容时，可以直接扩展对应组件，不必再添加新的解析规则。
 

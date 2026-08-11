@@ -31,7 +31,7 @@
   ],
   "items": [
     {
-      "alt": "Phil 的精选摄影作品 01",
+      "alt": {"zh":"河面上的红色小船驶过城市天际线，前景有树木掩映","en":"A red boat passes a city skyline on the river, framed by trees"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -50,7 +50,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 02",
+      "alt": {"zh":"黑白肖像中，一位摄影者举起相机站在展览空间里","en":"A photographer raises a camera in a black-and-white exhibition portrait"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -69,7 +69,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 03",
+      "alt": {"zh":"暮色中的河岸城市天际线倒映在水面上","en":"A waterfront city skyline is reflected in the water at dusk"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -88,7 +88,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 04",
+      "alt": {"zh":"两个人坐在明亮的屏幕前，形成黑色剪影","en":"Two people sit as silhouettes in front of a bright screen"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -107,7 +107,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 05",
+      "alt": {"zh":"仰拍的两座高层建筑从画面两侧向天空延伸","en":"Two tall buildings rise toward the sky in an upward-looking view"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -126,7 +126,7 @@
       "width": 1920
     },
     {
-      "alt": "Phil 的精选摄影作品 06",
+      "alt": {"zh":"白色山地宫殿建筑坐落在坡地上，天空中有一只飞鸟","en":"A white hillside palace stands beneath a sky crossed by a single bird"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -145,7 +145,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 07",
+      "alt": {"zh":"山地宫殿建筑的黑白远景，层叠屋顶沿山势展开","en":"A black-and-white view of a hillside palace with layered roofs"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -164,7 +164,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 08",
+      "alt": {"zh":"白色墙面与红色窗檐构成的传统建筑局部","en":"A detail of traditional architecture with white walls and red window eaves"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -183,7 +183,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 09",
+      "alt": {"zh":"带有雕刻装饰与深色窗洞的传统建筑立面","en":"A traditional building facade with carved ornament and dark windows"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -202,7 +202,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 10",
+      "alt": {"zh":"三位女性坐在传统建筑入口旁的台阶上","en":"Three women sit on steps beside the entrance of a traditional building"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -221,7 +221,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 11",
+      "alt": {"zh":"红色木门上装饰着金色门环与复杂纹样","en":"A red wooden door with a gold ring handle and intricate ornament"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -240,7 +240,7 @@
       "width": 1920
     },
     {
-      "alt": "Phil 的精选摄影作品 12",
+      "alt": {"zh":"白色空间中的银色人体雕塑","en":"A silver human-form sculpture in a white room"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -259,7 +259,7 @@
       "width": 1794
     },
     {
-      "alt": "Phil 的精选摄影作品 13",
+      "alt": {"zh":"白色展厅中的银色与黄色人体雕塑组合","en":"A silver and yellow human-form sculpture installation in a white gallery"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -278,7 +278,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 14",
+      "alt": {"zh":"金色水上建筑或船只位于城市高楼与河岸之间","en":"A golden waterside structure or boat sits between high-rises and the riverbank"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -297,7 +297,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 15",
+      "alt": {"zh":"蓝天背景下的现代城市高楼群","en":"A group of modern city towers against a blue sky"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -316,7 +316,7 @@
       "width": 1708
     },
     {
-      "alt": "Phil 的精选摄影作品 16",
+      "alt": {"zh":"树木掩映下的河面红船与城市天际线","en":"A red boat and city skyline seen across the river through trees"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -335,7 +335,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 17",
+      "alt": {"zh":"黑白城市景观前，一位人物站在窗边向外眺望","en":"A person looks out from a window toward a cityscape in black and white"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -354,7 +354,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 18",
+      "alt": {"zh":"蓝天下的传统城门屋顶，几只鸟从上方飞过","en":"A traditional gate roof beneath a blue sky with birds overhead"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -373,7 +373,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 19",
+      "alt": {"zh":"高层建筑从画面底部向明亮的蓝色天空延伸","en":"A high-rise extends upward into a bright blue sky"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -392,7 +392,7 @@
       "width": 1441
     },
     {
-      "alt": "Phil 的精选摄影作品 20",
+      "alt": {"zh":"海岸边的城市高楼与沙滩，远处有行人","en":"City towers and a beach line the coast, with people in the distance"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -411,7 +411,7 @@
       "width": 1430
     },
     {
-      "alt": "Phil 的精选摄影作品 21",
+      "alt": {"zh":"沿海步道旁的城市天际线与蓝色海湾","en":"A coastal walkway beside a city skyline and blue bay"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -430,7 +430,7 @@
       "width": 1702
     },
     {
-      "alt": "Phil 的精选摄影作品 22",
+      "alt": {"zh":"石刻佛像面部的近距离细节","en":"A close detail of a stone-carved Buddha face"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -449,7 +449,7 @@
       "width": 1441
     },
     {
-      "alt": "Phil 的精选摄影作品 23",
+      "alt": {"zh":"红色屋顶与浅色建筑组成的旧城俯瞰景象","en":"An overhead view of an old town filled with red roofs and pale buildings"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -468,7 +468,7 @@
       "width": 1600
     },
     {
-      "alt": "Phil 的精选摄影作品 24",
+      "alt": {"zh":"一位背着相机包的人在展厅里观看墙上的照片","en":"A visitor with a camera bag views a framed photograph in a gallery"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -487,7 +487,7 @@
       "width": 1830
     },
     {
-      "alt": "Phil 的精选摄影作品 25",
+      "alt": {"zh":"玻璃与钢结构组成的现代建筑细部","en":"A detail of a modern building made from glass and steel"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -506,7 +506,7 @@
       "width": 1771
     },
     {
-      "alt": "Phil 的精选摄影作品 26",
+      "alt": {"zh":"高架轨道与密集住宅楼之间的城市景观","en":"A city view between an elevated rail line and dense apartment buildings"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -525,7 +525,7 @@
       "width": 1440
     },
     {
-      "alt": "Phil 的精选摄影作品 27",
+      "alt": {"zh":"白色几何建筑体量与半透明屋檐的仰拍细节","en":"An upward view of white geometric volumes and translucent canopies"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -544,7 +544,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 28",
+      "alt": {"zh":"昏暗展厅中一幅横向风景作品的展示空间","en":"A horizontal landscape artwork displayed in a dark gallery"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -563,7 +563,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 29",
+      "alt": {"zh":"挂满红色旗帜的城市街道与来往行人","en":"A busy city street lined with red flags and pedestrians"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -582,7 +582,7 @@
       "width": 1708
     },
     {
-      "alt": "Phil 的精选摄影作品 30",
+      "alt": {"zh":"白色高挑室内空间中的长廊与对称柱列","en":"A long symmetrical corridor with columns in a tall white interior"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -601,7 +601,7 @@
       "width": 1600
     },
     {
-      "alt": "Phil 的精选摄影作品 31",
+      "alt": {"zh":"蓝色水面上成群飞鸟与远处的山岸","en":"Flocks of birds skim blue water with a distant shoreline behind them"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -620,7 +620,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 32",
+      "alt": {"zh":"几只海鸟停在水中的岩石上","en":"Seabirds rest on rocks in the water"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -639,7 +639,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 33",
+      "alt": {"zh":"红色建筑门口的石雕守护兽与竖幅文字","en":"A stone guardian statue and vertical lettering beside a red doorway"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -658,7 +658,7 @@
       "width": 1920
     },
     {
-      "alt": "Phil 的精选摄影作品 34",
+      "alt": {"zh":"树木之间露出的多层传统塔楼","en":"A multi-storey traditional pagoda rises among trees"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -677,7 +677,7 @@
       "width": 1708
     },
     {
-      "alt": "Phil 的精选摄影作品 35",
+      "alt": {"zh":"岩壁上的佛像石刻局部","en":"A detail of a Buddha carved into a rock wall"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -696,7 +696,7 @@
       "width": 1600
     },
     {
-      "alt": "Phil 的精选摄影作品 36",
+      "alt": {"zh":"色彩鲜艳的多臂武士或神像雕塑","en":"A vividly coloured multi-armed warrior or deity sculpture"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -715,7 +715,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 37",
+      "alt": {"zh":"传统寺塔屋檐与砖墙的仰拍细节","en":"An upward detail of tiled eaves and brickwork on a traditional pagoda"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -734,7 +734,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 38",
+      "alt": {"zh":"高耸砖塔的局部，背景是浅色天空","en":"A close view of a tall brick pagoda against a pale sky"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -753,7 +753,7 @@
       "width": 1708
     },
     {
-      "alt": "Phil 的精选摄影作品 39",
+      "alt": {"zh":"蓝天下的多层木结构传统楼阁","en":"A multi-level timber pavilion beneath a blue sky"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -772,7 +772,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 40",
+      "alt": {"zh":"红墙上方的传统楼阁与飞鸟","en":"A traditional pavilion above a red wall with birds in the sky"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -791,7 +791,7 @@
       "width": 1708
     },
     {
-      "alt": "Phil 的精选摄影作品 41",
+      "alt": {"zh":"住宅楼与远处城市天际线的竖幅景观","en":"A vertical city view with apartment buildings and a distant skyline"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -810,7 +810,7 @@
       "width": 1407
     },
     {
-      "alt": "Phil 的精选摄影作品 42",
+      "alt": {"zh":"树影框住的夜间高楼与蓝黑色天空","en":"A night tower framed by tree branches against a deep blue sky"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -829,7 +829,7 @@
       "width": 1708
     },
     {
-      "alt": "Phil 的精选摄影作品 43",
+      "alt": {"zh":"河岸夜景中的高楼与灯光倒影","en":"Lit high-rises and reflections along a river at night"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -848,7 +848,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 44",
+      "alt": {"zh":"红色灯光照亮的桥梁与夜间城市天际线","en":"A bridge lit red beside a city skyline at night"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -867,7 +867,7 @@
       "width": 1708
     },
     {
-      "alt": "Phil 的精选摄影作品 45",
+      "alt": {"zh":"黑色轿车停在红砖建筑外的街道上","en":"A black car parked outside a red-brick building"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -886,7 +886,7 @@
       "width": 1600
     },
     {
-      "alt": "Phil 的精选摄影作品 46",
+      "alt": {"zh":"展厅中的金属雕塑被运动中的人物虚化包围","en":"A metal sculpture in a gallery surrounded by motion-blurred visitors"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -905,7 +905,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 47",
+      "alt": {"zh":"夜色中的河岸建筑群与水面灯光","en":"Waterfront buildings and lights reflected on the river at night"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -924,7 +924,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 48",
+      "alt": {"zh":"展墙上的英文引语写着建筑与生活的关系","en":"An English quotation on a gallery wall reflects on architecture and life"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -943,7 +943,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 49",
+      "alt": {"zh":"暖黄色灯光照亮的夜间街边店铺","en":"A warmly lit storefront on a street at night"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"
@@ -962,7 +962,7 @@
       "width": 2560
     },
     {
-      "alt": "Phil 的精选摄影作品 50",
+      "alt": {"zh":"黑白色调的岩石或洞穴景观","en":"A rocky or cave landscape rendered in black and white"},
       "caption": {
         "zh": "精选摄影 / 影像档案",
         "en": "Selected photography / visual archive"

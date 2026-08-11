@@ -7,7 +7,11 @@ const photoArchiveItemSchema = archiveItemBaseSchema.extend({
   height: z.number().int().positive(),
   image: localAssetPathSchema,
   width: z.number().int().positive(),
-}).strict()
+}).strict().superRefine((item, context) => {
+  if (/^Phil 的精选摄影作品 \d+$/.test(item.alt.zh) || /^Selected photograph \d+$/.test(item.alt.en)) {
+    context.addIssue({ code: 'custom', path: ['alt'], message: 'Photo archive alt text must describe the image, not only its index.' })
+  }
+})
 
 const photoArchiveSchema = z.array(photoArchiveItemSchema).min(1)
 

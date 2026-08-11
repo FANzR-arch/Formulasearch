@@ -6,7 +6,7 @@ import { uiCopy } from '../data/ui-copy'
 import { siteRoutes } from '../data/site-routes'
 
 interface ArchiveItem {
-  alt: string
+  alt: { en: string; zh: string }
   caption: { en: string; zh: string }
   height?: number
   image: ImageMetadata | string
@@ -67,9 +67,9 @@ const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.
     {items.map((item, index) => (
       <figure class:list={['archive-record', `archive-record--${item.layout}`]} data-archive-record={item.tags.join(' ')} data-archive-index={index} hidden={index >= initialVisibleItems}>
         {typeof item.image === 'string' ? (
-          <img src={item.image} alt={item.alt} data-alt-zh={item.alt} data-alt-en={`${item.label.en} — ${item.caption.en}`} width={item.width} height={item.height} loading={index < eagerImageCount ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
+          <img src={item.image} alt={item.alt.zh} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} width={item.width} height={item.height} loading={index < eagerImageCount ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
         ) : (
-          <Image src={item.image} alt={item.alt} data-alt-zh={item.alt} data-alt-en={`${item.label.en} — ${item.caption.en}`} loading={index < eagerImageCount ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
+          <Image src={item.image} alt={item.alt.zh} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={index < eagerImageCount ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
         )}
         <figcaption>
           <span>{item.index}</span>

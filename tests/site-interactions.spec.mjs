@@ -206,8 +206,9 @@ test('background cycle keeps localized copy when the variant changes', async ({ 
 
 test('locale updates archive image alt text', async ({ page }) => {
   await page.goto('/photos')
+  await expect(page.locator('[data-archive-index]:not([hidden]) img').first()).toHaveAttribute('alt', /红色小船/)
   await page.locator('#language-toggle').click()
-  await expect(page.locator('[data-archive-index]:not([hidden]) img').first()).toHaveAttribute('alt', /Selected photograph/)
+  await expect(page.locator('[data-archive-index]:not([hidden]) img').first()).toHaveAttribute('alt', /red boat/i)
 })
 
 test('archive navigation exposes the current page', async ({ page }) => {
