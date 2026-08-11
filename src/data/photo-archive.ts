@@ -1,32 +1,18 @@
 import { z } from 'astro/zod'
 import photoArchive from '../../content/site/photo-archive.json'
-import { localizedCopySchema } from '../lib/i18n'
 import { localAssetPathSchema } from '../lib/validation'
+import { archiveItemBaseSchema, archivePageBaseSchema, validateArchiveRelations } from './archive-schema'
 
-const photoArchiveItemSchema = z.object({
-  alt: z.string().min(1),
-  caption: localizedCopySchema,
+const photoArchiveItemSchema = archiveItemBaseSchema.extend({
   height: z.number().int().positive(),
   image: localAssetPathSchema,
-  index: z.string().regex(/^\d+$/),
-  label: localizedCopySchema,
-  layout: z.enum(['hero', 'portrait', 'landscape', 'square', 'wide']),
-  tags: z.array(z.string().min(1)).min(1),
   width: z.number().int().positive(),
 }).strict()
 
 const photoArchiveSchema = z.array(photoArchiveItemSchema).min(1)
 
-const photoArchivePageSchema = z.object({
-  pageTitle: localizedCopySchema,
-  pageDescription: localizedCopySchema,
-  kicker: localizedCopySchema,
-  title: localizedCopySchema,
-  description: localizedCopySchema,
+const photoArchivePageSchema = archivePageBaseSchema.extend({
   initialVisibleCount: z.number().int().positive(),
-  loadMoreBatchSize: z.number().int().positive(),
-  eagerImageCount: z.number().int().positive(),
-  filters: z.array(localizedCopySchema.extend({ id: z.string().trim().min(1) })).min(1),
 }).strict()
 
 const manifestSchema = photoArchivePageSchema.extend({
@@ -48,10 +34,5 @@ export const selectedPhotoArchive = result.data.items
 const itemIndexes = selectedPhotoArchive.map((item) => item.index)
 const itemImages = selectedPhotoArchive.map((item) => item.image)
 const filterIds = photoArchivePage.filters.map((filter) => filter.id)
-const itemTags = new Set(selectedPhotoArchive.flatMap((item) => item.tags))
-if (new Set(itemIndexes).size !== itemIndexes.length) throw new Error('Photo archive validation failed: duplicate item indexes.')
-if (new Set(itemImages).size !== itemImages.length) throw new Error('Photo archive validation failed: duplicate image paths.')
-if (new Set(filterIds).size !== filterIds.length) throw new Error('Photo archive validation failed: duplicate filter ids.')
-if (photoArchivePage.filters[0]?.id !== 'all') throw new Error('Photo archive validation failed: the first filter must be all.')
-const unknownFilters = photoArchivePage.filters.filter((filter) => filter.id !== 'all' && !itemTags.has(filter.id))
-if (unknownFilters.length) throw new Error(`Photo archive validation failed: filters have no matching tags: ${unknownFilters.map((filter) => filter.id).join(', ')}.`)
+const itemTags = selectedPhotoArchive.flatMap((item) => item.tags)
+validateArchiveRelations({ itemIndexes, itemTags, filterIds, imageIds: itemImages, name: 'Photo archive' })

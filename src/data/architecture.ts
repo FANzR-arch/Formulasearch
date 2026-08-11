@@ -1,31 +1,17 @@
 import type { ImageMetadata } from 'astro'
 import { z } from 'astro/zod'
-import { localizedCopySchema } from '../lib/i18n'
 import waterStudy from '../assets/archive/studies/water-3840x2160-glass-colorful-4k-25120.jpeg'
 import violetStudy from '../assets/archive/studies/iphone-15-pro-3840x2160-splash-25150.jpeg'
 import whiteStudy from '../assets/archive/studies/iphone-15-3840x2160-white-4k-25043.jpeg'
 import architectureContent from '../../content/site/architecture.json'
+import { archiveItemBaseSchema, archivePageBaseSchema, validateArchiveRelations } from './archive-schema'
 
-const architectureItemSchema = z.object({
+const architectureItemSchema = archiveItemBaseSchema.extend({
   image: z.enum(['white-study', 'violet-study', 'water-study']),
-  alt: z.string().min(1),
-  index: z.string().regex(/^\d+$/),
-  layout: z.enum(['hero', 'portrait', 'landscape', 'square', 'wide']),
-  tags: z.array(z.string().min(1)).min(1),
-  label: localizedCopySchema,
-  caption: localizedCopySchema,
 }).strict()
 
-const architectureSchema = z.object({
-  pageTitle: localizedCopySchema,
-  pageDescription: localizedCopySchema,
-  kicker: localizedCopySchema,
-  title: localizedCopySchema,
-  description: localizedCopySchema,
+const architectureSchema = archivePageBaseSchema.extend({
   initialVisibleCount: z.union([z.literal('all'), z.number().int().positive()]),
-  loadMoreBatchSize: z.number().int().positive(),
-  eagerImageCount: z.number().int().positive(),
-  filters: z.array(localizedCopySchema.extend({ id: z.string().trim().min(1) })).min(1),
   items: z.array(architectureItemSchema).min(1),
 }).strict()
 
@@ -52,10 +38,5 @@ export const architectureItems = result.data.items.map((item) => ({
 const itemIndexes = architectureItems.map((item) => item.index)
 const imageIds = result.data.items.map((item) => item.image)
 const filterIds = result.data.filters.map((filter) => filter.id)
-const itemTags = new Set(result.data.items.flatMap((item) => item.tags))
-if (new Set(itemIndexes).size !== itemIndexes.length) throw new Error('Architecture content validation failed: duplicate item indexes.')
-if (new Set(imageIds).size !== imageIds.length) throw new Error('Architecture content validation failed: duplicate image ids.')
-if (new Set(filterIds).size !== filterIds.length) throw new Error('Architecture content validation failed: duplicate filter ids.')
-if (result.data.filters[0]?.id !== 'all') throw new Error('Architecture content validation failed: the first filter must be all.')
-const unknownFilters = result.data.filters.filter((filter) => filter.id !== 'all' && !itemTags.has(filter.id))
-if (unknownFilters.length) throw new Error(`Architecture content validation failed: filters have no matching tags: ${unknownFilters.map((filter) => filter.id).join(', ')}.`)
+const itemTags = result.data.items.flatMap((item) => item.tags)
+validateArchiveRelations({ itemIndexes, itemTags, filterIds, imageIds, name: 'Architecture' })
