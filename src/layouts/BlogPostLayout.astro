@@ -118,7 +118,7 @@ const structuredData = {
       {post.data.externalLinks.length > 0 && (
         <aside class="article-sources">
           <p><LocalizedText {...uiCopy.blog.originallyPublished} /></p>
-          <div class="post-row__links" aria-label={uiCopy.blog.originalPublication.zh} data-aria-en={uiCopy.blog.originalPublication.en} data-aria-zh={uiCopy.blog.originalPublication.zh}>
+          <div class="post-row__links" role="group" aria-label={uiCopy.blog.originalPublication.zh} data-aria-en={uiCopy.blog.originalPublication.en} data-aria-zh={uiCopy.blog.originalPublication.zh}>
             {post.data.externalLinks.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer"><ExternalLinkLabel label={link.label} /><ArrowUpRight aria-hidden="true" size={13} stroke-width={1.7} /></a>)}
           </div>
         </aside>

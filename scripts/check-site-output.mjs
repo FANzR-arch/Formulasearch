@@ -165,6 +165,9 @@ for (const path of htmlFiles) {
     const controls = getAttribute(attributes, 'aria-controls')
     if (controls && !new RegExp(`\\bid="${controls.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`).test(html)) failures.push(`button references missing control: ${relativePath} -> ${controls}`)
   }
+  for (const match of html.matchAll(/<(?:div|span|p)\b[^>]*aria-label="[^"]+"[^>]*>/g)) {
+    if (!/\brole="[^"]+"/.test(match[0])) failures.push(`generic element has aria-label without a role: ${relativePath}`)
+  }
   for (const [, source] of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)) {
     await checkLocalAsset(source, relativePath)
   }

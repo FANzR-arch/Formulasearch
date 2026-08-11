@@ -45,7 +45,7 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
             <ChevronDown aria-hidden="true" />
           </button>
         </div>
-        <div id={`nav-panel-${section.id}`} class="nav-popover" aria-label={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).zh} data-aria-en={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).en} data-aria-zh={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).zh} inert>
+        <div id={`nav-panel-${section.id}`} class="nav-popover" role="group" aria-label={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).zh} data-aria-en={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).en} data-aria-zh={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).zh} inert>
           {section.menu.map((item, index) => (
             <a href={item.href}>
               <small>{String(index + 1).padStart(2, '0')}</small>

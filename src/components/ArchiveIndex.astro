@@ -48,7 +48,7 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
       <a class:list={{ 'is-active': active === 'architecture' }} href="/architecture"><LocalizedText {...uiCopy.archive.architecture} /></a>
     </nav>
     {filters.length > 1 && (
-      <div class="visual-archive__filters" aria-label={uiCopy.archive.filters.zh} data-aria-en={uiCopy.archive.filters.en} data-aria-zh={uiCopy.archive.filters.zh}>
+      <div class="visual-archive__filters" role="group" aria-label={uiCopy.archive.filters.zh} data-aria-en={uiCopy.archive.filters.en} data-aria-zh={uiCopy.archive.filters.zh}>
         <span><LocalizedText {...uiCopy.archive.browse} /></span>
         {filters.map((filter, index) => (
           <button class:list={{ 'is-active': index === 0 }} type="button" data-archive-filter={filter.id} aria-pressed={index === 0 ? 'true' : 'false'}>
