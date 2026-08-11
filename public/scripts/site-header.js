@@ -102,7 +102,7 @@ primaryNavigation?.querySelectorAll('a').forEach((link) => {
 })
 
 document.addEventListener('pointerdown', (event) => {
-  if (primaryNavigation?.contains(event.target)) return
+  if (primaryNavigation?.contains(event.target) || mobileNavigationToggle?.contains(event.target)) return
   closeNavigationMenus()
   closeMobileNavigation()
 })

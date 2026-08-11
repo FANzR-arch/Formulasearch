@@ -28,6 +28,18 @@ test('mobile navigation traps focus and restores it on Escape', async ({ page })
   await expect(toggle).toBeFocused()
 })
 
+test('mobile navigation closes when its toggle is clicked again', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/blog')
+
+  const toggle = page.locator('#mobile-navigation-toggle')
+  await toggle.click()
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true')
+  await toggle.click()
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+  await expect(page.locator('#site-navigation')).toBeHidden()
+})
+
 test('archive and header controls keep touch-friendly hit areas', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/photos')
