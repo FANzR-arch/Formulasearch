@@ -226,9 +226,10 @@ for (const path of htmlFiles) {
 }
 
 const blogFiles = htmlFiles.filter((path) => path.includes(`${join('blog', '')}`) && !path.endsWith(`${join('blog', 'index.html')}`))
-const articlePath = blogFiles.find((path) => !['archive', 'series'].includes(basename(dirname(path))))
-if (!articlePath) failures.push('no article output found')
-else {
+const articlePaths = blogFiles.filter((path) => !['archive', 'series'].includes(basename(dirname(path))))
+if (!articlePaths.length) failures.push('no article output found')
+for (const articlePath of articlePaths) {
+  const relativePath = articlePath.slice(distRoot.length + 1)
   const article = await readFile(articlePath, 'utf8')
   if (!article.includes('type="image/avif"')) failures.push('article pages are missing AVIF cover sources')
   if (!article.includes('type="image/webp"')) failures.push('article pages are missing WebP cover sources')
@@ -238,17 +239,17 @@ else {
   const proseImages = [...articleProse.matchAll(/<img\b[^>]*>/g)].map((match) => match[0])
   for (const match of articleProse.matchAll(/<(video|audio)\b[\s\S]*?<\/\1>/g)) {
     const mediaTag = match[0]
-    if (!/\bcontrols(?:\s|=|>)/.test(mediaTag)) failures.push('article media must expose native controls')
-    if (!/\b(?:src|poster)="[^"]+"/.test(mediaTag) && !/<source\b[^>]*\bsrc="[^"]+"/.test(mediaTag)) failures.push('article media must provide a source or poster')
-    for (const [, source] of mediaTag.matchAll(/\b(?:src|poster)="([^"]+)"/g)) checkUrlScheme(source, 'article', 'media URL')
-    for (const [, source] of mediaTag.matchAll(/<source\b[^>]*\bsrc="([^"]+)"/g)) checkUrlScheme(source, 'article', 'media source URL')
+    if (!/\bcontrols(?:\s|=|>)/.test(mediaTag)) failures.push(`article media must expose native controls: ${relativePath}`)
+    if (!/\b(?:src|poster)="[^"]+"/.test(mediaTag) && !/<source\b[^>]*\bsrc="[^"]+"/.test(mediaTag)) failures.push(`article media must provide a source or poster: ${relativePath}`)
+    for (const [, source] of mediaTag.matchAll(/\b(?:src|poster)="([^"]+)"/g)) checkUrlScheme(source, relativePath, 'media URL')
+    for (const [, source] of mediaTag.matchAll(/<source\b[^>]*\bsrc="([^"]+)"/g)) checkUrlScheme(source, relativePath, 'media source URL')
   }
-  if (proseImages.some((imageTag) => !/\bloading="lazy"/.test(imageTag))) failures.push('article body images must use lazy loading')
-  if (proseImages.some((imageTag) => !/\bdecoding="async"/.test(imageTag))) failures.push('article body images must use async decoding')
-  if (proseImages.some((imageTag) => !/\breferrerpolicy="no-referrer"/.test(imageTag))) failures.push('article body images must use no-referrer policy')
-  if (!article.includes('property="article:modified_time"')) failures.push('article pages are missing modified time metadata')
-  if (!article.includes('BreadcrumbList') || !article.includes('itemListElement') || !article.includes(`"item":"${siteConfig.siteUrl}/blog/series"`)) failures.push('article pages are missing linked BreadcrumbList structured data')
-  if (!article.includes('article-related') || !article.includes('Related articles')) failures.push('article pages are missing related reading links')
+  if (proseImages.some((imageTag) => !/\bloading="lazy"/.test(imageTag))) failures.push(`article body images must use lazy loading: ${relativePath}`)
+  if (proseImages.some((imageTag) => !/\bdecoding="async"/.test(imageTag))) failures.push(`article body images must use async decoding: ${relativePath}`)
+  if (proseImages.some((imageTag) => !/\breferrerpolicy="no-referrer"/.test(imageTag))) failures.push(`article body images must use no-referrer policy: ${relativePath}`)
+  if (!article.includes('property="article:modified_time"')) failures.push(`article pages are missing modified time metadata: ${relativePath}`)
+  if (!article.includes('BreadcrumbList') || !article.includes('itemListElement') || !article.includes(`"item":"${siteConfig.siteUrl}/blog/series"`)) failures.push(`article pages are missing linked BreadcrumbList structured data: ${relativePath}`)
+  if (!article.includes('article-related') || !article.includes('Related articles')) failures.push(`article pages are missing related reading links: ${relativePath}`)
 }
 
 const blogIndex = await readUtf8('blog/index.html')
