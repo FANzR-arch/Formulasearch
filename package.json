@@ -14,6 +14,8 @@
     "blog:images:prepare": "node scripts/prepare-blog-image-alt.mjs --write",
     "blog:images:check": "node scripts/prepare-blog-image-alt.mjs --check",
     "blog:images:dimensions": "node scripts/prepare-blog-image-dimensions.mjs --report",
+    "blog:images:dimensions:check": "node scripts/prepare-blog-image-dimensions.mjs --check",
+    "blog:images:dimensions:write": "node scripts/prepare-blog-image-dimensions.mjs --write",
     "blog:images:report": "node scripts/prepare-blog-image-alt.mjs --report",
     "blog:import": "node scripts/import-blog-bodies.mjs",
     "blog:check": "node scripts/prepare-blog-content.mjs --check",

@@ -78,7 +78,7 @@ Photography / Architecture manifest 还负责归档交互策略：`initialVisibl
 
 Blog 正文图片必须填写具体 alt。历史文章的通用 alt 可用 `npm run blog:images:prepare` 按最近章节生成初稿；之后 `npm run blog:images:check` 会阻止新的空 alt、`图像` 或绕过 Markdown 语法的无 alt HTML 图片进入构建。代码围栏中的示例不会被误判。
 
-正文远程图片的实际宽高不允许猜测：已确认值写入 `content/site/blog-image-dimensions.json`，可用 `npm run blog:images:dimensions` 查看待确认清单；网络和来源许可都满足时再运行 `node scripts/prepare-blog-image-dimensions.mjs --write`。
+正文远程图片的实际宽高不允许猜测：已确认值写入 `content/site/blog-image-dimensions.json`，可用 `npm run blog:images:dimensions` 查看待确认清单；发布前运行 `npm run blog:images:dimensions:check`，网络和来源许可都满足时再运行 `npm run blog:images:dimensions:write`。
 
 Blog 内容状态约定：`contentStatus: full` 必须有非空 Markdown 正文；已发布的 `contentStatus: index-only` 必须在 `链接.txt` 中保留至少一个可靠外链。`tags` 不能重复或为空，单篇文章也不能重复外链。来源未确认或正文未准备好的记录使用 `draft: true`，不会出现在公开 Blog 列表；更新后运行 `npm run blog:check`，输出会列出 full、index-only 与 draft 数量。
 
