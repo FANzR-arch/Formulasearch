@@ -17,6 +17,7 @@
 - `site-routes.json` 的 `static` 清单维护中文公开页面，`localized` 清单维护已有完整双语数据的 English SSR 页面；新增语言路由时必须同时补充页面、sitemap、LLM 输出和回归测试。
 - `/en/...` 页面只覆盖已有双语 manifest 的首页、目录、档案和 Blog 索引；中文正文文章仍链接回 `/blog/...`，不会把缺少英文正文的数据伪装成英文文章页。
 - `site.json` 是站点名、正式域名、作者身份、作者地址和 GitHub 地址的唯一来源；页面、JSON-LD、RSS、sitemap 和构建检查都会读取它。作者的别名、职业和知识领域也在这里维护。
+- 首页 `home.json` / `home.en.json` 的显示姓名必须出现在 `site.json` 的作者名或别名中；这样修改首页称呼时，JSON-LD、导航署名与 LLM 入口不会悄悄产生另一套身份。
 - `site.json` 的 `themeColors.light/dark` 是浏览器地址栏主题色的唯一来源，同时供 SSR 初始值和主题切换脚本使用；使用 6 位十六进制颜色。
 - `page-meta.json` 是首页、Blog、Blog 归档和 Blog 主题页的双语 SEO 标题/描述唯一来源；修改后运行 `npm run build` 校验字段。
 - `blog-series.json` 是 Blog 主题页的分组和分类映射；新增主题时填写唯一的 `id`，并把对应分类 ID 放入 `categoryIds`。

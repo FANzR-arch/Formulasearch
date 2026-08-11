@@ -1,6 +1,7 @@
 import { z } from 'astro/zod'
 import homeEn from '../../content/site/home.en.json'
 import homeZh from '../../content/site/home.json'
+import { siteConfig } from '../data/site-config'
 import { httpUrlSchema, localAssetPathSchema } from './validation'
 
 const workItemSchema = z.object({
@@ -86,8 +87,18 @@ function validateLocalePairs(zh: HomeContent, en: HomeContent) {
   }
 }
 
+function validateHomepageIdentity(...homepages: HomeContent[]) {
+  const acceptedNames = new Set([siteConfig.author.name, ...siteConfig.author.alternateNames])
+  for (const homepage of homepages) {
+    if (!acceptedNames.has(homepage.name)) {
+      throw new Error(`Homepage name "${homepage.name}" must be listed in site.json author aliases.`)
+    }
+  }
+}
+
 const zh = parseHomeContent(homeZh, 'zh')
 const en = parseHomeContent(homeEn, 'en')
 validateLocalePairs(zh, en)
+validateHomepageIdentity(zh, en)
 
 export const homeContent = { en, zh }

@@ -115,6 +115,17 @@ test('Chinese and English homepages share the site footer', async ({ page }) => 
   }
 })
 
+test('homepage identity aliases cover the visible display name', async ({ page }) => {
+  await page.goto('/')
+  const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents()
+  const person = jsonLd.map((value) => JSON.parse(value)).find((value) => value['@type'] === 'Person')
+
+  expect(person).toBeTruthy()
+  expect(person.name).toBe('Phil')
+  expect(person.alternateName).toEqual(expect.arrayContaining(['阿哲 Phil', 'Carlos Phil']))
+  await expect(page.locator('#intro-title .localized-text__zh')).toHaveText('Carlos Phil')
+})
+
 test('reduced motion skips decorative animation loops', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.addInitScript(() => {
