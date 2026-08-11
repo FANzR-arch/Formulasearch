@@ -1,952 +1,981 @@
-[
-  {
-    "alt": "Phil 的精选摄影作品 01",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1708,
-    "image": "/uploads/photos/select/photo-001.webp",
-    "index": "01",
-    "label": {
-      "zh": "精选影像 01",
-      "en": "Selected photograph 01"
-    },
-    "layout": "hero",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
+{
+  "pageTitle": {
+    "zh": "摄影",
+    "en": "Photography"
   },
-  {
-    "alt": "Phil 的精选摄影作品 02",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-002.webp",
-    "index": "02",
-    "label": {
-      "zh": "精选影像 02",
-      "en": "Selected photograph 02"
-    },
-    "layout": "square",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
+  "pageDescription": {
+    "zh": "Phil 的摄影作品与影像档案。",
+    "en": "Phil's photography and visual archive."
   },
-  {
-    "alt": "Phil 的精选摄影作品 03",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1440,
-    "image": "/uploads/photos/select/photo-003.webp",
-    "index": "03",
-    "label": {
-      "zh": "精选影像 03",
-      "en": "Selected photograph 03"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
+  "kicker": {
+    "zh": "影像档案 / 01",
+    "en": "Visual archive / 01"
   },
-  {
-    "alt": "Phil 的精选摄影作品 04",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1919,
-    "image": "/uploads/photos/select/photo-004.webp",
-    "index": "04",
-    "label": {
-      "zh": "精选影像 04",
-      "en": "Selected photograph 04"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
+  "title": {
+    "zh": "记录自由",
+    "en": "Photographic records"
   },
-  {
-    "alt": "Phil 的精选摄影作品 05",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-005.webp",
-    "index": "05",
-    "label": {
-      "zh": "精选影像 05",
-      "en": "Selected photograph 05"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1920
+  "description": {
+    "zh": "持续收集的摄影作品与日常影像，按时间与地点整理并归档。",
+    "en": "An ongoing collection of photographs and everyday images, organised and archived by time and place."
   },
-  {
-    "alt": "Phil 的精选摄影作品 06",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1920,
-    "image": "/uploads/photos/select/photo-006.webp",
-    "index": "06",
-    "label": {
-      "zh": "精选影像 06",
-      "en": "Selected photograph 06"
-    },
-    "layout": "wide",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 07",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1211,
-    "image": "/uploads/photos/select/photo-007.webp",
-    "index": "07",
-    "label": {
-      "zh": "精选影像 07",
-      "en": "Selected photograph 07"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 08",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1920,
-    "image": "/uploads/photos/select/photo-008.webp",
-    "index": "08",
-    "label": {
-      "zh": "精选影像 08",
-      "en": "Selected photograph 08"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 09",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1920,
-    "image": "/uploads/photos/select/photo-009.webp",
-    "index": "09",
-    "label": {
-      "zh": "精选影像 09",
-      "en": "Selected photograph 09"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 10",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1920,
-    "image": "/uploads/photos/select/photo-010.webp",
-    "index": "10",
-    "label": {
-      "zh": "精选影像 10",
-      "en": "Selected photograph 10"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 11",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-011.webp",
-    "index": "11",
-    "label": {
-      "zh": "精选影像 11",
-      "en": "Selected photograph 11"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1920
-  },
-  {
-    "alt": "Phil 的精选摄影作品 12",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-012.webp",
-    "index": "12",
-    "label": {
-      "zh": "精选影像 12",
-      "en": "Selected photograph 12"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1794
-  },
-  {
-    "alt": "Phil 的精选摄影作品 13",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1951,
-    "image": "/uploads/photos/select/photo-013.webp",
-    "index": "13",
-    "label": {
-      "zh": "精选影像 13",
-      "en": "Selected photograph 13"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 14",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1600,
-    "image": "/uploads/photos/select/photo-014.webp",
-    "index": "14",
-    "label": {
-      "zh": "精选影像 14",
-      "en": "Selected photograph 14"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 15",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-015.webp",
-    "index": "15",
-    "label": {
-      "zh": "精选影像 15",
-      "en": "Selected photograph 15"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1708
-  },
-  {
-    "alt": "Phil 的精选摄影作品 16",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1600,
-    "image": "/uploads/photos/select/photo-016.webp",
-    "index": "16",
-    "label": {
-      "zh": "精选影像 16",
-      "en": "Selected photograph 16"
-    },
-    "layout": "wide",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 17",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1440,
-    "image": "/uploads/photos/select/photo-017.webp",
-    "index": "17",
-    "label": {
-      "zh": "精选影像 17",
-      "en": "Selected photograph 17"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 18",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1600,
-    "image": "/uploads/photos/select/photo-018.webp",
-    "index": "18",
-    "label": {
-      "zh": "精选影像 18",
-      "en": "Selected photograph 18"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 19",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-019.webp",
-    "index": "19",
-    "label": {
-      "zh": "精选影像 19",
-      "en": "Selected photograph 19"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1441
-  },
-  {
-    "alt": "Phil 的精选摄影作品 20",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-020.webp",
-    "index": "20",
-    "label": {
-      "zh": "精选影像 20",
-      "en": "Selected photograph 20"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1430
-  },
-  {
-    "alt": "Phil 的精选摄影作品 21",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-021.webp",
-    "index": "21",
-    "label": {
-      "zh": "精选影像 21",
-      "en": "Selected photograph 21"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1702
-  },
-  {
-    "alt": "Phil 的精选摄影作品 22",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-022.webp",
-    "index": "22",
-    "label": {
-      "zh": "精选影像 22",
-      "en": "Selected photograph 22"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1441
-  },
-  {
-    "alt": "Phil 的精选摄影作品 23",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-023.webp",
-    "index": "23",
-    "label": {
-      "zh": "精选影像 23",
-      "en": "Selected photograph 23"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1600
-  },
-  {
-    "alt": "Phil 的精选摄影作品 24",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-024.webp",
-    "index": "24",
-    "label": {
-      "zh": "精选影像 24",
-      "en": "Selected photograph 24"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1830
-  },
-  {
-    "alt": "Phil 的精选摄影作品 25",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-025.webp",
-    "index": "25",
-    "label": {
-      "zh": "精选影像 25",
-      "en": "Selected photograph 25"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1771
-  },
-  {
-    "alt": "Phil 的精选摄影作品 26",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-026.webp",
-    "index": "26",
-    "label": {
-      "zh": "精选影像 26",
-      "en": "Selected photograph 26"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1440
-  },
-  {
-    "alt": "Phil 的精选摄影作品 27",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1708,
-    "image": "/uploads/photos/select/photo-027.webp",
-    "index": "27",
-    "label": {
-      "zh": "精选影像 27",
-      "en": "Selected photograph 27"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 28",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1440,
-    "image": "/uploads/photos/select/photo-028.webp",
-    "index": "28",
-    "label": {
-      "zh": "精选影像 28",
-      "en": "Selected photograph 28"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 29",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-029.webp",
-    "index": "29",
-    "label": {
-      "zh": "精选影像 29",
-      "en": "Selected photograph 29"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1708
-  },
-  {
-    "alt": "Phil 的精选摄影作品 30",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-030.webp",
-    "index": "30",
-    "label": {
-      "zh": "精选影像 30",
-      "en": "Selected photograph 30"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1600
-  },
-  {
-    "alt": "Phil 的精选摄影作品 31",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1708,
-    "image": "/uploads/photos/select/photo-031.webp",
-    "index": "31",
-    "label": {
-      "zh": "精选影像 31",
-      "en": "Selected photograph 31"
-    },
-    "layout": "wide",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 32",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1440,
-    "image": "/uploads/photos/select/photo-032.webp",
-    "index": "32",
-    "label": {
-      "zh": "精选影像 32",
-      "en": "Selected photograph 32"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 33",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-033.webp",
-    "index": "33",
-    "label": {
-      "zh": "精选影像 33",
-      "en": "Selected photograph 33"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1920
-  },
-  {
-    "alt": "Phil 的精选摄影作品 34",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-034.webp",
-    "index": "34",
-    "label": {
-      "zh": "精选影像 34",
-      "en": "Selected photograph 34"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1708
-  },
-  {
-    "alt": "Phil 的精选摄影作品 35",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-035.webp",
-    "index": "35",
-    "label": {
-      "zh": "精选影像 35",
-      "en": "Selected photograph 35"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1600
-  },
-  {
-    "alt": "Phil 的精选摄影作品 36",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1708,
-    "image": "/uploads/photos/select/photo-036.webp",
-    "index": "36",
-    "label": {
-      "zh": "精选影像 36",
-      "en": "Selected photograph 36"
-    },
-    "layout": "wide",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 37",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1708,
-    "image": "/uploads/photos/select/photo-037.webp",
-    "index": "37",
-    "label": {
-      "zh": "精选影像 37",
-      "en": "Selected photograph 37"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 38",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-038.webp",
-    "index": "38",
-    "label": {
-      "zh": "精选影像 38",
-      "en": "Selected photograph 38"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1708
-  },
-  {
-    "alt": "Phil 的精选摄影作品 39",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1708,
-    "image": "/uploads/photos/select/photo-039.webp",
-    "index": "39",
-    "label": {
-      "zh": "精选影像 39",
-      "en": "Selected photograph 39"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 40",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-040.webp",
-    "index": "40",
-    "label": {
-      "zh": "精选影像 40",
-      "en": "Selected photograph 40"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1708
-  },
-  {
-    "alt": "Phil 的精选摄影作品 41",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-041.webp",
-    "index": "41",
-    "label": {
-      "zh": "精选影像 41",
-      "en": "Selected photograph 41"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1407
-  },
-  {
-    "alt": "Phil 的精选摄影作品 42",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-042.webp",
-    "index": "42",
-    "label": {
-      "zh": "精选影像 42",
-      "en": "Selected photograph 42"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1708
-  },
-  {
-    "alt": "Phil 的精选摄影作品 43",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1708,
-    "image": "/uploads/photos/select/photo-043.webp",
-    "index": "43",
-    "label": {
-      "zh": "精选影像 43",
-      "en": "Selected photograph 43"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 44",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-044.webp",
-    "index": "44",
-    "label": {
-      "zh": "精选影像 44",
-      "en": "Selected photograph 44"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1708
-  },
-  {
-    "alt": "Phil 的精选摄影作品 45",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 2560,
-    "image": "/uploads/photos/select/photo-045.webp",
-    "index": "45",
-    "label": {
-      "zh": "精选影像 45",
-      "en": "Selected photograph 45"
-    },
-    "layout": "portrait",
-    "tags": [
-      "selected"
-    ],
-    "width": 1600
-  },
-  {
-    "alt": "Phil 的精选摄影作品 46",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1708,
-    "image": "/uploads/photos/select/photo-046.webp",
-    "index": "46",
-    "label": {
-      "zh": "精选影像 46",
-      "en": "Selected photograph 46"
-    },
-    "layout": "wide",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 47",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1440,
-    "image": "/uploads/photos/select/photo-047.webp",
-    "index": "47",
-    "label": {
-      "zh": "精选影像 47",
-      "en": "Selected photograph 47"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 48",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1440,
-    "image": "/uploads/photos/select/photo-048.webp",
-    "index": "48",
-    "label": {
-      "zh": "精选影像 48",
-      "en": "Selected photograph 48"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 49",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1708,
-    "image": "/uploads/photos/select/photo-049.webp",
-    "index": "49",
-    "label": {
-      "zh": "精选影像 49",
-      "en": "Selected photograph 49"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  },
-  {
-    "alt": "Phil 的精选摄影作品 50",
-    "caption": {
-      "zh": "精选摄影 / 影像档案",
-      "en": "Selected photography / visual archive"
-    },
-    "height": 1281,
-    "image": "/uploads/photos/select/photo-050.webp",
-    "index": "50",
-    "label": {
-      "zh": "精选影像 50",
-      "en": "Selected photograph 50"
-    },
-    "layout": "landscape",
-    "tags": [
-      "selected"
-    ],
-    "width": 2560
-  }
-]
+  "filters": [
+    {
+      "id": "all",
+      "zh": "全部",
+      "en": "All"
+    }
+  ],
+  "items": [
+    {
+      "alt": "Phil 的精选摄影作品 01",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1708,
+      "image": "/uploads/photos/select/photo-001.webp",
+      "index": "01",
+      "label": {
+        "zh": "精选影像 01",
+        "en": "Selected photograph 01"
+      },
+      "layout": "hero",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 02",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-002.webp",
+      "index": "02",
+      "label": {
+        "zh": "精选影像 02",
+        "en": "Selected photograph 02"
+      },
+      "layout": "square",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 03",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1440,
+      "image": "/uploads/photos/select/photo-003.webp",
+      "index": "03",
+      "label": {
+        "zh": "精选影像 03",
+        "en": "Selected photograph 03"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 04",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1919,
+      "image": "/uploads/photos/select/photo-004.webp",
+      "index": "04",
+      "label": {
+        "zh": "精选影像 04",
+        "en": "Selected photograph 04"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 05",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-005.webp",
+      "index": "05",
+      "label": {
+        "zh": "精选影像 05",
+        "en": "Selected photograph 05"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1920
+    },
+    {
+      "alt": "Phil 的精选摄影作品 06",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1920,
+      "image": "/uploads/photos/select/photo-006.webp",
+      "index": "06",
+      "label": {
+        "zh": "精选影像 06",
+        "en": "Selected photograph 06"
+      },
+      "layout": "wide",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 07",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1211,
+      "image": "/uploads/photos/select/photo-007.webp",
+      "index": "07",
+      "label": {
+        "zh": "精选影像 07",
+        "en": "Selected photograph 07"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 08",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1920,
+      "image": "/uploads/photos/select/photo-008.webp",
+      "index": "08",
+      "label": {
+        "zh": "精选影像 08",
+        "en": "Selected photograph 08"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 09",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1920,
+      "image": "/uploads/photos/select/photo-009.webp",
+      "index": "09",
+      "label": {
+        "zh": "精选影像 09",
+        "en": "Selected photograph 09"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 10",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1920,
+      "image": "/uploads/photos/select/photo-010.webp",
+      "index": "10",
+      "label": {
+        "zh": "精选影像 10",
+        "en": "Selected photograph 10"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 11",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-011.webp",
+      "index": "11",
+      "label": {
+        "zh": "精选影像 11",
+        "en": "Selected photograph 11"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1920
+    },
+    {
+      "alt": "Phil 的精选摄影作品 12",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-012.webp",
+      "index": "12",
+      "label": {
+        "zh": "精选影像 12",
+        "en": "Selected photograph 12"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1794
+    },
+    {
+      "alt": "Phil 的精选摄影作品 13",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1951,
+      "image": "/uploads/photos/select/photo-013.webp",
+      "index": "13",
+      "label": {
+        "zh": "精选影像 13",
+        "en": "Selected photograph 13"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 14",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1600,
+      "image": "/uploads/photos/select/photo-014.webp",
+      "index": "14",
+      "label": {
+        "zh": "精选影像 14",
+        "en": "Selected photograph 14"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 15",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-015.webp",
+      "index": "15",
+      "label": {
+        "zh": "精选影像 15",
+        "en": "Selected photograph 15"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1708
+    },
+    {
+      "alt": "Phil 的精选摄影作品 16",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1600,
+      "image": "/uploads/photos/select/photo-016.webp",
+      "index": "16",
+      "label": {
+        "zh": "精选影像 16",
+        "en": "Selected photograph 16"
+      },
+      "layout": "wide",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 17",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1440,
+      "image": "/uploads/photos/select/photo-017.webp",
+      "index": "17",
+      "label": {
+        "zh": "精选影像 17",
+        "en": "Selected photograph 17"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 18",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1600,
+      "image": "/uploads/photos/select/photo-018.webp",
+      "index": "18",
+      "label": {
+        "zh": "精选影像 18",
+        "en": "Selected photograph 18"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 19",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-019.webp",
+      "index": "19",
+      "label": {
+        "zh": "精选影像 19",
+        "en": "Selected photograph 19"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1441
+    },
+    {
+      "alt": "Phil 的精选摄影作品 20",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-020.webp",
+      "index": "20",
+      "label": {
+        "zh": "精选影像 20",
+        "en": "Selected photograph 20"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1430
+    },
+    {
+      "alt": "Phil 的精选摄影作品 21",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-021.webp",
+      "index": "21",
+      "label": {
+        "zh": "精选影像 21",
+        "en": "Selected photograph 21"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1702
+    },
+    {
+      "alt": "Phil 的精选摄影作品 22",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-022.webp",
+      "index": "22",
+      "label": {
+        "zh": "精选影像 22",
+        "en": "Selected photograph 22"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1441
+    },
+    {
+      "alt": "Phil 的精选摄影作品 23",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-023.webp",
+      "index": "23",
+      "label": {
+        "zh": "精选影像 23",
+        "en": "Selected photograph 23"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1600
+    },
+    {
+      "alt": "Phil 的精选摄影作品 24",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-024.webp",
+      "index": "24",
+      "label": {
+        "zh": "精选影像 24",
+        "en": "Selected photograph 24"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1830
+    },
+    {
+      "alt": "Phil 的精选摄影作品 25",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-025.webp",
+      "index": "25",
+      "label": {
+        "zh": "精选影像 25",
+        "en": "Selected photograph 25"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1771
+    },
+    {
+      "alt": "Phil 的精选摄影作品 26",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-026.webp",
+      "index": "26",
+      "label": {
+        "zh": "精选影像 26",
+        "en": "Selected photograph 26"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1440
+    },
+    {
+      "alt": "Phil 的精选摄影作品 27",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1708,
+      "image": "/uploads/photos/select/photo-027.webp",
+      "index": "27",
+      "label": {
+        "zh": "精选影像 27",
+        "en": "Selected photograph 27"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 28",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1440,
+      "image": "/uploads/photos/select/photo-028.webp",
+      "index": "28",
+      "label": {
+        "zh": "精选影像 28",
+        "en": "Selected photograph 28"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 29",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-029.webp",
+      "index": "29",
+      "label": {
+        "zh": "精选影像 29",
+        "en": "Selected photograph 29"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1708
+    },
+    {
+      "alt": "Phil 的精选摄影作品 30",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-030.webp",
+      "index": "30",
+      "label": {
+        "zh": "精选影像 30",
+        "en": "Selected photograph 30"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1600
+    },
+    {
+      "alt": "Phil 的精选摄影作品 31",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1708,
+      "image": "/uploads/photos/select/photo-031.webp",
+      "index": "31",
+      "label": {
+        "zh": "精选影像 31",
+        "en": "Selected photograph 31"
+      },
+      "layout": "wide",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 32",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1440,
+      "image": "/uploads/photos/select/photo-032.webp",
+      "index": "32",
+      "label": {
+        "zh": "精选影像 32",
+        "en": "Selected photograph 32"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 33",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-033.webp",
+      "index": "33",
+      "label": {
+        "zh": "精选影像 33",
+        "en": "Selected photograph 33"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1920
+    },
+    {
+      "alt": "Phil 的精选摄影作品 34",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-034.webp",
+      "index": "34",
+      "label": {
+        "zh": "精选影像 34",
+        "en": "Selected photograph 34"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1708
+    },
+    {
+      "alt": "Phil 的精选摄影作品 35",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-035.webp",
+      "index": "35",
+      "label": {
+        "zh": "精选影像 35",
+        "en": "Selected photograph 35"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1600
+    },
+    {
+      "alt": "Phil 的精选摄影作品 36",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1708,
+      "image": "/uploads/photos/select/photo-036.webp",
+      "index": "36",
+      "label": {
+        "zh": "精选影像 36",
+        "en": "Selected photograph 36"
+      },
+      "layout": "wide",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 37",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1708,
+      "image": "/uploads/photos/select/photo-037.webp",
+      "index": "37",
+      "label": {
+        "zh": "精选影像 37",
+        "en": "Selected photograph 37"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 38",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-038.webp",
+      "index": "38",
+      "label": {
+        "zh": "精选影像 38",
+        "en": "Selected photograph 38"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1708
+    },
+    {
+      "alt": "Phil 的精选摄影作品 39",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1708,
+      "image": "/uploads/photos/select/photo-039.webp",
+      "index": "39",
+      "label": {
+        "zh": "精选影像 39",
+        "en": "Selected photograph 39"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 40",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-040.webp",
+      "index": "40",
+      "label": {
+        "zh": "精选影像 40",
+        "en": "Selected photograph 40"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1708
+    },
+    {
+      "alt": "Phil 的精选摄影作品 41",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-041.webp",
+      "index": "41",
+      "label": {
+        "zh": "精选影像 41",
+        "en": "Selected photograph 41"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1407
+    },
+    {
+      "alt": "Phil 的精选摄影作品 42",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-042.webp",
+      "index": "42",
+      "label": {
+        "zh": "精选影像 42",
+        "en": "Selected photograph 42"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1708
+    },
+    {
+      "alt": "Phil 的精选摄影作品 43",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1708,
+      "image": "/uploads/photos/select/photo-043.webp",
+      "index": "43",
+      "label": {
+        "zh": "精选影像 43",
+        "en": "Selected photograph 43"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 44",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-044.webp",
+      "index": "44",
+      "label": {
+        "zh": "精选影像 44",
+        "en": "Selected photograph 44"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1708
+    },
+    {
+      "alt": "Phil 的精选摄影作品 45",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 2560,
+      "image": "/uploads/photos/select/photo-045.webp",
+      "index": "45",
+      "label": {
+        "zh": "精选影像 45",
+        "en": "Selected photograph 45"
+      },
+      "layout": "portrait",
+      "tags": [
+        "selected"
+      ],
+      "width": 1600
+    },
+    {
+      "alt": "Phil 的精选摄影作品 46",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1708,
+      "image": "/uploads/photos/select/photo-046.webp",
+      "index": "46",
+      "label": {
+        "zh": "精选影像 46",
+        "en": "Selected photograph 46"
+      },
+      "layout": "wide",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 47",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1440,
+      "image": "/uploads/photos/select/photo-047.webp",
+      "index": "47",
+      "label": {
+        "zh": "精选影像 47",
+        "en": "Selected photograph 47"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 48",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1440,
+      "image": "/uploads/photos/select/photo-048.webp",
+      "index": "48",
+      "label": {
+        "zh": "精选影像 48",
+        "en": "Selected photograph 48"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 49",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1708,
+      "image": "/uploads/photos/select/photo-049.webp",
+      "index": "49",
+      "label": {
+        "zh": "精选影像 49",
+        "en": "Selected photograph 49"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    },
+    {
+      "alt": "Phil 的精选摄影作品 50",
+      "caption": {
+        "zh": "精选摄影 / 影像档案",
+        "en": "Selected photography / visual archive"
+      },
+      "height": 1281,
+      "image": "/uploads/photos/select/photo-050.webp",
+      "index": "50",
+      "label": {
+        "zh": "精选影像 50",
+        "en": "Selected photograph 50"
+      },
+      "layout": "landscape",
+      "tags": [
+        "selected"
+      ],
+      "width": 2560
+    }
+  ]
+}

@@ -1,18 +1,16 @@
 ---
 import ArchiveIndex from '../components/ArchiveIndex.astro'
-import { selectedPhotoArchive } from '../data/photo-archive'
+import { photoArchivePage, selectedPhotoArchive } from '../data/photo-archive'
 import CatalogLayout from '../layouts/CatalogLayout.astro'
 ---
 
-<CatalogLayout active="photos" variant="archive" title={{ zh: '摄影', en: 'Photography' }} description={{ zh: 'Phil 的摄影作品与影像档案。', en: "Phil's photography and visual archive." }}>
+<CatalogLayout active="photos" variant="archive" title={photoArchivePage.pageTitle} description={photoArchivePage.pageDescription}>
   <ArchiveIndex
     active="photos"
-    kicker={{ zh: '影像档案 / 01', en: 'Visual archive / 01' }}
-    title={{ zh: '记录自由', en: 'Photographic records' }}
-    description={{ zh: '持续收集的摄影作品与日常影像，按时间与地点整理并归档。', en: 'An ongoing collection of photographs and everyday images, organised and archived by time and place.' }}
-    filters={[
-      { id: 'all', zh: '全部', en: 'All' },
-    ]}
+    kicker={photoArchivePage.kicker}
+    title={photoArchivePage.title}
+    description={photoArchivePage.description}
+    filters={photoArchivePage.filters}
     items={selectedPhotoArchive}
   />
 </CatalogLayout>

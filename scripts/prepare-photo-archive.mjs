@@ -41,16 +41,30 @@ function layoutFor(index, width, height) {
   return index % 5 === 0 ? 'wide' : 'landscape'
 }
 
-function manifestSource(items) {
-  return `${JSON.stringify(items, null, 2)}\n`
+const defaultPage = {
+  pageTitle: { zh: '摄影', en: 'Photography' },
+  pageDescription: { zh: 'Phil 的摄影作品与影像档案。', en: "Phil's photography and visual archive." },
+  kicker: { zh: '影像档案 / 01', en: 'Visual archive / 01' },
+  title: { zh: '记录自由', en: 'Photographic records' },
+  description: { zh: '持续收集的摄影作品与日常影像，按时间与地点整理并归档。', en: 'An ongoing collection of photographs and everyday images, organised and archived by time and place.' },
+  filters: [{ id: 'all', zh: '全部', en: 'All' }],
+}
+
+function manifestSource(items, page = defaultPage) {
+  return `${JSON.stringify({
+    ...defaultPage,
+    ...page,
+    items,
+  }, null, 2)}\n`
 }
 
 async function readExistingManifest() {
   try {
     const source = await fs.readFile(manifestPath, 'utf8')
     const parsed = JSON.parse(source)
-    if (!Array.isArray(parsed)) throw new Error('Photo archive manifest must be an array.')
-    return new Map(parsed.map((item) => [item.image, item]))
+    const items = Array.isArray(parsed) ? parsed : parsed.items
+    if (!Array.isArray(items)) throw new Error('Photo archive manifest must contain an items array.')
+    return { items, page: Array.isArray(parsed) ? undefined : parsed }
   } catch (error) {
     if (error.code === 'ENOENT') return new Map()
     throw new Error(`Unable to read existing photo archive manifest: ${error.message}`)
@@ -64,7 +78,8 @@ await fs.mkdir(outputDirectory, { recursive: true })
 await fs.mkdir(path.dirname(manifestPath), { recursive: true })
 
 const items = []
-const existingItems = await readExistingManifest()
+const existingManifest = await readExistingManifest()
+const existingItems = new Map(existingManifest.items.map((item) => [item.image, item]))
 let totalBytes = 0
 
 for (const [index, input] of images.entries()) {
@@ -96,5 +111,5 @@ for (const [index, input] of images.entries()) {
   })
 }
 
-await fs.writeFile(manifestPath, manifestSource(items), 'utf8')
+await fs.writeFile(manifestPath, manifestSource(items, existingManifest.page), 'utf8')
 console.log(`Prepared ${items.length} images (${(totalBytes / 1024 / 1024).toFixed(1)} MiB) in ${outputDirectory}`)

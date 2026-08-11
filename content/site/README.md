@@ -2,7 +2,7 @@
 
 - `home.json` 是中文首页内容。
 - `home.en.json` 是英文首页内容。
-- `photo-archive.json` 是 `/photos` 的照片清单；可直接编辑标题、说明、标签和公开图片路径。
+- `photo-archive.json` 是 `/photos` 的页面文案、筛选器和照片清单；可直接编辑标题、说明、标签和公开图片路径。
 - `catalog.json` 是 Projects、Skills、Lab 的目录内容；每个区块必须有中英文标题、说明和至少一条内容。
 - `architecture.json` 是 `/architecture` 的页面文案、筛选器和研究图像清单；图片标识对应 `src/data/architecture.ts` 中的构建资源映射。
 - `navigation.json` 是全站一级导航和下拉菜单内容；链接应使用站内绝对路径，构建时会校验四组主导航和双语字段。

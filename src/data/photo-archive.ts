@@ -22,7 +22,20 @@ const photoArchiveItemSchema = z.object({
 
 const photoArchiveSchema = z.array(photoArchiveItemSchema).min(1)
 
-const result = photoArchiveSchema.safeParse(photoArchive)
+const photoArchivePageSchema = z.object({
+  pageTitle: localizedTextSchema,
+  pageDescription: localizedTextSchema,
+  kicker: localizedTextSchema,
+  title: localizedTextSchema,
+  description: localizedTextSchema,
+  filters: z.array(z.object({ id: z.string().min(1), zh: z.string().min(1), en: z.string().min(1) })).min(1),
+})
+
+const manifestSchema = photoArchivePageSchema.extend({
+  items: photoArchiveSchema,
+})
+
+const result = manifestSchema.safeParse(photoArchive)
 if (!result.success) {
   const issues = result.error.issues
     .map((issue) => `${issue.path.join('.') || 'root'}: ${issue.message}`)
@@ -31,4 +44,5 @@ if (!result.success) {
 }
 
 export type PhotoArchiveItem = z.infer<typeof photoArchiveItemSchema>
-export const selectedPhotoArchive = result.data
+export const photoArchivePage = result.data
+export const selectedPhotoArchive = result.data.items
