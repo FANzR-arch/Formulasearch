@@ -7,6 +7,9 @@ category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-04-05/66513d4f-c3cd-49d8-97d7-33a9d5836f9f.png"
 coverAlt: "黑色背景上的 NVIDIA GTC 标识、黄仁勋肖像和 Rhino、Grasshopper、Blender 建筑建模界面，标题为 AI 重塑建筑的现在与未来"
+titleEn: "When an AI Agent Can Model and Render by Itself, What Is Left for Architects?"
+descriptionEn: "At a Taipei GTC talk, Jensen Huang demonstrated an AI agent that opened Rhino, modeled, adjusted materials, exported to Blender, and rendered the result—without anyone touching a mouse or keyboard."
+coverAltEn: "A black composition combines the NVIDIA GTC logo, Jensen Huang’s portrait, and Rhino, Grasshopper, and Blender modeling interfaces under a headline about AI reshaping architecture"
 contentStatus: full
 featured: false
 draft: false

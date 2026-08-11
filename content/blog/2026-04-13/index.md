@@ -7,6 +7,9 @@ category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-04-13/358f5db1-62a0-4528-aa6d-4cd595105dee.jpeg"
 coverAlt: "网格纸背景上的中文标题与一个带数据图表的个人工作仪表盘界面"
+titleEn: "A One-Person Company Still Dares to Procrastinate Every Day? I Vibe-Coded a Tool to Keep Myself Accountable"
+descriptionEn: "Running a one-person company sounds great and free: no time clock, daily reports, or boss pacing behind you. But there is another side: no one else is watching you either."
+coverAltEn: "A personal work dashboard with data charts sits on graph paper beneath a Chinese headline"
 contentStatus: full
 featured: false
 draft: false

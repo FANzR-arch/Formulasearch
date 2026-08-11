@@ -7,6 +7,9 @@ category: less-is-more
 tags: []
 cover: "/uploads/blog/2026-05-16/cadf68f5-4c75-49b5-a266-50b7e3ded207.jpeg"
 coverAlt: "灰白色 Less is More 实测海报，一位西装老人站在由像素和建筑线稿构成的台座后方"
+titleEn: "Less Is More (Field Test): Give AI a Direction"
+descriptionEn: "A prompt field test: use structure, constraints, and a clear direction to make AI’s visual output more stable."
+coverAltEn: "A gray-and-white Less Is More field-test poster shows an older man in a suit behind a plinth made from pixels and architectural linework"
 contentStatus: full
 featured: false
 draft: false

@@ -7,6 +7,9 @@ category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-03-19/1e8d3666-c710-4858-b356-f3a67f054fd9.jpeg"
 coverAlt: "像素风游戏场景中的彩色多语言文字拱门，人物沿着通往城市的道路前进"
+titleEn: "Speak More. The World Will Remember You."
+descriptionEn: "Once, humanity spoke one language and tried to build a tower reaching heaven to praise itself. God took it as a challenge and scrambled everyone’s language."
+coverAltEn: "A colorful multilingual text arch stands in a pixel-art game scene as a person walks along a road toward a city"
 contentStatus: full
 featured: false
 draft: false

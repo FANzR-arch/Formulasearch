@@ -56,9 +56,9 @@ public/uploads/blog/
 
 `coverAlt` 是封面的主要视觉描述；如果有可靠的英文视觉描述，再额外填写可选字段 `coverAltEn`。中文文章没有 `coverAltEn` 时，英文 UI 不会伪造通用的 `Article cover`，而是保留原始内容语言；如果 `contentLanguage: en`，则必须填写 `coverAltEn`。
 
-如果要让文章列表、精选舞台、相关阅读和页面 metadata 在英文 UI 中显示真正的英文内容，可在 frontmatter 中补充可选的 `titleEn` 与 `descriptionEn`。缺少它们时会安全回退到原始 `title` / `description`，不会生成假的翻译；这组字段只改善同一 URL 的客户端双语体验，不会自动创建独立的英文 SEO 路由。
+公开文章的列表、精选舞台、相关阅读和页面 metadata 必须填写真正的英文 `titleEn` 与 `descriptionEn`；它们只改善同一 URL 的双语体验，不会自动创建独立的英文正文 SEO 路由。英文正文仍需单独翻译后才可扩展 `/en/blog/:slug`。
 
-如果文章的 `contentLanguage` 设置为 `en`，则 `titleEn`、`descriptionEn` 与 `coverAltEn` 都是必填字段。这样文章的可见标题、摘要、封面替代文本和 BlogPosting 结构化数据不会出现语言错配；中文文章仍可按需补充英文 metadata。
+所有公开文章的 `titleEn`、`descriptionEn` 与 `coverAltEn` 都是必填字段；如果文章的 `contentLanguage` 设置为 `en`，这些字段同样必须存在。这样文章的可见标题、摘要、封面替代文本和 BlogPosting 结构化数据不会出现语言错配。
 
 现有封面大多是约 `2.36:1–2.5:1` 的超宽横幅。新增封面优先延续横幅构图，避免把关键信息放在最边缘。封面尺寸和 WebP/AVIF 响应式变体由脚本维护，不要手工编辑 `content/site/blog-media.json`；`npm run blog:media:prepare` 也会清理该目录下不再被 manifest 使用的生成文件。
 

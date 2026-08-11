@@ -7,6 +7,9 @@ category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-03-27/12370608-bc33-4e31-81b3-18e20fcfab99.png"
 coverAlt: "米白色流程图展示 GPT-Image-2 与 Codex 制作产品视频，包含写分镜、生成预览、布局、代码、动画和输出视频等节点"
+titleEn: "How to Create Video Content with Codex + Image2"
+descriptionEn: "A few dozen seconds of product video can cost tens of thousands, but I did not open an editing app. I built it with code: first create visual previsualizations for every scene with GPT-Image-2, then hand them to Codex to reproduce in code."
+coverAltEn: "A warm-white flowchart shows GPT-Image-2 and Codex creating a product video through storyboards, previews, layout, code, animation, and final output"
 contentStatus: full
 featured: false
 draft: false

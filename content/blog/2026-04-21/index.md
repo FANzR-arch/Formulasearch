@@ -7,6 +7,9 @@ category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-04-21/e07df95f-4eea-4405-b878-cec31bde3f40.jpeg"
 coverAlt: "米白工作台上的增长主题拼贴，左侧有破损墙面与建筑照片，右侧摆着植物和“不增长就等死？”标题"
+titleEn: "Grow or Die?"
+descriptionEn: "Growth is the most basic way any system stays alive; capital merely borrowed the word. The fundamental question is just this: what kind of growth are you pursuing?"
+coverAltEn: "A growth-themed collage on a warm-white desk includes a damaged wall and architecture photo on the left, a plant on the right, and the headline “Grow or die?”"
 contentStatus: full
 featured: false
 draft: false

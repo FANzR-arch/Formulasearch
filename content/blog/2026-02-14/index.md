@@ -7,6 +7,9 @@ category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-02-14/048e9e7e-ec00-47ea-8f18-2d5af20071c2.jpeg"
 coverAlt: "荒漠中一名男子跑向写有 TECH GIANTS 的巨大数据化建筑，画面带有故障艺术效果"
+titleEn: "An MIT Top Student Leaves Google: One Bug Woke Me Up"
+descriptionEn: "A personal reflection on leaving a big tech company, bugs, and career choices."
+coverAltEn: "A man runs across a desert toward a huge data-like building labeled TECH GIANTS, rendered with glitch art"
 contentStatus: index-only
 featured: false
 draft: true

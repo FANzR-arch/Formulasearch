@@ -7,6 +7,9 @@ category: less-is-more
 tags: []
 cover: "/uploads/blog/2026-05-08/7a164672-bdd4-407b-b794-85ffaad51ecc.png"
 coverAlt: "灰白建筑构图中，一位西装老人站在长方形台座后，画面写着 Less is More 与提示词相关文字"
+titleEn: "Less Is More (Part II): Prompts That Make AI Split-Brained"
+descriptionEn: "Have you ever written hundreds of words of prompts only to get chaotic images from AI—mixed styles, greasy surfaces, and compositions that do not belong together?"
+coverAltEn: "A gray-and-white architectural composition shows an older man in a suit behind a rectangular plinth, with Less Is More and prompt-related lettering"
 contentStatus: full
 featured: false
 draft: false

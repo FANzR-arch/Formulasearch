@@ -7,6 +7,9 @@ category: ai-knowledge
 tags: []
 cover: "/uploads/blog/2026-02-05/8a6ed3e7-fe33-4bba-9f28-a1621873f4ca.jpeg"
 coverAlt: "黑暗控制台上，一只手触碰带有微型城市模型的数字水面，周围是蓝紫色的 AI 界面光影"
+titleEn: "Distillation, GEO, Vibe Coding: How Many of 2025’s “AI Buzzwords” Do You Know?"
+descriptionEn: "AI moved faster in 2025 than most people imagined. In 2023 and 2024, we treated questions like whether AI could write poems or draw celebrities eating noodles as entertainment. In 2025, AI entered the deep waters of value creation. The bubble is on the left; opportunity is on the right."
+coverAltEn: "A hand touches a digital surface holding a miniature city model on a dark console, surrounded by blue-violet AI interface light"
 contentStatus: index-only
 featured: false
 draft: false

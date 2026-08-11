@@ -172,6 +172,9 @@ test('English routes render server-localized metadata and reciprocal hreflang', 
   await page.goto('/en/blog')
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await expect(page.locator('.blog-hero h1 .localized-text__en')).toBeVisible()
+  await expect(page.locator('.cover-stage .localized-text__en').first()).toBeVisible()
+  const cover = page.locator('.cover-stage img').first()
+  await expect(cover).toHaveAttribute('alt', await cover.getAttribute('data-alt-en'))
   expect(await page.locator('a[href="/blog/prompt-aesthetic-2026-07-02"]').count()).toBeGreaterThan(0)
   await expect(page.locator('a[href="/en/blog/prompt-aesthetic-2026-07-02"]')).toHaveCount(0)
 })
@@ -189,7 +192,7 @@ test('locale switch preserves article source language semantics', async ({ page 
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await expect(page.locator('.article-page')).toHaveAttribute('lang', 'zh-Hans')
-  await expect(page.locator('.article-header h1 .localized-text__en')).toHaveAttribute('lang', 'zh-Hans')
+  await expect(page.locator('.article-header h1 .localized-text__en')).toHaveAttribute('lang', 'en')
 })
 
 test('blog featured stage keeps localized title and summary on locale switch', async ({ page }) => {
@@ -202,8 +205,8 @@ test('blog featured stage keeps localized title and summary on locale switch', a
 
   await expect(stageTitle.locator('.localized-text__en')).toHaveText(await trigger.getAttribute('data-stage-title-en') || '')
   await expect(stageSummary.locator('.localized-text__en')).toHaveText(await trigger.getAttribute('data-stage-summary-en') || '')
-  await expect(stageTitle.locator('.localized-text__en')).toHaveAttribute('lang', 'zh-Hans')
-  await expect(stageSummary.locator('.localized-text__en')).toHaveAttribute('lang', 'zh-Hans')
+  await expect(stageTitle.locator('.localized-text__en')).toHaveAttribute('lang', 'en')
+  await expect(stageSummary.locator('.localized-text__en')).toHaveAttribute('lang', 'en')
 
   await page.locator('[data-stage-trigger="1"]').focus()
   await expect(stageTitle.locator('.localized-text__en')).toHaveText(await page.locator('[data-stage-trigger="1"]').getAttribute('data-stage-title-en') || '')
@@ -291,9 +294,9 @@ test('article copy feedback and table of contents remain interactive', async ({ 
   await expect(copy.locator('.article-copy__feedback')).toBeVisible()
   await page.locator('#language-toggle').click()
   await expect(copy.locator('.article-copy__feedback .localized-text__en')).toBeVisible()
-  await expect(page.locator('.article-header h1 .localized-text__en')).toHaveAttribute('lang', 'zh-Hans')
+  await expect(page.locator('.article-header h1 .localized-text__en')).toHaveAttribute('lang', 'en')
   await expect(page.locator('.article-cover img')).not.toHaveAttribute('alt', 'Article cover')
-  await expect(page.locator('.article-cover img')).not.toHaveAttribute('data-alt-en')
+  await expect(page.locator('.article-cover img')).toHaveAttribute('data-alt-en', /.+/)
 
   const tocLink = page.locator('.article-toc a').first()
   await expect(tocLink).toBeVisible()

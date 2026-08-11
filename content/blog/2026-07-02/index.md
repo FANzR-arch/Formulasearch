@@ -7,6 +7,9 @@ category: prompt-aesthetic
 tags: []
 cover: "/uploads/blog/2026-07-02/HMMfIQIXkAA-qiW.jpg"
 coverAlt: "蓝色与米白色粗野主义网页视觉拼贴，包含中文新粗野主义标题、输入输出代码面板与黄色 RUN 按钮"
+titleEn: "Prompt Aesthetics Decoded × New Brutalism: Double AI Flavor!"
+descriptionEn: "Many websites now look like the same template: soft gradients, rounded cards, and glassmorphism. They may look polished, but a screenshot makes them hard to tell apart—and vibe-coded interfaces can be ugly enough to stop you looking."
+coverAltEn: "A blue-and-warm-white New Brutalist web collage includes a Chinese headline, input/output code panels, and a yellow RUN button"
 contentStatus: full
 featured: true
 draft: false

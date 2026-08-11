@@ -7,6 +7,9 @@ category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-05-25/cea64e7f-aa53-4bcb-8707-101fa7bc88ba.png"
 coverAlt: "白底手绘示意图，左侧人物输入 prompt，右侧橙色 LOOP 环形箭头标注自动触发与持续运转"
+titleEn: "Still Writing Prompts? Let AI Run Its Own Loop Engineering"
+descriptionEn: "Boris Cherny said, “I no longer prompt Claude. I let a set of loops run, prompting Claude and figuring out what to do. My work became writing loops.”"
+coverAltEn: "A hand-drawn diagram on white shows a person entering a prompt on the left and an orange LOOP arrow on the right for automatic, continuous execution"
 contentStatus: full
 featured: false
 draft: false

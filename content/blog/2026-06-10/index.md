@@ -7,6 +7,9 @@ category: prompt-aesthetic
 tags: []
 cover: "/uploads/blog/2026-06-10/69322440-ac22-4730-9c1e-30a062baa88e.jpeg"
 coverAlt: "红黄黑色带状网格海报，依次展示 ORDER、FRICTION、HIDDEN COST、OVERLOAD、DECISION 等关于秩序的信息"
+titleEn: "Prompt Aesthetics Decoded × Swiss International Style: The Order of Information"
+descriptionEn: "Swiss International Style, also called International Typographic Style or Swiss Design, was a visual communication method systematized by Swiss and German designers after World War II."
+coverAltEn: "A red, yellow, and black banded grid poster presents ORDER, FRICTION, HIDDEN COST, OVERLOAD, and DECISION as a sequence about information order"
 contentStatus: full
 featured: false
 draft: false

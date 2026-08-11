@@ -7,6 +7,9 @@ category: prompt-sharing
 tags: []
 cover: "/uploads/blog/2026-06-02/e6a8cfb2-1ef8-47a1-aeab-7a4aad308a20.jpeg"
 coverAlt: "米白背景上的旅行明信片拼贴，包含故宫、埃菲尔铁塔、东京塔、罗马斗兽场和自由女神像等地标"
+titleEn: "Every Journey Deserves to Be Recorded (City Collage Postcard Prompt Share)"
+descriptionEn: "Cities you have visited should not live only in a camera roll. Turn them into collectible travel postcards: handwritten city names, landmark collages, stamps, and postmarks—a single card that tells a whole travel story."
+coverAltEn: "A travel postcard collage on a warm-white background includes the Forbidden City, Eiffel Tower, Tokyo Tower, Colosseum, Statue of Liberty, and other landmarks"
 contentStatus: full
 featured: false
 draft: false

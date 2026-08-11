@@ -75,6 +75,11 @@ const contractFailures = posts.flatMap((post) => {
     .filter((field) => !post[field])
     .map((field) => `${post.directory}: English article is missing ${field}`)
 })
+const publicMetadataFailures = publicPosts.flatMap((post) => {
+  return ['titleEn', 'descriptionEn', 'coverAltEn']
+    .filter((field) => !post[field])
+    .map((field) => `${post.directory}: public Blog metadata is missing ${field}`)
+})
 
 console.log(`i18n report: ${localizedPairs.length} localized copy objects across ${siteManifests.length} site manifests.`)
 console.log(`English SSR routes: ${(routeManifest.localized || []).length} manifest-backed pages under /en.`)
@@ -86,5 +91,8 @@ else console.log('English article contract: no contentLanguage: en records are c
 
 if (contractFailures.length) {
   console.error(contractFailures.map((failure) => `- ${failure}`).join('\n'))
-  if (strict) process.exitCode = 1
 }
+if (publicMetadataFailures.length) {
+  console.error(publicMetadataFailures.map((failure) => `- ${failure}`).join('\n'))
+}
+if (strict && (contractFailures.length || publicMetadataFailures.length)) process.exitCode = 1

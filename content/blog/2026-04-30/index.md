@@ -7,6 +7,9 @@ category: less-is-more
 tags: []
 cover: "/uploads/blog/2026-04-30/3d472d5d-8f76-4516-82ac-a0eceba9c9a3.png"
 coverAlt: "灰白色 Less is More 版式海报，西装老人站在长桌后，前景是由提示词结构标签组成的建筑网格"
+titleEn: "Less Is More (Part I): A Design Philosophy That Endures"
+descriptionEn: "Starting with reduction, negative space, and proportion, a fresh look at why less can become a design philosophy that lasts."
+coverAltEn: "A gray-and-white Less Is More poster shows an older man in a suit behind a long table, with an architectural grid made from prompt-structure labels in the foreground"
 contentStatus: full
 featured: false
 draft: false

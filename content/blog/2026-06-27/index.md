@@ -7,6 +7,9 @@ category: prompt-aesthetic
 tags: []
 cover: "/uploads/blog/2026-06-27/5a1b71a7-581d-42ba-a6d9-3f4245753d6f.jpeg"
 coverAlt: "米色与砖红背景上的 Plakatstil 海报，巨大 Plakatstil 字样旁是一枚金色图钉"
+titleEn: "Prompt Aesthetics Decoded × Plakatstil: The Single-Object Visual"
+descriptionEn: "Plakatstil is worth breaking down because it removes the complex scene, story, and long copy, leaving one strongly simplified product or object with an extremely short name."
+coverAltEn: "A Plakatstil poster on a beige and brick-red background places a giant Plakatstil wordmark beside a gold pushpin"
 contentStatus: full
 featured: false
 draft: false

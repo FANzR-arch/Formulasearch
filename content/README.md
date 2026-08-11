@@ -42,7 +42,7 @@ Blog 迁移目录的外链由 `npm run blog:migrate` 按 URL 写入稳定平台 
 
 日常 Blog 更新建议依次运行 `npm run blog:check`、`npm run blog:images:check`、`npm run blog:media:check`，最后运行 `npm run build`。
 
-需要了解双语内容覆盖率时运行 `npm run i18n:report`；它会统计站点 manifest 的双语文案数量、Blog 文章语言分布，以及 `titleEn` / `descriptionEn` / `coverAltEn` 覆盖率。`npm run i18n:check` 只在标记为 `contentLanguage: en` 的文章缺少必需英文 metadata 时失败，不会要求中文文章伪造英文翻译。
+需要了解双语内容覆盖率时运行 `npm run i18n:report`；它会统计站点 manifest 的双语文案数量、Blog 文章语言分布，以及 `titleEn` / `descriptionEn` / `coverAltEn` 覆盖率。公开 Blog 记录必须补齐这三个英文 metadata 字段，`npm run i18n:check` 会阻止新文章把英文目录、卡片和封面 alt 退回中文；它仍不会要求中文正文伪造成英文正文。
 
 Blog 首页精选数量、近期文章数量、相关推荐数量和 `readingUnitsPerMinute` 阅读时长估算速率统一维护在 [`site/blog-settings.json`](site/blog-settings.json)，中文文章按字符、英文文章按词估算，调整内容展示策略时不需要修改页面模板。
 

@@ -7,6 +7,9 @@ category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-03-02/7bf0fc9c-c976-452d-8e12-00564cba1360.png"
 coverAlt: "荒凉灰绿色场景中，一名男子从悬浮车旁走向一棵巨大的枯树"
+titleEn: "You May Not Be “Using” AI—You May Be AI’s “Carbon-Based Plugin”"
+descriptionEn: "In the agent era, people may end up becoming tools for AI. Science fiction has been giving us the answer for a long time."
+coverAltEn: "A man walks from a hovering vehicle toward a huge dead tree in a desolate gray-green landscape"
 contentStatus: full
 featured: false
 draft: false

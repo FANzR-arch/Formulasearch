@@ -7,6 +7,9 @@ category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-01-20/324b7c2b-268b-4fc1-990f-7b799532322e.png"
 coverAlt: "夜晚房间里的人在电脑前工作，屏幕显示自动化流程图，窗边城市灯光和沙发上的猫映在画面中"
+titleEn: "I Used n8n and Cheap AI to Build a “Mass-Produced Mediocrity” Machine"
+descriptionEn: "I imagine that if this agent workflow worked, I could let AI automatically repurpose and write content while I sleep to earn traffic revenue—the ultimate “sleep income.”"
+coverAltEn: "A person works at a computer in a room at night; the screen shows an automation flow, while city lights by the window and a cat on the sofa appear in the scene"
 contentStatus: index-only
 featured: false
 draft: false

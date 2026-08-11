@@ -7,6 +7,9 @@ category: prompt-aesthetic
 tags: []
 cover: "/uploads/blog/2026-06-19/432efa42-3484-452a-9d24-3706305619d4.jpeg"
 coverAlt: "包豪斯主题版式拼贴，包含工作室、台灯、材料色板、字体样本、几何图形与建筑照片"
+titleEn: "Prompt Aesthetics Decoded × Bauhaus: Art and Industry"
+descriptionEn: "Bauhaus is not just a few red, yellow, and blue blocks. Even color needs to be paired deliberately."
+coverAltEn: "A Bauhaus-inspired layout collage combines a studio, desk lamp, material swatches, type samples, geometric forms, and architecture photographs"
 contentStatus: full
 featured: false
 draft: false
