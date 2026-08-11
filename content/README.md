@@ -72,7 +72,7 @@ content/
 - `/en/...`：已有双语站点页面的 SSR 英文入口；路由由 `site/site-routes.json` 的 `localized` 清单驱动，中文 Blog 正文仍保持 `/blog/...` 的原始语言 canonical
 - 路由增删或改名：先更新 `content/site/site-routes.json`；不要在检查脚本或 Astro 模板里复制粘贴路由字符串
 
-照片归档清单可直接编辑 [`site/photo-archive.json`](site/photo-archive.json)；如果需要从原始 JPG/PNG 重新生成图片和清单，可通过 `PHOTO_ARCHIVE_SOURCE` 或 `npm run photos:prepare -- <原始照片目录>` 指向原始目录，再运行脚本。脚本会生成 WebP 和 JSON manifest，并保留已有的图片文案与标签，不会把本机绝对路径写进页面代码。原图目录的用途与备份边界见 [`src/assets/archive/photos/README.md`](../src/assets/archive/photos/README.md)。新图片会生成明确的“待补充摄影描述”双语占位，构建会拒绝它，必须先补写画面描述。若来源图片数量少于现有归档，脚本默认拒绝缩减；只有确认删除并显式使用 `--allow-shrink` 或 `PHOTO_ARCHIVE_ALLOW_SHRINK=1` 才会继续。
+照片归档清单可直接编辑 [`site/photo-archive.json`](site/photo-archive.json)；如果需要从原始 JPG/PNG 重新生成图片和清单，可通过 `PHOTO_ARCHIVE_SOURCE` 或 `npm run photos:prepare -- <原始照片目录>` 指向原始目录，再运行脚本。脚本会生成 WebP 和 JSON manifest，并保留已有的双语 `alt` 描述与标签，不会把本机绝对路径写进页面代码；摄影页不再维护不会渲染的 `caption` / `label` 字段。原图目录的用途与备份边界见 [`src/assets/archive/photos/README.md`](../src/assets/archive/photos/README.md)。新图片会生成明确的“待补充摄影描述”双语占位，构建会拒绝它，必须先补写画面描述。若来源图片数量少于现有归档，脚本默认拒绝缩减；只有确认删除并显式使用 `--allow-shrink` 或 `PHOTO_ARCHIVE_ALLOW_SHRINK=1` 才会继续。
 
 Photography / Architecture manifest 还负责归档交互策略：`initialVisibleCount` 控制首屏数量（Architecture 可写 `all`），`autoLoadBatchSize` 控制滚动到归档底部时自动加载的批次大小，`eagerImageCount` 控制首屏优先加载的图片数量。若浏览器不支持 `IntersectionObserver` 或关闭 JavaScript，页面会一次性显示全部记录，避免隐藏内容没有可操作入口。
 

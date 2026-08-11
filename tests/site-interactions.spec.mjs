@@ -300,6 +300,12 @@ test('photo archive removes repetitive captions', async ({ page }) => {
   await expect(page.locator('.visual-archive__modes')).toHaveCount(0)
 })
 
+test('architecture archive keeps its narrative captions', async ({ page }) => {
+  await page.goto('/architecture')
+  await expect(page.locator('.archive-record figcaption').first()).toBeVisible()
+  await expect(page.locator('.archive-record figcaption strong').first()).not.toBeEmpty()
+})
+
 test('article copy feedback and table of contents remain interactive', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write'])
   page.on('dialog', (dialog) => dialog.dismiss())
