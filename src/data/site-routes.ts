@@ -1,7 +1,7 @@
 import { z } from 'astro/zod'
 import routeContent from '../../content/site/site-routes.json'
 
-const routeKeys = [
+const staticRouteKeys = [
   'home',
   'blog',
   'blogSeries',
@@ -11,9 +11,6 @@ const routeKeys = [
   'lab',
   'photos',
   'architecture',
-  'rss',
-  'sitemap',
-  'llms',
 ] as const
 
 const routeContentSchema = z.object({
@@ -29,7 +26,7 @@ const routeContentSchema = z.object({
   rss: z.string().startsWith('/'),
   sitemap: z.string().startsWith('/'),
   llms: z.string().startsWith('/'),
-  static: z.array(z.enum(routeKeys)).min(1),
+  static: z.array(z.enum(staticRouteKeys)).length(staticRouteKeys.length),
 }).strict()
 
 const result = routeContentSchema.safeParse(routeContent)
@@ -40,8 +37,8 @@ if (!result.success) {
   throw new Error(`Site route content validation failed: ${issues}`)
 }
 
-const { static: staticRouteKeys, ...siteRoutes } = result.data
-const staticRouteValues = staticRouteKeys.map((key) => siteRoutes[key])
+const { static: staticRouteManifestKeys, ...siteRoutes } = result.data
+const staticRouteValues = staticRouteManifestKeys.map((key) => siteRoutes[key])
 if (new Set(staticRouteValues).size !== staticRouteValues.length) {
   throw new Error('Site route content validation failed: static routes must be unique.')
 }
