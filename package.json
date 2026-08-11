@@ -13,6 +13,7 @@
     "blog:media:check": "node scripts/prepare-blog-media.mjs --check",
     "blog:images:prepare": "node scripts/prepare-blog-image-alt.mjs --write",
     "blog:images:check": "node scripts/prepare-blog-image-alt.mjs --check",
+    "blog:images:dimensions": "node scripts/prepare-blog-image-dimensions.mjs --report",
     "blog:images:report": "node scripts/prepare-blog-image-alt.mjs --report",
     "blog:import": "node scripts/import-blog-bodies.mjs",
     "blog:check": "node scripts/prepare-blog-content.mjs --check",

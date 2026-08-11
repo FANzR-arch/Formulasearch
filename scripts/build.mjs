@@ -12,6 +12,7 @@ const steps = [
   [node, ['scripts/check-color-contrast.mjs']],
   [node, ['scripts/prepare-blog-media.mjs', '--check']],
   [node, ['scripts/prepare-blog-image-alt.mjs', '--check']],
+  [node, ['scripts/prepare-blog-image-dimensions.mjs', '--check']],
   [node, [astro, 'check']],
   [node, [astro, 'build']],
   [node, ['scripts/check-site-output.mjs']],

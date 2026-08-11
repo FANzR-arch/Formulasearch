@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config'
 import { unified } from '@astrojs/markdown-remark'
 import siteConfig from './content/site/site.json' with { type: 'json' }
+import blogImageDimensions from './content/site/blog-image-dimensions.json' with { type: 'json' }
 
 const addArticleImageAttributes = () => (tree, file) => {
   const articleTitle = file?.data?.astro?.frontmatter?.title || ''
@@ -24,11 +25,13 @@ const addArticleImageAttributes = () => (tree, file) => {
               : `${articleTitle} illustration`
             : 'Article illustration'
       node.data ??= {}
+      const dimensions = blogImageDimensions.images?.[node.url]
       node.data.hProperties = {
         ...node.data.hProperties,
         loading: 'lazy',
         decoding: 'async',
         referrerpolicy: 'no-referrer',
+        ...(dimensions ? { width: dimensions.width, height: dimensions.height } : {}),
       }
     }
     node.children?.forEach(visit)

@@ -32,6 +32,8 @@
 
 Blog 正文图片的外部主机由 `blog-media-policy.json` 显式维护；`npm run blog:images:check` 会拒绝未列入策略的新主机。策略中的 `maxExternalImagesWithoutDimensions` 是当前无尺寸远程图的风险预算，超过预算必须先补齐尺寸、镜像资源，或经过评审后显式调整。策略只控制依赖边界，不代表远程图片已经具备离线尺寸或永久可用性。
 
+远程正文图片的已确认宽高维护在 `blog-image-dimensions.json`。`npm run blog:images:dimensions` 只报告 URL、已确认和待确认数量；在网络可用且确认允许读取源站时，可运行 `node scripts/prepare-blog-image-dimensions.mjs --write`，脚本会用真实图片元数据写入宽高，Markdown 构建会自动把已确认尺寸注入 `<img>`。失败的 URL 不会写入假尺寸，仍由无尺寸预算、临时比例和失败占位共同兜底。发布检查使用 `--check` 校验 manifest 没有过期条目。
+
 目录清单由 `src/data/catalog.ts` 在构建时做结构校验。修改 `catalog.json` 后运行 `npm run build`，即可同时检查三组目录的结构和双语字段。
 
 建筑档案由 `src/data/architecture.ts` 在构建时做结构校验。修改 `architecture.json` 后运行 `npm run build`，即可检查图片标识、布局、标签和双语文案。

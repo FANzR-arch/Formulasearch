@@ -44,7 +44,7 @@ test('archive and header controls keep touch-friendly hit areas', async ({ page 
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/photos')
 
-  const sizes = await page.locator('.site-header .monogram, .site-header .nav-disclosure, .site-header .icon-link, .site-header .language-toggle, .site-header .theme-toggle, .visual-archive__modes a, .visual-archive__filters button').evaluateAll((elements) => elements.map((element) => {
+  const sizes = await page.locator('.site-header .monogram, .site-header .nav-disclosure, .site-header .icon-link, .site-header .language-toggle, .site-header .theme-toggle, .visual-archive__filters button').evaluateAll((elements) => elements.map((element) => {
     const rect = element.getBoundingClientRect()
     return { width: rect.width, height: rect.height }
   }))
@@ -255,25 +255,29 @@ test('locale updates archive image alt text', async ({ page }) => {
 
 test('archive navigation exposes the current page', async ({ page }) => {
   await page.goto('/photos')
-  await expect(page.locator('.visual-archive__modes a.is-active')).toHaveAttribute('aria-current', 'page')
+  await expect(page.locator('.visual-archive__modes')).toHaveCount(0)
   await expect(page.locator('.site-header .icon-link--archive.is-active')).toHaveAttribute('aria-current', 'page')
 })
 
-test('photo archive reveals more records without navigation', async ({ page }) => {
+test('photo archive auto-loads more records on scroll', async ({ page }) => {
   await page.goto('/photos')
 
-  const more = page.locator('[data-archive-more]')
   const status = page.locator('[data-archive-status]')
-  await expect(more).toBeVisible()
   const beforeStatus = await status.textContent()
   const before = await page.locator('[data-archive-index]:not([hidden])').count()
-  await more.click()
-  const after = await page.locator('[data-archive-index]:not([hidden])').count()
-  expect(after).toBeGreaterThan(before)
+  await expect(page.locator('[data-archive-more]')).toHaveCount(0)
+  await page.locator('[data-archive-sentinel]').scrollIntoViewIfNeeded()
+  await expect.poll(() => page.locator('[data-archive-index]:not([hidden])').count()).toBeGreaterThan(before)
   await expect(status).not.toHaveText(beforeStatus || '')
 
   await page.locator('#language-toggle').click()
   await expect(status).toContainText('Showing')
+})
+
+test('photo archive removes repetitive captions', async ({ page }) => {
+  await page.goto('/photos')
+  await expect(page.locator('.archive-record figcaption')).toHaveCount(0)
+  await expect(page.locator('.visual-archive__modes')).toHaveCount(0)
 })
 
 test('article copy feedback and table of contents remain interactive', async ({ page, context }) => {

@@ -1,6 +1,6 @@
 const filterButtons = document.querySelectorAll('[data-archive-filter]')
 const archiveRecords = [...document.querySelectorAll('[data-archive-record]')]
-const moreButton = document.querySelector('[data-archive-more]')
+const sentinel = document.querySelector('[data-archive-sentinel]')
 const statusRegion = document.querySelector('[data-archive-status]')
 const batchSize = Number(document.querySelector('[data-archive-batch-size]')?.getAttribute('data-archive-batch-size')) || 1
 let activeFilter = filterButtons[0]?.getAttribute('data-archive-filter') ?? 'all'
@@ -18,7 +18,6 @@ const renderArchive = () => {
     }
     record.toggleAttribute('hidden', !visible)
   })
-  moreButton?.toggleAttribute('hidden', visibleCount >= matchingCount)
   if (statusRegion instanceof HTMLElement) {
     const locale = document.documentElement.dataset.locale === 'en' ? 'en' : 'zh'
     const template = statusRegion.dataset[`status${locale === 'en' ? 'En' : 'Zh'}`] || ''
@@ -40,9 +39,20 @@ filterButtons.forEach((button) => {
   })
 })
 
-moreButton?.addEventListener('click', () => {
+const loadMore = () => {
+  const matchingCount = archiveRecords.filter((record) => {
+    return activeFilter === 'all' || record.getAttribute('data-archive-record')?.split(' ').includes(activeFilter)
+  }).length
+  if (visibleCount >= matchingCount) return
   visibleCount = Math.min(archiveRecords.length, visibleCount + batchSize)
   renderArchive()
-})
+}
+
+const observer = sentinel instanceof HTMLElement && 'IntersectionObserver' in window
+  ? new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) loadMore()
+    }, { rootMargin: '0px 0px 480px' })
+  : null
+observer?.observe(sentinel)
 
 window.addEventListener('formulasearch:locale', renderArchive)

@@ -56,12 +56,8 @@ const uiCopySchema = z.object({
     relatedArticles: localizedCopySchema,
   }),
   archive: z.object({
-    sections: localizedCopySchema,
     filters: localizedCopySchema,
     browse: localizedCopySchema,
-    photos: localizedCopySchema,
-    architecture: localizedCopySchema,
-    loadMore: localizedCopySchema,
     results: localizedCopySchema,
     note: localizedCopySchema,
     backToTop: localizedCopySchema,

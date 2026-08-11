@@ -309,7 +309,7 @@ if (!/<noscript>[\s\S]*#intro-overlay\s*\{\s*display:\s*none/.test(homeIndex)) f
 for (const archiveRoute of [routeEntries.photos, routeEntries.architecture]) {
   const archiveHtml = await readUtf8(`${archiveRoute.slice(1)}/index.html`)
   const activeLinks = archiveHtml.match(/<a\b(?=[^>]*class="[^"]*is-active[^"]*")(?=[^>]*aria-current="page")[^>]*>/g) || []
-  if (activeLinks.length < 2) failures.push(`${archiveRoute} archive is missing aria-current on active mode and header links`)
+  if (activeLinks.length < 1) failures.push(`${archiveRoute} archive is missing aria-current on the active header link`)
 }
 
 if (failures.length) {
