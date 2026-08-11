@@ -61,4 +61,4 @@ content/
 
 Blog 正文图片必须填写具体 alt。历史文章的通用 alt 可用 `npm run blog:images:prepare` 按最近章节生成初稿；之后 `npm run blog:images:check` 会阻止新的空 alt 或 `图像` 进入构建。
 
-Blog 封面尺寸由 `content/site/blog-media.json` 统一记录。新增或替换 `public/uploads/blog/` 下的封面后，运行 `npm run blog:media:prepare` 更新清单；`npm run blog:media:check` 已接入 `npm run build`，会阻止缺失或过期的尺寸元数据进入发布流程。
+Blog 封面尺寸和响应式 WebP 变体由 `content/site/blog-media.json` 统一记录。新增或替换 `public/uploads/blog/` 下的封面后，运行 `npm run blog:media:prepare` 更新清单与 `public/uploads/blog-optimized/` 变体；`npm run blog:media:check` 已接入 `npm run build`，会阻止缺失或过期的媒体元数据进入发布流程。

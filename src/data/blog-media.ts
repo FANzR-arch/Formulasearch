@@ -4,6 +4,10 @@ import blogMedia from '../../content/site/blog-media.json'
 const blogMediaItemSchema = z.object({
   bytes: z.number().int().positive(),
   height: z.number().int().positive(),
+  optimized: z.array(z.object({
+    src: z.string().regex(/^\/uploads\/blog-optimized\//),
+    width: z.number().int().positive(),
+  })).min(1),
   width: z.number().int().positive(),
 })
 

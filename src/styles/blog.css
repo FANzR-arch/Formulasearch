@@ -248,6 +248,10 @@
   transition: transform 520ms var(--ease-out);
 }
 
+.cover-stage__slide picture,
+.post-row__cover picture,
+.article-cover picture { display: block; }
+
 .cover-stage__chrome {
   position: absolute;
   z-index: 2;

@@ -1,5 +1,5 @@
-import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
-import { extname, join, resolve } from 'node:path'
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
+import { dirname, extname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 
@@ -7,7 +7,9 @@ const repoRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const contentRoot = join(repoRoot, 'content', 'blog')
 const mediaRoot = join(repoRoot, 'public')
 const manifestPath = join(repoRoot, 'content', 'site', 'blog-media.json')
+const optimizedRoot = join(repoRoot, 'public', 'uploads', 'blog-optimized')
 const imageExtensions = new Set(['.avif', '.jpeg', '.jpg', '.png', '.webp'])
+const variantWidths = [480, 768, 1080]
 
 const readCover = (markdownPath) => {
   const markdown = readFileSync(markdownPath, 'utf8')
@@ -20,6 +22,19 @@ const getCoverPaths = () => readdirSync(contentRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(entry.name))
   .sort((a, b) => a.name.localeCompare(b.name))
   .map((entry) => join(contentRoot, entry.name, 'index.md'))
+
+const getVariant = (cover, width) => {
+  const parts = cover.slice(1).split('/')
+  const filename = parts.pop()
+  const date = parts.pop()
+  const stem = filename.slice(0, -extname(filename).length)
+  const name = `${stem}-${width}w.webp`
+  return {
+    path: join(optimizedRoot, date, name),
+    src: `/uploads/blog-optimized/${date}/${name}`,
+    width,
+  }
+}
 
 const buildManifest = async () => {
   const manifest = {}
@@ -40,9 +55,15 @@ const buildManifest = async () => {
     const height = metadata.height
     if (!width || !height) throw new Error(`Blog cover has no intrinsic dimensions: ${sourcePath}`)
 
+    const widths = [...new Set([...variantWidths, width].filter((variantWidth) => variantWidth <= width))]
+
     manifest[cover] = {
       bytes: statSync(sourcePath).size,
       height,
+      optimized: widths.map((variantWidth) => {
+        const { src, width: variantWidthValue } = getVariant(cover, variantWidth)
+        return { src, width: variantWidthValue }
+      }),
       width,
     }
   }
@@ -50,6 +71,33 @@ const buildManifest = async () => {
 }
 
 const formatManifest = (manifest) => `${JSON.stringify(manifest, null, 2)}\n`
+const writeOptimizedImages = async (manifest) => {
+  for (const [cover, media] of Object.entries(manifest)) {
+    const sourcePath = join(mediaRoot, ...cover.slice(1).split('/'))
+    for (const variant of media.optimized) {
+      const variantPath = join(mediaRoot, ...variant.src.slice(1).split('/'))
+      mkdirSync(dirname(variantPath), { recursive: true })
+      await sharp(sourcePath)
+        .resize({ width: variant.width, withoutEnlargement: true })
+        .webp({ quality: 78 })
+        .toFile(variantPath)
+    }
+  }
+}
+
+const checkOptimizedImages = async (manifest) => {
+  for (const [cover, media] of Object.entries(manifest)) {
+    for (const variant of media.optimized) {
+      const variantPath = join(mediaRoot, ...variant.src.slice(1).split('/'))
+      if (!existsSync(variantPath)) throw new Error(`Optimized blog cover is missing for ${cover}: ${variantPath}`)
+      const metadata = await sharp(variantPath).metadata()
+      if (metadata.width !== variant.width) {
+        throw new Error(`Optimized blog cover has unexpected width for ${cover}: ${variantPath}`)
+      }
+    }
+  }
+}
+
 const mode = process.argv[2]
 
 if (!['--write', '--check'].includes(mode)) {
@@ -61,13 +109,17 @@ const expected = await buildManifest()
 const serialized = formatManifest(expected)
 
 if (mode === '--write') {
+  await writeOptimizedImages(expected)
   writeFileSync(manifestPath, serialized, 'utf8')
-  console.log(`Blog media manifest written: ${Object.keys(expected).length} covers.`)
+  const variantCount = Object.values(expected).reduce((count, media) => count + media.optimized.length, 0)
+  console.log(`Blog media manifest written: ${Object.keys(expected).length} covers, ${variantCount} WebP variants.`)
 } else {
   if (!existsSync(manifestPath)) throw new Error(`Blog media manifest is missing: ${manifestPath}`)
   const actual = readFileSync(manifestPath, 'utf8')
   if (actual !== serialized) {
     throw new Error('Blog media manifest is stale. Run npm run blog:media:prepare.')
   }
-  console.log(`Blog media manifest check passed: ${Object.keys(expected).length} covers.`)
+  await checkOptimizedImages(expected)
+  const variantCount = Object.values(expected).reduce((count, media) => count + media.optimized.length, 0)
+  console.log(`Blog media manifest check passed: ${Object.keys(expected).length} covers, ${variantCount} WebP variants.`)
 }

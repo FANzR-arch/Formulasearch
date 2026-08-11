@@ -36,6 +36,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
         {stagePosts.map((post, index) => {
           const isLocal = isLocalBlogPost(post)
           const media = post.cover ? getBlogMedia(post.cover) : undefined
+          const mediaSrcSet = media?.optimized.map((variant) => `${variant.src} ${variant.width}w`).join(', ')
           return (
             <a
               class:list={['cover-stage__slide', { 'is-active': index === 0 }]}
@@ -47,17 +48,20 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
               tabindex={index === 0 ? undefined : '-1'}
             >
               {post.cover && (
-                <img
-                  src={post.cover}
-                  alt={index === 0 ? `${post.title}的文章封面` : ''}
-                  data-alt-zh={index === 0 ? `${post.title}的文章封面` : ''}
-                  data-alt-en={index === 0 ? 'Featured article cover' : ''}
-                  decoding="async"
-                  fetchpriority={index === 0 ? 'high' : 'auto'}
-                  width={media?.width}
-                  height={media?.height}
-                  sizes="(max-width: 820px) 100vw, 70vw"
-                />
+                <picture>
+                  {mediaSrcSet && <source type="image/webp" srcset={mediaSrcSet} sizes="(max-width: 820px) 100vw, 70vw" />}
+                  <img
+                    src={post.cover}
+                    alt={index === 0 ? `${post.title}的文章封面` : ''}
+                    data-alt-zh={index === 0 ? `${post.title}的文章封面` : ''}
+                    data-alt-en={index === 0 ? 'Featured article cover' : ''}
+                    decoding="async"
+                    fetchpriority={index === 0 ? 'high' : 'auto'}
+                    width={media?.width}
+                    height={media?.height}
+                    sizes="(max-width: 820px) 100vw, 70vw"
+                  />
+                </picture>
               )}
             </a>
           )
