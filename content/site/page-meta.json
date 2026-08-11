@@ -1,0 +1,30 @@
+{
+  "home": {
+    "title": { "zh": "Phil / Formula", "en": "Phil / Formula" },
+    "description": {
+      "zh": "Phil 的 AI 工具、视觉系统、网站与写作实践。",
+      "en": "Phil builds AI tools, visual systems, websites, and writing."
+    }
+  },
+  "blog": {
+    "title": { "zh": "博客", "en": "Blog" },
+    "description": {
+      "zh": "Phil 关于 AI、设计、工具与实践的文章。",
+      "en": "Phil's writing on AI, design, tools, and practice."
+    }
+  },
+  "blogArchive": {
+    "title": { "zh": "博客归档", "en": "Blog Archive" },
+    "description": {
+      "zh": "Phil 的全部文章归档。",
+      "en": "The complete archive of Phil's writing."
+    }
+  },
+  "blogSeries": {
+    "title": { "zh": "博客主题", "en": "Blog Topics" },
+    "description": {
+      "zh": "按内容方向浏览 Phil 的文章。",
+      "en": "Browse Phil's writing by topic."
+    }
+  }
+}

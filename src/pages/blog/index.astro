@@ -6,6 +6,7 @@ import BlogLayout from '../../layouts/BlogLayout.astro'
 import { ArrowRight } from '@lucide/astro'
 import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } from '../../lib/blog-content'
 import { getBlogMedia } from '../../data/blog-media'
+import { pageMeta } from '../../data/page-meta'
 
 const posts = getBlogPosts()
 const stagePosts = posts.slice(0, 4)
@@ -14,7 +15,7 @@ const activePost = stagePosts[0]
 const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
 ---
 
-<BlogLayout title="博客" titleEn="Blog" description="Phil 关于 AI、设计、工具与实践的文章。" descriptionEn="Phil's writing on AI, design, tools, and practice.">
+<BlogLayout title={pageMeta.blog.title.zh} titleEn={pageMeta.blog.title.en} description={pageMeta.blog.description.zh} descriptionEn={pageMeta.blog.description.en}>
   <header class="blog-hero blog-hero--journal" data-reveal>
     <div class="blog-hero__heading">
       <p class="blog-hero__eyebrow"><LocalizedText zh="写作 / 笔记 / 实验" en="Writing / Notes / Experiments" /></p>

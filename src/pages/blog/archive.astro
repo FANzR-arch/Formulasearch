@@ -4,12 +4,13 @@ import LocalizedText from '../../components/LocalizedText.astro'
 import BlogSectionNav from '../../components/BlogSectionNav.astro'
 import BlogLayout from '../../layouts/BlogLayout.astro'
 import { getBlogPosts } from '../../lib/blog-content'
+import { pageMeta } from '../../data/page-meta'
 
 const posts = getBlogPosts()
 const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
 ---
 
-<BlogLayout title="博客归档" titleEn="Blog Archive" description="Phil 的全部文章归档。" descriptionEn="The complete archive of Phil's writing.">
+<BlogLayout title={pageMeta.blogArchive.title.zh} titleEn={pageMeta.blogArchive.title.en} description={pageMeta.blogArchive.description.zh} descriptionEn={pageMeta.blogArchive.description.en}>
   <header class="blog-hero blog-hero--compact">
     <h1><LocalizedText zh="归档" en="Archive" /></h1>
   </header>

@@ -5,6 +5,7 @@ import BlogSectionNav from '../../components/BlogSectionNav.astro'
 import BlogLayout from '../../layouts/BlogLayout.astro'
 import { getBlogPosts } from '../../lib/blog-content'
 import { blogSeries } from '../../data/blog-series'
+import { pageMeta } from '../../data/page-meta'
 
 const posts = getBlogPosts()
 const series = blogSeries.map((group) => ({
@@ -14,7 +15,7 @@ const series = blogSeries.map((group) => ({
   .filter((group) => group.posts.length > 0)
 ---
 
-<BlogLayout title="博客主题" titleEn="Blog Topics" description="按内容方向浏览 Phil 的文章。" descriptionEn="Browse Phil's writing by topic.">
+<BlogLayout title={pageMeta.blogSeries.title.zh} titleEn={pageMeta.blogSeries.title.en} description={pageMeta.blogSeries.description.zh} descriptionEn={pageMeta.blogSeries.description.en}>
   <header class="blog-hero blog-hero--compact">
     <h1><LocalizedText zh="主题" en="Topics" /></h1>
   </header>

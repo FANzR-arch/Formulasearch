@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
+import { pageMeta } from '../data/page-meta'
 import { siteConfig } from '../data/site-config'
 
 const escapeXml = (value: string) => value
@@ -21,7 +22,7 @@ export const GET: APIRoute = async () => {
   }).join('')
 
   const latestDate = posts[0]?.data.updatedDate ?? posts[0]?.data.pubDate ?? new Date()
-  const xml = `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>${siteConfig.name}</title><link>${siteConfig.siteUrl}/blog</link><description>Phil 关于 AI、设计、工具与实践的文章。</description><language>zh-Hans</language><lastBuildDate>${latestDate.toUTCString()}</lastBuildDate>${items}</channel></rss>`
+  const xml = `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>${siteConfig.name}</title><link>${siteConfig.siteUrl}/blog</link><description>${escapeXml(pageMeta.blog.description.zh)}</description><language>zh-Hans</language><lastBuildDate>${latestDate.toUTCString()}</lastBuildDate>${items}</channel></rss>`
 
   return new Response(xml, {
     headers: { 'Content-Type': 'application/rss+xml; charset=utf-8' },
