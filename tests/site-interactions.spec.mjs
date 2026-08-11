@@ -115,8 +115,12 @@ test('blog featured stage keeps localized title and summary on locale switch', a
   const stageSummary = page.locator('[data-stage-summary]')
   await page.locator('#language-toggle').click()
 
-  await expect(stageTitle).toHaveText(await trigger.getAttribute('data-stage-title-en') || '')
-  await expect(stageSummary).toHaveText(await trigger.getAttribute('data-stage-summary-en') || '')
+  await expect(stageTitle.locator('.localized-text__en')).toHaveText(await trigger.getAttribute('data-stage-title-en') || '')
+  await expect(stageSummary.locator('.localized-text__en')).toHaveText(await trigger.getAttribute('data-stage-summary-en') || '')
+
+  await page.locator('[data-stage-trigger="1"]').focus()
+  await expect(stageTitle.locator('.localized-text__en')).toHaveText(await page.locator('[data-stage-trigger="1"]').getAttribute('data-stage-title-en') || '')
+  await expect(stageSummary.locator('.localized-text__en')).toHaveText(await page.locator('[data-stage-trigger="1"]').getAttribute('data-stage-summary-en') || '')
 })
 
 test('theme preference survives a page reload', async ({ page }) => {
