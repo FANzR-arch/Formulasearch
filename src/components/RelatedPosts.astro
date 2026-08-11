@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getBlogCategories } from '../lib/blog-content'
+import LocalizedText from './LocalizedText.astro'
+
+interface Props {
+  posts: CollectionEntry<'blog'>[]
+}
+
+const { posts } = Astro.props
+const categories = new Map(getBlogCategories().map((category) => [category.id, category]))
+const formatDate = (date: Date) => date.toISOString().slice(0, 10).replaceAll('-', '.')
+---
+
+{posts.length > 0 && (
+  <section class="article-related" aria-labelledby="related-title">
+    <header class="article-related__heading">
+      <p><LocalizedText zh="继续阅读" en="Keep reading" /></p>
+      <h2 id="related-title"><LocalizedText zh="相关文章" en="Related articles" /></h2>
+    </header>
+    <div class="article-related__list">
+      {posts.map((post) => {
+        const category = categories.get(post.data.category)
+        return (
+          <article class="article-related__item">
+            <p class="article-related__meta">
+              <LocalizedText zh={category?.title ?? post.data.category} en={category?.titleEn ?? post.data.category} />
+              <span aria-hidden="true">·</span>
+              <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate)}</time>
+            </p>
+            <h3><a href={`/blog/${post.data.slug}`}>{post.data.title}</a></h3>
+            <p class="article-related__description">{post.data.description}</p>
+          </article>
+        )
+      })}
+    </div>
+  </section>
+)}

@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content'
 import { ArrowLeft, ArrowRight, ArrowUpRight, Clock3, House, Link } from '@lucide/astro'
 import LocalizedText from '../components/LocalizedText.astro'
 import ExternalLinkLabel from '../components/ExternalLinkLabel.astro'
+import RelatedPosts from '../components/RelatedPosts.astro'
 import BlogLayout from './BlogLayout.astro'
 import { getBlogMedia } from '../data/blog-media'
 import { siteConfig } from '../data/site-config'
@@ -12,9 +13,10 @@ interface Props {
   categoryLabel: { title: string; titleEn: string }
   headings: MarkdownHeading[]
   post: CollectionEntry<'blog'>
+  relatedPosts: CollectionEntry<'blog'>[]
 }
 
-const { categoryLabel, headings, post } = Astro.props
+const { categoryLabel, headings, post, relatedPosts } = Astro.props
 const coverMedia = getBlogMedia(post.data.cover)
 const coverSrcSet = coverMedia.optimized.map((variant) => `${variant.src} ${variant.width}w`).join(', ')
 const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3)
@@ -101,6 +103,8 @@ const structuredData = {
         <a href="/blog"><ArrowLeft aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText zh="返回博客" en="Back to blog" /></a>
         <a href="/blog/archive"><LocalizedText zh="全部文章" en="All articles" /> <ArrowRight aria-hidden="true" size={14} stroke-width={1.7} /></a>
       </footer>
+
+      <RelatedPosts posts={relatedPosts} />
 
       {post.data.externalLinks.length > 0 && (
         <aside class="article-sources">

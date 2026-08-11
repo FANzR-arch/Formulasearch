@@ -2,21 +2,26 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content'
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro'
 import { getBlogCategories } from '../../lib/blog-content'
+import { getRelatedPosts } from '../../lib/blog-related'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => data.contentStatus === 'full' && !data.draft)
-  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }))
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post, relatedPosts: getRelatedPosts(post, posts) },
+  }))
 }
 
 interface Props {
   post: CollectionEntry<'blog'>
+  relatedPosts: CollectionEntry<'blog'>[]
 }
 
-const { post } = Astro.props
+const { post, relatedPosts } = Astro.props
 const { Content, headings } = await render(post)
 const category = getBlogCategories().find((item) => item.id === post.data.category)
 ---
 
-<BlogPostLayout post={post} headings={headings} categoryLabel={category ?? { title: post.data.category, titleEn: post.data.category }}>
+<BlogPostLayout post={post} headings={headings} relatedPosts={relatedPosts} categoryLabel={category ?? { title: post.data.category, titleEn: post.data.category }}>
   <Content />
 </BlogPostLayout>

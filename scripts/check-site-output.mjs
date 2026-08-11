@@ -95,6 +95,7 @@ else {
   if (!article.includes('referrerpolicy="no-referrer"')) failures.push('article images are missing referrer policy')
   if (!article.includes('property="article:modified_time"')) failures.push('article pages are missing modified time metadata')
   if (!article.includes('BreadcrumbList') || !article.includes('itemListElement') || !article.includes(`"item":"${siteConfig.siteUrl}/blog/series"`)) failures.push('article pages are missing linked BreadcrumbList structured data')
+  if (!article.includes('article-related') || !article.includes('Related articles')) failures.push('article pages are missing related reading links')
 }
 
 const blogIndex = await readUtf8('blog/index.html')

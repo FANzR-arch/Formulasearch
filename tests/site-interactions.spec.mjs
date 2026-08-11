@@ -90,6 +90,12 @@ test('featured stage keeps safe rel on dynamic external links', async ({ page })
   await expect(page.locator('[data-stage-link]')).toHaveAttribute('rel', 'noopener noreferrer')
 })
 
+test('article exposes related reading links', async ({ page }) => {
+  await page.goto('/blog/ai-practice-2026-02-22')
+  await expect(page.locator('.article-related__item')).toHaveCount(3)
+  await expect(page.locator('.article-related__item a').first()).toHaveAttribute('href', /\/blog\//)
+})
+
 test('RSS exposes local article entries', async ({ request }) => {
   const response = await request.get('/rss.xml')
   expect(response.ok()).toBeTruthy()
