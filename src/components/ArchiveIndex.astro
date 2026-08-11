@@ -76,6 +76,8 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
     ))}
   </div>
 
+  <p class="visually-hidden" data-archive-status data-status-zh={uiCopy.archive.results.zh} data-status-en={uiCopy.archive.results.en} role="status" aria-live="polite"></p>
+
   {items.length > initialVisibleItems && (
     <div class="visual-archive__more">
       <button type="button" data-archive-more aria-controls="archive-grid">
@@ -94,6 +96,7 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
   const filterButtons = document.querySelectorAll('[data-archive-filter]')
   const archiveRecords = [...document.querySelectorAll('[data-archive-record]')]
   const moreButton = document.querySelector('[data-archive-more]')
+  const status = document.querySelector('[data-archive-status]')
   let activeFilter = filterButtons[0]?.getAttribute('data-archive-filter') ?? 'all'
   let visibleCount = archiveRecords.filter((record) => !record.hasAttribute('hidden')).length
 
@@ -110,7 +113,14 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
       record.toggleAttribute('hidden', !visible)
     })
     moreButton?.toggleAttribute('hidden', visibleCount >= matchingCount)
+    if (status instanceof HTMLElement) {
+      const locale = document.documentElement.dataset.locale === 'en' ? 'en' : 'zh'
+      const template = status.dataset[`status${locale === 'en' ? 'En' : 'Zh'}`] || ''
+      status.textContent = template.replace('{visible}', String(visibleMatchCount)).replace('{total}', String(matchingCount))
+    }
   }
+
+  renderArchive()
 
   filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -128,4 +138,6 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
     visibleCount = Math.min(archiveRecords.length, visibleCount + 8)
     renderArchive()
   })
+
+  window.addEventListener('formulasearch:locale', renderArchive)
 </script>

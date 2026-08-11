@@ -64,6 +64,7 @@ const uiCopySchema = z.object({
     photos: localizedCopySchema,
     architecture: localizedCopySchema,
     loadMore: localizedCopySchema,
+    results: localizedCopySchema,
     note: localizedCopySchema,
     backToTop: localizedCopySchema,
   }),

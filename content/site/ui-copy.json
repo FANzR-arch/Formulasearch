@@ -60,6 +60,7 @@
     "photos": { "zh": "摄影", "en": "Photography" },
     "architecture": { "zh": "建筑", "en": "Architecture" },
     "loadMore": { "zh": "继续加载影像", "en": "Load more images" },
+    "results": { "zh": "已显示 {visible} / {total} 项", "en": "Showing {visible} of {total} items" },
     "note": { "zh": "持续整理中的公开视觉档案。", "en": "A public visual archive, continuously edited." },
     "backToTop": { "zh": "回到顶部", "en": "Back to top" }
   },

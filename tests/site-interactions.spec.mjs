@@ -86,11 +86,17 @@ test('photo archive reveals more records without navigation', async ({ page }) =
   await page.goto('/photos')
 
   const more = page.locator('[data-archive-more]')
+  const status = page.locator('[data-archive-status]')
   await expect(more).toBeVisible()
+  const beforeStatus = await status.textContent()
   const before = await page.locator('[data-archive-index]:not([hidden])').count()
   await more.click()
   const after = await page.locator('[data-archive-index]:not([hidden])').count()
   expect(after).toBeGreaterThan(before)
+  await expect(status).not.toHaveText(beforeStatus || '')
+
+  await page.locator('#language-toggle').click()
+  await expect(status).toContainText('Showing')
 })
 
 test('article copy feedback and table of contents remain interactive', async ({ page, context }) => {
