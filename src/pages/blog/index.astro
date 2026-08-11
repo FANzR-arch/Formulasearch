@@ -64,7 +64,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
       <div class="cover-stage__details" data-stage-details>
         <p class="post-row__meta">
           <span data-stage-category><LocalizedText zh={activePost.category.title} en={activePost.category.titleEn} /></span>
-          <span>·</span>
+          <span aria-hidden="true">·</span>
           <span data-stage-date>{formatBlogDate(activePost.date)}</span>
         </p>
         <h2 id="stage-title">
