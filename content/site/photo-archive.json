@@ -20,7 +20,7 @@
     "en": "An ongoing collection of photographs and everyday images, organised and archived by time and place."
   },
   "initialVisibleCount": 8,
-  "loadMoreBatchSize": 8,
+  "autoLoadBatchSize": 8,
   "eagerImageCount": 2,
   "filters": [
     {

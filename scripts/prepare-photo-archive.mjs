@@ -53,7 +53,7 @@ const defaultPage = {
   title: { zh: '记录自由', en: 'Photographic records' },
   description: { zh: '持续收集的摄影作品与日常影像，按时间与地点整理并归档。', en: 'An ongoing collection of photographs and everyday images, organised and archived by time and place.' },
   initialVisibleCount: 8,
-  loadMoreBatchSize: 8,
+  autoLoadBatchSize: 8,
   eagerImageCount: 2,
   filters: [{ id: 'all', zh: '全部', en: 'All' }],
 }

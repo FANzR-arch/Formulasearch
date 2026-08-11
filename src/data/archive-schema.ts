@@ -13,7 +13,7 @@ export const archivePageBaseSchema = z.object({
   kicker: localizedCopySchema,
   title: localizedCopySchema,
   description: localizedCopySchema,
-  loadMoreBatchSize: z.number().int().positive(),
+  autoLoadBatchSize: z.number().int().positive(),
   eagerImageCount: z.number().int().positive(),
   filters: z.array(archiveFilterSchema).min(1),
 }).strict()

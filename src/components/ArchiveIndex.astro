@@ -31,18 +31,18 @@ interface Props {
   initialVisibleCount: number | 'all'
   items: ArchiveItem[]
   kicker: { en: string; zh: string }
-  loadMoreBatchSize: number
+  autoLoadBatchSize: number
   locale?: Locale
   title: { en: string; zh: string }
 }
 
-const { active, description, eagerImageCount, filters, initialVisibleCount, items, kicker, loadMoreBatchSize, locale = 'zh', title } = Astro.props
+const { active, autoLoadBatchSize, description, eagerImageCount, filters, initialVisibleCount, items, kicker, locale = 'zh', title } = Astro.props
 const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, locale)
 const localizedAlt = (alt: { zh: string; en: string }) => getLocalizedValue(alt, locale)
 const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.min(initialVisibleCount, items.length)
 ---
 
-<section class:list={['visual-archive', { 'visual-archive--photos': active === 'photos' }]} aria-labelledby="archive-title" data-archive-batch-size={loadMoreBatchSize}>
+<section class:list={['visual-archive', { 'visual-archive--photos': active === 'photos' }]} aria-labelledby="archive-title" data-archive-batch-size={autoLoadBatchSize}>
   <header class="visual-archive__intro">
     <p class="visual-archive__kicker"><LocalizedText {...kicker} /></p>
     <h1 id="archive-title"><LocalizedText {...title} /></h1>

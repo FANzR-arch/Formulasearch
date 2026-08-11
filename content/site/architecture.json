@@ -11,7 +11,7 @@
     "en": "An ongoing collection of architectural projects and process material, organised and archived by project."
   },
   "initialVisibleCount": "all",
-  "loadMoreBatchSize": 8,
+  "autoLoadBatchSize": 8,
   "eagerImageCount": 2,
   "filters": [
     { "id": "all", "zh": "全部", "en": "All" }
