@@ -43,6 +43,10 @@ public/uploads/blog/
 
 不要随意修改已经使用的 `id`，否则现有文章会失去分类。
 
+## Slug 与封面
+
+`slug` 应保持稳定，并只使用小写字母、数字和连字符（例如 `ai-practice-2026-02-22`）；文章公开后不要为了改标题随意修改 slug。
+
 ## 封面
 
 封面放在 `public/uploads/blog/<同一日期>/`。当前读取器支持 `avif`、`jpeg`、`jpg`、`png`、`webp`，并按文件名排序取第一张。

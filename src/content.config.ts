@@ -13,7 +13,7 @@ const blog = defineCollection({
     description: z.string().min(1),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    slug: z.string().min(1),
+    slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Slug must use lowercase letters, numbers, and hyphens.'),
     category: z.string().min(1),
     series: z.string().optional(),
     contentLanguage: z.enum(['zh-Hans', 'en']).default('zh-Hans'),
