@@ -4,7 +4,7 @@ import {
   readFileSync,
   writeFileSync,
 } from 'node:fs'
-import { join, resolve } from 'node:path'
+import { join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const repoRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
@@ -29,8 +29,9 @@ const transform = (markdown) => {
   let frontmatterSeen = false
   let currentHeading = readTitle(markdown)
   let replacements = 0
+  const images = []
 
-  const output = lines.map((line) => {
+  const output = lines.map((line, index) => {
     if (line.trim() === '---' && !frontmatterSeen) {
       inFrontmatter = true
       frontmatterSeen = true
@@ -46,13 +47,23 @@ const transform = (markdown) => {
     if (heading) currentHeading = cleanHeading(heading[1]) || currentHeading
 
     return line.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, destination) => {
-      if (!genericAlt.has(alt.trim())) return match
+      const trimmedAlt = alt.trim()
+      const contextualAlt = `${currentHeading}配图`
+      images.push({
+        alt: trimmedAlt,
+        destination,
+        heading: currentHeading,
+        line: index + 1,
+        contextualCandidate: trimmedAlt === contextualAlt,
+      })
+
+      if (!genericAlt.has(trimmedAlt)) return match
       replacements += 1
-      return `![${currentHeading}配图](${destination})`
+      return `![${contextualAlt}](${destination})`
     })
   })
 
-  return { content: output.join('\n'), replacements }
+  return { content: output.join('\n'), replacements, images }
 }
 
 const posts = readdirSync(contentRoot, { withFileTypes: true })
@@ -60,18 +71,32 @@ const posts = readdirSync(contentRoot, { withFileTypes: true })
   .map((entry) => join(contentRoot, entry.name, 'index.md'))
 
 const mode = process.argv[2]
-if (!['--check', '--write'].includes(mode)) {
-  console.error('用法：node scripts/prepare-blog-image-alt.mjs --check | --write')
+if (!['--check', '--write', '--report'].includes(mode)) {
+  console.error('用法：node scripts/prepare-blog-image-alt.mjs --check | --write | --report')
   process.exitCode = 1
 }
 
 let total = 0
 let changedFiles = 0
+let imageTotal = 0
+let contextualCandidates = 0
+const reviewItems = []
 for (const file of posts) {
   if (!existsSync(file)) throw new Error(`缺少 Markdown 文件：${file}`)
   const before = readFileSync(file, 'utf8')
-  const { content, replacements } = transform(before)
+  const { content, replacements, images } = transform(before)
   total += replacements
+  imageTotal += images.length
+  contextualCandidates += images.filter((image) => image.contextualCandidate).length
+  if (mode === '--report') {
+    for (const image of images) {
+      if (!image.contextualCandidate) continue
+      reviewItems.push({
+        ...image,
+        file: relative(repoRoot, file).replaceAll('\\', '/'),
+      })
+    }
+  }
   if (mode === '--write' && content !== before) {
     writeFileSync(file, content, 'utf8')
     changedFiles += 1
@@ -80,6 +105,19 @@ for (const file of posts) {
 
 if (mode === '--check' && total > 0) {
   throw new Error(`正文图片仍有 ${total} 个通用 alt；请先运行 npm run blog:images:prepare，再人工复核复杂图片。`)
+}
+
+if (mode === '--report') {
+  console.log(`Blog 图片 alt 审查报告：${posts.length} 篇文章，${imageTotal} 张正文图片，${contextualCandidates} 张章节上下文初稿。`)
+  if (reviewItems.length === 0) {
+    console.log('没有检测到章节上下文初稿；仍建议对新增正文图片做人工语义复核。')
+  } else {
+    console.log('以下图片使用“章节标题 + 配图”上下文 alt，发布前请逐张确认是否需要改成具体视觉描述：')
+    for (const image of reviewItems) {
+      console.log(`- ${image.file}:${image.line} | alt="${image.alt}" | heading="${image.heading}" | ${image.destination}`)
+    }
+  }
+  process.exit(0)
 }
 
 console.log(mode === '--write'
