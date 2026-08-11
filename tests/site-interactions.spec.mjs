@@ -155,6 +155,7 @@ test('RSS exposes local article entries', async ({ request }) => {
   expect(body).toContain('<category>')
   expect(body).toContain('<pubDate>')
   expect(body).toContain('/blog/')
+  expect(body).not.toContain('<category>ai-knowledge</category>')
 })
 
 test('static preview server rejects paths outside dist', async ({ request }) => {

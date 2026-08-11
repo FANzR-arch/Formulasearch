@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
+import { getBlogCategory } from '../data/blog-categories'
 import { pageMeta } from '../data/page-meta'
 import { siteConfig } from '../data/site-config'
 
@@ -17,7 +18,7 @@ export const GET: APIRoute = async () => {
   const items = posts.map((post) => {
     const url = `${siteConfig.siteUrl}/blog/${post.data.slug}`
     const published = post.data.pubDate.toUTCString()
-    const category = `<category>${escapeXml(post.data.category)}</category>`
+    const category = `<category>${escapeXml(getBlogCategory(post.data.category).title)}</category>`
     return `<item><title>${escapeXml(post.data.title)}</title><link>${url}</link><guid isPermaLink="true">${url}</guid><description>${escapeXml(post.data.description)}</description>${category}<pubDate>${published}</pubDate></item>`
   }).join('')
 
