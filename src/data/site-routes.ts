@@ -61,6 +61,10 @@ if (new Set(localizedRouteValues).size !== localizedRouteValues.length) {
 /** Canonical public routes shared by layouts, components and content checks. */
 export { siteRoutes }
 
+/** Canonical route for a full Blog article, based on the article's source language. */
+export const getBlogPostRoute = (slug: string, contentLanguage: 'zh-Hans' | 'en') =>
+  `${contentLanguage === 'en' ? '/en' : ''}${siteRoutes.blog}/${slug}`
+
 /** Routes that have a server-rendered English counterpart under /en. */
 export const localizedRouteKeys = localizedRouteManifestKeys
 export const localizedSiteRoutes = localizedRouteValues

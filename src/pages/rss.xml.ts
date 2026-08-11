@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content'
 import { getBlogCategory } from '../data/blog-categories'
 import { pageMeta } from '../data/page-meta'
 import { siteConfig } from '../data/site-config'
-import { siteRoutes } from '../data/site-routes'
+import { getBlogPostRoute, siteRoutes } from '../data/site-routes'
 import { escapeXml } from '../lib/xml'
 
 export const GET: APIRoute = async () => {
@@ -11,7 +11,7 @@ export const GET: APIRoute = async () => {
     .sort((left, right) => right.data.pubDate.valueOf() - left.data.pubDate.valueOf())
 
   const items = posts.map((post) => {
-    const url = `${siteConfig.siteUrl}${siteRoutes.blog}/${post.data.slug}`
+    const url = `${siteConfig.siteUrl}${getBlogPostRoute(post.data.slug, post.data.contentLanguage)}`
     const published = post.data.pubDate.toUTCString()
     const category = `<category>${escapeXml(getBlogCategory(post.data.category).title)}</category>`
     const escapedUrl = escapeXml(url)

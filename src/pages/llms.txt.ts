@@ -5,7 +5,7 @@ import { catalogPages } from '../data/catalog'
 import { pageMeta } from '../data/page-meta'
 import { photoArchivePage } from '../data/photo-archive'
 import { siteConfig } from '../data/site-config'
-import { getLocalizedRoute, localizedSiteRoutes, siteRoutes, staticSiteRoutes } from '../data/site-routes'
+import { getBlogPostRoute, getLocalizedRoute, localizedSiteRoutes, siteRoutes, staticSiteRoutes } from '../data/site-routes'
 
 const cleanLine = (value: string) => value.replace(/\s+/g, ' ').trim()
 
@@ -30,7 +30,7 @@ export const GET: APIRoute = async () => {
   const articleLines = posts.map((post) => {
     const title = post.data.titleEn ?? post.data.title
     const description = post.data.descriptionEn ?? post.data.description
-    return `- ${siteRoutes.blog}/${post.data.slug} — ${cleanLine(title)}. ${cleanLine(description)}`
+    return `- ${getBlogPostRoute(post.data.slug, post.data.contentLanguage)} — ${cleanLine(title)}. ${cleanLine(description)}`
   })
 
   const lines = [

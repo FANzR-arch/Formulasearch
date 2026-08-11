@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 import { getBlogCategory, type BlogCategory } from '../data/blog-categories'
-import { siteRoutes } from '../data/site-routes'
+import { getBlogPostRoute, siteRoutes } from '../data/site-routes'
 
 export interface BlogLink {
   label: 'wechat' | 'x' | 'original'
@@ -10,6 +10,7 @@ export interface BlogLink {
 export interface BlogPost {
   category: BlogCategory
   categoryId: string
+  contentLanguage: 'zh-Hans' | 'en'
   coverAlt: string
   coverAltEn?: string
   contentStatus: 'index-only' | 'full'
@@ -31,6 +32,7 @@ const toBlogPost = (entry: CollectionEntry<'blog'>): BlogPost => {
   return {
     category,
     categoryId: entry.data.category,
+    contentLanguage: entry.data.contentLanguage,
     coverAlt: entry.data.coverAlt,
     coverAltEn: entry.data.coverAltEn,
     contentStatus: entry.data.contentStatus,
@@ -54,5 +56,5 @@ export const getBlogPosts = async () => (await getCollection('blog', ({ data }) 
 export const formatBlogDate = (date: string) => date.replaceAll('-', '.')
 export const isLocalBlogPost = (post: BlogPost) => post.contentStatus === 'full'
 export const getPrimaryBlogLink = (post: BlogPost) => isLocalBlogPost(post)
-  ? `${siteRoutes.blog}/${post.slug}`
+  ? getBlogPostRoute(post.slug, post.contentLanguage)
   : post.links[0]?.url ?? siteRoutes.blogArchive

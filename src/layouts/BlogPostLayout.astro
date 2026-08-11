@@ -9,7 +9,7 @@ import BlogCover from '../components/BlogCover.astro'
 import BlogLayout from './BlogLayout.astro'
 import { siteConfig } from '../data/site-config'
 import { uiCopy } from '../data/ui-copy'
-import { siteRoutes } from '../data/site-routes'
+import { getBlogPostRoute, getLocalizedRoute, siteRoutes } from '../data/site-routes'
 import { getLocalizedValue, interpolateLocalizedCopy, type Locale } from '../lib/i18n'
 import { blogSettings } from '../data/blog-settings'
 
@@ -25,7 +25,11 @@ const toc = headings.filter((heading) => heading.depth === 2 || heading.depth ==
 const published = post.data.pubDate.toISOString().slice(0, 10)
 const modified = (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10)
 const displayDate = published.replaceAll('-', '.')
-const canonical = new URL(`${siteRoutes.blog}/${post.data.slug}`, Astro.site).toString()
+const contentLocale = post.data.contentLanguage === 'en' ? 'en' : 'zh'
+const localizedBlogRoute = getLocalizedRoute(siteRoutes.blog, contentLocale)
+const localizedSeriesRoute = getLocalizedRoute(siteRoutes.blogSeries, contentLocale)
+const localizedArchiveRoute = getLocalizedRoute(siteRoutes.blogArchive, contentLocale)
+const canonical = new URL(getBlogPostRoute(post.data.slug, post.data.contentLanguage), Astro.site).toString()
 const readingUnits = post.data.contentLanguage === 'en'
   ? (post.body ?? '').trim().split(/\s+/).filter(Boolean).length
   : (post.body ?? '').replace(/\s+/g, '').length
@@ -38,7 +42,6 @@ const descriptionEn = post.data.descriptionEn ?? post.data.description
 const titleEnLang = post.data.titleEn ? 'en' : 'zh-Hans'
 const authorName = siteConfig.author.name
 const authorMark = authorName.trim().slice(0, 1).toUpperCase()
-const contentLocale = post.data.contentLanguage === 'en' ? 'en' : 'zh'
 const localizedCategory = contentLocale === 'en' ? categoryLabel.titleEn : categoryLabel.title
 const structuredTitle = contentLocale === 'en' ? titleEn : post.data.title
 const structuredDescription = contentLocale === 'en' ? descriptionEn : post.data.description
@@ -62,8 +65,8 @@ const structuredData = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: uiCopy.blog.blog[contentLocale], item: new URL(siteRoutes.blog, Astro.site).toString() },
-        { '@type': 'ListItem', position: 2, name: localizedCategory, item: new URL(siteRoutes.blogSeries, Astro.site).toString() },
+        { '@type': 'ListItem', position: 1, name: uiCopy.blog.blog[contentLocale], item: new URL(localizedBlogRoute, Astro.site).toString() },
+        { '@type': 'ListItem', position: 2, name: localizedCategory, item: new URL(localizedSeriesRoute, Astro.site).toString() },
         { '@type': 'ListItem', position: 3, name: post.data.title, item: canonical },
       ],
     },
@@ -86,7 +89,7 @@ const structuredData = {
     <article class="article-page" lang={post.data.contentLanguage}>
     <nav class="article-context" aria-label={getLocalizedValue(uiCopy.blog.articleLocation, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleLocation.en} data-aria-zh={uiCopy.blog.articleLocation.zh}>
       <div class="article-context__inner">
-        <a href={siteRoutes.blog}><House aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.blog} /></a>
+        <a href={localizedBlogRoute}><House aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.blog} /></a>
         <span class="article-context__pill"><LocalizedText zh={categoryLabel.title} en={categoryLabel.titleEn} /></span>
       </div>
     </nav>
@@ -117,8 +120,8 @@ const structuredData = {
       <div class="article-prose"><slot /></div>
 
       <footer class="article-footer">
-        <a href={siteRoutes.blog}><ArrowLeft aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.backToBlog} /></a>
-        <a href={siteRoutes.blogArchive}><LocalizedText {...uiCopy.blog.allArticles} /> <ArrowRight aria-hidden="true" size={14} stroke-width={1.7} /></a>
+        <a href={localizedBlogRoute}><ArrowLeft aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.backToBlog} /></a>
+        <a href={localizedArchiveRoute}><LocalizedText {...uiCopy.blog.allArticles} /> <ArrowRight aria-hidden="true" size={14} stroke-width={1.7} /></a>
       </footer>
 
       <RelatedPosts posts={relatedPosts} />

@@ -138,25 +138,27 @@ for (const directory of blogDirectories) {
   const slug = markdown.match(/^slug:\s*["']?([^\r\n"']+)["']?\s*$/m)?.[1]?.trim()
   const draft = /^draft:\s*true\s*$/m.test(markdown)
   const contentStatus = markdown.match(/^contentStatus:\s*([\w-]+)\s*$/m)?.[1]
+  const contentLanguage = markdown.match(/^contentLanguage:\s*["']?([^\r\n"']+)["']?\s*$/m)?.[1]?.trim() || 'zh-Hans'
   if (!slug) {
     failures.push(`blog article is missing slug: ${directory.name}`)
     continue
   }
-  blogRecords.push({ contentStatus, draft, slug })
-  const articleUrl = `${siteConfig.siteUrl}${blogRoute}/${slug}`
+  const articleRoute = `${contentLanguage === 'en' ? '/en' : ''}${blogRoute}/${slug}`
+  blogRecords.push({ articleRoute, contentLanguage, contentStatus, draft, slug })
+  const articleUrl = `${siteConfig.siteUrl}${articleRoute}`
   const inSitemap = sitemap.includes(`<loc>${articleUrl}</loc>`)
   const inRss = rss.includes(`<link>${articleUrl}</link>`) || rss.includes(`<guid isPermaLink="true">${articleUrl}</guid>`)
   const isPublishedLocalArticle = contentStatus === 'full' && !draft
   if (isPublishedLocalArticle) {
     if (!inSitemap) failures.push(`full article missing from sitemap: ${slug}`)
     if (!inRss) failures.push(`full article missing from RSS: ${slug}`)
-    if (!htmlByRoute.has(`${blogRoute}/${slug}`)) failures.push(`full article missing HTML route: ${slug}`)
+    if (!htmlByRoute.has(articleRoute)) failures.push(`full article missing HTML route: ${articleRoute}`)
   } else {
     if (inSitemap) failures.push(`draft or index-only article in sitemap: ${slug}`)
     if (inRss) failures.push(`draft or index-only article in RSS: ${slug}`)
   }
 }
-const fullArticleRoutes = new Set(blogRecords.filter(({ contentStatus, draft }) => contentStatus === 'full' && !draft).map(({ slug }) => `${blogRoute}/${slug}`))
+const fullArticleRoutes = new Set(blogRecords.filter(({ contentStatus, draft }) => contentStatus === 'full' && !draft).map(({ articleRoute }) => articleRoute))
 
 if (llms) {
   if (!llms.includes(`# ${siteConfig.name}`)) failures.push('llms.txt is missing the site heading')

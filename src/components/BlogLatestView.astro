@@ -23,8 +23,8 @@ const stagePosts = [
 const stageSlugs = new Set(stagePosts.map((post) => post.slug))
 const recentPosts = posts.filter((post) => !stageSlugs.has(post.slug)).slice(0, blogSettings.recentCount)
 const activePost = stagePosts[0]
+const primaryLink = (post: (typeof posts)[number]) => getPrimaryBlogLink(post)
 const localizedRoute = (route: string) => getLocalizedRoute(route, locale)
-const primaryLink = (post: (typeof posts)[number]) => isLocalBlogPost(post) ? localizedRoute(getPrimaryBlogLink(post)) : getPrimaryBlogLink(post)
 const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, locale)
 ---
 

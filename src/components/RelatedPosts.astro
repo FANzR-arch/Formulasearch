@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import { getBlogCategory } from '../data/blog-categories'
-import { siteRoutes } from '../data/site-routes'
+import { getBlogPostRoute } from '../data/site-routes'
 import LocalizedText from './LocalizedText.astro'
 import { uiCopy } from '../data/ui-copy'
 
@@ -31,7 +31,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10).replaceAll('-
               <span aria-hidden="true">·</span>
               <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate)}</time>
             </p>
-            <h3><a href={`${siteRoutes.blog}/${post.data.slug}`}><LocalizedText zh={post.data.title} en={titleEn} enLang={post.data.titleEn ? 'en' : 'zh-Hans'} /></a></h3>
+            <h3><a href={getBlogPostRoute(post.data.slug, post.data.contentLanguage)}><LocalizedText zh={post.data.title} en={titleEn} enLang={post.data.titleEn ? 'en' : 'zh-Hans'} /></a></h3>
             <p class="article-related__description"><LocalizedText zh={post.data.description} en={descriptionEn} enLang={post.data.descriptionEn ? 'en' : 'zh-Hans'} /></p>
           </article>
         )

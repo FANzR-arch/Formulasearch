@@ -4,7 +4,6 @@ import LocalizedText from './LocalizedText.astro'
 import BlogCover from './BlogCover.astro'
 import BlogExternalLinks from './BlogExternalLinks.astro'
 import { formatBlogDate, getPrimaryBlogLink, isLocalBlogPost } from '../lib/blog-content'
-import { getLocalizedRoute } from '../data/site-routes'
 import type { Locale } from '../lib/i18n'
 
 interface Props {
@@ -16,7 +15,7 @@ interface Props {
 
 const { compact = false, locale = 'zh', post, showCategory = true } = Astro.props
 const isLocal = isLocalBlogPost(post)
-const primaryLink = isLocal ? getLocalizedRoute(getPrimaryBlogLink(post), locale) : getPrimaryBlogLink(post)
+const primaryLink = getPrimaryBlogLink(post)
 const title = { zh: post.title, en: post.titleEn ?? post.title }
 const summary = { zh: post.summary, en: post.summaryEn ?? post.summary }
 const titleEnLang = post.titleEn ? 'en' : 'zh-Hans'

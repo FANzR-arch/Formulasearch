@@ -1,12 +1,12 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content'
-import BlogPostLayout from '../../layouts/BlogPostLayout.astro'
-import { getBlogCategory } from '../../data/blog-categories'
-import { getRelatedPosts } from '../../lib/blog-related'
-import { blogSettings } from '../../data/blog-settings'
+import BlogPostLayout from '../../../layouts/BlogPostLayout.astro'
+import { getBlogCategory } from '../../../data/blog-categories'
+import { getRelatedPosts } from '../../../lib/blog-related'
+import { blogSettings } from '../../../data/blog-settings'
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => data.contentStatus === 'full' && data.contentLanguage === 'zh-Hans' && !data.draft)
+  const posts = await getCollection('blog', ({ data }) => data.contentStatus === 'full' && data.contentLanguage === 'en' && !data.draft)
   return posts.map((post) => ({
     params: { slug: post.data.slug },
     props: { post, relatedPosts: getRelatedPosts(post, posts, blogSettings.relatedCount) },
