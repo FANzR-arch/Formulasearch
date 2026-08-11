@@ -213,6 +213,10 @@ for (const path of htmlFiles) {
     checkAssetUrl(source, relativePath, 'image URL')
     await checkLocalAsset(source, relativePath)
   }
+  for (const [, source] of html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)) {
+    checkAssetUrl(source, relativePath, 'script URL')
+    await checkLocalAsset(source, relativePath)
+  }
   for (const [, source] of html.matchAll(/<(?:source|video|audio)\b[^>]*\b(?:src|poster)="([^"]+)"/g)) {
     checkAssetUrl(source, relativePath, 'media URL')
     await checkLocalAsset(source, relativePath)
