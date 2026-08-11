@@ -68,11 +68,10 @@ async function walk(directory) {
   return files
 }
 
-const routeSource = await readFile(join(projectRoot, '..', 'src', 'data', 'site-routes.ts'), 'utf8')
-const routeEntries = Object.fromEntries([...routeSource.matchAll(/^\s+(\w+):\s+'([^']+)',?$/gm)].map((match) => [match[1], match[2]]))
-const staticRouteKeys = [...routeSource.matchAll(/^\s+siteRoutes\.(\w+),?$/gm)].map((match) => match[1])
+const routeManifest = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'site-routes.json'), 'utf8'))
+const { static: staticRouteKeys, ...routeEntries } = routeManifest
 const staticRoutes = staticRouteKeys.map((key) => routeEntries[key]).filter(Boolean)
-const blogRoute = routeEntries.blog || '/blog'
+const blogRoute = routeEntries.blog
 const htmlFiles = (await walk(distRoot)).filter((path) => path.endsWith('.html'))
 const htmlByRoute = new Map()
 for (const path of htmlFiles) {
@@ -90,7 +89,7 @@ for (const route of staticRoutes) {
   }
 }
 
-const sitemap = await readUtf8('sitemap.xml')
+const sitemap = await readFile(join(distRoot, routeEntries.sitemap.slice(1)), 'utf8')
 for (const route of staticRoutes) {
   if (!sitemap.includes(`<loc>${siteConfig.siteUrl}${route}</loc>`)) failures.push(`sitemap missing route: ${route}`)
 }
@@ -101,17 +100,17 @@ try {
 } catch {
   failures.push('missing robots.txt')
 }
-if (robots && (!robots.includes('User-agent: *') || !robots.includes('Allow: /') || !robots.includes(`Sitemap: ${siteConfig.siteUrl}/sitemap.xml`))) {
+if (robots && (!robots.includes('User-agent: *') || !robots.includes('Allow: /') || !robots.includes(`Sitemap: ${siteConfig.siteUrl}${routeEntries.sitemap}`))) {
   failures.push('robots.txt is missing the public allow rule or sitemap URL')
 }
 
 let llms = ''
 try {
-  llms = await readUtf8('llms.txt')
+  llms = await readFile(join(distRoot, routeEntries.llms.slice(1)), 'utf8')
 } catch {
   failures.push('missing llms.txt')
 }
-const rss = await readUtf8('rss.xml')
+const rss = await readFile(join(distRoot, routeEntries.rss.slice(1)), 'utf8')
 if (!rss.includes('<rss version="2.0">') || !rss.includes('<lastBuildDate>') || !/<item>[\s\S]*<pubDate>/.test(rss)) failures.push('RSS output is missing channel date or article publication dates')
 
 const blogRoot = join(projectRoot, '..', 'content', 'blog')
@@ -277,7 +276,7 @@ for (const articlePath of articlePaths) {
   if (proseImages.some((imageTag) => !/\bdecoding="async"/.test(imageTag))) failures.push(`article body images must use async decoding: ${relativePath}`)
   if (proseImages.some((imageTag) => !/\breferrerpolicy="no-referrer"/.test(imageTag))) failures.push(`article body images must use no-referrer policy: ${relativePath}`)
   if (!article.includes('property="article:modified_time"')) failures.push(`article pages are missing modified time metadata: ${relativePath}`)
-  if (!article.includes('BreadcrumbList') || !article.includes('itemListElement') || !article.includes(`"item":"${siteConfig.siteUrl}/blog/series"`)) failures.push(`article pages are missing linked BreadcrumbList structured data: ${relativePath}`)
+  if (!article.includes('BreadcrumbList') || !article.includes('itemListElement') || !article.includes(`"item":"${siteConfig.siteUrl}${routeEntries.blogSeries}"`)) failures.push(`article pages are missing linked BreadcrumbList structured data: ${relativePath}`)
   if (!/<section\b[^>]*class="[^"]*article-related[^"]*"[\s\S]*<h2\b[^>]*>/.test(article)) failures.push(`article pages are missing related reading links: ${relativePath}`)
 }
 
@@ -288,8 +287,8 @@ if (navPanelCount !== 4) failures.push(`expected 4 primary navigation panels, fo
 const homeIndex = await readUtf8('index.html')
 if (!/<noscript>[\s\S]*#intro-overlay\s*\{\s*display:\s*none/.test(homeIndex)) failures.push('homepage is missing the no-script intro overlay fallback')
 
-for (const archiveRoute of ['photos', 'architecture']) {
-  const archiveHtml = await readUtf8(`${archiveRoute}/index.html`)
+for (const archiveRoute of [routeEntries.photos, routeEntries.architecture]) {
+  const archiveHtml = await readUtf8(`${archiveRoute.slice(1)}/index.html`)
   const activeLinks = archiveHtml.match(/<a\b(?=[^>]*class="[^"]*is-active[^"]*")(?=[^>]*aria-current="page")[^>]*>/g) || []
   if (activeLinks.length < 2) failures.push(`${archiveRoute} archive is missing aria-current on active mode and header links`)
 }

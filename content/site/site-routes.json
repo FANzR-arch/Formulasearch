@@ -1,0 +1,15 @@
+{
+  "home": "/",
+  "blog": "/blog",
+  "blogSeries": "/blog/series",
+  "blogArchive": "/blog/archive",
+  "projects": "/projects",
+  "skills": "/skills",
+  "lab": "/lab",
+  "photos": "/photos",
+  "architecture": "/architecture",
+  "rss": "/rss.xml",
+  "sitemap": "/sitemap.xml",
+  "llms": "/llms.txt",
+  "static": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "lab", "photos", "architecture"]
+}

@@ -53,7 +53,7 @@ content/
 
 当前公开图片放在 `public/uploads/`，因为该目录会被网站直接发布。首页、Blog、Projects、Skills、Lab、Photos、Architecture 的内容已经接入可编辑的数据文件；页面源码只保留布局、资源映射和交互逻辑。
 
-站点名、域名、作者身份、作者地址和 GitHub 地址统一维护在 [`site/site.json`](site/site.json)，不要在页面或脚本中复制粘贴这些稳定身份字段。首页与 Blog 入口页的双语 SEO 标题/描述统一维护在 [`site/page-meta.json`](site/page-meta.json)，共享 UI 文案维护在 [`site/ui-copy.json`](site/ui-copy.json)，页面源码只消费经过 Zod 校验的数据。
+站点名、域名、作者身份、作者地址和 GitHub 地址统一维护在 [`site/site.json`](site/site.json)，不要在页面或脚本中复制粘贴这些稳定身份字段。首页与 Blog 入口页的双语 SEO 标题/描述统一维护在 [`site/page-meta.json`](site/page-meta.json)，共享 UI 文案维护在 [`site/ui-copy.json`](site/ui-copy.json)，公开路由和需要生成的静态页面维护在 [`site/site-routes.json`](site/site-routes.json)，页面源码只消费经过 Zod 校验的数据。
 
 ## 当前路由
 
@@ -65,6 +65,7 @@ content/
 - `/projects`、`/skills`、`/lab`：目录内容来自 `content/site/catalog.json`，构建时由 `src/data/catalog.ts` 做 Zod 校验
 - `/photos`：照片 manifest 来自 `content/site/photo-archive.json`，构建时由 `src/data/photo-archive.ts` 做 Zod 校验
 - `/architecture`：内容来自 `content/site/architecture.json`，构建时由 `src/data/architecture.ts` 做 Zod 校验
+- 路由增删或改名：先更新 `content/site/site-routes.json`；不要在检查脚本或 Astro 模板里复制粘贴路由字符串
 
 照片归档清单可直接编辑 [`site/photo-archive.json`](site/photo-archive.json)；如果需要从原始 JPG/PNG 重新生成图片和清单，可通过 `PHOTO_ARCHIVE_SOURCE` 或 `npm run photos:prepare -- <原始照片目录>` 指向原始目录，再运行脚本。脚本会生成 WebP 和 JSON manifest，并保留已有的图片文案与标签，不会把本机绝对路径写进页面代码。
 
