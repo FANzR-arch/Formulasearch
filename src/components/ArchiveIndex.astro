@@ -91,28 +91,33 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
 
 <script>
   const filterButtons = document.querySelectorAll('[data-archive-filter]')
-  const archiveRecords = document.querySelectorAll('[data-archive-record]')
+  const archiveRecords = [...document.querySelectorAll('[data-archive-record]')]
+  const moreButton = document.querySelector('[data-archive-more]')
+  let activeFilter = filterButtons[0]?.getAttribute('data-archive-filter') ?? 'all'
+  let visibleCount = archiveRecords.filter((record) => !record.hasAttribute('hidden')).length
+
+  const renderArchive = () => {
+    archiveRecords.forEach((record, index) => {
+      const matches = activeFilter === 'all' || record.getAttribute('data-archive-record')?.split(' ').includes(activeFilter)
+      record.toggleAttribute('hidden', !(index < visibleCount && matches))
+    })
+    moreButton?.toggleAttribute('hidden', visibleCount >= archiveRecords.length)
+  }
 
   filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      const filter = button.getAttribute('data-archive-filter') ?? 'all'
+      activeFilter = button.getAttribute('data-archive-filter') ?? 'all'
       filterButtons.forEach((item) => {
-        const selected = item.getAttribute('data-archive-filter') === filter
+        const selected = item.getAttribute('data-archive-filter') === activeFilter
         item.classList.toggle('is-active', selected)
         item.setAttribute('aria-pressed', String(selected))
       })
-      archiveRecords.forEach((record) => {
-        const matches = filter === 'all' || record.getAttribute('data-archive-record')?.split(' ').includes(filter)
-        record.toggleAttribute('hidden', !matches)
-      })
+      renderArchive()
     })
   })
 
-  const moreButton = document.querySelector('[data-archive-more]')
   moreButton?.addEventListener('click', () => {
-    const hiddenRecords = [...document.querySelectorAll('[data-archive-index]')]
-      .filter((record) => record.hasAttribute('hidden'))
-    hiddenRecords.slice(0, 8).forEach((record) => record.removeAttribute('hidden'))
-    if (hiddenRecords.length <= 8) moreButton.setAttribute('hidden', '')
+    visibleCount = Math.min(archiveRecords.length, visibleCount + 8)
+    renderArchive()
   })
 </script>
