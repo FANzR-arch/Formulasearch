@@ -4,7 +4,7 @@ import sharp from 'sharp'
 
 const sourceDirectory = process.env.PHOTO_ARCHIVE_SOURCE ?? process.argv[2] ?? 'E:/Picture/like/select'
 const outputDirectory = path.resolve('public/uploads/photos/select')
-const manifestPath = path.resolve('src/data/photo-archive.ts')
+const manifestPath = path.resolve('content/site/photo-archive.json')
 const maxDimension = 2560
 const supportedImage = /\.(?:jpe?g|png)$/i
 
@@ -42,20 +42,19 @@ function layoutFor(index, width, height) {
 }
 
 function manifestSource(items) {
-  return `export interface PhotoArchiveItem {
-  alt: string
-  caption: { en: string; zh: string }
-  height: number
-  image: string
-  index: string
-  label: { en: string; zh: string }
-  layout: 'hero' | 'portrait' | 'landscape' | 'square' | 'wide'
-  tags: string[]
-  width: number
+  return `${JSON.stringify(items, null, 2)}\n`
 }
 
-export const selectedPhotoArchive: PhotoArchiveItem[] = ${JSON.stringify(items, null, 2)}
-`
+async function readExistingManifest() {
+  try {
+    const source = await fs.readFile(manifestPath, 'utf8')
+    const parsed = JSON.parse(source)
+    if (!Array.isArray(parsed)) throw new Error('Photo archive manifest must be an array.')
+    return new Map(parsed.map((item) => [item.image, item]))
+  } catch (error) {
+    if (error.code === 'ENOENT') return new Map()
+    throw new Error(`Unable to read existing photo archive manifest: ${error.message}`)
+  }
 }
 
 const images = await collectImages(sourceDirectory)
@@ -65,6 +64,7 @@ await fs.mkdir(outputDirectory, { recursive: true })
 await fs.mkdir(path.dirname(manifestPath), { recursive: true })
 
 const items = []
+const existingItems = await readExistingManifest()
 let totalBytes = 0
 
 for (const [index, input] of images.entries()) {
@@ -81,15 +81,17 @@ for (const [index, input] of images.entries()) {
 
   totalBytes += (await fs.stat(output)).size
   const number = String(index + 1).padStart(2, '0')
+  const image = `/uploads/photos/select/${filename}`
+  const existing = existingItems.get(image)
   items.push({
-    alt: `Phil 的精选摄影作品 ${number}`,
-    caption: { zh: '精选摄影 / 影像档案', en: 'Selected photography / visual archive' },
+    alt: existing?.alt ?? `Phil 的精选摄影作品 ${number}`,
+    caption: existing?.caption ?? { zh: '精选摄影 / 影像档案', en: 'Selected photography / visual archive' },
     height,
-    image: `/uploads/photos/select/${filename}`,
+    image,
     index: number,
-    label: { zh: `精选影像 ${number}`, en: `Selected photograph ${number}` },
+    label: existing?.label ?? { zh: `精选影像 ${number}`, en: `Selected photograph ${number}` },
     layout: layoutFor(index, width, height),
-    tags: ['selected'],
+    tags: existing?.tags ?? ['selected'],
     width,
   })
 }
