@@ -1,14 +1,10 @@
 import type { ImageMetadata } from 'astro'
 import { z } from 'astro/zod'
+import { localizedCopySchema } from '../lib/i18n'
 import waterStudy from '../assets/archive/studies/water-3840x2160-glass-colorful-4k-25120.jpeg'
 import violetStudy from '../assets/archive/studies/iphone-15-pro-3840x2160-splash-25150.jpeg'
 import whiteStudy from '../assets/archive/studies/iphone-15-3840x2160-white-4k-25043.jpeg'
 import architectureContent from '../../content/site/architecture.json'
-
-const localizedCopySchema = z.object({
-  zh: z.string().min(1),
-  en: z.string().min(1),
-})
 
 const architectureItemSchema = z.object({
   image: z.enum(['white-study', 'violet-study', 'water-study']),

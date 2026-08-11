@@ -1,20 +1,16 @@
 import { z } from 'astro/zod'
 import photoArchive from '../../content/site/photo-archive.json'
-
-const localizedTextSchema = z.object({
-  en: z.string().min(1),
-  zh: z.string().min(1),
-})
+import { localizedCopySchema } from '../lib/i18n'
 
 const photoArchiveItemSchema = z.object({
   alt: z.string().min(1),
-  caption: localizedTextSchema,
+  caption: localizedCopySchema,
   height: z.number().int().positive(),
   image: z.string().min(1).refine((value) => value.startsWith('/'), {
     message: 'Photo paths must be public absolute paths.',
   }),
   index: z.string().regex(/^\d+$/),
-  label: localizedTextSchema,
+  label: localizedCopySchema,
   layout: z.enum(['hero', 'portrait', 'landscape', 'square', 'wide']),
   tags: z.array(z.string().min(1)).min(1),
   width: z.number().int().positive(),
@@ -23,11 +19,11 @@ const photoArchiveItemSchema = z.object({
 const photoArchiveSchema = z.array(photoArchiveItemSchema).min(1)
 
 const photoArchivePageSchema = z.object({
-  pageTitle: localizedTextSchema,
-  pageDescription: localizedTextSchema,
-  kicker: localizedTextSchema,
-  title: localizedTextSchema,
-  description: localizedTextSchema,
+  pageTitle: localizedCopySchema,
+  pageDescription: localizedCopySchema,
+  kicker: localizedCopySchema,
+  title: localizedCopySchema,
+  description: localizedCopySchema,
   filters: z.array(z.object({ id: z.string().min(1), zh: z.string().min(1), en: z.string().min(1) })).min(1),
 })
 

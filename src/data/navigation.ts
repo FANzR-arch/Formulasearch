@@ -1,10 +1,6 @@
 import { z } from 'astro/zod'
 import navigationContent from '../../content/site/navigation.json'
-
-const localizedCopySchema = z.object({
-  zh: z.string().min(1),
-  en: z.string().min(1),
-})
+import { localizedCopySchema } from '../lib/i18n'
 
 const navigationItemSchema = z.object({
   href: z.string().startsWith('/'),

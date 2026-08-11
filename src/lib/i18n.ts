@@ -1,3 +1,5 @@
+import { z } from 'astro/zod'
+
 export const supportedLocales = ['zh', 'en'] as const
 
 export type Locale = (typeof supportedLocales)[number]
@@ -6,6 +8,11 @@ export interface LocalizedCopy {
   en: string
   zh: string
 }
+
+export const localizedCopySchema = z.object({
+  zh: z.string().min(1),
+  en: z.string().min(1),
+})
 
 export const getLocalizedValue = (copy: LocalizedCopy, locale: Locale) => copy[locale]
 

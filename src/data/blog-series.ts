@@ -1,11 +1,7 @@
 import { z } from 'astro/zod'
 import blogSeriesContent from '../../content/site/blog-series.json'
 import { blogCategories } from './blog-categories'
-
-const localizedCopySchema = z.object({
-  zh: z.string().min(1),
-  en: z.string().min(1),
-})
+import { localizedCopySchema } from '../lib/i18n'
 
 const blogSeriesSchema = z.array(z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),

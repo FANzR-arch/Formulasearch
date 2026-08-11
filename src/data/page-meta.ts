@@ -1,10 +1,6 @@
 import { z } from 'astro/zod'
 import pageMetaContent from '../../content/site/page-meta.json'
-
-const localizedCopySchema = z.object({
-  zh: z.string().min(1),
-  en: z.string().min(1),
-})
+import { localizedCopySchema } from '../lib/i18n'
 
 const pageMetaEntrySchema = z.object({
   title: localizedCopySchema,

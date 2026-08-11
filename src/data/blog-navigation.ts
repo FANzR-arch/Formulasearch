@@ -1,10 +1,6 @@
 import { z } from 'astro/zod'
 import blogNavigationContent from '../../content/site/blog-navigation.json'
-
-const localizedCopySchema = z.object({
-  zh: z.string().min(1),
-  en: z.string().min(1),
-})
+import { localizedCopySchema } from '../lib/i18n'
 
 const blogSectionIdSchema = z.enum(['latest', 'series', 'archive'])
 const blogNavigationItemSchema = z.object({
