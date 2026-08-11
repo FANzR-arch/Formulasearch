@@ -216,6 +216,9 @@ const blogIndex = await readUtf8('blog/index.html')
 const navPanelCount = (blogIndex.match(/class="nav-popover"/g) || []).length
 if (navPanelCount !== 4) failures.push(`expected 4 primary navigation panels, found ${navPanelCount}`)
 
+const homeIndex = await readUtf8('index.html')
+if (!/<noscript>[\s\S]*#intro-overlay\s*\{\s*display:\s*none/.test(homeIndex)) failures.push('homepage is missing the no-script intro overlay fallback')
+
 if (failures.length) {
   throw new Error(`Site output check failed:\n- ${failures.join('\n- ')}`)
 }
