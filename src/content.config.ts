@@ -31,7 +31,9 @@ const blog = defineCollection({
   }),
   schema: z.object({
     title: z.string().trim().min(1),
+    titleEn: z.string().trim().min(1).optional(),
     description: z.string().trim().min(1),
+    descriptionEn: z.string().trim().min(1).optional(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Slug must use lowercase letters, numbers, and hyphens.'),

@@ -98,6 +98,18 @@ test('locale and theme controls update document metadata', async ({ page }) => {
   await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', 'Switch to light theme')
 })
 
+test('blog featured stage keeps localized title and summary on locale switch', async ({ page }) => {
+  await page.goto('/blog')
+
+  const trigger = page.locator('[data-stage-trigger]').first()
+  const stageTitle = page.locator('[data-stage-title]')
+  const stageSummary = page.locator('[data-stage-summary]')
+  await page.locator('#language-toggle').click()
+
+  await expect(stageTitle).toHaveText(await trigger.getAttribute('data-stage-title-en') || '')
+  await expect(stageSummary).toHaveText(await trigger.getAttribute('data-stage-summary-en') || '')
+})
+
 test('locale updates the dynamic background control label', async ({ page }) => {
   await page.goto('/')
   await page.locator('#language-toggle').click()

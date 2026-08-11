@@ -70,9 +70,9 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
             rel={activePostIsLocal ? undefined : 'noopener noreferrer'}
             data-stage-link
             data-stage-title
-          >{activePost.title}</a>
+          ><LocalizedText zh={activePost.title} en={activePost.titleEn ?? activePost.title} /></a>
         </h2>
-        <p class="cover-stage__summary" data-stage-summary>{activePost.summary}</p>
+        <p class="cover-stage__summary" data-stage-summary><LocalizedText zh={activePost.summary} en={activePost.summaryEn ?? activePost.summary} /></p>
       </div>
 
       <nav class="cover-stage__index" aria-label={uiCopy.blog.featuredArticles.zh} data-aria-en={uiCopy.blog.featuredArticles.en} data-aria-zh={uiCopy.blog.featuredArticles.zh}>
@@ -86,8 +86,10 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
               rel={isLocal ? undefined : 'noopener noreferrer'}
               aria-current={index === 0 ? 'true' : undefined}
               data-stage-trigger={index}
-              data-stage-title={post.title}
-              data-stage-summary={post.summary}
+              data-stage-title-zh={post.title}
+              data-stage-title-en={post.titleEn ?? post.title}
+              data-stage-summary-zh={post.summary}
+              data-stage-summary-en={post.summaryEn ?? post.summary}
               data-stage-category-zh={post.category.title}
               data-stage-category-en={post.category.titleEn}
               data-stage-date={formatBlogDate(post.date)}
@@ -95,7 +97,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
               data-stage-external={String(!isLocal)}
             >
               <span>{String(index + 1).padStart(2, '0')}</span>
-              <strong>{post.title}</strong>
+              <strong><LocalizedText zh={post.title} en={post.titleEn ?? post.title} /></strong>
               <small><LocalizedText zh={post.category.title} en={post.category.titleEn} /></small>
             </a>
           )
@@ -133,6 +135,8 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let activeIndex = 0
     let updateTimer = 0
+    const activeLocale = () => document.documentElement.dataset.locale === 'en' ? 'en' : 'zh'
+    const localizedDatasetValue = (trigger, key) => trigger?.dataset[`${key}${activeLocale() === 'en' ? 'En' : 'Zh'}`] || ''
 
     const activateStage = (nextIndex) => {
       if (!stage || nextIndex === activeIndex || !triggers[nextIndex]) return
@@ -157,11 +161,9 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
       details?.classList.add('is-updating')
       window.clearTimeout(updateTimer)
       updateTimer = window.setTimeout(() => {
-        if (stageTitle) stageTitle.textContent = trigger.dataset.stageTitle || ''
-        if (stageSummary) stageSummary.textContent = trigger.dataset.stageSummary || ''
-        if (stageCategory) stageCategory.textContent = document.documentElement.dataset.locale === 'en'
-          ? trigger.dataset.stageCategoryEn || ''
-          : trigger.dataset.stageCategoryZh || ''
+        if (stageTitle) stageTitle.textContent = localizedDatasetValue(trigger, 'stageTitle')
+        if (stageSummary) stageSummary.textContent = localizedDatasetValue(trigger, 'stageSummary')
+        if (stageCategory) stageCategory.textContent = localizedDatasetValue(trigger, 'stageCategory')
         if (stageDate) stageDate.textContent = trigger.dataset.stageDate || ''
         if (stageLink) {
           const stageHref = trigger.dataset.stageHref
@@ -190,10 +192,10 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
 
     window.addEventListener('formulasearch:locale', () => {
       const activeTrigger = triggers[activeIndex]
-      if (!activeTrigger || !stageCategory) return
-      stageCategory.textContent = document.documentElement.dataset.locale === 'en'
-        ? activeTrigger.dataset.stageCategoryEn || ''
-        : activeTrigger.dataset.stageCategoryZh || ''
+      if (!activeTrigger) return
+      if (stageTitle) stageTitle.textContent = localizedDatasetValue(activeTrigger, 'stageTitle')
+      if (stageSummary) stageSummary.textContent = localizedDatasetValue(activeTrigger, 'stageSummary')
+      if (stageCategory) stageCategory.textContent = localizedDatasetValue(activeTrigger, 'stageCategory')
     })
 
     const revealItems = [

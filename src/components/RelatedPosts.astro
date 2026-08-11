@@ -28,8 +28,8 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10).replaceAll('-
               <span aria-hidden="true">·</span>
               <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate)}</time>
             </p>
-            <h3><a href={`/blog/${post.data.slug}`}>{post.data.title}</a></h3>
-            <p class="article-related__description">{post.data.description}</p>
+            <h3><a href={`/blog/${post.data.slug}`}><LocalizedText zh={post.data.title} en={post.data.titleEn ?? post.data.title} /></a></h3>
+            <p class="article-related__description"><LocalizedText zh={post.data.description} en={post.data.descriptionEn ?? post.data.description} /></p>
           </article>
         )
       })}

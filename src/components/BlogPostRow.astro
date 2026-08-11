@@ -15,6 +15,8 @@ interface Props {
 
 const { compact = false, post, showCategory = true } = Astro.props
 const isLocal = isLocalBlogPost(post)
+const title = { zh: post.title, en: post.titleEn ?? post.title }
+const summary = { zh: post.summary, en: post.summaryEn ?? post.summary }
 ---
 
 <article class:list={['post-row', { 'post-row--compact': compact }]}>
@@ -26,8 +28,8 @@ const isLocal = isLocalBlogPost(post)
   <time datetime={post.date}>{formatBlogDate(post.date)}</time>
   <div class="post-row__body">
     {showCategory && <p class="post-row__meta"><LocalizedText zh={post.category.title} en={post.category.titleEn} /></p>}
-    <h2><a href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}>{post.title}</a></h2>
-    {!compact && <p class="post-row__summary">{post.summary}</p>}
+    <h2><a href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}><LocalizedText {...title} /></a></h2>
+    {!compact && <p class="post-row__summary"><LocalizedText {...summary} /></p>}
     <div class="post-row__links" role="group" aria-label={uiCopy.blog.originalPublication.zh} data-aria-en={uiCopy.blog.originalPublication.en} data-aria-zh={uiCopy.blog.originalPublication.zh}>
       {post.links.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer"><ExternalLinkLabel label={link.label} /><ArrowUpRight aria-hidden="true" size={13} stroke-width={1.7} /></a>)}
     </div>

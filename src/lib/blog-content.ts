@@ -18,7 +18,9 @@ export interface BlogPost {
   links: BlogLink[]
   slug: string
   summary: string
+  summaryEn?: string
   title: string
+  titleEn?: string
 }
 
 const toBlogPost = (entry: CollectionEntry<'blog'>): BlogPost => {
@@ -36,7 +38,9 @@ const toBlogPost = (entry: CollectionEntry<'blog'>): BlogPost => {
     links: entry.data.externalLinks,
     slug: entry.data.slug,
     summary: entry.data.description,
+    summaryEn: entry.data.descriptionEn,
     title: entry.data.title,
+    titleEn: entry.data.titleEn,
   }
 }
 

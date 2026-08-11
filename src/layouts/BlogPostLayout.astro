@@ -28,6 +28,8 @@ const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').replace(/\s+/g, '
 const readingTimeCopy = interpolateLocalizedCopy(uiCopy.blog.readingTime, {
   minutes: { zh: String(readingMinutes), en: String(readingMinutes) },
 })
+const titleEn = post.data.titleEn ?? post.data.title
+const descriptionEn = post.data.descriptionEn ?? post.data.description
 const authorName = siteConfig.author.name
 const authorMark = authorName.trim().slice(0, 1).toUpperCase()
 const contentLocale = post.data.contentLanguage === 'en' ? 'en' : 'zh'
@@ -63,9 +65,9 @@ const structuredData = {
 
 <BlogLayout
   title={post.data.title}
-  titleEn={post.data.title}
+  titleEn={titleEn}
   description={post.data.description}
-  descriptionEn={post.data.description}
+  descriptionEn={descriptionEn}
   image={post.data.cover}
   modifiedTime={modified}
   ogType="article"
@@ -83,7 +85,7 @@ const structuredData = {
     <div class="article-grid">
       <header class="article-header">
         <p class="article-meta"><time datetime={published}>{displayDate}</time></p>
-        <h1>{post.data.title}</h1>
+        <h1><LocalizedText zh={post.data.title} en={titleEn} /></h1>
         <div class="article-byline">
           <p class="article-author"><span class="article-author__mark" aria-hidden="true">{authorMark}</span><strong>{authorName}</strong></p>
         <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText {...readingTimeCopy} /></span><button class="article-copy" type="button" data-copy-url={canonical} data-copy-prompt-zh={uiCopy.blog.copyArticleLink.zh} data-copy-prompt-en={uiCopy.blog.copyArticleLink.en} aria-live="polite"><Link aria-hidden="true" size={14} stroke-width={1.7} /><span class="article-copy__default"><LocalizedText {...uiCopy.blog.copyLink} /></span><span class="article-copy__feedback"><LocalizedText {...uiCopy.blog.copied} /></span></button></p>
