@@ -5,6 +5,8 @@
     "label": "@Formulasearch",
     "url": "https://x.com/Formulasearch"
   },
+  "contactLabel": "Find me here",
+  "contactEmailPrefix": "Or email me: ",
   "heroImage": "",
   "heroImageAlt": "",
   "intro": [

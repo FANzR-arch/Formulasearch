@@ -10,6 +10,8 @@ const workItemSchema = z.object({
 const homeContentSchema = z.object({
   name: z.string().min(1),
   email: z.email(),
+  contactLabel: z.string().min(1),
+  contactEmailPrefix: z.string().min(1),
   social: z.object({
     label: z.string().min(1),
     url: z.url(),

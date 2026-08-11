@@ -48,11 +48,11 @@ import { pageMeta } from '../data/page-meta'
           {homeContent.zh.interest.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={homeContent.en.interest[index] || paragraph} /></p>)}
           <hr />
           <div class="home-contact">
-            <p class="home-copy__label"><LocalizedText zh="在这里找到我" en="Find me here" /></p>
+            <p class="home-copy__label"><LocalizedText zh={homeContent.zh.contactLabel} en={homeContent.en.contactLabel} /></p>
             <p>
               <a class="text-link" href={homeContent.zh.social.url} target="_blank" rel="noopener noreferrer">{homeContent.zh.social.label}</a>
               <br />
-              <LocalizedText zh="或者给我发个邮件：" en="Or email me: " /><strong><a class="text-link" href={`mailto:${homeContent.zh.email}`}>{homeContent.zh.email}</a></strong>
+              <LocalizedText zh={homeContent.zh.contactEmailPrefix} en={homeContent.en.contactEmailPrefix} /><strong><a class="text-link" href={`mailto:${homeContent.zh.email}`}>{homeContent.zh.email}</a></strong>
             </p>
           </div>
           <hr />

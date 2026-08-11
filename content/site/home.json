@@ -5,6 +5,8 @@
     "label": "@Formulasearch",
     "url": "https://x.com/Formulasearch"
   },
+  "contactLabel": "在这里找到我",
+  "contactEmailPrefix": "或者给我发个邮件：",
   "heroImage": "",
   "heroImageAlt": "",
   "intro": [
