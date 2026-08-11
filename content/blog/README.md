@@ -63,7 +63,7 @@ public/uploads/blog/
 6. 如果正文已经确认，从 Philthink 导入或手工写入正文，并把 `contentStatus` 改成 `full`；否则保持 `index-only`；
 7. 运行 `npm run blog:check`、`npm run blog:images:check` 和 `npm run build`，确认分类、链接、Markdown、图片 alt 和页面都能被读取。
 
-`blog:migrate` 只创建缺失的 `index.md`，不会覆盖已经存在或已经迁入正文的 Markdown。单独检查内容可运行：
+`blog:migrate` 会为缺失目录创建 `index.md`，并同步已有文件的受管 frontmatter 字段；它不会覆盖已经迁入的正文内容。单独检查内容可运行：
 
 ```bash
 npm run blog:check
