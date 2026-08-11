@@ -7,9 +7,11 @@ const distRoot = join(projectRoot, '..', 'dist')
 const publicRoot = join(projectRoot, '..', 'public')
 const siteConfig = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'site.json'), 'utf8'))
 const navigationContent = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'navigation.json'), 'utf8'))
+const blogImageDimensions = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'blog-image-dimensions.json'), 'utf8'))
 const siteOrigin = new URL(siteConfig.siteUrl).origin
 const failures = []
 const getAttribute = (attributes, name) => attributes.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1] || ''
+const decodeHtmlAttribute = (value) => value.replaceAll('&#x26;', '&').replaceAll('&amp;', '&').replaceAll('&quot;', '"')
 const stripTags = (value) => value.replace(/<[^>]+>/g, '').replace(/&(?:amp|lt|gt|quot|#39);/g, ' ').trim()
 const checkAriaReferences = (html, references, relativePath, context) => {
   for (const id of references.split(/\s+/).filter(Boolean)) {
@@ -293,6 +295,16 @@ for (const articlePath of articlePaths) {
   if (proseImages.some((imageTag) => !/\bloading="lazy"/.test(imageTag))) failures.push(`article body images must use lazy loading: ${relativePath}`)
   if (proseImages.some((imageTag) => !/\bdecoding="async"/.test(imageTag))) failures.push(`article body images must use async decoding: ${relativePath}`)
   if (proseImages.some((imageTag) => !/\breferrerpolicy="no-referrer"/.test(imageTag))) failures.push(`article body images must use no-referrer policy: ${relativePath}`)
+  for (const imageTag of proseImages) {
+    const source = decodeHtmlAttribute(getAttribute(imageTag, 'src'))
+    const dimensions = blogImageDimensions.images?.[source]
+    if (!dimensions) continue
+    const width = Number(getAttribute(imageTag, 'width'))
+    const height = Number(getAttribute(imageTag, 'height'))
+    if (width !== dimensions.width || height !== dimensions.height) {
+      failures.push(`remote article image dimensions are missing or stale: ${relativePath} -> ${source}`)
+    }
+  }
   if (!article.includes('property="article:modified_time"')) failures.push(`article pages are missing modified time metadata: ${relativePath}`)
   if (!article.includes('BreadcrumbList') || !article.includes('itemListElement') || !article.includes(`"item":"${siteConfig.siteUrl}${routeEntries.blogSeries}"`)) failures.push(`article pages are missing linked BreadcrumbList structured data: ${relativePath}`)
   if (!/<section\b[^>]*class="[^"]*article-related[^"]*"[\s\S]*<h2\b[^>]*>/.test(article)) failures.push(`article pages are missing related reading links: ${relativePath}`)
