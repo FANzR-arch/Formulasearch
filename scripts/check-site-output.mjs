@@ -184,6 +184,10 @@ for (const path of htmlFiles) {
     checkUrlScheme(source, relativePath, 'image URL')
     await checkLocalAsset(source, relativePath)
   }
+  for (const [, source] of html.matchAll(/<(?:source|video|audio)\b[^>]*\b(?:src|poster)="([^"]+)"/g)) {
+    checkUrlScheme(source, relativePath, 'media URL')
+    await checkLocalAsset(source, relativePath)
+  }
   for (const [, srcset] of html.matchAll(/\b(?:srcset|imagesrcset)="([^"]+)"/g)) {
     for (const candidate of srcset.split(',')) {
       const source = candidate.trim().split(/\s+/, 1)[0]
