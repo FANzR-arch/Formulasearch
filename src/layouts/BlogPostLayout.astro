@@ -3,6 +3,7 @@ import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import { ArrowLeft, ArrowRight, ArrowUpRight, Clock3, House, Link } from '@lucide/astro'
 import LocalizedText from '../components/LocalizedText.astro'
+import ExternalLinkLabel from '../components/ExternalLinkLabel.astro'
 import BlogLayout from './BlogLayout.astro'
 
 interface Props {
@@ -82,7 +83,7 @@ const structuredData = {
         <aside class="article-sources">
           <p><LocalizedText zh="原文发布" en="Originally published on" /></p>
           <div class="post-row__links" aria-label="原文平台" data-aria-en="Original publication" data-aria-zh="原文平台">
-            {post.data.externalLinks.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label === '微信' ? <LocalizedText zh="微信" en="WeChat" /> : link.label}<ArrowUpRight aria-hidden="true" size={13} stroke-width={1.7} /></a>)}
+            {post.data.externalLinks.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer"><ExternalLinkLabel label={link.label} /><ArrowUpRight aria-hidden="true" size={13} stroke-width={1.7} /></a>)}
           </div>
         </aside>
       )}
