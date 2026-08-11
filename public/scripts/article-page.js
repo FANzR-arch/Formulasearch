@@ -1,0 +1,50 @@
+document.querySelectorAll('.article-copy').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const url = button.getAttribute('data-copy-url') || window.location.href
+    try {
+      await navigator.clipboard.writeText(url)
+      button.dataset.copyState = 'copied'
+      window.setTimeout(() => {
+        delete button.dataset.copyState
+      }, 1800)
+    } catch {
+      const prompt = document.documentElement.dataset.locale === 'en'
+        ? button.dataset.copyPromptEn
+        : button.dataset.copyPromptZh
+      window.prompt(prompt ?? '', url)
+    }
+  })
+})
+
+const tocLinks = [...document.querySelectorAll('.article-toc a')]
+const articleHeadings = tocLinks
+  .map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))))
+  .filter(Boolean)
+
+const updateCurrentHeading = () => {
+  if (!articleHeadings.length) return
+  let current = articleHeadings[0]
+  for (const heading of articleHeadings) {
+    if (heading.getBoundingClientRect().top <= 180) current = heading
+    else break
+  }
+  tocLinks.forEach((link) => {
+    const active = decodeURIComponent(link.hash.slice(1)) === current.id
+    link.classList.toggle('is-current', active)
+    if (active) link.setAttribute('aria-current', 'location')
+    else link.removeAttribute('aria-current')
+  })
+}
+
+let tocFrame = 0
+const scheduleTocUpdate = () => {
+  if (tocFrame) return
+  tocFrame = requestAnimationFrame(() => {
+    updateCurrentHeading()
+    tocFrame = 0
+  })
+}
+
+updateCurrentHeading()
+window.addEventListener('scroll', scheduleTocUpdate, { passive: true })
+window.addEventListener('hashchange', scheduleTocUpdate)
