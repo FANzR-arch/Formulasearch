@@ -1,16 +1,17 @@
 ---
 import CatalogLayout from '../../layouts/CatalogLayout.astro'
 import LocalizedText from '../../components/LocalizedText.astro'
-import { skillSections as sections } from '../../data/catalog'
+import { catalogPages, skillSections as sections } from '../../data/catalog'
+const page = catalogPages.skills
 ---
 
-<CatalogLayout active="skills" title={{ zh: '技能', en: 'Skills' }} description={{ zh: 'Phil 的设计 Skills、Agent 工具与可复用工作流。', en: "Phil's design Skills, agent tools, and reusable workflows." }}>
+<CatalogLayout active="skills" title={page.title} description={page.description}>
   <header class="catalog-hero">
-    <p><LocalizedText zh="拿走、改造、变成自己的" en="Take it, adapt it, make it yours" /></p>
-    <h1><LocalizedText zh="技能" en="Skills" /></h1>
-    <span><LocalizedText zh="可以直接拿走使用的视觉方法、Agent 工具与工作流。" en="Visual methods, agent tools, and workflows you can use directly." /></span>
+    <p><LocalizedText {...page.kicker} /></p>
+    <h1><LocalizedText {...page.heading} /></h1>
+    <span><LocalizedText {...page.intro} /></span>
   </header>
-  <nav class="catalog-index" aria-label="技能分类" data-aria-en="Skill categories" data-aria-zh="技能分类">
+  <nav class="catalog-index" aria-label={page.indexLabel.zh} data-aria-en={page.indexLabel.en} data-aria-zh={page.indexLabel.zh}>
     {sections.map((section) => <a href={`#${section.id}`}><span>{section.label}</span><LocalizedText {...section.title} /></a>)}
   </nav>
   <div class="catalog-sections">

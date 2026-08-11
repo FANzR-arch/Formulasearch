@@ -131,5 +131,31 @@
         { "zh": "摄影、旅行与途中记录", "en": "Photography, travel, and field notes" }
       ]
     }
-  ]
+  ],
+  "pages": {
+    "projects": {
+      "title": { "zh": "项目", "en": "Projects" },
+      "description": { "zh": "Phil 的产品、工具、网站与公开项目。", "en": "Phil's products, tools, websites, and public projects." },
+      "kicker": { "zh": "精选工作 / 有用的产出", "en": "Selected work / useful output" },
+      "heading": { "zh": "项目", "en": "Projects" },
+      "intro": { "zh": "产品、工具、网站与持续迭代的数字体验。", "en": "Products, tools, websites, and digital experiences in progress." },
+      "indexLabel": { "zh": "项目分类", "en": "Project categories" }
+    },
+    "skills": {
+      "title": { "zh": "技能", "en": "Skills" },
+      "description": { "zh": "Phil 的设计 Skills、Agent 工具与可复用工作流。", "en": "Phil's design Skills, agent tools, and reusable workflows." },
+      "kicker": { "zh": "拿走、改造、变成自己的", "en": "Take it, adapt it, make it yours" },
+      "heading": { "zh": "技能", "en": "Skills" },
+      "intro": { "zh": "可以直接拿走使用的视觉方法、Agent 工具与工作流。", "en": "Visual methods, agent tools, and workflows you can use directly." },
+      "indexLabel": { "zh": "技能分类", "en": "Skill categories" }
+    },
+    "lab": {
+      "title": { "zh": "实验室", "en": "Lab" },
+      "description": { "zh": "Phil 正在测试、学习和推进的实验与课程。", "en": "Experiments and courses Phil is testing, learning, and moving forward." },
+      "kicker": { "zh": "进行中 / 仍在形成", "en": "In progress / still becoming" },
+      "heading": { "zh": "实验室", "en": "Lab" },
+      "intro": { "zh": "实验、课程，以及尚在形成中的兴趣与方法。", "en": "Experiments, courses, and interests and methods still taking shape." },
+      "indexLabel": { "zh": "实验室分类", "en": "Lab categories" }
+    }
+  }
 }

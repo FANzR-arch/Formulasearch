@@ -14,10 +14,24 @@ const catalogSectionSchema = z.object({
   items: z.array(localizedCopySchema).min(1),
 })
 
+const catalogPageSchema = z.object({
+  title: localizedCopySchema,
+  description: localizedCopySchema,
+  kicker: localizedCopySchema,
+  heading: localizedCopySchema,
+  intro: localizedCopySchema,
+  indexLabel: localizedCopySchema,
+})
+
 const catalogSchema = z.object({
   projects: z.array(catalogSectionSchema).min(1),
   skills: z.array(catalogSectionSchema).min(1),
   lab: z.array(catalogSectionSchema).min(1),
+  pages: z.object({
+    projects: catalogPageSchema,
+    skills: catalogPageSchema,
+    lab: catalogPageSchema,
+  }),
 })
 
 const result = catalogSchema.safeParse(catalogContent)
@@ -33,3 +47,4 @@ export type CatalogSection = z.infer<typeof catalogSectionSchema>
 export const projectSections = result.data.projects
 export const skillSections = result.data.skills
 export const labSections = result.data.lab
+export const catalogPages = result.data.pages
