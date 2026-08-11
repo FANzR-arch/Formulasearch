@@ -86,6 +86,11 @@ document.addEventListener('keydown', (event) => {
   }
 })
 
+document.addEventListener('focusin', (event) => {
+  if (primaryNavigation?.contains(event.target)) return
+  closeNavigationMenus()
+})
+
 mobileNavigationToggle?.addEventListener('click', () => {
   const isOpen = document.querySelector('.site-header')?.classList.toggle('is-nav-open') ?? false
   mobileNavigationToggle.setAttribute('aria-expanded', String(isOpen))

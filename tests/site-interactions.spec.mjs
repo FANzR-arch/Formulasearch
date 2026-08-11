@@ -138,6 +138,16 @@ test('navigation disclosure labels reflect open state and locale', async ({ page
   await expect(disclosure).toHaveAttribute('aria-label', /Open Blog menu/)
 })
 
+test('desktop navigation closes when focus leaves the site navigation', async ({ page }) => {
+  await page.goto('/projects')
+  const disclosure = page.locator('.nav-disclosure').first()
+  await disclosure.focus()
+  await expect(disclosure).toHaveAttribute('aria-expanded', 'true')
+  await page.locator('.site-header > .monogram').focus()
+  await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
+  await expect(page.locator('.nav-popover').first()).toHaveAttribute('inert', '')
+})
+
 test('locale and theme controls update document metadata', async ({ page }) => {
   await page.goto('/projects')
 
