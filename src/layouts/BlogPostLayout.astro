@@ -28,9 +28,6 @@ const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').replace(/\s+/g, '
 const readingTimeCopy = interpolateLocalizedCopy(uiCopy.blog.readingTime, {
   minutes: { zh: String(readingMinutes), en: String(readingMinutes) },
 })
-const articleCoverAlt = interpolateLocalizedCopy(uiCopy.blog.articleCoverAlt, {
-  title: { zh: post.data.title, en: post.data.title },
-})
 const authorName = siteConfig.author.name
 const authorMark = authorName.trim().slice(0, 1).toUpperCase()
 const contentLocale = post.data.contentLanguage === 'en' ? 'en' : 'zh'
@@ -94,7 +91,7 @@ const structuredData = {
       </header>
 
       <figure class="article-cover">
-        <BlogCover src={post.data.cover} alt={post.data.coverAlt} altEn={articleCoverAlt.en} fetchpriority="high" sizes="(max-width: 820px) 100vw, 880px" />
+        <BlogCover src={post.data.cover} alt={post.data.coverAlt} altEn={post.data.coverAltEn} fetchpriority="high" sizes="(max-width: 820px) 100vw, 880px" />
       </figure>
 
       {toc.length > 1 && (

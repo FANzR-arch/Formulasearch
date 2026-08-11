@@ -9,6 +9,8 @@ export interface BlogLink {
 export interface BlogPost {
   category: BlogCategory
   categoryId: string
+  coverAlt: string
+  coverAltEn?: string
   contentStatus: 'index-only' | 'full'
   cover: string
   date: string
@@ -25,6 +27,8 @@ const toBlogPost = (entry: CollectionEntry<'blog'>): BlogPost => {
   return {
     category,
     categoryId: entry.data.category,
+    coverAlt: entry.data.coverAlt,
+    coverAltEn: entry.data.coverAltEn,
     contentStatus: entry.data.contentStatus,
     cover: entry.data.cover,
     date: entry.data.pubDate.toISOString().slice(0, 10),

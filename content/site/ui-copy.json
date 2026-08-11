@@ -37,8 +37,6 @@
     "seriesHeading": { "zh": "主题", "en": "Topics" },
     "recentCountSuffix": { "zh": "篇", "en": "entries" },
     "archiveCountSuffix": { "zh": "篇", "en": "articles" },
-    "featuredArticleCoverAlt": { "zh": "{title}的文章封面", "en": "{title} article cover" },
-    "articleCoverAlt": { "zh": "{title}的文章封面", "en": "{title} article cover" },
     "articleLocation": { "zh": "文章位置", "en": "Article location" },
     "articleContents": { "zh": "文章目录", "en": "Article contents" },
     "onThisPage": { "zh": "本页目录", "en": "On this page" },

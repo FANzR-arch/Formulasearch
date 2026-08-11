@@ -158,8 +158,8 @@ test('article copy feedback and table of contents remain interactive', async ({ 
   await expect(copy.locator('.article-copy__feedback')).toBeVisible()
   await page.locator('#language-toggle').click()
   await expect(copy.locator('.article-copy__feedback .localized-text__en')).toBeVisible()
-  await expect(page.locator('.article-cover img')).toHaveAttribute('alt', /article cover$/)
   await expect(page.locator('.article-cover img')).not.toHaveAttribute('alt', 'Article cover')
+  await expect(page.locator('.article-cover img')).not.toHaveAttribute('data-alt-en')
 
   const tocLink = page.locator('.article-toc a').first()
   await expect(tocLink).toBeVisible()

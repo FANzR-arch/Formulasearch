@@ -267,6 +267,8 @@ tags:
   - 图像提示词
 cover: /uploads/blog/2026-07-02/HMMfIQIXkAA-qiW.jpg
 coverAlt: "新粗野主义提示词视觉封面"
+# 可选：只有确实有英文视觉描述时填写
+coverAltEn: "A brutalist editorial cover with ..."
 contentStatus: index-only
 featured: true
 draft: false
@@ -285,6 +287,7 @@ externalLinks:
 - `description` 是站内摘要和 SEO description，不从正文运行时截断；
 - `slug` 一经上线不随标题变化；
 - `coverAlt` 描述图片内容，不能继续用空字符串；
+- `coverAltEn` 对中文文章可选，只在有真实英文视觉描述时填写；缺省时页面保留文章原始语言，不自动拼接通用英文占位；`contentLanguage: en` 的文章必须填写它；
 - `externalLinks` 保留原发布平台，不再承担本站主链接；
 - `contentStatus` 让索引迁移和正文迁移可以分开进行；
 - `series` 可选，`category` 必填；

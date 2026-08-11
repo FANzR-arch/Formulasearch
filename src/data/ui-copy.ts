@@ -41,8 +41,6 @@ const uiCopySchema = z.object({
     seriesHeading: localizedCopySchema,
     recentCountSuffix: localizedCopySchema,
     archiveCountSuffix: localizedCopySchema,
-    featuredArticleCoverAlt: localizedCopySchema,
-    articleCoverAlt: localizedCopySchema,
     readingTime: localizedCopySchema,
     articleLocation: localizedCopySchema,
     articleContents: localizedCopySchema,

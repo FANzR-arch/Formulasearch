@@ -54,6 +54,8 @@ public/uploads/blog/
 
 封面放在 `public/uploads/blog/<同一日期>/`，frontmatter 的 `cover` 必须填写单斜杠开头的站内路径（例如 `/uploads/blog/2026-07-02/cover.jpg`），不能写 `//host/...` 或外部 URL。当前读取器支持 `avif`、`jpeg`、`jpg`、`png`、`webp`，并按文件名排序取第一张。
 
+`coverAlt` 是封面的主要视觉描述；如果有可靠的英文视觉描述，再额外填写可选字段 `coverAltEn`。中文文章没有 `coverAltEn` 时，英文 UI 不会伪造通用的 `Article cover`，而是保留原始内容语言；如果 `contentLanguage: en`，则必须填写 `coverAltEn`。
+
 现有封面大多是约 `2.36:1–2.5:1` 的超宽横幅。新增封面优先延续横幅构图，避免把关键信息放在最边缘。封面尺寸和 WebP/AVIF 响应式变体由脚本维护，不要手工编辑 `content/site/blog-media.json`；`npm run blog:media:prepare` 也会清理该目录下不再被 manifest 使用的生成文件。
 
 ## 当前更新方式

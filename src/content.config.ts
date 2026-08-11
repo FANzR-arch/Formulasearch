@@ -35,6 +35,7 @@ const blog = defineCollection({
     tags: tagsSchema.default([]),
     cover: localAssetPathSchema,
     coverAlt: z.string().trim().min(1),
+    coverAltEn: z.string().trim().min(1).optional(),
     contentStatus: z.enum(['index-only', 'full']),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
@@ -45,6 +46,9 @@ const blog = defineCollection({
     }
     if (data.contentStatus === 'index-only' && data.externalLinks.length === 0 && !data.draft) {
       context.addIssue({ code: 'custom', path: ['externalLinks'], message: 'Index-only articles require an external link.' })
+    }
+    if (data.contentLanguage === 'en' && !data.coverAltEn) {
+      context.addIssue({ code: 'custom', path: ['coverAltEn'], message: 'English articles require an English coverAltEn.' })
     }
   }),
 })
