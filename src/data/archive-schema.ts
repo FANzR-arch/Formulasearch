@@ -20,11 +20,9 @@ export const archivePageBaseSchema = z.object({
 
 export const archiveItemBaseSchema = z.object({
   alt: localizedCopySchema,
-  caption: localizedCopySchema,
   index: z.string().regex(/^\d+$/),
   layout: archiveLayoutSchema,
   tags: z.array(z.string().min(1)).min(1),
-  label: localizedCopySchema,
 }).strict()
 
 interface ArchiveRelationInput {

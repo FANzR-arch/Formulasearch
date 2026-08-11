@@ -32,17 +32,9 @@
   "items": [
     {
       "alt": {"zh":"河面上的红色小船驶过城市天际线，前景有树木掩映","en":"A red boat passes a city skyline on the river, framed by trees"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-001.webp",
       "index": "01",
-      "label": {
-        "zh": "精选影像 01",
-        "en": "Selected photograph 01"
-      },
       "layout": "hero",
       "tags": [
         "selected"
@@ -51,17 +43,9 @@
     },
     {
       "alt": {"zh":"黑白肖像中，一位摄影者举起相机站在展览空间里","en":"A photographer raises a camera in a black-and-white exhibition portrait"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-002.webp",
       "index": "02",
-      "label": {
-        "zh": "精选影像 02",
-        "en": "Selected photograph 02"
-      },
       "layout": "square",
       "tags": [
         "selected"
@@ -70,17 +54,9 @@
     },
     {
       "alt": {"zh":"暮色中的河岸城市天际线倒映在水面上","en":"A waterfront city skyline is reflected in the water at dusk"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-003.webp",
       "index": "03",
-      "label": {
-        "zh": "精选影像 03",
-        "en": "Selected photograph 03"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -89,17 +65,9 @@
     },
     {
       "alt": {"zh":"两个人坐在明亮的屏幕前，形成黑色剪影","en":"Two people sit as silhouettes in front of a bright screen"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1919,
       "image": "/uploads/photos/select/photo-004.webp",
       "index": "04",
-      "label": {
-        "zh": "精选影像 04",
-        "en": "Selected photograph 04"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -108,17 +76,9 @@
     },
     {
       "alt": {"zh":"仰拍的两座高层建筑从画面两侧向天空延伸","en":"Two tall buildings rise toward the sky in an upward-looking view"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-005.webp",
       "index": "05",
-      "label": {
-        "zh": "精选影像 05",
-        "en": "Selected photograph 05"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -127,17 +87,9 @@
     },
     {
       "alt": {"zh":"白色山地宫殿建筑坐落在坡地上，天空中有一只飞鸟","en":"A white hillside palace stands beneath a sky crossed by a single bird"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1920,
       "image": "/uploads/photos/select/photo-006.webp",
       "index": "06",
-      "label": {
-        "zh": "精选影像 06",
-        "en": "Selected photograph 06"
-      },
       "layout": "wide",
       "tags": [
         "selected"
@@ -146,17 +98,9 @@
     },
     {
       "alt": {"zh":"山地宫殿建筑的黑白远景，层叠屋顶沿山势展开","en":"A black-and-white view of a hillside palace with layered roofs"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1211,
       "image": "/uploads/photos/select/photo-007.webp",
       "index": "07",
-      "label": {
-        "zh": "精选影像 07",
-        "en": "Selected photograph 07"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -165,17 +109,9 @@
     },
     {
       "alt": {"zh":"白色墙面与红色窗檐构成的传统建筑局部","en":"A detail of traditional architecture with white walls and red window eaves"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1920,
       "image": "/uploads/photos/select/photo-008.webp",
       "index": "08",
-      "label": {
-        "zh": "精选影像 08",
-        "en": "Selected photograph 08"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -184,17 +120,9 @@
     },
     {
       "alt": {"zh":"带有雕刻装饰与深色窗洞的传统建筑立面","en":"A traditional building facade with carved ornament and dark windows"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1920,
       "image": "/uploads/photos/select/photo-009.webp",
       "index": "09",
-      "label": {
-        "zh": "精选影像 09",
-        "en": "Selected photograph 09"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -203,17 +131,9 @@
     },
     {
       "alt": {"zh":"三位女性坐在传统建筑入口旁的台阶上","en":"Three women sit on steps beside the entrance of a traditional building"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1920,
       "image": "/uploads/photos/select/photo-010.webp",
       "index": "10",
-      "label": {
-        "zh": "精选影像 10",
-        "en": "Selected photograph 10"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -222,17 +142,9 @@
     },
     {
       "alt": {"zh":"红色木门上装饰着金色门环与复杂纹样","en":"A red wooden door with a gold ring handle and intricate ornament"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-011.webp",
       "index": "11",
-      "label": {
-        "zh": "精选影像 11",
-        "en": "Selected photograph 11"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -241,17 +153,9 @@
     },
     {
       "alt": {"zh":"白色空间中的银色人体雕塑","en":"A silver human-form sculpture in a white room"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-012.webp",
       "index": "12",
-      "label": {
-        "zh": "精选影像 12",
-        "en": "Selected photograph 12"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -260,17 +164,9 @@
     },
     {
       "alt": {"zh":"白色展厅中的银色与黄色人体雕塑组合","en":"A silver and yellow human-form sculpture installation in a white gallery"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1951,
       "image": "/uploads/photos/select/photo-013.webp",
       "index": "13",
-      "label": {
-        "zh": "精选影像 13",
-        "en": "Selected photograph 13"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -279,17 +175,9 @@
     },
     {
       "alt": {"zh":"金色水上建筑或船只位于城市高楼与河岸之间","en":"A golden waterside structure or boat sits between high-rises and the riverbank"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1600,
       "image": "/uploads/photos/select/photo-014.webp",
       "index": "14",
-      "label": {
-        "zh": "精选影像 14",
-        "en": "Selected photograph 14"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -298,17 +186,9 @@
     },
     {
       "alt": {"zh":"蓝天背景下的现代城市高楼群","en":"A group of modern city towers against a blue sky"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-015.webp",
       "index": "15",
-      "label": {
-        "zh": "精选影像 15",
-        "en": "Selected photograph 15"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -317,17 +197,9 @@
     },
     {
       "alt": {"zh":"树木掩映下的河面红船与城市天际线","en":"A red boat and city skyline seen across the river through trees"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1600,
       "image": "/uploads/photos/select/photo-016.webp",
       "index": "16",
-      "label": {
-        "zh": "精选影像 16",
-        "en": "Selected photograph 16"
-      },
       "layout": "wide",
       "tags": [
         "selected"
@@ -336,17 +208,9 @@
     },
     {
       "alt": {"zh":"黑白城市景观前，一位人物站在窗边向外眺望","en":"A person looks out from a window toward a cityscape in black and white"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-017.webp",
       "index": "17",
-      "label": {
-        "zh": "精选影像 17",
-        "en": "Selected photograph 17"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -355,17 +219,9 @@
     },
     {
       "alt": {"zh":"蓝天下的传统城门屋顶，几只鸟从上方飞过","en":"A traditional gate roof beneath a blue sky with birds overhead"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1600,
       "image": "/uploads/photos/select/photo-018.webp",
       "index": "18",
-      "label": {
-        "zh": "精选影像 18",
-        "en": "Selected photograph 18"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -374,17 +230,9 @@
     },
     {
       "alt": {"zh":"高层建筑从画面底部向明亮的蓝色天空延伸","en":"A high-rise extends upward into a bright blue sky"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-019.webp",
       "index": "19",
-      "label": {
-        "zh": "精选影像 19",
-        "en": "Selected photograph 19"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -393,17 +241,9 @@
     },
     {
       "alt": {"zh":"海岸边的城市高楼与沙滩，远处有行人","en":"City towers and a beach line the coast, with people in the distance"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-020.webp",
       "index": "20",
-      "label": {
-        "zh": "精选影像 20",
-        "en": "Selected photograph 20"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -412,17 +252,9 @@
     },
     {
       "alt": {"zh":"沿海步道旁的城市天际线与蓝色海湾","en":"A coastal walkway beside a city skyline and blue bay"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-021.webp",
       "index": "21",
-      "label": {
-        "zh": "精选影像 21",
-        "en": "Selected photograph 21"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -431,17 +263,9 @@
     },
     {
       "alt": {"zh":"石刻佛像面部的近距离细节","en":"A close detail of a stone-carved Buddha face"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-022.webp",
       "index": "22",
-      "label": {
-        "zh": "精选影像 22",
-        "en": "Selected photograph 22"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -450,17 +274,9 @@
     },
     {
       "alt": {"zh":"红色屋顶与浅色建筑组成的旧城俯瞰景象","en":"An overhead view of an old town filled with red roofs and pale buildings"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-023.webp",
       "index": "23",
-      "label": {
-        "zh": "精选影像 23",
-        "en": "Selected photograph 23"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -469,17 +285,9 @@
     },
     {
       "alt": {"zh":"一位背着相机包的人在展厅里观看墙上的照片","en":"A visitor with a camera bag views a framed photograph in a gallery"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-024.webp",
       "index": "24",
-      "label": {
-        "zh": "精选影像 24",
-        "en": "Selected photograph 24"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -488,17 +296,9 @@
     },
     {
       "alt": {"zh":"玻璃与钢结构组成的现代建筑细部","en":"A detail of a modern building made from glass and steel"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-025.webp",
       "index": "25",
-      "label": {
-        "zh": "精选影像 25",
-        "en": "Selected photograph 25"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -507,17 +307,9 @@
     },
     {
       "alt": {"zh":"高架轨道与密集住宅楼之间的城市景观","en":"A city view between an elevated rail line and dense apartment buildings"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-026.webp",
       "index": "26",
-      "label": {
-        "zh": "精选影像 26",
-        "en": "Selected photograph 26"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -526,17 +318,9 @@
     },
     {
       "alt": {"zh":"白色几何建筑体量与半透明屋檐的仰拍细节","en":"An upward view of white geometric volumes and translucent canopies"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-027.webp",
       "index": "27",
-      "label": {
-        "zh": "精选影像 27",
-        "en": "Selected photograph 27"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -545,17 +329,9 @@
     },
     {
       "alt": {"zh":"昏暗展厅中一幅横向风景作品的展示空间","en":"A horizontal landscape artwork displayed in a dark gallery"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-028.webp",
       "index": "28",
-      "label": {
-        "zh": "精选影像 28",
-        "en": "Selected photograph 28"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -564,17 +340,9 @@
     },
     {
       "alt": {"zh":"挂满红色旗帜的城市街道与来往行人","en":"A busy city street lined with red flags and pedestrians"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-029.webp",
       "index": "29",
-      "label": {
-        "zh": "精选影像 29",
-        "en": "Selected photograph 29"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -583,17 +351,9 @@
     },
     {
       "alt": {"zh":"白色高挑室内空间中的长廊与对称柱列","en":"A long symmetrical corridor with columns in a tall white interior"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-030.webp",
       "index": "30",
-      "label": {
-        "zh": "精选影像 30",
-        "en": "Selected photograph 30"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -602,17 +362,9 @@
     },
     {
       "alt": {"zh":"蓝色水面上成群飞鸟与远处的山岸","en":"Flocks of birds skim blue water with a distant shoreline behind them"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-031.webp",
       "index": "31",
-      "label": {
-        "zh": "精选影像 31",
-        "en": "Selected photograph 31"
-      },
       "layout": "wide",
       "tags": [
         "selected"
@@ -621,17 +373,9 @@
     },
     {
       "alt": {"zh":"几只海鸟停在水中的岩石上","en":"Seabirds rest on rocks in the water"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-032.webp",
       "index": "32",
-      "label": {
-        "zh": "精选影像 32",
-        "en": "Selected photograph 32"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -640,17 +384,9 @@
     },
     {
       "alt": {"zh":"红色建筑门口的石雕守护兽与竖幅文字","en":"A stone guardian statue and vertical lettering beside a red doorway"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-033.webp",
       "index": "33",
-      "label": {
-        "zh": "精选影像 33",
-        "en": "Selected photograph 33"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -659,17 +395,9 @@
     },
     {
       "alt": {"zh":"树木之间露出的多层传统塔楼","en":"A multi-storey traditional pagoda rises among trees"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-034.webp",
       "index": "34",
-      "label": {
-        "zh": "精选影像 34",
-        "en": "Selected photograph 34"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -678,17 +406,9 @@
     },
     {
       "alt": {"zh":"岩壁上的佛像石刻局部","en":"A detail of a Buddha carved into a rock wall"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-035.webp",
       "index": "35",
-      "label": {
-        "zh": "精选影像 35",
-        "en": "Selected photograph 35"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -697,17 +417,9 @@
     },
     {
       "alt": {"zh":"色彩鲜艳的多臂武士或神像雕塑","en":"A vividly coloured multi-armed warrior or deity sculpture"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-036.webp",
       "index": "36",
-      "label": {
-        "zh": "精选影像 36",
-        "en": "Selected photograph 36"
-      },
       "layout": "wide",
       "tags": [
         "selected"
@@ -716,17 +428,9 @@
     },
     {
       "alt": {"zh":"传统寺塔屋檐与砖墙的仰拍细节","en":"An upward detail of tiled eaves and brickwork on a traditional pagoda"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-037.webp",
       "index": "37",
-      "label": {
-        "zh": "精选影像 37",
-        "en": "Selected photograph 37"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -735,17 +439,9 @@
     },
     {
       "alt": {"zh":"高耸砖塔的局部，背景是浅色天空","en":"A close view of a tall brick pagoda against a pale sky"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-038.webp",
       "index": "38",
-      "label": {
-        "zh": "精选影像 38",
-        "en": "Selected photograph 38"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -754,17 +450,9 @@
     },
     {
       "alt": {"zh":"蓝天下的多层木结构传统楼阁","en":"A multi-level timber pavilion beneath a blue sky"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-039.webp",
       "index": "39",
-      "label": {
-        "zh": "精选影像 39",
-        "en": "Selected photograph 39"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -773,17 +461,9 @@
     },
     {
       "alt": {"zh":"红墙上方的传统楼阁与飞鸟","en":"A traditional pavilion above a red wall with birds in the sky"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-040.webp",
       "index": "40",
-      "label": {
-        "zh": "精选影像 40",
-        "en": "Selected photograph 40"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -792,17 +472,9 @@
     },
     {
       "alt": {"zh":"住宅楼与远处城市天际线的竖幅景观","en":"A vertical city view with apartment buildings and a distant skyline"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-041.webp",
       "index": "41",
-      "label": {
-        "zh": "精选影像 41",
-        "en": "Selected photograph 41"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -811,17 +483,9 @@
     },
     {
       "alt": {"zh":"树影框住的夜间高楼与蓝黑色天空","en":"A night tower framed by tree branches against a deep blue sky"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-042.webp",
       "index": "42",
-      "label": {
-        "zh": "精选影像 42",
-        "en": "Selected photograph 42"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -830,17 +494,9 @@
     },
     {
       "alt": {"zh":"河岸夜景中的高楼与灯光倒影","en":"Lit high-rises and reflections along a river at night"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-043.webp",
       "index": "43",
-      "label": {
-        "zh": "精选影像 43",
-        "en": "Selected photograph 43"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -849,17 +505,9 @@
     },
     {
       "alt": {"zh":"红色灯光照亮的桥梁与夜间城市天际线","en":"A bridge lit red beside a city skyline at night"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-044.webp",
       "index": "44",
-      "label": {
-        "zh": "精选影像 44",
-        "en": "Selected photograph 44"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -868,17 +516,9 @@
     },
     {
       "alt": {"zh":"黑色轿车停在红砖建筑外的街道上","en":"A black car parked outside a red-brick building"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-045.webp",
       "index": "45",
-      "label": {
-        "zh": "精选影像 45",
-        "en": "Selected photograph 45"
-      },
       "layout": "portrait",
       "tags": [
         "selected"
@@ -887,17 +527,9 @@
     },
     {
       "alt": {"zh":"展厅中的金属雕塑被运动中的人物虚化包围","en":"A metal sculpture in a gallery surrounded by motion-blurred visitors"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-046.webp",
       "index": "46",
-      "label": {
-        "zh": "精选影像 46",
-        "en": "Selected photograph 46"
-      },
       "layout": "wide",
       "tags": [
         "selected"
@@ -906,17 +538,9 @@
     },
     {
       "alt": {"zh":"夜色中的河岸建筑群与水面灯光","en":"Waterfront buildings and lights reflected on the river at night"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-047.webp",
       "index": "47",
-      "label": {
-        "zh": "精选影像 47",
-        "en": "Selected photograph 47"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -925,17 +549,9 @@
     },
     {
       "alt": {"zh":"展墙上的英文引语写着建筑与生活的关系","en":"An English quotation on a gallery wall reflects on architecture and life"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-048.webp",
       "index": "48",
-      "label": {
-        "zh": "精选影像 48",
-        "en": "Selected photograph 48"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -944,17 +560,9 @@
     },
     {
       "alt": {"zh":"暖黄色灯光照亮的夜间街边店铺","en":"A warmly lit storefront on a street at night"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-049.webp",
       "index": "49",
-      "label": {
-        "zh": "精选影像 49",
-        "en": "Selected photograph 49"
-      },
       "layout": "landscape",
       "tags": [
         "selected"
@@ -963,17 +571,9 @@
     },
     {
       "alt": {"zh":"黑白色调的岩石或洞穴景观","en":"A rocky or cave landscape rendered in black and white"},
-      "caption": {
-        "zh": "精选摄影 / 影像档案",
-        "en": "Selected photography / visual archive"
-      },
       "height": 1281,
       "image": "/uploads/photos/select/photo-050.webp",
       "index": "50",
-      "label": {
-        "zh": "精选影像 50",
-        "en": "Selected photograph 50"
-      },
       "layout": "landscape",
       "tags": [
         "selected"

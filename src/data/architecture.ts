@@ -4,10 +4,13 @@ import waterStudy from '../assets/archive/studies/water-3840x2160-glass-colorful
 import violetStudy from '../assets/archive/studies/iphone-15-pro-3840x2160-splash-25150.jpeg'
 import whiteStudy from '../assets/archive/studies/iphone-15-3840x2160-white-4k-25043.jpeg'
 import architectureContent from '../../content/site/architecture.json'
+import { localizedCopySchema } from '../lib/i18n'
 import { archiveItemBaseSchema, archivePageBaseSchema, validateArchiveRelations } from './archive-schema'
 
 const architectureItemSchema = archiveItemBaseSchema.extend({
+  caption: localizedCopySchema,
   image: z.enum(['white-study', 'violet-study', 'water-study']),
+  label: localizedCopySchema,
 }).strict()
 
 const architectureSchema = archivePageBaseSchema.extend({

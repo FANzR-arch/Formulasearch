@@ -7,11 +7,11 @@ import { getLocalizedValue, type Locale } from '../lib/i18n'
 
 interface ArchiveItem {
   alt: { en: string; zh: string }
-  caption: { en: string; zh: string }
+  caption?: { en: string; zh: string }
   height?: number
   image: ImageMetadata | string
   index: string
-  label: { en: string; zh: string }
+  label?: { en: string; zh: string }
   layout: 'hero' | 'portrait' | 'landscape' | 'square' | 'wide'
   tags: string[]
   width?: number
@@ -70,7 +70,7 @@ const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.
         ) : (
           <Image src={item.image} alt={localizedAlt(item.alt)} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={index < eagerImageCount ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
         )}
-        {active !== 'photos' && (
+        {active !== 'photos' && item.label && item.caption && (
           <figcaption>
             <span>{item.index}</span>
             <strong><LocalizedText {...item.label} /></strong>
