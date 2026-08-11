@@ -9,6 +9,12 @@ import { fileURLToPath } from 'node:url'
 
 const repoRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const contentRoot = join(repoRoot, 'content', 'blog')
+const mediaPolicyPath = join(repoRoot, 'content', 'site', 'blog-media-policy.json')
+const mediaPolicy = JSON.parse(readFileSync(mediaPolicyPath, 'utf8'))
+if (!Array.isArray(mediaPolicy.externalImageHosts) || mediaPolicy.externalImageHosts.some((host) => typeof host !== 'string' || !host.trim())) {
+  throw new Error(`Invalid blog media policy: ${mediaPolicyPath}`)
+}
+const approvedExternalImageHosts = new Set(mediaPolicy.externalImageHosts.map((host) => host.trim().toLowerCase()))
 const genericAlt = new Set(['', '图像', 'image', 'Image'])
 
 const cleanHeading = (value) => value
@@ -190,6 +196,13 @@ for (const file of posts) {
   }
 }
 
+const unapprovedExternalImageHosts = [...dependencyHosts.keys()]
+  .filter((host) => !approvedExternalImageHosts.has(host.toLowerCase()))
+  .sort()
+if (mode === '--check' && unapprovedExternalImageHosts.length > 0) {
+  throw new Error(`Blog 正文图片使用了未批准的外部主机：${unapprovedExternalImageHosts.join(', ')}。请先更新 ${mediaPolicyPath} 的策略，再提交内容。`)
+}
+
 if (mode === '--check' && (total > 0 || invalidAltTotal > 0)) {
   const details = [
     total > 0 ? `${total} 个 Markdown 图片通用 alt` : '',
@@ -201,6 +214,7 @@ if (mode === '--check' && (total > 0 || invalidAltTotal > 0)) {
 if (mode === '--report') {
   console.log(`Blog 图片 alt 审查报告：${posts.length} 篇文章，${imageTotal} 张正文图片，${contextualCandidates} 张章节上下文初稿，${coverAltCandidates} 个封面 coverAlt 占位，${invalidAltTotal} 个 HTML 图片 alt 问题。`)
   console.log(`图片依赖摘要：${externalImageTotal} 张外部图片，${localImageTotal} 张本地图片，${unknownImageTotal} 张未识别来源。`)
+  console.log(`外部图片主机策略：已批准 ${approvedExternalImageHosts.size} 个，当前未批准 ${unapprovedExternalImageHosts.length} 个。`)
   if (dependencyHosts.size > 0) {
     console.log('外部图片主机（按图片数量排序）：')
     for (const [host, summary] of [...dependencyHosts.entries()].sort((a, b) => b[1].count - a[1].count || a[0].localeCompare(b[0]))) {

@@ -83,8 +83,8 @@ npm run blog:check
 从 Philthink 的 `02-已发布` 导入正文：
 
 ```bash
-npm run blog:import -- --source "E:\00_Phil\Philthink\文章产出库\02-已发布"
-npm run blog:import -- --source "E:\00_Phil\Philthink\文章产出库\02-已发布" --write
+npm run blog:import -- --source "C:\path\to\Philthink\文章产出库\02-已发布"
+npm run blog:import -- --source "C:\path\to\Philthink\文章产出库\02-已发布" --write
 ```
 
 第一条命令只预检，第二条才写入尚未迁入正文的文章。脚本只接受原文 URL、完整标题或去除标点后的唯一标题匹配；成功导入后会使用原稿的真实发布日期，并将 `contentStatus` 改为 `full`。已有 `full` 正文默认跳过，确认要用源稿覆盖时才额外加 `--overwrite`。未能唯一匹配的文章保持 `index-only` 和原平台外链；如果目标文章本来是 `draft: true`，导入正文也不会自动把它发布。
@@ -92,8 +92,8 @@ npm run blog:import -- --source "E:\00_Phil\Philthink\文章产出库\02-已发�
 现有四个 txt 文件继续作为列表页索引保留，不手工删除。新增或迁移内容时，推荐按“预检 → 写入 → 构建”的顺序操作：
 
 ```bash
-npm run blog:import -- --source "E:\\00_Phil\\Philthink\\文章产出库\\02-已发布"
-npm run blog:import -- --source "E:\\00_Phil\\Philthink\\文章产出库\\02-已发布" --write
+npm run blog:import -- --source "C:\\path\\to\\Philthink\\文章产出库\\02-已发布"
+npm run blog:import -- --source "C:\\path\\to\\Philthink\\文章产出库\\02-已发布" --write
 npm run blog:check
 npm run build
 ```
