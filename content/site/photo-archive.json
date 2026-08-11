@@ -21,6 +21,7 @@
   },
   "initialVisibleCount": 8,
   "loadMoreBatchSize": 8,
+  "eagerImageCount": 2,
   "filters": [
     {
       "id": "all",

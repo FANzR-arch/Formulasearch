@@ -24,6 +24,7 @@ const architectureSchema = z.object({
   description: localizedCopySchema,
   initialVisibleCount: z.union([z.literal('all'), z.number().int().positive()]),
   loadMoreBatchSize: z.number().int().positive(),
+  eagerImageCount: z.number().int().positive(),
   filters: z.array(localizedCopySchema.extend({ id: z.string().trim().min(1) })).min(1),
   items: z.array(architectureItemSchema).min(1),
 }).strict()

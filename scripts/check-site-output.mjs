@@ -6,6 +6,7 @@ const projectRoot = dirname(fileURLToPath(import.meta.url))
 const distRoot = join(projectRoot, '..', 'dist')
 const publicRoot = join(projectRoot, '..', 'public')
 const siteConfig = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'site.json'), 'utf8'))
+const navigationContent = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'navigation.json'), 'utf8'))
 const siteOrigin = new URL(siteConfig.siteUrl).origin
 const failures = []
 const getAttribute = (attributes, name) => attributes.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1] || ''
@@ -282,7 +283,8 @@ for (const articlePath of articlePaths) {
 
 const blogIndex = await readUtf8('blog/index.html')
 const navPanelCount = (blogIndex.match(/class="nav-popover"/g) || []).length
-if (navPanelCount !== 4) failures.push(`expected 4 primary navigation panels, found ${navPanelCount}`)
+const expectedNavPanelCount = Array.isArray(navigationContent) ? navigationContent.length : 0
+if (navPanelCount !== expectedNavPanelCount) failures.push(`expected ${expectedNavPanelCount} primary navigation panels, found ${navPanelCount}`)
 
 const homeIndex = await readUtf8('index.html')
 if (!/<noscript>[\s\S]*#intro-overlay\s*\{\s*display:\s*none/.test(homeIndex)) failures.push('homepage is missing the no-script intro overlay fallback')

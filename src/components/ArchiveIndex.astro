@@ -26,6 +26,7 @@ interface Filter {
 interface Props {
   active: 'architecture' | 'photos'
   description: { en: string; zh: string }
+  eagerImageCount: number
   filters: Filter[]
   initialVisibleCount: number | 'all'
   items: ArchiveItem[]
@@ -34,7 +35,7 @@ interface Props {
   title: { en: string; zh: string }
 }
 
-const { active, description, filters, initialVisibleCount, items, kicker, loadMoreBatchSize, title } = Astro.props
+const { active, description, eagerImageCount, filters, initialVisibleCount, items, kicker, loadMoreBatchSize, title } = Astro.props
 const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.min(initialVisibleCount, items.length)
 ---
 
@@ -66,9 +67,9 @@ const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.
     {items.map((item, index) => (
       <figure class:list={['archive-record', `archive-record--${item.layout}`]} data-archive-record={item.tags.join(' ')} data-archive-index={index} hidden={index >= initialVisibleItems}>
         {typeof item.image === 'string' ? (
-          <img src={item.image} alt={item.alt} data-alt-zh={item.alt} data-alt-en={`${item.label.en} — ${item.caption.en}`} width={item.width} height={item.height} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
+          <img src={item.image} alt={item.alt} data-alt-zh={item.alt} data-alt-en={`${item.label.en} — ${item.caption.en}`} width={item.width} height={item.height} loading={index < eagerImageCount ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
         ) : (
-          <Image src={item.image} alt={item.alt} data-alt-zh={item.alt} data-alt-en={`${item.label.en} — ${item.caption.en}`} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
+          <Image src={item.image} alt={item.alt} data-alt-zh={item.alt} data-alt-en={`${item.label.en} — ${item.caption.en}`} loading={index < eagerImageCount ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
         )}
         <figcaption>
           <span>{item.index}</span>
