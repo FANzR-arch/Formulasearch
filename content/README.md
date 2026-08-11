@@ -52,6 +52,7 @@ content/
 - 全站一级导航：内容来自 `content/site/navigation.json`，构建时由 `src/data/navigation.ts` 做 Zod 校验
 - `/blog`、`/blog/series`、`/blog/archive`：文章索引和归档
 - `/blog/series` 的主题分组来自 `content/site/blog-series.json`，构建时由 `src/data/blog-series.ts` 校验
+- `/rss.xml`：仅输出已迁移到本站正文的 Blog 文章
 - `/projects`、`/skills`、`/lab`：目录内容来自 `content/site/catalog.json`，构建时由 `src/data/catalog.ts` 做 Zod 校验
 - `/photos`：照片 manifest 来自 `content/site/photo-archive.json`，构建时由 `src/data/photo-archive.ts` 做 Zod 校验
 - `/architecture`：内容来自 `content/site/architecture.json`，构建时由 `src/data/architecture.ts` 做 Zod 校验

@@ -87,3 +87,12 @@ test('featured stage keeps safe rel on dynamic external links', async ({ page })
   await trigger.focus()
   await expect(page.locator('[data-stage-link]')).toHaveAttribute('rel', 'noopener noreferrer')
 })
+
+test('RSS exposes local article entries', async ({ request }) => {
+  const response = await request.get('/rss.xml')
+  expect(response.ok()).toBeTruthy()
+  const body = await response.text()
+  expect(body).toContain('<rss version="2.0">')
+  expect((body.match(/<item>/g) || []).length).toBeGreaterThan(0)
+  expect(body).toContain('/blog/')
+})

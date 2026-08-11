@@ -45,6 +45,9 @@ for (const route of staticRoutes) {
   if (!sitemap.includes(`<loc>https://formulasearch.com${route}</loc>`)) failures.push(`sitemap missing route: ${route}`)
 }
 
+const rss = await readUtf8('rss.xml')
+if (!rss.includes('<rss version="2.0">') || !rss.includes('<item>')) failures.push('RSS output is missing channel or article items')
+
 for (const path of htmlFiles) {
   const html = await readFile(path, 'utf8')
   const relativePath = path.slice(distRoot.length + 1)
