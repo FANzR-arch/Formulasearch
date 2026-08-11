@@ -1,7 +1,12 @@
 import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
+import { staticSiteRoutes } from './data/site-routes'
 import { httpUrlSchema, localAssetPathSchema } from './lib/validation'
+
+const reservedBlogSlugs = new Set(staticSiteRoutes
+  .filter((path) => path.startsWith('/blog/'))
+  .map((path) => path.slice('/blog/'.length)))
 
 const tagsSchema = z.array(z.string().trim().min(1)).refine((tags) => new Set(tags).size === tags.length, 'Tags must be unique.')
 const externalLinksSchema = z.array(z.object({
@@ -43,6 +48,9 @@ const blog = defineCollection({
   }).strict().superRefine((data, context) => {
     if (data.updatedDate && data.updatedDate < data.pubDate) {
       context.addIssue({ code: 'custom', path: ['updatedDate'], message: 'updatedDate must not be earlier than pubDate.' })
+    }
+    if (reservedBlogSlugs.has(data.slug)) {
+      context.addIssue({ code: 'custom', path: ['slug'], message: 'Slug is reserved by a static Blog route.' })
     }
     if (data.contentStatus === 'index-only' && data.externalLinks.length === 0 && !data.draft) {
       context.addIssue({ code: 'custom', path: ['externalLinks'], message: 'Index-only articles require an external link.' })
