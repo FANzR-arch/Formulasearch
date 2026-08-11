@@ -213,6 +213,15 @@ test('article media is playable or represented by accessible poster content', as
   }
 })
 
+test('failed article images become accessible placeholders', async ({ page }) => {
+  await page.route('https://pbs.twimg.com/**', (route) => route.abort())
+  await page.goto('/blog/ai-practice-2026-02-22')
+  const fallback = page.locator('.article-media-fallback').first()
+  await expect(fallback).toBeVisible()
+  await expect(fallback).toHaveAttribute('role', 'img')
+  await expect(fallback).toHaveAttribute('aria-label', /.+/)
+})
+
 test('featured stage keeps safe rel on dynamic external links', async ({ page }) => {
   await page.goto('/blog')
   const trigger = page.locator('[data-stage-trigger]').nth(1)

@@ -913,6 +913,26 @@
   border: 1px solid var(--hairline);
 }
 
+.article-media-fallback {
+  display: grid;
+  min-height: 12rem;
+  margin: 2.2em auto;
+  padding: clamp(24px, 5vw, 56px);
+  border: 1px solid var(--hairline);
+  place-items: center;
+  color: var(--muted);
+  background: var(--media-placeholder);
+  font-family: var(--serif);
+  font-size: .92rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.article-cover .article-media-fallback {
+  min-height: clamp(12rem, 32vw, 24rem);
+  margin: 0;
+}
+
 .article-prose code {
   padding: .15em .34em;
   background: color-mix(in oklab, var(--ink) 7%, transparent);

@@ -3,6 +3,22 @@
   const localeStorageKey = 'formulasearch-locale'
   const themeStorageKey = 'formulasearch-theme'
 
+  const replaceFailedMedia = (event) => {
+    const image = event.target
+    if (!(image instanceof HTMLImageElement) || !image.closest('.article-prose, .article-cover') || image.dataset.mediaState === 'unavailable') return
+    image.dataset.mediaState = 'unavailable'
+    const picture = image.closest('picture')
+    const fallback = document.createElement(picture ? 'div' : 'span')
+    fallback.className = 'article-media-fallback'
+    fallback.setAttribute('role', 'img')
+    fallback.setAttribute('aria-label', image.alt || '')
+    fallback.textContent = image.alt || ''
+    if (picture) picture.replaceWith(fallback)
+    else image.replaceWith(fallback)
+  }
+
+  document.addEventListener('error', replaceFailedMedia, true)
+
   const applyLocale = (locale) => {
     const nextLocale = locale === 'en' ? 'en' : 'zh'
     root.dataset.locale = nextLocale
