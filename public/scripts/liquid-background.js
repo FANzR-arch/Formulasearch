@@ -328,7 +328,11 @@
   }
 
   const animate = (now) => {
-    if (!document.hidden && now - lastFrame >= 28) {
+    if (document.hidden || contextLost) {
+      frame = 0
+      return
+    }
+    if (now - lastFrame >= 28) {
       lastFrame = now
       draw(now)
     }
@@ -402,6 +406,11 @@
     resize()
     draw()
   }, { passive: true })
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAnimation()
+    else syncMotion()
+  })
 
   window.addEventListener('formulasearch:theme', (event) => {
     theme = event.detail?.theme === 'dark' ? 1 : 0
