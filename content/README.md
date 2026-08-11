@@ -1,20 +1,20 @@
 # 这里是你更新网站的地方
 
-首页和 Blog 的日常内容可以只改本文件夹；Projects、Skills、Lab、Photos、Architecture 目前仍是首版目录数据，尚未迁移到统一内容模型。不要把“只改 content”理解为所有页面都已经支持无代码更新。
+首页、Blog、Projects、Skills、Lab、Photos、Architecture 的公开内容都已经进入本文件夹或其对应的内容 manifest；页面源码主要保留布局、资源映射和交互逻辑。不要把“只改 content”理解为所有功能都已经支持无代码更新，新增字段仍需先扩展 schema 和页面消费逻辑。
 
 ## 最常用的入口
 
 1. 改首页中文：打开 [`site/home.json`](site/home.json)，按字段更新文字。
 2. 改首页英文：同步更新 [`site/home.en.json`](site/home.en.json)，保持 `intro`、`about`、`interest` 的数组长度一致。
 3. 放首页图片：把图片拖到 [`../public/uploads/home/`](../public/uploads/home/)；再把图片路径和对应双语 `heroImageAlt` 填进两个 JSON。填写 `heroImage` 时必须同时填写具体 alt。
-3. 新增 Blog：复制 [`blog/2026-07-02`](blog/2026-07-02) 文件夹，改成新的发布日期，再修改里面四个文本文件；封面图片放进 `../public/uploads/blog/同一个日期/`。
+4. 新增 Blog：复制 [`blog/2026-07-02`](blog/2026-07-02) 文件夹，改成新的发布日期，再修改里面四个文本文件；封面图片放进 `../public/uploads/blog/同一个日期/`。
 
 网站在本地预览运行时，保存文本或放入图片后会自动刷新。正式部署接通后，同样的文件变更会触发网站重新构建。
 
 ## 不要动的地方
 
 - 不要修改 `src/`：那是网站的排版和功能。
-- 不要修改根目录的 `package.json`：那是构建配置。
+- 内容编辑不需要修改根目录的 `package.json`；脚本或依赖发生变化时由工程维护者同步它。
 - 图片文件名尽量使用英文、小写、短横线，例如 `phil-working-desk.jpg`；不要用空格、中文或括号。
 
 ## Blog 内容结构
@@ -26,7 +26,8 @@ content/blog/
    ├─ 标题.txt
    ├─ 摘要.txt
    ├─ 分类.txt            填 categories.json 中的 id
-   └─ 链接.txt            每行一个外链，支持微信和 X
+   ├─ 链接.txt            每行一个外链，支持微信和 X
+   └─ index.md            由迁移脚本维护的 frontmatter，可选本站正文
 
 public/uploads/blog/
 └─ 2026-07-02/           与文章日期相同
@@ -46,9 +47,9 @@ content/
 └─ projects/             后续接入，一个项目一个文件夹
 ```
 
-当前公开图片放在 `public/uploads/`，因为该目录会被网站直接发布。首页、Blog、Projects、Skills、Lab、Photos、Architecture 的首版内容已经接入可编辑的数据文件；页面源码只保留布局、资源映射和交互逻辑。
+当前公开图片放在 `public/uploads/`，因为该目录会被网站直接发布。首页、Blog、Projects、Skills、Lab、Photos、Architecture 的内容已经接入可编辑的数据文件；页面源码只保留布局、资源映射和交互逻辑。
 
-站点名、域名、作者地址和 GitHub 地址统一维护在 [`site/site.json`](site/site.json)，不要在页面或脚本中复制粘贴这些稳定身份字段。首页与 Blog 入口页的双语 SEO 标题/描述统一维护在 [`site/page-meta.json`](site/page-meta.json)，页面源码只消费经过 Zod 校验的数据。
+站点名、域名、作者身份、作者地址和 GitHub 地址统一维护在 [`site/site.json`](site/site.json)，不要在页面或脚本中复制粘贴这些稳定身份字段。首页与 Blog 入口页的双语 SEO 标题/描述统一维护在 [`site/page-meta.json`](site/page-meta.json)，共享 UI 文案维护在 [`site/ui-copy.json`](site/ui-copy.json)，页面源码只消费经过 Zod 校验的数据。
 
 ## 当前路由
 
