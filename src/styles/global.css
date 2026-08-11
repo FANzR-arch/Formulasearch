@@ -280,7 +280,7 @@ a:hover, .theme-toggle:hover { color: var(--accent); }
 }
 .language-toggle svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.65; }
 
-.theme-toggle > svg { grid-area: 1 / 1; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.65; }
+.theme-toggle > svg { grid-area: 1 / 1; width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.65; }
 .theme-icon__moon { display: none; }
 :root[data-theme='dark'] .theme-icon__sun { display: none; }
 :root[data-theme='dark'] .theme-icon__moon { display: block; }

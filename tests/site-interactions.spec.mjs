@@ -56,6 +56,22 @@ test('archive and header controls keep touch-friendly hit areas', async ({ page 
   }
 })
 
+test('header utility icons keep a consistent optical size', async ({ page }) => {
+  await page.goto('/')
+  const sizes = await page.locator('.nav-utilities svg:visible').evaluateAll((elements) => elements.map((element) => {
+    const rect = element.getBoundingClientRect()
+    return { width: rect.width, height: rect.height }
+  }))
+
+  expect(sizes.length).toBeGreaterThanOrEqual(4)
+  for (const size of sizes) {
+    expect(size.width).toBeGreaterThanOrEqual(16)
+    expect(size.width).toBeLessThanOrEqual(18)
+    expect(size.height).toBeGreaterThanOrEqual(16)
+    expect(size.height).toBeLessThanOrEqual(18)
+  }
+})
+
 test('key routes do not overflow a narrow viewport', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 800 })
   for (const route of ['/', '/blog', '/blog/ai-practice-2026-02-22', '/photos', '/architecture', '/projects', '/skills', '/lab']) {
