@@ -49,6 +49,7 @@ content/
 ## 当前路由
 
 - `/`：首页，文案来自 `content/site/home.json` 和 `content/site/home.en.json`，构建时由 Zod 校验
+- 全站一级导航：内容来自 `content/site/navigation.json`，构建时由 `src/data/navigation.ts` 做 Zod 校验
 - `/blog`、`/blog/series`、`/blog/archive`：文章索引和归档
 - `/projects`、`/skills`、`/lab`：目录内容来自 `content/site/catalog.json`，构建时由 `src/data/catalog.ts` 做 Zod 校验
 - `/photos`：照片 manifest 来自 `content/site/photo-archive.json`，构建时由 `src/data/photo-archive.ts` 做 Zod 校验

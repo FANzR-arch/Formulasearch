@@ -1,60 +1,35 @@
-import type { LocalizedCopy } from '../lib/i18n'
+import { z } from 'astro/zod'
+import navigationContent from '../../content/site/navigation.json'
 
-export type PrimarySection = 'blog' | 'projects' | 'skills' | 'lab'
+const localizedCopySchema = z.object({
+  zh: z.string().min(1),
+  en: z.string().min(1),
+})
 
-export type NavigationItem = {
-  href: string
-  label: LocalizedCopy
-  note: LocalizedCopy
+const navigationItemSchema = z.object({
+  href: z.string().startsWith('/'),
+  label: localizedCopySchema,
+  note: localizedCopySchema,
+})
+
+const primaryNavigationItemSchema = z.object({
+  id: z.enum(['blog', 'projects', 'skills', 'lab']),
+  href: z.string().startsWith('/'),
+  label: localizedCopySchema,
+  menu: z.array(navigationItemSchema).min(1),
+})
+
+const navigationSchema = z.array(primaryNavigationItemSchema).length(4)
+const result = navigationSchema.safeParse(navigationContent)
+if (!result.success) {
+  const issues = result.error.issues
+    .map((issue) => `${issue.path.join('.') || 'root'}: ${issue.message}`)
+    .join('; ')
+  throw new Error(`Navigation content validation failed: ${issues}`)
 }
 
-export type PrimaryNavigationItem = {
-  id: PrimarySection
-  href: `/${PrimarySection}`
-  label: LocalizedCopy
-  menu: readonly NavigationItem[]
-}
+export type PrimarySection = z.infer<typeof primaryNavigationItemSchema>['id']
+export type NavigationItem = z.infer<typeof navigationItemSchema>
+export type PrimaryNavigationItem = z.infer<typeof primaryNavigationItemSchema>
 
-/** Shared source for the primary navigation labels and one-level menus. */
-export const primaryNavigation: readonly PrimaryNavigationItem[] = [
-  {
-    id: 'blog',
-    href: '/blog',
-    label: { zh: '博客', en: 'Blog' },
-    menu: [
-      { href: '/blog/series#ai-tools', label: { zh: 'AI 与工具', en: 'AI & Tools' }, note: { zh: 'AI 教程、工具与实践', en: 'Tutorials, tools, and practice' } },
-      { href: '/blog/series#aesthetic-systems', label: { zh: '美学系统', en: 'Aesthetic Systems' }, note: { zh: '视觉拆解、提示词与方法', en: 'Visual studies, prompts, and methods' } },
-      { href: '/blog/series#notes', label: { zh: '笔记', en: 'Notes' }, note: { zh: '个人观察与思考', en: 'Observations and ongoing thoughts' } },
-    ],
-  },
-  {
-    id: 'projects',
-    href: '/projects',
-    label: { zh: '项目', en: 'Projects' },
-    menu: [
-      { href: '/projects#products-tools', label: { zh: '产品与工具', en: 'Products & Tools' }, note: { zh: 'Seedo、RZFrame、UPet、X-studio', en: 'Seedo, RZFrame, UPet, and X-studio' } },
-      { href: '/projects#websites', label: { zh: '网站', en: 'Websites' }, note: { zh: '网站、交互页面与合作项目', en: 'Sites, interactive work, and collaborations' } },
-      { href: '/projects#all-projects', label: { zh: '全部项目', en: 'All Projects' }, note: { zh: '全部可公开的产出', en: 'Everything available to share' } },
-    ],
-  },
-  {
-    id: 'skills',
-    href: '/skills',
-    label: { zh: '技能', en: 'Skills' },
-    menu: [
-      { href: '/skills#design-skills', label: { zh: '设计技能', en: 'Design Skills' }, note: { zh: 'Phil Design Skills', en: 'Phil Design Skills' } },
-      { href: '/skills#agent-workflows', label: { zh: 'Agent 与工作流', en: 'Agent & Workflows' }, note: { zh: '工作流、SOP 与 Agent 工具', en: 'Workflows, SOPs, and agent tools' } },
-      { href: '/skills#all-skills', label: { zh: '全部技能', en: 'All Skills' }, note: { zh: '完整可复用资产索引', en: 'A reusable index of the full set' } },
-    ],
-  },
-  {
-    id: 'lab',
-    href: '/lab',
-    label: { zh: '实验', en: 'Lab' },
-    menu: [
-      { href: '/lab#experiments', label: { zh: '实验', en: 'Experiments' }, note: { zh: 'Aesthetic Formulas、动态视觉与原型', en: 'Aesthetic formulas, motion, and prototypes' } },
-      { href: '/lab#courses', label: { zh: '课程', en: 'Courses' }, note: { zh: 'SEO/GEO、Price Action 与学习产出', en: 'SEO/GEO, price action, and study notes' } },
-      { href: '/lab#now', label: { zh: '当下', en: 'Now' }, note: { zh: '正在学习、测试与推进的事', en: 'What is being learned, tested, and built' } },
-    ],
-  },
-] as const
+export const primaryNavigation = result.data
