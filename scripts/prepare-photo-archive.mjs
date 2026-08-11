@@ -1,10 +1,11 @@
+import { createHash } from 'node:crypto'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import sharp from 'sharp'
 
 const sourceDirectory = process.env.PHOTO_ARCHIVE_SOURCE ?? process.argv[2]
-const outputDirectory = path.resolve('public/uploads/photos/select')
-const manifestPath = path.resolve('content/site/photo-archive.json')
+const outputDirectory = path.resolve(process.env.PHOTO_ARCHIVE_OUTPUT ?? 'public/uploads/photos/select')
+const manifestPath = path.resolve(process.env.PHOTO_ARCHIVE_MANIFEST ?? 'content/site/photo-archive.json')
 const maxDimension = 2560
 const supportedImage = /\.(?:jpe?g|png)$/i
 const allowShrink = process.env.PHOTO_ARCHIVE_ALLOW_SHRINK === '1' || process.argv.includes('--allow-shrink')
@@ -46,6 +47,23 @@ function layoutFor(index, width, height) {
   return index % 5 === 0 ? 'wide' : 'landscape'
 }
 
+const hashBuffer = (buffer) => createHash('sha256').update(buffer).digest('hex')
+
+async function readExistingAssetHashes(items) {
+  const entries = await Promise.all(items.map(async (item) => {
+    if (/^[a-f0-9]{64}$/i.test(item.assetHash ?? '')) return [item.assetHash.toLowerCase(), item]
+    try {
+      const relativePath = item.image?.startsWith('/') ? item.image.slice(1) : ''
+      if (!relativePath) return []
+      const buffer = await fs.readFile(path.resolve('public', relativePath))
+      return [hashBuffer(buffer), item]
+    } catch {
+      return []
+    }
+  }))
+  return new Map(entries.filter((entry) => entry.length === 2))
+}
+
 const defaultPage = {
   pageTitle: { zh: '摄影', en: 'Photography' },
   pageDescription: { zh: 'Phil 的摄影作品与影像档案。', en: "Phil's photography and visual archive." },
@@ -77,7 +95,7 @@ function manifestSource(items, page = defaultPage) {
 
 async function readExistingManifest() {
   try {
-    const source = await fs.readFile(manifestPath, 'utf8')
+    const source = (await fs.readFile(manifestPath, 'utf8')).replace(/^\uFEFF/, '')
     const parsed = JSON.parse(source)
     const items = Array.isArray(parsed) ? parsed : parsed.items
     if (!Array.isArray(items)) throw new Error('Photo archive manifest must contain an items array.')
@@ -99,8 +117,9 @@ const existingManifest = await readExistingManifest()
 if (existingManifest.items.length > 0 && images.length < existingManifest.items.length && !allowShrink) {
   throw new Error(`Photo archive source contains ${images.length} images but the current manifest contains ${existingManifest.items.length}. Refusing to shrink the archive; pass --allow-shrink or set PHOTO_ARCHIVE_ALLOW_SHRINK=1 only after reviewing the removal.`)
 }
-const existingItems = new Map(existingManifest.items.map((item) => [item.image, item]))
+const existingItemsByHash = await readExistingAssetHashes(existingManifest.items)
 let totalBytes = 0
+let reusedMetadataCount = 0
 
 for (const [index, input] of images.entries()) {
   const metadata = await sharp(input).metadata()
@@ -108,18 +127,22 @@ for (const [index, input] of images.entries()) {
   const filename = `photo-${String(index + 1).padStart(3, '0')}.webp`
   const output = path.join(outputDirectory, filename)
 
-  await sharp(input)
+  const outputBuffer = await sharp(input)
     .rotate()
     .resize({ width: maxDimension, height: maxDimension, fit: 'inside', withoutEnlargement: true })
     .webp({ quality: 84, effort: 5, smartSubsample: true })
-    .toFile(output)
+    .toBuffer()
 
-  totalBytes += (await fs.stat(output)).size
+  await fs.writeFile(output, outputBuffer)
+  totalBytes += outputBuffer.byteLength
   const number = String(index + 1).padStart(2, '0')
   const image = `/uploads/photos/select/${filename}`
-  const existing = existingItems.get(image)
+  const assetHash = hashBuffer(outputBuffer)
+  const existing = existingItemsByHash.get(assetHash)
+  if (existing?.assetHash === assetHash || existingItemsByHash.get(assetHash)) reusedMetadataCount += 1
   items.push({
     alt: existing?.alt ?? { zh: `待补充摄影描述 ${number}`, en: `Photography record ${number} awaiting description` },
+    assetHash,
     height,
     image,
     index: number,
@@ -130,4 +153,4 @@ for (const [index, input] of images.entries()) {
 }
 
 await fs.writeFile(manifestPath, manifestSource(items, existingManifest.page), 'utf8')
-console.log(`Prepared ${items.length} images (${(totalBytes / 1024 / 1024).toFixed(1)} MiB) in ${outputDirectory}`)
+console.log(`Prepared ${items.length} images (${(totalBytes / 1024 / 1024).toFixed(1)} MiB) in ${outputDirectory}; reused metadata for ${reusedMetadataCount} images by asset hash.`)

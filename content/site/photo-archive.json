@@ -31,7 +31,10 @@
   ],
   "items": [
     {
-      "alt": {"zh":"河面上的红色小船驶过城市天际线，前景有树木掩映","en":"A red boat passes a city skyline on the river, framed by trees"},
+      "alt": {
+        "zh": "河面上的红色小船驶过城市天际线，前景有树木掩映",
+        "en": "A red boat passes a city skyline on the river, framed by trees"
+      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-001.webp",
       "index": "01",
@@ -39,10 +42,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "a9cc96b2a64378f0c1e5d1c2c98a8e9d93635ec807c018c73c740383fa051610"
     },
     {
-      "alt": {"zh":"黑白肖像中，一位摄影者举起相机站在展览空间里","en":"A photographer raises a camera in a black-and-white exhibition portrait"},
+      "alt": {
+        "zh": "黑白肖像中，一位摄影者举起相机站在展览空间里",
+        "en": "A photographer raises a camera in a black-and-white exhibition portrait"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-002.webp",
       "index": "02",
@@ -50,10 +57,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "9da733b51d2dd22c6710f0f475588dd944cde1055ae717852af0ceb19a28eb14"
     },
     {
-      "alt": {"zh":"暮色中的河岸城市天际线倒映在水面上","en":"A waterfront city skyline is reflected in the water at dusk"},
+      "alt": {
+        "zh": "暮色中的河岸城市天际线倒映在水面上",
+        "en": "A waterfront city skyline is reflected in the water at dusk"
+      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-003.webp",
       "index": "03",
@@ -61,10 +72,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "527a37c983e2239bd699fad34ea9469f651e23e2e11d0bfec7fba562e82067a0"
     },
     {
-      "alt": {"zh":"两个人坐在明亮的屏幕前，形成黑色剪影","en":"Two people sit as silhouettes in front of a bright screen"},
+      "alt": {
+        "zh": "两个人坐在明亮的屏幕前，形成黑色剪影",
+        "en": "Two people sit as silhouettes in front of a bright screen"
+      },
       "height": 1919,
       "image": "/uploads/photos/select/photo-004.webp",
       "index": "04",
@@ -72,10 +87,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "7f7e2622f8aa6bb3669941550a0be7882f31424c7a0e3007ccf381aaf9e5a335"
     },
     {
-      "alt": {"zh":"仰拍的两座高层建筑从画面两侧向天空延伸","en":"Two tall buildings rise toward the sky in an upward-looking view"},
+      "alt": {
+        "zh": "仰拍的两座高层建筑从画面两侧向天空延伸",
+        "en": "Two tall buildings rise toward the sky in an upward-looking view"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-005.webp",
       "index": "05",
@@ -83,10 +102,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1920
+      "width": 1920,
+      "assetHash": "8d351496760bfaf81a4efde3d782b140141c74c71aa0c852cbed601af343b58b"
     },
     {
-      "alt": {"zh":"白色山地宫殿建筑坐落在坡地上，天空中有一只飞鸟","en":"A white hillside palace stands beneath a sky crossed by a single bird"},
+      "alt": {
+        "zh": "白色山地宫殿建筑坐落在坡地上，天空中有一只飞鸟",
+        "en": "A white hillside palace stands beneath a sky crossed by a single bird"
+      },
       "height": 1920,
       "image": "/uploads/photos/select/photo-006.webp",
       "index": "06",
@@ -94,10 +117,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "e5cff0ef9cafff86ebf3d925d23121c2837a9a72d1ca806367d25a750f5a832d"
     },
     {
-      "alt": {"zh":"山地宫殿建筑的黑白远景，层叠屋顶沿山势展开","en":"A black-and-white view of a hillside palace with layered roofs"},
+      "alt": {
+        "zh": "山地宫殿建筑的黑白远景，层叠屋顶沿山势展开",
+        "en": "A black-and-white view of a hillside palace with layered roofs"
+      },
       "height": 1211,
       "image": "/uploads/photos/select/photo-007.webp",
       "index": "07",
@@ -105,10 +132,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "332a696fa5dc53cb4ea8eb0389f15e47f0c360632c28530d1d0ffbd742f7934e"
     },
     {
-      "alt": {"zh":"白色墙面与红色窗檐构成的传统建筑局部","en":"A detail of traditional architecture with white walls and red window eaves"},
+      "alt": {
+        "zh": "白色墙面与红色窗檐构成的传统建筑局部",
+        "en": "A detail of traditional architecture with white walls and red window eaves"
+      },
       "height": 1920,
       "image": "/uploads/photos/select/photo-008.webp",
       "index": "08",
@@ -116,10 +147,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "bbcc1e1ca43cb3b7d91c79bc9faecef266d1272a47b3741f5bd4dbc3758a8fb7"
     },
     {
-      "alt": {"zh":"带有雕刻装饰与深色窗洞的传统建筑立面","en":"A traditional building facade with carved ornament and dark windows"},
+      "alt": {
+        "zh": "带有雕刻装饰与深色窗洞的传统建筑立面",
+        "en": "A traditional building facade with carved ornament and dark windows"
+      },
       "height": 1920,
       "image": "/uploads/photos/select/photo-009.webp",
       "index": "09",
@@ -127,10 +162,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "9149babb10f7b0ac10e3b8881201f34326d7d9d88bf60ef3cee60d7a0acb7e73"
     },
     {
-      "alt": {"zh":"三位女性坐在传统建筑入口旁的台阶上","en":"Three women sit on steps beside the entrance of a traditional building"},
+      "alt": {
+        "zh": "三位女性坐在传统建筑入口旁的台阶上",
+        "en": "Three women sit on steps beside the entrance of a traditional building"
+      },
       "height": 1920,
       "image": "/uploads/photos/select/photo-010.webp",
       "index": "10",
@@ -138,10 +177,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "2176236e78add8f0aed1c50e0e4137536ce1c0756c590980d36d677d73cb0b51"
     },
     {
-      "alt": {"zh":"红色木门上装饰着金色门环与复杂纹样","en":"A red wooden door with a gold ring handle and intricate ornament"},
+      "alt": {
+        "zh": "红色木门上装饰着金色门环与复杂纹样",
+        "en": "A red wooden door with a gold ring handle and intricate ornament"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-011.webp",
       "index": "11",
@@ -149,10 +192,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1920
+      "width": 1920,
+      "assetHash": "132c84ebc65e234845b39ab3dadea95f3b6e22e6ad47699991dc3f78e8e73432"
     },
     {
-      "alt": {"zh":"白色空间中的银色人体雕塑","en":"A silver human-form sculpture in a white room"},
+      "alt": {
+        "zh": "白色空间中的银色人体雕塑",
+        "en": "A silver human-form sculpture in a white room"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-012.webp",
       "index": "12",
@@ -160,10 +207,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1794
+      "width": 1794,
+      "assetHash": "94fc610e29918dc39d6f8cc190664e5665e15688f97b56c12039dc8e51ff3a77"
     },
     {
-      "alt": {"zh":"白色展厅中的银色与黄色人体雕塑组合","en":"A silver and yellow human-form sculpture installation in a white gallery"},
+      "alt": {
+        "zh": "白色展厅中的银色与黄色人体雕塑组合",
+        "en": "A silver and yellow human-form sculpture installation in a white gallery"
+      },
       "height": 1951,
       "image": "/uploads/photos/select/photo-013.webp",
       "index": "13",
@@ -171,10 +222,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "0fbd933c4d8ceccf482a2de450f0763496b935ff4a86be21f0e0c846d7f67f42"
     },
     {
-      "alt": {"zh":"金色水上建筑或船只位于城市高楼与河岸之间","en":"A golden waterside structure or boat sits between high-rises and the riverbank"},
+      "alt": {
+        "zh": "金色水上建筑或船只位于城市高楼与河岸之间",
+        "en": "A golden waterside structure or boat sits between high-rises and the riverbank"
+      },
       "height": 1600,
       "image": "/uploads/photos/select/photo-014.webp",
       "index": "14",
@@ -182,10 +237,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "c1f47bf157b9aafde8417e38269f049be6b24a3016eb24ba8aece1894337841a"
     },
     {
-      "alt": {"zh":"蓝天背景下的现代城市高楼群","en":"A group of modern city towers against a blue sky"},
+      "alt": {
+        "zh": "蓝天背景下的现代城市高楼群",
+        "en": "A group of modern city towers against a blue sky"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-015.webp",
       "index": "15",
@@ -193,10 +252,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1708
+      "width": 1708,
+      "assetHash": "98d2def6be0f65785ade42d27c470ea8fd61197ebe30b478be3232e34342e439"
     },
     {
-      "alt": {"zh":"树木掩映下的河面红船与城市天际线","en":"A red boat and city skyline seen across the river through trees"},
+      "alt": {
+        "zh": "树木掩映下的河面红船与城市天际线",
+        "en": "A red boat and city skyline seen across the river through trees"
+      },
       "height": 1600,
       "image": "/uploads/photos/select/photo-016.webp",
       "index": "16",
@@ -204,10 +267,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "b0457ff4ce5ed31a258fccf65537c6d8b1926ec3cca92e491d84e2ee5910fcee"
     },
     {
-      "alt": {"zh":"黑白城市景观前，一位人物站在窗边向外眺望","en":"A person looks out from a window toward a cityscape in black and white"},
+      "alt": {
+        "zh": "黑白城市景观前，一位人物站在窗边向外眺望",
+        "en": "A person looks out from a window toward a cityscape in black and white"
+      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-017.webp",
       "index": "17",
@@ -215,10 +282,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "af3365badec552ee23f28778f68926be26030e22d62843b107f93c9e86e81830"
     },
     {
-      "alt": {"zh":"蓝天下的传统城门屋顶，几只鸟从上方飞过","en":"A traditional gate roof beneath a blue sky with birds overhead"},
+      "alt": {
+        "zh": "蓝天下的传统城门屋顶，几只鸟从上方飞过",
+        "en": "A traditional gate roof beneath a blue sky with birds overhead"
+      },
       "height": 1600,
       "image": "/uploads/photos/select/photo-018.webp",
       "index": "18",
@@ -226,10 +297,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "70b55c6736149b506292899e9643063a749f08ed4e63b87a0f62a6bc3e1b132f"
     },
     {
-      "alt": {"zh":"高层建筑从画面底部向明亮的蓝色天空延伸","en":"A high-rise extends upward into a bright blue sky"},
+      "alt": {
+        "zh": "高层建筑从画面底部向明亮的蓝色天空延伸",
+        "en": "A high-rise extends upward into a bright blue sky"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-019.webp",
       "index": "19",
@@ -237,10 +312,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1441
+      "width": 1441,
+      "assetHash": "eaa05ee711523c3f73c6ab43430cf95925169da33d50b68d4e59fa6d68705f05"
     },
     {
-      "alt": {"zh":"海岸边的城市高楼与沙滩，远处有行人","en":"City towers and a beach line the coast, with people in the distance"},
+      "alt": {
+        "zh": "海岸边的城市高楼与沙滩，远处有行人",
+        "en": "City towers and a beach line the coast, with people in the distance"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-020.webp",
       "index": "20",
@@ -248,10 +327,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1430
+      "width": 1430,
+      "assetHash": "3b884858e6902885a378e297dd26a3ee2cc4ff09757c1c0c8952094394cc706f"
     },
     {
-      "alt": {"zh":"沿海步道旁的城市天际线与蓝色海湾","en":"A coastal walkway beside a city skyline and blue bay"},
+      "alt": {
+        "zh": "沿海步道旁的城市天际线与蓝色海湾",
+        "en": "A coastal walkway beside a city skyline and blue bay"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-021.webp",
       "index": "21",
@@ -259,10 +342,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1702
+      "width": 1702,
+      "assetHash": "0e4b6cdb6fa96df89c4bc71b0e6adf8aba8c805c2b27ff7a6add918982d83801"
     },
     {
-      "alt": {"zh":"石刻佛像面部的近距离细节","en":"A close detail of a stone-carved Buddha face"},
+      "alt": {
+        "zh": "石刻佛像面部的近距离细节",
+        "en": "A close detail of a stone-carved Buddha face"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-022.webp",
       "index": "22",
@@ -270,10 +357,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1441
+      "width": 1441,
+      "assetHash": "efbbc79d5d2e37d252c6e7ce20c99861c3480b0ba61049fff6ed7055d9ca779a"
     },
     {
-      "alt": {"zh":"红色屋顶与浅色建筑组成的旧城俯瞰景象","en":"An overhead view of an old town filled with red roofs and pale buildings"},
+      "alt": {
+        "zh": "红色屋顶与浅色建筑组成的旧城俯瞰景象",
+        "en": "An overhead view of an old town filled with red roofs and pale buildings"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-023.webp",
       "index": "23",
@@ -281,10 +372,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1600
+      "width": 1600,
+      "assetHash": "52694d06d9d9d1a3c727d0533fe4c8b7c425a4263b2b791cfb78c78735cf1056"
     },
     {
-      "alt": {"zh":"一位背着相机包的人在展厅里观看墙上的照片","en":"A visitor with a camera bag views a framed photograph in a gallery"},
+      "alt": {
+        "zh": "一位背着相机包的人在展厅里观看墙上的照片",
+        "en": "A visitor with a camera bag views a framed photograph in a gallery"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-024.webp",
       "index": "24",
@@ -292,10 +387,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1830
+      "width": 1830,
+      "assetHash": "8a7323688c4e6915923e190d8e30de31b5c667085f65c1afc4d7ecd2cd3c0f44"
     },
     {
-      "alt": {"zh":"玻璃与钢结构组成的现代建筑细部","en":"A detail of a modern building made from glass and steel"},
+      "alt": {
+        "zh": "玻璃与钢结构组成的现代建筑细部",
+        "en": "A detail of a modern building made from glass and steel"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-025.webp",
       "index": "25",
@@ -303,10 +402,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1771
+      "width": 1771,
+      "assetHash": "0b66e12a7152284b1324ea04ff57f39b784dc03c0eec32147da662dec4379774"
     },
     {
-      "alt": {"zh":"高架轨道与密集住宅楼之间的城市景观","en":"A city view between an elevated rail line and dense apartment buildings"},
+      "alt": {
+        "zh": "高架轨道与密集住宅楼之间的城市景观",
+        "en": "A city view between an elevated rail line and dense apartment buildings"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-026.webp",
       "index": "26",
@@ -314,10 +417,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1440
+      "width": 1440,
+      "assetHash": "54fa40c11eaeeb88168aee16aee5c2ccd40676fb0ceac89ef3f97c11859406a7"
     },
     {
-      "alt": {"zh":"白色几何建筑体量与半透明屋檐的仰拍细节","en":"An upward view of white geometric volumes and translucent canopies"},
+      "alt": {
+        "zh": "白色几何建筑体量与半透明屋檐的仰拍细节",
+        "en": "An upward view of white geometric volumes and translucent canopies"
+      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-027.webp",
       "index": "27",
@@ -325,10 +432,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "76b4620b6ec8ac35d0fd45850b69b3b9b3846493d62dde57f4c5ea93ccf6f7cb"
     },
     {
-      "alt": {"zh":"昏暗展厅中一幅横向风景作品的展示空间","en":"A horizontal landscape artwork displayed in a dark gallery"},
+      "alt": {
+        "zh": "昏暗展厅中一幅横向风景作品的展示空间",
+        "en": "A horizontal landscape artwork displayed in a dark gallery"
+      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-028.webp",
       "index": "28",
@@ -336,10 +447,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "25f64764fb1fc4494b51d03273de91c49ea12d0236e6acfb705a4b479add935c"
     },
     {
-      "alt": {"zh":"挂满红色旗帜的城市街道与来往行人","en":"A busy city street lined with red flags and pedestrians"},
+      "alt": {
+        "zh": "挂满红色旗帜的城市街道与来往行人",
+        "en": "A busy city street lined with red flags and pedestrians"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-029.webp",
       "index": "29",
@@ -347,10 +462,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1708
+      "width": 1708,
+      "assetHash": "f04cf27111e28a972d48e19fab604483afd08b4d7411e577ef9e51e40610cd9a"
     },
     {
-      "alt": {"zh":"白色高挑室内空间中的长廊与对称柱列","en":"A long symmetrical corridor with columns in a tall white interior"},
+      "alt": {
+        "zh": "白色高挑室内空间中的长廊与对称柱列",
+        "en": "A long symmetrical corridor with columns in a tall white interior"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-030.webp",
       "index": "30",
@@ -358,10 +477,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1600
+      "width": 1600,
+      "assetHash": "6c287bc8bf3c82befdd0d6b3d13ce3dc46a81bb4016a3b61ddadb6867ac7851f"
     },
     {
-      "alt": {"zh":"蓝色水面上成群飞鸟与远处的山岸","en":"Flocks of birds skim blue water with a distant shoreline behind them"},
+      "alt": {
+        "zh": "蓝色水面上成群飞鸟与远处的山岸",
+        "en": "Flocks of birds skim blue water with a distant shoreline behind them"
+      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-031.webp",
       "index": "31",
@@ -369,10 +492,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "994e7a30e90c29f3ca1c0a6c32ff14663e7bc9727271b895de72d1691cb5bbf4"
     },
     {
-      "alt": {"zh":"几只海鸟停在水中的岩石上","en":"Seabirds rest on rocks in the water"},
+      "alt": {
+        "zh": "几只海鸟停在水中的岩石上",
+        "en": "Seabirds rest on rocks in the water"
+      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-032.webp",
       "index": "32",
@@ -380,10 +507,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "f6751c838ef7c710083106949cad1774b337a2c99f5abff74ea4778e03e76684"
     },
     {
-      "alt": {"zh":"红色建筑门口的石雕守护兽与竖幅文字","en":"A stone guardian statue and vertical lettering beside a red doorway"},
+      "alt": {
+        "zh": "红色建筑门口的石雕守护兽与竖幅文字",
+        "en": "A stone guardian statue and vertical lettering beside a red doorway"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-033.webp",
       "index": "33",
@@ -391,10 +522,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1920
+      "width": 1920,
+      "assetHash": "d0313079b78e4d5044c761450b777cff7584267a433206a0cf1238bf3cb01848"
     },
     {
-      "alt": {"zh":"树木之间露出的多层传统塔楼","en":"A multi-storey traditional pagoda rises among trees"},
+      "alt": {
+        "zh": "树木之间露出的多层传统塔楼",
+        "en": "A multi-storey traditional pagoda rises among trees"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-034.webp",
       "index": "34",
@@ -402,10 +537,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1708
+      "width": 1708,
+      "assetHash": "082fbb1a03ce2e59fe5e28165838f0896eeb129b9e70cbef8b92fb48b8cc1884"
     },
     {
-      "alt": {"zh":"岩壁上的佛像石刻局部","en":"A detail of a Buddha carved into a rock wall"},
+      "alt": {
+        "zh": "岩壁上的佛像石刻局部",
+        "en": "A detail of a Buddha carved into a rock wall"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-035.webp",
       "index": "35",
@@ -413,10 +552,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1600
+      "width": 1600,
+      "assetHash": "2b8184bff4b4cb3de98d32029901791371ec519969fda46c64a1939b43ea03d3"
     },
     {
-      "alt": {"zh":"色彩鲜艳的多臂武士或神像雕塑","en":"A vividly coloured multi-armed warrior or deity sculpture"},
+      "alt": {
+        "zh": "色彩鲜艳的多臂武士或神像雕塑",
+        "en": "A vividly coloured multi-armed warrior or deity sculpture"
+      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-036.webp",
       "index": "36",
@@ -424,10 +567,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "646e622fa73a15755bf5d0abaa55cb02d975f2465e1b35a4aad54cabb578d5a0"
     },
     {
-      "alt": {"zh":"传统寺塔屋檐与砖墙的仰拍细节","en":"An upward detail of tiled eaves and brickwork on a traditional pagoda"},
+      "alt": {
+        "zh": "传统寺塔屋檐与砖墙的仰拍细节",
+        "en": "An upward detail of tiled eaves and brickwork on a traditional pagoda"
+      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-037.webp",
       "index": "37",
@@ -435,10 +582,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "91e9fdbded484d1eae4dc63652e9af76c77b2fe28f8b1fc25d6572dfcf09b777"
     },
     {
-      "alt": {"zh":"高耸砖塔的局部，背景是浅色天空","en":"A close view of a tall brick pagoda against a pale sky"},
+      "alt": {
+        "zh": "高耸砖塔的局部，背景是浅色天空",
+        "en": "A close view of a tall brick pagoda against a pale sky"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-038.webp",
       "index": "38",
@@ -446,10 +597,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1708
+      "width": 1708,
+      "assetHash": "ed190b378cd715784a344121860bdb9c09e9dd8f290f4e5afd36cd2cbe2a6ad8"
     },
     {
-      "alt": {"zh":"蓝天下的多层木结构传统楼阁","en":"A multi-level timber pavilion beneath a blue sky"},
+      "alt": {
+        "zh": "蓝天下的多层木结构传统楼阁",
+        "en": "A multi-level timber pavilion beneath a blue sky"
+      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-039.webp",
       "index": "39",
@@ -457,10 +612,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "b251f21b5414b65f8533e9de1eccb94b2c70173d559645f5071938b3c97001b0"
     },
     {
-      "alt": {"zh":"红墙上方的传统楼阁与飞鸟","en":"A traditional pavilion above a red wall with birds in the sky"},
+      "alt": {
+        "zh": "红墙上方的传统楼阁与飞鸟",
+        "en": "A traditional pavilion above a red wall with birds in the sky"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-040.webp",
       "index": "40",
@@ -468,10 +627,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1708
+      "width": 1708,
+      "assetHash": "5aa264de0c033df2ca3eedd9fe14197226ccbc410aa13e37a7aaec52085e6bdd"
     },
     {
-      "alt": {"zh":"住宅楼与远处城市天际线的竖幅景观","en":"A vertical city view with apartment buildings and a distant skyline"},
+      "alt": {
+        "zh": "住宅楼与远处城市天际线的竖幅景观",
+        "en": "A vertical city view with apartment buildings and a distant skyline"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-041.webp",
       "index": "41",
@@ -479,10 +642,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1407
+      "width": 1407,
+      "assetHash": "39c8fb984421dc11aea52efbb56511c5ba8d58576f99d68f28fb48b8b8c5e6b3"
     },
     {
-      "alt": {"zh":"树影框住的夜间高楼与蓝黑色天空","en":"A night tower framed by tree branches against a deep blue sky"},
+      "alt": {
+        "zh": "树影框住的夜间高楼与蓝黑色天空",
+        "en": "A night tower framed by tree branches against a deep blue sky"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-042.webp",
       "index": "42",
@@ -490,10 +657,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1708
+      "width": 1708,
+      "assetHash": "8be1097ed5bde1c16bf604b60251a0ec01fce910e91e52819fe39d2684614b82"
     },
     {
-      "alt": {"zh":"河岸夜景中的高楼与灯光倒影","en":"Lit high-rises and reflections along a river at night"},
+      "alt": {
+        "zh": "河岸夜景中的高楼与灯光倒影",
+        "en": "Lit high-rises and reflections along a river at night"
+      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-043.webp",
       "index": "43",
@@ -501,10 +672,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "30cc0ac22b3e4da74107f4486454651c57592eed2ebf60da26f51208f5ec111a"
     },
     {
-      "alt": {"zh":"红色灯光照亮的桥梁与夜间城市天际线","en":"A bridge lit red beside a city skyline at night"},
+      "alt": {
+        "zh": "红色灯光照亮的桥梁与夜间城市天际线",
+        "en": "A bridge lit red beside a city skyline at night"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-044.webp",
       "index": "44",
@@ -512,10 +687,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1708
+      "width": 1708,
+      "assetHash": "1939c230d2cc40e30f0274dc16534d78b85e4292db08cbe4145d254dfc322791"
     },
     {
-      "alt": {"zh":"黑色轿车停在红砖建筑外的街道上","en":"A black car parked outside a red-brick building"},
+      "alt": {
+        "zh": "黑色轿车停在红砖建筑外的街道上",
+        "en": "A black car parked outside a red-brick building"
+      },
       "height": 2560,
       "image": "/uploads/photos/select/photo-045.webp",
       "index": "45",
@@ -523,10 +702,14 @@
       "tags": [
         "selected"
       ],
-      "width": 1600
+      "width": 1600,
+      "assetHash": "2176cf0b61ba9583785e7ee2ad899e557b49c447bd936dfa2fb36acc106d78be"
     },
     {
-      "alt": {"zh":"展厅中的金属雕塑被运动中的人物虚化包围","en":"A metal sculpture in a gallery surrounded by motion-blurred visitors"},
+      "alt": {
+        "zh": "展厅中的金属雕塑被运动中的人物虚化包围",
+        "en": "A metal sculpture in a gallery surrounded by motion-blurred visitors"
+      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-046.webp",
       "index": "46",
@@ -534,10 +717,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "cba56b306a04fa32909d461a406b91b68be9736a8d3de616a07a26eea8d150a9"
     },
     {
-      "alt": {"zh":"夜色中的河岸建筑群与水面灯光","en":"Waterfront buildings and lights reflected on the river at night"},
+      "alt": {
+        "zh": "夜色中的河岸建筑群与水面灯光",
+        "en": "Waterfront buildings and lights reflected on the river at night"
+      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-047.webp",
       "index": "47",
@@ -545,10 +732,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "b141f7e2568a711c1d155c076a324262371ba3eccab3b564716e2ebf1f00521a"
     },
     {
-      "alt": {"zh":"展墙上的英文引语写着建筑与生活的关系","en":"An English quotation on a gallery wall reflects on architecture and life"},
+      "alt": {
+        "zh": "展墙上的英文引语写着建筑与生活的关系",
+        "en": "An English quotation on a gallery wall reflects on architecture and life"
+      },
       "height": 1440,
       "image": "/uploads/photos/select/photo-048.webp",
       "index": "48",
@@ -556,10 +747,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "6542fad872c5465f6affb0f272648163629ccacd9a78a86fd0819b8c5fd6a986"
     },
     {
-      "alt": {"zh":"暖黄色灯光照亮的夜间街边店铺","en":"A warmly lit storefront on a street at night"},
+      "alt": {
+        "zh": "暖黄色灯光照亮的夜间街边店铺",
+        "en": "A warmly lit storefront on a street at night"
+      },
       "height": 1708,
       "image": "/uploads/photos/select/photo-049.webp",
       "index": "49",
@@ -567,10 +762,14 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "949770c471f498c805e7ce58ba796b1a1c4f23452dbfe7e584c197e391089140"
     },
     {
-      "alt": {"zh":"黑白色调的岩石或洞穴景观","en":"A rocky or cave landscape rendered in black and white"},
+      "alt": {
+        "zh": "黑白色调的岩石或洞穴景观",
+        "en": "A rocky or cave landscape rendered in black and white"
+      },
       "height": 1281,
       "image": "/uploads/photos/select/photo-050.webp",
       "index": "50",
@@ -578,7 +777,8 @@
       "tags": [
         "selected"
       ],
-      "width": 2560
+      "width": 2560,
+      "assetHash": "6f30517b00e9f94a61132e99114a86b6fcdeab0634e2eb546a4ac283a5246281"
     }
   ]
 }

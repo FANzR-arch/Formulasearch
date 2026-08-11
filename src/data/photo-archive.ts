@@ -4,6 +4,7 @@ import { localAssetPathSchema } from '../lib/validation'
 import { archiveItemBaseSchema, archivePageBaseSchema, validateArchiveRelations } from './archive-schema'
 
 const photoArchiveItemSchema = archiveItemBaseSchema.extend({
+  assetHash: z.string().regex(/^[a-f0-9]{64}$/i),
   height: z.number().int().positive(),
   image: localAssetPathSchema,
   width: z.number().int().positive(),
@@ -37,6 +38,10 @@ export const selectedPhotoArchive = result.data.items
 
 const itemIndexes = selectedPhotoArchive.map((item) => item.index)
 const itemImages = selectedPhotoArchive.map((item) => item.image)
+const itemAssetHashes = selectedPhotoArchive.map((item) => item.assetHash.toLowerCase())
 const filterIds = photoArchivePage.filters.map((filter) => filter.id)
 const itemTags = selectedPhotoArchive.flatMap((item) => item.tags)
 validateArchiveRelations({ itemIndexes, itemTags, filterIds, imageIds: itemImages, name: 'Photo archive' })
+if (new Set(itemAssetHashes).size !== itemAssetHashes.length) {
+  throw new Error('Photo archive validation failed: assetHash values must be unique so metadata can follow each image safely.')
+}

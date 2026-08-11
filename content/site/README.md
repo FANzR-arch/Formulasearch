@@ -28,7 +28,7 @@
 
 `identity`、`now`、`work`、`writing`、`resources` 是预留字段。页面需要这些内容时，可以直接扩展对应组件，不必再添加新的解析规则。
 
-照片清单由 `src/data/photo-archive.ts` 在构建时做结构校验。若要从原始照片重新生成图片尺寸、布局和 WebP 文件，运行 `npm run photos:prepare -- <原始照片目录>`，或先设置 `PHOTO_ARCHIVE_SOURCE`；脚本不再内置某台机器的本地路径。重新生成时会更新图片路径、尺寸和布局，并按图片输出路径保留已有的 `alt`、`tags` 编辑内容；摄影页不再维护不会渲染的 `caption` / `label` 字段。新图片的 alt 会明确标记为待补充，构建不会允许占位文本发布；来源数量少于现有归档时还会阻止无意缩减。
+照片清单由 `src/data/photo-archive.ts` 在构建时做结构校验。若要从原始照片重新生成图片尺寸、布局和 WebP 文件，运行 `npm run photos:prepare -- <原始照片目录>`，或先设置 `PHOTO_ARCHIVE_SOURCE`；也可以用 `PHOTO_ARCHIVE_OUTPUT` 和 `PHOTO_ARCHIVE_MANIFEST` 指向临时目录做安全测试。脚本不再内置某台机器的本地路径。重新生成时会更新图片路径、尺寸和布局，并按生成图片的 `assetHash` 保留已有的 `alt`、`tags` 编辑内容；原图排序、插入新图时不会把旧描述静默错配到序号。新图片的 alt 会明确标记为待补充，构建不会允许占位文本发布；来源数量少于现有归档时还会阻止无意缩减。旧 manifest 可用 `npm run photos:hashes:migrate` 补齐 hash；`npm run photos:test` 可回归换序与 BOM 兼容性。摄影页不再维护不会渲染的 `caption` / `label` 字段。
 
 Blog 正文图片的外部主机由 `blog-media-policy.json` 显式维护；`npm run blog:images:check` 会拒绝未列入策略的新主机。策略中的 `maxExternalImagesWithoutDimensions` 是当前无尺寸远程图的风险预算，超过预算必须先补齐尺寸、镜像资源，或经过评审后显式调整。策略只控制依赖边界，不代表远程图片已经具备离线尺寸或永久可用性。
 
