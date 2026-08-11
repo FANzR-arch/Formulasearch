@@ -913,6 +913,10 @@
   border: 1px solid var(--hairline);
 }
 
+/* Remote Markdown images do not carry offline dimensions yet. Reserve a
+   temporary common ratio until the browser learns the intrinsic ratio. */
+.article-prose img[src^="http"] { aspect-ratio: auto 16 / 9; }
+
 .article-media-fallback {
   display: grid;
   min-height: 12rem;

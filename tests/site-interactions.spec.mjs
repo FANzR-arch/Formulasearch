@@ -271,6 +271,13 @@ test('article media is playable or represented by accessible poster content', as
   }
 })
 
+test('remote article images reserve a temporary fallback ratio', async ({ page }) => {
+  await page.goto('/blog/ai-practice-2026-02-22')
+  const image = page.locator('.article-prose img[src^="http"]').first()
+  await expect(image).toBeVisible()
+  await expect.poll(() => image.evaluate((element) => getComputedStyle(element).aspectRatio)).toContain('16 / 9')
+})
+
 test('failed article images become accessible placeholders', async ({ page }) => {
   await page.route('https://pbs.twimg.com/**', (route) => route.abort())
   await page.goto('/blog/ai-practice-2026-02-22')
