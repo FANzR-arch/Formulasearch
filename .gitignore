@@ -29,3 +29,6 @@ $HOME/
 /playwright-report/
 /test-results/
 /blob-report/
+
+# Local source photography; generated/public WebP files are tracked separately
+/src/assets/archive/photos/
