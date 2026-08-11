@@ -9,10 +9,11 @@ import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } fro
 import { pageMeta } from '../../data/page-meta'
 import { uiCopy } from '../../data/ui-copy'
 import { siteRoutes } from '../../data/site-routes'
+import { blogSettings } from '../../data/blog-settings'
 
 const posts = await getBlogPosts()
-const stagePosts = posts.slice(0, 4)
-const recentPosts = posts.slice(4, 12)
+const stagePosts = posts.slice(0, blogSettings.featuredCount)
+const recentPosts = posts.slice(blogSettings.featuredCount, blogSettings.featuredCount + blogSettings.recentCount)
 const activePost = stagePosts[0]
 const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
 ---

@@ -44,6 +44,8 @@ Blog 迁移目录的外链由 `npm run blog:migrate` 按 URL 写入稳定平台 
 
 需要了解双语内容覆盖率时运行 `npm run i18n:report`；它会统计站点 manifest 的双语文案数量、Blog 文章语言分布，以及 `titleEn` / `descriptionEn` / `coverAltEn` 覆盖率。`npm run i18n:check` 只在标记为 `contentLanguage: en` 的文章缺少必需英文 metadata 时失败，不会要求中文文章伪造英文翻译。
 
+Blog 首页精选数量、近期文章数量和阅读时长估算速率统一维护在 [`site/blog-settings.json`](site/blog-settings.json)，调整内容展示策略时不需要修改页面模板。
+
 ## 后续新增内容的位置
 
 ```text

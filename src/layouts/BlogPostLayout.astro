@@ -11,6 +11,7 @@ import { siteConfig } from '../data/site-config'
 import { uiCopy } from '../data/ui-copy'
 import { siteRoutes } from '../data/site-routes'
 import { interpolateLocalizedCopy } from '../lib/i18n'
+import { blogSettings } from '../data/blog-settings'
 
 interface Props {
   categoryLabel: { title: string; titleEn: string }
@@ -25,7 +26,7 @@ const published = post.data.pubDate.toISOString().slice(0, 10)
 const modified = (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10)
 const displayDate = published.replaceAll('-', '.')
 const canonical = new URL(`${siteRoutes.blog}/${post.data.slug}`, Astro.site).toString()
-const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').replace(/\s+/g, '').length / 500))
+const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').replace(/\s+/g, '').length / blogSettings.readingWordsPerMinute))
 const readingTimeCopy = interpolateLocalizedCopy(uiCopy.blog.readingTime, {
   minutes: { zh: String(readingMinutes), en: String(readingMinutes) },
 })
