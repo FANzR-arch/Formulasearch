@@ -38,6 +38,10 @@ Blog 页面会自动按日期倒序读取这些内容。`Latest` 显示最近文
 
 Blog 列表和文章详情共用 Astro Content Collection；修改 `index.md` 的 frontmatter 后只需运行一次 `npm run build`，不需要再同步另一套页面解析逻辑。
 
+Blog 迁移目录的外链由 `npm run blog:migrate` 按 URL 写入稳定平台 ID：`wechat`、`x`、`original`。页面上的中文/英文名称统一来自 `content/site/ui-copy.json`，不要把显示文案直接写回 frontmatter。
+
+日常 Blog 更新建议依次运行 `npm run blog:check`、`npm run blog:images:check`、`npm run blog:media:check`，最后运行 `npm run build`。
+
 ## 后续新增内容的位置
 
 ```text
