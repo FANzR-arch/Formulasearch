@@ -23,13 +23,10 @@ externalLinks:
 
 <strong>先看成品</strong><strong>👇</strong><strong>：</strong>
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2051489040344449024/img/6HoM7w4jgSqzECHr.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+![成品视频第一段预览画面](https://pbs.twimg.com/amplify_video_thumb/2051489040344449024/img/6HoM7w4jgSqzECHr.jpg)
 
-0:18
+![成品视频第二段预览画面](https://pbs.twimg.com/amplify_video_thumb/2051488771829338118/img/VYK2KDJ_kx1Jyd39.jpg)
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2051488771829338118/img/VYK2KDJ_kx1Jyd39.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
-
-![如何使用codex+image2进行视频内容创作配图](https://pbs.twimg.com/amplify_video_thumb/2051488771829338118/img/VYK2KDJ_kx1Jyd39.jpg?name=large)
 
 ## 为什么要先出图
 

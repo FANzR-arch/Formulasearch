@@ -159,6 +159,18 @@ test('article copy feedback and table of contents remain interactive', async ({ 
   await expect(tocLink).toHaveAttribute('aria-current', 'location')
 })
 
+test('article media is playable or represented by accessible poster content', async ({ page }) => {
+  await page.goto('/blog/ai-practice-2026-03-27')
+  const media = await page.locator('.article-prose video, .article-prose audio').evaluateAll((elements) => elements.map((element) => ({
+    controls: element.hasAttribute('controls'),
+    source: Boolean(element.getAttribute('src') || element.querySelector('source[src]')?.getAttribute('src') || element.getAttribute('poster')),
+  })))
+  for (const item of media) {
+    expect(item.controls).toBeTruthy()
+    expect(item.source).toBeTruthy()
+  }
+})
+
 test('featured stage keeps safe rel on dynamic external links', async ({ page }) => {
   await page.goto('/blog')
   const trigger = page.locator('[data-stage-trigger]').nth(1)

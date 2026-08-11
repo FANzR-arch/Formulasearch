@@ -217,6 +217,11 @@ else {
   const proseEnd = article.indexOf('<footer class="article-footer">', proseStart)
   const articleProse = proseStart >= 0 && proseEnd > proseStart ? article.slice(proseStart, proseEnd) : ''
   const proseImages = [...articleProse.matchAll(/<img\b[^>]*>/g)].map((match) => match[0])
+  for (const match of articleProse.matchAll(/<(video|audio)\b[\s\S]*?<\/\1>/g)) {
+    const mediaTag = match[0]
+    if (!/\bcontrols(?:\s|=|>)/.test(mediaTag)) failures.push('article media must expose native controls')
+    if (!/\b(?:src|poster)="[^"]+"/.test(mediaTag) && !/<source\b[^>]*\bsrc="[^"]+"/.test(mediaTag)) failures.push('article media must provide a source or poster')
+  }
   if (proseImages.some((imageTag) => !/\bloading="lazy"/.test(imageTag))) failures.push('article body images must use lazy loading')
   if (proseImages.some((imageTag) => !/\bdecoding="async"/.test(imageTag))) failures.push('article body images must use async decoding')
   if (proseImages.some((imageTag) => !/\breferrerpolicy="no-referrer"/.test(imageTag))) failures.push('article body images must use no-referrer policy')
