@@ -6,6 +6,12 @@
     "primary": { "zh": "网站主导航", "en": "Primary navigation" },
     "site": { "zh": "网站导航", "en": "Site navigation" },
     "backgroundEffect": { "zh": "切换背景效果", "en": "Change background effect" },
+    "backgroundCycle": { "zh": "当前背景：{current}。点击切换到{next}", "en": "Current background: {current}. Click to switch to {next}" },
+    "backgroundVariants": {
+      "dither": { "zh": "Dither", "en": "Dither" },
+      "molten": { "zh": "焦散", "en": "Molten" },
+      "contour": { "zh": "柔波", "en": "Contour" }
+    },
     "openNavigation": { "zh": "打开导航", "en": "Open navigation" },
     "skipToContent": { "zh": "跳到主要内容", "en": "Skip to content" },
     "photos": { "zh": "摄影", "en": "Photography" },

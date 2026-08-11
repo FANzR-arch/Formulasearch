@@ -20,7 +20,11 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
 
 <header class="site-header" aria-label={uiCopy.navigation.primary.zh} data-aria-en={uiCopy.navigation.primary.en} data-aria-zh={uiCopy.navigation.primary.zh}>
   {logoMode === 'background' ? (
-    <button id="background-cycle" class="monogram" type="button" aria-label={uiCopy.navigation.backgroundEffect.zh} data-aria-en={uiCopy.navigation.backgroundEffect.en} data-aria-zh={uiCopy.navigation.backgroundEffect.zh} title={uiCopy.navigation.backgroundEffect.zh} data-title-en={uiCopy.navigation.backgroundEffect.en} data-title-zh={uiCopy.navigation.backgroundEffect.zh}>
+    <button id="background-cycle" class="monogram" type="button" aria-label={uiCopy.navigation.backgroundEffect.zh} data-aria-en={uiCopy.navigation.backgroundEffect.en} data-aria-zh={uiCopy.navigation.backgroundEffect.zh} title={uiCopy.navigation.backgroundEffect.zh} data-title-en={uiCopy.navigation.backgroundEffect.en} data-title-zh={uiCopy.navigation.backgroundEffect.zh}
+      data-background-cycle-zh={uiCopy.navigation.backgroundCycle.zh} data-background-cycle-en={uiCopy.navigation.backgroundCycle.en}
+      data-background-name-dither-zh={uiCopy.navigation.backgroundVariants.dither.zh} data-background-name-dither-en={uiCopy.navigation.backgroundVariants.dither.en}
+      data-background-name-molten-zh={uiCopy.navigation.backgroundVariants.molten.zh} data-background-name-molten-en={uiCopy.navigation.backgroundVariants.molten.en}
+      data-background-name-contour-zh={uiCopy.navigation.backgroundVariants.contour.zh} data-background-name-contour-en={uiCopy.navigation.backgroundVariants.contour.en}>
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </button>
   ) : (

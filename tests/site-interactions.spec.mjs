@@ -47,6 +47,20 @@ test('locale updates the dynamic background control label', async ({ page }) => 
   await expect(page.locator('#background-cycle')).toHaveAttribute('aria-label', /Current background/)
 })
 
+test('background cycle keeps localized copy when the variant changes', async ({ page }) => {
+  await page.goto('/')
+  const cycle = page.locator('#background-cycle')
+  const before = await cycle.getAttribute('aria-label')
+  await cycle.click()
+  await expect(cycle).toHaveAttribute('aria-label', /当前背景：/)
+  expect(await cycle.getAttribute('aria-label')).not.toBe(before)
+
+  await page.locator('#language-toggle').click()
+  await expect(cycle).toHaveAttribute('aria-label', /Current background:/)
+  await cycle.click()
+  await expect(cycle).toHaveAttribute('aria-label', /Click to switch to/)
+})
+
 test('locale updates archive image alt text', async ({ page }) => {
   await page.goto('/photos')
   await page.locator('#language-toggle').click()

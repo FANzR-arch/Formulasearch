@@ -5,11 +5,6 @@
 
   const variants = ['dither', 'molten', 'contour']
   const variantIndex = { dither: 1, molten: 2, contour: 3 }
-  const variantNames = {
-    dither: { zh: 'Dither', en: 'Dither' },
-    molten: { zh: '焦散', en: 'Molten' },
-    contour: { zh: '柔波', en: 'Contour' },
-  }
   const randomHistoryKey = 'formulasearch-background-last-random'
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   let previousVariant = ''
@@ -343,11 +338,14 @@
     const currentIndex = variants.indexOf(variant)
     const nextVariant = variants[(currentIndex + 1) % variants.length]
     const locale = document.documentElement.dataset.locale === 'en' ? 'en' : 'zh'
-    const currentName = variantNames[variant][locale]
-    const nextName = variantNames[nextVariant][locale]
-    const label = locale === 'en'
-      ? `Current background: ${currentName}. Click to switch to ${nextName}`
-      : `当前背景：${currentName}。点击切换到${nextName}`
+    const suffix = locale === 'en' ? 'En' : 'Zh'
+    const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1)
+    const currentName = cycleButton.dataset[`backgroundName${capitalize(variant)}${suffix}`] || variant
+    const nextName = cycleButton.dataset[`backgroundName${capitalize(nextVariant)}${suffix}`] || nextVariant
+    const template = cycleButton.dataset[`backgroundCycle${suffix}`] || ''
+    const label = template
+      .replace('{current}', currentName)
+      .replace('{next}', nextName)
     cycleButton.setAttribute('aria-label', label)
     cycleButton.title = label
   }
