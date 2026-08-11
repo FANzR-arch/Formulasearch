@@ -6,6 +6,7 @@ import BlogLayout from '../../layouts/BlogLayout.astro'
 import { getBlogPosts } from '../../lib/blog-content'
 import { blogSeries } from '../../data/blog-series'
 import { pageMeta } from '../../data/page-meta'
+import { uiCopy } from '../../data/ui-copy'
 
 const posts = await getBlogPosts()
 const series = blogSeries.map((group) => ({
@@ -17,7 +18,7 @@ const series = blogSeries.map((group) => ({
 
 <BlogLayout title={pageMeta.blogSeries.title.zh} titleEn={pageMeta.blogSeries.title.en} description={pageMeta.blogSeries.description.zh} descriptionEn={pageMeta.blogSeries.description.en}>
   <header class="blog-hero blog-hero--compact">
-    <h1><LocalizedText zh="主题" en="Topics" /></h1>
+    <h1><LocalizedText {...uiCopy.blog.seriesHeading} /></h1>
   </header>
 
   <BlogSectionNav active="series" />

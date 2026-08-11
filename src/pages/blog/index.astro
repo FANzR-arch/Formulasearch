@@ -7,6 +7,7 @@ import BlogLayout from '../../layouts/BlogLayout.astro'
 import { ArrowRight } from '@lucide/astro'
 import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } from '../../lib/blog-content'
 import { pageMeta } from '../../data/page-meta'
+import { uiCopy } from '../../data/ui-copy'
 
 const posts = await getBlogPosts()
 const stagePosts = posts.slice(0, 4)
@@ -18,10 +19,10 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
 <BlogLayout title={pageMeta.blog.title.zh} titleEn={pageMeta.blog.title.en} description={pageMeta.blog.description.zh} descriptionEn={pageMeta.blog.description.en}>
   <header class="blog-hero blog-hero--journal" data-reveal>
     <div class="blog-hero__heading">
-      <p class="blog-hero__eyebrow"><LocalizedText zh="写作 / 笔记 / 实验" en="Writing / Notes / Experiments" /></p>
-      <h1><span><LocalizedText zh="博客" en="Blog" /></span></h1>
+      <p class="blog-hero__eyebrow"><LocalizedText {...uiCopy.blog.heroEyebrow} /></p>
+      <h1><span><LocalizedText {...uiCopy.blog.blog} /></span></h1>
     </div>
-    <p class="blog-hero__intro"><LocalizedText zh="记录我如何把模糊的想法，变成可以使用、理解和继续迭代的东西。" en="Notes on turning fuzzy ideas into things people can use, understand, and keep improving." /></p>
+    <p class="blog-hero__intro"><LocalizedText {...uiCopy.blog.heroIntro} /></p>
     <svg class="blog-hero__threads" viewBox="0 0 1180 360" preserveAspectRatio="none" aria-hidden="true">
       <path d="M-20 274C152 338 250 79 413 128s165 207 338 113 243-45 449 30" />
       <path d="M-30 312C168 181 238 307 389 229S628 43 769 132s230 137 451 29" />
@@ -46,12 +47,12 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
               aria-hidden={index === 0 ? undefined : 'true'}
               tabindex={index === 0 ? undefined : '-1'}
             >
-              {post.cover && <BlogCover src={post.cover} alt={index === 0 ? `${post.title}的文章封面` : ''} altEn={index === 0 ? 'Featured article cover' : undefined} fetchpriority={index === 0 ? 'high' : 'auto'} sizes="(max-width: 820px) 100vw, 70vw" />}
+              {post.cover && <BlogCover src={post.cover} alt={index === 0 ? `${post.title}的文章封面` : ''} altEn={index === 0 ? uiCopy.blog.featuredCoverAlt.en : undefined} fetchpriority={index === 0 ? 'high' : 'auto'} sizes="(max-width: 820px) 100vw, 70vw" />}
             </a>
           )
         })}
         <div class="cover-stage__chrome" aria-hidden="true">
-          <span><LocalizedText zh="精选索引" en="Featured index" /></span>
+          <span><LocalizedText {...uiCopy.blog.featuredIndex} /></span>
           <span data-stage-count>01 / {String(stagePosts.length).padStart(2, '0')}</span>
         </div>
       </div>
@@ -74,7 +75,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
         <p class="cover-stage__summary" data-stage-summary>{activePost.summary}</p>
       </div>
 
-      <nav class="cover-stage__index" aria-label="重点文章" data-aria-en="Featured articles" data-aria-zh="重点文章">
+      <nav class="cover-stage__index" aria-label={uiCopy.blog.featuredArticles.zh} data-aria-en={uiCopy.blog.featuredArticles.en} data-aria-zh={uiCopy.blog.featuredArticles.zh}>
         {stagePosts.map((post, index) => {
           const isLocal = isLocalBlogPost(post)
           return (
@@ -105,8 +106,8 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
 
   <section class="blog-list blog-list--contact-sheet" aria-labelledby="recent-title" data-reveal>
     <div class="section-heading section-heading--indexed">
-      <h2 id="recent-title"><LocalizedText zh="最新文章" en="Recent" /></h2>
-      <span><LocalizedText zh={`${String(recentPosts.length).padStart(2, '0')} 篇`} en={`${String(recentPosts.length).padStart(2, '0')} entries`} /></span>
+      <h2 id="recent-title"><LocalizedText {...uiCopy.blog.recentArticles} /></h2>
+      <span><LocalizedText zh={`${String(recentPosts.length).padStart(2, '0')} ${uiCopy.blog.recentCountSuffix.zh}`} en={`${String(recentPosts.length).padStart(2, '0')} ${uiCopy.blog.recentCountSuffix.en}`} /></span>
     </div>
     <div class="recent-stream">
       {recentPosts.map((post) => <BlogPostRow post={post} />)}
@@ -114,7 +115,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
   </section>
 
   <a class="archive-cta" href="/blog/archive" data-reveal>
-    <span><LocalizedText zh="全部文章" en="All articles" /></span>
+    <span><LocalizedText {...uiCopy.blog.allArticles} /></span>
     <ArrowRight aria-hidden="true" size={16} stroke-width={1.7} />
   </a>
 
