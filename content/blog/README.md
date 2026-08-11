@@ -28,7 +28,9 @@ public/uploads/blog/
 - `标题.txt`：文章公开标题，必填。
 - `摘要.txt`：用于 Blog 列表的短摘要，必填。
 - `分类.txt`：填写 `categories.json` 中的分类 `id`，必填。
-- `链接.txt`：一行一个公开链接；支持微信、X 和普通原文链接，至少一行。
+- `链接.txt`：一行一个公开链接；支持微信、X 和普通原文链接。已发布的 `index-only` 文章至少保留一行；尚未确认来源的草稿可以为空。
+
+这四个 txt 文件是列表索引的编辑源。`index.md` 是网站内容源：它由迁移脚本创建，之后可以在 frontmatter 中补充 `contentStatus: full` 和正文。不要直接把 `index.md` 当成四个 txt 的替代品，也不要在未迁入正文时手动标记为 `full`。
 
 ## 分类配置
 
@@ -45,7 +47,7 @@ public/uploads/blog/
 
 封面放在 `public/uploads/blog/<同一日期>/`。当前读取器支持 `avif`、`jpeg`、`jpg`、`png`、`webp`，并按文件名排序取第一张。
 
-现有封面大多是约 `2.36:1–2.5:1` 的超宽横幅。新增封面优先延续横幅构图，避免把关键信息放在最边缘；后续会统一接入响应式图片优化。
+现有封面大多是约 `2.36:1–2.5:1` 的超宽横幅。新增封面优先延续横幅构图，避免把关键信息放在最边缘。封面尺寸和 WebP 变体由脚本维护，不要手工编辑 `content/site/blog-media.json`。
 
 ## 当前更新方式
 
@@ -53,8 +55,9 @@ public/uploads/blog/
 2. 把文件夹改成新的 `YYYY-MM-DD`；
 3. 修改四个文字文件；
 4. 在 `public/uploads/blog/同一日期/` 放一张封面；
-5. 运行 `npm run blog:migrate`，为新目录生成 `index.md`；
-6. 运行 `npm run build`，确认分类、链接、Markdown 和页面都能被读取。
+5. 运行 `npm run blog:migrate`，为新目录生成或同步受管字段；
+6. 如果正文已经确认，从 Philthink 导入或手工写入正文，并把 `contentStatus` 改成 `full`；否则保持 `index-only`；
+7. 运行 `npm run blog:check`、`npm run blog:images:check` 和 `npm run build`，确认分类、链接、Markdown、图片 alt 和页面都能被读取。
 
 `blog:migrate` 只创建缺失的 `index.md`，不会覆盖已经存在或已经迁入正文的 Markdown。单独检查内容可运行：
 
@@ -71,6 +74,13 @@ npm run blog:import -- --source "E:\00_Phil\Philthink\文章产出库\02-已发�
 npm run blog:import -- --source "E:\00_Phil\Philthink\文章产出库\02-已发布" --write
 ```
 
-第一条命令只预检，第二条才写入。脚本只接受原文 URL、完整标题或去除标点后的唯一标题匹配；成功导入后会使用原稿的真实发布日期，并将 `contentStatus` 改为 `full`。未能唯一匹配的文章保持 `index-only` 和原平台外链。
+第一条命令只预检，第二条才写入。脚本只接受原文 URL、完整标题或去除标点后的唯一标题匹配；成功导入后会使用原稿的真实发布日期，并将 `contentStatus` 改为 `full`。未能唯一匹配的文章保持 `index-only` 和原平台外链；如果目标文章本来是 `draft: true`，导入正文也不会自动把它发布。
 
-现有四个 txt 文件继续作为列表页索引保留，不手工删除。
+现有四个 txt 文件继续作为列表页索引保留，不手工删除。新增或迁移内容时，推荐按“预检 → 写入 → 构建”的顺序操作：
+
+```bash
+npm run blog:import -- --source "E:\\00_Phil\\Philthink\\文章产出库\\02-已发布"
+npm run blog:import -- --source "E:\\00_Phil\\Philthink\\文章产出库\\02-已发布" --write
+npm run blog:check
+npm run build
+```

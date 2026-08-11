@@ -102,9 +102,11 @@ const targets = readdirSync(contentRoot, { withFileTypes: true })
     const { frontmatter } = splitMarkdown(markdown, path)
     return {
       dateFolder: entry.name,
+      draft: readScalar(frontmatter, 'draft') === 'true',
       frontmatter,
       markdown,
       path,
+      contentStatus: readScalar(frontmatter, 'contentStatus'),
       title: readScalar(frontmatter, 'title'),
       links: [...frontmatter.matchAll(/^\s+url:\s*["']?([^\s"']+)["']?\s*$/gm)].map((match) => match[1]),
     }
@@ -148,7 +150,9 @@ for (const { reason, source, target } of results) {
     continue
   }
 
-  console.log(`匹配[${reason}]  ${target.dateFolder} -> ${source.published}  ${source.filename}`)
+  const draftNote = target.draft ? '；目标仍是 draft，不会自动发布' : ''
+  const statusNote = target.contentStatus === 'full' ? '；本站正文已存在，将覆盖正文' : '；将写入本站正文'
+  console.log(`匹配[${reason}]  ${target.dateFolder} -> ${source.published}  ${source.filename}${statusNote}${draftNote}`)
   if (!shouldWrite) continue
 
   let frontmatter = target.frontmatter
