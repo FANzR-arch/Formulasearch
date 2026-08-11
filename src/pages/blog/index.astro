@@ -168,11 +168,17 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
           : trigger.dataset.stageCategoryZh || ''
         if (stageDate) stageDate.textContent = trigger.dataset.stageDate || ''
         if (stageLink) {
-          stageLink.setAttribute('href', trigger.dataset.stageHref || '#')
-          if (trigger.dataset.stageExternal === 'true') {
+          const stageHref = trigger.dataset.stageHref
+          if (!stageHref) {
+            stageLink.removeAttribute('href')
+            stageLink.removeAttribute('target')
+            stageLink.removeAttribute('rel')
+          } else if (trigger.dataset.stageExternal === 'true') {
+            stageLink.setAttribute('href', stageHref)
             stageLink.setAttribute('target', '_blank')
             stageLink.setAttribute('rel', 'noopener noreferrer')
           } else {
+            stageLink.setAttribute('href', stageHref)
             stageLink.removeAttribute('target')
             stageLink.removeAttribute('rel')
           }
