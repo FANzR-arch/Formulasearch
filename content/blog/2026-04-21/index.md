@@ -42,7 +42,7 @@ externalLinks:
 
 <strong>低级的增长追求数字，高级的增长追求韧性。</strong>
 
-![一、增长的本质：不进则退配图](https://pbs.twimg.com/media/HHcP0NsXYAArXXs?format=jpg&name=large)
+![拼贴风格的建筑对照图，左侧是破败的旧墙和荒草，右侧是经过维护的白色现代建筑与绿植](https://pbs.twimg.com/media/HHcP0NsXYAArXXs?format=jpg&name=large)
 
 ## 二、企业的命运：消耗型 vs 积累
 
@@ -64,7 +64,7 @@ externalLinks:
 
 企业开始走向衰败，往往是在数字还好看的那段时间——那时候，学习已经停了，账目还没反映出来而已。
 
-![二、企业的命运：消耗型 vs 积累配图](https://pbs.twimg.com/media/HHcP3UNW0AAMuKP?format=jpg&name=large)
+![拼贴风格的企业增长对照图，左侧是明亮的咖啡店和成箱物资，右侧是城市中堆积的废旧自行车与下滑图表](https://pbs.twimg.com/media/HHcP3UNW0AAMuKP?format=jpg&name=large)
 
 ## 三、个人的重新定价
 
@@ -94,7 +94,7 @@ externalLinks:
 
 不喜欢一份工作，有能力换；遇到机会，有能力接住；被市场重新定价，有新东西可以拿出来。路径依赖最终剥夺的，就是这个。
 
-![三、个人的重新定价配图](https://pbs.twimg.com/media/HHcP5-fW0AApXUr?format=jpg&name=large)
+![建筑工作台上的个人成长拼贴，手绘草图、模型和笔记逐渐过渡到带流程图、建筑渲染与数据分析面板的数字界面](https://pbs.twimg.com/media/HHcP5-fW0AApXUr?format=jpg&name=large)
 
 ## 四、追求什么样的增长
 
@@ -124,7 +124,7 @@ externalLinks:
 
 <strong>我现在的增长方式，是在让自己的未来变轻，还是在提前透支？</strong>
 
-![四、追求什么样的增长配图](https://pbs.twimg.com/media/HHcP_evWgAANdyt?format=jpg&name=large)
+![左右对照的工作场景，左侧是杂乱昏暗的桌面和代码屏幕，右侧是明亮整洁的书桌、植物与流程图，表现消耗型和积累型增长](https://pbs.twimg.com/media/HHcP_evWgAANdyt?format=jpg&name=large)
 
 评论区分享下：你现在的增长，是消耗型还是积累型？
 
