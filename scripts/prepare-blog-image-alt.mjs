@@ -56,7 +56,8 @@ const transform = (markdown) => {
 
     for (const match of line.matchAll(/<img\b[^>]*>/gi)) {
       const tag = match[0]
-      const alt = tag.match(/\balt\s*=\s*(["'])(.*?)\1/i)?.[2]?.trim() || ''
+      const altMatch = tag.match(/\balt\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i)
+      const alt = (altMatch?.[1] ?? altMatch?.[2] ?? altMatch?.[3] ?? '').trim()
       const invalid = genericAlt.has(alt)
       images.push({
         alt,
