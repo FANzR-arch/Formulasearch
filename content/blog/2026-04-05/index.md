@@ -29,7 +29,7 @@ externalLinks:
 
 ## 一、传统工作流，几分钟内完成
 
-![图像](https://pbs.twimg.com/media/HJ57zIpW4AAnfTq?format=jpg&name=large)
+![一、传统工作流，几分钟内完成配图](https://pbs.twimg.com/media/HJ57zIpW4AAnfTq?format=jpg&name=large)
 
 先说一下那个Demo到底做了什么。
 
@@ -43,7 +43,7 @@ externalLinks:
 
 中间出了错，它自己发现，自己修正。
 
-![图像](https://pbs.twimg.com/media/HJ57VdhWEAA8y2t?format=jpg&name=large)
+![一、传统工作流，几分钟内完成配图](https://pbs.twimg.com/media/HJ57VdhWEAA8y2t?format=jpg&name=large)
 
 我以前的工作流呢？
 
@@ -68,9 +68,9 @@ Blackwell RTX GPU，6144个CUDA Cores。1 Petaflop AI算力。20核Grace CPU，1
 
 一套<strong>本地模型处理执行 + 云端模型处理推理</strong>的混合架构。
 
-![图像](https://pbs.twimg.com/media/HJ57WO-W8AAYla_?format=jpg&name=large)
+![一、传统工作流，几分钟内完成配图](https://pbs.twimg.com/media/HJ57WO-W8AAYla_?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HJ57XKDXgAAl0Xb?format=jpg&name=large)
+![一、传统工作流，几分钟内完成配图](https://pbs.twimg.com/media/HJ57XKDXgAAl0Xb?format=jpg&name=large)
 
 数据不出本地。设计意图被Agent自动拆解为跨软件的任务流。
 
@@ -96,13 +96,13 @@ vibe coding已经验证了这条逻辑。用codex写代码，不需要知道Reac
 
 Rhino不会消失。Blender不会消失。但它们会从"你每天花8小时操作的对象"变成"Agent在后台自动调用的API"。
 
-![图像](https://pbs.twimg.com/media/HJ57YAOXwAAjbS6?format=jpg&name=large)
+![二、软件正在从"工具"变成"基础设施"配图](https://pbs.twimg.com/media/HJ57YAOXwAAjbS6?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HJ57Y9eXgAAFZM8?format=jpg&name=large)
+![二、软件正在从"工具"变成"基础设施"配图](https://pbs.twimg.com/media/HJ57Y9eXgAAFZM8?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HJ57Z4aXEAAGCok?format=jpg&name=large)
+![二、软件正在从"工具"变成"基础设施"配图](https://pbs.twimg.com/media/HJ57Z4aXEAAGCok?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HJ57aqpXcAAkhum?format=jpg&name=large)
+![二、软件正在从"工具"变成"基础设施"配图](https://pbs.twimg.com/media/HJ57aqpXcAAkhum?format=jpg&name=large)
 
 就像你今天用codex写代码，你不会关心npm install到底执行了什么。你只关心页面出来了没有。
 
@@ -122,7 +122,7 @@ Rhino不会消失。Blender不会消失。但它们会从"你每天花8小时操
 
 <strong>这行业需要的是工具人而不是设计师，甚至这个行业从来不存在“设计”</strong>
 
-![图像](https://pbs.twimg.com/media/HJ57h-7XIAAUC1N?format=jpg&name=large)
+![三、建筑师，何去何从？配图](https://pbs.twimg.com/media/HJ57h-7XIAAUC1N?format=jpg&name=large)
 
 我这种刚入行的建筑师，80%的时间在学软件、画图、改图、校核规范。设计？那是十年以后的事。但大部分人还没熬到"十年以后"，就已经被消耗完了。
 
@@ -164,7 +164,7 @@ CAD取代了手绘。参数化设计取代了重复建模。BIM取代了图纸�
 
 一台RTX Spark，1 Petaflop算力，本地跑。一个Agent，自己打开Rhino、Blender，自己完成从概念到出图的全流程。
 
-![图像](https://pbs.twimg.com/media/HJ57ixbXIAAIzUl?format=jpg&name=large)
+![四、真正的行业变革配图](https://pbs.twimg.com/media/HJ57ixbXIAAIzUl?format=jpg&name=large)
 
 <strong>这并不是未来的蓝图，已经实实在在落地实现在了老黄手里的电脑上。</strong>
 
@@ -192,7 +192,7 @@ CAD取代了手绘。参数化设计取代了重复建模。BIM取代了图纸�
 
 是构建空间。是理解人在空间里的感受。是知道一堵墙放在那里，会让人想停下来，还是想快步走过。是站在甲方、施工方、使用者和城市之间，把所有人的需求翻译成一个能落地的方案。
 
-![图像](https://pbs.twimg.com/media/HJ57jq9XQAAxp0e?format=jpg&name=large)
+![五、最后的一点思考配图](https://pbs.twimg.com/media/HJ57jq9XQAAxp0e?format=jpg&name=large)
 
 这些东西，过去被"会不会Rhino""会不会Revit""会不会做效果图"淹没了。
 
@@ -224,7 +224,7 @@ AI把这些执行层的事接过去之后，建筑师或许终于可以回到建
 
 ## 为人类建造新世界。
 
-![图像](https://pbs.twimg.com/media/HJ58H85WIAAHAIL?format=jpg&name=large)
+![为人类建造新世界。配图](https://pbs.twimg.com/media/HJ58H85WIAAHAIL?format=jpg&name=large)
 
 🥳感谢看到这里，我是阿哲Phil，前建筑师 → AI
 

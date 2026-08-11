@@ -45,7 +45,7 @@ externalLinks:
 
 ## 适用场景
 
-![图像](https://pbs.twimg.com/media/HLvl8GJXwAAsx43?format=jpg&name=large)
+![适用场景配图](https://pbs.twimg.com/media/HLvl8GJXwAAsx43?format=jpg&name=large)
 
 | 输出方向 | 是否适合 | 为什么 |
 | --- | --- | --- |
@@ -62,7 +62,7 @@ externalLinks:
 
 ## 核心视觉特征拆解
 
-![图像](https://pbs.twimg.com/media/HLvl6s8XIAApKBI?format=jpg&name=large)
+![核心视觉特征拆解配图](https://pbs.twimg.com/media/HLvl6s8XIAApKBI?format=jpg&name=large)
 
 ## 构图 / 体块
 
@@ -154,7 +154,7 @@ flat color blocks, clean print-like surface, no paper texture, no vintage noise,
 
 ## 提示词编译方法
 
-![图像](https://pbs.twimg.com/media/HLvmKURWIAAJOFV?format=jpg&name=large)
+![提示词编译方法配图](https://pbs.twimg.com/media/HLvmKURWIAAJOFV?format=jpg&name=large)
 
 <strong>到这一步，只需要做一个动作：先选媒介，再复制骨架。</strong>
 
@@ -199,7 +199,7 @@ AVOID: random geometric stickers, decorative red-yellow-blue template, Bauhaus f
 
 ## 结果检查
 
-![图像](https://pbs.twimg.com/media/HLvmv-tWwAAHdOb?format=jpg&name=large)
+![结果检查配图](https://pbs.twimg.com/media/HLvmv-tWwAAHdOb?format=jpg&name=large)
 
 跑图后不要只看「像不像包豪斯」，要看模型有没有理解这四件事：
 
@@ -214,7 +214,7 @@ AVOID: random geometric stickers, decorative red-yellow-blue template, Bauhaus f
 
 ## 案例一：POSTER · 海报封面
 
-![图像](https://pbs.twimg.com/media/HLvnD3KXMAAsIFD?format=jpg&name=large)
+![案例一：POSTER · 海报封面配图](https://pbs.twimg.com/media/HLvnD3KXMAAsIFD?format=jpg&name=large)
 
 ```text
 TITLE: "AI Design Systems"
@@ -234,7 +234,7 @@ AVOID: random geometric stickers, red-yellow-blue template, Bauhaus furniture, w
 
 ## 案例二：PRODUCT · 产品 / 椅子
 
-![图像](https://pbs.twimg.com/media/HLvn-96W0AAJtYz?format=jpg&name=large)
+![案例二：PRODUCT · 产品 / 椅子配图](https://pbs.twimg.com/media/HLvn-96W0AAJtYz?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR: Bauhaus product design, workshop prototype feeling, inspired by tubular steel furniture and functional modernist objects, not a decorative poster style.
@@ -249,9 +249,9 @@ AVOID: red-yellow-blue stickers, decorative triangles, luxury upholstery, thick 
 
 ## 案例三：INTERIOR · 室内 / 工作室
 
-![图像](https://pbs.twimg.com/media/HLvoC9xXMAAjxa7?format=jpg&name=large)
+![案例三：INTERIOR · 室内 / 工作室配图](https://pbs.twimg.com/media/HLvoC9xXMAAjxa7?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HLvoFk4XEAAtzjy?format=jpg&name=large)
+![案例三：INTERIOR · 室内 / 工作室配图](https://pbs.twimg.com/media/HLvoFk4XEAAtzjy?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR: Bauhaus interior design, modern design-school studio, functional furniture, workshop clarity, not Scandinavian decor.
@@ -266,9 +266,9 @@ AVOID: cozy boho textiles, Scandinavian hygge, luxury marble, ornate art wall, r
 
 ## 案例四：ARCHITECTURE · 建筑 / 学校体块
 
-![图像](https://pbs.twimg.com/media/HLvoOPlWwAAFKGU?format=jpg&name=large)
+![案例四：ARCHITECTURE · 建筑 / 学校体块配图](https://pbs.twimg.com/media/HLvoOPlWwAAFKGU?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HLvoRL5XAAEJUTa?format=jpg&name=large)
+![案例四：ARCHITECTURE · 建筑 / 学校体块配图](https://pbs.twimg.com/media/HLvoRL5XAAEJUTa?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR: Bauhaus architecture, Dessau-era modern design school, functional volumes and industrial clarity, not a red-yellow-blue facade.

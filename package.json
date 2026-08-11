@@ -9,6 +9,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "blog:migrate": "node scripts/prepare-blog-content.mjs --write",
+    "blog:images:prepare": "node scripts/prepare-blog-image-alt.mjs --write",
+    "blog:images:check": "node scripts/prepare-blog-image-alt.mjs --check",
     "blog:import": "node scripts/import-blog-bodies.mjs",
     "blog:check": "node scripts/prepare-blog-content.mjs --check",
     "photos:prepare": "node scripts/prepare-photo-archive.mjs",

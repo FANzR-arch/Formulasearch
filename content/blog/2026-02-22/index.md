@@ -23,7 +23,7 @@ externalLinks:
 
 收藏了很多教程，关注了很多博主，也看了不少关于 prompt、工具、工作流的内容。 DeepSeek、Claude、GPT、豆包，换了一个又一个，界面越看越熟，名词越记越多<strong>，但一回到自己的真实工作和生活里，反而还是那套老反应：写东西卡住了，先自己硬憋；资料太乱了，先拖着不整理；两个方案拿不准，先在脑子里来回打转。</strong>
 
-![图像](https://pbs.twimg.com/media/HDYF4DpaoAAkuQz?format=jpg&name=large)
+![你真正该学的，不是工具，而是这个习惯配图](https://pbs.twimg.com/media/HDYF4DpaoAAkuQz?format=jpg&name=large)
 
 AI 明明就在收藏夹里，但根本没想到用。
 
@@ -79,7 +79,7 @@ AI 明明就在收藏夹里，但根本没想到用。
 
 而一旦这个习惯建立起来，很多事情就会发生变化。 你开始不再把 AI 当成一个“偶尔试试的高科技工具”，而是把它当成一个可以随手调用的起步器、整理器、陪跑器。
 
-![图像](https://pbs.twimg.com/media/HDYFsIAaoAAWlFf?format=jpg&name=large)
+![二、真正卡住大多数人的，不是不会用，而是没想到问配图](https://pbs.twimg.com/media/HDYFsIAaoAAWlFf?format=jpg&name=large)
 
 ## 三、别先想 AI 行不行，先试了再说
 
@@ -106,7 +106,7 @@ AI 明明就在收藏夹里，但根本没想到用。
 
 而这个起点，恰恰是很多人最缺的东西。
 
-![图像](https://pbs.twimg.com/media/HDYGP7gaMAAJpYy?format=jpg&name=large)
+![三、别先想 AI 行不行，先试了再说配图](https://pbs.twimg.com/media/HDYGP7gaMAAJpYy?format=jpg&name=large)
 
 ## 四、AI 最常见、也最有价值的作用，不是替你做完，而是替你起步
 
@@ -130,7 +130,7 @@ AI 明明就在收藏夹里，但根本没想到用。
 
 <strong>而 AI 最适合做的，就是把你从 0 往前推一下。</strong>
 
-![图像](https://pbs.twimg.com/media/HDYInyIbcAA-NPd?format=jpg&name=large)
+![四、AI 最常见、也最有价值的作用，不是替你做完，而是替你起步配图](https://pbs.twimg.com/media/HDYInyIbcAA-NPd?format=jpg&name=large)
 
 ## 五、普通人最容易上手的，不是“全交给 AI”，而是“先让 AI 接第一步”
 
@@ -150,7 +150,7 @@ AI 明明就在收藏夹里，但根本没想到用。
 
 你会慢慢发现，AI 对普通人最现实的意义，从来不是神乎其神地取代你，而是让你不再总是从空白开始。
 
-![图像](https://pbs.twimg.com/media/HDYI6AwaEAAFtA8?format=jpg&name=large)
+![五、普通人最容易上手的，不是“全交给 AI”，而是“先让 AI 接第一步”配图](https://pbs.twimg.com/media/HDYI6AwaEAAFtA8?format=jpg&name=large)
 
 ## 六、所以在看教程之前，你更该先养成一个习惯
 
@@ -178,7 +178,7 @@ AI 明明就在收藏夹里，但根本没想到用。
 
 <strong>这才是最重要的差别。</strong>
 
-![图像](https://pbs.twimg.com/media/HDYJOZPaMAQUQJ-?format=jpg&name=large)
+![未来几天，不管遇到什么事，都先多问一句：这个能不能发给 AI 看看？配图](https://pbs.twimg.com/media/HDYJOZPaMAQUQJ-?format=jpg&name=large)
 
 ## 七、真正拉开差距的，不是谁更懂模型，而是谁先把 AI 融进日常
 
@@ -200,7 +200,7 @@ AI 明明就在收藏夹里，但根本没想到用。
 
 因为很多时候，只要你问了，事情就已经开始往前走了。
 
-![图像](https://pbs.twimg.com/media/HDYKB-cbwAEMYnD?format=jpg&name=large)
+![七、真正拉开差距的，不是谁更懂模型，而是谁先把 AI 融进日常配图](https://pbs.twimg.com/media/HDYKB-cbwAEMYnD?format=jpg&name=large)
 
 ## 最后给一个最简单的练习
 

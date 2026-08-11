@@ -19,7 +19,7 @@ externalLinks:
 
 Boris Cherny，Claude Code 的负责人，说了这么一句话： <strong>"我不再 prompt Claude 了。我让一堆循环跑着，由它们去提示 Claude、去琢磨该干什么。我的工作变成了写循环。"</strong>他不是在描述未来。他现在就这么干。
 
-![图像](https://pbs.twimg.com/media/HLBl8NlXQAA8eyR?format=jpg&name=large)
+![还在写提示词？让AI自己动_Loop Engineering配图](https://pbs.twimg.com/media/HLBl8NlXQAA8eyR?format=jpg&name=large)
 
 你花了多少时间学提示词技巧？ 我花了不少时间。 提示词技巧解决的是"你在场"的问题。你一离开键盘，工作就停了。
 
@@ -37,7 +37,7 @@ Boris Cherny，Claude Code 的负责人，说了这么一句话： <strong>"我�
 
 你把自己练成了提示词专家，结果发现被自动化掉的，正是你这个"发指令的人"。
 
-![图像](https://pbs.twimg.com/media/HLBlreYXsAAim6V?format=jpg&name=large)
+![一、你是那台人肉发动机配图](https://pbs.twimg.com/media/HLBlreYXsAAim6V?format=jpg&name=large)
 
 ## 二、循环从哪里来
 
@@ -59,7 +59,7 @@ while :; do cat PROMPT.md | claude-code; done
 
 提示词让 AI 一次动一下， 循环让 AI 一直动。
 
-![图像](https://pbs.twimg.com/media/HLBlpnrWQAAs31a?format=jpg&name=large)
+![二、循环从哪里来配图](https://pbs.twimg.com/media/HLBlpnrWQAAs31a?format=jpg&name=large)
 
 ## 三、解剖一个成熟的循环：5 个零件和 1 个记忆
 
@@ -81,7 +81,7 @@ AI 在轮次间会遗忘。进度必须存磁盘，一个 Markdown 文件就够�
 
 循环是个不睡觉的工程师。但你得给它留便条——否则它每天早上都以为是第一天上班。
 
-![图像](https://pbs.twimg.com/media/HLBl_wRX0AA98eL?format=jpg&name=large)
+![三、解剖一个成熟的循环：5 个零件和 1 个记忆配图](https://pbs.twimg.com/media/HLBl_wRX0AA98eL?format=jpg&name=large)
 
 ## 四、自动化欠的三笔债
 
@@ -97,7 +97,7 @@ AI 在轮次间会遗忘。进度必须存磁盘，一个 Markdown 文件就够�
 
 <strong>还有一个账单：没有迭代上限的循环，一夜可以重试几百次，直接把 API 的钱包刷爆。</strong>
 
-![图像](https://pbs.twimg.com/media/HLBmCOeWkAAwkTb?format=jpg&name=large)
+![四、自动化欠的三笔债配图](https://pbs.twimg.com/media/HLBmCOeWkAAwkTb?format=jpg&name=large)
 
 ## 五、现在就可以开始（两种方法）
 
@@ -113,15 +113,15 @@ AI 在轮次间会遗忘。进度必须存磁盘，一个 Markdown 文件就够�
 
 完成了。
 
-![图像](https://pbs.twimg.com/media/HLBmPaqWMAAYVXr?format=jpg&name=large)
+![五、现在就可以开始（两种方法）配图](https://pbs.twimg.com/media/HLBmPaqWMAAYVXr?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HLBmRvbWsAACmpR?format=jpg&name=large)
+![五、现在就可以开始（两种方法）配图](https://pbs.twimg.com/media/HLBmRvbWsAACmpR?format=jpg&name=large)
 
 <strong>能跑，能用，验收基本是通过的。</strong>
 
 门槛只有一个：你需要说清楚"什么叫完成"，而不是"大概做个这样的东西"。条件越精准，结果越可靠。
 
-![图像](https://pbs.twimg.com/media/HLBmZbuWMAA-pEd?format=jpg&name=large)
+![五、现在就可以开始（两种方法）配图](https://pbs.twimg.com/media/HLBmZbuWMAA-pEd?format=jpg&name=large)
 
 <strong>方法 B：极简拉尔夫循环（10 行 bash，适合折腾派）</strong>
 

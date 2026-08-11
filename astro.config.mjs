@@ -8,12 +8,19 @@ const addArticleImageAttributes = () => (tree, file) => {
   const visit = (node) => {
     if (node.type === 'heading') currentHeading = textContent(node).trim()
     if (node.type === 'image') {
+      const headingAlt = currentHeading
+        ? /[\u4e00-\u9fff]/.test(currentHeading)
+          ? `${currentHeading}配图`
+          : `${currentHeading} illustration`
+        : ''
       node.alt = node.alt && node.alt !== '图像'
         ? node.alt
-        : currentHeading
-          ? `${currentHeading} illustration`
+        : headingAlt
+          ? headingAlt
           : articleTitle
-            ? `${articleTitle} illustration`
+            ? /[\u4e00-\u9fff]/.test(articleTitle)
+              ? `${articleTitle}配图`
+              : `${articleTitle} illustration`
             : 'Article illustration'
       node.data ??= {}
       node.data.hProperties = {

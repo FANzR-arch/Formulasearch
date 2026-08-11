@@ -53,45 +53,45 @@ externalLinks:
 
 <strong>深圳</strong>
 
-![图像](https://pbs.twimg.com/media/HLHQtXeXQAATQlL?format=jpg&name=large)
+![演示案例配图](https://pbs.twimg.com/media/HLHQtXeXQAATQlL?format=jpg&name=large)
 
 <strong>广州</strong>
 
-![图像](https://pbs.twimg.com/media/HLHPdzxXAAA76-K?format=jpg&name=large)
+![演示案例配图](https://pbs.twimg.com/media/HLHPdzxXAAA76-K?format=jpg&name=large)
 
 <strong>北京</strong>
 
-![图像](https://pbs.twimg.com/media/HLHSCS7X0AEdB5d?format=jpg&name=large)
+![演示案例配图](https://pbs.twimg.com/media/HLHSCS7X0AEdB5d?format=jpg&name=large)
 
 <strong>上海</strong>
 
-![图像](https://pbs.twimg.com/media/HLHSEq9XAAABfTb?format=jpg&name=large)
+![演示案例配图](https://pbs.twimg.com/media/HLHSEq9XAAABfTb?format=jpg&name=large)
 
 <strong>西安</strong>
 
-![图像](https://pbs.twimg.com/media/HLHSITBXAAAq9Mw?format=jpg&name=large)
+![演示案例配图](https://pbs.twimg.com/media/HLHSITBXAAAq9Mw?format=jpg&name=large)
 
 <strong>成都</strong>
 
-![图像](https://pbs.twimg.com/media/HLHSTzCXoAAw52l?format=jpg&name=large)
+![演示案例配图](https://pbs.twimg.com/media/HLHSTzCXoAAw52l?format=jpg&name=large)
 
 <strong>苏州</strong>
 
-![图像](https://pbs.twimg.com/media/HLHSW_-WMAA5hgb?format=jpg&name=large)
+![演示案例配图](https://pbs.twimg.com/media/HLHSW_-WMAA5hgb?format=jpg&name=large)
 
 ## 端午专属(今天就用得上)
 
 <strong>秭归(屈原故里)</strong>
 
-![图像](https://pbs.twimg.com/media/HLHSaupXEAARVKF?format=jpg&name=large)
+![端午专属(今天就用得上)配图](https://pbs.twimg.com/media/HLHSaupXEAARVKF?format=jpg&name=large)
 
 <strong>汨罗(龙舟竞渡发源)</strong>
 
-![图像](https://pbs.twimg.com/media/HLHSdBVXsAAY7yS?format=jpg&name=large)
+![端午专属(今天就用得上)配图](https://pbs.twimg.com/media/HLHSdBVXsAAY7yS?format=jpg&name=large)
 
 <strong>嘉兴(粽子之乡)</strong>
 
-![图像](https://pbs.twimg.com/media/HLHSlxtW8AAo_fM?format=jpg&name=large)
+![端午专属(今天就用得上)配图](https://pbs.twimg.com/media/HLHSlxtW8AAo_fM?format=jpg&name=large)
 
 ## 模式二 · Skill 版: 更稳、更自由、效果更好
 

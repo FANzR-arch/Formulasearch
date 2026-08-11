@@ -25,9 +25,9 @@ externalLinks:
 
 ## 1\. 何为"瑞士国际主义"
 
-![图像](https://pbs.twimg.com/media/HLlYYBzWMAAzAl4?format=jpg&name=large)
+![1\. 何为"瑞士国际主义"配图](https://pbs.twimg.com/media/HLlYYBzWMAAzAl4?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HLlYb4xX0AAbLwA?format=jpg&name=large)
+![1\. 何为"瑞士国际主义"配图](https://pbs.twimg.com/media/HLlYb4xX0AAbLwA?format=jpg&name=large)
 
 <strong>瑞士国际主义</strong>，也常被称为 International Typographic Style / Swiss Design，是二战后瑞士和德国设计师将现代主义平面设计进一步系统化形成的视觉传达方法。
 
@@ -39,7 +39,7 @@ externalLinks:
 
 ## 2\. 适用场景
 
-![图像](https://pbs.twimg.com/media/HLlY3QRXYAA0ZJZ?format=jpg&name=large)
+![2\. 适用场景配图](https://pbs.twimg.com/media/HLlY3QRXYAA0ZJZ?format=jpg&name=large)
 
 | 内容类型 | 是否适合 | 为什么 |
 | --- | --- | --- |
@@ -60,7 +60,7 @@ externalLinks:
 
 重点是网格。标题、图片、短说明、日期、编号、品牌信息，都应受同一套网格约束。画面可以不居中，但关系要明确。
 
-![图像](https://pbs.twimg.com/media/HLlY9ZTXQAAvIBO?format=jpg&name=large)
+![构图配图](https://pbs.twimg.com/media/HLlY9ZTXQAAvIBO?format=jpg&name=large)
 
 ```text
 strict modular grid, asymmetric layout, rational hierarchy, aligned text blocks, generous margins
@@ -72,7 +72,7 @@ strict modular grid, asymmetric layout, rational hierarchy, aligned text blocks,
 
 做法是单一无衬线字体、两级字号；标题承担主结构，小字进入辅助层级。字重中等，重美术黑体会让中文偏标语感。
 
-![图像](https://pbs.twimg.com/media/HLlZKKDWUAAZjCk?format=jpg&name=large)
+![字体 / 文字关系配图](https://pbs.twimg.com/media/HLlZKKDWUAAZjCk?format=jpg&name=large)
 
 ```text
 one medium-weight grotesk family, two type sizes, flush-left, Latin headline plus small Chinese line
@@ -82,7 +82,7 @@ one medium-weight grotesk family, two type sizes, flush-left, Latin headline plu
 
 配色克制，但强调色常以大面积平涂出现，而非小面积点缀。常见做法是一个高饱和色（红、黄、钴蓝）铺满主场，黑与米白承担文字和图形；颜色平涂、硬边、无渐变。
 
-![图像](https://pbs.twimg.com/media/HLlZQ-5WcAAKYQP?format=jpg&name=large)
+![色彩配图](https://pbs.twimg.com/media/HLlZQ-5WcAAKYQP?format=jpg&name=large)
 
 ```text
 one large flat saturated color field, black and off-white, hard edges, no gradients
@@ -94,7 +94,7 @@ one large flat saturated color field, black and off-white, hard edges, no gradie
 
 关键不在图形数量，而在是否承担信息功能：引导视线、划分区域、强调标题、连接图文。
 
-![图像](https://pbs.twimg.com/media/HLlZaQfWgAE2mIk?format=jpg&name=large)
+![图形配图](https://pbs.twimg.com/media/HLlZaQfWgAE2mIk?format=jpg&name=large)
 
 ```text
 systematic geometric composition, concentric arcs / nested squares / progressive bands, thin functional rules
@@ -106,7 +106,7 @@ systematic geometric composition, concentric arcs / nested squares / progressive
 
 瑞士国际主义的专业感主要来自边距、栏距、行距和空白区域的控制。提示词里应明确 generous margins，否则模型容易把画面填满。
 
-![图像](https://pbs.twimg.com/media/HLlZfWhWwAACcGx?format=jpg&name=large)
+![留白配图](https://pbs.twimg.com/media/HLlZfWhWwAACcGx?format=jpg&name=large)
 
 ## 材质 / 质感
 
@@ -136,7 +136,7 @@ no vintage paper texture, no glossy 3D, no heavy shadows, no grunge noise
 设计师锚点 + 画幅 + 主视觉（几何系统）+ 配色 + 排印（拉丁主标/中文小标）+ 网格与留白 + 文字控制 + 禁止项
 ```
 
-![图像](https://pbs.twimg.com/media/HLlZro6XMAAkwj-?format=jpg&name=large)
+![4\. 提示词编译方法配图](https://pbs.twimg.com/media/HLlZro6XMAAkwj-?format=jpg&name=large)
 
 ## 表现取向
 
@@ -212,7 +212,7 @@ Sharp edges, precise grid alignment, flat offset-print feeling, clean hierarchy,
 
 <strong>案例一：GRID · 纯网格 / 黑白红（Müller-Brockmann der Film）</strong>
 
-![图像](https://pbs.twimg.com/media/HLlauZHXgAAoWxK?format=jpg&name=large)
+![6\. 案例演示（实测成图 + 复制即用提示词）配图](https://pbs.twimg.com/media/HLlauZHXgAAoWxK?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Josef Müller-Brockmann der Film: mathematical grid, systematic geometry, type as structure.
@@ -241,7 +241,7 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 <strong>案例二：SIGNAL · 图解过程 / 米白红（Anton Stankowski）</strong>
 
-![图像](https://pbs.twimg.com/media/HLlazKdW4AAJpV8?format=jpg&name=large)
+![6\. 案例演示（实测成图 + 复制即用提示词）配图](https://pbs.twimg.com/media/HLlazKdW4AAJpV8?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Anton Stankowski: constructive graphics, diagrammatic marks visualizing a process.
@@ -270,7 +270,7 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 <strong>案例三：COLOR · 序列比例 / 黑白灰+单红（Richard Paul Lohse）</strong>
 
-![图像](https://pbs.twimg.com/media/HLla4soW0AAv2TK?format=jpg&name=large)
+![6\. 案例演示（实测成图 + 复制即用提示词）配图](https://pbs.twimg.com/media/HLla4soW0AAv2TK?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Richard Paul Lohse: concrete art, serial and modular color systems.
@@ -299,7 +299,7 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 <strong>案例四：STRUCTURE · 网格场域 / 米白黑蓝（Karl Gerstner）</strong>
 
-![图像](https://pbs.twimg.com/media/HLlbnEEXwAA2npG?format=jpg&name=large)
+![6\. 案例演示（实测成图 + 复制即用提示词）配图](https://pbs.twimg.com/media/HLlbnEEXwAA2npG?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Karl Gerstner: programmatic design, systematic parametric grid variation.
@@ -328,7 +328,7 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 <strong>案例五：ORDER · 同心弧 / 红（Müller-Brockmann，强传播封面向）</strong>
 
-![图像](https://pbs.twimg.com/media/HLlbp7dW4AEkv5p?format=jpg&name=large)
+![6\. 案例演示（实测成图 + 复制即用提示词）配图](https://pbs.twimg.com/media/HLlbp7dW4AEkv5p?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Josef Müller-Brockmann's 1950s Zürich concert posters: mathematical grid, systematic geometry, type as structure.
@@ -357,7 +357,7 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 <strong>案例六：CRAFT · 功能性破格 / 米白橙（Wolfgang Weingart）</strong>
 
-![图像](https://pbs.twimg.com/media/HLlbtHJWQAEnQ_a?format=jpg&name=large)
+![6\. 案例演示（实测成图 + 复制即用提示词）配图](https://pbs.twimg.com/media/HLlbtHJWQAEnQ_a?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Wolfgang Weingart: Swiss New Wave, one controlled rule-break, layering.

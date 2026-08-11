@@ -29,7 +29,7 @@ externalLinks:
 
 <strong>2014，网页设计里的反抗</strong>
 
-![图像](https://pbs.twimg.com/media/HMMfMf9X0AAtGsj?format=jpg&name=large)
+![一、新粗野主义的两次转折配图](https://pbs.twimg.com/media/HMMfMf9X0AAtGsj?format=jpg&name=large)
 
 2014 年，设计师 Pascal Deville 建了 [Brutalist Websites](https://brutalistwebsites.com/)，专门收录一批「反常规」的网页设计，两年后这个说法开始流行。
 
@@ -37,7 +37,7 @@ Deville 的形容是「一种不在乎自己看起来舒不舒服的粗粝感」
 
 <strong>2021，产品界面里的系统化</strong>
 
-![图像](https://pbs.twimg.com/media/HMMfO-nW4AAC3E6?format=jpg&name=large)
+![一、新粗野主义的两次转折配图](https://pbs.twimg.com/media/HMMfO-nW4AAC3E6?format=jpg&name=large)
 
 2021 年 [Gumroad](https://gumroad.gumroad.com/) 的改版，让这套视觉变成今天能一眼认出的样子：创始人 Sahil Lavingia 把界面推倒重做，粗黑边框，扁平高饱和主色，向右下偏移的硬投影。几个月内，Figma 社区冒出大量同款风格的 UI 组件库。2022 年，设计师 Michał Malewicz 写文章把这套视觉正式命名为 Neubrutalism。
 
@@ -51,19 +51,19 @@ Deville 的形容是「一种不在乎自己看起来舒不舒服的粗粝感」
 
 <strong>01｜本文封面｜爆裂式断裂网格｜标题「新粗野主义」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMet-VXwAAEzwC?format=jpg&name=large)
+![二、提示词拆解：文章封面 / 观点封面配图](https://pbs.twimg.com/media/HMMet-VXwAAEzwC?format=jpg&name=large)
 
 <strong>02｜AI Agent 自动化｜破损开关 + 系统告警贴纸｜标题「Loop Engineer」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMevCuXYAAAGX6?format=jpg&name=large)
+![二、提示词拆解：文章封面 / 观点封面配图](https://pbs.twimg.com/media/HMMevCuXYAAAGX6?format=jpg&name=large)
 
 <strong>03｜Prompt 方法论 / 提示词工程｜网页界面式构图｜标题「提示词」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMev-IXUAALPSp?format=jpg&name=large)
+![二、提示词拆解：文章封面 / 观点封面配图](https://pbs.twimg.com/media/HMMev-IXUAALPSp?format=jpg&name=large)
 
 <strong>04｜内容资产系统｜混乱到有序的转化｜标题「资产」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMew08W4AA0T89?format=jpg&name=large)
+![二、提示词拆解：文章封面 / 观点封面配图](https://pbs.twimg.com/media/HMMew08W4AA0T89?format=jpg&name=large)
 
 <strong>文生图｜复制即用：通用文章封面提示词</strong>
 
@@ -127,7 +127,7 @@ glassmorphism, soft gradient SaaS look, glossy 3D, realistic scene, full complex
 
 <strong>示例｜AI 提示词管理工具定价页｜标题「PROMPT OS」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMfd65W4AAEena?format=jpg&name=large)
+![三、方向 B：AI 工具 / 产品视觉配图](https://pbs.twimg.com/media/HMMfd65W4AAEena?format=jpg&name=large)
 
 <strong>文生图｜复制即用：产品/工具视觉概念示意图提示词</strong>
 
@@ -187,7 +187,7 @@ glassmorphism, soft shadows, glossy 3D, Apple-style clean UI, blue-purple gradie
 
 <strong>示例｜开源 CLI 工具主页｜标题「TERMINAL KIT」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMfi7NXMAA2TfL?format=jpg&name=large)
+![四、方向 C：开发者 / 开源项目配图](https://pbs.twimg.com/media/HMMfi7NXMAA2TfL?format=jpg&name=large)
 
 <strong>文生图｜复制即用：开发者视觉概念示意图提示词</strong>
 
@@ -245,13 +245,13 @@ glassmorphism, soft gradient SaaS look, realistic IDE screenshot, readable real 
 
 <strong>风格：薄荷绿为主色+新粗野主义UI</strong>
 
-![图像](https://pbs.twimg.com/media/HMMfntpXQAAYPeE?format=jpg&name=large)
+![六、实践案例配图](https://pbs.twimg.com/media/HMMfntpXQAAYPeE?format=jpg&name=large)
 
 > 4月10日
 
 <strong>本篇“新粗野主义”分享完，最初起源于建筑学的“传统粗野主义”，也将在下篇展开，感谢支持。</strong>
 
-![图像](https://pbs.twimg.com/media/HMMe3lxXgAA8uzD?format=jpg&name=large)
+![六、实践案例配图](https://pbs.twimg.com/media/HMMe3lxXgAA8uzD?format=jpg&name=large)
 
 <strong>🥳</strong><strong>感谢看到这里，我是阿哲Phil，"一个自由的提示词诗人"</strong>
 

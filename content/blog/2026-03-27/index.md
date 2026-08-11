@@ -29,7 +29,7 @@ externalLinks:
 
 <video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2051488771829338118/img/VYK2KDJ_kx1Jyd39.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
 
-![](https://pbs.twimg.com/amplify_video_thumb/2051488771829338118/img/VYK2KDJ_kx1Jyd39.jpg?name=large)
+![如何使用codex+image2进行视频内容创作配图](https://pbs.twimg.com/amplify_video_thumb/2051488771829338118/img/VYK2KDJ_kx1Jyd39.jpg?name=large)
 
 ## 为什么要先出图
 
@@ -79,15 +79,15 @@ Floating annotation card lower-right · semi-transparent dark background
 Overall tone: clinical and quietly wasteful.
 ```
 
-![图像](https://pbs.twimg.com/media/HHhZYjlXoAM74pP?format=jpg&name=large)
+![Step 2：用 GPT-Image-2 生成分镜预览图配图](https://pbs.twimg.com/media/HHhZYjlXoAM74pP?format=jpg&name=large)
 
 其他三个场景用同样格式出图。
 
-![图像](https://pbs.twimg.com/media/HHhZmZQXQAQcJns?format=jpg&name=large)
+![Step 2：用 GPT-Image-2 生成分镜预览图配图](https://pbs.twimg.com/media/HHhZmZQXQAQcJns?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HHhZmZQWYAIYLIz?format=jpg&name=large)
+![Step 2：用 GPT-Image-2 生成分镜预览图配图](https://pbs.twimg.com/media/HHhZmZQWYAIYLIz?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HHhZmZPWEAEqK8Y?format=jpg&name=large)
+![Step 2：用 GPT-Image-2 生成分镜预览图配图](https://pbs.twimg.com/media/HHhZmZPWEAEqK8Y?format=jpg&name=large)
 
 每张图只问一件事：这个视觉方向对不对？对了才进下一步。
 
@@ -103,11 +103,11 @@ Style: product editorial illustration, not photo-realistic.
 Avoid: dark tones, heavy shadows, corporate clipart.
 ```
 
-![图像](https://pbs.twimg.com/media/HHhZGbsXUAIo52A?format=jpg&name=large)
+![Step 2：用 GPT-Image-2 生成分镜预览图配图](https://pbs.twimg.com/media/HHhZGbsXUAIo52A?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HHhZjmPXkAMB2JO?format=jpg&name=large)
+![Step 2：用 GPT-Image-2 生成分镜预览图配图](https://pbs.twimg.com/media/HHhZjmPXkAMB2JO?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HHhZjmMWUAk77q_?format=jpg&name=large)
+![Step 2：用 GPT-Image-2 生成分镜预览图配图](https://pbs.twimg.com/media/HHhZjmMWUAk77q_?format=jpg&name=large)
 
 <strong>背景纹理型（铺在 UI 下层用）</strong>
 
@@ -162,7 +162,7 @@ No patterns, no icons, no text, no focal point.
 
 美化一下然后配个bgm，就完成了。当然，为了让视频更好看，我选择使用[@FocuSeeHQ](https://x.com/@FocuSeeHQ)
 
-![图像](https://pbs.twimg.com/media/HHhZ3wcXkAMs96R?format=jpg&name=large)
+![Step 5：浏览器录屏，交付配图](https://pbs.twimg.com/media/HHhZ3wcXkAMs96R?format=jpg&name=large)
 
 ## 这个工作流适合谁
 

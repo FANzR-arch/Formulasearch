@@ -15,7 +15,7 @@ externalLinks:
     url: "https://x.com/Formulasearch/status/2042598629907616036"
 ---
 
-![图像](https://pbs.twimg.com/media/HFjDq1gXsAAWQvv?format=jpg&name=large)
+![一人公司还敢天天摸鱼？我 vibe 了个工具来鞭策自己配图](https://pbs.twimg.com/media/HFjDq1gXsAAWQvv?format=jpg&name=large)
 
 应用界面
 
@@ -29,7 +29,7 @@ externalLinks:
 
 试过一些时间记录工具。看完一堆图表，什么也没改变，因为数据太粗了——它只告诉你“你今天用了8小时电脑”，但你到底在干嘛？不知道。
 
-![图像](https://pbs.twimg.com/media/HFjDwBQakAAm6Fp?format=jpg&name=large)
+![一人公司还敢天天摸鱼？我 vibe 了个工具来鞭策自己配图](https://pbs.twimg.com/media/HFjDwBQakAAm6Fp?format=jpg&name=large)
 
 我想要的是一个能够如实记录我自己行为的工具。一面能照出我实际在干什么的那种镜子
 
@@ -37,7 +37,7 @@ externalLinks:
 
 ## 一、首先应该先定义下需求和边界
 
-![图像](https://pbs.twimg.com/media/HFjD1BHWQAA_sCz?format=jpg&name=large)
+![一、首先应该先定义下需求和边界配图](https://pbs.twimg.com/media/HFjD1BHWQAA_sCz?format=jpg&name=large)
 
 <strong>要用做产品的系统思维去完成这个想法。</strong>
 
@@ -63,7 +63,7 @@ externalLinks:
 
 ## 二、开始痛苦并快乐的 vibecoding 过程
 
-![图像](https://pbs.twimg.com/media/HFjD6XjXQAEluAf?format=jpg&name=large)
+![二、开始痛苦并快乐的 vibecoding 过程配图](https://pbs.twimg.com/media/HFjD6XjXQAEluAf?format=jpg&name=large)
 
 <strong>我完全不会写代码。</strong>
 
@@ -97,9 +97,9 @@ externalLinks:
 
 直接上数据。我挑了两天，一天“勤奋”，一天“摸鱼”。
 
-![图像](https://pbs.twimg.com/media/HFjEA6jWsAAzWQX?format=jpg&name=large)
+![三、真实数据，两天对比配图](https://pbs.twimg.com/media/HFjEA6jWsAAzWQX?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HFjEDHXXsAAFVsG?format=jpg&name=large)
+![三、真实数据，两天对比配图](https://pbs.twimg.com/media/HFjEDHXXsAAFVsG?format=jpg&name=large)
 
 <strong>4月9日——我以为很充实的一天：</strong>
 
@@ -125,7 +125,7 @@ externalLinks:
 
 ## 四、AI复盘数据
 
-![图像](https://pbs.twimg.com/media/HFjEQ9TWkAEuNc5?format=jpg&name=large)
+![四、AI复盘数据配图](https://pbs.twimg.com/media/HFjEQ9TWkAEuNc5?format=jpg&name=large)
 
 <strong>数据有了，但光看数字还是会懵——我知道今天刷了 4 小时 X，然后呢？</strong>
 

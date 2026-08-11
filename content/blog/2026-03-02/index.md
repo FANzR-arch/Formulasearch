@@ -33,7 +33,7 @@ externalLinks:
 
 ## 一、《黑客帝国》：你是 Neo，还是电池？
 
-![图像](https://pbs.twimg.com/media/HEaDJY6WYAA8W6s?format=jpg&name=large)
+![一、《黑客帝国》：你是 Neo，还是电池？配图](https://pbs.twimg.com/media/HEaDJY6WYAA8W6s?format=jpg&name=large)
 
 我们都是躺在培养仓的电池
 
@@ -73,7 +73,7 @@ Neo醒过来，发现真实世界一片荒凉。
 
 Roy Batty，银翼杀手里那个最强的复制人，在雨里说了一段电影史上最经典的独白，然后离去。
 
-![图像](https://pbs.twimg.com/media/HEaDNqgbsAAKNiA?format=jpg&name=large)
+![二、《银翼杀手》：你确定你不是复制人？配图](https://pbs.twimg.com/media/HEaDNqgbsAAKNiA?format=jpg&name=large)
 
 我所见过的事物，你们人类绝对无法置信
 
@@ -99,7 +99,7 @@ V的每一个"选择"，都是那个人按下的按钮。V以为自己在愤怒�
 
 你觉得你在工作——但你的优先级、节奏、甚至今天先做什么后做什么，都是系统排好的。
 
-![图像](https://pbs.twimg.com/media/HEaDtkyXgAA8SzN?format=png&name=large)
+![三、《赛博朋克 2077》：V 以为自己是主角配图](https://pbs.twimg.com/media/HEaDtkyXgAA8SzN?format=png&name=large)
 
 《赛博朋克2077》封面，两种性别的V和“在脑子里”的强尼银手
 
@@ -117,7 +117,7 @@ V至少是游戏的主角，义体随便装，架随便打，上天入地无所�
 
 第一种：AI的代理人
 
-![图像](https://pbs.twimg.com/media/HEaDwvMXgAA06Mx?format=jpg&name=large)
+![四、四种“湿件”——你是哪一种？配图](https://pbs.twimg.com/media/HEaDwvMXgAA06Mx?format=jpg&name=large)
 
 《碟中谍8》，盖布瑞尔，智体在现实中的“代理人”
 
@@ -131,7 +131,7 @@ V至少是游戏的主角，义体随便装，架随便打，上天入地无所�
 
 第二种：AI的感官外设
 
-![图像](https://pbs.twimg.com/media/HEaEWPVXAAAhM4U?format=jpg&name=large)
+![四、四种“湿件”——你是哪一种？配图](https://pbs.twimg.com/media/HEaEWPVXAAAhM4U?format=jpg&name=large)
 
 草薙素子，身高168厘米的她，除脑部外全身均实现义体化。
 
@@ -155,7 +155,7 @@ AI批量生成内容、代码、报告、法律文书——但它会出错。所
 
 《银翼杀手2049》里的K就是这个角色。整部电影他都在替系统执行任务——查案、追踪、汇报。他每一步都以为自己在接近真相。但他的调查路径、优先级、甚至他被允许知道什么，全是上级和系统设定好的。
 
-![图像](https://pbs.twimg.com/media/HEaEoG6agAAM_zC?format=jpg&name=large)
+![四、四种“湿件”——你是哪一种？配图](https://pbs.twimg.com/media/HEaEoG6agAAM_zC?format=jpg&name=large)
 
 K在树下找到了一个推进剧情发展的关键物品
 
@@ -171,7 +171,7 @@ K是整个系统里最高效的工具。<strong>恰恰因为他以为自己在�
 
 AI时代这句话会更彻底。因为你不只是在提供注意力了——你在提供判断力。你每一次选择“这个AI回答好/不好”，都在帮它学会怎么更好地影响下一个人。
 
-![图像](https://pbs.twimg.com/media/HEaE3YfXYAA4bHW?format=jpg&name=large)
+![四、四种“湿件”——你是哪一种？配图](https://pbs.twimg.com/media/HEaE3YfXYAA4bHW?format=jpg&name=large)
 
 回到2077——你以为你在玩游戏，但你每一次操作、每一个选择，都在帮游戏系统收集数据、优化体验、创造内容。
 
@@ -183,7 +183,7 @@ AI时代这句话会更彻底。因为你不只是在提供注意力了——你
 
 这些技能，很多人花了好几年才练出来。以前是护城河，现在都不能说是<strong>逐渐贬值，是瞬间消失。</strong>
 
-![图像](https://pbs.twimg.com/media/HEaFCtMacAAUnTs?format=jpg&name=large)
+![五、你的护城河正在蒸发配图](https://pbs.twimg.com/media/HEaFCtMacAAUnTs?format=jpg&name=large)
 
 马车上有4匹马就是4马力吗
 
@@ -213,13 +213,13 @@ AI时代这句话会更彻底。因为你不只是在提供注意力了——你
 
 2077里，夜之城不缺工作，到处都是中间人，到处是活。但V不管接多少单、做多少选择，始终是屏幕外那个玩家手里的角色。V的“努力”让玩家获得体验，V自己什么也没得到，甚至V的外貌，形象，都是玩家决定的。
 
-![图像](https://pbs.twimg.com/media/HEaFe-gXcAIOu4a?format=jpg&name=large)
+![六、你下班了，AI没有配图](https://pbs.twimg.com/media/HEaFe-gXcAIOu4a?format=jpg&name=large)
 
 <strong>490个人还在“工作”。但工作的受益者，已经不是他们了。</strong>
 
 ## 七、最安静的湿件化
 
-![图像](https://pbs.twimg.com/media/HEaFtsna0AA0Eg6?format=jpg&name=large)
+![七、最安静的湿件化配图](https://pbs.twimg.com/media/HEaFtsna0AA0Eg6?format=jpg&name=large)
 
 前面说的湿件化，都发生在工作里。
 
@@ -271,7 +271,7 @@ NPC就是那些在游戏里有固定行为模式的角色，你不跟它互动�
 
 我们这代人其实已经经历过一次工具关系的反转——智能手机。
 
-![图像](https://pbs.twimg.com/media/HEaF0AvW0AAwjcW?format=jpg&name=large)
+![九、科幻是未来吗？配图](https://pbs.twimg.com/media/HEaF0AvW0AAwjcW?format=jpg&name=large)
 
 你以为你在用手机。其实手机在用你的注意力喂养整个数字广告产业。你以为你在刷短视频放松，其实你在给算法免费打工，帮它学会怎么让下一个人也停不下来。
 

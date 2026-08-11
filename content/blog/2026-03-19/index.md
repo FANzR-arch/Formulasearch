@@ -43,7 +43,7 @@ Grok的自动翻译上线。你用中文发帖，日本人看到的是日文，�
 
 ## 二、诅咒破了，但有人还在沉默
 
-![图像](https://pbs.twimg.com/media/HJjrqaHWQAMd2OU?format=jpg&name=large)
+![二、诅咒破了，但有人还在沉默配图](https://pbs.twimg.com/media/HJjrqaHWQAMd2OU?format=jpg&name=large)
 
 语言的诅咒，被打破了。
 
@@ -61,7 +61,7 @@ Grok的自动翻译上线。你用中文发帖，日本人看到的是日文，�
 
 我说说我自己。
 
-![图像](https://pbs.twimg.com/media/HJjr1vXWkAIBiRS?format=jpg&name=large)
+![三、我一个i人为什么要转变，发声配图](https://pbs.twimg.com/media/HJjr1vXWkAIBiRS?format=jpg&name=large)
 
 三本毕业，考研失败，工作两年，折腾两年公司倒闭，手里只有五万块钱。
 
@@ -111,7 +111,7 @@ Grok的自动翻译上线。你用中文发帖，日本人看到的是日文，�
 
 <strong>你说的每一句话，都是你在世界里留下的一个信标。</strong>
 
-![图像](https://pbs.twimg.com/media/HJjtXi-WoAQSgtb?format=jpg&name=large)
+![四、说话为什么是杠杆配图](https://pbs.twimg.com/media/HJjtXi-WoAQSgtb?format=jpg&name=large)
 
 没有坐标的人，没有人能找到你。
 
@@ -127,7 +127,7 @@ Grok的自动翻译上线。你用中文发帖，日本人看到的是日文，�
 
 但前提是，你得先说话。
 
-![图像](https://pbs.twimg.com/media/HJjtncEXIAMt3ht?format=jpg&name=large)
+![四、说话为什么是杠杆配图](https://pbs.twimg.com/media/HJjtncEXIAMt3ht?format=jpg&name=large)
 
 ## Expression is all you need.
 
@@ -143,7 +143,7 @@ build in public，learn in public——这些话我学了很久，真正理解�
 
 ## 五、可以专心经营，也可以做泛流量
 
-![图像](https://pbs.twimg.com/media/HJjtp_MW4AQAule?format=jpg&name=large)
+![五、可以专心经营，也可以做泛流量配图](https://pbs.twimg.com/media/HJjtp_MW4AQAule?format=jpg&name=large)
 
 Pieter Levels，一个人做了 Nomad List、Remote OK 好几个产品，年入百万美元。他的秘密不是技术——他把每一步都公开发在网上。build in public。失败公开，成功公开，收入也公开。
 
@@ -175,7 +175,7 @@ Pieter Levels，一个人做了 Nomad List、Remote OK 好几个产品，年入�
 
 <strong>说一句完整的话</strong>，不说「以后再说」。 一条就够了，今天就发。
 
-![图像](https://pbs.twimg.com/media/HJjt8BeWQAMkw3w?format=jpg&name=large)
+![六、开口三原则配图](https://pbs.twimg.com/media/HJjt8BeWQAMkw3w?format=jpg&name=large)
 
 ## 七、最后的那堵墙，是自己的心态
 
@@ -191,7 +191,7 @@ Pieter Levels，一个人做了 Nomad List、Remote OK 好几个产品，年入�
 
 <strong>多说话，这个世界会记住你。</strong>
 
-![图像](https://pbs.twimg.com/media/HJjuX8aWYAIZDsb?format=jpg&name=large)
+![七、最后的那堵墙，是自己的心态配图](https://pbs.twimg.com/media/HJjuX8aWYAIZDsb?format=jpg&name=large)
 
 🥳 感谢看到这里，我是 Phil，前建筑师 → AI 产品
 

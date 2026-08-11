@@ -8,6 +8,7 @@ const astro = join(projectRoot, 'node_modules', 'astro', 'bin', 'astro.mjs')
 const env = { ...process.env, ASTRO_TELEMETRY_DISABLED: '1' }
 const steps = [
   [node, ['scripts/prepare-blog-content.mjs', '--check']],
+  [node, ['scripts/prepare-blog-image-alt.mjs', '--check']],
   [node, [astro, 'check']],
   [node, [astro, 'build']],
   [node, ['scripts/check-site-output.mjs']],

@@ -23,7 +23,7 @@ externalLinks:
 
 ## 一、先把主题变成一个物体
 
-![图像](https://pbs.twimg.com/media/HL9ui1bWUAASJQP?format=jpg&name=large)
+![一、先把主题变成一个物体配图](https://pbs.twimg.com/media/HL9ui1bWUAASJQP?format=jpg&name=large)
 
 <strong>Plakatstil （对象海报设计风格）</strong> 是 20 世纪初德国广告海报里的一种视觉方法，常和 Sachplakat，也就是「物体海报」一起讨论。它的画面逻辑很直接：删掉复杂场景，删掉故事背景，删掉长文案，只保留一个被强烈简化的商品或物体，再配一个极短的名称。
 
@@ -31,7 +31,7 @@ externalLinks:
 
 画面里没有抽烟的人，没有商店，没有街景，也没有一堆广告语。只有两根火柴和一个产品名。
 
-![图像](https://pbs.twimg.com/media/HL9umPCW4AABHlm?format=jpg&name=large)
+![一、先把主题变成一个物体配图](https://pbs.twimg.com/media/HL9umPCW4AABHlm?format=jpg&name=large)
 
 这就是它对 AI 封面的启发：
 
@@ -49,34 +49,34 @@ externalLinks:
 
 一篇讲 <strong>「AI 副业分享，然后包装成可卖的东西」</strong> 的文章，可以直接用一叠厚厚的纸币做主角。配两个中文大字 变现。读者先记住现金，再理解文章在教怎么把知识变成第一桶金。
 
-![图像](https://pbs.twimg.com/media/HL9vRveWYAA_gOv?format=jpg&name=large)
+![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vRveWYAA_gOv?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HL9vVhYXUAA9fN5?format=jpg&name=large)
+![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vVhYXUAA9fN5?format=jpg&name=large)
 
 <strong>02｜AI Agent 自动化｜金属齿轮</strong>
 
 一篇讲 <strong>「普通人用 AI Agent 跑通自动化系统，实现半被动收入」</strong> 的文章，不需要画流程图。它可以变成一个巨大的金属齿轮，配中文短词 自动。齿轮代表持续运转的赚钱机器。
 
 
-![图像](https://pbs.twimg.com/media/HL9vYhxW0AAZwN6?format=jpg&name=large)
+![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vYhxW0AAZwN6?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HL9veBlWMAA-UMI?format=jpg&name=large)
+![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9veBlWMAA-UMI?format=jpg&name=large)
 
 <strong>03｜AI 提示词和教程｜商品包装盒</strong>
 
 一篇讲 <strong>「AI分享教程、提示词模板、实操指南卖数字产品」</strong> 的文章，可以用一个商品包装盒做视觉主角。中文短词 售卖 直接印在包装标签上。盒子本身就是待售的产品。
 
-![图像](https://pbs.twimg.com/media/HL9vxcGXIAAMrh6?format=jpg&name=large)
+![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vxcGXIAAMrh6?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HL9vusaX0AAZLh_?format=jpg&name=large)
+![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vusaX0AAZLh_?format=jpg&name=large)
 
 <strong>04｜内容增长｜扩音器</strong>
 
 一篇讲 <strong>「AI 批量生成内容 + 多平台分发矩阵变现」</strong> 的文章，可以用一个老式黄铜扩音器做主语。中文短词 触达 放在扩音器后方。暗示声音被放大，内容被更多人听到并付费。
 
-![图像](https://pbs.twimg.com/media/HL9vnm6XcAAn2ZN?format=jpg&name=large)
+![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vnm6XcAAn2ZN?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HL9vpquXwAA4poy?format=jpg&name=large)
+![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vpquXwAA4poy?format=jpg&name=large)
 
 <strong>这些图的共同点是：每张图都先替文章选了一个能直接被记住的「主题相关」物体。</strong>
 
@@ -126,7 +126,7 @@ clean vector icon, modern UI, search bar interface, infographic, flowchart, dash
 
 ## 三、产品宣传图的运用
 
-![图像](https://pbs.twimg.com/media/HL9v3kpWIAAvYQo?format=jpg&name=large)
+![三、产品宣传图的运用配图](https://pbs.twimg.com/media/HL9v3kpWIAAvYQo?format=jpg&name=large)
 
 如果上世纪20年代，就有这些电子产品，那么其海报可能是这样的风格？
 
@@ -180,7 +180,7 @@ photorealistic product render, modern launch poster, clean vector icon, sterile 
 
 严格说，人物形象转绘已经不再是标准的 Sachplakat「物体海报」，更接近 Plakatstil-inspired 的人物服务海报。它适合用在个人账号、课程、咨询服务、讲座海报这类场景。
 
-![图像](https://pbs.twimg.com/media/HL9v7rEXYAAEqjm?format=jpg&name=large)
+![四、延伸尝试：人物形象与个人网站配图](https://pbs.twimg.com/media/HL9v7rEXYAAEqjm?format=jpg&name=large)
 
 <strong>图生图｜复制即用：人物转绘提示词</strong>
 
@@ -229,7 +229,7 @@ photorealistic portrait, modern influencer poster, cinematic lighting, anime sty
 
 如果只是借用配色、手绘字、纸张质感和广告感构图，个人网站也可以拿 Plakatstil 当视觉参考。但这已经是风格迁移，不属于严格的物体海报用法。
 
-![图像](https://pbs.twimg.com/media/HL9v_xvXcAEyrJP?format=jpg&name=large)
+![四、延伸尝试：人物形象与个人网站配图](https://pbs.twimg.com/media/HL9v_xvXcAEyrJP?format=jpg&name=large)
 
 ## 五、直接用 Skill 生成
 
