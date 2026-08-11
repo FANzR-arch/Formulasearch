@@ -3,6 +3,7 @@ import { Aperture, ChevronDown, DraftingCompass, Globe, Menu, Moon, Sun, X } fro
 import { primaryNavigation, type PrimarySection } from '../data/navigation'
 import { siteConfig } from '../data/site-config'
 import { uiCopy } from '../data/ui-copy'
+import { interpolateLocalizedCopy } from '../lib/i18n'
 import LocalizedText from './LocalizedText.astro'
 
 interface Props {
@@ -11,6 +12,9 @@ interface Props {
 }
 
 const { active, logoMode = 'home' } = Astro.props
+const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProfile, {
+  name: { zh: siteConfig.author.name, en: siteConfig.author.name },
+})
 
 ---
 
@@ -35,11 +39,11 @@ const { active, logoMode = 'home' } = Astro.props
       <div class="nav-menu">
         <div class="nav-menu__trigger">
           <a class:list={['nav-link', { 'is-active': active === section.id }]} href={section.href} aria-current={active === section.id ? 'page' : undefined}><LocalizedText {...section.label} /></a>
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-controls={`nav-panel-${section.id}`} aria-label={`展开${section.label.zh}分类`} data-aria-en={`Open ${section.label.en} menu`} data-aria-zh={`展开${section.label.zh}分类`}>
+          <button class="nav-disclosure" type="button" aria-expanded="false" aria-controls={`nav-panel-${section.id}`} aria-label={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).zh} data-aria-en={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).en} data-aria-zh={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).zh}>
             <ChevronDown aria-hidden="true" />
           </button>
         </div>
-        <div id={`nav-panel-${section.id}`} class="nav-popover" aria-label={`${section.label.zh}子菜单`} data-aria-en={`${section.label.en} menu`} data-aria-zh={`${section.label.zh}子菜单`} inert>
+        <div id={`nav-panel-${section.id}`} class="nav-popover" aria-label={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).zh} data-aria-en={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).en} data-aria-zh={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).zh} inert>
           {section.menu.map((item, index) => (
             <a href={item.href}>
               <small>{String(index + 1).padStart(2, '0')}</small>
@@ -59,7 +63,7 @@ const { active, logoMode = 'home' } = Astro.props
         <DraftingCompass aria-hidden="true" />
       </a>
       <span class="nav-divider nav-divider--social" aria-hidden="true"></span>
-      <a class="icon-link icon-link--brand icon-link--github" href={siteConfig.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`${siteConfig.author.name} 的 GitHub`} data-aria-en={`${siteConfig.author.name} on GitHub`} data-aria-zh={`${siteConfig.author.name} 的 GitHub`} title="GitHub">
+      <a class="icon-link icon-link--brand icon-link--github" href={siteConfig.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={githubProfileLabel.zh} data-aria-en={githubProfileLabel.en} data-aria-zh={githubProfileLabel.zh} title={githubProfileLabel.zh} data-title-en={githubProfileLabel.en} data-title-zh={githubProfileLabel.zh}>
         <img src="/brand/github-mark.svg" alt="" aria-hidden="true" />
       </a>
       <button id="language-toggle" class="language-toggle" type="button" aria-label={uiCopy.navigation.switchToEnglish.zh} title={uiCopy.navigation.switchToEnglish.zh} data-label-en-zh={uiCopy.navigation.switchToEnglish.zh} data-label-en-en={uiCopy.navigation.switchToEnglish.en} data-label-zh-zh={uiCopy.navigation.switchToChinese.zh} data-label-zh-en={uiCopy.navigation.switchToChinese.en} aria-pressed="false">

@@ -32,6 +32,8 @@ test('locale and theme controls update document metadata', async ({ page }) => {
   await expect(page).toHaveTitle(/Projects/)
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Phil's products/)
   await expect(page.locator('#language-toggle')).toHaveAttribute('aria-label', 'Switch to Chinese')
+  await expect(page.locator('.nav-disclosure').nth(1)).toHaveAttribute('aria-label', 'Open Projects menu')
+  await expect(page.locator('.icon-link--github')).toHaveAttribute('title', 'Phil on GitHub')
 
   await page.locator('#theme-toggle').click()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
