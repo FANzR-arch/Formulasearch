@@ -21,7 +21,10 @@ export const GET: APIRoute = async () => {
     return `<item><title>${escapeXml(post.data.title)}</title><link>${url}</link><guid isPermaLink="true">${url}</guid><description>${escapeXml(post.data.description)}</description>${category}<pubDate>${published}</pubDate></item>`
   }).join('')
 
-  const latestDate = posts[0]?.data.updatedDate ?? posts[0]?.data.pubDate ?? new Date()
+  const latestDate = posts.reduce((latest, post) => {
+    const candidate = post.data.updatedDate ?? post.data.pubDate
+    return candidate > latest ? candidate : latest
+  }, posts[0]?.data.pubDate ?? new Date())
   const xml = `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>${siteConfig.name}</title><link>${siteConfig.siteUrl}/blog</link><description>${escapeXml(pageMeta.blog.description.zh)}</description><language>zh-Hans</language><lastBuildDate>${latestDate.toUTCString()}</lastBuildDate>${items}</channel></rss>`
 
   return new Response(xml, {
