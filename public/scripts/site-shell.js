@@ -52,7 +52,7 @@
     document.querySelectorAll('[data-alt-en][data-alt-zh]').forEach((element) => {
       const alt = element.dataset[`alt${nextLocale === 'en' ? 'En' : 'Zh'}`] || ''
       if (element instanceof HTMLImageElement) element.setAttribute('alt', alt)
-      if (element.matches('[data-media-fallback]')) {
+      if (element.classList.contains('article-media-fallback')) {
         element.setAttribute('aria-label', alt)
         element.textContent = alt
       }

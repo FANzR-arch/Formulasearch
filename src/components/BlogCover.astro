@@ -34,7 +34,6 @@ const mediaSrcSet = media?.optimized.map((variant) => `${variant.src} ${variant.
     class={className}
     src={src}
     alt={alt}
-    data-media-fallback="true"
     {...(altEn !== undefined ? { 'data-alt-zh': alt, 'data-alt-en': altEn } : {})}
     decoding={decoding}
     fetchpriority={fetchpriority}
