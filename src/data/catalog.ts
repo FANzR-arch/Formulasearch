@@ -39,6 +39,7 @@ if (!result.success) {
 }
 
 export type CatalogSection = z.infer<typeof catalogSectionSchema>
+export type CatalogPage = z.infer<typeof catalogPageSchema>
 
 export const projectSections = result.data.projects
 export const skillSections = result.data.skills

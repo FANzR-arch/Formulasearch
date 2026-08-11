@@ -1,24 +1,10 @@
 ---
 import CatalogLayout from '../../layouts/CatalogLayout.astro'
-import LocalizedText from '../../components/LocalizedText.astro'
+import CatalogIndex from '../../components/CatalogIndex.astro'
 import { catalogPages, skillSections as sections } from '../../data/catalog'
 const page = catalogPages.skills
 ---
 
 <CatalogLayout active="skills" title={page.title} description={page.description}>
-  <header class="catalog-hero">
-    <p><LocalizedText {...page.kicker} /></p>
-    <h1><LocalizedText {...page.heading} /></h1>
-    <span><LocalizedText {...page.intro} /></span>
-  </header>
-  <nav class="catalog-index" aria-label={page.indexLabel.zh} data-aria-en={page.indexLabel.en} data-aria-zh={page.indexLabel.zh}>
-    {sections.map((section) => <a href={`#${section.id}`}><span>{section.label}</span><LocalizedText {...section.title} /></a>)}
-  </nav>
-  <div class="catalog-sections">
-    {sections.map((section) => <section id={section.id} class="catalog-section">
-      <p class="catalog-section__number">{section.label}</p>
-      <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
-      <ul>{section.items.map((item) => <li><LocalizedText {...item} /></li>)}</ul>
-    </section>)}
-  </div>
+  <CatalogIndex page={page} sections={sections} />
 </CatalogLayout>
