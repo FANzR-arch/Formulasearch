@@ -30,5 +30,9 @@ $HOME/
 /test-results/
 /blob-report/
 
-# Local source photography; generated/public WebP files are tracked separately
-/src/assets/archive/photos/
+# Local source photography; generated/public WebP files are tracked separately.
+# Keep the policy README visible while leaving original binaries out of Git.
+/src/assets/archive/photos/*.jpg
+/src/assets/archive/photos/*.jpeg
+/src/assets/archive/photos/*.png
+!/src/assets/archive/photos/README.md
