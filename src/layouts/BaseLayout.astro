@@ -2,6 +2,7 @@
 import '../styles/global.css'
 import { siteConfig } from '../data/site-config'
 import { uiCopy } from '../data/ui-copy'
+import { serializeJsonLd } from '../lib/xml'
 
 interface Props {
   description: string
@@ -60,7 +61,7 @@ const localizedDescriptionEn = descriptionEn
     {socialImage && <meta name="twitter:image" content={socialImage} />}
     <title>{title}</title>
     <script is:inline src="/scripts/site-shell.js"></script>
-    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+    <script is:inline type="application/ld+json" set:html={serializeJsonLd({
       '@context': 'https://schema.org',
       '@type': 'Person',
       name: siteConfig.author.name,
@@ -69,7 +70,7 @@ const localizedDescriptionEn = descriptionEn
       jobTitle: siteConfig.author.jobTitle,
       knowsAbout: siteConfig.author.knowsAbout,
     })} />
-    {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
+    {structuredData && <script is:inline type="application/ld+json" set:html={serializeJsonLd(structuredData)} />}
   </head>
   <body>
     <a class="skip-link" href="#main-content">

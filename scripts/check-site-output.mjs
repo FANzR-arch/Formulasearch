@@ -172,6 +172,9 @@ for (const path of htmlFiles) {
   else if (canonical !== expectedCanonical) failures.push(`canonical mismatch: ${relativePath} -> ${canonical}`)
   if (!/<title>[^<]+<\/title>/.test(html)) failures.push(`missing document title: ${relativePath}`)
   if (!/<meta name="description" content="[^"]+"/.test(html)) failures.push(`missing meta description: ${relativePath}`)
+  for (const [, jsonLd] of html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
+    if (jsonLd.includes('<')) failures.push(`unsafe unescaped < in JSON-LD: ${relativePath}`)
+  }
   const ogType = html.match(/<meta property="og:type" content="([^"]+)"/)?.[1]
   if (!ogType) failures.push(`missing og:type: ${relativePath}`)
   if (fullArticleRoutes.has(currentRoute) && ogType !== 'article') failures.push(`article has incorrect og:type: ${relativePath}`)
