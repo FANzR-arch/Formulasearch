@@ -18,7 +18,7 @@ externalLinks:
     url: "https://x.com/Formulasearch/status/2042598629907616036"
 ---
 
-![一人公司还敢天天摸鱼？我 vibe 了个工具来鞭策自己配图](https://pbs.twimg.com/media/HFjDq1gXsAAWQvv?format=jpg&name=large)
+![海面背景上的个人工作仪表盘窗口，显示专注时长、应用数量、X 使用比例和时间分布图](https://pbs.twimg.com/media/HFjDq1gXsAAWQvv?format=jpg&name=large)
 
 应用界面
 
@@ -32,7 +32,7 @@ externalLinks:
 
 试过一些时间记录工具。看完一堆图表，什么也没改变，因为数据太粗了——它只告诉你“你今天用了8小时电脑”，但你到底在干嘛？不知道。
 
-![一人公司还敢天天摸鱼？我 vibe 了个工具来鞭策自己配图](https://pbs.twimg.com/media/HFjDwBQakAAm6Fp?format=jpg&name=large)
+![网格纸风格插画中，一个人坐在电脑前，墙上屏幕显示本周每天仅有约 10% 到 16% 的工作产出](https://pbs.twimg.com/media/HFjDwBQakAAm6Fp?format=jpg&name=large)
 
 我想要的是一个能够如实记录我自己行为的工具。一面能照出我实际在干什么的那种镜子
 
@@ -40,7 +40,7 @@ externalLinks:
 
 ## 一、首先应该先定义下需求和边界
 
-![一、首先应该先定义下需求和边界配图](https://pbs.twimg.com/media/HFjD1BHWQAA_sCz?format=jpg&name=large)
+![网格纸上的双栏信息图，左侧写着 Vibe：Busy 并配云朵，右侧写着 Data：Distracted 并用饼图展示 X 与专注工作的时间](https://pbs.twimg.com/media/HFjD1BHWQAA_sCz?format=jpg&name=large)
 
 <strong>要用做产品的系统思维去完成这个想法。</strong>
 
@@ -66,7 +66,7 @@ externalLinks:
 
 ## 二、开始痛苦并快乐的 vibecoding 过程
 
-![二、开始痛苦并快乐的 vibecoding 过程配图](https://pbs.twimg.com/media/HFjD6XjXQAEluAf?format=jpg&name=large)
+![Vibecoding 工作流信息图，用户输入经过 AI 解读后生成 Rust 后端、Tauri 前端和桌面应用文件，并标出代码生成与编译检查](https://pbs.twimg.com/media/HFjD6XjXQAEluAf?format=jpg&name=large)
 
 <strong>我完全不会写代码。</strong>
 
@@ -100,9 +100,9 @@ externalLinks:
 
 直接上数据。我挑了两天，一天“勤奋”，一天“摸鱼”。
 
-![三、真实数据，两天对比配图](https://pbs.twimg.com/media/HFjEA6jWsAAzWQX?format=jpg&name=large)
+![Seedo 个人工作仪表盘截图，日期为 2026 年 4 月 9 日，显示 11 小时 1 分钟专注时长、24 个应用和时间分布图](https://pbs.twimg.com/media/HFjEA6jWsAAzWQX?format=jpg&name=large)
 
-![三、真实数据，两天对比配图](https://pbs.twimg.com/media/HFjEDHXXsAAFVsG?format=jpg&name=large)
+![Seedo 个人工作仪表盘截图，日期为 2026 年 4 月 5 日，显示 9 小时 34 分钟使用时长，最长使用应用为 DeltaForceClient-Win64-Shipping](https://pbs.twimg.com/media/HFjEDHXXsAAFVsG?format=jpg&name=large)
 
 <strong>4月9日——我以为很充实的一天：</strong>
 
@@ -128,7 +128,7 @@ externalLinks:
 
 ## 四、AI复盘数据
 
-![四、AI复盘数据配图](https://pbs.twimg.com/media/HFjEQ9TWkAEuNc5?format=jpg&name=large)
+![AI 日报复盘界面，专注分数为 53，并用表格列出 Delta Force、Adobe Premiere Pro、Antigravity、X 和其他应用的使用时长](https://pbs.twimg.com/media/HFjEQ9TWkAEuNc5?format=jpg&name=large)
 
 <strong>数据有了，但光看数字还是会懵——我知道今天刷了 4 小时 X，然后呢？</strong>
 
