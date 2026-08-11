@@ -277,6 +277,14 @@ test('photo archive auto-loads more records on scroll', async ({ page }) => {
   await expect(status).toContainText('Showing')
 })
 
+test('photo archive reveals all records when IntersectionObserver is unavailable', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: undefined })
+  })
+  await page.goto('/photos')
+  await expect(page.locator('#archive-grid [data-archive-record]:not([hidden])')).toHaveCount(8)
+})
+
 test('photo archive removes repetitive captions', async ({ page }) => {
   await page.goto('/photos')
   await expect(page.locator('.archive-record figcaption')).toHaveCount(0)

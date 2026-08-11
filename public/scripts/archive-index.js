@@ -53,6 +53,14 @@ const observer = sentinel instanceof HTMLElement && 'IntersectionObserver' in wi
       if (entries.some((entry) => entry.isIntersecting)) loadMore()
     }, { rootMargin: '0px 0px 480px' })
   : null
-observer?.observe(sentinel)
+
+if (observer && sentinel instanceof HTMLElement) {
+  observer.observe(sentinel)
+} else if (archiveRecords.length > visibleCount) {
+  // There is no click-to-load fallback anymore, so legacy browsers must not
+  // strand records behind the progressive-rendering boundary.
+  visibleCount = archiveRecords.length
+  renderArchive()
+}
 
 window.addEventListener('formulasearch:locale', renderArchive)
