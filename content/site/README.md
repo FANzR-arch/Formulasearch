@@ -6,6 +6,7 @@
 - `catalog.json` 是 Projects、Skills、Lab 的目录内容；每个区块必须有中英文标题、说明和至少一条内容。
 - `architecture.json` 是 `/architecture` 的页面文案、筛选器和研究图像清单；图片标识对应 `src/data/architecture.ts` 中的构建资源映射。
 - `navigation.json` 是全站一级导航和下拉菜单内容；链接应使用站内绝对路径，构建时会校验四组主导航和双语字段。
+- `site.json` 是站点名、正式域名、作者地址和 GitHub 地址的唯一来源；页面、RSS、sitemap 和构建检查都会读取它。
 - `blog-series.json` 是 Blog 主题页的分组和分类映射；新增主题时填写唯一的 `id`，并把对应分类 ID 放入 `categoryIds`。
 - `blog-media.json` 是 Blog 封面的尺寸和响应式 WebP 变体清单；它由 `npm run blog:media:prepare` 从 `public/uploads/blog/` 生成，不要手工填写宽高或变体路径。
 - 两个文件的 `intro`、`about`、`interest` 数组必须逐项对应；构建会检查数量。

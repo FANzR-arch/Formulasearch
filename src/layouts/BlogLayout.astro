@@ -2,6 +2,7 @@
 import SiteHeader from '../components/SiteHeader.astro'
 import LocalizedText from '../components/LocalizedText.astro'
 import BaseLayout from './BaseLayout.astro'
+import { siteConfig } from '../data/site-config'
 import '../styles/blog.css'
 
 interface Props {
@@ -19,12 +20,12 @@ interface Props {
 const { description, descriptionEn, image, modifiedTime, ogType, publishedTime, structuredData, title, titleEn } = Astro.props
 ---
 
-<BaseLayout title={`${title} · Phil / Formula`} titleEn={`${titleEn ?? title} · Phil / Formula`} description={description} descriptionEn={descriptionEn} image={image} modifiedTime={modifiedTime} ogType={ogType} publishedTime={publishedTime} structuredData={structuredData}>
+<BaseLayout title={`${title} · ${siteConfig.name}`} titleEn={`${titleEn ?? title} · ${siteConfig.name}`} description={description} descriptionEn={descriptionEn} image={image} modifiedTime={modifiedTime} ogType={ogType} publishedTime={publishedTime} structuredData={structuredData}>
   <div class="site-page is-visible blog-site">
     <SiteHeader active="blog" />
     <main id="main-content" class="blog-main"><slot /></main>
     <footer class="site-footer">
-      <span>© {new Date().getFullYear()} Phil / Formula</span>
+      <span>© {new Date().getFullYear()} {siteConfig.name}</span>
       <a href="/"><LocalizedText zh="返回首页" en="Return home" /></a>
     </footer>
   </div>

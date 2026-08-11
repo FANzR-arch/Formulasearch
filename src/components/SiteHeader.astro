@@ -1,6 +1,7 @@
 ---
 import { Aperture, ChevronDown, DraftingCompass, Globe, Menu, Moon, Sun, X } from '@lucide/astro'
 import { primaryNavigation, type PrimarySection } from '../data/navigation'
+import { siteConfig } from '../data/site-config'
 import LocalizedText from './LocalizedText.astro'
 
 interface Props {
@@ -57,7 +58,7 @@ const { active, logoMode = 'home' } = Astro.props
         <DraftingCompass aria-hidden="true" />
       </a>
       <span class="nav-divider nav-divider--social" aria-hidden="true"></span>
-      <a class="icon-link icon-link--brand icon-link--github" href="https://github.com/FANzR-arch" target="_blank" rel="noopener noreferrer" aria-label="Phil 的 GitHub" data-aria-en="Phil on GitHub" data-aria-zh="Phil 的 GitHub" title="GitHub">
+      <a class="icon-link icon-link--brand icon-link--github" href={siteConfig.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`${siteConfig.author.name} 的 GitHub`} data-aria-en={`${siteConfig.author.name} on GitHub`} data-aria-zh={`${siteConfig.author.name} 的 GitHub`} title="GitHub">
         <img src="/brand/github-mark.svg" alt="" aria-hidden="true" />
       </a>
       <button id="language-toggle" class="language-toggle" type="button" aria-label="切换到英文" title="切换到英文" aria-pressed="false">

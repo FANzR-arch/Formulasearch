@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config'
 import { unified } from '@astrojs/markdown-remark'
+import siteConfig from './content/site/site.json' with { type: 'json' }
 
 const addArticleImageAttributes = () => (tree, file) => {
   const articleTitle = file?.data?.astro?.frontmatter?.title || ''
@@ -37,7 +38,7 @@ const addArticleImageAttributes = () => (tree, file) => {
 }
 
 export default defineConfig({
-  site: 'https://formulasearch.com',
+  site: siteConfig.siteUrl,
   output: 'static',
   trailingSlash: 'never',
   markdown: {

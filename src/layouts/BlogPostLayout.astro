@@ -6,6 +6,7 @@ import LocalizedText from '../components/LocalizedText.astro'
 import ExternalLinkLabel from '../components/ExternalLinkLabel.astro'
 import BlogLayout from './BlogLayout.astro'
 import { getBlogMedia } from '../data/blog-media'
+import { siteConfig } from '../data/site-config'
 
 interface Props {
   categoryLabel: { title: string; titleEn: string }
@@ -35,7 +36,7 @@ const structuredData = {
       ...(post.data.tags.length > 0 ? { keywords: post.data.tags } : {}),
       inLanguage: post.data.contentLanguage,
       datePublished: published,
-      author: { '@type': 'Person', name: 'Phil', url: 'https://formulasearch.com' },
+      author: { '@type': 'Person', name: siteConfig.author.name, url: siteConfig.author.url },
       mainEntityOfPage: canonical,
       dateModified: modified,
     },

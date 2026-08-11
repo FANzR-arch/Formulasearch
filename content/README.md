@@ -46,6 +46,8 @@ content/
 
 当前公开图片放在 `public/uploads/`，因为该目录会被网站直接发布。首页、Blog、Projects、Skills、Lab、Photos、Architecture 的首版内容已经接入可编辑的数据文件；页面源码只保留布局、资源映射和交互逻辑。
 
+站点名、域名、作者地址和 GitHub 地址统一维护在 [`site/site.json`](site/site.json)，不要在页面或脚本中复制粘贴这些稳定身份字段。
+
 ## 当前路由
 
 - `/`：首页，文案来自 `content/site/home.json` 和 `content/site/home.en.json`，构建时由 Zod 校验

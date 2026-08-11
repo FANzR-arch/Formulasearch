@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url'
 
 const projectRoot = dirname(fileURLToPath(import.meta.url))
 const distRoot = join(projectRoot, '..', 'dist')
+const siteConfig = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'site.json'), 'utf8'))
+const siteOrigin = new URL(siteConfig.siteUrl).origin
 const failures = []
 
 async function readUtf8(relativePath) {
@@ -42,7 +44,7 @@ for (const route of staticRoutes) {
 
 const sitemap = await readUtf8('sitemap.xml')
 for (const route of staticRoutes) {
-  if (!sitemap.includes(`<loc>https://formulasearch.com${route}</loc>`)) failures.push(`sitemap missing route: ${route}`)
+  if (!sitemap.includes(`<loc>${siteConfig.siteUrl}${route}</loc>`)) failures.push(`sitemap missing route: ${route}`)
 }
 
 const rss = await readUtf8('rss.xml')
@@ -66,8 +68,8 @@ for (const path of htmlFiles) {
   for (const [, href] of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
     if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) continue
     let url
-    try { url = new URL(href, `https://formulasearch.com${currentRoute}`) } catch { continue }
-    if (url.origin !== 'https://formulasearch.com') continue
+    try { url = new URL(href, `${siteConfig.siteUrl}${currentRoute}`) } catch { continue }
+    if (url.origin !== siteOrigin) continue
     const route = url.pathname === '/' ? '/' : url.pathname.replace(/\/$/, '')
     const targetPath = htmlByRoute.get(route)
     if (!targetPath) {
@@ -92,7 +94,7 @@ else {
   if (!article.includes('loading="lazy"')) failures.push('article images are missing lazy loading')
   if (!article.includes('referrerpolicy="no-referrer"')) failures.push('article images are missing referrer policy')
   if (!article.includes('property="article:modified_time"')) failures.push('article pages are missing modified time metadata')
-  if (!article.includes('BreadcrumbList') || !article.includes('itemListElement') || !article.includes('"item":"https://formulasearch.com/blog/series"')) failures.push('article pages are missing linked BreadcrumbList structured data')
+  if (!article.includes('BreadcrumbList') || !article.includes('itemListElement') || !article.includes(`"item":"${siteConfig.siteUrl}/blog/series"`)) failures.push('article pages are missing linked BreadcrumbList structured data')
 }
 
 const blogIndex = await readUtf8('blog/index.html')
