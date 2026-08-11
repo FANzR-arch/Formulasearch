@@ -44,8 +44,8 @@ import { pageMeta } from '../data/page-meta'
         <h1 id="intro-title"><LocalizedText zh={homeContent.zh.name} en={homeContent.en.name} /></h1>
         <p class="lead"><LocalizedText zh={homeContent.zh.intro.join(' ')} en={homeContent.en.intro.join(' ')} /></p>
         <div class="home-copy">
-          {homeContent.zh.about.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={homeContent.en.about[index] || paragraph} /></p>)}
-          {homeContent.zh.interest.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={homeContent.en.interest[index] || paragraph} /></p>)}
+          {homeContent.zh.about.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={homeContent.en.about[index]} /></p>)}
+          {homeContent.zh.interest.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={homeContent.en.interest[index]} /></p>)}
           <hr />
           <div class="home-contact">
             <p class="home-copy__label"><LocalizedText zh={homeContent.zh.contactLabel} en={homeContent.en.contactLabel} /></p>

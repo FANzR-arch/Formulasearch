@@ -4,26 +4,26 @@ import { siteConfig } from '../data/site-config'
 import { uiCopy } from '../data/ui-copy'
 
 interface Props {
-  description?: string
+  description: string
   descriptionEn?: string
   image?: string
   modifiedTime?: string
   ogType?: 'website' | 'article'
   publishedTime?: string
   structuredData?: Record<string, unknown>
-  title?: string
+  title: string
   titleEn?: string
 }
 
 const {
-  description = 'Phil builds AI tools, visual systems, websites, and notes for turning fuzzy ideas into useful things.',
+  description,
   descriptionEn,
   image,
   modifiedTime,
   ogType = 'website',
   publishedTime,
   structuredData,
-  title = siteConfig.name,
+  title,
   titleEn,
 } = Astro.props
 

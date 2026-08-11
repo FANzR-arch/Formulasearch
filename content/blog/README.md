@@ -34,7 +34,7 @@ public/uploads/blog/
 
 ## 分类配置
 
-六个现有分类统一维护在 [`categories.json`](categories.json)。新增分类时需要同时填写：
+六个现有分类统一维护在 [`categories.json`](categories.json)，页面和文章读取会复用同一个运行时校验入口。新增分类时需要同时填写：
 
 - `id`：稳定的英文标识；
 - `title`：中文名称；
@@ -42,6 +42,7 @@ public/uploads/blog/
 - `description`：分类说明。
 
 不要随意修改已经使用的 `id`，否则现有文章会失去分类。
+分类 ID 重复、格式不合法或文章引用不存在的分类都会让构建失败，不会静默把原始 ID 当作页面文案。
 
 ## Slug 与封面
 

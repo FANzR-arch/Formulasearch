@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import { getBlogCategories } from '../lib/blog-content'
+import { getBlogCategory } from '../data/blog-categories'
 import LocalizedText from './LocalizedText.astro'
 import { uiCopy } from '../data/ui-copy'
 
@@ -9,7 +9,6 @@ interface Props {
 }
 
 const { posts } = Astro.props
-const categories = new Map(getBlogCategories().map((category) => [category.id, category]))
 const formatDate = (date: Date) => date.toISOString().slice(0, 10).replaceAll('-', '.')
 ---
 
@@ -21,11 +20,11 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10).replaceAll('-
     </header>
     <div class="article-related__list">
       {posts.map((post) => {
-        const category = categories.get(post.data.category)
+        const category = getBlogCategory(post.data.category)
         return (
           <article class="article-related__item">
             <p class="article-related__meta">
-              <LocalizedText zh={category?.title ?? post.data.category} en={category?.titleEn ?? post.data.category} />
+              <LocalizedText zh={category.title} en={category.titleEn} />
               <span aria-hidden="true">·</span>
               <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate)}</time>
             </p>

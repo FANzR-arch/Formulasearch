@@ -1,12 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
-import categoriesContent from '../../content/blog/categories.json'
-
-export interface BlogCategory {
-  id: string
-  title: string
-  titleEn: string
-  description: string
-}
+import { getBlogCategory, type BlogCategory } from '../data/blog-categories'
 
 export interface BlogLink {
   label: '微信' | 'X' | '原文'
@@ -26,12 +19,8 @@ export interface BlogPost {
   title: string
 }
 
-const categories = categoriesContent as BlogCategory[]
-const categoryMap = new Map(categories.map((category) => [category.id, category]))
-
 const toBlogPost = (entry: CollectionEntry<'blog'>): BlogPost => {
-  const category = categoryMap.get(entry.data.category)
-  if (!category) throw new Error(`Unknown blog category "${entry.data.category}" in ${entry.id}`)
+  const category = getBlogCategory(entry.data.category)
 
   return {
     category,
@@ -51,7 +40,6 @@ export const getBlogPosts = async () => (await getCollection('blog', ({ data }) 
   .sort((left, right) => right.data.pubDate.valueOf() - left.data.pubDate.valueOf())
   .map(toBlogPost)
 
-export const getBlogCategories = () => categories
 export const formatBlogDate = (date: string) => date.replaceAll('-', '.')
 export const isLocalBlogPost = (post: BlogPost) => post.contentStatus === 'full'
 export const getPrimaryBlogLink = (post: BlogPost) => isLocalBlogPost(post)

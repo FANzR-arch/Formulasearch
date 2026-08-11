@@ -1,7 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content'
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro'
-import { getBlogCategories } from '../../lib/blog-content'
+import { getBlogCategory } from '../../data/blog-categories'
 import { getRelatedPosts } from '../../lib/blog-related'
 
 export async function getStaticPaths() {
@@ -19,9 +19,9 @@ interface Props {
 
 const { post, relatedPosts } = Astro.props
 const { Content, headings } = await render(post)
-const category = getBlogCategories().find((item) => item.id === post.data.category)
+const category = getBlogCategory(post.data.category)
 ---
 
-<BlogPostLayout post={post} headings={headings} relatedPosts={relatedPosts} categoryLabel={category ?? { title: post.data.category, titleEn: post.data.category }}>
+<BlogPostLayout post={post} headings={headings} relatedPosts={relatedPosts} categoryLabel={category}>
   <Content />
 </BlogPostLayout>
