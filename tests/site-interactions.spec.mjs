@@ -77,6 +77,23 @@ test('homepage falls back when WebGL is unavailable', async ({ page }) => {
   await expect(page.locator('#ambient-flow')).toHaveClass(/ambient-flow--fallback/)
 })
 
+test('reduced motion skips decorative animation loops', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.addInitScript(() => {
+    let requestCount = 0
+    const request = window.requestAnimationFrame.bind(window)
+    window.requestAnimationFrame = (callback) => {
+      requestCount += 1
+      return request(callback)
+    }
+    window.__formulasearchRafCount = () => requestCount
+  })
+  await page.goto('/')
+  await page.waitForTimeout(400)
+  expect(await page.evaluate(() => window.__formulasearchRafCount?.() ?? -1)).toBe(0)
+  await expect(page.locator('#intro-overlay')).toHaveCount(0)
+})
+
 test('navigation disclosure labels reflect open state and locale', async ({ page }) => {
   await page.goto('/projects')
 
