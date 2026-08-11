@@ -27,8 +27,10 @@ const transform = (markdown) => {
   const lines = markdown.split(/\r?\n/)
   let inFrontmatter = false
   let frontmatterSeen = false
+  let inFence = false
   let currentHeading = readTitle(markdown)
   let replacements = 0
+  let invalidAltCount = 0
   const images = []
 
   const output = lines.map((line, index) => {
@@ -43,8 +45,30 @@ const transform = (markdown) => {
     }
     if (inFrontmatter) return line
 
+    if (/^\s*(```|~~~)/.test(line)) {
+      inFence = !inFence
+      return line
+    }
+    if (inFence) return line
+
     const heading = line.match(/^#{1,6}\s+(.+?)\s*$/)
     if (heading) currentHeading = cleanHeading(heading[1]) || currentHeading
+
+    for (const match of line.matchAll(/<img\b[^>]*>/gi)) {
+      const tag = match[0]
+      const alt = tag.match(/\balt\s*=\s*(["'])(.*?)\1/i)?.[2]?.trim() || ''
+      const invalid = genericAlt.has(alt)
+      images.push({
+        alt,
+        destination: tag,
+        heading: currentHeading,
+        line: index + 1,
+        contextualCandidate: false,
+        invalidAlt: invalid,
+        syntax: 'html',
+      })
+      if (invalid) invalidAltCount += 1
+    }
 
     return line.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, destination) => {
       const trimmedAlt = alt.trim()
@@ -55,6 +79,7 @@ const transform = (markdown) => {
         heading: currentHeading,
         line: index + 1,
         contextualCandidate: trimmedAlt === contextualAlt,
+        syntax: 'markdown',
       })
 
       if (!genericAlt.has(trimmedAlt)) return match
@@ -63,7 +88,7 @@ const transform = (markdown) => {
     })
   })
 
-  return { content: output.join('\n'), replacements, images }
+  return { content: output.join('\n'), replacements, invalidAltCount, images }
 }
 
 const posts = readdirSync(contentRoot, { withFileTypes: true })
@@ -80,17 +105,19 @@ let total = 0
 let changedFiles = 0
 let imageTotal = 0
 let contextualCandidates = 0
+let invalidAltTotal = 0
 const reviewItems = []
 for (const file of posts) {
   if (!existsSync(file)) throw new Error(`缺少 Markdown 文件：${file}`)
   const before = readFileSync(file, 'utf8')
-  const { content, replacements, images } = transform(before)
+  const { content, replacements, invalidAltCount, images } = transform(before)
   total += replacements
   imageTotal += images.length
   contextualCandidates += images.filter((image) => image.contextualCandidate).length
+  invalidAltTotal += invalidAltCount
   if (mode === '--report') {
     for (const image of images) {
-      if (!image.contextualCandidate) continue
+      if (!image.contextualCandidate && !image.invalidAlt) continue
       reviewItems.push({
         ...image,
         file: relative(repoRoot, file).replaceAll('\\', '/'),
@@ -103,18 +130,27 @@ for (const file of posts) {
   }
 }
 
-if (mode === '--check' && total > 0) {
-  throw new Error(`正文图片仍有 ${total} 个通用 alt；请先运行 npm run blog:images:prepare，再人工复核复杂图片。`)
+if (mode === '--check' && (total > 0 || invalidAltTotal > 0)) {
+  const details = [
+    total > 0 ? `${total} 个 Markdown 图片通用 alt` : '',
+    invalidAltTotal > 0 ? `${invalidAltTotal} 个 HTML 图片缺失或使用通用 alt` : '',
+  ].filter(Boolean).join('，')
+  throw new Error(`正文图片仍有 ${details}；请先运行 npm run blog:images:prepare，并手动修复 HTML 图片标签。`)
 }
 
 if (mode === '--report') {
-  console.log(`Blog 图片 alt 审查报告：${posts.length} 篇文章，${imageTotal} 张正文图片，${contextualCandidates} 张章节上下文初稿。`)
+  console.log(`Blog 图片 alt 审查报告：${posts.length} 篇文章，${imageTotal} 张正文图片，${contextualCandidates} 张章节上下文初稿，${invalidAltTotal} 个 HTML 图片 alt 问题。`)
   if (reviewItems.length === 0) {
     console.log('没有检测到章节上下文初稿；仍建议对新增正文图片做人工语义复核。')
   } else {
-    console.log('以下图片使用“章节标题 + 配图”上下文 alt，发布前请逐张确认是否需要改成具体视觉描述：')
+    if (reviewItems.some((image) => image.contextualCandidate)) {
+      console.log('以下图片使用“章节标题 + 配图”上下文 alt，发布前请逐张确认是否需要改成具体视觉描述：')
+    }
+    if (reviewItems.some((image) => image.invalidAlt)) {
+      console.log('以下 HTML 图片缺少具体 alt，发布前请手动补充可感知的视觉描述：')
+    }
     for (const image of reviewItems) {
-      console.log(`- ${image.file}:${image.line} | alt="${image.alt}" | heading="${image.heading}" | ${image.destination}`)
+      console.log(`- ${image.file}:${image.line} | ${image.syntax} | alt="${image.alt}" | heading="${image.heading}" | ${image.destination}`)
     }
   }
   process.exit(0)
