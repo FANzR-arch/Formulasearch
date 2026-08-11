@@ -5,7 +5,7 @@ import { catalogPages } from '../data/catalog'
 import { pageMeta } from '../data/page-meta'
 import { photoArchivePage } from '../data/photo-archive'
 import { siteConfig } from '../data/site-config'
-import { siteRoutes, staticSiteRoutes } from '../data/site-routes'
+import { getLocalizedRoute, localizedSiteRoutes, siteRoutes, staticSiteRoutes } from '../data/site-routes'
 
 const cleanLine = (value: string) => value.replace(/\s+/g, ' ').trim()
 
@@ -26,6 +26,7 @@ export const GET: APIRoute = async () => {
   }
 
   const pageLines = staticSiteRoutes.map((route) => `- ${route} — ${cleanLine(descriptions[route] ?? 'Public site page.')}`)
+  const englishPageLines = localizedSiteRoutes.map((route) => `- ${getLocalizedRoute(route, 'en')} — ${cleanLine(descriptions[route] ?? 'English public site page.')}`)
   const articleLines = posts.map((post) => {
     const title = post.data.titleEn ?? post.data.title
     const description = post.data.descriptionEn ?? post.data.description
@@ -39,6 +40,7 @@ export const GET: APIRoute = async () => {
     '',
     '## Main pages',
     ...pageLines,
+    ...englishPageLines,
     '',
     '## Published articles',
     ...articleLines,

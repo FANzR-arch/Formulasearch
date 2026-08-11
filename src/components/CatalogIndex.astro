@@ -1,13 +1,16 @@
 ---
 import LocalizedText from './LocalizedText.astro'
 import type { CatalogPage, CatalogSection } from '../data/catalog'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
 
 interface Props {
   page: CatalogPage
   sections: CatalogSection[]
+  locale?: Locale
 }
 
-const { page, sections } = Astro.props
+const { locale = 'zh', page, sections } = Astro.props
+const indexLabel = getLocalizedValue(page.indexLabel, locale)
 ---
 
 <header class="catalog-hero">
@@ -15,7 +18,7 @@ const { page, sections } = Astro.props
   <h1><LocalizedText {...page.heading} /></h1>
   <p class="catalog-hero__intro"><LocalizedText {...page.intro} /></p>
 </header>
-<nav class="catalog-index" aria-label={page.indexLabel.zh} data-aria-en={page.indexLabel.en} data-aria-zh={page.indexLabel.zh}>
+<nav class="catalog-index" aria-label={indexLabel} data-aria-en={page.indexLabel.en} data-aria-zh={page.indexLabel.zh}>
   {sections.map((section) => <a href={`#${section.id}`}><span>{section.label}</span><LocalizedText {...section.title} /></a>)}
 </nav>
 <div class="catalog-sections">

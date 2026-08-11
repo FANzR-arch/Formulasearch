@@ -84,7 +84,8 @@
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   }
 
-  try { applyLocale(localStorage.getItem(localeStorageKey) || 'zh') } catch { applyLocale('zh') }
+  const routeLocale = root.dataset.routeLocale === 'en' ? 'en' : 'zh'
+  try { applyLocale(localStorage.getItem(localeStorageKey) || routeLocale) } catch { applyLocale(routeLocale) }
   try { applyTheme(getInitialTheme()) } catch { applyTheme('light') }
   const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
   systemTheme.addEventListener?.('change', (event) => {

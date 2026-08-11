@@ -3,22 +3,24 @@ import SiteHeader from '../components/SiteHeader.astro'
 import SiteFooter from '../components/SiteFooter.astro'
 import BaseLayout from './BaseLayout.astro'
 import { siteConfig } from '../data/site-config'
+import type { Locale } from '../lib/i18n'
 
 interface Props {
   active: 'projects' | 'skills' | 'lab' | 'photos' | 'architecture'
   description: { en: string; zh: string }
+  locale?: Locale
   title: { en: string; zh: string }
   variant?: 'default' | 'archive'
 }
 
-const { active, description, title, variant = 'default' } = Astro.props
+const { active, description, locale = 'zh', title, variant = 'default' } = Astro.props
 ---
 
-<BaseLayout title={`${title.zh} / ${siteConfig.name}`} titleEn={`${title.en} / ${siteConfig.name}`} description={description.zh} descriptionEn={description.en}>
+<BaseLayout title={`${title.zh} / ${siteConfig.name}`} titleEn={`${title.en} / ${siteConfig.name}`} description={description.zh} descriptionEn={description.en} locale={locale}>
   <div class:list={['site-page', 'is-visible', 'catalog-site', { 'archive-catalog-site': variant === 'archive' }]}>
-    <SiteHeader active={active} />
+    <SiteHeader active={active} locale={locale} />
     <main id="main-content" class="catalog-main"><slot /></main>
-    <SiteFooter variant="catalog" />
+    <SiteFooter variant="catalog" locale={locale} />
   </div>
 
 </BaseLayout>

@@ -155,6 +155,27 @@ test('locale and theme controls update document metadata', async ({ page }) => {
   await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', 'Switch to light theme')
 })
 
+test('English routes render server-localized metadata and reciprocal hreflang', async ({ page }) => {
+  await page.goto('/en/projects')
+
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+  await expect(page).toHaveTitle(/Projects/)
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Phil's products/)
+  await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', /\/en\/projects$/)
+  await expect(page.locator('link[hreflang="zh-Hans"]')).toHaveAttribute('href', /\/projects$/)
+  await expect(page.locator('.catalog-hero h1 .localized-text__en')).toBeVisible()
+  await expect(page.locator('.catalog-hero h1 .localized-text__zh')).toBeHidden()
+  await expect(page.locator('.nav-link[href="/en/blog"]')).toBeVisible()
+  await page.locator('.nav-disclosure').first().click()
+  await expect(page.locator('.nav-popover a').first()).toHaveAttribute('href', /\/en\/blog\/series#ai-tools$/)
+
+  await page.goto('/en/blog')
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+  await expect(page.locator('.blog-hero h1 .localized-text__en')).toBeVisible()
+  expect(await page.locator('a[href="/blog/prompt-aesthetic-2026-07-02"]').count()).toBeGreaterThan(0)
+  await expect(page.locator('a[href="/en/blog/prompt-aesthetic-2026-07-02"]')).toHaveCount(0)
+})
+
 test('locale switch preserves article source language semantics', async ({ page }) => {
   await page.goto('/blog/ai-practice-2026-02-22')
   await page.locator('#language-toggle').click()

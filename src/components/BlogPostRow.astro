@@ -4,15 +4,19 @@ import LocalizedText from './LocalizedText.astro'
 import BlogCover from './BlogCover.astro'
 import BlogExternalLinks from './BlogExternalLinks.astro'
 import { formatBlogDate, getPrimaryBlogLink, isLocalBlogPost } from '../lib/blog-content'
+import { getLocalizedRoute } from '../data/site-routes'
+import type { Locale } from '../lib/i18n'
 
 interface Props {
   compact?: boolean
+  locale?: Locale
   post: BlogPost
   showCategory?: boolean
 }
 
-const { compact = false, post, showCategory = true } = Astro.props
+const { compact = false, locale = 'zh', post, showCategory = true } = Astro.props
 const isLocal = isLocalBlogPost(post)
+const primaryLink = isLocal ? getLocalizedRoute(getPrimaryBlogLink(post), locale) : getPrimaryBlogLink(post)
 const title = { zh: post.title, en: post.titleEn ?? post.title }
 const summary = { zh: post.summary, en: post.summaryEn ?? post.summary }
 const titleEnLang = post.titleEn ? 'en' : 'zh-Hans'
@@ -21,14 +25,14 @@ const summaryEnLang = post.summaryEn ? 'en' : 'zh-Hans'
 
 <article class:list={['post-row', { 'post-row--compact': compact }]}>
   {!compact && post.cover && (
-    <a class="post-row__cover" href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'} tabindex="-1" aria-hidden="true">
+    <a class="post-row__cover" href={primaryLink} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'} tabindex="-1" aria-hidden="true">
       <BlogCover src={post.cover} loading="lazy" sizes="(max-width: 820px) 100vw, 310px" />
     </a>
   )}
   <time datetime={post.date}>{formatBlogDate(post.date)}</time>
   <div class="post-row__body">
     {showCategory && <p class="post-row__meta"><LocalizedText zh={post.category.title} en={post.category.titleEn} /></p>}
-    <h2><a href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}><LocalizedText {...title} enLang={titleEnLang} /></a></h2>
+    <h2><a href={primaryLink} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}><LocalizedText {...title} enLang={titleEnLang} /></a></h2>
     {!compact && <p class="post-row__summary"><LocalizedText {...summary} enLang={summaryEnLang} /></p>}
     <BlogExternalLinks links={post.links} />
   </div>

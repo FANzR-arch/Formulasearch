@@ -1,35 +1,9 @@
 ---
-import BlogPostRow from '../../components/BlogPostRow.astro'
-import LocalizedText from '../../components/LocalizedText.astro'
-import BlogSectionNav from '../../components/BlogSectionNav.astro'
+import BlogArchiveView from '../../components/BlogArchiveView.astro'
 import BlogLayout from '../../layouts/BlogLayout.astro'
-import { getBlogPosts } from '../../lib/blog-content'
 import { pageMeta } from '../../data/page-meta'
-import { uiCopy } from '../../data/ui-copy'
-
-const posts = await getBlogPosts()
-const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
 ---
 
 <BlogLayout title={pageMeta.blogArchive.title.zh} titleEn={pageMeta.blogArchive.title.en} description={pageMeta.blogArchive.description.zh} descriptionEn={pageMeta.blogArchive.description.en}>
-  <header class="blog-hero blog-hero--compact">
-    <h1><LocalizedText {...uiCopy.blog.archiveHeading} /></h1>
-  </header>
-
-  <BlogSectionNav active="archive" />
-
-  <div class="archive-list">
-    {years.map((year) => {
-      const yearPosts = posts.filter((post) => post.date.startsWith(year))
-      return (
-        <section class="archive-year" aria-labelledby={`year-${year}`}>
-          <header>
-            <h2 id={`year-${year}`}>{year}</h2>
-            <span><LocalizedText zh={`${yearPosts.length} ${uiCopy.blog.archiveCountSuffix.zh}`} en={`${yearPosts.length} ${uiCopy.blog.archiveCountSuffix.en}`} /></span>
-          </header>
-          <div>{yearPosts.map((post) => <BlogPostRow post={post} compact />)}</div>
-        </section>
-      )
-    })}
-  </div>
+  <BlogArchiveView />
 </BlogLayout>

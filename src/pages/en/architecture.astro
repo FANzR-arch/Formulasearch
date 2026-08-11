@@ -1,0 +1,20 @@
+---
+import ArchiveIndex from '../../components/ArchiveIndex.astro'
+import CatalogLayout from '../../layouts/CatalogLayout.astro'
+import { architectureItems, architecturePage } from '../../data/architecture'
+---
+
+<CatalogLayout active="architecture" locale="en" variant="archive" title={architecturePage.pageTitle} description={architecturePage.pageDescription}>
+  <ArchiveIndex
+    active="architecture"
+    locale="en"
+    kicker={architecturePage.kicker}
+    title={architecturePage.title}
+    description={architecturePage.description}
+    eagerImageCount={architecturePage.eagerImageCount}
+    initialVisibleCount={architecturePage.initialVisibleCount}
+    loadMoreBatchSize={architecturePage.loadMoreBatchSize}
+    filters={architecturePage.filters}
+    items={architectureItems}
+  />
+</CatalogLayout>

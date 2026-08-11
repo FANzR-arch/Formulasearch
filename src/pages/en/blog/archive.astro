@@ -1,0 +1,9 @@
+---
+import BlogArchiveView from '../../../components/BlogArchiveView.astro'
+import BlogLayout from '../../../layouts/BlogLayout.astro'
+import { pageMeta } from '../../../data/page-meta'
+---
+
+<BlogLayout title={pageMeta.blogArchive.title.zh} titleEn={pageMeta.blogArchive.title.en} description={pageMeta.blogArchive.description.zh} descriptionEn={pageMeta.blogArchive.description.en} locale="en">
+  <BlogArchiveView locale="en" />
+</BlogLayout>

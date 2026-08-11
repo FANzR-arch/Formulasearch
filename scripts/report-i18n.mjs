@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const siteContentRoot = join(repoRoot, 'content', 'site')
 const blogContentRoot = join(repoRoot, 'content', 'blog')
+const routeManifest = JSON.parse(readFileSync(join(siteContentRoot, 'site-routes.json'), 'utf8'))
 const strict = process.argv.includes('--strict')
 
 const isRecord = (value) => value !== null && typeof value === 'object' && !Array.isArray(value)
@@ -76,6 +77,7 @@ const contractFailures = posts.flatMap((post) => {
 })
 
 console.log(`i18n report: ${localizedPairs.length} localized copy objects across ${siteManifests.length} site manifests.`)
+console.log(`English SSR routes: ${(routeManifest.localized || []).length} manifest-backed pages under /en.`)
 console.log(`Blog records: ${posts.length} total, ${publicPosts.length} public, ${publishedFullPosts.length} full, ${posts.length - publicPosts.length} draft.`)
 console.log(`Blog content languages: ${[...languageCounts.entries()].map(([language, count]) => `${language}=${count}`).join(', ') || '(none)'}`)
 console.log(`Public Blog English metadata coverage: titleEn ${formatCoverage('titleEn')}, descriptionEn ${formatCoverage('descriptionEn')}, coverAltEn ${formatCoverage('coverAltEn')}.`)

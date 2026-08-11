@@ -1,0 +1,43 @@
+---
+import BlogPostRow from './BlogPostRow.astro'
+import BlogSectionNav from './BlogSectionNav.astro'
+import LocalizedText from './LocalizedText.astro'
+import { blogSeries } from '../data/blog-series'
+import { getBlogPosts } from '../lib/blog-content'
+import { uiCopy } from '../data/ui-copy'
+import type { Locale } from '../lib/i18n'
+
+interface Props {
+  locale?: Locale
+}
+
+const { locale = 'zh' } = Astro.props
+const posts = await getBlogPosts()
+const series = blogSeries.map((group) => ({
+  ...group,
+  posts: posts.filter((post) => group.categoryIds.includes(post.categoryId)),
+})).filter((group) => group.posts.length > 0)
+---
+
+<header class="blog-hero blog-hero--compact">
+  <h1><LocalizedText {...uiCopy.blog.seriesHeading} /></h1>
+</header>
+
+<BlogSectionNav active="series" locale={locale} />
+
+<div class="series-list">
+  {series.map((group) => (
+    <section id={group.id} class="series-group" aria-labelledby={`series-${group.id}`}>
+      <header class="series-group__header">
+        <div>
+          <h2 id={`series-${group.id}`}><LocalizedText {...group.title} /></h2>
+          <p><LocalizedText {...group.description} /></p>
+        </div>
+        <strong>{group.posts.length}</strong>
+      </header>
+      <div class="series-group__posts">
+        {group.posts.map((post) => <BlogPostRow post={post} compact locale={locale} showCategory={false} />)}
+      </div>
+    </section>
+  ))}
+</div>

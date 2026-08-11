@@ -3,12 +3,14 @@ import SiteHeader from '../components/SiteHeader.astro'
 import SiteFooter from '../components/SiteFooter.astro'
 import BaseLayout from './BaseLayout.astro'
 import { siteConfig } from '../data/site-config'
+import type { Locale } from '../lib/i18n'
 import '../styles/blog.css'
 
 interface Props {
   description: string
   descriptionEn: string
   image?: string
+  locale?: Locale
   modifiedTime?: string
   ogType?: 'website' | 'article'
   publishedTime?: string
@@ -17,14 +19,14 @@ interface Props {
   titleEn: string
 }
 
-const { description, descriptionEn, image, modifiedTime, ogType, publishedTime, structuredData, title, titleEn } = Astro.props
+const { description, descriptionEn, image, locale = 'zh', modifiedTime, ogType, publishedTime, structuredData, title, titleEn } = Astro.props
 ---
 
-<BaseLayout title={`${title} · ${siteConfig.name}`} titleEn={`${titleEn} · ${siteConfig.name}`} description={description} descriptionEn={descriptionEn} image={image} modifiedTime={modifiedTime} ogType={ogType} publishedTime={publishedTime} structuredData={structuredData}>
+<BaseLayout title={`${title} · ${siteConfig.name}`} titleEn={`${titleEn} · ${siteConfig.name}`} description={description} descriptionEn={descriptionEn} image={image} locale={locale} modifiedTime={modifiedTime} ogType={ogType} publishedTime={publishedTime} structuredData={structuredData}>
   <div class="site-page is-visible blog-site">
-    <SiteHeader active="blog" />
+    <SiteHeader active="blog" locale={locale} />
     <main id="main-content" class="blog-main"><slot /></main>
-    <SiteFooter variant="site" />
+    <SiteFooter variant="site" locale={locale} />
   </div>
 
 </BaseLayout>

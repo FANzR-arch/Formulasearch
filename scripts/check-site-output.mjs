@@ -70,8 +70,10 @@ async function walk(directory) {
 }
 
 const routeManifest = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'site-routes.json'), 'utf8'))
-const { static: staticRouteKeys, ...routeEntries } = routeManifest
+const { static: staticRouteKeys, localized: localizedRouteKeys, ...routeEntries } = routeManifest
 const staticRoutes = staticRouteKeys.map((key) => routeEntries[key]).filter(Boolean)
+const localizedRoutes = localizedRouteKeys.map((key) => routeEntries[key]).filter(Boolean)
+const englishStaticRoutes = localizedRoutes.map((route) => route === '/' ? '/en' : `/en${route}`)
 const blogRoute = routeEntries.blog
 const htmlFiles = (await walk(distRoot)).filter((path) => path.endsWith('.html'))
 const htmlByRoute = new Map()
@@ -89,10 +91,21 @@ for (const route of staticRoutes) {
     failures.push(`missing static route: ${route}`)
   }
 }
+for (const route of englishStaticRoutes) {
+  const relativePath = `${route.slice(1)}/index.html`
+  try {
+    await readUtf8(relativePath)
+  } catch {
+    failures.push(`missing English static route: ${route}`)
+  }
+}
 
 const sitemap = await readFile(join(distRoot, routeEntries.sitemap.slice(1)), 'utf8')
 for (const route of staticRoutes) {
   if (!sitemap.includes(`<loc>${siteConfig.siteUrl}${route}</loc>`)) failures.push(`sitemap missing route: ${route}`)
+}
+for (const route of englishStaticRoutes) {
+  if (!sitemap.includes(`<loc>${siteConfig.siteUrl}${route}</loc>`)) failures.push(`sitemap missing English route: ${route}`)
 }
 
 let robots = ''
@@ -146,7 +159,7 @@ const fullArticleRoutes = new Set(blogRecords.filter(({ contentStatus, draft }) 
 if (llms) {
   if (!llms.includes(`# ${siteConfig.name}`)) failures.push('llms.txt is missing the site heading')
   const llmsRoutes = [...llms.matchAll(/^- (\/\S*)\s+—/gm)].map((match) => match[1])
-  const expectedLlmsRoutes = new Set([...staticRoutes, ...fullArticleRoutes])
+  const expectedLlmsRoutes = new Set([...staticRoutes, ...englishStaticRoutes, ...fullArticleRoutes])
   for (const route of expectedLlmsRoutes) {
     if (!llmsRoutes.includes(route)) failures.push(`llms.txt missing route: ${route}`)
   }
@@ -303,4 +316,4 @@ if (failures.length) {
   throw new Error(`Site output check failed:\n- ${failures.join('\n- ')}`)
 }
 
-console.log(`Site 输出检查通过：${htmlFiles.length} 个 HTML、${staticRoutes.length} 个静态路由、${navPanelCount} 个一级导航面板。`)
+console.log(`Site 输出检查通过：${htmlFiles.length} 个 HTML、${staticRoutes.length} 个中文静态路由、${englishStaticRoutes.length} 个 English SSR 路由、${navPanelCount} 个一级导航面板。`)

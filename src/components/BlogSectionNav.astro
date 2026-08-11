@@ -1,17 +1,19 @@
 ---
 interface Props {
   active: import('../data/blog-navigation').BlogSectionId
+  locale?: import('../lib/i18n').Locale
 }
 
 import LocalizedText from './LocalizedText.astro'
 import { blogSectionNavigation } from '../data/blog-navigation'
+import { getLocalizedRoute } from '../data/site-routes'
 
-const { active } = Astro.props
+const { active, locale = 'zh' } = Astro.props
 ---
 
 <nav class="blog-section-nav" aria-label={blogSectionNavigation.ariaLabel.zh} data-aria-en={blogSectionNavigation.ariaLabel.en} data-aria-zh={blogSectionNavigation.ariaLabel.zh}>
   {blogSectionNavigation.items.map((item) => (
-    <a class:list={{ 'is-active': item.id === active }} href={item.href} aria-current={item.id === active ? 'page' : undefined}>
+    <a class:list={{ 'is-active': item.id === active }} href={getLocalizedRoute(item.href, locale)} aria-current={item.id === active ? 'page' : undefined}>
       <LocalizedText {...item.label} />
     </a>
   ))}

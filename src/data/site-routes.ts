@@ -27,6 +27,7 @@ const routeContentSchema = z.object({
   sitemap: z.string().startsWith('/'),
   llms: z.string().startsWith('/'),
   static: z.array(z.enum(staticRouteKeys)).length(staticRouteKeys.length),
+  localized: z.array(z.enum(staticRouteKeys)).min(1),
 }).strict()
 
 const result = routeContentSchema.safeParse(routeContent)
@@ -37,14 +38,29 @@ if (!result.success) {
   throw new Error(`Site route content validation failed: ${issues}`)
 }
 
-const { static: staticRouteManifestKeys, ...siteRoutes } = result.data
+const { static: staticRouteManifestKeys, localized: localizedRouteManifestKeys, ...siteRoutes } = result.data
 const staticRouteValues = staticRouteManifestKeys.map((key) => siteRoutes[key])
 if (new Set(staticRouteValues).size !== staticRouteValues.length) {
   throw new Error('Site route content validation failed: static routes must be unique.')
 }
+const localizedRouteValues = localizedRouteManifestKeys.map((key) => siteRoutes[key])
+if (new Set(localizedRouteValues).size !== localizedRouteValues.length) {
+  throw new Error('Site route content validation failed: localized routes must be unique.')
+}
 
 /** Canonical public routes shared by layouts, components and content checks. */
 export { siteRoutes }
+
+/** Routes that have a server-rendered English counterpart under /en. */
+export const localizedRouteKeys = localizedRouteManifestKeys
+export const localizedSiteRoutes = localizedRouteValues
+
+export const getLocalizedRoute = (route: string, locale: 'zh' | 'en') => {
+  if (locale !== 'en' || route === '/en' || route.startsWith('/en/')) return route
+  const [, pathname, suffix = ''] = route.match(/^([^?#]+)([?#].*)?$/) ?? []
+  if (!pathname || !localizedSiteRoutes.includes(pathname as (typeof localizedSiteRoutes)[number])) return route
+  return `${pathname === '/' ? '/en' : `/en${pathname}`}${suffix}`
+}
 
 /** Public routes that are rendered without a dynamic content entry. */
 export const staticSiteRoutes = staticRouteValues
