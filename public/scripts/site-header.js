@@ -58,7 +58,10 @@ navMenus.forEach((menu) => {
   })
   menu.addEventListener('pointerleave', (event) => {
     if (event.pointerType !== 'mouse') return
-    navCloseTimer = window.setTimeout(() => closeNavigationMenus(), 180)
+    navCloseTimer = window.setTimeout(() => {
+      if (menu.contains(document.activeElement)) return
+      closeNavigationMenus()
+    }, 180)
   })
   menu.addEventListener('focusin', () => openNavigationMenu(menu))
 })

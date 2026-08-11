@@ -148,6 +148,19 @@ test('desktop navigation closes when focus leaves the site navigation', async ({
   await expect(page.locator('.nav-popover').first()).toHaveAttribute('inert', '')
 })
 
+test('desktop navigation stays open while a menu item keeps keyboard focus', async ({ page }) => {
+  await page.goto('/projects')
+  const menu = page.locator('.nav-menu').first()
+  const disclosure = menu.locator('.nav-disclosure')
+  await disclosure.focus()
+  const menuLink = menu.locator('.nav-popover a').first()
+  await menuLink.focus()
+  await menu.evaluate((element) => element.dispatchEvent(new PointerEvent('pointerleave', { bubbles: false, pointerType: 'mouse' })))
+  await page.waitForTimeout(240)
+  await expect(disclosure).toHaveAttribute('aria-expanded', 'true')
+  await expect(menuLink).toBeFocused()
+})
+
 test('locale and theme controls update document metadata', async ({ page }) => {
   await page.goto('/projects')
 
