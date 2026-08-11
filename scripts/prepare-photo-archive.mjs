@@ -51,6 +51,9 @@ const defaultPage = {
   kicker: { zh: '影像档案 / 01', en: 'Visual archive / 01' },
   title: { zh: '记录自由', en: 'Photographic records' },
   description: { zh: '持续收集的摄影作品与日常影像，按时间与地点整理并归档。', en: 'An ongoing collection of photographs and everyday images, organised and archived by time and place.' },
+  initialVisibleCount: 8,
+  loadMoreBatchSize: 8,
+  eagerImageCount: 2,
   filters: [{ id: 'all', zh: '全部', en: 'All' }],
 }
 
@@ -70,7 +73,7 @@ async function readExistingManifest() {
     if (!Array.isArray(items)) throw new Error('Photo archive manifest must contain an items array.')
     return { items, page: Array.isArray(parsed) ? undefined : parsed }
   } catch (error) {
-    if (error.code === 'ENOENT') return new Map()
+    if (error.code === 'ENOENT') return { items: [], page: undefined }
     throw new Error(`Unable to read existing photo archive manifest: ${error.message}`)
   }
 }
