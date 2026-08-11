@@ -178,7 +178,6 @@ const managedFields = (post) => ({
   slug: post.slug,
   category: post.category,
   cover: yamlString(post.cover),
-  coverAlt: yamlString(`${post.title}的文章封面`),
 })
 
 const syncIndex = (post, markdown) => {
@@ -254,11 +253,11 @@ if (mode === '--write') {
       `slug: ${post.slug}`,
       `category: ${post.category}`,
       `cover: ${yamlString(post.cover)}`,
-      `coverAlt: ${yamlString(`${post.title}的文章封面`)}`,
     ]
     for (const field of expectedFields) {
       if (!markdown.includes(field)) throw new Error(`Markdown 与现有索引不一致：${target}\n缺少：${field}`)
     }
+    if (!readFrontmatterField(markdown, 'coverAlt')) throw new Error(`Markdown 缺少非空 coverAlt：${target}`)
 
     const markdownLinks = [...markdown.matchAll(/^\s+url:\s*["']([^"']+)["']\s*$/gm)].map((match) => match[1])
     const sourceLinks = post.externalLinks.map((link) => link.url)

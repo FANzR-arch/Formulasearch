@@ -6,7 +6,7 @@ slug: prompt-aesthetic-2026-06-10
 category: prompt-aesthetic
 tags: []
 cover: "/uploads/blog/2026-06-10/69322440-ac22-4730-9c1e-30a062baa88e.jpeg"
-coverAlt: "提示词美学解码 × 瑞士国际主义 _ 信息的秩序的文章封面"
+coverAlt: "红黄黑色带状网格海报，依次展示 ORDER、FRICTION、HIDDEN COST、OVERLOAD、DECISION 等关于秩序的信息"
 contentStatus: full
 featured: false
 draft: false

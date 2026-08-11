@@ -6,7 +6,7 @@ slug: prompt-aesthetic-2026-07-02
 category: prompt-aesthetic
 tags: []
 cover: "/uploads/blog/2026-07-02/HMMfIQIXkAA-qiW.jpg"
-coverAlt: "提示词美学解码 × 新粗野主义：反AI味！的文章封面"
+coverAlt: "蓝色与米白色粗野主义网页视觉拼贴，包含中文新粗野主义标题、输入输出代码面板与黄色 RUN 按钮"
 contentStatus: full
 featured: true
 draft: false

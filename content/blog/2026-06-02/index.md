@@ -6,7 +6,7 @@ slug: prompt-sharing-2026-06-02
 category: prompt-sharing
 tags: []
 cover: "/uploads/blog/2026-06-02/e6a8cfb2-1ef8-47a1-aeab-7a4aad308a20.jpeg"
-coverAlt: "每段旅程，都值得记录（城市拼贴明信片提示词分享）的文章封面"
+coverAlt: "米白背景上的旅行明信片拼贴，包含故宫、埃菲尔铁塔、东京塔、罗马斗兽场和自由女神像等地标"
 contentStatus: full
 featured: false
 draft: false

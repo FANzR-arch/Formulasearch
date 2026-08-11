@@ -70,7 +70,7 @@ public/uploads/blog/
 
 正文图片 alt 的维护：旧正文可先运行 `npm run blog:images:prepare`，它只会把空 alt 或“图像”替换成最近章节标题 + “配图”的中文初稿，不会覆盖已有具体描述。Markdown 图片和 HTML `<img>`（引号或无引号 `alt` 写法）都会被检查；提交前运行 `npm run blog:images:report`，查看哪些图片仍是这种上下文初稿，以及哪些封面 `coverAlt` 仍是文章标题占位；它们需要结合实际画面逐张改成具体描述，再运行 `npm run blog:images:check`。报告只输出到终端，不会生成需要长期维护的快照文件。
 
-`blog:migrate` 会为缺失目录创建 `index.md`，并同步已有文件的受管 frontmatter 字段；它不会覆盖已经迁入的正文内容。单独检查内容可运行：
+`blog:migrate` 会为缺失目录创建 `index.md`，并同步已有文件的受管 frontmatter 字段；`coverAlt` / `coverAltEn` 属于作者维护字段，不会被迁移脚本覆盖；正文也不会被覆盖。单独检查内容可运行：
 
 ```bash
 npm run blog:check

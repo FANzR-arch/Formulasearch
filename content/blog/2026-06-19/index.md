@@ -6,7 +6,7 @@ slug: prompt-aesthetic-2026-06-19
 category: prompt-aesthetic
 tags: []
 cover: "/uploads/blog/2026-06-19/432efa42-3484-452a-9d24-3706305619d4.jpeg"
-coverAlt: "提示词美学解码 × 包豪斯_艺术与工业的文章封面"
+coverAlt: "包豪斯主题版式拼贴，包含工作室、台灯、材料色板、字体样本、几何图形与建筑照片"
 contentStatus: full
 featured: false
 draft: false
