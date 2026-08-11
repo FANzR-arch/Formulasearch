@@ -22,6 +22,12 @@ const checkUrlScheme = (value, relativePath, context, allowContact = false) => {
   const allowed = allowContact ? new Set(['http', 'https', 'mailto', 'tel']) : new Set(['http', 'https'])
   if (!allowed.has(scheme)) failures.push(`unsafe ${context} scheme: ${relativePath} -> ${value}`)
 }
+const checkAssetUrl = (value, relativePath, context) => {
+  checkUrlScheme(value, relativePath, context)
+  if (siteOrigin.startsWith('https:') && /^http:/i.test(value.trim())) {
+    failures.push(`insecure ${context} on HTTPS site: ${relativePath} -> ${value}`)
+  }
+}
 
 async function readUtf8(relativePath) {
   return readFile(join(distRoot, relativePath), 'utf8')
@@ -181,17 +187,17 @@ for (const path of htmlFiles) {
     if (!/\brole="[^"]+"/.test(match[0])) failures.push(`generic element has aria-label without a role: ${relativePath}`)
   }
   for (const [, source] of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)) {
-    checkUrlScheme(source, relativePath, 'image URL')
+    checkAssetUrl(source, relativePath, 'image URL')
     await checkLocalAsset(source, relativePath)
   }
   for (const [, source] of html.matchAll(/<(?:source|video|audio)\b[^>]*\b(?:src|poster)="([^"]+)"/g)) {
-    checkUrlScheme(source, relativePath, 'media URL')
+    checkAssetUrl(source, relativePath, 'media URL')
     await checkLocalAsset(source, relativePath)
   }
   for (const [, srcset] of html.matchAll(/\b(?:srcset|imagesrcset)="([^"]+)"/g)) {
     for (const candidate of srcset.split(',')) {
       const source = candidate.trim().split(/\s+/, 1)[0]
-      checkUrlScheme(source, relativePath, 'responsive image URL')
+      checkAssetUrl(source, relativePath, 'responsive image URL')
       await checkLocalAsset(source, relativePath)
     }
   }
@@ -241,8 +247,8 @@ for (const articlePath of articlePaths) {
     const mediaTag = match[0]
     if (!/\bcontrols(?:\s|=|>)/.test(mediaTag)) failures.push(`article media must expose native controls: ${relativePath}`)
     if (!/\b(?:src|poster)="[^"]+"/.test(mediaTag) && !/<source\b[^>]*\bsrc="[^"]+"/.test(mediaTag)) failures.push(`article media must provide a source or poster: ${relativePath}`)
-    for (const [, source] of mediaTag.matchAll(/\b(?:src|poster)="([^"]+)"/g)) checkUrlScheme(source, relativePath, 'media URL')
-    for (const [, source] of mediaTag.matchAll(/<source\b[^>]*\bsrc="([^"]+)"/g)) checkUrlScheme(source, relativePath, 'media source URL')
+    for (const [, source] of mediaTag.matchAll(/\b(?:src|poster)="([^"]+)"/g)) checkAssetUrl(source, relativePath, 'media URL')
+    for (const [, source] of mediaTag.matchAll(/<source\b[^>]*\bsrc="([^"]+)"/g)) checkAssetUrl(source, relativePath, 'media source URL')
   }
   if (proseImages.some((imageTag) => !/\bloading="lazy"/.test(imageTag))) failures.push(`article body images must use lazy loading: ${relativePath}`)
   if (proseImages.some((imageTag) => !/\bdecoding="async"/.test(imageTag))) failures.push(`article body images must use async decoding: ${relativePath}`)
