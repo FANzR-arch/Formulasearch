@@ -186,16 +186,14 @@ for (const path of htmlFiles) {
     const label = getAttribute(attributes, 'aria-label')
     const labelledBy = getAttribute(attributes, 'aria-labelledby')
     if (!label && !labelledBy && !stripTags(content)) failures.push(`button has no accessible name: ${relativePath}`)
-    if (labelledBy) checkAriaReferences(html, labelledBy, relativePath, 'button aria-labelledby')
-    const controls = getAttribute(attributes, 'aria-controls')
-    if (controls) checkAriaReferences(html, controls, relativePath, 'button aria-controls')
   }
   for (const [, tagName, attributes] of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*)>/gi)) {
-    if (tagName.toLowerCase() === 'button') continue
     const labelledBy = getAttribute(attributes, 'aria-labelledby')
     if (labelledBy) checkAriaReferences(html, labelledBy, relativePath, `${tagName} aria-labelledby`)
     const describedBy = getAttribute(attributes, 'aria-describedby')
     if (describedBy) checkAriaReferences(html, describedBy, relativePath, `${tagName} aria-describedby`)
+    const controls = getAttribute(attributes, 'aria-controls')
+    if (controls) checkAriaReferences(html, controls, relativePath, `${tagName} aria-controls`)
     if (tagName.toLowerCase() === 'label') {
       const targetId = getAttribute(attributes, 'for')
       if (targetId) checkAriaReferences(html, targetId, relativePath, 'label for')
