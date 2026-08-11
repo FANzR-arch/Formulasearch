@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { dirname, extname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
@@ -75,6 +75,20 @@ const buildManifest = async () => {
 }
 
 const formatManifest = (manifest) => `${JSON.stringify(manifest, null, 2)}\n`
+const collectGeneratedFiles = (directory) => {
+  if (!existsSync(directory)) return []
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = join(directory, entry.name)
+    if (entry.isDirectory()) return collectGeneratedFiles(entryPath)
+    return /\.(?:avif|webp)$/i.test(entry.name) ? [entryPath] : []
+  })
+}
+
+const expectedGeneratedFiles = (manifest) => new Set(Object.values(manifest).flatMap((media) => [
+  ...media.avif,
+  ...media.optimized,
+].map((variant) => join(mediaRoot, ...variant.src.slice(1).split('/')))))
+
 const writeOptimizedImages = async (manifest) => {
   for (const [cover, media] of Object.entries(manifest)) {
     const sourcePath = join(mediaRoot, ...cover.slice(1).split('/'))
@@ -113,8 +127,15 @@ if (!['--write', '--check'].includes(mode)) {
 
 const expected = await buildManifest()
 const serialized = formatManifest(expected)
+const expectedFiles = expectedGeneratedFiles(expected)
+const orphanedFiles = collectGeneratedFiles(optimizedRoot).filter((file) => !expectedFiles.has(file))
+
+if (orphanedFiles.length && mode === '--check') {
+  throw new Error(`Found ${orphanedFiles.length} orphaned blog media variants. Run npm run blog:media:prepare to remove them.`)
+}
 
 if (mode === '--write') {
+  orphanedFiles.forEach((file) => unlinkSync(file))
   await writeOptimizedImages(expected)
   writeFileSync(manifestPath, serialized, 'utf8')
   const variantCount = Object.values(expected).reduce((count, media) => count + media.optimized.length + media.avif.length, 0)
