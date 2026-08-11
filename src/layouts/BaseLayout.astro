@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import { siteConfig } from '../data/site-config'
+import { siteRoutes } from '../data/site-routes'
 import { uiCopy } from '../data/ui-copy'
 import { serializeJsonLd } from '../lib/xml'
 
@@ -47,7 +48,7 @@ const localizedDescriptionEn = descriptionEn
     <link rel="icon" href="/brand/logo.svg" type="image/svg+xml" />
     <meta id="og-locale" property="og:locale" content="zh_CN" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" type="application/rss+xml" title={`${siteConfig.name} RSS`} href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${siteConfig.name} RSS`} href={siteRoutes.rss} />
     <meta property="og:type" content={ogType} />
     <meta id="og-title" property="og:title" content={title} />
     <meta id="og-description" property="og:description" content={description} />

@@ -3,6 +3,7 @@ import navigationContent from '../../content/site/navigation.json'
 import { localizedCopySchema } from '../lib/i18n'
 import { blogSeries } from './blog-series'
 import { labSections, projectSections, skillSections } from './catalog'
+import { siteRoutes } from './site-routes'
 
 const navigationItemSchema = z.object({
   href: z.string().startsWith('/'),
@@ -35,14 +36,14 @@ export const primaryNavigation = result.data
 const sectionIds = primaryNavigation.map((section) => section.id)
 if (new Set(sectionIds).size !== sectionIds.length) throw new Error('Navigation content validation failed: duplicate primary ids.')
 for (const section of primaryNavigation) {
-  if (section.href !== `/${section.id}`) throw new Error(`Navigation content validation failed: ${section.id} href must match its id.`)
+  if (section.href !== siteRoutes[section.id]) throw new Error(`Navigation content validation failed: ${section.id} href must match its canonical route.`)
 }
 
 const expectedMenuHrefs: Record<PrimarySection, Set<string>> = {
-  blog: new Set(blogSeries.map((series) => `/blog/series#${series.id}`)),
-  projects: new Set(projectSections.map((section) => `/projects#${section.id}`)),
-  skills: new Set(skillSections.map((section) => `/skills#${section.id}`)),
-  lab: new Set(labSections.map((section) => `/lab#${section.id}`)),
+  blog: new Set(blogSeries.map((series) => `${siteRoutes.blogSeries}#${series.id}`)),
+  projects: new Set(projectSections.map((section) => `${siteRoutes.projects}#${section.id}`)),
+  skills: new Set(skillSections.map((section) => `${siteRoutes.skills}#${section.id}`)),
+  lab: new Set(labSections.map((section) => `${siteRoutes.lab}#${section.id}`)),
 }
 
 for (const section of primaryNavigation) {

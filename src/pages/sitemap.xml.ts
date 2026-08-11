@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
-import { staticSiteRoutes } from '../data/site-routes'
+import { siteRoutes, staticSiteRoutes } from '../data/site-routes'
 import { siteConfig } from '../data/site-config'
 import { escapeXml } from '../lib/xml'
 type SitemapEntry = { path: string; lastmod?: string }
@@ -10,7 +10,7 @@ export const GET: APIRoute = async () => {
   const entries: SitemapEntry[] = [
     ...staticSiteRoutes.map((path) => ({ path })),
     ...posts.map((post) => ({
-      path: `/blog/${post.data.slug}`,
+      path: `${siteRoutes.blog}/${post.data.slug}`,
       lastmod: (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10),
     })),
   ]

@@ -2,6 +2,7 @@
 import { Aperture, ChevronDown, DraftingCompass, Globe, Menu, Moon, Sun, X } from '@lucide/astro'
 import { primaryNavigation, type PrimarySection } from '../data/navigation'
 import { siteConfig } from '../data/site-config'
+import { siteRoutes } from '../data/site-routes'
 import { uiCopy } from '../data/ui-copy'
 import { interpolateLocalizedCopy } from '../lib/i18n'
 import LocalizedText from './LocalizedText.astro'
@@ -26,7 +27,7 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </button>
   ) : (
-    <a class="monogram" href="/" aria-label={uiCopy.common.returnHome.zh} data-aria-en={uiCopy.common.returnHome.en} data-aria-zh={uiCopy.common.returnHome.zh} title={uiCopy.common.returnHome.zh} data-title-en={uiCopy.common.returnHome.en} data-title-zh={uiCopy.common.returnHome.zh}>
+    <a class="monogram" href={siteRoutes.home} aria-label={uiCopy.common.returnHome.zh} data-aria-en={uiCopy.common.returnHome.en} data-aria-zh={uiCopy.common.returnHome.zh} title={uiCopy.common.returnHome.zh} data-title-en={uiCopy.common.returnHome.en} data-title-zh={uiCopy.common.returnHome.zh}>
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </a>
   )}
@@ -58,10 +59,10 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
     ))}
     <div class="nav-utilities">
       <span class="nav-divider nav-divider--archive" aria-hidden="true"></span>
-      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'photos' }]} href="/photos" aria-current={active === 'photos' ? 'page' : undefined} aria-label={uiCopy.navigation.photos.zh} data-aria-en={uiCopy.navigation.photos.en} data-aria-zh={uiCopy.navigation.photos.zh} title={uiCopy.navigation.photos.zh} data-title-en={uiCopy.navigation.photos.en} data-title-zh={uiCopy.navigation.photos.zh}>
+      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'photos' }]} href={siteRoutes.photos} aria-current={active === 'photos' ? 'page' : undefined} aria-label={uiCopy.navigation.photos.zh} data-aria-en={uiCopy.navigation.photos.en} data-aria-zh={uiCopy.navigation.photos.zh} title={uiCopy.navigation.photos.zh} data-title-en={uiCopy.navigation.photos.en} data-title-zh={uiCopy.navigation.photos.zh}>
         <Aperture aria-hidden="true" />
       </a>
-      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'architecture' }]} href="/architecture" aria-current={active === 'architecture' ? 'page' : undefined} aria-label={uiCopy.navigation.architecture.zh} data-aria-en={uiCopy.navigation.architecture.en} data-aria-zh={uiCopy.navigation.architecture.zh} title={uiCopy.navigation.architecture.zh} data-title-en={uiCopy.navigation.architecture.en} data-title-zh={uiCopy.navigation.architecture.zh}>
+      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'architecture' }]} href={siteRoutes.architecture} aria-current={active === 'architecture' ? 'page' : undefined} aria-label={uiCopy.navigation.architecture.zh} data-aria-en={uiCopy.navigation.architecture.en} data-aria-zh={uiCopy.navigation.architecture.zh} title={uiCopy.navigation.architecture.zh} data-title-en={uiCopy.navigation.architecture.en} data-title-zh={uiCopy.navigation.architecture.zh}>
         <DraftingCompass aria-hidden="true" />
       </a>
       <span class="nav-divider nav-divider--social" aria-hidden="true"></span>

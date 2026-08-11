@@ -9,6 +9,7 @@ import BlogCover from '../components/BlogCover.astro'
 import BlogLayout from './BlogLayout.astro'
 import { siteConfig } from '../data/site-config'
 import { uiCopy } from '../data/ui-copy'
+import { siteRoutes } from '../data/site-routes'
 import { interpolateLocalizedCopy } from '../lib/i18n'
 
 interface Props {
@@ -23,7 +24,7 @@ const toc = headings.filter((heading) => heading.depth === 2 || heading.depth ==
 const published = post.data.pubDate.toISOString().slice(0, 10)
 const modified = (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10)
 const displayDate = published.replaceAll('-', '.')
-const canonical = new URL(`/blog/${post.data.slug}`, Astro.site).toString()
+const canonical = new URL(`${siteRoutes.blog}/${post.data.slug}`, Astro.site).toString()
 const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').replace(/\s+/g, '').length / 500))
 const readingTimeCopy = interpolateLocalizedCopy(uiCopy.blog.readingTime, {
   minutes: { zh: String(readingMinutes), en: String(readingMinutes) },
@@ -56,8 +57,8 @@ const structuredData = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: uiCopy.blog.blog[contentLocale], item: new URL('/blog', Astro.site).toString() },
-        { '@type': 'ListItem', position: 2, name: localizedCategory, item: new URL('/blog/series', Astro.site).toString() },
+        { '@type': 'ListItem', position: 1, name: uiCopy.blog.blog[contentLocale], item: new URL(siteRoutes.blog, Astro.site).toString() },
+        { '@type': 'ListItem', position: 2, name: localizedCategory, item: new URL(siteRoutes.blogSeries, Astro.site).toString() },
         { '@type': 'ListItem', position: 3, name: post.data.title, item: canonical },
       ],
     },
@@ -79,7 +80,7 @@ const structuredData = {
     <article class="article-page" lang={post.data.contentLanguage}>
     <nav class="article-context" aria-label={uiCopy.blog.articleLocation.zh} data-aria-en={uiCopy.blog.articleLocation.en} data-aria-zh={uiCopy.blog.articleLocation.zh}>
       <div class="article-context__inner">
-        <a href="/blog"><House aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.blog} /></a>
+        <a href={siteRoutes.blog}><House aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.blog} /></a>
         <span class="article-context__pill"><LocalizedText zh={categoryLabel.title} en={categoryLabel.titleEn} /></span>
       </div>
     </nav>
@@ -110,8 +111,8 @@ const structuredData = {
       <div class="article-prose"><slot /></div>
 
       <footer class="article-footer">
-        <a href="/blog"><ArrowLeft aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.backToBlog} /></a>
-        <a href="/blog/archive"><LocalizedText {...uiCopy.blog.allArticles} /> <ArrowRight aria-hidden="true" size={14} stroke-width={1.7} /></a>
+        <a href={siteRoutes.blog}><ArrowLeft aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.backToBlog} /></a>
+        <a href={siteRoutes.blogArchive}><LocalizedText {...uiCopy.blog.allArticles} /> <ArrowRight aria-hidden="true" size={14} stroke-width={1.7} /></a>
       </footer>
 
       <RelatedPosts posts={relatedPosts} />

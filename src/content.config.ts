@@ -1,12 +1,12 @@
 import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
-import { staticSiteRoutes } from './data/site-routes'
+import { siteRoutes, staticSiteRoutes } from './data/site-routes'
 import { httpUrlSchema, localAssetPathSchema } from './lib/validation'
 
 const reservedBlogSlugs = new Set(staticSiteRoutes
-  .filter((path) => path.startsWith('/blog/'))
-  .map((path) => path.slice('/blog/'.length)))
+  .filter((path) => path.startsWith(`${siteRoutes.blog}/`))
+  .map((path) => path.slice(`${siteRoutes.blog}/`.length)))
 
 const tagsSchema = z.array(z.string().trim().min(1)).refine((tags) => new Set(tags).size === tags.length, 'Tags must be unique.')
 const isCoverAltPlaceholder = (value: string) => /(?:文章封面|article cover)$/i.test(value.trim())

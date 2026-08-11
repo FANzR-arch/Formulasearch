@@ -8,6 +8,7 @@ import { ArrowRight } from '@lucide/astro'
 import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } from '../../lib/blog-content'
 import { pageMeta } from '../../data/page-meta'
 import { uiCopy } from '../../data/ui-copy'
+import { siteRoutes } from '../../data/site-routes'
 
 const posts = await getBlogPosts()
 const stagePosts = posts.slice(0, 4)
@@ -116,7 +117,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
     </div>
   </section>
 
-  <a class="archive-cta" href="/blog/archive" data-reveal>
+    <a class="archive-cta" href={siteRoutes.blogArchive} data-reveal>
     <span><LocalizedText {...uiCopy.blog.allArticles} /></span>
     <ArrowRight aria-hidden="true" size={16} stroke-width={1.7} />
   </a>

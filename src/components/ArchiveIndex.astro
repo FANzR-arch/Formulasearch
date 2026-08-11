@@ -3,6 +3,7 @@ import { Image } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
 import LocalizedText from './LocalizedText.astro'
 import { uiCopy } from '../data/ui-copy'
+import { siteRoutes } from '../data/site-routes'
 
 interface ArchiveItem {
   alt: string
@@ -44,8 +45,8 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
 
   <div class="visual-archive__utility">
     <nav class="visual-archive__modes" aria-label={uiCopy.archive.sections.zh} data-aria-en={uiCopy.archive.sections.en} data-aria-zh={uiCopy.archive.sections.zh}>
-      <a class:list={{ 'is-active': active === 'photos' }} href="/photos" aria-current={active === 'photos' ? 'page' : undefined}><LocalizedText {...uiCopy.archive.photos} /></a>
-      <a class:list={{ 'is-active': active === 'architecture' }} href="/architecture" aria-current={active === 'architecture' ? 'page' : undefined}><LocalizedText {...uiCopy.archive.architecture} /></a>
+      <a class:list={{ 'is-active': active === 'photos' }} href={siteRoutes.photos} aria-current={active === 'photos' ? 'page' : undefined}><LocalizedText {...uiCopy.archive.photos} /></a>
+      <a class:list={{ 'is-active': active === 'architecture' }} href={siteRoutes.architecture} aria-current={active === 'architecture' ? 'page' : undefined}><LocalizedText {...uiCopy.archive.architecture} /></a>
     </nav>
     {filters.length > 1 && (
       <div class="visual-archive__filters" role="group" aria-label={uiCopy.archive.filters.zh} data-aria-en={uiCopy.archive.filters.en} data-aria-zh={uiCopy.archive.filters.zh}>

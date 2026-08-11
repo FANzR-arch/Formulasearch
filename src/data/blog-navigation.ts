@@ -1,6 +1,7 @@
 import { z } from 'astro/zod'
 import blogNavigationContent from '../../content/site/blog-navigation.json'
 import { localizedCopySchema } from '../lib/i18n'
+import { siteRoutes } from './site-routes'
 
 const blogSectionIdSchema = z.enum(['latest', 'series', 'archive'])
 const blogNavigationItemSchema = z.object({
@@ -23,9 +24,9 @@ if (!result.success) {
 }
 
 const expectedRoutes = {
-  latest: '/blog',
-  series: '/blog/series',
-  archive: '/blog/archive',
+  latest: siteRoutes.blog,
+  series: siteRoutes.blogSeries,
+  archive: siteRoutes.blogArchive,
 } as const
 
 const ids = result.data.items.map((item) => item.id)

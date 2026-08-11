@@ -69,7 +69,10 @@ async function walk(directory) {
 }
 
 const routeSource = await readFile(join(projectRoot, '..', 'src', 'data', 'site-routes.ts'), 'utf8')
-const staticRoutes = [...routeSource.matchAll(/^\s+'([^']+)',?$/gm)].map((match) => match[1])
+const routeEntries = Object.fromEntries([...routeSource.matchAll(/^\s+(\w+):\s+'([^']+)',?$/gm)].map((match) => [match[1], match[2]]))
+const staticRouteKeys = [...routeSource.matchAll(/^\s+siteRoutes\.(\w+),?$/gm)].map((match) => match[1])
+const staticRoutes = staticRouteKeys.map((key) => routeEntries[key]).filter(Boolean)
+const blogRoute = routeEntries.blog || '/blog'
 const htmlFiles = (await walk(distRoot)).filter((path) => path.endsWith('.html'))
 const htmlByRoute = new Map()
 for (const path of htmlFiles) {
@@ -125,20 +128,20 @@ for (const directory of blogDirectories) {
     continue
   }
   blogRecords.push({ contentStatus, draft, slug })
-  const articleUrl = `${siteConfig.siteUrl}/blog/${slug}`
+  const articleUrl = `${siteConfig.siteUrl}${blogRoute}/${slug}`
   const inSitemap = sitemap.includes(`<loc>${articleUrl}</loc>`)
   const inRss = rss.includes(`<link>${articleUrl}</link>`) || rss.includes(`<guid isPermaLink="true">${articleUrl}</guid>`)
   const isPublishedLocalArticle = contentStatus === 'full' && !draft
   if (isPublishedLocalArticle) {
     if (!inSitemap) failures.push(`full article missing from sitemap: ${slug}`)
     if (!inRss) failures.push(`full article missing from RSS: ${slug}`)
-    if (!htmlByRoute.has(`/blog/${slug}`)) failures.push(`full article missing HTML route: ${slug}`)
+    if (!htmlByRoute.has(`${blogRoute}/${slug}`)) failures.push(`full article missing HTML route: ${slug}`)
   } else {
     if (inSitemap) failures.push(`draft or index-only article in sitemap: ${slug}`)
     if (inRss) failures.push(`draft or index-only article in RSS: ${slug}`)
   }
 }
-const fullArticleRoutes = new Set(blogRecords.filter(({ contentStatus, draft }) => contentStatus === 'full' && !draft).map(({ slug }) => `/blog/${slug}`))
+const fullArticleRoutes = new Set(blogRecords.filter(({ contentStatus, draft }) => contentStatus === 'full' && !draft).map(({ slug }) => `${blogRoute}/${slug}`))
 
 if (llms) {
   if (!llms.includes(`# ${siteConfig.name}`)) failures.push('llms.txt is missing the site heading')
