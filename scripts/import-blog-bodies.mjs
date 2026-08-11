@@ -5,10 +5,11 @@ const args = process.argv.slice(2)
 const sourceFlag = args.indexOf('--source')
 const sourceRoot = sourceFlag >= 0 ? resolve(args[sourceFlag + 1] ?? '') : ''
 const shouldWrite = args.includes('--write')
+const shouldOverwrite = args.includes('--overwrite')
 const contentRoot = resolve('content', 'blog')
 
 if (!sourceRoot || !existsSync(sourceRoot)) {
-  console.error('用法：node scripts/import-blog-bodies.mjs --source <02-已发布目录> [--write]')
+  console.error('用法：node scripts/import-blog-bodies.mjs --source <02-已发布目录> [--write] [--overwrite]')
   process.exit(1)
 }
 
@@ -144,6 +145,7 @@ for (const [path, usedBy] of sourceUsage) {
 }
 
 let imported = 0
+let skippedExisting = 0
 for (const { reason, source, target } of results) {
   if (!source) {
     console.log(`未匹配  ${target.dateFolder}  ${target.title}`)
@@ -151,9 +153,15 @@ for (const { reason, source, target } of results) {
   }
 
   const draftNote = target.draft ? '；目标仍是 draft，不会自动发布' : ''
-  const statusNote = target.contentStatus === 'full' ? '；本站正文已存在，将覆盖正文' : '；将写入本站正文'
+  const existingBody = target.contentStatus === 'full'
+  const statusNote = existingBody
+    ? (shouldOverwrite ? '；将覆盖已有正文' : '；默认跳过已有正文，需 --overwrite 才会覆盖')
+    : '；将写入本站正文'
   console.log(`匹配[${reason}]  ${target.dateFolder} -> ${source.published}  ${source.filename}${statusNote}${draftNote}`)
-  if (!shouldWrite) continue
+  if (!shouldWrite || (existingBody && !shouldOverwrite)) {
+    if (shouldWrite && existingBody && !shouldOverwrite) skippedExisting += 1
+    continue
+  }
 
   let frontmatter = target.frontmatter
     .replace(/^pubDate:\s*.+$/m, `pubDate: ${source.published}`)
@@ -166,4 +174,7 @@ for (const { reason, source, target } of results) {
 
 const matched = results.filter((result) => result.source).length
 const unmatched = results.length - matched
-console.log(`\n结果：${matched} 篇可确定正文，${unmatched} 篇保留外链。${shouldWrite ? `已写入 ${imported} 篇。` : '当前为预检，未写入文件。'}`)
+const writeSummary = shouldWrite
+  ? `已写入 ${imported} 篇${skippedExisting ? `，跳过已有正文 ${skippedExisting} 篇（需要 --overwrite 才会覆盖）` : ''}。`
+  : '当前为预检，未写入文件。'
+console.log(`\n结果：${matched} 篇可确定正文，${unmatched} 篇保留外链。${writeSummary}`)
