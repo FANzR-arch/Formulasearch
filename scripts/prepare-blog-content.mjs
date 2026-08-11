@@ -28,6 +28,43 @@ const labelForUrl = (url) => {
 
 const yamlString = (value) => JSON.stringify(value)
 
+const readFrontmatterField = (markdown, field) => {
+  const match = markdown.match(new RegExp(`^${field}:\\s*["']?([^\\r\\n"']+)["']?\\s*$`, 'm'))
+  return match?.[1]?.trim() ?? ''
+}
+
+const readFrontmatterBoolean = (markdown, field, fallback = false) => {
+  const value = readFrontmatterField(markdown, field)
+  if (!value) return fallback
+  if (value === 'true') return true
+  if (value === 'false') return false
+  throw new Error(`Invalid ${field} in blog frontmatter: ${value}`)
+}
+
+const getMarkdownBody = (markdown) => {
+  const frontmatterEnd = markdown.indexOf('\n---', 4)
+  if (frontmatterEnd === -1) return ''
+  return markdown
+    .slice(frontmatterEnd + 4)
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .trim()
+}
+
+const validateContentStatus = (post, markdown) => {
+  const contentStatus = readFrontmatterField(markdown, 'contentStatus')
+  const draft = readFrontmatterBoolean(markdown, 'draft')
+  if (!['index-only', 'full'].includes(contentStatus)) {
+    throw new Error(`Invalid contentStatus in ${post.directory}: ${contentStatus || '(empty)'}`)
+  }
+  if (contentStatus === 'index-only' && post.externalLinks.length === 0 && !draft) {
+    throw new Error(`Index-only article must keep at least one external link: ${post.directory}`)
+  }
+  if (contentStatus === 'full' && !getMarkdownBody(markdown)) {
+    throw new Error(`Full article has no body content: ${post.directory}`)
+  }
+  return { contentStatus, draft }
+}
+
 const categories = JSON.parse(readFileSync(join(contentRoot, 'categories.json'), 'utf8'))
 const categoryIds = new Set()
 
@@ -188,16 +225,22 @@ if (mode === '--write') {
       }
       return
     }
+    if (post.externalLinks.length === 0) throw new Error(`Index-only article must keep at least one external link: ${post.directory}`)
     writeFileSync(target, renderIndex(post, index === 0), { encoding: 'utf8', flag: 'wx' })
     created += 1
   })
 
   console.log(`Blog 索引同步完成：新增 ${created} 篇，更新 ${updated} 篇，未变化 ${unchanged} 篇，共 ${posts.length} 篇。`)
 } else if (mode === '--check') {
+  const statusCounts = { full: 0, 'index-only': 0 }
+  let draftCount = 0
   for (const post of posts) {
     const target = join(post.directory, 'index.md')
     if (!existsSync(target)) throw new Error(`缺少 Markdown 索引：${target}`)
     const markdown = readFileSync(target, 'utf8')
+    const { contentStatus, draft } = validateContentStatus(post, markdown)
+    statusCounts[contentStatus] += 1
+    if (draft) draftCount += 1
     const expectedFields = [
       `title: ${yamlString(post.title)}`,
       `description: ${yamlString(post.summary)}`,
@@ -217,7 +260,7 @@ if (mode === '--write') {
     }
   }
 
-  console.log(`Blog 内容检查通过：${posts.length} 篇、${categories.length} 个分类、${slugs.size} 个唯一 slug。`)
+  console.log(`Blog content check passed: ${posts.length} posts, ${statusCounts.full} full, ${statusCounts['index-only']} index-only, ${draftCount} drafts, ${categories.length} categories, ${slugs.size} unique slugs.`)
 } else {
   console.error('用法：node scripts/prepare-blog-content.mjs --write | --check')
   process.exitCode = 1

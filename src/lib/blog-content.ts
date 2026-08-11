@@ -19,6 +19,7 @@ export interface BlogPost {
   contentStatus: 'index-only' | 'full'
   cover: string
   date: string
+  draft: boolean
   links: BlogLink[]
   slug: string
   summary: string
@@ -35,8 +36,11 @@ const categories = JSON.parse(
 
 const categoryMap = new Map(categories.map((category) => [category.id, category]))
 
-const readText = (directory: string, filename: string) =>
-  readFileSync(join(directory, filename), 'utf8').replace(/^\uFEFF/, '').trim()
+const readText = (directory: string, filename: string, allowEmpty = false) => {
+  const value = readFileSync(join(directory, filename), 'utf8').replace(/^\uFEFF/, '').trim()
+  if (!value && !allowEmpty) throw new Error(`Empty blog content file: ${join(directory, filename)}`)
+  return value
+}
 
 const readFrontmatterField = (markdown: string, field: string) => {
   const match = markdown.match(new RegExp(`^${field}:\\s*["']?([^\\r\\n"']+)["']?\\s*$`, 'm'))
@@ -69,7 +73,7 @@ const loadPosts = (): BlogPost[] => readdirSync(contentRoot, { withFileTypes: tr
 
     if (!category) throw new Error(`Unknown blog category "${categoryId}" in ${entry.name}`)
 
-    const links = readText(directory, '链接.txt')
+    const links = readText(directory, '链接.txt', true)
       .split(/\r?\n/)
       .map((url) => url.trim())
       .filter(Boolean)
@@ -77,6 +81,7 @@ const loadPosts = (): BlogPost[] => readdirSync(contentRoot, { withFileTypes: tr
 
     const markdown = readFileSync(join(directory, 'index.md'), 'utf8')
     const contentStatus = readFrontmatterField(markdown, 'contentStatus') as BlogPost['contentStatus']
+    const draft = readFrontmatterField(markdown, 'draft') === 'true'
     if (contentStatus !== 'index-only' && contentStatus !== 'full') {
       throw new Error(`Unknown contentStatus "${contentStatus}" in ${entry.name}`)
     }
@@ -87,6 +92,7 @@ const loadPosts = (): BlogPost[] => readdirSync(contentRoot, { withFileTypes: tr
       contentStatus,
       cover: findCover(entry.name),
       date: readFrontmatterField(markdown, 'pubDate') || entry.name,
+      draft,
       links,
       slug: readFrontmatterField(markdown, 'slug'),
       summary: readText(directory, '摘要.txt'),
@@ -95,7 +101,7 @@ const loadPosts = (): BlogPost[] => readdirSync(contentRoot, { withFileTypes: tr
   })
   .sort((a, b) => b.date.localeCompare(a.date))
 
-const posts = loadPosts()
+const posts = loadPosts().filter((post) => !post.draft)
 
 export const getBlogPosts = () => posts
 export const getBlogCategories = () => categories
@@ -103,4 +109,4 @@ export const formatBlogDate = (date: string) => date.replaceAll('-', '.')
 export const isLocalBlogPost = (post: BlogPost) => post.contentStatus === 'full'
 export const getPrimaryBlogLink = (post: BlogPost) => isLocalBlogPost(post)
   ? `/blog/${post.slug}`
-  : post.links[0]?.url ?? '#'
+  : post.links[0]?.url ?? '/blog/archive'

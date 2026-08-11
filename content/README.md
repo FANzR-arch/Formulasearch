@@ -63,4 +63,6 @@ content/
 
 Blog 正文图片必须填写具体 alt。历史文章的通用 alt 可用 `npm run blog:images:prepare` 按最近章节生成初稿；之后 `npm run blog:images:check` 会阻止新的空 alt 或 `图像` 进入构建。
 
+Blog 内容状态约定：`contentStatus: full` 必须有非空 Markdown 正文；已发布的 `contentStatus: index-only` 必须在 `链接.txt` 中保留至少一个可靠外链。来源未确认或正文未准备好的记录使用 `draft: true`，不会出现在公开 Blog 列表；更新后运行 `npm run blog:check`，输出会列出 full、index-only 与 draft 数量。
+
 Blog 封面尺寸和响应式 WebP 变体由 `content/site/blog-media.json` 统一记录。新增或替换 `public/uploads/blog/` 下的封面后，运行 `npm run blog:media:prepare` 更新清单与 `public/uploads/blog-optimized/` 变体；`npm run blog:media:check` 已接入 `npm run build`，会阻止缺失或过期的媒体元数据进入发布流程。

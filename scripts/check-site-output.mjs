@@ -57,6 +57,7 @@ for (const path of htmlFiles) {
   if (!html.includes('<html lang=')) failures.push(`missing html lang: ${relativePath}`)
   if (!html.includes('<main id="main-content"')) failures.push(`missing main anchor: ${relativePath}`)
   if (/<a\b[^>]*target="_blank"(?![^>]*rel="[^"]*noopener)/.test(html)) failures.push(`unsafe external link: ${relativePath}`)
+  if (/<a\b[^>]*href="#"/.test(html)) failures.push(`placeholder hash link: ${relativePath}`)
   if (/<img\b(?![^>]*\balt(?:\s|=))[^>]*>/.test(html)) failures.push(`image without alt: ${relativePath}`)
   if (html.includes('alt="Article image"') || html.includes('alt="Article illustration"')) failures.push(`generic article image alt: ${relativePath}`)
   if (html.includes('querySelector<') || html.includes('querySelectorAll<')) failures.push(`untranspiled TypeScript generic in inline script: ${relativePath}`)

@@ -27,6 +27,10 @@ const blog = defineCollection({
       label: z.enum(['微信', 'X', '原文']),
       url: z.url(),
     })).default([]),
+  }).superRefine((data, context) => {
+    if (data.contentStatus === 'index-only' && data.externalLinks.length === 0 && !data.draft) {
+      context.addIssue({ code: 'custom', path: ['externalLinks'], message: 'Index-only articles require an external link.' })
+    }
   }),
 })
 

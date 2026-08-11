@@ -96,6 +96,12 @@ test('article exposes related reading links', async ({ page }) => {
   await expect(page.locator('.article-related__item a').first()).toHaveAttribute('href', /\/blog\//)
 })
 
+test('blog archive hides draft records and placeholder links', async ({ page }) => {
+  await page.goto('/blog/archive')
+  await expect(page.locator('a[href="#"]')).toHaveCount(0)
+  await expect(page.locator('a[href*="personal-thinking-2026-02-14"]')).toHaveCount(0)
+})
+
 test('RSS exposes local article entries', async ({ request }) => {
   const response = await request.get('/rss.xml')
   expect(response.ok()).toBeTruthy()
