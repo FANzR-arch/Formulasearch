@@ -2,7 +2,7 @@ import { getCollection, type CollectionEntry } from 'astro:content'
 import { getBlogCategory, type BlogCategory } from '../data/blog-categories'
 
 export interface BlogLink {
-  label: '微信' | 'X' | '原文'
+  label: 'wechat' | 'x' | 'original'
   url: string
 }
 

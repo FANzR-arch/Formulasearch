@@ -21,9 +21,9 @@ const readText = (directory, filename, { allowEmpty = false } = {}) => {
 }
 
 const labelForUrl = (url) => {
-  if (url.includes('mp.weixin.qq.com')) return '微信'
-  if (url.includes('x.com/')) return 'X'
-  return '原文'
+  if (url.includes('mp.weixin.qq.com')) return 'wechat'
+  if (url.includes('x.com/')) return 'x'
+  return 'original'
 }
 
 const yamlString = (value) => JSON.stringify(value)

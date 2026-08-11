@@ -28,7 +28,7 @@ public/uploads/blog/
 - `标题.txt`：文章公开标题，必填。
 - `摘要.txt`：用于 Blog 列表的短摘要，必填。
 - `分类.txt`：填写 `categories.json` 中的分类 `id`，必填。
-- `链接.txt`：一行一个公开链接；支持微信、X 和普通原文链接。已发布的 `index-only` 文章至少保留一行；尚未确认来源的草稿可以为空。
+- `链接.txt`：一行一个公开链接；脚本会按 URL 归类为稳定的 `wechat`、`x` 或 `original` 平台 ID，页面显示文字由 `content/site/ui-copy.json` 统一提供。已发布的 `index-only` 文章至少保留一行；尚未确认来源的草稿可以为空。
 
 这四个 txt 文件是列表索引的编辑源。`index.md` 是网站内容源：它由迁移脚本创建，之后可以在 frontmatter 中补充 `contentStatus: full` 和正文。不要直接把 `index.md` 当成四个 txt 的替代品，也不要在未迁入正文时手动标记为 `full`。
 

@@ -11,7 +11,7 @@ contentStatus: index-only
 featured: false
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/WCddiuRFsC4FATlfoRAe8A"
 ---
 

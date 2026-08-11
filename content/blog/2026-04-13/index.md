@@ -11,7 +11,7 @@ contentStatus: full
 featured: false
 draft: false
 externalLinks:
-  - label: "X"
+  - label: "x"
     url: "https://x.com/Formulasearch/status/2042598629907616036"
 ---
 

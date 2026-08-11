@@ -271,9 +271,9 @@ contentStatus: index-only
 featured: true
 draft: false
 externalLinks:
-  - label: 微信
+  - label: wechat
     url: https://mp.weixin.qq.com/...
-  - label: X
+  - label: x
     url: https://x.com/...
 ---
 
@@ -339,7 +339,7 @@ const blog = defineCollection({
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
     externalLinks: z.array(z.object({
-      label: z.enum(['微信', 'X', '原文']),
+      label: z.enum(['wechat', 'x', 'original']),
       url: z.url(),
     })).default([]),
   }),

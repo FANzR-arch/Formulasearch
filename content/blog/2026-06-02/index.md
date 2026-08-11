@@ -11,9 +11,9 @@ contentStatus: full
 featured: false
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/EP2nGvzaJAP7wtQir2osug"
-  - label: "X"
+  - label: "x"
     url: "https://x.com/Formulasearch/status/2067784159532024280"
 ---
 

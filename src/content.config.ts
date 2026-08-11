@@ -5,7 +5,7 @@ import { httpUrlSchema, localAssetPathSchema } from './lib/validation'
 
 const tagsSchema = z.array(z.string().trim().min(1)).refine((tags) => new Set(tags).size === tags.length, 'Tags must be unique.')
 const externalLinksSchema = z.array(z.object({
-  label: z.enum(['微信', 'X', '原文']),
+  label: z.enum(['wechat', 'x', 'original']),
   url: httpUrlSchema,
 }).strict()).superRefine((links, context) => {
   const seen = new Set()
