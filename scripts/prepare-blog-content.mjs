@@ -132,7 +132,12 @@ for (const post of posts) {
   }
   summaries.set(post.summary, post.title)
 
+  const postLinkUrls = new Set()
   for (const link of post.externalLinks) {
+    if (postLinkUrls.has(link.url)) {
+      throw new Error(`同一篇文章重复使用外链：${post.title}\n${link.url}`)
+    }
+    postLinkUrls.add(link.url)
     const previousTitle = links.get(link.url)
     if (previousTitle && previousTitle !== post.title) {
       throw new Error(`不同文章共用同一外链：${previousTitle} / ${post.title}\n${link.url}`)
