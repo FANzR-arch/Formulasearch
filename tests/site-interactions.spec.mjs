@@ -114,6 +114,7 @@ test('navigation disclosure labels reflect open state and locale', async ({ page
   await page.goto('/projects')
 
   const disclosure = page.locator('.nav-disclosure').first()
+  await expect(disclosure).toHaveAttribute('aria-haspopup', 'true')
   await disclosure.evaluate((element) => element.dispatchEvent(new MouseEvent('click', { bubbles: true })))
   await expect(disclosure).toHaveAttribute('aria-label', /关闭博客分类/)
 

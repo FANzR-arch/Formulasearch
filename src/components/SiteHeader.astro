@@ -42,7 +42,7 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
       <div class="nav-menu">
         <div class="nav-menu__trigger">
           <a class:list={['nav-link', { 'is-active': active === section.id }]} href={section.href} aria-current={active === section.id ? 'page' : undefined}><LocalizedText {...section.label} /></a>
-          <button class="nav-disclosure" type="button" aria-expanded="false" aria-controls={`nav-panel-${section.id}`} aria-label={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).zh} data-nav-open-zh={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).zh} data-nav-open-en={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).en} data-nav-close-zh={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).zh} data-nav-close-en={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).en}>
+          <button class="nav-disclosure" type="button" aria-haspopup="true" aria-expanded="false" aria-controls={`nav-panel-${section.id}`} aria-label={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).zh} data-nav-open-zh={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).zh} data-nav-open-en={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).en} data-nav-close-zh={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).zh} data-nav-close-en={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).en}>
             <ChevronDown aria-hidden="true" />
           </button>
         </div>
