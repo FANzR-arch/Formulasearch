@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "node scripts/build.mjs",
     "preview": "astro preview",
-    "check": "astro check",
+    "check": "node scripts/check.mjs",
     "blog:migrate": "node scripts/prepare-blog-content.mjs --write",
     "blog:media:prepare": "node scripts/prepare-blog-media.mjs --write",
     "blog:media:check": "node scripts/prepare-blog-media.mjs --check",
