@@ -7,6 +7,7 @@
 - `architecture.json` 是 `/architecture` 的页面文案、筛选器和研究图像清单；图片标识对应 `src/data/architecture.ts` 中的构建资源映射。
 - `navigation.json` 是全站一级导航和下拉菜单内容；链接应使用站内绝对路径，构建时会校验四组主导航和双语字段。
 - `blog-series.json` 是 Blog 主题页的分组和分类映射；新增主题时填写唯一的 `id`，并把对应分类 ID 放入 `categoryIds`。
+- `blog-media.json` 是 Blog 封面的尺寸清单；它由 `npm run blog:media:prepare` 从 `public/uploads/blog/` 生成，不要手工填写宽高。
 - 两个文件的 `intro`、`about`、`interest` 数组必须逐项对应；构建会检查数量。
 - `email` 必须是有效邮箱，`social.url` 必须是完整 URL，必填文本不能是空字符串。
 - `heroImage` 留空时不显示首页图片；填写时使用 `public/` 下的公开路径，例如 `/uploads/home/portrait.jpg`。

@@ -58,6 +58,10 @@ for (const path of htmlFiles) {
   if (/<img\b(?![^>]*\balt(?:\s|=))[^>]*>/.test(html)) failures.push(`image without alt: ${relativePath}`)
   if (html.includes('alt="Article image"') || html.includes('alt="Article illustration"')) failures.push(`generic article image alt: ${relativePath}`)
   if (html.includes('querySelector<') || html.includes('querySelectorAll<')) failures.push(`untranspiled TypeScript generic in inline script: ${relativePath}`)
+  for (const match of html.matchAll(/<img\b[^>]*\bsrc="\/uploads\/blog\/[^>]*>/g)) {
+    const imageTag = match[0]
+    if (!/\bwidth="\d+"/.test(imageTag) || !/\bheight="\d+"/.test(imageTag)) failures.push(`blog cover is missing intrinsic dimensions: ${relativePath}`)
+  }
 
   for (const [, href] of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
     if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) continue

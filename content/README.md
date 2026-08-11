@@ -60,3 +60,5 @@ content/
 照片归档清单可直接编辑 [`site/photo-archive.json`](site/photo-archive.json)；如果需要从原始 JPG/PNG 重新生成图片和清单，可通过 `PHOTO_ARCHIVE_SOURCE` 指向原始目录，再运行 `npm run photos:prepare`。脚本会生成 WebP 和 JSON manifest，并保留已有的图片文案与标签，不会把本机绝对路径写进页面代码。
 
 Blog 正文图片必须填写具体 alt。历史文章的通用 alt 可用 `npm run blog:images:prepare` 按最近章节生成初稿；之后 `npm run blog:images:check` 会阻止新的空 alt 或 `图像` 进入构建。
+
+Blog 封面尺寸由 `content/site/blog-media.json` 统一记录。新增或替换 `public/uploads/blog/` 下的封面后，运行 `npm run blog:media:prepare` 更新清单；`npm run blog:media:check` 已接入 `npm run build`，会阻止缺失或过期的尺寸元数据进入发布流程。

@@ -4,6 +4,7 @@ import { ArrowUpRight } from '@lucide/astro'
 import LocalizedText from './LocalizedText.astro'
 import ExternalLinkLabel from './ExternalLinkLabel.astro'
 import { formatBlogDate, getPrimaryBlogLink, isLocalBlogPost } from '../lib/blog-content'
+import { getBlogMedia } from '../data/blog-media'
 
 interface Props {
   compact?: boolean
@@ -13,12 +14,13 @@ interface Props {
 
 const { compact = false, post, showCategory = true } = Astro.props
 const isLocal = isLocalBlogPost(post)
+const media = post.cover ? getBlogMedia(post.cover) : undefined
 ---
 
 <article class:list={['post-row', { 'post-row--compact': compact }]}>
   {!compact && post.cover && (
     <a class="post-row__cover" href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'} tabindex="-1" aria-hidden="true">
-      <img src={post.cover} alt="" loading="lazy" decoding="async" />
+      <img src={post.cover} alt="" loading="lazy" decoding="async" width={media?.width} height={media?.height} sizes="(max-width: 820px) 100vw, 310px" />
     </a>
   )}
   <time datetime={post.date}>{formatBlogDate(post.date)}</time>
