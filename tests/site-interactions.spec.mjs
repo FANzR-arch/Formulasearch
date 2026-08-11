@@ -28,6 +28,12 @@ test('locale and theme controls update document metadata', async ({ page }) => {
   await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-pressed', 'true')
 })
 
+test('locale updates the dynamic background control label', async ({ page }) => {
+  await page.goto('/')
+  await page.locator('#language-toggle').click()
+  await expect(page.locator('#background-cycle')).toHaveAttribute('aria-label', /Current background/)
+})
+
 test('photo archive reveals more records without navigation', async ({ page }) => {
   await page.goto('/photos')
 
