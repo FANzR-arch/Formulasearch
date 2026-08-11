@@ -108,17 +108,6 @@ try {
 } catch {
   failures.push('missing llms.txt')
 }
-if (llms) {
-  if (!llms.includes('# Formulasearch')) failures.push('llms.txt is missing the site heading')
-  const llmsRoutes = [...llms.matchAll(/^- (\/\S*)\s+—/gm)].map((match) => match[1])
-  for (const route of staticRoutes) {
-    if (!llmsRoutes.includes(route)) failures.push(`llms.txt missing route: ${route}`)
-  }
-  for (const route of llmsRoutes) {
-    if (!staticRoutes.includes(route)) failures.push(`llms.txt contains stale route: ${route}`)
-  }
-}
-
 const rss = await readUtf8('rss.xml')
 if (!rss.includes('<rss version="2.0">') || !rss.includes('<lastBuildDate>') || !/<item>[\s\S]*<pubDate>/.test(rss)) failures.push('RSS output is missing channel date or article publication dates')
 
@@ -150,6 +139,18 @@ for (const directory of blogDirectories) {
   }
 }
 const fullArticleRoutes = new Set(blogRecords.filter(({ contentStatus, draft }) => contentStatus === 'full' && !draft).map(({ slug }) => `/blog/${slug}`))
+
+if (llms) {
+  if (!llms.includes(`# ${siteConfig.name}`)) failures.push('llms.txt is missing the site heading')
+  const llmsRoutes = [...llms.matchAll(/^- (\/\S*)\s+—/gm)].map((match) => match[1])
+  const expectedLlmsRoutes = new Set([...staticRoutes, ...fullArticleRoutes])
+  for (const route of expectedLlmsRoutes) {
+    if (!llmsRoutes.includes(route)) failures.push(`llms.txt missing route: ${route}`)
+  }
+  for (const route of llmsRoutes) {
+    if (!expectedLlmsRoutes.has(route)) failures.push(`llms.txt contains stale route: ${route}`)
+  }
+}
 
 for (const path of htmlFiles) {
   const html = await readFile(path, 'utf8')

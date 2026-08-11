@@ -267,6 +267,17 @@ test('RSS exposes local article entries', async ({ request }) => {
   expect(body).not.toContain('<category>ai-knowledge</category>')
 })
 
+test('llms exposes published pages and articles', async ({ request }) => {
+  const response = await request.get('/llms.txt')
+  expect(response.ok()).toBeTruthy()
+  const body = await response.text()
+  expect(body).toContain('# Phil / Formula')
+  expect(body).toContain('/projects')
+  expect(body).toContain('/blog/ai-practice-2026-02-22')
+  expect(body).not.toContain('/blog/personal-thinking-2026-02-14')
+  expect(body).not.toContain('/blog/ai-knowledge-2025-12-09')
+})
+
 test('static preview server rejects paths outside dist', async ({ request }) => {
   const response = await request.get('/%2e%2e/%2e%2e/package.json')
   expect(response.status()).toBe(404)
