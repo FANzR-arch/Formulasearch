@@ -1,5 +1,6 @@
 import { z } from 'astro/zod'
 import uiCopyContent from '../../content/site/ui-copy.json'
+import { validateLocalizedCopyTemplates } from '../lib/i18n'
 
 const localizedCopySchema = z.object({
   zh: z.string().min(1),
@@ -78,4 +79,5 @@ if (!result.success) {
   throw new Error(`UI copy content validation failed: ${issues}`)
 }
 
+validateLocalizedCopyTemplates(result.data)
 export const uiCopy = result.data
