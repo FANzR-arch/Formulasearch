@@ -3,6 +3,7 @@ document.querySelectorAll('.article-copy').forEach((button) => {
   button.addEventListener('click', async () => {
     const url = button.getAttribute('data-copy-url') || window.location.href
     try {
+      if (!navigator.clipboard?.writeText) throw new Error('clipboard unavailable')
       await navigator.clipboard.writeText(url)
       if (fallbackInput instanceof HTMLInputElement) fallbackInput.hidden = true
       button.dataset.copyState = 'copied'
@@ -16,9 +17,6 @@ document.querySelectorAll('.article-copy').forEach((button) => {
         fallbackInput.focus()
         fallbackInput.select()
       }
-      window.setTimeout(() => {
-        if (button.dataset.copyState === 'failed') delete button.dataset.copyState
-      }, 4200)
     }
   })
 })
