@@ -8,5 +8,9 @@
   },
   "githubUrl": "https://github.com/FANzR-arch",
   "name": "Phil / Formula",
-  "siteUrl": "https://formulasearch.com"
+  "siteUrl": "https://formulasearch.com",
+  "themeColors": {
+    "light": "#f5f1e8",
+    "dark": "#292621"
+  }
 }

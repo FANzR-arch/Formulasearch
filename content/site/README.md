@@ -11,6 +11,7 @@
 - `ui-copy.json` 是共享 UI 文案的双语唯一来源，包含 Blog 工具栏、档案控件、平台标签、导航/主题控件和常用返回操作；修改后运行 `npm run build` 校验字段。
 - `ui-copy.json` 中带 `{label}`、`{name}`、`{minutes}` 或 `{title}` 的文案是占位模板，由 `src/lib/i18n.ts` 插值；新增动态 UI 文案时优先复用这个机制，不要在 Astro 模板里拼接双语句子。
 - `site.json` 是站点名、正式域名、作者身份、作者地址和 GitHub 地址的唯一来源；页面、JSON-LD、RSS、sitemap 和构建检查都会读取它。作者的别名、职业和知识领域也在这里维护。
+- `site.json` 的 `themeColors.light/dark` 是浏览器地址栏主题色的唯一来源，同时供 SSR 初始值和主题切换脚本使用；使用 6 位十六进制颜色。
 - `page-meta.json` 是首页、Blog、Blog 归档和 Blog 主题页的双语 SEO 标题/描述唯一来源；修改后运行 `npm run build` 校验字段。
 - `blog-series.json` 是 Blog 主题页的分组和分类映射；新增主题时填写唯一的 `id`，并把对应分类 ID 放入 `categoryIds`。
 - `blog-media.json` 是 Blog 封面的尺寸和响应式 WebP 变体清单；它由 `npm run blog:media:prepare` 从 `public/uploads/blog/` 生成，不要手工填写宽高或变体路径。

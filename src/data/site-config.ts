@@ -13,6 +13,10 @@ const siteConfigSchema = z.object({
   githubUrl: httpUrlSchema,
   name: z.string().min(1),
   siteUrl: httpUrlSchema,
+  themeColors: z.object({
+    light: z.string().regex(/^#[0-9a-f]{6}$/i),
+    dark: z.string().regex(/^#[0-9a-f]{6}$/i),
+  }),
 })
 
 const result = siteConfigSchema.safeParse(siteContent)

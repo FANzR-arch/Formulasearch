@@ -35,12 +35,13 @@ const localizedDescriptionEn = descriptionEn ?? description
 
 <!doctype html>
 <html lang="zh-Hans" data-locale="zh" data-theme="light" data-meta-title-zh={title} data-meta-title-en={localizedTitleEn} data-meta-description-zh={description} data-meta-description-en={localizedDescriptionEn}
+  data-theme-color-light={siteConfig.themeColors.light} data-theme-color-dark={siteConfig.themeColors.dark}
   data-theme-to-dark-zh={uiCopy.navigation.themeToDark.zh} data-theme-to-dark-en={uiCopy.navigation.themeToDark.en}
   data-theme-to-light-zh={uiCopy.navigation.themeToLight.zh} data-theme-to-light-en={uiCopy.navigation.themeToLight.en}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#f5f1e8" />
+    <meta name="theme-color" content={siteConfig.themeColors.light} />
     <meta name="description" content={description} />
     <link rel="icon" href="/brand/logo.svg" type="image/svg+xml" />
     <meta id="og-locale" property="og:locale" content="zh_CN" />
@@ -105,7 +106,8 @@ const localizedDescriptionEn = descriptionEn ?? description
           const themeColor = document.querySelector('meta[name="theme-color"]')
           themeToggle?.setAttribute('aria-pressed', String(nextTheme === 'dark'))
           themeToggle?.setAttribute('aria-label', getThemeLabel(nextTheme))
-          themeColor?.setAttribute('content', nextTheme === 'dark' ? '#292621' : '#f5f1e8')
+          const themeColorValue = root.dataset[`themeColor${nextTheme === 'dark' ? 'Dark' : 'Light'}`]
+          themeColor?.setAttribute('content', themeColorValue || '')
         }
 
         const getInitialTheme = () => {
