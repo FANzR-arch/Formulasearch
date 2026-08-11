@@ -155,6 +155,11 @@ for (const path of htmlFiles) {
   const html = await readFile(path, 'utf8')
   const relativePath = path.slice(distRoot.length + 1)
   const currentRoute = [...htmlByRoute.entries()].find(([, htmlPath]) => htmlPath === path)?.[0] || '/'
+  const idCounts = new Map()
+  for (const [, id] of html.matchAll(/\bid="([^"]+)"/g)) idCounts.set(id, (idCounts.get(id) || 0) + 1)
+  for (const [id, count] of idCounts) {
+    if (count > 1) failures.push(`duplicate id (\"${id}\") appears ${count} times: ${relativePath}`)
+  }
   if (!html.includes('<html lang=')) failures.push(`missing html lang: ${relativePath}`)
   const mainCount = (html.match(/<main\b/g) || []).length
   if (!html.includes('<main id="main-content"')) failures.push(`missing main anchor: ${relativePath}`)
@@ -189,6 +194,12 @@ for (const path of htmlFiles) {
     if (tagName.toLowerCase() === 'button') continue
     const labelledBy = getAttribute(attributes, 'aria-labelledby')
     if (labelledBy) checkAriaReferences(html, labelledBy, relativePath, `${tagName} aria-labelledby`)
+    const describedBy = getAttribute(attributes, 'aria-describedby')
+    if (describedBy) checkAriaReferences(html, describedBy, relativePath, `${tagName} aria-describedby`)
+    if (tagName.toLowerCase() === 'label') {
+      const targetId = getAttribute(attributes, 'for')
+      if (targetId) checkAriaReferences(html, targetId, relativePath, 'label for')
+    }
   }
   for (const match of html.matchAll(/<(?:div|span|p)\b[^>]*aria-label="[^"]+"[^>]*>/g)) {
     if (!/\brole="[^"]+"/.test(match[0])) failures.push(`generic element has aria-label without a role: ${relativePath}`)
