@@ -6,7 +6,7 @@
 
 1. 改首页中文：打开 [`site/home.json`](site/home.json)，按字段更新文字。
 2. 改首页英文：同步更新 [`site/home.en.json`](site/home.en.json)，保持 `intro`、`about`、`interest` 的数组长度一致。
-3. 放首页图片：把图片拖到 [`../public/uploads/home/`](../public/uploads/home/)；再把图片路径填进两个 JSON 的 `heroImage`。
+3. 放首页图片：把图片拖到 [`../public/uploads/home/`](../public/uploads/home/)；再把图片路径和对应双语 `heroImageAlt` 填进两个 JSON。填写 `heroImage` 时必须同时填写具体 alt。
 3. 新增 Blog：复制 [`blog/2026-07-02`](blog/2026-07-02) 文件夹，改成新的发布日期，再修改里面四个文本文件；封面图片放进 `../public/uploads/blog/同一个日期/`。
 
 网站在本地预览运行时，保存文本或放入图片后会自动刷新。正式部署接通后，同样的文件变更会触发网站重新构建。

@@ -15,6 +15,7 @@ const homeContentSchema = z.object({
     url: z.url(),
   }),
   heroImage: z.string(),
+  heroImageAlt: z.string().default(''),
   intro: z.array(z.string().min(1)).min(1),
   about: z.array(z.string().min(1)).min(1),
   interest: z.array(z.string().min(1)).min(1),
@@ -27,6 +28,10 @@ const homeContentSchema = z.object({
   work: z.array(workItemSchema).default([]),
   writing: z.string().default(''),
   resources: z.string().default(''),
+}).superRefine((data, context) => {
+  if (data.heroImage && !data.heroImageAlt) {
+    context.addIssue({ code: 'custom', path: ['heroImageAlt'], message: 'heroImageAlt is required when heroImage is set.' })
+  }
 })
 
 export type HomeContent = z.infer<typeof homeContentSchema>
