@@ -208,6 +208,17 @@ test('article exposes related reading links', async ({ page }) => {
   await expect(page.locator('.article-related__item a').first()).toHaveAttribute('href', /\/blog\//)
 })
 
+test('featured stage keeps cover alt text when switching articles', async ({ page }) => {
+  await page.goto('/blog')
+  const slides = page.locator('[data-cover-slide]')
+  await expect(slides).toHaveCount(4)
+  await expect(slides.nth(0).locator('img')).toHaveAttribute('alt', /.+/)
+  await expect(slides.nth(1).locator('img')).toHaveAttribute('alt', /.+/)
+  await page.locator('[data-stage-trigger="1"]').focus()
+  await expect(slides.nth(1)).toHaveClass(/is-active/)
+  await expect(slides.nth(1).locator('img')).toHaveAttribute('alt', /.+/)
+})
+
 test('blog archive hides draft records and placeholder links', async ({ page }) => {
   await page.goto('/blog/archive')
   await expect(page.locator('a[href="#"]')).toHaveCount(0)
