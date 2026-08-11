@@ -7,6 +7,7 @@
 - `catalog.json` 是 Projects、Skills、Lab 的目录内容；每个区块必须有中英文标题、说明和至少一条内容。
 - `architecture.json` 是 `/architecture` 的页面文案、筛选器和研究图像清单；图片标识对应 `src/data/architecture.ts` 中的构建资源映射。
 - `navigation.json` 是全站一级导航和下拉菜单内容；链接应使用站内绝对路径，构建时会校验四组主导航和双语字段。
+- `navigation.json` 的下拉 hash 必须对应 Blog 主题或 Projects、Skills、Lab 的真实 section ID；修改这些 manifest 后运行 `npm run build` 检查导航是否仍然同步。
 - 所有站点 manifest 的 `{ zh, en }` 文案字段共用 `src/lib/i18n.ts` 的 `localizedCopySchema`；修改双语必填规则时只需要维护这一处。
 - `blog-navigation.json` 是 Blog 最新、主题、归档子导航的双语文案和路径；页面组件只负责渲染，构建时会校验三项 ID 与路由一致。
 - `ui-copy.json` 是共享 UI 文案的双语唯一来源，包含 Blog 工具栏、档案控件、平台标签、导航/主题控件和常用返回操作；修改后运行 `npm run build` 校验字段。
