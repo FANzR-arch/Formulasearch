@@ -208,6 +208,8 @@ const articlePath = blogFiles.find((path) => !['archive', 'series'].includes(bas
 if (!articlePath) failures.push('no article output found')
 else {
   const article = await readFile(articlePath, 'utf8')
+  if (!article.includes('type="image/avif"')) failures.push('article pages are missing AVIF cover sources')
+  if (!article.includes('type="image/webp"')) failures.push('article pages are missing WebP cover sources')
   if (!article.includes('loading="lazy"')) failures.push('article images are missing lazy loading')
   if (!article.includes('referrerpolicy="no-referrer"')) failures.push('article images are missing referrer policy')
   if (!article.includes('property="article:modified_time"')) failures.push('article pages are missing modified time metadata')
