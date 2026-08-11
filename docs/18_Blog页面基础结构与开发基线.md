@@ -1,7 +1,7 @@
 # Blog 页面基础结构与开发基线
 
 > 更新：2026-08-11
-> 状态：Phase 0、Phase 1 与详情页骨架已完成；16 篇正文已迁移，另有 10 篇保留为外链索引；封面尺寸清单与 80 个响应式 WebP 变体已接入构建门禁，详情页自动相关内容也已完成。AVIF/更深层图片管线仍待确认发布策略后评估。
+> 状态：Phase 0、Phase 1 与详情页骨架已完成；16 篇正文已迁移，另有 10 篇保留为外链索引；封面尺寸清单与 80 个响应式 WebP + 80 个 AVIF 变体已接入构建门禁，详情页自动相关内容也已完成。当前仍可评估是否迁移到 Astro 图片管线，但不需要再手工维护变体路径。
 > 目标：复用现有 26 篇文章、封面、分类和 Astro 页面，不从零重建 Blog。
 > 说明：本文同时保留迁移阶段的历史方案；文中的“计划新增”只代表当时的设计，不是待办清单。当前内容 schema、维护脚本、路由和发布门禁以 [`docs/19_网站工程与交互审计.md`](19_网站工程与交互审计.md)、[`content/blog/README.md`](../content/blog/README.md) 和 `src/content.config.ts` 为准。
 
@@ -10,7 +10,7 @@
 Blog 不需要推翻。当前代码已经完成栏目首页、主题页、归档页、文章详情页、导航、主题切换和内容读取；后续应当在这套骨架上继续补齐三件事：
 
 1. 为剩余 10 篇外链索引补齐可迁移正文；
-2. 评估 AVIF 或 Astro 图片管线，并继续完善响应式图片治理；
+2. 在现有 WebP/AVIF 管线之上继续完善响应式图片治理；Astro 图片管线属于后续可选迁移；
 3. 在现有 Astro 内容集合、SEO 与 sitemap 基础上继续维护文章关联网络；详情页已按 series/category/tags 评分，历史文章缺少 tags 时使用分类兜底。
 
 推荐的视觉组合是：
@@ -348,7 +348,7 @@ const blog = defineCollection({
 export const collections = { blog }
 ```
 
-说明：首阶段继续使用 `public/uploads/blog` 的 URL，减少迁移变量。文章路由稳定后，再把封面放到可被 Astro 处理的本地资源目录，使用 `image()`、`<Image />` 或 `<Picture />` 生成 WebP/AVIF、`srcset`、宽高和响应式尺寸。Astro 官方文档明确指出 `public/` 文件会原样复制，不会自动优化。
+说明：当前仍使用 `public/uploads/blog` 的稳定 URL，但已由独立 Sharp 管线生成并校验 WebP/AVIF、`srcset`、宽高和响应式尺寸；Astro 官方图片管线仍是可选的后续迁移，不应在没有发布策略评估时重复引入第二套生成逻辑。
 
 ---
 
@@ -447,14 +447,14 @@ src/lib/blog.ts
 
 - 26 张封面约 13.18 MB；
 - 8 张大于 700 KB，其中最大一张约 3.2 MB；
-- 原始图片仍来自 `public/`，但构建前会用 Sharp 生成响应式 WebP；
+- 原始图片仍来自 `public/`，但构建前会用 Sharp 生成响应式 WebP/AVIF；
 - 当前 `<img>` 已通过 `content/site/blog-media.json` 输出固有宽高，布局抖动风险已受构建门禁控制；
 - 当前主推和列表容器会裁切超宽封面。
 
 分两步处理：
 
 1. 页面结构阶段：保留原文件路径，补固定比例、`width/height` 或 `aspect-ratio`，主图设置正确的加载优先级（已完成）；
-2. 内容集合稳定后：当前已用独立 Sharp 清单生成多尺寸 WebP，并由 `BlogCover.astro` 统一输出；确认缓存、存储和发布策略后，再评估增加 AVIF，不复用旧硬编码任务表。
+2. 内容集合稳定后：当前已用独立 Sharp 清单生成多尺寸 WebP/AVIF，并由 `BlogCover.astro` 统一输出；确认缓存、存储和发布策略后，再评估是否迁移到 Astro 图片管线，不复用旧硬编码任务表。
 
 性能验收：
 
@@ -465,7 +465,7 @@ src/lib/blog.ts
 - 最大内容宽度下不放大原图；
 - 无横向页面溢出。
 
-本阶段新增 `scripts/prepare-blog-media.mjs`：它从实际封面读取宽高和文件大小，生成 `content/site/blog-media.json` 与 80 个响应式 WebP 变体；`blog:media:check` 已接入构建，文章封面、首页精选舞台和列表封面均输出 `width`、`height`、`sizes` 与 WebP `srcset`。
+本阶段新增 `scripts/prepare-blog-media.mjs`：它从实际封面读取宽高和文件大小，生成 `content/site/blog-media.json` 与 80 个响应式 WebP + 80 个 AVIF 变体；`blog:media:check` 已接入构建，文章封面、首页精选舞台和列表封面均通过 `BlogCover.astro` 输出 `width`、`height`、`sizes` 与 AVIF → WebP → 原图回退。
 
 ---
 

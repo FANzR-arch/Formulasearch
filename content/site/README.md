@@ -18,7 +18,7 @@
 - `site.json` 的 `themeColors.light/dark` 是浏览器地址栏主题色的唯一来源，同时供 SSR 初始值和主题切换脚本使用；使用 6 位十六进制颜色。
 - `page-meta.json` 是首页、Blog、Blog 归档和 Blog 主题页的双语 SEO 标题/描述唯一来源；修改后运行 `npm run build` 校验字段。
 - `blog-series.json` 是 Blog 主题页的分组和分类映射；新增主题时填写唯一的 `id`，并把对应分类 ID 放入 `categoryIds`。
-- `blog-media.json` 是 Blog 封面的尺寸和响应式 WebP 变体清单；它由 `npm run blog:media:prepare` 从 `public/uploads/blog/` 生成，不要手工填写宽高或变体路径。
+- `blog-media.json` 是 Blog 封面的尺寸和响应式 WebP/AVIF 变体清单；它由 `npm run blog:media:prepare` 从 `public/uploads/blog/` 生成，不要手工填写宽高或变体路径。脚本会同时维护 `public/uploads/blog-optimized/` 下的生成文件，并在检查模式拒绝孤儿变体。
 - 两个文件的 `intro`、`about`、`interest` 数组必须逐项对应；构建会检查数量。
 - `email` 必须是有效邮箱，`social.url` 必须是完整 URL，必填文本不能是空字符串。
 - `heroImage` 留空时不显示首页图片；填写时使用 `public/` 下的公开路径，例如 `/uploads/home/portrait.jpg`，并在中英文文件中填写对应的 `heroImageAlt`。
