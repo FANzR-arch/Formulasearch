@@ -7,20 +7,20 @@ import '../styles/blog.css'
 
 interface Props {
   description: string
-  descriptionEn?: string
+  descriptionEn: string
   image?: string
   modifiedTime?: string
   ogType?: 'website' | 'article'
   publishedTime?: string
   structuredData?: Record<string, unknown>
   title: string
-  titleEn?: string
+  titleEn: string
 }
 
 const { description, descriptionEn, image, modifiedTime, ogType, publishedTime, structuredData, title, titleEn } = Astro.props
 ---
 
-<BaseLayout title={`${title} · ${siteConfig.name}`} titleEn={`${titleEn ?? title} · ${siteConfig.name}`} description={description} descriptionEn={descriptionEn} image={image} modifiedTime={modifiedTime} ogType={ogType} publishedTime={publishedTime} structuredData={structuredData}>
+<BaseLayout title={`${title} · ${siteConfig.name}`} titleEn={`${titleEn} · ${siteConfig.name}`} description={description} descriptionEn={descriptionEn} image={image} modifiedTime={modifiedTime} ogType={ogType} publishedTime={publishedTime} structuredData={structuredData}>
   <div class="site-page is-visible blog-site">
     <SiteHeader active="blog" />
     <main id="main-content" class="blog-main"><slot /></main>

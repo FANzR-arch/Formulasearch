@@ -5,14 +5,14 @@ import { uiCopy } from '../data/ui-copy'
 
 interface Props {
   description: string
-  descriptionEn?: string
+  descriptionEn: string
   image?: string
   modifiedTime?: string
   ogType?: 'website' | 'article'
   publishedTime?: string
   structuredData?: Record<string, unknown>
   title: string
-  titleEn?: string
+  titleEn: string
 }
 
 const {
@@ -29,8 +29,8 @@ const {
 
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const socialImage = image ? new URL(image, Astro.site) : undefined
-const localizedTitleEn = titleEn ?? title
-const localizedDescriptionEn = descriptionEn ?? description
+const localizedTitleEn = titleEn
+const localizedDescriptionEn = descriptionEn
 ---
 
 <!doctype html>
