@@ -1,10 +1,20 @@
 import { defineConfig } from 'astro/config'
 import { unified } from '@astrojs/markdown-remark'
 
-const addArticleImageAttributes = () => (tree) => {
+const addArticleImageAttributes = () => (tree, file) => {
+  const articleTitle = file?.data?.astro?.frontmatter?.title || ''
+  let currentHeading = ''
+  const textContent = (node) => node.children?.map((child) => child.value || textContent(child)).join('') || ''
   const visit = (node) => {
+    if (node.type === 'heading') currentHeading = textContent(node).trim()
     if (node.type === 'image') {
-      node.alt = node.alt && node.alt !== '图像' ? node.alt : 'Article image'
+      node.alt = node.alt && node.alt !== '图像'
+        ? node.alt
+        : currentHeading
+          ? `${currentHeading} illustration`
+          : articleTitle
+            ? `${articleTitle} illustration`
+            : 'Article illustration'
       node.data ??= {}
       node.data.hProperties = {
         ...node.data.hProperties,
