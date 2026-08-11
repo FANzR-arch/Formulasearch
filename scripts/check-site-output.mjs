@@ -88,6 +88,7 @@ else {
   if (!article.includes('loading="lazy"')) failures.push('article images are missing lazy loading')
   if (!article.includes('referrerpolicy="no-referrer"')) failures.push('article images are missing referrer policy')
   if (!article.includes('property="article:modified_time"')) failures.push('article pages are missing modified time metadata')
+  if (!article.includes('BreadcrumbList') || !article.includes('itemListElement')) failures.push('article pages are missing BreadcrumbList structured data')
 }
 
 const blogIndex = await readUtf8('blog/index.html')
