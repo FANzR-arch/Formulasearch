@@ -22,6 +22,8 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10).replaceAll('-
     <div class="article-related__list">
       {posts.map((post) => {
         const category = getBlogCategory(post.data.category)
+        const titleEn = post.data.titleEn ?? post.data.title
+        const descriptionEn = post.data.descriptionEn ?? post.data.description
         return (
           <article class="article-related__item">
             <p class="article-related__meta">
@@ -29,8 +31,8 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10).replaceAll('-
               <span aria-hidden="true">·</span>
               <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate)}</time>
             </p>
-            <h3><a href={`${siteRoutes.blog}/${post.data.slug}`}><LocalizedText zh={post.data.title} en={post.data.titleEn ?? post.data.title} /></a></h3>
-            <p class="article-related__description"><LocalizedText zh={post.data.description} en={post.data.descriptionEn ?? post.data.description} /></p>
+            <h3><a href={`${siteRoutes.blog}/${post.data.slug}`}><LocalizedText zh={post.data.title} en={titleEn} enLang={post.data.titleEn ? 'en' : 'zh-Hans'} /></a></h3>
+            <p class="article-related__description"><LocalizedText zh={post.data.description} en={descriptionEn} enLang={post.data.descriptionEn ? 'en' : 'zh-Hans'} /></p>
           </article>
         )
       })}

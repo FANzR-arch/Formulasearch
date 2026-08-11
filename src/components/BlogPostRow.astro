@@ -15,6 +15,8 @@ const { compact = false, post, showCategory = true } = Astro.props
 const isLocal = isLocalBlogPost(post)
 const title = { zh: post.title, en: post.titleEn ?? post.title }
 const summary = { zh: post.summary, en: post.summaryEn ?? post.summary }
+const titleEnLang = post.titleEn ? 'en' : 'zh-Hans'
+const summaryEnLang = post.summaryEn ? 'en' : 'zh-Hans'
 ---
 
 <article class:list={['post-row', { 'post-row--compact': compact }]}>
@@ -26,8 +28,8 @@ const summary = { zh: post.summary, en: post.summaryEn ?? post.summary }
   <time datetime={post.date}>{formatBlogDate(post.date)}</time>
   <div class="post-row__body">
     {showCategory && <p class="post-row__meta"><LocalizedText zh={post.category.title} en={post.category.titleEn} /></p>}
-    <h2><a href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}><LocalizedText {...title} /></a></h2>
-    {!compact && <p class="post-row__summary"><LocalizedText {...summary} /></p>}
+    <h2><a href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}><LocalizedText {...title} enLang={titleEnLang} /></a></h2>
+    {!compact && <p class="post-row__summary"><LocalizedText {...summary} enLang={summaryEnLang} /></p>}
     <BlogExternalLinks links={post.links} />
   </div>
 </article>
