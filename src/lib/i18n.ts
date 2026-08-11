@@ -10,8 +10,8 @@ export interface LocalizedCopy {
 }
 
 export const localizedCopySchema = z.object({
-  zh: z.string().min(1),
-  en: z.string().min(1),
+  zh: z.string().trim().min(1),
+  en: z.string().trim().min(1),
 }).strict()
 
 export const getLocalizedValue = (copy: LocalizedCopy, locale: Locale) => copy[locale]
