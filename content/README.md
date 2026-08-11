@@ -42,6 +42,8 @@ Blog 迁移目录的外链由 `npm run blog:migrate` 按 URL 写入稳定平台 
 
 日常 Blog 更新建议依次运行 `npm run blog:check`、`npm run blog:images:check`、`npm run blog:media:check`，最后运行 `npm run build`。
 
+需要了解双语内容覆盖率时运行 `npm run i18n:report`；它会统计站点 manifest 的双语文案数量、Blog 文章语言分布，以及 `titleEn` / `descriptionEn` / `coverAltEn` 覆盖率。`npm run i18n:check` 只在标记为 `contentLanguage: en` 的文章缺少必需英文 metadata 时失败，不会要求中文文章伪造英文翻译。
+
 ## 后续新增内容的位置
 
 ```text
