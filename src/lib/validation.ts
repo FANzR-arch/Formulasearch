@@ -7,3 +7,7 @@ export const httpUrlSchema = z.url().refine((value) => {
     return false
   }
 }, 'URL must use http or https.')
+
+export const localAssetPathSchema = z.string().min(1).refine((value) => value.startsWith('/') && !value.startsWith('//'), {
+  message: 'Local asset paths must use a single-slash absolute path.',
+})

@@ -1,14 +1,13 @@
 import { z } from 'astro/zod'
 import photoArchive from '../../content/site/photo-archive.json'
 import { localizedCopySchema } from '../lib/i18n'
+import { localAssetPathSchema } from '../lib/validation'
 
 const photoArchiveItemSchema = z.object({
   alt: z.string().min(1),
   caption: localizedCopySchema,
   height: z.number().int().positive(),
-  image: z.string().min(1).refine((value) => value.startsWith('/'), {
-    message: 'Photo paths must be public absolute paths.',
-  }),
+  image: localAssetPathSchema,
   index: z.string().regex(/^\d+$/),
   label: localizedCopySchema,
   layout: z.enum(['hero', 'portrait', 'landscape', 'square', 'wide']),
