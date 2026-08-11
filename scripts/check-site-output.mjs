@@ -53,14 +53,31 @@ if (!rss.includes('<rss version="2.0">') || !rss.includes('<lastBuildDate>') || 
 const blogRoot = join(projectRoot, '..', 'content', 'blog')
 const blogDirectories = (await readdir(blogRoot, { withFileTypes: true }))
   .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(entry.name))
+const blogRecords = []
 for (const directory of blogDirectories) {
   const markdown = await readFile(join(blogRoot, directory.name, 'index.md'), 'utf8')
-  if (!/^draft:\s*true\s*$/m.test(markdown)) continue
   const slug = markdown.match(/^slug:\s*["']?([^\r\n"']+)["']?\s*$/m)?.[1]?.trim()
-  if (!slug) continue
-  if (sitemap.includes(`/blog/${slug}`)) failures.push(`draft article in sitemap: ${slug}`)
-  if (rss.includes(`/blog/${slug}`)) failures.push(`draft article in RSS: ${slug}`)
+  const draft = /^draft:\s*true\s*$/m.test(markdown)
+  const contentStatus = markdown.match(/^contentStatus:\s*([\w-]+)\s*$/m)?.[1]
+  if (!slug) {
+    failures.push(`blog article is missing slug: ${directory.name}`)
+    continue
+  }
+  blogRecords.push({ contentStatus, draft, slug })
+  const articleUrl = `${siteConfig.siteUrl}/blog/${slug}`
+  const inSitemap = sitemap.includes(`<loc>${articleUrl}</loc>`)
+  const inRss = rss.includes(`<link>${articleUrl}</link>`) || rss.includes(`<guid isPermaLink="true">${articleUrl}</guid>`)
+  const isPublishedLocalArticle = contentStatus === 'full' && !draft
+  if (isPublishedLocalArticle) {
+    if (!inSitemap) failures.push(`full article missing from sitemap: ${slug}`)
+    if (!inRss) failures.push(`full article missing from RSS: ${slug}`)
+    if (!htmlByRoute.has(`/blog/${slug}`)) failures.push(`full article missing HTML route: ${slug}`)
+  } else {
+    if (inSitemap) failures.push(`draft or index-only article in sitemap: ${slug}`)
+    if (inRss) failures.push(`draft or index-only article in RSS: ${slug}`)
+  }
 }
+const fullArticleRoutes = new Set(blogRecords.filter(({ contentStatus, draft }) => contentStatus === 'full' && !draft).map(({ slug }) => `/blog/${slug}`))
 
 for (const path of htmlFiles) {
   const html = await readFile(path, 'utf8')
@@ -68,6 +85,15 @@ for (const path of htmlFiles) {
   const currentRoute = [...htmlByRoute.entries()].find(([, htmlPath]) => htmlPath === path)?.[0] || '/'
   if (!html.includes('<html lang=')) failures.push(`missing html lang: ${relativePath}`)
   if (!html.includes('<main id="main-content"')) failures.push(`missing main anchor: ${relativePath}`)
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1]
+  const expectedCanonical = new URL(currentRoute, siteConfig.siteUrl).toString()
+  if (!canonical) failures.push(`missing canonical: ${relativePath}`)
+  else if (canonical !== expectedCanonical) failures.push(`canonical mismatch: ${relativePath} -> ${canonical}`)
+  if (!/<title>[^<]+<\/title>/.test(html)) failures.push(`missing document title: ${relativePath}`)
+  if (!/<meta name="description" content="[^"]+"/.test(html)) failures.push(`missing meta description: ${relativePath}`)
+  const ogType = html.match(/<meta property="og:type" content="([^"]+)"/)?.[1]
+  if (!ogType) failures.push(`missing og:type: ${relativePath}`)
+  if (fullArticleRoutes.has(currentRoute) && ogType !== 'article') failures.push(`article has incorrect og:type: ${relativePath}`)
   if (/<a\b[^>]*target="_blank"(?![^>]*rel="[^"]*noopener)/.test(html)) failures.push(`unsafe external link: ${relativePath}`)
   if (/<a\b[^>]*href="#"/.test(html)) failures.push(`placeholder hash link: ${relativePath}`)
   if (/<img\b(?![^>]*\balt(?:\s|=))[^>]*>/.test(html)) failures.push(`image without alt: ${relativePath}`)
