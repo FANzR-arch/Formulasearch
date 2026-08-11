@@ -10,6 +10,18 @@ const siteOrigin = new URL(siteConfig.siteUrl).origin
 const failures = []
 const getAttribute = (attributes, name) => attributes.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1] || ''
 const stripTags = (value) => value.replace(/<[^>]+>/g, '').replace(/&(?:amp|lt|gt|quot|#39);/g, ' ').trim()
+const checkUrlScheme = (value, relativePath, context, allowContact = false) => {
+  const source = value.trim()
+  if (!source || source.startsWith('#')) return
+  if (source.startsWith('//')) {
+    failures.push(`protocol-relative ${context} is not allowed: ${relativePath} -> ${value}`)
+    return
+  }
+  const scheme = source.match(/^([a-z][a-z0-9+.-]*):/i)?.[1]?.toLowerCase()
+  if (!scheme) return
+  const allowed = allowContact ? new Set(['http', 'https', 'mailto', 'tel']) : new Set(['http', 'https'])
+  if (!allowed.has(scheme)) failures.push(`unsafe ${context} scheme: ${relativePath} -> ${value}`)
+}
 
 async function readUtf8(relativePath) {
   return readFile(join(distRoot, relativePath), 'utf8')
@@ -169,11 +181,13 @@ for (const path of htmlFiles) {
     if (!/\brole="[^"]+"/.test(match[0])) failures.push(`generic element has aria-label without a role: ${relativePath}`)
   }
   for (const [, source] of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)) {
+    checkUrlScheme(source, relativePath, 'image URL')
     await checkLocalAsset(source, relativePath)
   }
   for (const [, srcset] of html.matchAll(/\b(?:srcset|imagesrcset)="([^"]+)"/g)) {
     for (const candidate of srcset.split(',')) {
       const source = candidate.trim().split(/\s+/, 1)[0]
+      checkUrlScheme(source, relativePath, 'responsive image URL')
       await checkLocalAsset(source, relativePath)
     }
   }
@@ -186,7 +200,8 @@ for (const path of htmlFiles) {
   }
 
   for (const [, href] of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
-    if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) continue
+    checkUrlScheme(href, relativePath, 'link URL', true)
+    if (href.startsWith('mailto:') || href.startsWith('tel:')) continue
     let url
     try { url = new URL(href, `${siteConfig.siteUrl}${currentRoute}`) } catch { continue }
     if (url.origin !== siteOrigin) continue
@@ -221,6 +236,8 @@ else {
     const mediaTag = match[0]
     if (!/\bcontrols(?:\s|=|>)/.test(mediaTag)) failures.push('article media must expose native controls')
     if (!/\b(?:src|poster)="[^"]+"/.test(mediaTag) && !/<source\b[^>]*\bsrc="[^"]+"/.test(mediaTag)) failures.push('article media must provide a source or poster')
+    for (const [, source] of mediaTag.matchAll(/\b(?:src|poster)="([^"]+)"/g)) checkUrlScheme(source, 'article', 'media URL')
+    for (const [, source] of mediaTag.matchAll(/<source\b[^>]*\bsrc="([^"]+)"/g)) checkUrlScheme(source, 'article', 'media source URL')
   }
   if (proseImages.some((imageTag) => !/\bloading="lazy"/.test(imageTag))) failures.push('article body images must use lazy loading')
   if (proseImages.some((imageTag) => !/\bdecoding="async"/.test(imageTag))) failures.push('article body images must use async decoding')
