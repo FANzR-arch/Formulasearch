@@ -56,45 +56,45 @@ externalLinks:
 
 <strong>深圳</strong>
 
-![演示案例配图](https://pbs.twimg.com/media/HLHQtXeXQAATQlL?format=jpg&name=large)
+![深圳城市明信片拼贴，包含平安金融中心、深圳湾大桥、城市地图和多座地标建筑，右侧竖排写着“南海潮头，一城拔地逐梦来”](https://pbs.twimg.com/media/HLHQtXeXQAATQlL?format=jpg&name=large)
 
 <strong>广州</strong>
 
-![演示案例配图](https://pbs.twimg.com/media/HLHPdzxXAAA76-K?format=jpg&name=large)
+![广州城市明信片拼贴，组合广州塔、陈家祠、沙面建筑、河涌、城市地图和邮票](https://pbs.twimg.com/media/HLHPdzxXAAA76-K?format=jpg&name=large)
 
 <strong>北京</strong>
 
-![演示案例配图](https://pbs.twimg.com/media/HLHSCS7X0AEdB5d?format=jpg&name=large)
+![北京城市明信片拼贴，组合故宫红墙、长城、天坛、颐和园、城市地图和邮票](https://pbs.twimg.com/media/HLHSCS7X0AEdB5d?format=jpg&name=large)
 
 <strong>上海</strong>
 
-![演示案例配图](https://pbs.twimg.com/media/HLHSEq9XAAABfTb?format=jpg&name=large)
+![上海城市明信片拼贴，组合外滩钟楼、东方明珠、上海中心、豫园建筑、黄浦江和城市地图](https://pbs.twimg.com/media/HLHSEq9XAAABfTb?format=jpg&name=large)
 
 <strong>西安</strong>
 
-![演示案例配图](https://pbs.twimg.com/media/HLHSITBXAAAq9Mw?format=jpg&name=large)
+![西安城市明信片拼贴，组合兵马俑、大雁塔、古城墙与钟楼、城市地图和邮票](https://pbs.twimg.com/media/HLHSITBXAAAq9Mw?format=jpg&name=large)
 
 <strong>成都</strong>
 
-![演示案例配图](https://pbs.twimg.com/media/HLHSTzCXoAAw52l?format=jpg&name=large)
+![成都城市明信片拼贴，组合熊猫、宽窄巷子、武侯祠、茶馆桌椅、城市地图和邮票](https://pbs.twimg.com/media/HLHSTzCXoAAw52l?format=jpg&name=large)
 
 <strong>苏州</strong>
 
-![演示案例配图](https://pbs.twimg.com/media/HLHSW_-WMAA5hgb?format=jpg&name=large)
+![苏州城市明信片拼贴，组合园林亭台、虎丘塔、江南水乡桥巷、寒山寺、城市地图和邮票](https://pbs.twimg.com/media/HLHSW_-WMAA5hgb?format=jpg&name=large)
 
 ## 端午专属(今天就用得上)
 
 <strong>秭归(屈原故里)</strong>
 
-![端午专属(今天就用得上)配图](https://pbs.twimg.com/media/HLHSaupXEAARVKF?format=jpg&name=large)
+![屈原故里端午明信片拼贴，组合屈原祠、屈原雕像、粽子、长江三峡大坝和龙舟竞渡](https://pbs.twimg.com/media/HLHSaupXEAARVKF?format=jpg&name=large)
 
 <strong>汨罗(龙舟竞渡发源)</strong>
 
-![端午专属(今天就用得上)配图](https://pbs.twimg.com/media/HLHSdBVXsAAY7yS?format=jpg&name=large)
+![宜昌西陵峡端午明信片拼贴，组合屈原祠、江面龙舟、粽子、峡谷景色和城市地图](https://pbs.twimg.com/media/HLHSdBVXsAAY7yS?format=jpg&name=large)
 
 <strong>嘉兴(粽子之乡)</strong>
 
-![端午专属(今天就用得上)配图](https://pbs.twimg.com/media/HLHSlxtW8AAo_fM?format=jpg&name=large)
+![嘉兴水乡端午明信片拼贴，组合月河老街、水乡石桥、龙舟竞渡、粽子和艾草](https://pbs.twimg.com/media/HLHSlxtW8AAo_fM?format=jpg&name=large)
 
 ## 模式二 · Skill 版: 更稳、更自由、效果更好
 
