@@ -192,11 +192,17 @@ test('locale and theme controls update document metadata', async ({ page }) => {
   await expect(page.locator('#language-toggle')).toHaveAttribute('aria-label', 'Switch to Chinese')
   await expect(page.locator('.nav-disclosure').nth(1)).toHaveAttribute('aria-label', 'Open Projects menu')
   await expect(page.locator('.icon-link--github')).toHaveAttribute('title', 'Phil on GitHub')
+  await expect(page.locator('#theme-toggle')).toHaveAttribute('title', 'Switch to dark theme')
 
   await page.locator('#theme-toggle').click()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', 'Switch to light theme')
+  await expect(page.locator('#theme-toggle')).toHaveAttribute('title', 'Switch to light theme')
+
+  await page.locator('#language-toggle').click()
+  await expect(page.locator('html')).toHaveAttribute('lang', 'zh-Hans')
+  await expect(page.locator('#theme-toggle')).toHaveAttribute('title', '切换到浅色主题')
 })
 
 test('English routes render server-localized metadata and reciprocal hreflang', async ({ page }) => {

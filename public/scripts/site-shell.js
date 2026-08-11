@@ -72,6 +72,7 @@
     const themeColor = document.querySelector('meta[name="theme-color"]')
     themeToggle?.setAttribute('aria-pressed', String(nextTheme === 'dark'))
     themeToggle?.setAttribute('aria-label', getThemeLabel(nextTheme))
+    themeToggle?.setAttribute('title', getThemeLabel(nextTheme))
     const themeColorValue = root.dataset[`themeColor${nextTheme === 'dark' ? 'Dark' : 'Light'}`]
     themeColor?.setAttribute('content', themeColorValue || '')
   }

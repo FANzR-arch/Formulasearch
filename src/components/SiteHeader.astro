@@ -75,7 +75,7 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
       <button id="language-toggle" class="language-toggle" type="button" aria-label={localized(locale === 'en' ? uiCopy.navigation.switchToChinese : uiCopy.navigation.switchToEnglish)} title={localized(locale === 'en' ? uiCopy.navigation.switchToChinese : uiCopy.navigation.switchToEnglish)} data-label-en-zh={uiCopy.navigation.switchToEnglish.zh} data-label-en-en={uiCopy.navigation.switchToEnglish.en} data-label-zh-zh={uiCopy.navigation.switchToChinese.zh} data-label-zh-en={uiCopy.navigation.switchToChinese.en} aria-pressed={locale === 'en' ? 'true' : 'false'}>
         <Globe aria-hidden="true" />
       </button>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label={localized(uiCopy.navigation.themeToDark)} data-aria-en={uiCopy.navigation.themeToDark.en} data-aria-zh={uiCopy.navigation.themeToDark.zh} aria-pressed="false">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label={localized(uiCopy.navigation.themeToDark)} data-aria-en={uiCopy.navigation.themeToDark.en} data-aria-zh={uiCopy.navigation.themeToDark.zh} title={localized(uiCopy.navigation.themeToDark)} data-title-en={uiCopy.navigation.themeToDark.en} data-title-zh={uiCopy.navigation.themeToDark.zh} aria-pressed="false">
         <Sun class="theme-icon__sun" aria-hidden="true" />
         <Moon class="theme-icon__moon" aria-hidden="true" />
       </button>
