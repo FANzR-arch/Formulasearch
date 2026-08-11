@@ -14,6 +14,9 @@ const mediaPolicy = JSON.parse(readFileSync(mediaPolicyPath, 'utf8'))
 if (!Array.isArray(mediaPolicy.externalImageHosts) || mediaPolicy.externalImageHosts.some((host) => typeof host !== 'string' || !host.trim())) {
   throw new Error(`Invalid blog media policy: ${mediaPolicyPath}`)
 }
+if (!Number.isInteger(mediaPolicy.maxExternalImagesWithoutDimensions) || mediaPolicy.maxExternalImagesWithoutDimensions < 0) {
+  throw new Error(`Invalid blog media policy maxExternalImagesWithoutDimensions: ${mediaPolicyPath}`)
+}
 const approvedExternalImageHosts = new Set(mediaPolicy.externalImageHosts.map((host) => host.trim().toLowerCase()))
 const genericAlt = new Set(['', '图像', 'image', 'Image'])
 
@@ -211,6 +214,9 @@ if (mode === '--check' && unapprovedExternalImageHosts.length > 0) {
 if (mode === '--check' && insecureExternalImageSources.size > 0) {
   throw new Error(`Blog 正文图片必须使用 HTTPS：${[...insecureExternalImageSources].join(', ')}`)
 }
+if (mode === '--check' && externalImageWithoutDimensionsTotal > mediaPolicy.maxExternalImagesWithoutDimensions) {
+  throw new Error(`Blog 正文远程图片无固有尺寸数量 ${externalImageWithoutDimensionsTotal} 超过 media policy 上限 ${mediaPolicy.maxExternalImagesWithoutDimensions}；请补齐尺寸、镜像资源，或在评审后显式调整 ${mediaPolicyPath}。`)
+}
 
 if (mode === '--check' && (total > 0 || invalidAltTotal > 0)) {
   const details = [
@@ -225,6 +231,7 @@ if (mode === '--report') {
   console.log(`图片依赖摘要：${externalImageTotal} 张外部图片，${localImageTotal} 张本地图片，${unknownImageTotal} 张未识别来源。`)
   console.log(`外部图片主机策略：已批准 ${approvedExternalImageHosts.size} 个，当前未批准 ${unapprovedExternalImageHosts.length} 个。`)
   console.log(`External images without intrinsic dimensions: ${externalImageWithoutDimensionsTotal}; report does not infer remote dimensions.`)
+  console.log(`External images without dimensions policy budget: ${mediaPolicy.maxExternalImagesWithoutDimensions}.`)
   if (dependencyHosts.size > 0) {
     console.log('外部图片主机（按图片数量排序）：')
     for (const [host, summary] of [...dependencyHosts.entries()].sort((a, b) => b[1].count - a[1].count || a[0].localeCompare(b[0]))) {

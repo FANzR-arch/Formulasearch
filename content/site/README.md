@@ -27,7 +27,7 @@
 
 照片清单由 `src/data/photo-archive.ts` 在构建时做结构校验。若要从原始照片重新生成图片尺寸、布局和 WebP 文件，运行 `npm run photos:prepare -- <原始照片目录>`，或先设置 `PHOTO_ARCHIVE_SOURCE`；脚本不再内置某台机器的本地路径。重新生成时会更新图片路径、尺寸和布局，并按图片输出路径保留已有的 `alt`、`caption`、`label`、`tags` 编辑内容。
 
-Blog 正文图片的外部主机由 `blog-media-policy.json` 显式维护；`npm run blog:images:check` 会拒绝未列入策略的新主机。策略只控制依赖边界，不代表远程图片已经具备离线尺寸或永久可用性。
+Blog 正文图片的外部主机由 `blog-media-policy.json` 显式维护；`npm run blog:images:check` 会拒绝未列入策略的新主机。策略中的 `maxExternalImagesWithoutDimensions` 是当前无尺寸远程图的风险预算，超过预算必须先补齐尺寸、镜像资源，或经过评审后显式调整。策略只控制依赖边界，不代表远程图片已经具备离线尺寸或永久可用性。
 
 目录清单由 `src/data/catalog.ts` 在构建时做结构校验。修改 `catalog.json` 后运行 `npm run build`，即可同时检查三组目录的结构和双语字段。
 

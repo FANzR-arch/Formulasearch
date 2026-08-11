@@ -72,7 +72,7 @@ public/uploads/blog/
 6. 如果正文已经确认，从 Philthink 导入或手工写入正文，并把 `contentStatus` 改成 `full`；否则保持 `index-only`；
 7. 运行 `npm run blog:check`、`npm run blog:images:check` 和 `npm run build`，确认分类、链接、Markdown、图片 alt 和页面都能被读取。
 
-正文图片 alt 的维护：旧正文可先运行 `npm run blog:images:prepare`，它只会把空 alt 或“图像”替换成最近章节标题 + “配图”的中文初稿，不会覆盖已有具体描述。Markdown 图片和 HTML `<img>`（引号或无引号 `alt` 写法）都会被检查；提交前运行 `npm run blog:images:report`，查看哪些图片仍是这种上下文初稿、哪些封面 `coverAlt` 仍是文章标题占位，以及正文图片依赖了哪些外部主机和唯一 URL；它们需要结合实际画面逐张改成具体描述，再运行 `npm run blog:images:check`。报告只输出到终端，不会生成需要长期维护的快照文件。
+正文图片 alt 的维护：旧正文可先运行 `npm run blog:images:prepare`，它只会把空 alt 或“图像”替换成最近章节标题 + “配图”的中文初稿，不会覆盖已有具体描述。Markdown 图片和 HTML `<img>`（引号或无引号 `alt` 写法）都会被检查；提交前运行 `npm run blog:images:report`，查看哪些图片仍是这种上下文初稿、哪些封面 `coverAlt` 仍是文章标题占位，以及正文图片依赖了哪些外部主机和唯一 URL；它们需要结合实际画面逐张改成具体描述，再运行 `npm run blog:images:check`。`blog-media-policy.json` 的 `maxExternalImagesWithoutDimensions` 是无尺寸远程图的风险预算，新增远程图片前要先确认是否补齐尺寸或镜像资源。报告只输出到终端，不会生成需要长期维护的快照文件。
 
 `blog:migrate` 会为缺失目录创建 `index.md`，并同步已有文件的受管 frontmatter 字段；`coverAlt` / `coverAltEn` 属于作者维护字段，不会被迁移脚本覆盖；正文也不会被覆盖。单独检查内容可运行：
 
