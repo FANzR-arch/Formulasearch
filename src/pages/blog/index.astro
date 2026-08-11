@@ -12,8 +12,12 @@ import { siteRoutes } from '../../data/site-routes'
 import { blogSettings } from '../../data/blog-settings'
 
 const posts = await getBlogPosts()
-const stagePosts = posts.slice(0, blogSettings.featuredCount)
-const recentPosts = posts.slice(blogSettings.featuredCount, blogSettings.featuredCount + blogSettings.recentCount)
+const stagePosts = [
+  ...posts.filter((post) => post.featured),
+  ...posts.filter((post) => !post.featured),
+].slice(0, blogSettings.featuredCount)
+const stageSlugs = new Set(stagePosts.map((post) => post.slug))
+const recentPosts = posts.filter((post) => !stageSlugs.has(post.slug)).slice(0, blogSettings.recentCount)
 const activePost = stagePosts[0]
 const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
 ---
@@ -99,6 +103,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
               data-stage-date={formatBlogDate(post.date)}
               data-stage-href={getPrimaryBlogLink(post)}
               data-stage-external={String(!isLocal)}
+              data-stage-featured={String(post.featured)}
             >
               <span>{String(index + 1).padStart(2, '0')}</span>
               <strong><LocalizedText zh={post.title} en={post.titleEn ?? post.title} enLang={post.titleEn ? 'en' : 'zh-Hans'} /></strong>

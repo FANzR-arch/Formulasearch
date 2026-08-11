@@ -16,6 +16,7 @@ export interface BlogPost {
   cover: string
   date: string
   draft: boolean
+  featured: boolean
   links: BlogLink[]
   slug: string
   summary: string
@@ -36,6 +37,7 @@ const toBlogPost = (entry: CollectionEntry<'blog'>): BlogPost => {
     cover: entry.data.cover,
     date: entry.data.pubDate.toISOString().slice(0, 10),
     draft: entry.data.draft,
+    featured: entry.data.featured,
     links: entry.data.externalLinks,
     slug: entry.data.slug,
     summary: entry.data.description,

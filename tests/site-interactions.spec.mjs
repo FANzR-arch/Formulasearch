@@ -168,6 +168,13 @@ test('blog featured stage keeps localized title and summary on locale switch', a
   await expect(stageSummary.locator('.localized-text__en')).toHaveText(await page.locator('[data-stage-trigger="1"]').getAttribute('data-stage-summary-en') || '')
 })
 
+test('blog featured stage honors frontmatter featured records', async ({ page }) => {
+  await page.goto('/blog')
+
+  const featuredTrigger = page.locator('[data-stage-featured="true"]').first()
+  await expect(featuredTrigger).toHaveAttribute('data-stage-trigger', '0')
+})
+
 test('theme preference survives a page reload', async ({ page }) => {
   await page.goto('/projects')
   await page.locator('#theme-toggle').click()
