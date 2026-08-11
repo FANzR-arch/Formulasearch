@@ -1,0 +1,8 @@
+{
+  "ariaLabel": { "zh": "博客页面", "en": "Blog sections" },
+  "items": [
+    { "id": "latest", "href": "/blog", "label": { "zh": "最新", "en": "Latest" } },
+    { "id": "series", "href": "/blog/series", "label": { "zh": "主题", "en": "Topics" } },
+    { "id": "archive", "href": "/blog/archive", "label": { "zh": "归档", "en": "Archive" } }
+  ]
+}

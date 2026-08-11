@@ -1,20 +1,16 @@
 ---
 interface Props {
-  active: 'latest' | 'series' | 'archive'
+  active: import('../data/blog-navigation').BlogSectionId
 }
 
 import LocalizedText from './LocalizedText.astro'
+import { blogSectionNavigation } from '../data/blog-navigation'
 
 const { active } = Astro.props
-const items = [
-  { id: 'latest', href: '/blog', label: { zh: '最新', en: 'Latest' } },
-  { id: 'series', href: '/blog/series', label: { zh: '主题', en: 'Topics' } },
-  { id: 'archive', href: '/blog/archive', label: { zh: '归档', en: 'Archive' } },
-] as const
 ---
 
-<nav class="blog-section-nav" aria-label="博客页面" data-aria-en="Blog sections" data-aria-zh="博客页面">
-  {items.map((item) => (
+<nav class="blog-section-nav" aria-label={blogSectionNavigation.ariaLabel.zh} data-aria-en={blogSectionNavigation.ariaLabel.en} data-aria-zh={blogSectionNavigation.ariaLabel.zh}>
+  {blogSectionNavigation.items.map((item) => (
     <a class:list={{ 'is-active': item.id === active }} href={item.href} aria-current={item.id === active ? 'page' : undefined}>
       <LocalizedText {...item.label} />
     </a>
