@@ -4,6 +4,13 @@ const languageToggle = document.querySelector('#language-toggle')
 const navMenus = primaryNavigation ? Array.from(primaryNavigation.querySelectorAll('.nav-menu')) : []
 let navCloseTimer
 
+const getFocusableNavigationItems = () => [...(primaryNavigation?.querySelectorAll('a, button') ?? [])]
+  .filter((element) => !element.hasAttribute('disabled') && !element.closest('[inert]') && element.getClientRects().length)
+
+const focusFirstMobileNavigationItem = () => {
+  getFocusableNavigationItems()[0]?.focus()
+}
+
 const updateNavigationLabels = () => {
   const localeSuffix = document.documentElement.dataset.locale === 'en' ? 'En' : 'Zh'
   const updateLabel = (element, isOpen) => {
@@ -76,7 +83,7 @@ document.addEventListener('keydown', (event) => {
     return
   }
   if (event.key !== 'Tab' || !document.querySelector('.site-header')?.classList.contains('is-nav-open')) return
-  const focusable = [...primaryNavigation.querySelectorAll('a, button')].filter((element) => !element.hasAttribute('disabled') && !element.closest('[inert]') && element.getClientRects().length)
+  const focusable = getFocusableNavigationItems()
   if (!focusable.length) return
   const first = focusable[0]
   const last = focusable[focusable.length - 1]
@@ -99,7 +106,8 @@ mobileNavigationToggle?.addEventListener('click', () => {
   mobileNavigationToggle.setAttribute('aria-expanded', String(isOpen))
   updateNavigationLabels()
   if (isOpen) {
-    requestAnimationFrame(() => primaryNavigation?.querySelector('a, button')?.focus())
+    focusFirstMobileNavigationItem()
+    requestAnimationFrame(focusFirstMobileNavigationItem)
   } else {
     closeNavigationMenus()
   }
