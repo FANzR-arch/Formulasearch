@@ -40,6 +40,9 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     externalLinks: externalLinksSchema.default([]),
   }).strict().superRefine((data, context) => {
+    if (data.updatedDate && data.updatedDate < data.pubDate) {
+      context.addIssue({ code: 'custom', path: ['updatedDate'], message: 'updatedDate must not be earlier than pubDate.' })
+    }
     if (data.contentStatus === 'index-only' && data.externalLinks.length === 0 && !data.draft) {
       context.addIssue({ code: 'custom', path: ['externalLinks'], message: 'Index-only articles require an external link.' })
     }

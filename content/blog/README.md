@@ -48,6 +48,8 @@ public/uploads/blog/
 
 `slug` 应保持稳定，并只使用小写字母、数字和连字符（例如 `ai-practice-2026-02-22`）；文章公开后不要为了改标题随意修改 slug。
 
+文章的 `pubDate` 是首次发布日；只有正文或公开元数据实际修订时才填写 `updatedDate`，且它不能早于 `pubDate`。日期倒退会在构建期失败，不要为了让 sitemap 看起来“更新”而随意改日期。
+
 ## 封面
 
 封面放在 `public/uploads/blog/<同一日期>/`。当前读取器支持 `avif`、`jpeg`、`jpg`、`png`、`webp`，并按文件名排序取第一张。
