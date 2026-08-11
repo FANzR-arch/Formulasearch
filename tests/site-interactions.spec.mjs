@@ -204,6 +204,8 @@ test('English routes render server-localized metadata and reciprocal hreflang', 
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await expect(page.locator('.blog-hero h1 .localized-text__en')).toBeVisible()
   await expect(page.locator('.cover-stage .localized-text__en').first()).toBeVisible()
+  await expect(page.locator('.blog-section-nav')).toHaveAttribute('aria-label', 'Blog sections')
+  await expect(page.locator('.post-row__links').first()).toHaveAttribute('aria-label', 'Original publication')
   const cover = page.locator('.cover-stage img').first()
   await expect(cover).toHaveAttribute('alt', await cover.getAttribute('data-alt-en'))
   expect(await page.locator('a[href="/blog/prompt-aesthetic-2026-07-02"]').count()).toBeGreaterThan(0)

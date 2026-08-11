@@ -7,11 +7,12 @@ interface Props {
 import LocalizedText from './LocalizedText.astro'
 import { blogSectionNavigation } from '../data/blog-navigation'
 import { getLocalizedRoute } from '../data/site-routes'
+import { getLocalizedValue } from '../lib/i18n'
 
 const { active, locale = 'zh' } = Astro.props
 ---
 
-<nav class="blog-section-nav" aria-label={blogSectionNavigation.ariaLabel.zh} data-aria-en={blogSectionNavigation.ariaLabel.en} data-aria-zh={blogSectionNavigation.ariaLabel.zh}>
+<nav class="blog-section-nav" aria-label={getLocalizedValue(blogSectionNavigation.ariaLabel, locale)} data-aria-en={blogSectionNavigation.ariaLabel.en} data-aria-zh={blogSectionNavigation.ariaLabel.zh}>
   {blogSectionNavigation.items.map((item) => (
     <a class:list={{ 'is-active': item.id === active }} href={getLocalizedRoute(item.href, locale)} aria-current={item.id === active ? 'page' : undefined}>
       <LocalizedText {...item.label} />

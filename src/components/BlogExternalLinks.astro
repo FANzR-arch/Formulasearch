@@ -3,16 +3,18 @@ import { ArrowUpRight } from '@lucide/astro'
 import ExternalLinkLabel from './ExternalLinkLabel.astro'
 import { uiCopy } from '../data/ui-copy'
 import type { BlogLink } from '../lib/blog-content'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
 
 interface Props {
   links: BlogLink[]
+  locale?: Locale
 }
 
-const { links } = Astro.props
+const { links, locale = 'zh' } = Astro.props
 ---
 
 {links.length > 0 && (
-  <div class="post-row__links" role="group" aria-label={uiCopy.blog.originalPublication.zh} data-aria-en={uiCopy.blog.originalPublication.en} data-aria-zh={uiCopy.blog.originalPublication.zh}>
+  <div class="post-row__links" role="group" aria-label={getLocalizedValue(uiCopy.blog.originalPublication, locale)} data-aria-en={uiCopy.blog.originalPublication.en} data-aria-zh={uiCopy.blog.originalPublication.zh}>
     {links.map((link) => (
       <a href={link.url} target="_blank" rel="noopener noreferrer">
         <ExternalLinkLabel label={link.label} />

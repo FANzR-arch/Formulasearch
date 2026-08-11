@@ -34,6 +34,6 @@ const summaryEnLang = post.summaryEn ? 'en' : 'zh-Hans'
     {showCategory && <p class="post-row__meta"><LocalizedText zh={post.category.title} en={post.category.titleEn} /></p>}
     <h2><a href={primaryLink} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}><LocalizedText {...title} enLang={titleEnLang} /></a></h2>
     {!compact && <p class="post-row__summary"><LocalizedText {...summary} enLang={summaryEnLang} /></p>}
-    <BlogExternalLinks links={post.links} />
+    <BlogExternalLinks links={post.links} locale={locale} />
   </div>
 </article>

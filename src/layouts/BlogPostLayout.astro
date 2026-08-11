@@ -10,7 +10,7 @@ import BlogLayout from './BlogLayout.astro'
 import { siteConfig } from '../data/site-config'
 import { uiCopy } from '../data/ui-copy'
 import { siteRoutes } from '../data/site-routes'
-import { interpolateLocalizedCopy, type Locale } from '../lib/i18n'
+import { getLocalizedValue, interpolateLocalizedCopy, type Locale } from '../lib/i18n'
 import { blogSettings } from '../data/blog-settings'
 
 interface Props {
@@ -77,13 +77,14 @@ const structuredData = {
   description={post.data.description}
   descriptionEn={descriptionEn}
   image={post.data.cover}
+  locale={contentLocale as Locale}
   modifiedTime={modified}
   ogType="article"
   publishedTime={published}
   structuredData={structuredData}
 >
     <article class="article-page" lang={post.data.contentLanguage}>
-    <nav class="article-context" aria-label={uiCopy.blog.articleLocation.zh} data-aria-en={uiCopy.blog.articleLocation.en} data-aria-zh={uiCopy.blog.articleLocation.zh}>
+    <nav class="article-context" aria-label={getLocalizedValue(uiCopy.blog.articleLocation, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleLocation.en} data-aria-zh={uiCopy.blog.articleLocation.zh}>
       <div class="article-context__inner">
         <a href={siteRoutes.blog}><House aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.blog} /></a>
         <span class="article-context__pill"><LocalizedText zh={categoryLabel.title} en={categoryLabel.titleEn} /></span>
@@ -96,7 +97,7 @@ const structuredData = {
         <h1><LocalizedText zh={post.data.title} en={titleEn} enLang={titleEnLang} /></h1>
         <div class="article-byline">
           <p class="article-author"><span class="article-author__mark" aria-hidden="true">{authorMark}</span><strong>{authorName}</strong></p>
-        <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText {...readingTimeCopy} /></span><span class="article-copy-wrap"><button class="article-copy" type="button" data-copy-url={canonical} aria-live="polite"><Link aria-hidden="true" size={14} stroke-width={1.7} /><span class="article-copy__default"><LocalizedText {...uiCopy.blog.copyLink} /></span><span class="article-copy__feedback"><LocalizedText {...uiCopy.blog.copied} /></span><span class="article-copy__failure"><LocalizedText {...uiCopy.blog.copyFailed} /></span></button><input class="article-copy__failure-url" type="text" value={canonical} readonly hidden aria-label={uiCopy.blog.copyFailed.zh} data-aria-en={uiCopy.blog.copyFailed.en} data-aria-zh={uiCopy.blog.copyFailed.zh} /></span></p>
+        <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText {...readingTimeCopy} /></span><span class="article-copy-wrap"><button class="article-copy" type="button" data-copy-url={canonical} aria-live="polite"><Link aria-hidden="true" size={14} stroke-width={1.7} /><span class="article-copy__default"><LocalizedText {...uiCopy.blog.copyLink} /></span><span class="article-copy__feedback"><LocalizedText {...uiCopy.blog.copied} /></span><span class="article-copy__failure"><LocalizedText {...uiCopy.blog.copyFailed} /></span></button><input class="article-copy__failure-url" type="text" value={canonical} readonly hidden aria-label={getLocalizedValue(uiCopy.blog.copyFailed, contentLocale as Locale)} data-aria-en={uiCopy.blog.copyFailed.en} data-aria-zh={uiCopy.blog.copyFailed.zh} /></span></p>
         </div>
       </header>
 
@@ -107,7 +108,7 @@ const structuredData = {
       {toc.length > 1 && (
         <details class="article-toc" open>
           <summary><LocalizedText {...uiCopy.blog.onThisPage} /></summary>
-          <nav aria-label={uiCopy.blog.articleContents.zh} data-aria-en={uiCopy.blog.articleContents.en} data-aria-zh={uiCopy.blog.articleContents.zh}>
+          <nav aria-label={getLocalizedValue(uiCopy.blog.articleContents, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleContents.en} data-aria-zh={uiCopy.blog.articleContents.zh}>
             {toc.map((heading) => <a class:list={{ 'is-subheading': heading.depth === 3 }} href={`#${heading.slug}`}>{heading.text}</a>)}
           </nav>
         </details>
@@ -125,7 +126,7 @@ const structuredData = {
       {post.data.externalLinks.length > 0 && (
         <aside class="article-sources">
           <p><LocalizedText {...uiCopy.blog.originallyPublished} /></p>
-          <BlogExternalLinks links={post.data.externalLinks} />
+        <BlogExternalLinks links={post.data.externalLinks} locale={contentLocale as Locale} />
         </aside>
       )}
     </div>
