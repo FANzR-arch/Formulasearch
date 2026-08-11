@@ -35,6 +35,8 @@ public/uploads/blog/
 
 Blog 页面会自动按日期倒序读取这些内容。`Latest` 显示最近文章，`Series` 按分类整理，`Archive` 显示完整时间归档。
 
+Blog 列表和文章详情共用 Astro Content Collection；修改 `index.md` 的 frontmatter 后只需运行一次 `npm run build`，不需要再同步另一套页面解析逻辑。
+
 ## 后续新增内容的位置
 
 ```text

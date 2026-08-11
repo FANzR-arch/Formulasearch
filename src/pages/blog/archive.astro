@@ -6,7 +6,7 @@ import BlogLayout from '../../layouts/BlogLayout.astro'
 import { getBlogPosts } from '../../lib/blog-content'
 import { pageMeta } from '../../data/page-meta'
 
-const posts = getBlogPosts()
+const posts = await getBlogPosts()
 const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
 ---
 

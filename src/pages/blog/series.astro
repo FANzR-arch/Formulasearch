@@ -7,7 +7,7 @@ import { getBlogPosts } from '../../lib/blog-content'
 import { blogSeries } from '../../data/blog-series'
 import { pageMeta } from '../../data/page-meta'
 
-const posts = getBlogPosts()
+const posts = await getBlogPosts()
 const series = blogSeries.map((group) => ({
   ...group,
   posts: posts.filter((post) => group.categoryIds.includes(post.categoryId)),

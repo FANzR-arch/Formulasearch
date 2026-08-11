@@ -8,7 +8,7 @@ import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } fro
 import { getBlogMedia } from '../../data/blog-media'
 import { pageMeta } from '../../data/page-meta'
 
-const posts = getBlogPosts()
+const posts = await getBlogPosts()
 const stagePosts = posts.slice(0, 4)
 const recentPosts = posts.slice(4, 12)
 const activePost = stagePosts[0]
