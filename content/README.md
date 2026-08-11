@@ -73,6 +73,8 @@ content/
 
 照片归档清单可直接编辑 [`site/photo-archive.json`](site/photo-archive.json)；如果需要从原始 JPG/PNG 重新生成图片和清单，可通过 `PHOTO_ARCHIVE_SOURCE` 或 `npm run photos:prepare -- <原始照片目录>` 指向原始目录，再运行脚本。脚本会生成 WebP 和 JSON manifest，并保留已有的图片文案与标签，不会把本机绝对路径写进页面代码。
 
+Photography / Architecture manifest 还负责归档交互策略：`initialVisibleCount` 控制首屏数量（Architecture 可写 `all`），`loadMoreBatchSize` 控制每次加载数量。
+
 Blog 正文图片必须填写具体 alt。历史文章的通用 alt 可用 `npm run blog:images:prepare` 按最近章节生成初稿；之后 `npm run blog:images:check` 会阻止新的空 alt、`图像` 或绕过 Markdown 语法的无 alt HTML 图片进入构建。代码围栏中的示例不会被误判。
 
 Blog 内容状态约定：`contentStatus: full` 必须有非空 Markdown 正文；已发布的 `contentStatus: index-only` 必须在 `链接.txt` 中保留至少一个可靠外链。`tags` 不能重复或为空，单篇文章也不能重复外链。来源未确认或正文未准备好的记录使用 `draft: true`，不会出现在公开 Blog 列表；更新后运行 `npm run blog:check`，输出会列出 full、index-only 与 draft 数量。

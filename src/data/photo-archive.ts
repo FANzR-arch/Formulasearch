@@ -23,6 +23,8 @@ const photoArchivePageSchema = z.object({
   kicker: localizedCopySchema,
   title: localizedCopySchema,
   description: localizedCopySchema,
+  initialVisibleCount: z.number().int().positive(),
+  loadMoreBatchSize: z.number().int().positive(),
   filters: z.array(localizedCopySchema.extend({ id: z.string().trim().min(1) })).min(1),
 }).strict()
 

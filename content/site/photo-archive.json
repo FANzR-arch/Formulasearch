@@ -19,6 +19,8 @@
     "zh": "持续收集的摄影作品与日常影像，按时间与地点整理并归档。",
     "en": "An ongoing collection of photographs and everyday images, organised and archived by time and place."
   },
+  "initialVisibleCount": 8,
+  "loadMoreBatchSize": 8,
   "filters": [
     {
       "id": "all",

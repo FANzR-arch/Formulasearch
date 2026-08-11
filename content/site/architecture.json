@@ -10,6 +10,8 @@
     "zh": "持续收集的建筑项目与过程资料，按项目整理并归档。",
     "en": "An ongoing collection of architectural projects and process material, organised and archived by project."
   },
+  "initialVisibleCount": "all",
+  "loadMoreBatchSize": 8,
   "filters": [
     { "id": "all", "zh": "全部", "en": "All" }
   ],

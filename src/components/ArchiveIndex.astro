@@ -27,16 +27,18 @@ interface Props {
   active: 'architecture' | 'photos'
   description: { en: string; zh: string }
   filters: Filter[]
+  initialVisibleCount: number | 'all'
   items: ArchiveItem[]
   kicker: { en: string; zh: string }
+  loadMoreBatchSize: number
   title: { en: string; zh: string }
 }
 
-const { active, description, filters, items, kicker, title } = Astro.props
-const initialVisibleItems = active === 'photos' ? 8 : items.length
+const { active, description, filters, initialVisibleCount, items, kicker, loadMoreBatchSize, title } = Astro.props
+const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.min(initialVisibleCount, items.length)
 ---
 
-<section class:list={['visual-archive', { 'visual-archive--photos': active === 'photos' }]} aria-labelledby="archive-title">
+<section class:list={['visual-archive', { 'visual-archive--photos': active === 'photos' }]} aria-labelledby="archive-title" data-archive-batch-size={loadMoreBatchSize}>
   <header class="visual-archive__intro">
     <p class="visual-archive__kicker"><LocalizedText {...kicker} /></p>
     <h1 id="archive-title"><LocalizedText {...title} /></h1>
@@ -98,6 +100,7 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
   const archiveRecords = [...document.querySelectorAll('[data-archive-record]')]
   const moreButton = document.querySelector('[data-archive-more]')
   const status = document.querySelector('[data-archive-status]')
+  const batchSize = Number(document.querySelector('[data-archive-batch-size]')?.getAttribute('data-archive-batch-size')) || 1
   let activeFilter = filterButtons[0]?.getAttribute('data-archive-filter') ?? 'all'
   let visibleCount = archiveRecords.filter((record) => !record.hasAttribute('hidden')).length
 
@@ -136,7 +139,7 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
   })
 
   moreButton?.addEventListener('click', () => {
-    visibleCount = Math.min(archiveRecords.length, visibleCount + 8)
+    visibleCount = Math.min(archiveRecords.length, visibleCount + batchSize)
     renderArchive()
   })
 
