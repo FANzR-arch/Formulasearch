@@ -56,6 +56,15 @@ test('archive and header controls keep touch-friendly hit areas', async ({ page 
   }
 })
 
+test('key routes do not overflow a narrow viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 })
+  for (const route of ['/', '/blog', '/blog/ai-practice-2026-02-22', '/photos', '/architecture', '/projects', '/skills', '/lab']) {
+    await page.goto(route)
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)
+    expect(overflow, `${route} overflows at 320px`).toBeFalsy()
+  }
+})
+
 test('homepage falls back when WebGL is unavailable', async ({ page }) => {
   await page.addInitScript(() => {
     const getContext = HTMLCanvasElement.prototype.getContext
@@ -108,6 +117,15 @@ test('blog featured stage keeps localized title and summary on locale switch', a
 
   await expect(stageTitle).toHaveText(await trigger.getAttribute('data-stage-title-en') || '')
   await expect(stageSummary).toHaveText(await trigger.getAttribute('data-stage-summary-en') || '')
+})
+
+test('theme preference survives a page reload', async ({ page }) => {
+  await page.goto('/projects')
+  await page.locator('#theme-toggle').click()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await page.reload()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', '切换到浅色主题')
 })
 
 test('locale updates the dynamic background control label', async ({ page }) => {
