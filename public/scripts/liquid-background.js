@@ -5,6 +5,8 @@
 
   const variants = ['dither', 'molten', 'contour']
   const variantIndex = { dither: 1, molten: 2, contour: 3 }
+  let backgroundNames = {}
+  try { backgroundNames = JSON.parse(decodeURIComponent(cycleButton?.dataset.backgroundNames || '%7B%7D')) } catch {}
   const randomHistoryKey = 'formulasearch-background-last-random'
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   let previousVariant = ''
@@ -339,9 +341,8 @@
     const nextVariant = variants[(currentIndex + 1) % variants.length]
     const locale = document.documentElement.dataset.locale === 'en' ? 'en' : 'zh'
     const suffix = locale === 'en' ? 'En' : 'Zh'
-    const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1)
-    const currentName = cycleButton.dataset[`backgroundName${capitalize(variant)}${suffix}`] || variant
-    const nextName = cycleButton.dataset[`backgroundName${capitalize(nextVariant)}${suffix}`] || nextVariant
+    const currentName = backgroundNames[variant]?.[locale] || variant
+    const nextName = backgroundNames[nextVariant]?.[locale] || nextVariant
     const template = cycleButton.dataset[`backgroundCycle${suffix}`] || ''
     const label = template
       .replace('{current}', currentName)
