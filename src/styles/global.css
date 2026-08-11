@@ -380,6 +380,16 @@ a:hover, .theme-toggle:hover { color: var(--accent); }
   color: var(--muted);
   font-size: .72rem;
 }
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  width: min(calc(100% - 48px), 1180px);
+  margin: 0 auto;
+  padding: 28px 0 46px;
+  border-top: 1px solid var(--hairline);
+  color: var(--muted);
+  font-size: .72rem;
+}
 .archive-catalog-site {
   min-height: 100vh;
   color: var(--ink);
@@ -535,11 +545,13 @@ h1 { margin-bottom: 26px; font-family: var(--serif); font-size: clamp(4.5rem, 9.
   .nav-popover a { padding: 8px 8px 9px; }
   .intro { min-height: calc(100vh - 70px); padding: 0 0 12vh; }
   .lead { white-space: normal; }
+  .site-footer { padding-bottom: max(28px, env(safe-area-inset-bottom)); }
 }
 
 @media (max-width: 820px) {
   .catalog-main,
-  .catalog-footer { width: min(calc(100% - 32px), 760px); }
+  .catalog-footer,
+  .site-footer { width: min(calc(100% - 32px), 760px); }
   .catalog-hero { grid-template-columns: 1fr; gap: 20px; padding-top: 72px; }
   .catalog-hero h1 { grid-column: 1; }
   .catalog-hero__intro { grid-column: 1; grid-row: auto; max-width: 36ch; }

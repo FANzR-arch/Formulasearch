@@ -581,17 +581,6 @@
   font-size: .72rem;
 }
 
-.site-footer {
-  display: flex;
-  justify-content: space-between;
-  width: min(calc(100% - 48px), 1180px);
-  margin: 0 auto;
-  padding: 28px 0 46px;
-  border-top: 1px solid var(--hairline);
-  color: var(--muted);
-  font-size: .72rem;
-}
-
 .article-page {
   --article-left: 180px;
   --article-main: minmax(0, 820px);
@@ -1243,8 +1232,6 @@
     padding-bottom: 14px;
     border-bottom: 1px solid var(--ink);
   }
-
-  .site-footer { padding-bottom: max(28px, env(safe-area-inset-bottom)); }
 
   .article-page {
     display: block;

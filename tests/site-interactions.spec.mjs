@@ -107,6 +107,14 @@ test('homepage falls back when WebGL is unavailable', async ({ page }) => {
   await expect(page.locator('#ambient-flow')).toHaveClass(/ambient-flow--fallback/)
 })
 
+test('Chinese and English homepages share the site footer', async ({ page }) => {
+  for (const route of ['/', '/en']) {
+    await page.goto(route)
+    await expect(page.locator('.site-footer')).toHaveCount(1)
+    await expect(page.locator('.site-footer a')).toHaveAttribute('href', route === '/' ? '/' : '/en')
+  }
+})
+
 test('reduced motion skips decorative animation loops', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.addInitScript(() => {

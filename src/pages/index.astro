@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import LocalizedText from '../components/LocalizedText.astro'
+import SiteFooter from '../components/SiteFooter.astro'
 import SiteHeader from '../components/SiteHeader.astro'
 import { homeContent } from '../lib/home-content'
 import { pageMeta } from '../data/page-meta'
@@ -61,6 +62,7 @@ import { pageMeta } from '../data/page-meta'
         {homeContent.zh.heroImage && <img class="hero-image" src={homeContent.zh.heroImage} alt={homeContent.zh.heroImageAlt} data-alt-zh={homeContent.zh.heroImageAlt} data-alt-en={homeContent.en.heroImageAlt} width={homeContent.zh.heroImageWidth} height={homeContent.zh.heroImageHeight} loading="eager" />}
       </section>
     </main>
+    <SiteFooter />
   </div>
 
   <noscript><style>#intro-overlay { display: none !important; } .site-page { opacity: 1 !important; transform: none !important; }</style></noscript>
