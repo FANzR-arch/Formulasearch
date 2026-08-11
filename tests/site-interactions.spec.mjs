@@ -212,6 +212,16 @@ test('English routes render server-localized metadata and reciprocal hreflang', 
   await expect(page.locator('a[href="/en/blog/prompt-aesthetic-2026-07-02"]')).toHaveCount(0)
 })
 
+test('English Blog index discloses source-language article bodies', async ({ page }) => {
+  await page.goto('/en/blog')
+  const notice = page.locator('.blog-language-note')
+  await expect(notice).toBeVisible()
+  await expect(notice.locator('.localized-text__en')).toBeVisible()
+  await page.locator('#language-toggle').click()
+  await expect(notice).toBeHidden()
+  await expect(notice.locator('.localized-text__zh')).toContainText('部分文章')
+})
+
 test('English archive images expose English alt text in SSR HTML', async ({ page }) => {
   await page.goto('/en/photos')
   const image = page.locator('.archive-record img').first()

@@ -12,6 +12,7 @@ interface Props {
 
 const { locale = 'zh' } = Astro.props
 const posts = await getBlogPosts()
+const showSourceLanguageNotice = posts.some((post) => post.contentLanguage !== 'en')
 const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
 ---
 
@@ -19,7 +20,7 @@ const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
   <h1><LocalizedText {...uiCopy.blog.archiveHeading} /></h1>
 </header>
 
-<BlogSectionNav active="archive" locale={locale} />
+<BlogSectionNav active="archive" locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
 
 <div class="archive-list">
   {years.map((year) => {

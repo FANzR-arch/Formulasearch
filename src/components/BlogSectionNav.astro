@@ -2,14 +2,16 @@
 interface Props {
   active: import('../data/blog-navigation').BlogSectionId
   locale?: import('../lib/i18n').Locale
+  showSourceLanguageNotice?: boolean
 }
 
 import LocalizedText from './LocalizedText.astro'
 import { blogSectionNavigation } from '../data/blog-navigation'
 import { getLocalizedRoute } from '../data/site-routes'
 import { getLocalizedValue } from '../lib/i18n'
+import { uiCopy } from '../data/ui-copy'
 
-const { active, locale = 'zh' } = Astro.props
+const { active, locale = 'zh', showSourceLanguageNotice = false } = Astro.props
 ---
 
 <nav class="blog-section-nav" aria-label={getLocalizedValue(blogSectionNavigation.ariaLabel, locale)} data-aria-en={blogSectionNavigation.ariaLabel.en} data-aria-zh={blogSectionNavigation.ariaLabel.zh}>
@@ -19,3 +21,4 @@ const { active, locale = 'zh' } = Astro.props
     </a>
   ))}
 </nav>
+<p class="blog-language-note" data-source-language-notice={showSourceLanguageNotice ? 'true' : undefined} role="note"><LocalizedText {...uiCopy.blog.sourceLanguageNotice} /></p>

@@ -22,6 +22,7 @@ const stagePosts = [
 ].slice(0, blogSettings.featuredCount)
 const stageSlugs = new Set(stagePosts.map((post) => post.slug))
 const recentPosts = posts.filter((post) => !stageSlugs.has(post.slug)).slice(0, blogSettings.recentCount)
+const showSourceLanguageNotice = posts.some((post) => post.contentLanguage !== 'en')
 const activePost = stagePosts[0]
 const primaryLink = (post: (typeof posts)[number]) => getPrimaryBlogLink(post)
 const localizedRoute = (route: string) => getLocalizedRoute(route, locale)
@@ -41,7 +42,7 @@ const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, 
   </svg>
 </header>
 
-<BlogSectionNav active="latest" locale={locale} />
+<BlogSectionNav active="latest" locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
 
 {activePost && (
   <section class="cover-stage" data-cover-stage aria-labelledby="stage-title" data-reveal>

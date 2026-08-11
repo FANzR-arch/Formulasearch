@@ -17,13 +17,14 @@ const series = blogSeries.map((group) => ({
   ...group,
   posts: posts.filter((post) => group.categoryIds.includes(post.categoryId)),
 })).filter((group) => group.posts.length > 0)
+const showSourceLanguageNotice = posts.some((post) => post.contentLanguage !== 'en')
 ---
 
 <header class="blog-hero blog-hero--compact">
   <h1><LocalizedText {...uiCopy.blog.seriesHeading} /></h1>
 </header>
 
-<BlogSectionNav active="series" locale={locale} />
+<BlogSectionNav active="series" locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
 
 <div class="series-list">
   {series.map((group) => (
