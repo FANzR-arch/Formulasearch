@@ -1,17 +1,18 @@
 import { z } from 'astro/zod'
 import siteContent from '../../content/site/site.json'
+import { httpUrlSchema } from '../lib/validation'
 
 const siteConfigSchema = z.object({
   author: z.object({
     name: z.string().min(1),
-    url: z.url(),
+    url: httpUrlSchema,
     alternateNames: z.array(z.string().min(1)).min(1),
     jobTitle: z.string().min(1),
     knowsAbout: z.array(z.string().min(1)).min(1),
   }),
-  githubUrl: z.url(),
+  githubUrl: httpUrlSchema,
   name: z.string().min(1),
-  siteUrl: z.url(),
+  siteUrl: httpUrlSchema,
 })
 
 const result = siteConfigSchema.safeParse(siteContent)

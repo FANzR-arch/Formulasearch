@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
+import { httpUrlSchema } from './lib/validation'
 
 const blog = defineCollection({
   loader: glob({
@@ -25,7 +26,7 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     externalLinks: z.array(z.object({
       label: z.enum(['微信', 'X', '原文']),
-      url: z.url(),
+      url: httpUrlSchema,
     })).default([]),
   }).superRefine((data, context) => {
     if (data.contentStatus === 'index-only' && data.externalLinks.length === 0 && !data.draft) {

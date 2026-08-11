@@ -1,6 +1,7 @@
 import { z } from 'astro/zod'
 import homeEn from '../../content/site/home.en.json'
 import homeZh from '../../content/site/home.json'
+import { httpUrlSchema } from './validation'
 
 const workItemSchema = z.object({
   title: z.string().min(1),
@@ -14,7 +15,7 @@ const homeContentSchema = z.object({
   contactEmailPrefix: z.string().min(1),
   social: z.object({
     label: z.string().min(1),
-    url: z.url(),
+    url: httpUrlSchema,
   }),
   heroImage: z.string(),
   heroImageAlt: z.string().default(''),
