@@ -18,6 +18,7 @@
     "blog:check": "node scripts/prepare-blog-content.mjs --check",
     "i18n:report": "node scripts/report-i18n.mjs",
     "i18n:check": "node scripts/report-i18n.mjs --strict",
+    "contrast:check": "node scripts/check-color-contrast.mjs",
     "photos:prepare": "node scripts/prepare-photo-archive.mjs",
     "site:check": "node scripts/check-site-output.mjs",
     "pretest:smoke": "npm run build",
