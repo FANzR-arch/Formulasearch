@@ -48,7 +48,7 @@ externalLinks:
 
 ## 适用场景
 
-![适用场景配图](https://pbs.twimg.com/media/HLvl8GJXwAAsx43?format=jpg&name=large)
+![Bauhaus Method 视觉方法拼贴，组合 Bauhaus 标题、色块构成、钢管椅、工作室和校舍照片](https://pbs.twimg.com/media/HLvl8GJXwAAsx43?format=jpg&name=large)
 
 | 输出方向 | 是否适合 | 为什么 |
 | --- | --- | --- |
@@ -65,7 +65,7 @@ externalLinks:
 
 ## 核心视觉特征拆解
 
-![核心视觉特征拆解配图](https://pbs.twimg.com/media/HLvl6s8XIAApKBI?format=jpg&name=large)
+![Bauhaus Visual Grammar 视觉语法拆解板，展示网格、无衬线字体、红蓝黄配色、几何形体、空间和材料样本](https://pbs.twimg.com/media/HLvl6s8XIAApKBI?format=jpg&name=large)
 
 ## 构图 / 体块
 
@@ -157,7 +157,7 @@ flat color blocks, clean print-like surface, no paper texture, no vintage noise,
 
 ## 提示词编译方法
 
-![提示词编译方法配图](https://pbs.twimg.com/media/HLvmKURWIAAJOFV?format=jpg&name=large)
+![Bauhaus 设计方向检查板，按 medium、structure、material、function、mood、avoid 六栏整理示例与禁用效果](https://pbs.twimg.com/media/HLvmKURWIAAJOFV?format=jpg&name=large)
 
 <strong>到这一步，只需要做一个动作：先选媒介，再复制骨架。</strong>
 
@@ -202,7 +202,7 @@ AVOID: random geometric stickers, decorative red-yellow-blue template, Bauhaus f
 
 ## 结果检查
 
-![结果检查配图](https://pbs.twimg.com/media/HLvmv-tWwAAHdOb?format=jpg&name=large)
+![Bauhaus 风格应用选择板，以 POSTER、PRODUCT、INTERIOR、ARCHITECTURE 四栏并列展示海报、椅子、室内和建筑案例](https://pbs.twimg.com/media/HLvmv-tWwAAHdOb?format=jpg&name=large)
 
 跑图后不要只看「像不像包豪斯」，要看模型有没有理解这四件事：
 
@@ -217,7 +217,7 @@ AVOID: random geometric stickers, decorative red-yellow-blue template, Bauhaus f
 
 ## 案例一：POSTER · 海报封面
 
-![案例一：POSTER · 海报封面配图](https://pbs.twimg.com/media/HLvnD3KXMAAsIFD?format=jpg&name=large)
+![Bauhaus 海报封面案例，以 BAUHAUS METHOD 标题、红色圆形、蓝色矩形、黑色竖条和黄色方块组成几何构图](https://pbs.twimg.com/media/HLvnD3KXMAAsIFD?format=jpg&name=large)
 
 ```text
 TITLE: "AI Design Systems"
@@ -237,7 +237,7 @@ AVOID: random geometric stickers, red-yellow-blue template, Bauhaus furniture, w
 
 ## 案例二：PRODUCT · 产品 / 椅子
 
-![案例二：PRODUCT · 产品 / 椅子配图](https://pbs.twimg.com/media/HLvn-96W0AAJtYz?format=jpg&name=large)
+![Bauhaus 产品案例，三视图展示镀铬弯管框架与黑色皮革座面的悬臂椅](https://pbs.twimg.com/media/HLvn-96W0AAJtYz?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR: Bauhaus product design, workshop prototype feeling, inspired by tubular steel furniture and functional modernist objects, not a decorative poster style.
@@ -252,9 +252,9 @@ AVOID: red-yellow-blue stickers, decorative triangles, luxury upholstery, thick 
 
 ## 案例三：INTERIOR · 室内 / 工作室
 
-![案例三：INTERIOR · 室内 / 工作室配图](https://pbs.twimg.com/media/HLvoC9xXMAAjxa7?format=jpg&name=large)
+![Bauhaus 室内案例，明亮的设计工作室内有大窗、制图桌、书架、吊灯和蓝红黄墙面色块](https://pbs.twimg.com/media/HLvoC9xXMAAjxa7?format=jpg&name=large)
 
-![案例三：INTERIOR · 室内 / 工作室配图](https://pbs.twimg.com/media/HLvoFk4XEAAtzjy?format=jpg&name=large)
+![Bauhaus 工作室案例，WORK、READ、MAKE 三个区域以蓝红黄竖向色板区分，配书架、工作台和印刷设备](https://pbs.twimg.com/media/HLvoFk4XEAAtzjy?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR: Bauhaus interior design, modern design-school studio, functional furniture, workshop clarity, not Scandinavian decor.
@@ -269,9 +269,9 @@ AVOID: cozy boho textiles, Scandinavian hygge, luxury marble, ornate art wall, r
 
 ## 案例四：ARCHITECTURE · 建筑 / 学校体块
 
-![案例四：ARCHITECTURE · 建筑 / 学校体块配图](https://pbs.twimg.com/media/HLvoOPlWwAAFKGU?format=jpg&name=large)
+![Bauhaus 建筑案例，白色立方体校舍围合庭院，连续钢窗立面由玻璃连廊连接](https://pbs.twimg.com/media/HLvoOPlWwAAFKGU?format=jpg&name=large)
 
-![案例四：ARCHITECTURE · 建筑 / 学校体块配图](https://pbs.twimg.com/media/HLvoRL5XAAEJUTa?format=jpg&name=large)
+![Bauhaus 建筑分析板，以黑白校园照片、体块轴测图、平面图和剖面图拆解学校工作坊建筑](https://pbs.twimg.com/media/HLvoRL5XAAEJUTa?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR: Bauhaus architecture, Dessau-era modern design school, functional volumes and industrial clarity, not a red-yellow-blue facade.
