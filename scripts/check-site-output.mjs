@@ -10,6 +10,12 @@ const siteOrigin = new URL(siteConfig.siteUrl).origin
 const failures = []
 const getAttribute = (attributes, name) => attributes.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1] || ''
 const stripTags = (value) => value.replace(/<[^>]+>/g, '').replace(/&(?:amp|lt|gt|quot|#39);/g, ' ').trim()
+const checkAriaReferences = (html, references, relativePath, context) => {
+  for (const id of references.split(/\s+/).filter(Boolean)) {
+    const escapedId = id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    if (!new RegExp(`\\bid="${escapedId}"`).test(html)) failures.push(`${context} references missing id: ${relativePath} -> ${id}`)
+  }
+}
 const checkUrlScheme = (value, relativePath, context, allowContact = false) => {
   const source = value.trim()
   if (!source || source.startsWith('#')) return
@@ -175,13 +181,14 @@ for (const path of htmlFiles) {
     const label = getAttribute(attributes, 'aria-label')
     const labelledBy = getAttribute(attributes, 'aria-labelledby')
     if (!label && !labelledBy && !stripTags(content)) failures.push(`button has no accessible name: ${relativePath}`)
-    if (labelledBy) {
-      for (const id of labelledBy.split(/\s+/).filter(Boolean)) {
-        if (!new RegExp(`\\bid="${id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`).test(html)) failures.push(`button references missing label: ${relativePath} -> ${id}`)
-      }
-    }
+    if (labelledBy) checkAriaReferences(html, labelledBy, relativePath, 'button aria-labelledby')
     const controls = getAttribute(attributes, 'aria-controls')
-    if (controls && !new RegExp(`\\bid="${controls.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`).test(html)) failures.push(`button references missing control: ${relativePath} -> ${controls}`)
+    if (controls) checkAriaReferences(html, controls, relativePath, 'button aria-controls')
+  }
+  for (const [, tagName, attributes] of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*)>/gi)) {
+    if (tagName.toLowerCase() === 'button') continue
+    const labelledBy = getAttribute(attributes, 'aria-labelledby')
+    if (labelledBy) checkAriaReferences(html, labelledBy, relativePath, `${tagName} aria-labelledby`)
   }
   for (const match of html.matchAll(/<(?:div|span|p)\b[^>]*aria-label="[^"]+"[^>]*>/g)) {
     if (!/\brole="[^"]+"/.test(match[0])) failures.push(`generic element has aria-label without a role: ${relativePath}`)
