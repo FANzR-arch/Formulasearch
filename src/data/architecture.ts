@@ -22,7 +22,7 @@ const architectureSchema = z.object({
   kicker: localizedCopySchema,
   title: localizedCopySchema,
   description: localizedCopySchema,
-  filters: z.array(z.object({ id: z.string().min(1), zh: z.string().min(1), en: z.string().min(1) }).strict()).min(1),
+  filters: z.array(localizedCopySchema.extend({ id: z.string().trim().min(1) })).min(1),
   items: z.array(architectureItemSchema).min(1),
 }).strict()
 
