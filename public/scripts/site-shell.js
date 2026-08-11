@@ -9,10 +9,17 @@
     image.dataset.mediaState = 'unavailable'
     const picture = image.closest('picture')
     const fallback = document.createElement(picture ? 'div' : 'span')
+    const altZh = image.dataset.altZh || image.alt || ''
+    const altEn = image.dataset.altEn || altZh
     fallback.className = 'article-media-fallback'
+    fallback.dataset.mediaFallback = 'true'
+    fallback.dataset.altZh = altZh
+    fallback.dataset.altEn = altEn
     fallback.setAttribute('role', 'img')
-    fallback.setAttribute('aria-label', image.alt || '')
-    fallback.textContent = image.alt || ''
+    const locale = root.dataset.locale === 'en' ? 'en' : 'zh'
+    const alt = locale === 'en' ? altEn : altZh
+    fallback.setAttribute('aria-label', alt)
+    fallback.textContent = alt
     if (picture) picture.replaceWith(fallback)
     else image.replaceWith(fallback)
   }
@@ -43,7 +50,12 @@
       element.setAttribute('title', element.dataset[`title${nextLocale === 'en' ? 'En' : 'Zh'}`] || '')
     })
     document.querySelectorAll('[data-alt-en][data-alt-zh]').forEach((element) => {
-      element.setAttribute('alt', element.dataset[`alt${nextLocale === 'en' ? 'En' : 'Zh'}`] || '')
+      const alt = element.dataset[`alt${nextLocale === 'en' ? 'En' : 'Zh'}`] || ''
+      if (element instanceof HTMLImageElement) element.setAttribute('alt', alt)
+      if (element.matches('[data-media-fallback]')) {
+        element.setAttribute('aria-label', alt)
+        element.textContent = alt
+      }
     })
   }
 

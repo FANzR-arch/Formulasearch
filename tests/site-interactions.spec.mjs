@@ -229,6 +229,25 @@ test('failed article images become accessible placeholders', async ({ page }) =>
   await expect(fallback).toHaveAttribute('aria-label', /.+/)
 })
 
+test('failed media placeholders follow locale changes', async ({ page }) => {
+  await page.goto('/blog/ai-practice-2026-02-22')
+  await page.evaluate(() => {
+    const fallback = document.createElement('span')
+    fallback.className = 'article-media-fallback'
+    fallback.dataset.mediaFallback = 'true'
+    fallback.dataset.altZh = '中文回退'
+    fallback.dataset.altEn = 'English fallback'
+    fallback.setAttribute('role', 'img')
+    fallback.setAttribute('aria-label', '中文回退')
+    fallback.textContent = '中文回退'
+    document.querySelector('.article-prose')?.append(fallback)
+  })
+  const fallback = page.locator('.article-media-fallback').last()
+  await page.locator('#language-toggle').click()
+  await expect(fallback).toHaveAttribute('aria-label', 'English fallback')
+  await expect(fallback).toHaveText('English fallback')
+})
+
 test('featured stage keeps safe rel on dynamic external links', async ({ page }) => {
   await page.goto('/blog')
   const trigger = page.locator('[data-stage-trigger]').nth(1)
