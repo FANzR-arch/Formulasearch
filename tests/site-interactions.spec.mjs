@@ -65,3 +65,14 @@ test('article copy feedback and table of contents remain interactive', async ({ 
   await tocLink.click()
   await expect(tocLink).toHaveAttribute('aria-current', 'location')
 })
+
+test('featured stage keeps safe rel on dynamic external links', async ({ page }) => {
+  await page.goto('/blog')
+  const trigger = page.locator('[data-stage-trigger]').nth(1)
+  await trigger.evaluate((element) => {
+    element.dataset.stageExternal = 'true'
+    element.dataset.stageHref = 'https://example.com/reference'
+  })
+  await trigger.focus()
+  await expect(page.locator('[data-stage-link]')).toHaveAttribute('rel', 'noopener noreferrer')
+})

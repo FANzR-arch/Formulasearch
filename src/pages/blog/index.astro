@@ -173,7 +173,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
           stageLink.setAttribute('href', trigger.dataset.stageHref || '#')
           if (trigger.dataset.stageExternal === 'true') {
             stageLink.setAttribute('target', '_blank')
-            stageLink.setAttribute('rel', 'noreferrer')
+            stageLink.setAttribute('rel', 'noopener noreferrer')
           } else {
             stageLink.removeAttribute('target')
             stageLink.removeAttribute('rel')
