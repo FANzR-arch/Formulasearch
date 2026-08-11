@@ -67,6 +67,19 @@ const validateContentStatus = (post, markdown) => {
   return { contentStatus, draft }
 }
 
+const validateLanguageMetadata = (post, markdown) => {
+  const contentLanguage = readFrontmatterField(markdown, 'contentLanguage') || 'zh-Hans'
+  if (!['zh-Hans', 'en'].includes(contentLanguage)) {
+    throw new Error(`Invalid contentLanguage in blog frontmatter: ${post.directory} -> ${contentLanguage}`)
+  }
+  if (contentLanguage !== 'en') return
+  for (const field of ['titleEn', 'descriptionEn', 'coverAltEn']) {
+    if (!readFrontmatterField(markdown, field)) {
+      throw new Error(`English article requires ${field}: ${post.directory}`)
+    }
+  }
+}
+
 const categories = JSON.parse(readFileSync(join(contentRoot, 'categories.json'), 'utf8'))
 const categoryIds = new Set()
 
@@ -246,6 +259,7 @@ if (mode === '--write') {
     const target = join(post.directory, 'index.md')
     if (!existsSync(target)) throw new Error(`缺少 Markdown 索引：${target}`)
     const markdown = readFileSync(target, 'utf8')
+    validateLanguageMetadata(post, markdown)
     const { contentStatus, draft } = validateContentStatus(post, markdown)
     statusCounts[contentStatus] += 1
     if (draft) draftCount += 1
