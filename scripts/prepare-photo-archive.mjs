@@ -7,6 +7,7 @@ const outputDirectory = path.resolve('public/uploads/photos/select')
 const manifestPath = path.resolve('content/site/photo-archive.json')
 const maxDimension = 2560
 const supportedImage = /\.(?:jpe?g|png)$/i
+const allowShrink = process.env.PHOTO_ARCHIVE_ALLOW_SHRINK === '1' || process.argv.includes('--allow-shrink')
 
 if (!sourceDirectory) {
   throw new Error('Photo archive source is required. Set PHOTO_ARCHIVE_SOURCE or pass the source directory as the first argument.')
@@ -86,6 +87,9 @@ await fs.mkdir(path.dirname(manifestPath), { recursive: true })
 
 const items = []
 const existingManifest = await readExistingManifest()
+if (existingManifest.items.length > 0 && images.length < existingManifest.items.length && !allowShrink) {
+  throw new Error(`Photo archive source contains ${images.length} images but the current manifest contains ${existingManifest.items.length}. Refusing to shrink the archive; pass --allow-shrink or set PHOTO_ARCHIVE_ALLOW_SHRINK=1 only after reviewing the removal.`)
+}
 const existingItems = new Map(existingManifest.items.map((item) => [item.image, item]))
 let totalBytes = 0
 
