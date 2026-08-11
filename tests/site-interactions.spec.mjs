@@ -156,3 +156,8 @@ test('RSS exposes local article entries', async ({ request }) => {
   expect(body).toContain('<pubDate>')
   expect(body).toContain('/blog/')
 })
+
+test('static preview server rejects paths outside dist', async ({ request }) => {
+  const response = await request.get('/%2e%2e/%2e%2e/package.json')
+  expect(response.status()).toBe(404)
+})

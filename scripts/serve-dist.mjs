@@ -1,6 +1,6 @@
 import { createReadStream, existsSync, statSync } from 'node:fs'
 import { createServer } from 'node:http'
-import { extname, join, normalize, resolve } from 'node:path'
+import { extname, join, normalize, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const projectRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
@@ -25,14 +25,22 @@ if (!existsSync(join(distRoot, 'index.html'))) {
 
 const server = createServer((request, response) => {
   const requestUrl = new URL(request.url || '/', `http://${request.headers.host || '127.0.0.1'}`)
-  const pathname = decodeURIComponent(requestUrl.pathname)
+  let pathname
+  try {
+    pathname = decodeURIComponent(requestUrl.pathname)
+  } catch {
+    response.writeHead(400)
+    response.end('Bad request')
+    return
+  }
   const relativePath = pathname.endsWith('/') ? `${pathname}index.html` : pathname
   const candidate = normalize(join(distRoot, relativePath))
   const filePath = existsSync(candidate) && statSync(candidate).isFile()
     ? candidate
     : normalize(join(distRoot, `${pathname.replace(/\/$/, '')}/index.html`))
 
-  if (!filePath.startsWith(distRoot) || !existsSync(filePath) || !statSync(filePath).isFile()) {
+  const isInsideDist = filePath === distRoot || filePath.startsWith(`${distRoot}${sep}`)
+  if (!isInsideDist || !existsSync(filePath) || !statSync(filePath).isFile()) {
     response.writeHead(404)
     response.end('Not found')
     return
