@@ -92,6 +92,7 @@ const transform = (markdown) => {
       images.push({
         alt,
         destination: tag,
+        hasIntrinsicDimensions: /\bwidth\s*=\s*["']?\d+/i.test(tag) && /\bheight\s*=\s*["']?\d+/i.test(tag),
         source,
         heading: currentHeading,
         line: index + 1,
@@ -108,6 +109,7 @@ const transform = (markdown) => {
       images.push({
         alt: trimmedAlt,
         destination,
+        hasIntrinsicDimensions: false,
         source: normalizeImageSource(destination),
         heading: currentHeading,
         line: index + 1,
@@ -143,6 +145,8 @@ let coverAltCandidates = 0
 let localImageTotal = 0
 let externalImageTotal = 0
 let unknownImageTotal = 0
+let externalImageWithoutDimensionsTotal = 0
+const insecureExternalImageSources = new Set()
 const dependencyHosts = new Map()
 const reviewItems = []
 for (const file of posts) {
@@ -161,6 +165,8 @@ for (const file of posts) {
     else if (dependency.kind === 'unknown') unknownImageTotal += 1
     else {
       externalImageTotal += 1
+      if (!image.hasIntrinsicDimensions) externalImageWithoutDimensionsTotal += 1
+      if (dependency.protocol !== 'https:') insecureExternalImageSources.add(image.source)
       const summary = dependencyHosts.get(dependency.host) || { count: 0, protocols: new Set(), sources: new Set() }
       summary.count += 1
       summary.protocols.add(dependency.protocol)
@@ -202,6 +208,9 @@ const unapprovedExternalImageHosts = [...dependencyHosts.keys()]
 if (mode === '--check' && unapprovedExternalImageHosts.length > 0) {
   throw new Error(`Blog 正文图片使用了未批准的外部主机：${unapprovedExternalImageHosts.join(', ')}。请先更新 ${mediaPolicyPath} 的策略，再提交内容。`)
 }
+if (mode === '--check' && insecureExternalImageSources.size > 0) {
+  throw new Error(`Blog 正文图片必须使用 HTTPS：${[...insecureExternalImageSources].join(', ')}`)
+}
 
 if (mode === '--check' && (total > 0 || invalidAltTotal > 0)) {
   const details = [
@@ -215,6 +224,7 @@ if (mode === '--report') {
   console.log(`Blog 图片 alt 审查报告：${posts.length} 篇文章，${imageTotal} 张正文图片，${contextualCandidates} 张章节上下文初稿，${coverAltCandidates} 个封面 coverAlt 占位，${invalidAltTotal} 个 HTML 图片 alt 问题。`)
   console.log(`图片依赖摘要：${externalImageTotal} 张外部图片，${localImageTotal} 张本地图片，${unknownImageTotal} 张未识别来源。`)
   console.log(`外部图片主机策略：已批准 ${approvedExternalImageHosts.size} 个，当前未批准 ${unapprovedExternalImageHosts.length} 个。`)
+  console.log(`External images without intrinsic dimensions: ${externalImageWithoutDimensionsTotal}; report does not infer remote dimensions.`)
   if (dependencyHosts.size > 0) {
     console.log('外部图片主机（按图片数量排序）：')
     for (const [host, summary] of [...dependencyHosts.entries()].sort((a, b) => b[1].count - a[1].count || a[0].localeCompare(b[0]))) {
