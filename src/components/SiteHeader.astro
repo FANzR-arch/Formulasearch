@@ -2,6 +2,7 @@
 import { Aperture, ChevronDown, DraftingCompass, Globe, Menu, Moon, Sun, X } from '@lucide/astro'
 import { primaryNavigation, type PrimarySection } from '../data/navigation'
 import { siteConfig } from '../data/site-config'
+import { uiCopy } from '../data/ui-copy'
 import LocalizedText from './LocalizedText.astro'
 
 interface Props {
@@ -13,23 +14,23 @@ const { active, logoMode = 'home' } = Astro.props
 
 ---
 
-<header class="site-header" aria-label="网站主导航" data-aria-en="Primary navigation" data-aria-zh="网站主导航">
+<header class="site-header" aria-label={uiCopy.navigation.primary.zh} data-aria-en={uiCopy.navigation.primary.en} data-aria-zh={uiCopy.navigation.primary.zh}>
   {logoMode === 'background' ? (
-    <button id="background-cycle" class="monogram" type="button" aria-label="切换背景效果" data-aria-en="Change background effect" data-aria-zh="切换背景效果" title="切换背景效果" data-title-en="Change background effect" data-title-zh="切换背景效果">
+    <button id="background-cycle" class="monogram" type="button" aria-label={uiCopy.navigation.backgroundEffect.zh} data-aria-en={uiCopy.navigation.backgroundEffect.en} data-aria-zh={uiCopy.navigation.backgroundEffect.zh} title={uiCopy.navigation.backgroundEffect.zh} data-title-en={uiCopy.navigation.backgroundEffect.en} data-title-zh={uiCopy.navigation.backgroundEffect.zh}>
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </button>
   ) : (
-    <a class="monogram" href="/" aria-label="返回首页" data-aria-en="Return home" data-aria-zh="返回首页" title="返回首页" data-title-en="Return home" data-title-zh="返回首页">
+    <a class="monogram" href="/" aria-label={uiCopy.common.returnHome.zh} data-aria-en={uiCopy.common.returnHome.en} data-aria-zh={uiCopy.common.returnHome.zh} title={uiCopy.common.returnHome.zh} data-title-en={uiCopy.common.returnHome.en} data-title-zh={uiCopy.common.returnHome.zh}>
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </a>
   )}
 
-  <button id="mobile-navigation-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="打开导航" data-aria-en="Open navigation" data-aria-zh="打开导航">
+  <button id="mobile-navigation-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label={uiCopy.navigation.openNavigation.zh} data-aria-en={uiCopy.navigation.openNavigation.en} data-aria-zh={uiCopy.navigation.openNavigation.zh}>
     <Menu class="mobile-nav-toggle__menu" aria-hidden="true" />
     <X class="mobile-nav-toggle__close" aria-hidden="true" />
   </button>
 
-  <nav id="site-navigation" class="site-nav" aria-label="网站导航" data-aria-en="Site navigation" data-aria-zh="网站导航">
+  <nav id="site-navigation" class="site-nav" aria-label={uiCopy.navigation.site.zh} data-aria-en={uiCopy.navigation.site.en} data-aria-zh={uiCopy.navigation.site.zh}>
     {primaryNavigation.map((section) => (
       <div class="nav-menu">
         <div class="nav-menu__trigger">
@@ -51,20 +52,20 @@ const { active, logoMode = 'home' } = Astro.props
     ))}
     <div class="nav-utilities">
       <span class="nav-divider nav-divider--archive" aria-hidden="true"></span>
-      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'photos' }]} href="/photos" aria-label="摄影" data-aria-en="Photography" data-aria-zh="摄影" title="摄影" data-title-en="Photography" data-title-zh="摄影">
+      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'photos' }]} href="/photos" aria-label={uiCopy.navigation.photos.zh} data-aria-en={uiCopy.navigation.photos.en} data-aria-zh={uiCopy.navigation.photos.zh} title={uiCopy.navigation.photos.zh} data-title-en={uiCopy.navigation.photos.en} data-title-zh={uiCopy.navigation.photos.zh}>
         <Aperture aria-hidden="true" />
       </a>
-      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'architecture' }]} href="/architecture" aria-label="建筑" data-aria-en="Architecture" data-aria-zh="建筑" title="建筑" data-title-en="Architecture" data-title-zh="建筑">
+      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'architecture' }]} href="/architecture" aria-label={uiCopy.navigation.architecture.zh} data-aria-en={uiCopy.navigation.architecture.en} data-aria-zh={uiCopy.navigation.architecture.zh} title={uiCopy.navigation.architecture.zh} data-title-en={uiCopy.navigation.architecture.en} data-title-zh={uiCopy.navigation.architecture.zh}>
         <DraftingCompass aria-hidden="true" />
       </a>
       <span class="nav-divider nav-divider--social" aria-hidden="true"></span>
       <a class="icon-link icon-link--brand icon-link--github" href={siteConfig.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`${siteConfig.author.name} 的 GitHub`} data-aria-en={`${siteConfig.author.name} on GitHub`} data-aria-zh={`${siteConfig.author.name} 的 GitHub`} title="GitHub">
         <img src="/brand/github-mark.svg" alt="" aria-hidden="true" />
       </a>
-      <button id="language-toggle" class="language-toggle" type="button" aria-label="切换到英文" title="切换到英文" aria-pressed="false">
+      <button id="language-toggle" class="language-toggle" type="button" aria-label={uiCopy.navigation.switchToEnglish.zh} title={uiCopy.navigation.switchToEnglish.zh} data-label-en-zh={uiCopy.navigation.switchToEnglish.zh} data-label-en-en={uiCopy.navigation.switchToEnglish.en} data-label-zh-zh={uiCopy.navigation.switchToChinese.zh} data-label-zh-en={uiCopy.navigation.switchToChinese.en} aria-pressed="false">
         <Globe aria-hidden="true" />
       </button>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换到深色主题" aria-pressed="false">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label={uiCopy.navigation.themeToDark.zh} aria-pressed="false">
         <Sun class="theme-icon__sun" aria-hidden="true" />
         <Moon class="theme-icon__moon" aria-hidden="true" />
       </button>
@@ -167,8 +168,9 @@ const { active, logoMode = 'home' } = Astro.props
   const updateLanguageToggle = () => {
     const isEnglish = document.documentElement.dataset.locale === 'en'
     languageToggle.setAttribute('aria-pressed', String(isEnglish))
-    languageToggle.setAttribute('aria-label', isEnglish ? 'Switch to Chinese' : '切换到英文')
-    languageToggle.setAttribute('title', isEnglish ? 'Switch to Chinese' : '切换到英文')
+    const labelKey = isEnglish ? 'labelZhEn' : 'labelEnZh'
+    languageToggle.setAttribute('aria-label', languageToggle.dataset[labelKey] || '')
+    languageToggle.setAttribute('title', languageToggle.dataset[labelKey] || '')
   }
 
   updateLanguageToggle()

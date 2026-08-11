@@ -3,6 +3,7 @@ import SiteHeader from '../components/SiteHeader.astro'
 import LocalizedText from '../components/LocalizedText.astro'
 import BaseLayout from './BaseLayout.astro'
 import { siteConfig } from '../data/site-config'
+import { uiCopy } from '../data/ui-copy'
 import '../styles/blog.css'
 
 interface Props {
@@ -26,7 +27,7 @@ const { description, descriptionEn, image, modifiedTime, ogType, publishedTime, 
     <main id="main-content" class="blog-main"><slot /></main>
     <footer class="site-footer">
       <span>© {new Date().getFullYear()} {siteConfig.name}</span>
-      <a href="/"><LocalizedText zh="返回首页" en="Return home" /></a>
+      <a href="/"><LocalizedText {...uiCopy.common.returnHome} /></a>
     </footer>
   </div>
 

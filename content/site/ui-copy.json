@@ -1,0 +1,48 @@
+{
+  "common": {
+    "returnHome": { "zh": "返回首页", "en": "Return home" }
+  },
+  "navigation": {
+    "primary": { "zh": "网站主导航", "en": "Primary navigation" },
+    "site": { "zh": "网站导航", "en": "Site navigation" },
+    "backgroundEffect": { "zh": "切换背景效果", "en": "Change background effect" },
+    "openNavigation": { "zh": "打开导航", "en": "Open navigation" },
+    "skipToContent": { "zh": "跳到主要内容", "en": "Skip to content" },
+    "photos": { "zh": "摄影", "en": "Photography" },
+    "architecture": { "zh": "建筑", "en": "Architecture" },
+    "switchToEnglish": { "zh": "切换到英文", "en": "Switch to English" },
+    "switchToChinese": { "zh": "切换到中文", "en": "Switch to Chinese" },
+    "themeToDark": { "zh": "切换到深色主题", "en": "Switch to dark theme" },
+    "themeToLight": { "zh": "切换到浅色主题", "en": "Switch to light theme" }
+  },
+  "blog": {
+    "blog": { "zh": "博客", "en": "Blog" },
+    "articleLocation": { "zh": "文章位置", "en": "Article location" },
+    "articleContents": { "zh": "文章目录", "en": "Article contents" },
+    "onThisPage": { "zh": "本页目录", "en": "On this page" },
+    "copyLink": { "zh": "复制链接", "en": "Copy link" },
+    "copied": { "zh": "已复制", "en": "Copied" },
+    "copyArticleLink": { "zh": "复制文章链接", "en": "Copy article link" },
+    "backToBlog": { "zh": "返回博客", "en": "Back to blog" },
+    "allArticles": { "zh": "全部文章", "en": "All articles" },
+    "originallyPublished": { "zh": "原文发布", "en": "Originally published on" },
+    "originalPublication": { "zh": "原文平台", "en": "Original publication" },
+    "keepReading": { "zh": "继续阅读", "en": "Keep reading" },
+    "relatedArticles": { "zh": "相关文章", "en": "Related articles" }
+  },
+  "archive": {
+    "sections": { "zh": "档案栏目", "en": "Archive sections" },
+    "filters": { "zh": "档案筛选", "en": "Archive filters" },
+    "browse": { "zh": "浏览", "en": "Browse" },
+    "photos": { "zh": "摄影", "en": "Photography" },
+    "architecture": { "zh": "建筑", "en": "Architecture" },
+    "loadMore": { "zh": "继续加载影像", "en": "Load more images" },
+    "note": { "zh": "持续整理中的公开视觉档案。", "en": "A public visual archive, continuously edited." },
+    "backToTop": { "zh": "回到顶部", "en": "Back to top" }
+  },
+  "platforms": {
+    "wechat": { "zh": "微信", "en": "WeChat" },
+    "x": { "zh": "X", "en": "X" },
+    "original": { "zh": "原文", "en": "Original" }
+  }
+}

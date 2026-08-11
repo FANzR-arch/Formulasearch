@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import { siteConfig } from '../data/site-config'
+import { uiCopy } from '../data/ui-copy'
 
 interface Props {
   description?: string
@@ -33,7 +34,9 @@ const localizedDescriptionEn = descriptionEn ?? description
 ---
 
 <!doctype html>
-<html lang="zh-Hans" data-locale="zh" data-theme="light" data-meta-title-zh={title} data-meta-title-en={localizedTitleEn} data-meta-description-zh={description} data-meta-description-en={localizedDescriptionEn}>
+<html lang="zh-Hans" data-locale="zh" data-theme="light" data-meta-title-zh={title} data-meta-title-en={localizedTitleEn} data-meta-description-zh={description} data-meta-description-en={localizedDescriptionEn}
+  data-theme-to-dark-zh={uiCopy.navigation.themeToDark.zh} data-theme-to-dark-en={uiCopy.navigation.themeToDark.en}
+  data-theme-to-light-zh={uiCopy.navigation.themeToLight.zh} data-theme-to-light-en={uiCopy.navigation.themeToLight.en}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -91,8 +94,8 @@ const localizedDescriptionEn = descriptionEn ?? description
 
         const getThemeLabel = (theme) => {
           const isEnglish = root.dataset.locale === 'en'
-          if (isEnglish) return theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
-          return theme === 'dark' ? '切换到浅色主题' : '切换到深色主题'
+          const target = theme === 'dark' ? 'themeToLight' : 'themeToDark'
+          return root.dataset[`${target}${isEnglish ? 'En' : 'Zh'}`] || ''
         }
 
         const applyTheme = (theme) => {
@@ -183,8 +186,8 @@ const localizedDescriptionEn = descriptionEn ?? description
   </head>
   <body>
     <a class="skip-link" href="#main-content">
-      <span class="localized-text__zh">跳到主要内容</span>
-      <span class="localized-text__en">Skip to content</span>
+      <span class="localized-text__zh">{uiCopy.navigation.skipToContent.zh}</span>
+      <span class="localized-text__en">{uiCopy.navigation.skipToContent.en}</span>
     </a>
     <slot />
   </body>

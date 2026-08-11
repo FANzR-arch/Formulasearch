@@ -5,6 +5,7 @@ import LocalizedText from './LocalizedText.astro'
 import ExternalLinkLabel from './ExternalLinkLabel.astro'
 import BlogCover from './BlogCover.astro'
 import { formatBlogDate, getPrimaryBlogLink, isLocalBlogPost } from '../lib/blog-content'
+import { uiCopy } from '../data/ui-copy'
 
 interface Props {
   compact?: boolean
@@ -27,7 +28,7 @@ const isLocal = isLocalBlogPost(post)
     {showCategory && <p class="post-row__meta"><LocalizedText zh={post.category.title} en={post.category.titleEn} /></p>}
     <h2><a href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}>{post.title}</a></h2>
     {!compact && <p class="post-row__summary">{post.summary}</p>}
-    <div class="post-row__links" aria-label="原文平台" data-aria-en="Original publication" data-aria-zh="原文平台">
+    <div class="post-row__links" aria-label={uiCopy.blog.originalPublication.zh} data-aria-en={uiCopy.blog.originalPublication.en} data-aria-zh={uiCopy.blog.originalPublication.zh}>
       {post.links.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer"><ExternalLinkLabel label={link.label} /><ArrowUpRight aria-hidden="true" size={13} stroke-width={1.7} /></a>)}
     </div>
   </div>

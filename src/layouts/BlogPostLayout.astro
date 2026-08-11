@@ -8,6 +8,7 @@ import RelatedPosts from '../components/RelatedPosts.astro'
 import BlogCover from '../components/BlogCover.astro'
 import BlogLayout from './BlogLayout.astro'
 import { siteConfig } from '../data/site-config'
+import { uiCopy } from '../data/ui-copy'
 
 interface Props {
   categoryLabel: { title: string; titleEn: string }
@@ -43,7 +44,7 @@ const structuredData = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Blog', item: new URL('/blog', Astro.site).toString() },
+        { '@type': 'ListItem', position: 1, name: uiCopy.blog.blog.en, item: new URL('/blog', Astro.site).toString() },
         { '@type': 'ListItem', position: 2, name: categoryLabel.title, item: new URL('/blog/series', Astro.site).toString() },
         { '@type': 'ListItem', position: 3, name: post.data.title, item: canonical },
       ],
@@ -62,9 +63,9 @@ const structuredData = {
   structuredData={structuredData}
 >
     <article class="article-page" lang={post.data.contentLanguage}>
-    <nav class="article-context" aria-label="文章位置" data-aria-en="Article location" data-aria-zh="文章位置">
+    <nav class="article-context" aria-label={uiCopy.blog.articleLocation.zh} data-aria-en={uiCopy.blog.articleLocation.en} data-aria-zh={uiCopy.blog.articleLocation.zh}>
       <div class="article-context__inner">
-        <a href="/blog"><House aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText zh="博客" en="Blog" /></a>
+        <a href="/blog"><House aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.blog} /></a>
         <span class="article-context__pill"><LocalizedText zh={categoryLabel.title} en={categoryLabel.titleEn} /></span>
       </div>
     </nav>
@@ -75,7 +76,7 @@ const structuredData = {
         <h1>{post.data.title}</h1>
         <div class="article-byline">
           <p class="article-author"><span class="article-author__mark" aria-hidden="true">P</span><strong>Phil</strong></p>
-          <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText zh={`${readingMinutes} 分钟阅读`} en={`${readingMinutes} min read`} /></span><button class="article-copy" type="button" data-copy-url={canonical} aria-live="polite"><Link aria-hidden="true" size={14} stroke-width={1.7} /><span class="article-copy__default"><LocalizedText zh="复制链接" en="Copy link" /></span><span class="article-copy__feedback"><LocalizedText zh="已复制" en="Copied" /></span></button></p>
+        <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText zh={`${readingMinutes} 分钟阅读`} en={`${readingMinutes} min read`} /></span><button class="article-copy" type="button" data-copy-url={canonical} data-copy-prompt-zh={uiCopy.blog.copyArticleLink.zh} data-copy-prompt-en={uiCopy.blog.copyArticleLink.en} aria-live="polite"><Link aria-hidden="true" size={14} stroke-width={1.7} /><span class="article-copy__default"><LocalizedText {...uiCopy.blog.copyLink} /></span><span class="article-copy__feedback"><LocalizedText {...uiCopy.blog.copied} /></span></button></p>
         </div>
       </header>
 
@@ -85,8 +86,8 @@ const structuredData = {
 
       {toc.length > 1 && (
         <details class="article-toc" open>
-          <summary><LocalizedText zh="本页目录" en="On this page" /></summary>
-          <nav aria-label="文章目录" data-aria-en="Article contents" data-aria-zh="文章目录">
+          <summary><LocalizedText {...uiCopy.blog.onThisPage} /></summary>
+          <nav aria-label={uiCopy.blog.articleContents.zh} data-aria-en={uiCopy.blog.articleContents.en} data-aria-zh={uiCopy.blog.articleContents.zh}>
             {toc.map((heading) => <a class:list={{ 'is-subheading': heading.depth === 3 }} href={`#${heading.slug}`}>{heading.text}</a>)}
           </nav>
         </details>
@@ -95,16 +96,16 @@ const structuredData = {
       <div class="article-prose"><slot /></div>
 
       <footer class="article-footer">
-        <a href="/blog"><ArrowLeft aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText zh="返回博客" en="Back to blog" /></a>
-        <a href="/blog/archive"><LocalizedText zh="全部文章" en="All articles" /> <ArrowRight aria-hidden="true" size={14} stroke-width={1.7} /></a>
+        <a href="/blog"><ArrowLeft aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.backToBlog} /></a>
+        <a href="/blog/archive"><LocalizedText {...uiCopy.blog.allArticles} /> <ArrowRight aria-hidden="true" size={14} stroke-width={1.7} /></a>
       </footer>
 
       <RelatedPosts posts={relatedPosts} />
 
       {post.data.externalLinks.length > 0 && (
         <aside class="article-sources">
-          <p><LocalizedText zh="原文发布" en="Originally published on" /></p>
-          <div class="post-row__links" aria-label="原文平台" data-aria-en="Original publication" data-aria-zh="原文平台">
+          <p><LocalizedText {...uiCopy.blog.originallyPublished} /></p>
+          <div class="post-row__links" aria-label={uiCopy.blog.originalPublication.zh} data-aria-en={uiCopy.blog.originalPublication.en} data-aria-zh={uiCopy.blog.originalPublication.zh}>
             {post.data.externalLinks.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer"><ExternalLinkLabel label={link.label} /><ArrowUpRight aria-hidden="true" size={13} stroke-width={1.7} /></a>)}
           </div>
         </aside>
@@ -123,7 +124,10 @@ const structuredData = {
             delete button.dataset.copyState
           }, 1800)
         } catch {
-          window.prompt(document.documentElement.dataset.locale === 'en' ? 'Copy article link' : '复制文章链接', url)
+          const prompt = document.documentElement.dataset.locale === 'en'
+            ? button.dataset.copyPromptEn
+            : button.dataset.copyPromptZh
+          window.prompt(prompt ?? '', url)
         }
       })
     })

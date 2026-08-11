@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import { getBlogCategories } from '../lib/blog-content'
 import LocalizedText from './LocalizedText.astro'
+import { uiCopy } from '../data/ui-copy'
 
 interface Props {
   posts: CollectionEntry<'blog'>[]
@@ -15,8 +16,8 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10).replaceAll('-
 {posts.length > 0 && (
   <section class="article-related" aria-labelledby="related-title">
     <header class="article-related__heading">
-      <p><LocalizedText zh="继续阅读" en="Keep reading" /></p>
-      <h2 id="related-title"><LocalizedText zh="相关文章" en="Related articles" /></h2>
+      <p><LocalizedText {...uiCopy.blog.keepReading} /></p>
+      <h2 id="related-title"><LocalizedText {...uiCopy.blog.relatedArticles} /></h2>
     </header>
     <div class="article-related__list">
       {posts.map((post) => {

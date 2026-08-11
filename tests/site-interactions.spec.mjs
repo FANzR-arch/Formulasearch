@@ -31,10 +31,12 @@ test('locale and theme controls update document metadata', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await expect(page).toHaveTitle(/Projects/)
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Phil's products/)
+  await expect(page.locator('#language-toggle')).toHaveAttribute('aria-label', 'Switch to Chinese')
 
   await page.locator('#theme-toggle').click()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', 'Switch to light theme')
 })
 
 test('locale updates the dynamic background control label', async ({ page }) => {

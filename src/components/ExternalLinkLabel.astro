@@ -1,14 +1,15 @@
 ---
 import LocalizedText from './LocalizedText.astro'
+import { uiCopy } from '../data/ui-copy'
 
 interface Props {
   label: '微信' | 'X' | '原文'
 }
 
 const labels = {
-  微信: { zh: '微信', en: 'WeChat' },
-  X: { zh: 'X', en: 'X' },
-  原文: { zh: '原文', en: 'Original' },
+  微信: uiCopy.platforms.wechat,
+  X: uiCopy.platforms.x,
+  原文: uiCopy.platforms.original,
 } as const
 
 const { label } = Astro.props
