@@ -73,7 +73,7 @@ const uiCopySchema = z.object({
     x: localizedCopySchema,
     original: localizedCopySchema,
   }),
-})
+}).strict()
 
 const result = uiCopySchema.safeParse(uiCopyContent)
 if (!result.success) {
