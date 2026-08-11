@@ -240,6 +240,17 @@ test('English archive images expose English alt text in SSR HTML', async ({ page
   await expect(image).not.toHaveAttribute('alt', await image.getAttribute('data-alt-zh'))
 })
 
+test('locale-sensitive titles and alt text switch from the SSR value', async ({ page }) => {
+  await page.goto('/en/photos')
+  const image = page.locator('.archive-record img').first()
+  const archiveLink = page.locator('.icon-link--archive').first()
+  await expect(archiveLink).toHaveAttribute('title', await archiveLink.getAttribute('data-title-en'))
+
+  await page.locator('#language-toggle').click()
+  await expect(image).toHaveAttribute('alt', await image.getAttribute('data-alt-zh'))
+  await expect(archiveLink).toHaveAttribute('title', await archiveLink.getAttribute('data-title-zh'))
+})
+
 test('locale switch preserves article source language semantics', async ({ page }) => {
   await page.goto('/blog/ai-practice-2026-02-22')
   await page.locator('#language-toggle').click()

@@ -205,11 +205,33 @@ for (const path of htmlFiles) {
   if (html.includes('alt="Article image"') || html.includes('alt="Article illustration"')) failures.push(`generic article image alt: ${relativePath}`)
   if (html.includes('querySelector<') || html.includes('querySelectorAll<')) failures.push(`untranspiled TypeScript generic in inline script: ${relativePath}`)
   const documentLocale = /<html\b[^>]*\blang="en"/.test(html) ? 'en' : 'zh'
-  for (const match of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*\bdata-aria-en="[^"]+"[^>]*\bdata-aria-zh="[^"]+"[^>]*)>/gi)) {
-    const attributes = match[2]
-    const label = getAttribute(attributes, 'aria-label')
-    const expected = getAttribute(attributes, documentLocale === 'en' ? 'data-aria-en' : 'data-aria-zh')
-    if (label && expected && label !== expected) failures.push(`SSR aria-label locale mismatch: ${relativePath} <${match[1]}>`)
+  for (const [, tagName, attributes] of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*)>/gi)) {
+    const dataAriaEn = getAttribute(attributes, 'data-aria-en')
+    const dataAriaZh = getAttribute(attributes, 'data-aria-zh')
+    if (dataAriaEn || dataAriaZh) {
+      const expected = documentLocale === 'en' ? dataAriaEn : dataAriaZh
+      const label = getAttribute(attributes, 'aria-label')
+      if (!dataAriaEn || !dataAriaZh || !label) failures.push(`SSR aria-label locale value is incomplete: ${relativePath} <${tagName}>`)
+      else if (label !== expected) failures.push(`SSR aria-label locale mismatch: ${relativePath} <${tagName}>`)
+    }
+
+    const dataTitleEn = getAttribute(attributes, 'data-title-en')
+    const dataTitleZh = getAttribute(attributes, 'data-title-zh')
+    if (dataTitleEn || dataTitleZh) {
+      const expected = documentLocale === 'en' ? dataTitleEn : dataTitleZh
+      const titleValue = getAttribute(attributes, 'title')
+      if (!dataTitleEn || !dataTitleZh || !titleValue) failures.push(`SSR title locale value is incomplete: ${relativePath} <${tagName}>`)
+      else if (titleValue !== expected) failures.push(`SSR title locale mismatch: ${relativePath} <${tagName}>`)
+    }
+
+    const dataAltEn = getAttribute(attributes, 'data-alt-en')
+    const dataAltZh = getAttribute(attributes, 'data-alt-zh')
+    if (dataAltEn || dataAltZh) {
+      const expected = documentLocale === 'en' ? dataAltEn : dataAltZh
+      const currentAlt = tagName.toLowerCase() === 'img' ? getAttribute(attributes, 'alt') : getAttribute(attributes, 'aria-label')
+      if (!dataAltEn || !dataAltZh || !currentAlt) failures.push(`SSR alt locale value is incomplete: ${relativePath} <${tagName}>`)
+      else if (currentAlt !== expected) failures.push(`SSR alt locale mismatch: ${relativePath} <${tagName}>`)
+    }
   }
   for (const match of html.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/g)) {
     const attributes = match[1]
