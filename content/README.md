@@ -52,6 +52,6 @@ content/
 - `/blog`、`/blog/series`、`/blog/archive`：文章索引和归档
 - `/projects`、`/skills`、`/lab`：目录内容来自 `content/site/catalog.json`，构建时由 `src/data/catalog.ts` 做 Zod 校验
 - `/photos`：照片 manifest 来自 `content/site/photo-archive.json`，构建时由 `src/data/photo-archive.ts` 做 Zod 校验
-- `/architecture`：当前为页面内研究图像数据
+- `/architecture`：内容来自 `content/site/architecture.json`，构建时由 `src/data/architecture.ts` 做 Zod 校验
 
 照片归档清单可直接编辑 [`site/photo-archive.json`](site/photo-archive.json)；如果需要从原始 JPG/PNG 重新生成图片和清单，可通过 `PHOTO_ARCHIVE_SOURCE` 指向原始目录，再运行 `npm run photos:prepare`。脚本会生成 WebP 和 JSON manifest，并保留已有的图片文案与标签，不会把本机绝对路径写进页面代码。

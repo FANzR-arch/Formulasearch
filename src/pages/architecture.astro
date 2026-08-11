@@ -1,24 +1,16 @@
 ---
 import ArchiveIndex from '../components/ArchiveIndex.astro'
 import CatalogLayout from '../layouts/CatalogLayout.astro'
-import whiteStudy from '../assets/archive/studies/iphone-15-3840x2160-white-4k-25043.jpeg'
-import violetStudy from '../assets/archive/studies/iphone-15-pro-3840x2160-splash-25150.jpeg'
-import waterStudy from '../assets/archive/studies/water-3840x2160-glass-colorful-4k-25120.jpeg'
+import { architectureItems, architecturePage } from '../data/architecture'
 ---
 
-<CatalogLayout active="architecture" variant="archive" title={{ zh: '建筑', en: 'Architecture' }} description={{ zh: 'Phil 的建筑项目与设计档案。', en: "Phil's architecture projects and design archive." }}>
+<CatalogLayout active="architecture" variant="archive" title={architecturePage.pageTitle} description={architecturePage.pageDescription}>
   <ArchiveIndex
     active="architecture"
-    kicker={{ zh: '建筑档案 / 01', en: 'Architecture archive / 01' }}
-    title={{ zh: '建筑作品集', en: 'Architecture portfolio' }}
-    description={{ zh: '持续收集的建筑项目与过程资料，按项目整理并归档。', en: 'An ongoing collection of architectural projects and process material, organised and archived by project.' }}
-    filters={[
-      { id: 'all', zh: '全部', en: 'All' },
-    ]}
-    items={[
-      { image: whiteStudy, alt: '白色流动材质的抽象研究图像', index: '01', layout: 'hero', tags: ['light', 'material'], label: { zh: '折叠的白', en: 'Folded white' }, caption: { zh: '材料研究 / 光', en: 'Material study / light' } },
-      { image: violetStudy, alt: '紫色透明液体质感的抽象研究图像', index: '02', layout: 'portrait', tags: ['light', 'material'], label: { zh: '透明的体积', en: 'Transparent volume' }, caption: { zh: '材料研究 / 表面', en: 'Material study / surface' } },
-      { image: waterStudy, alt: '红蓝色水与玻璃质感的抽象研究图像', index: '03', layout: 'wide', tags: ['light', 'material'], label: { zh: '颜色进入水里', en: 'Colour enters water' }, caption: { zh: '材料研究 / 色彩', en: 'Material study / colour' } },
-    ]}
+    kicker={architecturePage.kicker}
+    title={architecturePage.title}
+    description={architecturePage.description}
+    filters={architecturePage.filters}
+    items={architectureItems}
   />
 </CatalogLayout>
