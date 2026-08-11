@@ -5,7 +5,7 @@ const blogSettingsSchema = z.object({
   featuredCount: z.number().int().positive(),
   recentCount: z.number().int().positive(),
   relatedCount: z.number().int().positive(),
-  readingWordsPerMinute: z.number().int().positive(),
+  readingUnitsPerMinute: z.number().int().positive(),
 }).strict()
 
 const result = blogSettingsSchema.safeParse(blogSettingsContent)

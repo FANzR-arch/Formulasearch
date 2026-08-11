@@ -26,7 +26,10 @@ const published = post.data.pubDate.toISOString().slice(0, 10)
 const modified = (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10)
 const displayDate = published.replaceAll('-', '.')
 const canonical = new URL(`${siteRoutes.blog}/${post.data.slug}`, Astro.site).toString()
-const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').replace(/\s+/g, '').length / blogSettings.readingWordsPerMinute))
+const readingUnits = post.data.contentLanguage === 'en'
+  ? (post.body ?? '').trim().split(/\s+/).filter(Boolean).length
+  : (post.body ?? '').replace(/\s+/g, '').length
+const readingMinutes = Math.max(1, Math.ceil(readingUnits / blogSettings.readingUnitsPerMinute))
 const readingTimeCopy = interpolateLocalizedCopy(uiCopy.blog.readingTime, {
   minutes: { zh: String(readingMinutes), en: String(readingMinutes) },
 })
