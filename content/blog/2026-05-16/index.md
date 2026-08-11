@@ -38,7 +38,7 @@ AI 产出了一大段内容，致命问题在这一句：
 
 > ……视觉概念：左侧一张混乱的长提示词卡片，充满密集灰色文字、关键词标签；右侧一张简洁的提示词卡片，保留三个核心模块”主体 / 光线 / 构图”，象征”更少的提示词带来更强的控制”。
 
-![1A：AI 代写提示词配图](https://pbs.twimg.com/media/HK9EGwcXoAAy5gm?format=jpg&name=large)
+![复杂提示词、清晰提示词和输出效果的对照图，长串灰色关键词经过主体、光线、构图三项筛选后变成红圆黑三角的简洁画面](https://pbs.twimg.com/media/HK9EGwcXoAAy5gm?format=jpg&name=large)
 
 这不像封面， 像ppt，把文章观点直接画上去了。路人一眼看懂，看完就划走，血亏。
 
@@ -46,19 +46,19 @@ AI 产出了一大段内容，致命问题在这一句：
 
 > 横版 5:2 封面，纯白背景，极简瑞士平面设计，黑白高对比，少量红色点缀，大量留白，干净网格排版，现代设计杂志封面质感。主标题中文大字：”少即是多”，粗壮克制，层级强，醒目高级。副标题”实测篇”。
 
-![1A：AI 代写提示词配图](https://pbs.twimg.com/media/HK9EE7rW8AAqJO6?format=jpg&name=large)
+![白底极简封面，黑色大字写着“少即是多”，右上角有红色圆点、左下角有黑色圆形和细红线](https://pbs.twimg.com/media/HK9EE7rW8AAqJO6?format=jpg&name=large)
 
 ## 1B：参考图
 
 但本篇文章封面要保持统一的系列感封面，所以要使用到参考图去图生图，直接把密斯肖像原图发给AI，然后产出一张系列相配的封面：
 
-![1B：参考图配图](https://pbs.twimg.com/media/HK9Fj46XcAAfj2H?format=png&name=large)
+![黑白建筑肖像，一位身穿西装的现代主义建筑师站在玻璃盒子建筑模型后方](https://pbs.twimg.com/media/HK9Fj46XcAAfj2H?format=png&name=large)
 
 > 以这张黑白肖像为基础，人物位于画面右侧，左侧大字衬线英文标题 "Less is More" ，下方中文"少即是多"，再下方一条细红线 + 小字"实测篇 · FIELD TEST"。副题小字："AI PROMPTING, PUT TO THE TEST"。
 
 > 人物身前的建筑模型向左侧逐解构，漂浮成一团细小的提示词关键词标签（SUBJECT、LIGHT、TONE、DETAIL、CAMERA、STYLE、REFERENCE、COMPOSITION……），由密到疏，一条细红线从这团碎片引回右侧那座完整、干净的模型， 5：2横板
 
-![1B：参考图配图](https://pbs.twimg.com/media/HK9Fm3SW4AAanHf?format=jpg&name=large)
+![横版 Less is More 实测封面，右侧是站在建筑模型后的西装老人，左侧有中英文标题和由提示词标签解构成的模型线稿](https://pbs.twimg.com/media/HK9Fm3SW4AAanHf?format=jpg&name=large)
 
 <strong>参考图，就是最有效的。</strong> 只需要讲一下图片增删的内容即可，模型会自然维持原图的风格。
 
@@ -70,7 +70,7 @@ AI 产出了一大段内容，致命问题在这一句：
 
 > 一个高端大气的文章封面，标题'少即是多'
 
-![1C：手写提示词配图](https://pbs.twimg.com/media/HK9F6fIWAAELX6d?format=jpg&name=large)
+![黑色与金色的极简主义海报，中文“少即是多”旁边是一株置于圆形框中的金色枝条和阶梯台座](https://pbs.twimg.com/media/HK9F6fIWAAELX6d?format=jpg&name=large)
 
 完全跑题了，这就是过于“简单”，导致的结果，所以，不是写的少就是好，内容必须要清楚。
 
@@ -82,19 +82,19 @@ AI 产出了一大段内容，致命问题在这一句：
 
 > 瑞士极简杂志封面，横版 5:2，标题“少即是多”。
 
-![1D：同一篇文章，三种平台，三条提示词配图](https://pbs.twimg.com/media/HK9GAwoXMAAMhFn?format=jpg&name=large)
+![白色横版 X 封面，黑色大字写着“少即是多”，底部有细红线，四角用红黑几何块点缀](https://pbs.twimg.com/media/HK9GAwoXMAAMhFn?format=jpg&name=large)
 
 <strong>② 公众号头条 2.35:1</strong>
 
 > 公众号头条封面，横版 2.35:1，深色背景，正中一位真人半身像、夸张惊喜表情，一行白色超大标题“别再堆提示词了”，一抹亮色点缀。
 
-![1D：同一篇文章，三种平台，三条提示词配图](https://pbs.twimg.com/media/HK9GDWwX0AAMJ3X?format=jpg&name=large)
+![公众号横版封面，惊讶表情的年轻人指向蓝色爆炸背景上的大字“别再堆提示词了”](https://pbs.twimg.com/media/HK9GDWwX0AAMJ3X?format=jpg&name=large)
 
 <strong>③ 小红书竖版 3:4</strong>
 
 > 小红书竖版封面 3:4，画面正中一行超大粗体标题“90%的人，提示词都写反了”。
 
-![1D：同一篇文章，三种平台，三条提示词配图](https://pbs.twimg.com/media/HK9GFwOXAAACGQQ?format=jpg&name=large)
+![小红书竖版封面，黑黄冲击风格的大字写着“90%的人，提示词都写反了”](https://pbs.twimg.com/media/HK9GFwOXAAACGQQ?format=jpg&name=large)
 
 <strong>三条提示词殊途同归，X 立标题，公众号立人脸加关键词，小红书立悬念。</strong>
 
@@ -112,7 +112,7 @@ AI 产出了一大段内容，致命问题在这一句：
 
 > "一张概念插图，表达少即是多，极简又丰富，水彩质感混扁平矢量，柔和又强烈，8K 高细节，留白但信息量大，电影级光影"
 
-![2A：给主题配图配图](https://pbs.twimg.com/media/HK9FOZNWUAA8Lo_?format=jpg&name=large)
+![极简概念插图，米白水彩背景中一棵孤立的小树站在水面与岩石上，背后是橙色圆日和淡山影](https://pbs.twimg.com/media/HK9FOZNWUAA8Lo_?format=jpg&name=large)
 
 AI 混搭风格不是问题——<strong>水彩加矢量，线条加质感，完全可以共存</strong>。
 
@@ -126,7 +126,7 @@ AI 混搭风格不是问题——<strong>水彩加矢量，线条加质感，完
 
 > 极繁向："一张概念插图，极繁风，水彩质感混扁平矢量，冲击，8K 高细节，高信息，电影光影"
 
-![2A：给主题配图配图](https://pbs.twimg.com/media/HK9FJMuXwAAq7_Q?format=jpg&name=large)
+![两种视觉方向的概念插图对比，左侧是留白充足的白色花瓶与单枝树叶，右侧是塞满花卉、拱门、圆形和纹理的繁复拼贴](https://pbs.twimg.com/media/HK9FJMuXwAAq7_Q?format=jpg&name=large)
 
 <strong>两个意象、两种结果：</strong> 极简向，AI 不画复杂叶片的松树，只画简单枝条；极繁向，画面尽量塞满元素，不留白。
 
@@ -143,7 +143,7 @@ AI 混搭风格不是问题——<strong>水彩加矢量，线条加质感，完
 
 > A black outline image of a grandma biking in a forest. All are made with clear, bold outlines, and the inside of the figures is left completely blank. Widescreen.
 
-![2B：否定词的自我欺骗配图](https://pbs.twimg.com/media/HK9FGjIWUAAe10y?format=jpg&name=large)
+![图像生成提示对照截图，上方展示带彩色铅笔的错误黑白填色页，下方是只用粗黑轮廓和留白生成的祖母骑车森林插图](https://pbs.twimg.com/media/HK9FGjIWUAAe10y?format=jpg&name=large)
 
 ## 案例三：海报
 
@@ -163,7 +163,7 @@ AI 混搭风格不是问题——<strong>水彩加矢量，线条加质感，完
 
 > "革命宣传海报，俄罗斯构成主义平面设计，El Lissitzky 风格，标题'打倒装饰主义' "
 
-![3A：流派的力量配图](https://pbs.twimg.com/media/HK9FDMQXUAEsFsN?format=jpg&name=large)
+![四种设计流派海报拼贴：黑金装饰艺术、包豪斯几何建筑、孟菲斯彩色图形和红黑构成主义构图](https://pbs.twimg.com/media/HK9FDMQXUAEsFsN?format=jpg&name=large)
 
 每个海报的配色、字体、排版节奏全然不同，但标题内容和海报风格是相互配合的：包豪斯在用自己的口号，孟菲斯在反击极简主义，构成主义在喊革命。
 
@@ -185,7 +185,7 @@ AI 混搭风格不是问题——<strong>水彩加矢量，线条加质感，完
 
 > "Rolex style product poster"
 
-![3B：品牌的力量配图](https://pbs.twimg.com/media/HK9E_EwWoAAHTs5?format=jpg&name=large)
+![六种品牌视觉海报拼贴，包含 Hermès 橙色丝巾、Aesop 混凝土香皂、Gucci 巴洛克人物、Supreme 红黑街头、Nike 运动员和 Rolex 绿金腕表](https://pbs.twimg.com/media/HK9E_EwWoAAHTs5?format=jpg&name=large)
 
 <strong>六个品牌，六套语言，每条提示词不超过四个词。</strong>Hermès 的橙盒丝巾暖金、Aesop 的混凝土极简、Gucci 的巴洛克繁复、Supreme 的红黑街头冲击、Nike 的运动张力、Rolex 的暗绿深金静奢——模型一个字都不需要你解释。
 
@@ -197,7 +197,7 @@ AI 混搭风格不是问题——<strong>水彩加矢量，线条加质感，完
 
 > “漂亮女孩，眼睛大而有神，皮肤白皙，长发飘逸，气质优雅，时尚有品位，神秘感，自信，微笑”
 
-![案例四：人物配图](https://pbs.twimg.com/media/HK9E8HfWgAApdic?format=jpg&name=large)
+![两张精致但相似的女性肖像，一人穿黑色上衣侧头靠近镜头，另一人穿白色西装托腮微笑](https://pbs.twimg.com/media/HK9E8HfWgAApdic?format=jpg&name=large)
 
 可以拿去崩普通老头
 
@@ -223,7 +223,7 @@ AI 混搭风格不是问题——<strong>水彩加矢量，线条加质感，完
 
 > “女性，半身像，45度侧，85mm，伦勃朗光，回眸”
 
-![案例四：人物配图](https://pbs.twimg.com/media/HK9E0fsW4AAPJAA?format=jpg&name=large)
+![三张暗色棚拍女性肖像，人物分别回望镜头、侧身露肩和穿黑色礼服，展示镜头与光位变化](https://pbs.twimg.com/media/HK9E0fsW4AAPJAA?format=jpg&name=large)
 
 可以拿去崩有钱老头
 
@@ -237,7 +237,7 @@ AI 混搭风格不是问题——<strong>水彩加矢量，线条加质感，完
 
 > ”川内伦子 风格人像”
 
-![案例四：人物配图](https://pbs.twimg.com/media/HK9ExZfWYAAphAy?format=jpg&name=large)
+![八张不同人物风格的肖像拼贴，包含彩色纪实面孔、黑白男女头像和柔光中的人物特写](https://pbs.twimg.com/media/HK9ExZfWYAAphAy?format=jpg&name=large)
 
 产出效果高下立判
 
@@ -251,13 +251,13 @@ AI 混搭风格不是问题——<strong>水彩加矢量，线条加质感，完
 
 第一反应是把所有卖点都画进去——认证徽章、规格参数、双语标题、国风意境、粒子光效等等。
 
-![案例五：产品宣传图配图](https://pbs.twimg.com/media/HK9EqwRXIAIWvar?format=jpg&name=large)
+![翡翠吊坠宣传图的复杂版本，玉佩、区块链溯源徽章、双语说明、二维码和山水装饰挤满画面](https://pbs.twimg.com/media/HK9EqwRXIAIWvar?format=jpg&name=large)
 
 凭证堆满了，玉反而成了背景板。图的任务只有一件：让人想看这块玉。区块链不需要全部画出来，压进品牌定位一句话就够：
 
 > "翡翠吊坠产品展示页，玉石结合区块链溯源主题，深色质感背景，暖光聚焦玉石，中文主标题，极简版式，底部 ID 编号"
 
-![案例五：产品宣传图配图](https://pbs.twimg.com/media/HK9EnF6XYAATIPM?format=jpg&name=large)
+![深色翡翠产品档案海报，中央是一枚绿色雕花吊坠，旁边列出产地、材质、重量、尺寸和上链验证信息](https://pbs.twimg.com/media/HK9EnF6XYAATIPM?format=jpg&name=large)
 
 > 4月23日
 >
