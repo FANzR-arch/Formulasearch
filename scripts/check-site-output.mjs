@@ -84,6 +84,7 @@ else {
   const article = await readFile(articlePath, 'utf8')
   if (!article.includes('loading="lazy"')) failures.push('article images are missing lazy loading')
   if (!article.includes('referrerpolicy="no-referrer"')) failures.push('article images are missing referrer policy')
+  if (!article.includes('property="article:modified_time"')) failures.push('article pages are missing modified time metadata')
 }
 
 const blogIndex = await readUtf8('blog/index.html')

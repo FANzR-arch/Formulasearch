@@ -5,6 +5,7 @@ interface Props {
   description?: string
   descriptionEn?: string
   image?: string
+  modifiedTime?: string
   ogType?: 'website' | 'article'
   publishedTime?: string
   structuredData?: Record<string, unknown>
@@ -16,6 +17,7 @@ const {
   description = 'Phil builds AI tools, visual systems, websites, and notes for turning fuzzy ideas into useful things.',
   descriptionEn,
   image,
+  modifiedTime,
   ogType = 'website',
   publishedTime,
   structuredData,
@@ -45,6 +47,7 @@ const localizedDescriptionEn = descriptionEn ?? description
     <meta property="og:url" content={canonical} />
     {socialImage && <meta property="og:image" content={socialImage} />}
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
     <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
     <meta id="twitter-title" name="twitter:title" content={title} />
     <meta id="twitter-description" name="twitter:description" content={description} />
