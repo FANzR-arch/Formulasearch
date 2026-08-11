@@ -66,6 +66,29 @@ for (const route of staticRoutes) {
   if (!sitemap.includes(`<loc>${siteConfig.siteUrl}${route}</loc>`)) failures.push(`sitemap missing route: ${route}`)
 }
 
+let robots = ''
+try {
+  robots = await readUtf8('robots.txt')
+} catch {
+  failures.push('missing robots.txt')
+}
+if (robots && (!robots.includes('User-agent: *') || !robots.includes('Allow: /') || !robots.includes(`Sitemap: ${siteConfig.siteUrl}/sitemap.xml`))) {
+  failures.push('robots.txt is missing the public allow rule or sitemap URL')
+}
+
+let llms = ''
+try {
+  llms = await readUtf8('llms.txt')
+} catch {
+  failures.push('missing llms.txt')
+}
+if (llms) {
+  if (!llms.includes('# Formulasearch')) failures.push('llms.txt is missing the site heading')
+  for (const route of staticRoutes) {
+    if (!llms.includes(`- ${route}`)) failures.push(`llms.txt missing route: ${route}`)
+  }
+}
+
 const rss = await readUtf8('rss.xml')
 if (!rss.includes('<rss version="2.0">') || !rss.includes('<lastBuildDate>') || !/<item>[\s\S]*<pubDate>/.test(rss)) failures.push('RSS output is missing channel date or article publication dates')
 
