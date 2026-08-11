@@ -1,14 +1,21 @@
 document.querySelectorAll('.article-copy').forEach((button) => {
+  const fallbackInput = button.parentElement?.querySelector('.article-copy__failure-url')
   button.addEventListener('click', async () => {
     const url = button.getAttribute('data-copy-url') || window.location.href
     try {
       await navigator.clipboard.writeText(url)
+      if (fallbackInput instanceof HTMLInputElement) fallbackInput.hidden = true
       button.dataset.copyState = 'copied'
       window.setTimeout(() => {
         if (button.dataset.copyState === 'copied') delete button.dataset.copyState
       }, 1800)
     } catch {
       button.dataset.copyState = 'failed'
+      if (fallbackInput instanceof HTMLInputElement) {
+        fallbackInput.hidden = false
+        fallbackInput.focus()
+        fallbackInput.select()
+      }
       window.setTimeout(() => {
         if (button.dataset.copyState === 'failed') delete button.dataset.copyState
       }, 4200)
