@@ -731,6 +731,7 @@
   letter-spacing: inherit;
   text-transform: inherit;
 }
+.article-copy:focus-visible { border-radius: 1px; outline: 2px solid var(--accent); outline-offset: 4px; }
 
 .article-copy__feedback { display: none; }
 .article-copy[data-copy-state='copied'] .article-copy__default { display: none; }

@@ -6,6 +6,8 @@ test('mobile navigation traps focus and restores it on Escape', async ({ page })
 
   const toggle = page.locator('#mobile-navigation-toggle')
   await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+  await toggle.focus()
+  await expect.poll(() => toggle.evaluate((element) => getComputedStyle(element).outlineStyle)).toBe('solid')
   await toggle.click()
   await expect(toggle).toHaveAttribute('aria-expanded', 'true')
   await expect(toggle).toHaveAttribute('aria-label', /关闭导航/)
@@ -24,6 +26,34 @@ test('mobile navigation traps focus and restores it on Escape', async ({ page })
   await expect(toggle).toHaveAttribute('aria-expanded', 'false')
   await expect(toggle).toHaveAttribute('aria-label', /打开导航/)
   await expect(toggle).toBeFocused()
+})
+
+test('archive and header controls keep touch-friendly hit areas', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/photos')
+
+  const sizes = await page.locator('.site-header .monogram, .site-header .nav-disclosure, .site-header .icon-link, .site-header .language-toggle, .site-header .theme-toggle, .visual-archive__modes a, .visual-archive__filters button').evaluateAll((elements) => elements.map((element) => {
+    const rect = element.getBoundingClientRect()
+    return { width: rect.width, height: rect.height }
+  }))
+
+  expect(sizes.length).toBeGreaterThan(0)
+  for (const size of sizes) {
+    expect(size.width).toBeGreaterThanOrEqual(40)
+    expect(size.height).toBeGreaterThanOrEqual(40)
+  }
+})
+
+test('homepage falls back when WebGL is unavailable', async ({ page }) => {
+  await page.addInitScript(() => {
+    const getContext = HTMLCanvasElement.prototype.getContext
+    HTMLCanvasElement.prototype.getContext = function (type, ...args) {
+      if (type === 'webgl') return null
+      return getContext.call(this, type, ...args)
+    }
+  })
+  await page.goto('/')
+  await expect(page.locator('#ambient-flow')).toHaveClass(/ambient-flow--fallback/)
 })
 
 test('navigation disclosure labels reflect open state and locale', async ({ page }) => {

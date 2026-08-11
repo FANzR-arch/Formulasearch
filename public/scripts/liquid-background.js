@@ -291,6 +291,7 @@
   let height = 0
   let frame = 0
   let lastFrame = 0
+  let contextLost = false
   let theme = document.documentElement.dataset.theme === 'dark' ? 1 : 0
   const seed = 937
   const start = performance.now()
@@ -305,11 +306,17 @@
     if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
       canvas.width = nextWidth
       canvas.height = nextHeight
-      gl.viewport(0, 0, nextWidth, nextHeight)
+      if (!contextLost) gl.viewport(0, 0, nextWidth, nextHeight)
     }
   }
 
+  const stopAnimation = () => {
+    if (frame) window.cancelAnimationFrame(frame)
+    frame = 0
+  }
+
   const draw = (now = performance.now()) => {
+    if (contextLost) return
     gl.clearColor(0, 0, 0, 0)
     gl.clear(gl.COLOR_BUFFER_BIT)
     gl.uniform2f(uniforms.resolution, canvas.width, canvas.height)
@@ -329,11 +336,20 @@
   }
 
   const syncMotion = () => {
-    if (frame) window.cancelAnimationFrame(frame)
-    frame = 0
+    stopAnimation()
+    if (contextLost) return
     draw()
     if (!reduceMotion.matches && variant !== 'off') frame = window.requestAnimationFrame(animate)
   }
+
+  // A lost WebGL context must not leave a hot animation loop throwing errors.
+  // Recreating the full shader pipeline would be more work than the ambient
+  // layer is worth, so keep the CSS fallback for the rest of this page view.
+  canvas.addEventListener('webglcontextlost', () => {
+    contextLost = true
+    stopAnimation()
+    canvas.classList.add('ambient-flow--fallback')
+  })
 
   const updateCycleLabel = () => {
     if (!(cycleButton instanceof HTMLButtonElement)) return
