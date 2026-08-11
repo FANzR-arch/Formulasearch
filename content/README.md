@@ -80,6 +80,8 @@ Blog 正文图片必须填写具体 alt。历史文章的通用 alt 可用 `npm 
 
 正文远程图片的实际宽高不允许猜测：已确认值写入 `content/site/blog-image-dimensions.json`，可用 `npm run blog:images:dimensions` 查看待确认清单；发布前运行 `npm run blog:images:dimensions:check`，网络和来源许可都满足时再运行 `npm run blog:images:dimensions:write`。
 
+正文远程图片的可用性可用 `npm run blog:images:availability` 按需检查；需要把失效图片当成阻断时追加 `-- --strict`。它不会修改内容或尺寸 manifest，也不纳入默认构建，因为外部站点的瞬时网络故障不应让本地发布流程不可重复。当前文章图片仍以外部 `pbs.twimg.com` 为运行时来源，只有在确认来源许可、版权和存储成本后，才应迁移到站内或独立对象存储。
+
 Blog 内容状态约定：`contentStatus: full` 必须有非空 Markdown 正文；已发布的 `contentStatus: index-only` 必须在 `链接.txt` 中保留至少一个可靠外链。`tags` 不能重复或为空，单篇文章也不能重复外链。来源未确认或正文未准备好的记录使用 `draft: true`，不会出现在公开 Blog 列表；更新后运行 `npm run blog:check`，输出会列出 full、index-only 与 draft 数量。
 
 Blog 封面尺寸和响应式 WebP/AVIF 变体由 `content/site/blog-media.json` 统一记录。新增或替换 `public/uploads/blog/` 下的封面后，运行 `npm run blog:media:prepare` 更新清单与 `public/uploads/blog-optimized/` 变体；`npm run blog:media:check` 已接入 `npm run build`，会阻止缺失或过期的媒体元数据进入发布流程。

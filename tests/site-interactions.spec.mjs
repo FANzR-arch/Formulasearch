@@ -356,7 +356,8 @@ test('article copy feedback and table of contents remain interactive', async ({ 
 
   const tocLink = page.locator('.article-toc a').first()
   await expect(tocLink).toBeVisible()
-  await expect(page.locator('.article-prose img[alt*="配图"]').first()).toBeVisible()
+  await expect(page.locator('.article-prose img').first()).toBeVisible()
+  await expect(page.locator('.article-prose img').first()).not.toHaveAttribute('alt', '')
   await expect(page.locator('.article-prose img[alt="图像"]')).toHaveCount(0)
   const structuredData = await page.locator('script[type="application/ld+json"]').allTextContents()
   expect(structuredData.some((value) => value.includes('BreadcrumbList'))).toBeTruthy()

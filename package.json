@@ -16,6 +16,7 @@
     "blog:images:dimensions": "node scripts/prepare-blog-image-dimensions.mjs --report",
     "blog:images:dimensions:check": "node scripts/prepare-blog-image-dimensions.mjs --check",
     "blog:images:dimensions:write": "node scripts/prepare-blog-image-dimensions.mjs --write",
+    "blog:images:availability": "node scripts/check-blog-image-availability.mjs",
     "blog:images:report": "node scripts/prepare-blog-image-alt.mjs --report",
     "blog:import": "node scripts/import-blog-bodies.mjs",
     "blog:check": "node scripts/prepare-blog-content.mjs --check",
