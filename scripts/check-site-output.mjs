@@ -84,8 +84,12 @@ try {
 }
 if (llms) {
   if (!llms.includes('# Formulasearch')) failures.push('llms.txt is missing the site heading')
+  const llmsRoutes = [...llms.matchAll(/^- (\/\S*)\s+—/gm)].map((match) => match[1])
   for (const route of staticRoutes) {
-    if (!llms.includes(`- ${route}`)) failures.push(`llms.txt missing route: ${route}`)
+    if (!llmsRoutes.includes(route)) failures.push(`llms.txt missing route: ${route}`)
+  }
+  for (const route of llmsRoutes) {
+    if (!staticRoutes.includes(route)) failures.push(`llms.txt contains stale route: ${route}`)
   }
 }
 
