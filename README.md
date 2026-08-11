@@ -47,7 +47,8 @@
 ## 当前验证命令
 
 ```bash
-npm run check       # Astro 类型与内容 schema
+npm run content:check # 内容、i18n、媒体和归档门禁
+npm run check       # Astro 类型检查
 npm run build       # 内容、媒体、静态输出和站内链接门禁
 npm run test:smoke  # 本地预览下的交互回归
 ```

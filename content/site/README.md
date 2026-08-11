@@ -1,5 +1,6 @@
 # 首页与站点内容
 
+- 修改多个内容 manifest 后，先运行 `npm run content:check` 做统一的内容、i18n、媒体和摄影清单预检，再运行 `npm run build`；不需要手工串联所有单项脚本。
 - `home.json` 是中文首页内容。
 - `home.en.json` 是英文首页内容。
 - `email`、`social` 和 `heroImage` 是中英文共用字段，两个文件必须保持一致；`name` 可以按语言显示为对应称呼，但必须出现在 `site.json` 的作者名或别名中；`contactLabel`、`contactEmailPrefix` 和 `heroImageAlt` 分别填写对应语言的首页文案/替代文本。
