@@ -2,12 +2,10 @@
 import { ArrowUpRight } from '@lucide/astro'
 import ExternalLinkLabel from './ExternalLinkLabel.astro'
 import { uiCopy } from '../data/ui-copy'
+import type { BlogLink } from '../lib/blog-content'
 
 interface Props {
-  links: Array<{
-    label: 'wechat' | 'x' | 'original'
-    url: string
-  }>
+  links: BlogLink[]
 }
 
 const { links } = Astro.props

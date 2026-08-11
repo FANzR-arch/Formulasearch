@@ -58,6 +58,8 @@ public/uploads/blog/
 
 如果要让文章列表、精选舞台、相关阅读和页面 metadata 在英文 UI 中显示真正的英文内容，可在 frontmatter 中补充可选的 `titleEn` 与 `descriptionEn`。缺少它们时会安全回退到原始 `title` / `description`，不会生成假的翻译；这组字段只改善同一 URL 的客户端双语体验，不会自动创建独立的英文 SEO 路由。
 
+如果文章的 `contentLanguage` 设置为 `en`，则 `titleEn`、`descriptionEn` 与 `coverAltEn` 都是必填字段。这样文章的可见标题、摘要、封面替代文本和 BlogPosting 结构化数据不会出现语言错配；中文文章仍可按需补充英文 metadata。
+
 现有封面大多是约 `2.36:1–2.5:1` 的超宽横幅。新增封面优先延续横幅构图，避免把关键信息放在最边缘。封面尺寸和 WebP/AVIF 响应式变体由脚本维护，不要手工编辑 `content/site/blog-media.json`；`npm run blog:media:prepare` 也会清理该目录下不再被 manifest 使用的生成文件。
 
 ## 当前更新方式

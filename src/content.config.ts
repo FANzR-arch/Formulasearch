@@ -61,6 +61,12 @@ const blog = defineCollection({
     if (data.contentLanguage === 'en' && !data.coverAltEn) {
       context.addIssue({ code: 'custom', path: ['coverAltEn'], message: 'English articles require an English coverAltEn.' })
     }
+    if (data.contentLanguage === 'en' && !data.titleEn) {
+      context.addIssue({ code: 'custom', path: ['titleEn'], message: 'English articles require an English titleEn.' })
+    }
+    if (data.contentLanguage === 'en' && !data.descriptionEn) {
+      context.addIssue({ code: 'custom', path: ['descriptionEn'], message: 'English articles require an English descriptionEn.' })
+    }
     if (isCoverAltPlaceholder(data.coverAlt)) {
       context.addIssue({ code: 'custom', path: ['coverAlt'], message: 'coverAlt must describe the visible cover, not use a generic article-cover placeholder.' })
     }

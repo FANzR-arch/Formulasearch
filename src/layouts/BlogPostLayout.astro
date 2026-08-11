@@ -34,13 +34,15 @@ const authorName = siteConfig.author.name
 const authorMark = authorName.trim().slice(0, 1).toUpperCase()
 const contentLocale = post.data.contentLanguage === 'en' ? 'en' : 'zh'
 const localizedCategory = contentLocale === 'en' ? categoryLabel.titleEn : categoryLabel.title
+const structuredTitle = contentLocale === 'en' ? titleEn : post.data.title
+const structuredDescription = contentLocale === 'en' ? descriptionEn : post.data.description
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'BlogPosting',
-      headline: post.data.title,
-      description: post.data.description,
+      headline: structuredTitle,
+      description: structuredDescription,
       image: new URL(post.data.cover, Astro.site).toString(),
       url: canonical,
       articleSection: localizedCategory,
