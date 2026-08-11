@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url'
 const repoRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const contentRoot = join(repoRoot, 'content', 'blog')
 const mediaPolicyPath = join(repoRoot, 'content', 'site', 'blog-media-policy.json')
+const dimensionsManifestPath = join(repoRoot, 'content', 'site', 'blog-image-dimensions.json')
 const mediaPolicy = JSON.parse(readFileSync(mediaPolicyPath, 'utf8'))
 if (!Array.isArray(mediaPolicy.externalImageHosts) || mediaPolicy.externalImageHosts.some((host) => typeof host !== 'string' || !host.trim())) {
   throw new Error(`Invalid blog media policy: ${mediaPolicyPath}`)
@@ -18,6 +19,15 @@ if (!Number.isInteger(mediaPolicy.maxExternalImagesWithoutDimensions) || mediaPo
   throw new Error(`Invalid blog media policy maxExternalImagesWithoutDimensions: ${mediaPolicyPath}`)
 }
 const approvedExternalImageHosts = new Set(mediaPolicy.externalImageHosts.map((host) => host.trim().toLowerCase()))
+const dimensionsManifest = JSON.parse(readFileSync(dimensionsManifestPath, 'utf8').replace(/^\uFEFF/, ''))
+if (dimensionsManifest?.version !== 1 || !dimensionsManifest?.images || typeof dimensionsManifest.images !== 'object' || Array.isArray(dimensionsManifest.images)) {
+  throw new Error(`Invalid blog image dimensions manifest: ${dimensionsManifestPath}`)
+}
+for (const [source, value] of Object.entries(dimensionsManifest.images)) {
+  if (!/^https:\/\//i.test(source) || !Number.isInteger(value?.width) || !Number.isInteger(value?.height) || value.width <= 0 || value.height <= 0) {
+    throw new Error(`Invalid remote image dimensions: ${source}`)
+  }
+}
 const genericAlt = new Set(['', '图像', 'image', 'Image'])
 
 const cleanHeading = (value) => value
@@ -168,7 +178,7 @@ for (const file of posts) {
     else if (dependency.kind === 'unknown') unknownImageTotal += 1
     else {
       externalImageTotal += 1
-      if (!image.hasIntrinsicDimensions) externalImageWithoutDimensionsTotal += 1
+      if (!image.hasIntrinsicDimensions && !dimensionsManifest.images[dependency.source]) externalImageWithoutDimensionsTotal += 1
       if (dependency.protocol !== 'https:') insecureExternalImageSources.add(image.source)
       const summary = dependencyHosts.get(dependency.host) || { count: 0, protocols: new Set(), sources: new Set() }
       summary.count += 1

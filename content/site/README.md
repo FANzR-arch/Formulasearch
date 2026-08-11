@@ -30,9 +30,9 @@
 
 照片清单由 `src/data/photo-archive.ts` 在构建时做结构校验。若要从原始照片重新生成图片尺寸、布局和 WebP 文件，运行 `npm run photos:prepare -- <原始照片目录>`，或先设置 `PHOTO_ARCHIVE_SOURCE`；也可以用 `PHOTO_ARCHIVE_OUTPUT` 和 `PHOTO_ARCHIVE_MANIFEST` 指向临时目录做安全测试。脚本不再内置某台机器的本地路径。重新生成时会更新图片路径、尺寸和布局，并按生成图片的 `assetHash` 保留已有的 `alt`、`tags` 编辑内容；原图排序、插入新图时不会把旧描述静默错配到序号。新图片的 alt 会明确标记为待补充，构建不会允许占位文本发布；来源数量少于现有归档时还会阻止无意缩减。旧 manifest 可用 `npm run photos:hashes:migrate` 补齐 hash；`npm run photos:test` 可回归换序与 BOM 兼容性。摄影页不再维护不会渲染的 `caption` / `label` 字段。
 
-Blog 正文图片的外部主机由 `blog-media-policy.json` 显式维护；`npm run blog:images:check` 会拒绝未列入策略的新主机。策略中的 `maxExternalImagesWithoutDimensions` 是当前无尺寸远程图的风险预算，超过预算必须先补齐尺寸、镜像资源，或经过评审后显式调整。策略只控制依赖边界，不代表远程图片已经具备离线尺寸或永久可用性。
+Blog 正文图片的外部主机由 `blog-media-policy.json` 显式维护；`npm run blog:images:check` 会拒绝未列入策略的新主机。策略中的 `maxExternalImagesWithoutDimensions` 是无尺寸远程图的风险预算，目前已降为 `0`，新增远程图必须先补齐真实尺寸或完成镜像评审。策略只控制依赖边界，不代表远程图片永久可用性；当前仍保留加载失败占位和外部依赖回退。
 
-远程正文图片的已确认宽高维护在 `blog-image-dimensions.json`。`npm run blog:images:dimensions` 只报告 URL、已确认和待确认数量；发布前运行 `npm run blog:images:dimensions:check`，在网络可用且确认允许读取源站时运行 `npm run blog:images:dimensions:write`，脚本会用真实图片元数据写入宽高，Markdown 构建会自动把已确认尺寸注入 `<img>`，`site:check` 还会逐张核对最终 HTML。失败的 URL 不会写入假尺寸，仍由无尺寸预算、临时比例和失败占位共同兜底。
+远程正文图片的已确认宽高维护在 `blog-image-dimensions.json`。`npm run blog:images:dimensions` 只报告 URL、已确认和待确认数量；发布前运行 `npm run blog:images:dimensions:check`，在网络可用且确认允许读取源站时运行 `npm run blog:images:dimensions:write`，脚本会用真实图片元数据写入宽高，Markdown 构建会自动把已确认尺寸注入 `<img>`，`site:check` 还会逐张核对最终 HTML。当前 170 个正文远程图 URL 已全部写入真实宽高；失败的 URL 不会写入假尺寸，仍由零预算、临时比例和失败占位共同兜底。
 
 目录清单由 `src/data/catalog.ts` 在构建时做结构校验。修改 `catalog.json` 后运行 `npm run build`，即可同时检查三组目录的结构和双语字段。
 
