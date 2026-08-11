@@ -50,7 +50,7 @@ content/
 
 - `/`：首页，文案来自 `content/site/home.json` 和 `content/site/home.en.json`，构建时由 Zod 校验
 - `/blog`、`/blog/series`、`/blog/archive`：文章索引和归档
-- `/projects`、`/skills`、`/lab`：当前为页面内目录数据
+- `/projects`、`/skills`、`/lab`：目录内容来自 `content/site/catalog.json`，构建时由 `src/data/catalog.ts` 做 Zod 校验
 - `/photos`：照片 manifest 来自 `content/site/photo-archive.json`，构建时由 `src/data/photo-archive.ts` 做 Zod 校验
 - `/architecture`：当前为页面内研究图像数据
 
