@@ -6,7 +6,7 @@ slug: less-is-more-2026-05-08
 category: less-is-more
 tags: []
 cover: "/uploads/blog/2026-05-08/7a164672-bdd4-407b-b794-85ffaad51ecc.png"
-coverAlt: "少即是多（中）：让 AI 精分的提示词的文章封面"
+coverAlt: "灰白建筑构图中，一位西装老人站在长方形台座后，画面写着 Less is More 与提示词相关文字"
 contentStatus: full
 featured: false
 draft: false

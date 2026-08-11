@@ -6,7 +6,7 @@ slug: ai-knowledge-2025-12-09
 category: ai-knowledge
 tags: []
 cover: "/uploads/blog/2025-12-09/640.png"
-coverAlt: "AI、LLM、ChatGPT、AIGC等概念名词简述的文章封面"
+coverAlt: "彩色同心圆概念图从外到内标注 AGI、AI、NLP、LLM 和 ChatGPT，右侧叠加 AIGC 分支与神经网络背景"
 contentStatus: index-only
 featured: false
 draft: false

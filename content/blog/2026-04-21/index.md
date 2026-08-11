@@ -6,7 +6,7 @@ slug: personal-thinking-2026-04-21
 category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-04-21/e07df95f-4eea-4405-b878-cec31bde3f40.jpeg"
-coverAlt: "不增长就等死？的文章封面"
+coverAlt: "米白工作台上的增长主题拼贴，左侧有破损墙面与建筑照片，右侧摆着植物和“不增长就等死？”标题"
 contentStatus: full
 featured: false
 draft: false

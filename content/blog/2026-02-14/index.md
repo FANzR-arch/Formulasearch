@@ -6,7 +6,7 @@ slug: personal-thinking-2026-02-14
 category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-02-14/048e9e7e-ec00-47ea-8f18-2d5af20071c2.jpeg"
-coverAlt: "MIT学霸逃离谷歌：一个Bug让我清醒的文章封面"
+coverAlt: "荒漠中一名男子跑向写有 TECH GIANTS 的巨大数据化建筑，画面带有故障艺术效果"
 contentStatus: index-only
 featured: false
 draft: true

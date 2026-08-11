@@ -6,7 +6,7 @@ slug: personal-thinking-2026-01-11
 category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-01-11/d8242c6b-c114-499d-a200-aa4a0d2c79d5.png"
-coverAlt: "一人成行？你只需要“学会表达”的文章封面"
+coverAlt: "橙蓝对比插画中，一名人物向电脑表达需求，屏幕右侧延伸出代码、数据和应用图标"
 contentStatus: index-only
 featured: false
 draft: false

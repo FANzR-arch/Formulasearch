@@ -6,7 +6,7 @@ slug: ai-practice-2026-04-13
 category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-04-13/358f5db1-62a0-4528-aa6d-4cd595105dee.jpeg"
-coverAlt: "一人公司还敢天天摸鱼？我 vibe 了个工具来鞭策自己的文章封面"
+coverAlt: "网格纸背景上的中文标题与一个带数据图表的个人工作仪表盘界面"
 contentStatus: full
 featured: false
 draft: false

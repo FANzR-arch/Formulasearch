@@ -6,7 +6,7 @@ slug: ai-practice-2026-03-11
 category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-03-11/79bc39e9-7da4-4880-a3b4-aff79228eafa.png"
-coverAlt: "从「对话」到「系统」，装好CC的下一步应该做的是？的文章封面"
+coverAlt: "白底线稿流程图展示从对话到系统的转变，人物把橙色连线接入带 Claude 标志的显示器和文件、图表网格"
 contentStatus: index-only
 featured: false
 draft: false

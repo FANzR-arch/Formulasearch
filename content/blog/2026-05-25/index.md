@@ -6,7 +6,7 @@ slug: ai-practice-2026-05-25
 category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-05-25/cea64e7f-aa53-4bcb-8707-101fa7bc88ba.png"
-coverAlt: "还在写提示词？让AI自己动_Loop Engineering的文章封面"
+coverAlt: "白底手绘示意图，左侧人物输入 prompt，右侧橙色 LOOP 环形箭头标注自动触发与持续运转"
 contentStatus: full
 featured: false
 draft: false

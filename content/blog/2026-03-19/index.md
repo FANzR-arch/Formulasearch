@@ -6,7 +6,7 @@ slug: personal-thinking-2026-03-19
 category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-03-19/1e8d3666-c710-4858-b356-f3a67f054fd9.jpeg"
-coverAlt: "请多说话，这世界会记住你的文章封面"
+coverAlt: "像素风游戏场景中的彩色多语言文字拱门，人物沿着通往城市的道路前进"
 contentStatus: full
 featured: false
 draft: false

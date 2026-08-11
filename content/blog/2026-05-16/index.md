@@ -6,7 +6,7 @@ slug: less-is-more-2026-05-16
 category: less-is-more
 tags: []
 cover: "/uploads/blog/2026-05-16/cadf68f5-4c75-49b5-a266-50b7e3ded207.jpeg"
-coverAlt: "少即是多（实测篇）：给AI指明方向的文章封面"
+coverAlt: "灰白色 Less is More 实测海报，一位西装老人站在由像素和建筑线稿构成的台座后方"
 contentStatus: full
 featured: false
 draft: false

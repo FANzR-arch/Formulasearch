@@ -6,7 +6,7 @@ slug: ai-knowledge-2026-02-05
 category: ai-knowledge
 tags: []
 cover: "/uploads/blog/2026-02-05/8a6ed3e7-fe33-4bba-9f28-a1621873f4ca.jpeg"
-coverAlt: "蒸馏、GEO、氛围编程，2025年度“AI黑话”，你知道几个？的文章封面"
+coverAlt: "黑暗控制台上，一只手触碰带有微型城市模型的数字水面，周围是蓝紫色的 AI 界面光影"
 contentStatus: index-only
 featured: false
 draft: false

@@ -6,7 +6,7 @@ slug: ai-practice-2026-03-27
 category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-03-27/12370608-bc33-4e31-81b3-18e20fcfab99.png"
-coverAlt: "如何使用codex+image2进行视频内容创作的文章封面"
+coverAlt: "米白色流程图展示 GPT-Image-2 与 Codex 制作产品视频，包含写分镜、生成预览、布局、代码、动画和输出视频等节点"
 contentStatus: full
 featured: false
 draft: false

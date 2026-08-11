@@ -6,7 +6,7 @@ slug: less-is-more-2026-04-30
 category: less-is-more
 tags: []
 cover: "/uploads/blog/2026-04-30/3d472d5d-8f76-4516-82ac-a0eceba9c9a3.png"
-coverAlt: "少即是多（上）：经久不衰的设计哲学的文章封面"
+coverAlt: "灰白色 Less is More 版式海报，西装老人站在长桌后，前景是由提示词结构标签组成的建筑网格"
 contentStatus: full
 featured: false
 draft: false

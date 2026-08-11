@@ -6,7 +6,7 @@ slug: prompt-sharing-2025-12-17
 category: prompt-sharing
 tags: []
 cover: "/uploads/blog/2025-12-17/52044e89-edee-4665-b3f1-ab2b0c4c5c4a.png"
-coverAlt: "“Prompt”，AI时代的施法咒语的文章封面"
+coverAlt: "左右对比漫画：左侧人物被混乱的提示词和符号困扰，右侧人物面对清晰的项目符号并出现灯泡"
 contentStatus: index-only
 featured: false
 draft: false

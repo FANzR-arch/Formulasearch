@@ -6,7 +6,7 @@ slug: personal-thinking-2026-04-05
 category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-04-05/66513d4f-c3cd-49d8-97d7-33a9d5836f9f.png"
-coverAlt: "当 AI Agent 能自己建模出图，建筑师还剩什么？的文章封面"
+coverAlt: "黑色背景上的 NVIDIA GTC 标识、黄仁勋肖像和 Rhino、Grasshopper、Blender 建筑建模界面，标题为 AI 重塑建筑的现在与未来"
 contentStatus: full
 featured: false
 draft: false

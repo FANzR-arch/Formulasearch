@@ -6,7 +6,7 @@ slug: personal-thinking-2026-01-28
 category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-01-28/a4c57412-2a56-4c90-a6ef-e3dad51ca831.png"
-coverAlt: "15岁少年赚百万，94%企业却在亏？AI 到底平权在哪里？的文章封面"
+coverAlt: "科幻风人脸轮廓中嵌有机械齿轮、发光几何符号和数学公式，象征 AI 与人的能力重组"
 contentStatus: index-only
 featured: false
 draft: false

@@ -6,7 +6,7 @@ slug: personal-thinking-2026-03-02
 category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-03-02/7bf0fc9c-c976-452d-8e12-00564cba1360.png"
-coverAlt: "你可能不是在 “用” AI，而是被AI当成了ta的“碳基插件”的文章封面"
+coverAlt: "荒凉灰绿色场景中，一名男子从悬浮车旁走向一棵巨大的枯树"
 contentStatus: full
 featured: false
 draft: false

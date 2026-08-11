@@ -6,7 +6,7 @@ slug: ai-practice-2026-02-22
 category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-02-22/f97a28fc-adc3-48c9-89d7-ed70bb17074f.jpeg"
-coverAlt: "看了这么多教程你真用上了吗？在看AI教程之前你该想的是……的文章封面"
+coverAlt: "被大量 AI 工具、教程窗口和提示词卡片包围的电脑用户插画"
 contentStatus: full
 featured: false
 draft: false
