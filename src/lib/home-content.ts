@@ -72,7 +72,6 @@ function validateLocalePairs(zh: HomeContent, en: HomeContent) {
   }
 
   const sharedFields = [
-    ['name', zh.name, en.name],
     ['email', zh.email, en.email],
     ['social.label', zh.social.label, en.social.label],
     ['social.url', zh.social.url, en.social.url],

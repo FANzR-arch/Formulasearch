@@ -122,8 +122,10 @@ test('homepage identity aliases cover the visible display name', async ({ page }
 
   expect(person).toBeTruthy()
   expect(person.name).toBe('Phil')
-  expect(person.alternateName).toEqual(expect.arrayContaining(['阿哲 Phil', 'Carlos Phil']))
-  await expect(page.locator('#intro-title .localized-text__zh')).toHaveText('Carlos Phil')
+  expect(person.alternateName).toEqual(expect.arrayContaining(['Fan Zheren', '阿哲 Phil', 'Formulasearch']))
+  await expect(page.locator('#intro-title .localized-text__zh')).toHaveText('阿哲 Phil')
+  await page.locator('#language-toggle').click()
+  await expect(page.locator('#intro-title .localized-text__en')).toHaveText('Phil')
 })
 
 test('reduced motion skips decorative animation loops', async ({ page }) => {
