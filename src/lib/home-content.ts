@@ -52,6 +52,18 @@ function validateLocalePairs(zh: HomeContent, en: HomeContent) {
       throw new Error(`首页中英文 ${field} 段落数量不一致：中文 ${zh[field].length}，英文 ${en[field].length}`)
     }
   }
+
+  const sharedFields = [
+    ['email', zh.email, en.email],
+    ['social.label', zh.social.label, en.social.label],
+    ['social.url', zh.social.url, en.social.url],
+    ['heroImage', zh.heroImage, en.heroImage],
+  ] as const
+  for (const [field, zhValue, enValue] of sharedFields) {
+    if (zhValue !== enValue) {
+      throw new Error(`Homepage shared field must match between locales: ${field}`)
+    }
+  }
 }
 
 const zh = parseHomeContent(homeZh, 'zh')
