@@ -34,6 +34,8 @@ Blog 正文图片的外部主机由 `blog-media-policy.json` 显式维护；`npm
 
 Blog 完整正文的路由由 frontmatter 的 `contentLanguage` 决定：`zh-Hans` 文章生成 `/blog/<slug>`，`en` 文章生成 `/en/blog/<slug>`。不要手动在组件里拼接文章 URL；列表、相关文章、canonical、sitemap、RSS 和 `llms.txt` 都消费同一条路由规则。英文文章必须先具备真实英文正文与完整英文 metadata，不能只把中文文章复制到 `/en`。
 
+正文图片 alt 的人工复核使用 `npm run blog:images:report` 作为队列：报告中的“章节标题 + 配图”只是可发布的临时语义，不等于最终视觉描述。完成一批复核后直接修改对应 Markdown 图片 alt，再运行 `npm run blog:images:check` 和 `npm run build`；不要修改脚本去隐藏未复核数量。
+
 远程正文图片的已确认宽高维护在 `blog-image-dimensions.json`。`npm run blog:images:dimensions` 只报告 URL、已确认和待确认数量；发布前运行 `npm run blog:images:dimensions:check`，在网络可用且确认允许读取源站时运行 `npm run blog:images:dimensions:write`，脚本会用真实图片元数据写入宽高，Markdown 构建会自动把已确认尺寸注入 `<img>`，`site:check` 还会逐张核对最终 HTML。当前 170 个正文远程图 URL 已全部写入真实宽高；失败的 URL 不会写入假尺寸，仍由零预算、临时比例和失败占位共同兜底。
 
 目录清单由 `src/data/catalog.ts` 在构建时做结构校验。修改 `catalog.json` 后运行 `npm run build`，即可同时检查三组目录的结构和双语字段。
