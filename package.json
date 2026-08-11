@@ -12,11 +12,13 @@
     "blog:import": "node scripts/import-blog-bodies.mjs",
     "blog:check": "node scripts/prepare-blog-content.mjs --check",
     "photos:prepare": "node scripts/prepare-photo-archive.mjs",
-    "site:check": "node scripts/check-site-output.mjs"
+    "site:check": "node scripts/check-site-output.mjs",
+    "test:smoke": "playwright test"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/markdown-remark": "^7.2.2",
+    "@playwright/test": "^1.62.1",
     "@types/node": "^24.0.0",
     "astro": "^7.2.0",
     "sharp": "^0.35.3",

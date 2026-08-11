@@ -54,6 +54,7 @@ for (const path of htmlFiles) {
   if (/<a\b[^>]*target="_blank"(?![^>]*rel="[^"]*noopener)/.test(html)) failures.push(`unsafe external link: ${relativePath}`)
   if (/<img\b(?![^>]*\balt(?:\s|=))[^>]*>/.test(html)) failures.push(`image without alt: ${relativePath}`)
   if (html.includes('alt="Article image"') || html.includes('alt="Article illustration"')) failures.push(`generic article image alt: ${relativePath}`)
+  if (html.includes('querySelector<') || html.includes('querySelectorAll<')) failures.push(`untranspiled TypeScript generic in inline script: ${relativePath}`)
 
   for (const [, href] of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
     if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) continue

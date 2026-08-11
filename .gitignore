@@ -24,3 +24,8 @@ output/
 
 # Local memory state accidentally created by tooling
 $HOME/
+
+# Playwright reports and per-test artifacts
+/playwright-report/
+/test-results/
+/blob-report/

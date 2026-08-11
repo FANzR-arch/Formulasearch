@@ -120,17 +120,17 @@ const { active, logoMode = 'home' } = Astro.props
     menu.addEventListener('focusin', () => openNavigationMenu(menu))
   })
 
-  primaryNavigation?.addEventListener('keydown', (event) => {
+  document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-      const openButton = primaryNavigation.querySelector('.nav-disclosure[aria-expanded="true"]')
+      const openButton = primaryNavigation?.querySelector('.nav-disclosure[aria-expanded="true"]')
       const mobileWasOpen = document.querySelector('.site-header')?.classList.contains('is-nav-open')
       closeNavigationMenus()
-      closeMobileNavigation({ restoreFocus: mobileWasOpen && !openButton })
-      openButton?.focus()
+      closeMobileNavigation({ restoreFocus: mobileWasOpen })
+      if (!mobileWasOpen) openButton?.focus()
       return
     }
     if (event.key !== 'Tab' || !document.querySelector('.site-header')?.classList.contains('is-nav-open')) return
-    const focusable = [...primaryNavigation.querySelectorAll<HTMLElement>('a, button')].filter((element) => !element.hasAttribute('disabled') && !element.closest('[inert]') && element.getClientRects().length)
+    const focusable = [...primaryNavigation.querySelectorAll('a, button')].filter((element) => !element.hasAttribute('disabled') && !element.closest('[inert]') && element.getClientRects().length)
     if (!focusable.length) return
     const first = focusable[0]
     const last = focusable[focusable.length - 1]
@@ -147,7 +147,7 @@ const { active, logoMode = 'home' } = Astro.props
     const isOpen = document.querySelector('.site-header')?.classList.toggle('is-nav-open') ?? false
     mobileNavigationToggle.setAttribute('aria-expanded', String(isOpen))
     if (isOpen) {
-      requestAnimationFrame(() => primaryNavigation?.querySelector<HTMLElement>('a, button')?.focus())
+      requestAnimationFrame(() => primaryNavigation?.querySelector('a, button')?.focus())
     } else {
       closeNavigationMenus()
     }

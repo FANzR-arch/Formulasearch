@@ -90,26 +90,29 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
 </section>
 
 <script>
-  document.querySelectorAll<HTMLElement>('[data-archive-filter]').forEach((button) => {
+  const filterButtons = document.querySelectorAll('[data-archive-filter]')
+  const archiveRecords = document.querySelectorAll('[data-archive-record]')
+
+  filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      const filter = button.dataset.archiveFilter ?? 'all'
-      document.querySelectorAll<HTMLElement>('[data-archive-filter]').forEach((item) => {
-        const selected = item.dataset.archiveFilter === filter
+      const filter = button.getAttribute('data-archive-filter') ?? 'all'
+      filterButtons.forEach((item) => {
+        const selected = item.getAttribute('data-archive-filter') === filter
         item.classList.toggle('is-active', selected)
         item.setAttribute('aria-pressed', String(selected))
       })
-      document.querySelectorAll<HTMLElement>('[data-archive-record]').forEach((record) => {
-        const matches = filter === 'all' || record.dataset.archiveRecord?.split(' ').includes(filter)
+      archiveRecords.forEach((record) => {
+        const matches = filter === 'all' || record.getAttribute('data-archive-record')?.split(' ').includes(filter)
         record.toggleAttribute('hidden', !matches)
       })
     })
   })
 
-  const moreButton = document.querySelector<HTMLButtonElement>('[data-archive-more]')
+  const moreButton = document.querySelector('[data-archive-more]')
   moreButton?.addEventListener('click', () => {
-    const hiddenRecords = [...document.querySelectorAll<HTMLElement>('[data-archive-index]')]
-      .filter((record) => record.hidden)
+    const hiddenRecords = [...document.querySelectorAll('[data-archive-index]')]
+      .filter((record) => record.hasAttribute('hidden'))
     hiddenRecords.slice(0, 8).forEach((record) => record.removeAttribute('hidden'))
-    if (hiddenRecords.length <= 8) moreButton.hidden = true
+    if (hiddenRecords.length <= 8) moreButton.setAttribute('hidden', '')
   })
 </script>
