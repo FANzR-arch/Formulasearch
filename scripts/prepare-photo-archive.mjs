@@ -2,11 +2,15 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import sharp from 'sharp'
 
-const sourceDirectory = process.env.PHOTO_ARCHIVE_SOURCE ?? process.argv[2] ?? 'E:/Picture/like/select'
+const sourceDirectory = process.env.PHOTO_ARCHIVE_SOURCE ?? process.argv[2]
 const outputDirectory = path.resolve('public/uploads/photos/select')
 const manifestPath = path.resolve('content/site/photo-archive.json')
 const maxDimension = 2560
 const supportedImage = /\.(?:jpe?g|png)$/i
+
+if (!sourceDirectory) {
+  throw new Error('Photo archive source is required. Set PHOTO_ARCHIVE_SOURCE or pass the source directory as the first argument.')
+}
 
 async function collectImages(directory) {
   const entries = await fs.readdir(directory, { withFileTypes: true })

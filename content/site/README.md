@@ -25,7 +25,7 @@
 
 `identity`、`now`、`work`、`writing`、`resources` 是预留字段。页面需要这些内容时，可以直接扩展对应组件，不必再添加新的解析规则。
 
-照片清单由 `src/data/photo-archive.ts` 在构建时做结构校验。若要从原始照片重新生成图片尺寸、布局和 WebP 文件，运行 `npm run photos:prepare`；默认原始目录为 `E:/Picture/like/select`，也可通过 `PHOTO_ARCHIVE_SOURCE` 覆盖。重新生成时会更新图片路径、尺寸和布局，并按图片输出路径保留已有的 `alt`、`caption`、`label`、`tags` 编辑内容。
+照片清单由 `src/data/photo-archive.ts` 在构建时做结构校验。若要从原始照片重新生成图片尺寸、布局和 WebP 文件，运行 `npm run photos:prepare -- <原始照片目录>`，或先设置 `PHOTO_ARCHIVE_SOURCE`；脚本不再内置某台机器的本地路径。重新生成时会更新图片路径、尺寸和布局，并按图片输出路径保留已有的 `alt`、`caption`、`label`、`tags` 编辑内容。
 
 目录清单由 `src/data/catalog.ts` 在构建时做结构校验。修改 `catalog.json` 后运行 `npm run build`，即可同时检查三组目录的结构和双语字段。
 
