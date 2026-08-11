@@ -2,7 +2,7 @@
 import LocalizedText from './LocalizedText.astro'
 import SiteFooter from './SiteFooter.astro'
 import { homeContent } from '../lib/home-content'
-import type { Locale } from '../lib/i18n'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
 
 interface Props {
   locale?: Locale
@@ -11,6 +11,7 @@ interface Props {
 const { locale = 'zh' } = Astro.props
 const zh = homeContent.zh
 const en = homeContent.en
+const heroImageAlt = getLocalizedValue({ zh: zh.heroImageAlt, en: en.heroImageAlt }, locale)
 ---
 
 <main id="main-content">
@@ -32,7 +33,7 @@ const en = homeContent.en
       <hr />
       <p><LocalizedText zh={zh.sponsor} en={en.sponsor} /></p>
     </div>
-    {zh.heroImage && <img class="hero-image" src={zh.heroImage} alt={zh.heroImageAlt} data-alt-zh={zh.heroImageAlt} data-alt-en={en.heroImageAlt} width={zh.heroImageWidth} height={zh.heroImageHeight} loading="eager" />}
+    {zh.heroImage && <img class="hero-image" src={zh.heroImage} alt={heroImageAlt} data-alt-zh={zh.heroImageAlt} data-alt-en={en.heroImageAlt} width={zh.heroImageWidth} height={zh.heroImageHeight} loading="eager" />}
   </section>
 </main>
 <SiteFooter locale={locale} />
