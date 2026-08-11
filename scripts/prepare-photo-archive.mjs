@@ -58,10 +58,19 @@ const defaultPage = {
   filters: [{ id: 'all', zh: '全部', en: 'All' }],
 }
 
+function normalizePage(page) {
+  if (!page || Array.isArray(page)) return {}
+  const { loadMoreBatchSize, ...rest } = page
+  if (rest.autoLoadBatchSize == null && Number.isInteger(loadMoreBatchSize)) {
+    rest.autoLoadBatchSize = loadMoreBatchSize
+  }
+  return rest
+}
+
 function manifestSource(items, page = defaultPage) {
   return `${JSON.stringify({
     ...defaultPage,
-    ...page,
+    ...normalizePage(page),
     items,
   }, null, 2)}\n`
 }
