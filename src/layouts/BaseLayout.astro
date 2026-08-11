@@ -174,10 +174,10 @@ const localizedDescriptionEn = descriptionEn ?? description
       '@context': 'https://schema.org',
       '@type': 'Person',
       name: siteConfig.author.name,
-      alternateName: ['Fan Zheren', 'Formulasearch'],
+      alternateName: siteConfig.author.alternateNames,
       url: siteConfig.author.url,
-      jobTitle: 'Independent builder and designer',
-      knowsAbout: ['AI tools', 'Visual systems', 'Website design', 'Writing'],
+      jobTitle: siteConfig.author.jobTitle,
+      knowsAbout: siteConfig.author.knowsAbout,
     })} />
     {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
   </head>

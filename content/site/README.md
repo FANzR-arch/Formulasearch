@@ -8,7 +8,7 @@
 - `architecture.json` 是 `/architecture` 的页面文案、筛选器和研究图像清单；图片标识对应 `src/data/architecture.ts` 中的构建资源映射。
 - `navigation.json` 是全站一级导航和下拉菜单内容；链接应使用站内绝对路径，构建时会校验四组主导航和双语字段。
 - `blog-navigation.json` 是 Blog 最新、主题、归档子导航的双语文案和路径；页面组件只负责渲染，构建时会校验三项 ID 与路由一致。
-- `site.json` 是站点名、正式域名、作者地址和 GitHub 地址的唯一来源；页面、RSS、sitemap 和构建检查都会读取它。
+- `site.json` 是站点名、正式域名、作者身份、作者地址和 GitHub 地址的唯一来源；页面、JSON-LD、RSS、sitemap 和构建检查都会读取它。作者的别名、职业和知识领域也在这里维护。
 - `page-meta.json` 是首页、Blog、Blog 归档和 Blog 主题页的双语 SEO 标题/描述唯一来源；修改后运行 `npm run build` 校验字段。
 - `blog-series.json` 是 Blog 主题页的分组和分类映射；新增主题时填写唯一的 `id`，并把对应分类 ID 放入 `categoryIds`。
 - `blog-media.json` 是 Blog 封面的尺寸和响应式 WebP 变体清单；它由 `npm run blog:media:prepare` 从 `public/uploads/blog/` 生成，不要手工填写宽高或变体路径。

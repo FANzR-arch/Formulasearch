@@ -5,6 +5,9 @@ const siteConfigSchema = z.object({
   author: z.object({
     name: z.string().min(1),
     url: z.url(),
+    alternateNames: z.array(z.string().min(1)).min(1),
+    jobTitle: z.string().min(1),
+    knowsAbout: z.array(z.string().min(1)).min(1),
   }),
   githubUrl: z.url(),
   name: z.string().min(1),
