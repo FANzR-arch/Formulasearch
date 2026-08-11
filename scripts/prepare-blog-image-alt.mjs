@@ -23,6 +23,11 @@ const readTitle = (markdown) => {
   return match?.[1]?.trim() || '文章'
 }
 
+const readFrontmatterValue = (markdown, field) => {
+  const match = markdown.match(new RegExp(`^${field}:\\s*(?:"([^"]*)"|'([^']*)'|([^\\r\\n]+))\\s*$`, 'm'))
+  return (match?.[1] ?? match?.[2] ?? match?.[3] ?? '').trim()
+}
+
 const transform = (markdown) => {
   const lines = markdown.split(/\r?\n/)
   let inFrontmatter = false
@@ -107,11 +112,14 @@ let changedFiles = 0
 let imageTotal = 0
 let contextualCandidates = 0
 let invalidAltTotal = 0
+let coverAltCandidates = 0
 const reviewItems = []
 for (const file of posts) {
   if (!existsSync(file)) throw new Error(`缺少 Markdown 文件：${file}`)
   const before = readFileSync(file, 'utf8')
   const { content, replacements, invalidAltCount, images } = transform(before)
+  const coverAlt = readFrontmatterValue(before, 'coverAlt')
+  const title = readTitle(before)
   total += replacements
   imageTotal += images.length
   contextualCandidates += images.filter((image) => image.contextualCandidate).length
@@ -121,6 +129,19 @@ for (const file of posts) {
       if (!image.contextualCandidate && !image.invalidAlt) continue
       reviewItems.push({
         ...image,
+        file: relative(repoRoot, file).replaceAll('\\', '/'),
+      })
+    }
+    if (!coverAlt || coverAlt === `${title}的文章封面` || /(?:文章封面|article cover)$/i.test(coverAlt)) {
+      coverAltCandidates += 1
+      reviewItems.push({
+        alt: coverAlt,
+        destination: 'frontmatter coverAlt',
+        heading: title,
+        line: 1,
+        contextualCandidate: false,
+        invalidAlt: false,
+        syntax: 'cover',
         file: relative(repoRoot, file).replaceAll('\\', '/'),
       })
     }
@@ -140,7 +161,7 @@ if (mode === '--check' && (total > 0 || invalidAltTotal > 0)) {
 }
 
 if (mode === '--report') {
-  console.log(`Blog 图片 alt 审查报告：${posts.length} 篇文章，${imageTotal} 张正文图片，${contextualCandidates} 张章节上下文初稿，${invalidAltTotal} 个 HTML 图片 alt 问题。`)
+  console.log(`Blog 图片 alt 审查报告：${posts.length} 篇文章，${imageTotal} 张正文图片，${contextualCandidates} 张章节上下文初稿，${coverAltCandidates} 个封面 coverAlt 占位，${invalidAltTotal} 个 HTML 图片 alt 问题。`)
   if (reviewItems.length === 0) {
     console.log('没有检测到章节上下文初稿；仍建议对新增正文图片做人工语义复核。')
   } else {
@@ -149,6 +170,9 @@ if (mode === '--report') {
     }
     if (reviewItems.some((image) => image.invalidAlt)) {
       console.log('以下 HTML 图片缺少具体 alt，发布前请手动补充可感知的视觉描述：')
+    }
+    if (reviewItems.some((image) => image.syntax === 'cover')) {
+      console.log('以下封面 coverAlt 仍使用文章标题占位，发布前建议改成与画面相关的具体视觉描述：')
     }
     for (const image of reviewItems) {
       console.log(`- ${image.file}:${image.line} | ${image.syntax} | alt="${image.alt}" | heading="${image.heading}" | ${image.destination}`)
