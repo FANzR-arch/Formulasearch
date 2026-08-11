@@ -41,7 +41,7 @@ Blog 列表和文章详情共用 Astro Content Collection；修改 `index.md` �
 
 Blog 迁移目录的外链由 `npm run blog:migrate` 按 URL 写入稳定平台 ID：`wechat`、`x`、`original`。页面上的中文/英文名称统一来自 `content/site/ui-copy.json`，不要把显示文案直接写回 frontmatter。
 
-日常 Blog 更新建议依次运行 `npm run blog:check`、`npm run blog:images:check`、`npm run blog:media:check`、`npm run i18n:check`，最后运行 `npm run build`。修改摄影生成器或重新生成摄影清单后，再运行 `npm run photos:test`。
+日常内容更新可先运行 `npm run content:check`，它会统一检查 Blog 内容、i18n 覆盖率、对比度、封面媒体、正文图片 alt/尺寸和摄影清单回归；最后运行 `npm run build`。需要单独定位 Blog 问题时，仍可分别运行 `blog:check`、`blog:images:check` 或 `blog:media:check`；修改摄影生成器时可运行 `npm run photos:test`。
 
 需要了解双语内容覆盖率时运行 `npm run i18n:report`；它会统计站点 manifest 的双语文案数量、Blog 文章语言分布，以及 `titleEn` / `descriptionEn` / `coverAltEn` 覆盖率。公开 Blog 记录必须补齐这三个英文 metadata 字段，`npm run i18n:check` 会阻止新文章把英文目录、卡片和封面 alt 退回中文；它仍不会要求中文正文伪造成英文正文。
 

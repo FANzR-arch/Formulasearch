@@ -1,18 +1,17 @@
 import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join, resolve } from 'node:path'
+import { runContentChecks } from './check-content.mjs'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const node = process.execPath
 const astro = join(projectRoot, 'node_modules', 'astro', 'bin', 'astro.mjs')
 const env = { ...process.env, ASTRO_TELEMETRY_DISABLED: '1' }
+
+const contentStatus = runContentChecks()
+if (contentStatus !== 0) process.exit(contentStatus)
+
 const steps = [
-  [node, ['scripts/prepare-blog-content.mjs', '--check']],
-  [node, ['scripts/report-i18n.mjs', '--strict']],
-  [node, ['scripts/check-color-contrast.mjs']],
-  [node, ['scripts/prepare-blog-media.mjs', '--check']],
-  [node, ['scripts/prepare-blog-image-alt.mjs', '--check']],
-  [node, ['scripts/prepare-blog-image-dimensions.mjs', '--check']],
   [node, [astro, 'check']],
   [node, [astro, 'build']],
   [node, ['scripts/check-site-output.mjs']],
