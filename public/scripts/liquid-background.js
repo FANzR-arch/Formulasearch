@@ -3,10 +3,11 @@
   const cycleButton = document.querySelector('#background-cycle')
   if (!(canvas instanceof HTMLCanvasElement)) return
 
-  const variants = ['dither', 'molten', 'contour']
-  const variantIndex = { dither: 1, molten: 2, contour: 3 }
+  const variantIndex = Object.freeze({ dither: 1, molten: 2, contour: 3 })
   let backgroundNames = {}
   try { backgroundNames = JSON.parse(decodeURIComponent(cycleButton?.dataset.backgroundNames || '%7B%7D')) } catch {}
+  const configuredVariants = Object.keys(backgroundNames).filter((name) => Object.hasOwn(variantIndex, name))
+  const variants = configuredVariants.length ? configuredVariants : Object.keys(variantIndex)
   const randomHistoryKey = 'formulasearch-background-last-random'
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   let previousVariant = ''

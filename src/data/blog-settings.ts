@@ -4,6 +4,7 @@ import blogSettingsContent from '../../content/site/blog-settings.json'
 const blogSettingsSchema = z.object({
   featuredCount: z.number().int().positive(),
   recentCount: z.number().int().positive(),
+  relatedCount: z.number().int().positive(),
   readingWordsPerMinute: z.number().int().positive(),
 }).strict()
 
