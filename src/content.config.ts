@@ -1,7 +1,7 @@
 import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
-import { httpUrlSchema } from './lib/validation'
+import { httpUrlSchema, localAssetPathSchema } from './lib/validation'
 
 const tagsSchema = z.array(z.string().trim().min(1)).refine((tags) => new Set(tags).size === tags.length, 'Tags must be unique.')
 const externalLinksSchema = z.array(z.object({
@@ -33,7 +33,7 @@ const blog = defineCollection({
     series: z.string().trim().min(1).optional(),
     contentLanguage: z.enum(['zh-Hans', 'en']).default('zh-Hans'),
     tags: tagsSchema.default([]),
-    cover: z.string().trim().min(1),
+    cover: localAssetPathSchema,
     coverAlt: z.string().trim().min(1),
     contentStatus: z.enum(['index-only', 'full']),
     featured: z.boolean().default(false),

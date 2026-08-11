@@ -52,7 +52,7 @@ public/uploads/blog/
 
 ## 封面
 
-封面放在 `public/uploads/blog/<同一日期>/`。当前读取器支持 `avif`、`jpeg`、`jpg`、`png`、`webp`，并按文件名排序取第一张。
+封面放在 `public/uploads/blog/<同一日期>/`，frontmatter 的 `cover` 必须填写单斜杠开头的站内路径（例如 `/uploads/blog/2026-07-02/cover.jpg`），不能写 `//host/...` 或外部 URL。当前读取器支持 `avif`、`jpeg`、`jpg`、`png`、`webp`，并按文件名排序取第一张。
 
 现有封面大多是约 `2.36:1–2.5:1` 的超宽横幅。新增封面优先延续横幅构图，避免把关键信息放在最边缘。封面尺寸和 WebP/AVIF 响应式变体由脚本维护，不要手工编辑 `content/site/blog-media.json`；`npm run blog:media:prepare` 也会清理该目录下不再被 manifest 使用的生成文件。
 
