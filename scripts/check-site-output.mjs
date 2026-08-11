@@ -50,6 +50,18 @@ for (const route of staticRoutes) {
 const rss = await readUtf8('rss.xml')
 if (!rss.includes('<rss version="2.0">') || !rss.includes('<lastBuildDate>') || !/<item>[\s\S]*<pubDate>/.test(rss)) failures.push('RSS output is missing channel date or article publication dates')
 
+const blogRoot = join(projectRoot, '..', 'content', 'blog')
+const blogDirectories = (await readdir(blogRoot, { withFileTypes: true }))
+  .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(entry.name))
+for (const directory of blogDirectories) {
+  const markdown = await readFile(join(blogRoot, directory.name, 'index.md'), 'utf8')
+  if (!/^draft:\s*true\s*$/m.test(markdown)) continue
+  const slug = markdown.match(/^slug:\s*["']?([^\r\n"']+)["']?\s*$/m)?.[1]?.trim()
+  if (!slug) continue
+  if (sitemap.includes(`/blog/${slug}`)) failures.push(`draft article in sitemap: ${slug}`)
+  if (rss.includes(`/blog/${slug}`)) failures.push(`draft article in RSS: ${slug}`)
+}
+
 for (const path of htmlFiles) {
   const html = await readFile(path, 'utf8')
   const relativePath = path.slice(distRoot.length + 1)
