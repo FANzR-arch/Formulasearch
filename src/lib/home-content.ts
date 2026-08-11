@@ -35,6 +35,9 @@ const homeContentSchema = z.object({
   if (data.heroImage && !data.heroImageAlt) {
     context.addIssue({ code: 'custom', path: ['heroImageAlt'], message: 'heroImageAlt is required when heroImage is set.' })
   }
+  if (!data.heroImage && data.heroImageAlt) {
+    context.addIssue({ code: 'custom', path: ['heroImageAlt'], message: 'heroImageAlt must be empty when heroImage is empty.' })
+  }
 })
 
 export type HomeContent = z.infer<typeof homeContentSchema>
@@ -49,7 +52,7 @@ function parseHomeContent(value: unknown, locale: 'zh' | 'en') {
 }
 
 function validateLocalePairs(zh: HomeContent, en: HomeContent) {
-  const pairedFields = ['intro', 'about', 'interest'] as const
+  const pairedFields = ['intro', 'about', 'interest', 'identity', 'now', 'work'] as const
   for (const field of pairedFields) {
     if (zh[field].length !== en[field].length) {
       throw new Error(`首页中英文 ${field} 段落数量不一致：中文 ${zh[field].length}，英文 ${en[field].length}`)
@@ -57,6 +60,7 @@ function validateLocalePairs(zh: HomeContent, en: HomeContent) {
   }
 
   const sharedFields = [
+    ['name', zh.name, en.name],
     ['email', zh.email, en.email],
     ['social.label', zh.social.label, en.social.label],
     ['social.url', zh.social.url, en.social.url],
