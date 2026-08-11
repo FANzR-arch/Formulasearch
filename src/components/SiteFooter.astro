@@ -1,0 +1,16 @@
+---
+import LocalizedText from './LocalizedText.astro'
+import { siteConfig } from '../data/site-config'
+import { uiCopy } from '../data/ui-copy'
+
+interface Props {
+  variant?: 'catalog' | 'site'
+}
+
+const { variant = 'site' } = Astro.props
+---
+
+<footer class={variant === 'catalog' ? 'catalog-footer' : 'site-footer'}>
+  <span>© {new Date().getFullYear()} {siteConfig.name}</span>
+  <a href="/"><LocalizedText {...uiCopy.common.returnHome} /></a>
+</footer>

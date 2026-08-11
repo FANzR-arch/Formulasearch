@@ -1,9 +1,8 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro'
-import LocalizedText from '../components/LocalizedText.astro'
+import SiteFooter from '../components/SiteFooter.astro'
 import BaseLayout from './BaseLayout.astro'
 import { siteConfig } from '../data/site-config'
-import { uiCopy } from '../data/ui-copy'
 
 interface Props {
   active: 'projects' | 'skills' | 'lab' | 'photos' | 'architecture'
@@ -19,10 +18,7 @@ const { active, description, title, variant = 'default' } = Astro.props
   <div class:list={['site-page', 'is-visible', 'catalog-site', { 'archive-catalog-site': variant === 'archive' }]}>
     <SiteHeader active={active} />
     <main id="main-content" class="catalog-main"><slot /></main>
-    <footer class="catalog-footer">
-      <span>© {new Date().getFullYear()} {siteConfig.name}</span>
-      <a href="/"><LocalizedText {...uiCopy.common.returnHome} /></a>
-    </footer>
+    <SiteFooter variant="catalog" />
   </div>
 
 </BaseLayout>

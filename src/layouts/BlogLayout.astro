@@ -1,9 +1,8 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro'
-import LocalizedText from '../components/LocalizedText.astro'
+import SiteFooter from '../components/SiteFooter.astro'
 import BaseLayout from './BaseLayout.astro'
 import { siteConfig } from '../data/site-config'
-import { uiCopy } from '../data/ui-copy'
 import '../styles/blog.css'
 
 interface Props {
@@ -25,10 +24,7 @@ const { description, descriptionEn, image, modifiedTime, ogType, publishedTime, 
   <div class="site-page is-visible blog-site">
     <SiteHeader active="blog" />
     <main id="main-content" class="blog-main"><slot /></main>
-    <footer class="site-footer">
-      <span>© {new Date().getFullYear()} {siteConfig.name}</span>
-      <a href="/"><LocalizedText {...uiCopy.common.returnHome} /></a>
-    </footer>
+    <SiteFooter variant="site" />
   </div>
 
 </BaseLayout>
