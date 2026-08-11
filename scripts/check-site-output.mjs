@@ -8,6 +8,8 @@ const publicRoot = join(projectRoot, '..', 'public')
 const siteConfig = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'site.json'), 'utf8'))
 const siteOrigin = new URL(siteConfig.siteUrl).origin
 const failures = []
+const getAttribute = (attributes, name) => attributes.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1] || ''
+const stripTags = (value) => value.replace(/<[^>]+>/g, '').replace(/&(?:amp|lt|gt|quot|#39);/g, ' ').trim()
 
 async function readUtf8(relativePath) {
   return readFile(join(distRoot, relativePath), 'utf8')
@@ -130,7 +132,11 @@ for (const path of htmlFiles) {
   const relativePath = path.slice(distRoot.length + 1)
   const currentRoute = [...htmlByRoute.entries()].find(([, htmlPath]) => htmlPath === path)?.[0] || '/'
   if (!html.includes('<html lang=')) failures.push(`missing html lang: ${relativePath}`)
+  const mainCount = (html.match(/<main\b/g) || []).length
   if (!html.includes('<main id="main-content"')) failures.push(`missing main anchor: ${relativePath}`)
+  if (mainCount !== 1) failures.push(`expected one main landmark, found ${mainCount}: ${relativePath}`)
+  const h1Count = (html.match(/<h1\b/g) || []).length
+  if (h1Count !== 1) failures.push(`expected one h1, found ${h1Count}: ${relativePath}`)
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1]
   const expectedCanonical = new URL(currentRoute, siteConfig.siteUrl).toString()
   if (!canonical) failures.push(`missing canonical: ${relativePath}`)
@@ -145,6 +151,20 @@ for (const path of htmlFiles) {
   if (/<img\b(?![^>]*\balt(?:\s|=))[^>]*>/.test(html)) failures.push(`image without alt: ${relativePath}`)
   if (html.includes('alt="Article image"') || html.includes('alt="Article illustration"')) failures.push(`generic article image alt: ${relativePath}`)
   if (html.includes('querySelector<') || html.includes('querySelectorAll<')) failures.push(`untranspiled TypeScript generic in inline script: ${relativePath}`)
+  for (const match of html.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/g)) {
+    const attributes = match[1]
+    const content = match[2]
+    const label = getAttribute(attributes, 'aria-label')
+    const labelledBy = getAttribute(attributes, 'aria-labelledby')
+    if (!label && !labelledBy && !stripTags(content)) failures.push(`button has no accessible name: ${relativePath}`)
+    if (labelledBy) {
+      for (const id of labelledBy.split(/\s+/).filter(Boolean)) {
+        if (!new RegExp(`\\bid="${id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`).test(html)) failures.push(`button references missing label: ${relativePath} -> ${id}`)
+      }
+    }
+    const controls = getAttribute(attributes, 'aria-controls')
+    if (controls && !new RegExp(`\\bid="${controls.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`).test(html)) failures.push(`button references missing control: ${relativePath} -> ${controls}`)
+  }
   for (const [, source] of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)) {
     await checkLocalAsset(source, relativePath)
   }
