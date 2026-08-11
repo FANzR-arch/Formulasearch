@@ -5,8 +5,8 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Clock3, House, Link } from '@lucid
 import LocalizedText from '../components/LocalizedText.astro'
 import ExternalLinkLabel from '../components/ExternalLinkLabel.astro'
 import RelatedPosts from '../components/RelatedPosts.astro'
+import BlogCover from '../components/BlogCover.astro'
 import BlogLayout from './BlogLayout.astro'
-import { getBlogMedia } from '../data/blog-media'
 import { siteConfig } from '../data/site-config'
 
 interface Props {
@@ -17,8 +17,6 @@ interface Props {
 }
 
 const { categoryLabel, headings, post, relatedPosts } = Astro.props
-const coverMedia = getBlogMedia(post.data.cover)
-const coverSrcSet = coverMedia.optimized.map((variant) => `${variant.src} ${variant.width}w`).join(', ')
 const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3)
 const published = post.data.pubDate.toISOString().slice(0, 10)
 const modified = (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10)
@@ -82,10 +80,7 @@ const structuredData = {
       </header>
 
       <figure class="article-cover">
-        <picture>
-          <source type="image/webp" srcset={coverSrcSet} sizes="(max-width: 820px) 100vw, 880px" />
-          <img src={post.data.cover} alt={post.data.coverAlt} data-alt-zh={post.data.coverAlt} data-alt-en="Article cover" decoding="async" fetchpriority="high" width={coverMedia.width} height={coverMedia.height} sizes="(max-width: 820px) 100vw, 880px" />
-        </picture>
+        <BlogCover src={post.data.cover} alt={post.data.coverAlt} altEn="Article cover" fetchpriority="high" sizes="(max-width: 820px) 100vw, 880px" />
       </figure>
 
       {toc.length > 1 && (

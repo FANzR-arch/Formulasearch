@@ -2,10 +2,10 @@
 import BlogPostRow from '../../components/BlogPostRow.astro'
 import LocalizedText from '../../components/LocalizedText.astro'
 import BlogSectionNav from '../../components/BlogSectionNav.astro'
+import BlogCover from '../../components/BlogCover.astro'
 import BlogLayout from '../../layouts/BlogLayout.astro'
 import { ArrowRight } from '@lucide/astro'
 import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } from '../../lib/blog-content'
-import { getBlogMedia } from '../../data/blog-media'
 import { pageMeta } from '../../data/page-meta'
 
 const posts = await getBlogPosts()
@@ -36,8 +36,6 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
       <div class="cover-stage__viewport">
         {stagePosts.map((post, index) => {
           const isLocal = isLocalBlogPost(post)
-          const media = post.cover ? getBlogMedia(post.cover) : undefined
-          const mediaSrcSet = media?.optimized.map((variant) => `${variant.src} ${variant.width}w`).join(', ')
           return (
             <a
               class:list={['cover-stage__slide', { 'is-active': index === 0 }]}
@@ -48,22 +46,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
               aria-hidden={index === 0 ? undefined : 'true'}
               tabindex={index === 0 ? undefined : '-1'}
             >
-              {post.cover && (
-                <picture>
-                  {mediaSrcSet && <source type="image/webp" srcset={mediaSrcSet} sizes="(max-width: 820px) 100vw, 70vw" />}
-                  <img
-                    src={post.cover}
-                    alt={index === 0 ? `${post.title}的文章封面` : ''}
-                    data-alt-zh={index === 0 ? `${post.title}的文章封面` : ''}
-                    data-alt-en={index === 0 ? 'Featured article cover' : ''}
-                    decoding="async"
-                    fetchpriority={index === 0 ? 'high' : 'auto'}
-                    width={media?.width}
-                    height={media?.height}
-                    sizes="(max-width: 820px) 100vw, 70vw"
-                  />
-                </picture>
-              )}
+              {post.cover && <BlogCover src={post.cover} alt={index === 0 ? `${post.title}的文章封面` : ''} altEn={index === 0 ? 'Featured article cover' : undefined} fetchpriority={index === 0 ? 'high' : 'auto'} sizes="(max-width: 820px) 100vw, 70vw" />}
             </a>
           )
         })}
