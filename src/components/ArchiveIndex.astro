@@ -64,7 +64,7 @@ const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.
 
   <div id="archive-grid" class="visual-archive__grid" data-archive-grid>
     {items.map((item, index) => (
-      <figure class:list={['archive-record', `archive-record--${item.layout}`]} data-archive-record={item.tags.join(' ')} data-archive-index={index} hidden={index >= initialVisibleItems}>
+      <figure class:list={['archive-record', `archive-record--${item.layout}`]} data-archive-record={item.tags.join(' ')} data-archive-index={index} data-archive-initial-hidden={index >= initialVisibleItems ? 'true' : undefined}>
         {typeof item.image === 'string' ? (
           <img src={item.image} alt={localizedAlt(item.alt)} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} width={item.width} height={item.height} loading={index < eagerImageCount ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
         ) : (

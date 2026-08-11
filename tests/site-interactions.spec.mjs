@@ -285,6 +285,15 @@ test('photo archive reveals all records when IntersectionObserver is unavailable
   await expect(page.locator('#archive-grid [data-archive-record]:not([hidden])')).toHaveCount(8)
 })
 
+test('photo archive remains readable without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  const page = await context.newPage()
+  await page.goto('http://127.0.0.1:4321/photos')
+  const total = await page.locator('#archive-grid [data-archive-record]').count()
+  await expect(page.locator('#archive-grid [data-archive-record]:not([hidden])')).toHaveCount(total)
+  await context.close()
+})
+
 test('photo archive removes repetitive captions', async ({ page }) => {
   await page.goto('/photos')
   await expect(page.locator('.archive-record figcaption')).toHaveCount(0)

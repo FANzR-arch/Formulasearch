@@ -4,7 +4,7 @@ const sentinel = document.querySelector('[data-archive-sentinel]')
 const statusRegion = document.querySelector('[data-archive-status]')
 const batchSize = Number(document.querySelector('[data-archive-batch-size]')?.getAttribute('data-archive-batch-size')) || 1
 let activeFilter = filterButtons[0]?.getAttribute('data-archive-filter') ?? 'all'
-let visibleCount = archiveRecords.filter((record) => !record.hasAttribute('hidden')).length
+let visibleCount = archiveRecords.filter((record) => record.getAttribute('data-archive-initial-hidden') !== 'true').length
 
 const renderArchive = () => {
   let matchingCount = 0
