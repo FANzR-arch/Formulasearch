@@ -5,13 +5,13 @@ document.querySelectorAll('.article-copy').forEach((button) => {
       await navigator.clipboard.writeText(url)
       button.dataset.copyState = 'copied'
       window.setTimeout(() => {
-        delete button.dataset.copyState
+        if (button.dataset.copyState === 'copied') delete button.dataset.copyState
       }, 1800)
     } catch {
-      const prompt = document.documentElement.dataset.locale === 'en'
-        ? button.dataset.copyPromptEn
-        : button.dataset.copyPromptZh
-      window.prompt(prompt ?? '', url)
+      button.dataset.copyState = 'failed'
+      window.setTimeout(() => {
+        if (button.dataset.copyState === 'failed') delete button.dataset.copyState
+      }, 4200)
     }
   })
 })

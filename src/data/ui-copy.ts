@@ -47,7 +47,7 @@ const uiCopySchema = z.object({
     onThisPage: localizedCopySchema,
     copyLink: localizedCopySchema,
     copied: localizedCopySchema,
-    copyArticleLink: localizedCopySchema,
+    copyFailed: localizedCopySchema,
     backToBlog: localizedCopySchema,
     allArticles: localizedCopySchema,
     originallyPublished: localizedCopySchema,

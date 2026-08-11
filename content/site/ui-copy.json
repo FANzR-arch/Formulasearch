@@ -43,7 +43,7 @@
     "readingTime": { "zh": "{minutes} 分钟阅读", "en": "{minutes} min read" },
     "copyLink": { "zh": "复制链接", "en": "Copy link" },
     "copied": { "zh": "已复制", "en": "Copied" },
-    "copyArticleLink": { "zh": "复制文章链接", "en": "Copy article link" },
+    "copyFailed": { "zh": "复制失败，请手动复制链接", "en": "Copy failed. Please copy the link manually." },
     "backToBlog": { "zh": "返回博客", "en": "Back to blog" },
     "allArticles": { "zh": "全部文章", "en": "All articles" },
     "originallyPublished": { "zh": "原文发布", "en": "Originally published on" },

@@ -259,6 +259,22 @@ test('article copy feedback and table of contents remain interactive', async ({ 
   await expect(tocLink).toHaveAttribute('aria-current', 'location')
 })
 
+test('article copy failure stays inside the localized button feedback', async ({ page }) => {
+  await page.goto('/blog/ai-practice-2026-02-22')
+  await page.evaluate(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: async () => { throw new Error('clipboard unavailable') } },
+    })
+  })
+  const copy = page.locator('.article-copy')
+  await copy.click()
+  await expect(copy).toHaveAttribute('data-copy-state', 'failed')
+  await expect(copy.locator('.article-copy__failure')).toBeVisible()
+  await page.locator('#language-toggle').click()
+  await expect(copy.locator('.article-copy__failure .localized-text__en')).toBeVisible()
+})
+
 test('article media is playable or represented by accessible poster content', async ({ page }) => {
   await page.goto('/blog/ai-practice-2026-03-27')
   const media = await page.locator('.article-prose video, .article-prose audio').evaluateAll((elements) => elements.map((element) => ({

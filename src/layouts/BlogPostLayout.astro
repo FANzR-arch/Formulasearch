@@ -96,7 +96,7 @@ const structuredData = {
         <h1><LocalizedText zh={post.data.title} en={titleEn} enLang={titleEnLang} /></h1>
         <div class="article-byline">
           <p class="article-author"><span class="article-author__mark" aria-hidden="true">{authorMark}</span><strong>{authorName}</strong></p>
-        <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText {...readingTimeCopy} /></span><button class="article-copy" type="button" data-copy-url={canonical} data-copy-prompt-zh={uiCopy.blog.copyArticleLink.zh} data-copy-prompt-en={uiCopy.blog.copyArticleLink.en} aria-live="polite"><Link aria-hidden="true" size={14} stroke-width={1.7} /><span class="article-copy__default"><LocalizedText {...uiCopy.blog.copyLink} /></span><span class="article-copy__feedback"><LocalizedText {...uiCopy.blog.copied} /></span></button></p>
+        <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText {...readingTimeCopy} /></span><button class="article-copy" type="button" data-copy-url={canonical} aria-live="polite"><Link aria-hidden="true" size={14} stroke-width={1.7} /><span class="article-copy__default"><LocalizedText {...uiCopy.blog.copyLink} /></span><span class="article-copy__feedback"><LocalizedText {...uiCopy.blog.copied} /></span><span class="article-copy__failure"><LocalizedText {...uiCopy.blog.copyFailed} /></span></button></p>
         </div>
       </header>
 

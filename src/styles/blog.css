@@ -733,9 +733,12 @@
 }
 .article-copy:focus-visible { border-radius: 1px; outline: 2px solid var(--accent); outline-offset: 4px; }
 
-.article-copy__feedback { display: none; }
+.article-copy__feedback,
+.article-copy__failure { display: none; }
 .article-copy[data-copy-state='copied'] .article-copy__default { display: none; }
 .article-copy[data-copy-state='copied'] .article-copy__feedback { display: inline; }
+.article-copy[data-copy-state='failed'] .article-copy__default { display: none; }
+.article-copy[data-copy-state='failed'] .article-copy__failure { display: inline; }
 
 .article-cover {
   grid-column: 2;
