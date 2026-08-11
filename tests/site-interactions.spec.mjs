@@ -41,6 +41,7 @@ test('photo archive reveals more records without navigation', async ({ page }) =
 
 test('article copy feedback and table of contents remain interactive', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write'])
+  page.on('dialog', (dialog) => dialog.dismiss())
   await page.goto('/blog/ai-practice-2026-02-22')
 
   const copy = page.locator('.article-copy')

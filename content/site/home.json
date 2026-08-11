@@ -1,0 +1,25 @@
+{
+  "name": "Carlos Phil",
+  "email": "vphil981011@gmail.com",
+  "social": {
+    "label": "@Formulasearch",
+    "url": "https://x.com/Formulasearch"
+  },
+  "heroImage": "",
+  "intro": [
+    "你好，我是阿哲，一名充满好奇心的AI爱好者和设计工程师。"
+  ],
+  "about": [
+    "我从建筑设计出发，目前正在探索 AI、设计与互联网等交叉领域。",
+    "我热衷于梳理模糊的概念，并实现它们。Formulasearch 是我的个人实践总站：这里会记录我正在进行的项目，也会分享文章、Skills 和 工具等；有些来自独立探索，有些来自与伙伴共同完成的项目。"
+  ],
+  "interest": [
+    "在vibe之余，我喜欢摄影和旅行，这里会不定期分享途中看到的图像与片段。"
+  ],
+  "sponsor": "如果你觉得我的分享有价值，也欢迎赞助我一杯咖啡~ 非常感谢！",
+  "identity": [],
+  "now": [],
+  "work": [],
+  "writing": "",
+  "resources": ""
+}

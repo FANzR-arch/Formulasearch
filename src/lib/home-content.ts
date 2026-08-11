@@ -1,98 +1,56 @@
-import rawEn from '../../content/site/home.en.md?raw'
-import rawZh from '../../content/site/home.md?raw'
+import { z } from 'astro/zod'
+import homeEn from '../../content/site/home.en.json'
+import homeZh from '../../content/site/home.json'
 
-type WorkItem = { title: string; description: string }
+const workItemSchema = z.object({
+  title: z.string().min(1),
+  description: z.string().min(1),
+})
 
-export type HomeContent = {
-  about: string[]
-  email: string
-  eyebrow: string
-  heroImage: string
-  identity: string[]
-  intro: string[]
-  interest: string[]
-  name: string
-  now: { number: string; text: string }[]
-  resources: string
-  socialLabel: string
-  socialUrl: string
-  sponsor: string
-  statement: string
-  work: WorkItem[]
-  writing: string
-}
+const homeContentSchema = z.object({
+  name: z.string().min(1),
+  email: z.email(),
+  social: z.object({
+    label: z.string().min(1),
+    url: z.url(),
+  }),
+  heroImage: z.string(),
+  intro: z.array(z.string().min(1)).min(1),
+  about: z.array(z.string().min(1)).min(1),
+  interest: z.array(z.string().min(1)).min(1),
+  sponsor: z.string().min(1),
+  identity: z.array(z.string().min(1)).default([]),
+  now: z.array(z.object({
+    number: z.string().min(1),
+    text: z.string().min(1),
+  })).default([]),
+  work: z.array(workItemSchema).default([]),
+  writing: z.string().default(''),
+  resources: z.string().default(''),
+})
 
-function frontmatterValue(raw: string, key: string) {
-  const match = raw.match(new RegExp(`^${key}:\\s*["']?([^\\n"']*)["']?\\s*$`, 'm'))
-  return match?.[1]?.trim() ?? ''
-}
+export type HomeContent = z.infer<typeof homeContentSchema>
 
-function section(raw: string, title: string) {
-  const heading = `\n## ${title}\n`
-  const headingStart = raw.indexOf(heading)
-  if (headingStart === -1) return ''
-  const contentStart = headingStart + heading.length
-  const nextHeading = raw.indexOf('\n## ', contentStart)
-  return raw.slice(contentStart, nextHeading === -1 ? raw.length : nextHeading).trim()
-}
-
-function paragraphs(value: string) {
-  return value.split('\n').map((line) => line.replace(/\r$/, '').trim()).filter((line) => line && !line.startsWith('<!--'))
-}
-
-function paragraphBlocks(value: string) {
-  return value
-    .split(/\n\s*\n/)
-    .map((block) => block.split('\n').map((line) => line.replace(/\r$/, '').trim()).filter(Boolean).join(' '))
-    .filter((block) => block && !block.startsWith('<!--'))
-}
-
-function list(value: string) {
-  return value.split('\n').map((line) => line.replace(/\r$/, '').replace(/^-\s*/, '').trim()).filter(Boolean)
-}
-
-function workItems(value: string): WorkItem[] {
-  return value.split(/^### /m).slice(1).map((block) => {
-    const [title, ...description] = block.split('\n')
-    return { title: title.trim(), description: paragraphs(description.join('\n')).join(' ') }
-  })
-}
-
-const requiredSections = ['Intro', 'About', 'Interest', 'Find', 'Sponsor'] as const
-
-function parseHomeContent(raw: string): HomeContent {
-  const missingSections = requiredSections.filter((title) => !section(raw, title))
-  if (missingSections.length) {
-    throw new Error(`首页内容缺少必需章节: ${missingSections.join(', ')}`)
+function parseHomeContent(value: unknown, locale: 'zh' | 'en') {
+  const result = homeContentSchema.safeParse(value)
+  if (!result.success) {
+    const issues = result.error.issues.map((issue) => `${issue.path.join('.') || 'root'}: ${issue.message}`).join('; ')
+    throw new Error(`首页 ${locale} 内容校验失败：${issues}`)
   }
+  return result.data
+}
 
-  const intro = paragraphs(section(raw, 'Intro'))
-  const about = paragraphBlocks(section(raw, 'About'))
-  const interest = paragraphBlocks(section(raw, 'Interest'))
-  const identity = list(section(raw, 'Identity'))
-  const now = list(section(raw, 'Now')).slice(1).map((text, index) => ({ number: String(index + 1).padStart(2, '0'), text }))
-
-  return {
-    name: frontmatterValue(raw, 'name') || 'Phil',
-    eyebrow: frontmatterValue(raw, 'eyebrow'),
-    email: frontmatterValue(raw, 'email'),
-    socialLabel: frontmatterValue(raw, 'xLabel') || '@Formulasearch',
-    socialUrl: frontmatterValue(raw, 'xUrl') || 'https://x.com/Formulasearch',
-    heroImage: frontmatterValue(raw, 'heroImage'),
-    intro,
-    about,
-    interest,
-    sponsor: paragraphBlocks(section(raw, 'Sponsor')).join(' '),
-    statement: paragraphs(section(raw, 'Statement')).join(' '),
-    identity,
-    work: workItems(section(raw, 'Work')),
-    writing: paragraphs(section(raw, 'Writing')).join(' '),
-    resources: paragraphs(section(raw, 'Resources')).join(' '),
-    now,
+function validateLocalePairs(zh: HomeContent, en: HomeContent) {
+  const pairedFields = ['intro', 'about', 'interest'] as const
+  for (const field of pairedFields) {
+    if (zh[field].length !== en[field].length) {
+      throw new Error(`首页中英文 ${field} 段落数量不一致：中文 ${zh[field].length}，英文 ${en[field].length}`)
+    }
   }
 }
 
-export const homeContent = {
-  en: parseHomeContent(rawEn),
-  zh: parseHomeContent(rawZh),
-}
+const zh = parseHomeContent(homeZh, 'zh')
+const en = parseHomeContent(homeEn, 'en')
+validateLocalePairs(zh, en)
+
+export const homeContent = { en, zh }
