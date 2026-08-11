@@ -6,6 +6,7 @@
 
 1. 改首页中文：打开 [`site/home.json`](site/home.json)，按字段更新文字。
 2. 改首页英文：同步更新 [`site/home.en.json`](site/home.en.json)，保持 `intro`、`about`、`interest` 的数组长度一致。
+   修改首页显示姓名时，中文和英文可以使用不同称呼，但两者都必须属于 [`site/site.json`](site/site.json) 中的作者名或别名。
 3. 放首页图片：把图片拖到 [`../public/uploads/home/`](../public/uploads/home/)；再把图片路径和对应双语 `heroImageAlt` 填进两个 JSON。填写 `heroImage` 时必须同时填写具体 alt。
 4. 新增 Blog：复制 [`blog/2026-07-02`](blog/2026-07-02) 文件夹，改成新的发布日期，再修改里面四个文本文件；封面图片放进 `../public/uploads/blog/同一个日期/`。
 
@@ -40,7 +41,7 @@ Blog 列表和文章详情共用 Astro Content Collection；修改 `index.md` �
 
 Blog 迁移目录的外链由 `npm run blog:migrate` 按 URL 写入稳定平台 ID：`wechat`、`x`、`original`。页面上的中文/英文名称统一来自 `content/site/ui-copy.json`，不要把显示文案直接写回 frontmatter。
 
-日常 Blog 更新建议依次运行 `npm run blog:check`、`npm run blog:images:check`、`npm run blog:media:check`，最后运行 `npm run build`。
+日常 Blog 更新建议依次运行 `npm run blog:check`、`npm run blog:images:check`、`npm run blog:media:check`、`npm run i18n:check`，最后运行 `npm run build`。修改摄影生成器或重新生成摄影清单后，再运行 `npm run photos:test`。
 
 需要了解双语内容覆盖率时运行 `npm run i18n:report`；它会统计站点 manifest 的双语文案数量、Blog 文章语言分布，以及 `titleEn` / `descriptionEn` / `coverAltEn` 覆盖率。公开 Blog 记录必须补齐这三个英文 metadata 字段，`npm run i18n:check` 会阻止新文章把英文目录、卡片和封面 alt 退回中文；它仍不会要求中文正文伪造成英文正文。
 
