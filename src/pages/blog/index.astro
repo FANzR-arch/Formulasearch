@@ -8,6 +8,7 @@ import { ArrowRight } from '@lucide/astro'
 import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } from '../../lib/blog-content'
 import { pageMeta } from '../../data/page-meta'
 import { uiCopy } from '../../data/ui-copy'
+import { interpolateLocalizedCopy } from '../../lib/i18n'
 
 const posts = await getBlogPosts()
 const stagePosts = posts.slice(0, 4)
@@ -37,6 +38,9 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
       <div class="cover-stage__viewport">
         {stagePosts.map((post, index) => {
           const isLocal = isLocalBlogPost(post)
+          const featuredCoverAlt = interpolateLocalizedCopy(uiCopy.blog.featuredArticleCoverAlt, {
+            title: { zh: post.title, en: post.title },
+          })
           return (
             <a
               class:list={['cover-stage__slide', { 'is-active': index === 0 }]}
@@ -47,7 +51,7 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
               aria-hidden={index === 0 ? undefined : 'true'}
               tabindex={index === 0 ? undefined : '-1'}
             >
-              {post.cover && <BlogCover src={post.cover} alt={index === 0 ? `${post.title}的文章封面` : ''} altEn={index === 0 ? uiCopy.blog.featuredCoverAlt.en : undefined} fetchpriority={index === 0 ? 'high' : 'low'} loading={index === 0 ? 'eager' : 'lazy'} sizes="(max-width: 820px) 100vw, 70vw" />}
+              {post.cover && <BlogCover src={post.cover} alt={index === 0 ? featuredCoverAlt.zh : ''} altEn={index === 0 ? featuredCoverAlt.en : undefined} fetchpriority={index === 0 ? 'high' : 'low'} loading={index === 0 ? 'eager' : 'lazy'} sizes="(max-width: 820px) 100vw, 70vw" />}
             </a>
           )
         })}
