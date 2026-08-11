@@ -1,11 +1,9 @@
 ---
 import type { BlogPost } from '../lib/blog-content'
-import { ArrowUpRight } from '@lucide/astro'
 import LocalizedText from './LocalizedText.astro'
-import ExternalLinkLabel from './ExternalLinkLabel.astro'
 import BlogCover from './BlogCover.astro'
+import BlogExternalLinks from './BlogExternalLinks.astro'
 import { formatBlogDate, getPrimaryBlogLink, isLocalBlogPost } from '../lib/blog-content'
-import { uiCopy } from '../data/ui-copy'
 
 interface Props {
   compact?: boolean
@@ -30,8 +28,6 @@ const summary = { zh: post.summary, en: post.summaryEn ?? post.summary }
     {showCategory && <p class="post-row__meta"><LocalizedText zh={post.category.title} en={post.category.titleEn} /></p>}
     <h2><a href={getPrimaryBlogLink(post)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}><LocalizedText {...title} /></a></h2>
     {!compact && <p class="post-row__summary"><LocalizedText {...summary} /></p>}
-    <div class="post-row__links" role="group" aria-label={uiCopy.blog.originalPublication.zh} data-aria-en={uiCopy.blog.originalPublication.en} data-aria-zh={uiCopy.blog.originalPublication.zh}>
-      {post.links.map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer"><ExternalLinkLabel label={link.label} /><ArrowUpRight aria-hidden="true" size={13} stroke-width={1.7} /></a>)}
-    </div>
+    <BlogExternalLinks links={post.links} />
   </div>
 </article>

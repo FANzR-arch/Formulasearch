@@ -1,0 +1,25 @@
+---
+import { ArrowUpRight } from '@lucide/astro'
+import ExternalLinkLabel from './ExternalLinkLabel.astro'
+import { uiCopy } from '../data/ui-copy'
+
+interface Props {
+  links: Array<{
+    label: 'wechat' | 'x' | 'original'
+    url: string
+  }>
+}
+
+const { links } = Astro.props
+---
+
+{links.length > 0 && (
+  <div class="post-row__links" role="group" aria-label={uiCopy.blog.originalPublication.zh} data-aria-en={uiCopy.blog.originalPublication.en} data-aria-zh={uiCopy.blog.originalPublication.zh}>
+    {links.map((link) => (
+      <a href={link.url} target="_blank" rel="noopener noreferrer">
+        <ExternalLinkLabel label={link.label} />
+        <ArrowUpRight aria-hidden="true" size={13} stroke-width={1.7} />
+      </a>
+    ))}
+  </div>
+)}
