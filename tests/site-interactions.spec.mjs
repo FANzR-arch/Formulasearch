@@ -140,6 +140,15 @@ test('locale and theme controls update document metadata', async ({ page }) => {
   await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', 'Switch to light theme')
 })
 
+test('locale switch preserves article source language semantics', async ({ page }) => {
+  await page.goto('/blog/ai-practice-2026-02-22')
+  await page.locator('#language-toggle').click()
+
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+  await expect(page.locator('.article-page')).toHaveAttribute('lang', 'zh-Hans')
+  await expect(page.locator('.article-header h1 .localized-text__en')).toHaveAttribute('lang', 'zh-Hans')
+})
+
 test('blog featured stage keeps localized title and summary on locale switch', async ({ page }) => {
   await page.goto('/blog')
 
