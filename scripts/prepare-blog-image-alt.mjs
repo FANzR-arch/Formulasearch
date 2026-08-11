@@ -28,6 +28,23 @@ const readFrontmatterValue = (markdown, field) => {
   return (match?.[1] ?? match?.[2] ?? match?.[3] ?? '').trim()
 }
 
+const normalizeImageSource = (value) => value
+  .trim()
+  .replace(/^<|>$/g, '')
+  .split(/\s+/, 1)[0]
+
+const getImageDependency = (source) => {
+  const normalizedSource = normalizeImageSource(source)
+  if (!normalizedSource) return { kind: 'unknown', source: normalizedSource }
+  if (normalizedSource.startsWith('/')) return { kind: 'local', source: normalizedSource }
+  try {
+    const url = new URL(normalizedSource)
+    return { kind: 'external', host: url.hostname, protocol: url.protocol, source: normalizedSource }
+  } catch {
+    return { kind: 'unknown', source: normalizedSource }
+  }
+}
+
 const transform = (markdown) => {
   const lines = markdown.split(/\r?\n/)
   let inFrontmatter = false
@@ -62,11 +79,14 @@ const transform = (markdown) => {
     for (const match of line.matchAll(/<img\b[^>]*>/gi)) {
       const tag = match[0]
       const altMatch = tag.match(/\balt\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i)
+      const sourceMatch = tag.match(/\bsrc\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i)
       const alt = (altMatch?.[1] ?? altMatch?.[2] ?? altMatch?.[3] ?? '').trim()
+      const source = (sourceMatch?.[1] ?? sourceMatch?.[2] ?? sourceMatch?.[3] ?? '').trim()
       const invalid = genericAlt.has(alt)
       images.push({
         alt,
         destination: tag,
+        source,
         heading: currentHeading,
         line: index + 1,
         contextualCandidate: false,
@@ -82,6 +102,7 @@ const transform = (markdown) => {
       images.push({
         alt: trimmedAlt,
         destination,
+        source: normalizeImageSource(destination),
         heading: currentHeading,
         line: index + 1,
         contextualCandidate: trimmedAlt === contextualAlt,
@@ -113,6 +134,10 @@ let imageTotal = 0
 let contextualCandidates = 0
 let invalidAltTotal = 0
 let coverAltCandidates = 0
+let localImageTotal = 0
+let externalImageTotal = 0
+let unknownImageTotal = 0
+const dependencyHosts = new Map()
 const reviewItems = []
 for (const file of posts) {
   if (!existsSync(file)) throw new Error(`缺少 Markdown 文件：${file}`)
@@ -124,6 +149,19 @@ for (const file of posts) {
   imageTotal += images.length
   contextualCandidates += images.filter((image) => image.contextualCandidate).length
   invalidAltTotal += invalidAltCount
+  for (const image of images) {
+    const dependency = getImageDependency(image.source)
+    if (dependency.kind === 'local') localImageTotal += 1
+    else if (dependency.kind === 'unknown') unknownImageTotal += 1
+    else {
+      externalImageTotal += 1
+      const summary = dependencyHosts.get(dependency.host) || { count: 0, protocols: new Set(), sources: new Set() }
+      summary.count += 1
+      summary.protocols.add(dependency.protocol)
+      summary.sources.add(dependency.source)
+      dependencyHosts.set(dependency.host, summary)
+    }
+  }
   if (mode === '--report') {
     for (const image of images) {
       if (!image.contextualCandidate && !image.invalidAlt) continue
@@ -162,6 +200,14 @@ if (mode === '--check' && (total > 0 || invalidAltTotal > 0)) {
 
 if (mode === '--report') {
   console.log(`Blog 图片 alt 审查报告：${posts.length} 篇文章，${imageTotal} 张正文图片，${contextualCandidates} 张章节上下文初稿，${coverAltCandidates} 个封面 coverAlt 占位，${invalidAltTotal} 个 HTML 图片 alt 问题。`)
+  console.log(`图片依赖摘要：${externalImageTotal} 张外部图片，${localImageTotal} 张本地图片，${unknownImageTotal} 张未识别来源。`)
+  if (dependencyHosts.size > 0) {
+    console.log('外部图片主机（按图片数量排序）：')
+    for (const [host, summary] of [...dependencyHosts.entries()].sort((a, b) => b[1].count - a[1].count || a[0].localeCompare(b[0]))) {
+      const protocols = [...summary.protocols].sort().join(', ')
+      console.log(`- ${host}: ${summary.count} 张，${summary.sources.size} 个唯一 URL，协议 ${protocols}`)
+    }
+  }
   if (reviewItems.length === 0) {
     console.log('没有检测到章节上下文初稿；仍建议对新增正文图片做人工语义复核。')
   } else {
