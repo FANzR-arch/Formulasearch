@@ -96,5 +96,7 @@ test('RSS exposes local article entries', async ({ request }) => {
   const body = await response.text()
   expect(body).toContain('<rss version="2.0">')
   expect((body.match(/<item>/g) || []).length).toBeGreaterThan(0)
+  expect(body).toContain('<category>')
+  expect(body).toContain('<pubDate>')
   expect(body).toContain('/blog/')
 })

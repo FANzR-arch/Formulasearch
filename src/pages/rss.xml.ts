@@ -16,8 +16,9 @@ export const GET: APIRoute = async () => {
 
   const items = posts.map((post) => {
     const url = `${siteUrl}/blog/${post.data.slug}`
-    const published = (post.data.updatedDate ?? post.data.pubDate).toUTCString()
-    return `<item><title>${escapeXml(post.data.title)}</title><link>${url}</link><guid isPermaLink="true">${url}</guid><description>${escapeXml(post.data.description)}</description><pubDate>${published}</pubDate></item>`
+    const published = post.data.pubDate.toUTCString()
+    const category = `<category>${escapeXml(post.data.category)}</category>`
+    return `<item><title>${escapeXml(post.data.title)}</title><link>${url}</link><guid isPermaLink="true">${url}</guid><description>${escapeXml(post.data.description)}</description>${category}<pubDate>${published}</pubDate></item>`
   }).join('')
 
   const latestDate = posts[0]?.data.updatedDate ?? posts[0]?.data.pubDate ?? new Date()

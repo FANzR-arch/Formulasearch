@@ -46,7 +46,7 @@ for (const route of staticRoutes) {
 }
 
 const rss = await readUtf8('rss.xml')
-if (!rss.includes('<rss version="2.0">') || !rss.includes('<item>')) failures.push('RSS output is missing channel or article items')
+if (!rss.includes('<rss version="2.0">') || !rss.includes('<lastBuildDate>') || !/<item>[\s\S]*<pubDate>/.test(rss)) failures.push('RSS output is missing channel date or article publication dates')
 
 for (const path of htmlFiles) {
   const html = await readFile(path, 'utf8')
@@ -92,7 +92,7 @@ else {
   if (!article.includes('loading="lazy"')) failures.push('article images are missing lazy loading')
   if (!article.includes('referrerpolicy="no-referrer"')) failures.push('article images are missing referrer policy')
   if (!article.includes('property="article:modified_time"')) failures.push('article pages are missing modified time metadata')
-  if (!article.includes('BreadcrumbList') || !article.includes('itemListElement')) failures.push('article pages are missing BreadcrumbList structured data')
+  if (!article.includes('BreadcrumbList') || !article.includes('itemListElement') || !article.includes('"item":"https://formulasearch.com/blog/series"')) failures.push('article pages are missing linked BreadcrumbList structured data')
 }
 
 const blogIndex = await readUtf8('blog/index.html')
