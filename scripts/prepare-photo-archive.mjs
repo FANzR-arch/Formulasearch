@@ -106,7 +106,7 @@ for (const [index, input] of images.entries()) {
   const image = `/uploads/photos/select/${filename}`
   const existing = existingItems.get(image)
   items.push({
-    alt: existing?.alt ?? `Phil 的精选摄影作品 ${number}`,
+    alt: existing?.alt ?? { zh: `待补充摄影描述 ${number}`, en: `Photography record ${number} awaiting description` },
     caption: existing?.caption ?? { zh: '精选摄影 / 影像档案', en: 'Selected photography / visual archive' },
     height,
     image,

@@ -8,8 +8,8 @@ const photoArchiveItemSchema = archiveItemBaseSchema.extend({
   image: localAssetPathSchema,
   width: z.number().int().positive(),
 }).strict().superRefine((item, context) => {
-  if (/^Phil 的精选摄影作品 \d+$/.test(item.alt.zh) || /^Selected photograph \d+$/.test(item.alt.en)) {
-    context.addIssue({ code: 'custom', path: ['alt'], message: 'Photo archive alt text must describe the image, not only its index.' })
+  if (/^(?:Phil 的精选摄影作品|待补充摄影描述) \d+$/.test(item.alt.zh) || /^(?:Selected photograph \d+|Photography record \d+ awaiting description)$/i.test(item.alt.en)) {
+    context.addIssue({ code: 'custom', path: ['alt'], message: 'Photo archive alt text must describe the image, not only its index or review status.' })
   }
 })
 
