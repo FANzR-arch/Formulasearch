@@ -8,7 +8,7 @@ const catalogSectionSchema = z.object({
   title: localizedCopySchema,
   description: localizedCopySchema,
   items: z.array(localizedCopySchema).min(1),
-})
+}).strict()
 
 const catalogPageSchema = z.object({
   title: localizedCopySchema,
@@ -17,7 +17,7 @@ const catalogPageSchema = z.object({
   heading: localizedCopySchema,
   intro: localizedCopySchema,
   indexLabel: localizedCopySchema,
-})
+}).strict()
 
 const catalogSchema = z.object({
   projects: z.array(catalogSectionSchema).min(1),
@@ -27,8 +27,8 @@ const catalogSchema = z.object({
     projects: catalogPageSchema,
     skills: catalogPageSchema,
     lab: catalogPageSchema,
-  }),
-})
+  }).strict(),
+}).strict()
 
 const result = catalogSchema.safeParse(catalogContent)
 if (!result.success) {

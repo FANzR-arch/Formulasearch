@@ -13,7 +13,7 @@ const photoArchiveItemSchema = z.object({
   layout: z.enum(['hero', 'portrait', 'landscape', 'square', 'wide']),
   tags: z.array(z.string().min(1)).min(1),
   width: z.number().int().positive(),
-})
+}).strict()
 
 const photoArchiveSchema = z.array(photoArchiveItemSchema).min(1)
 
@@ -23,8 +23,8 @@ const photoArchivePageSchema = z.object({
   kicker: localizedCopySchema,
   title: localizedCopySchema,
   description: localizedCopySchema,
-  filters: z.array(z.object({ id: z.string().min(1), zh: z.string().min(1), en: z.string().min(1) })).min(1),
-})
+  filters: z.array(z.object({ id: z.string().min(1), zh: z.string().min(1), en: z.string().min(1) }).strict()).min(1),
+}).strict()
 
 const manifestSchema = photoArchivePageSchema.extend({
   items: photoArchiveSchema,

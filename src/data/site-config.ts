@@ -9,15 +9,15 @@ const siteConfigSchema = z.object({
     alternateNames: z.array(z.string().min(1)).min(1),
     jobTitle: z.string().min(1),
     knowsAbout: z.array(z.string().min(1)).min(1),
-  }),
+  }).strict(),
   githubUrl: httpUrlSchema,
   name: z.string().min(1),
   siteUrl: httpUrlSchema,
   themeColors: z.object({
     light: z.string().regex(/^#[0-9a-f]{6}$/i),
     dark: z.string().regex(/^#[0-9a-f]{6}$/i),
-  }),
-})
+  }).strict(),
+}).strict()
 
 const result = siteConfigSchema.safeParse(siteContent)
 if (!result.success) {

@@ -8,14 +8,14 @@ const navigationItemSchema = z.object({
   href: z.string().startsWith('/'),
   label: localizedCopySchema,
   note: localizedCopySchema,
-})
+}).strict()
 
 const primaryNavigationItemSchema = z.object({
   id: z.enum(['blog', 'projects', 'skills', 'lab']),
   href: z.string().startsWith('/'),
   label: localizedCopySchema,
   menu: z.array(navigationItemSchema).min(1),
-})
+}).strict()
 
 const navigationSchema = z.array(primaryNavigationItemSchema).length(4)
 const result = navigationSchema.safeParse(navigationContent)

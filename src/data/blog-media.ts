@@ -7,9 +7,9 @@ const blogMediaItemSchema = z.object({
   optimized: z.array(z.object({
     src: z.string().regex(/^\/uploads\/blog-optimized\//),
     width: z.number().int().positive(),
-  })).min(1),
+  }).strict()).min(1),
   width: z.number().int().positive(),
-})
+}).strict()
 
 const blogMediaSchema = z.record(z.string().regex(/^\/uploads\/blog\//), blogMediaItemSchema)
 const result = blogMediaSchema.safeParse(blogMedia)

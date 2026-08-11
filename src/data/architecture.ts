@@ -14,7 +14,7 @@ const architectureItemSchema = z.object({
   tags: z.array(z.string().min(1)).min(1),
   label: localizedCopySchema,
   caption: localizedCopySchema,
-})
+}).strict()
 
 const architectureSchema = z.object({
   pageTitle: localizedCopySchema,
@@ -22,9 +22,9 @@ const architectureSchema = z.object({
   kicker: localizedCopySchema,
   title: localizedCopySchema,
   description: localizedCopySchema,
-  filters: z.array(z.object({ id: z.string().min(1), zh: z.string().min(1), en: z.string().min(1) })).min(1),
+  filters: z.array(z.object({ id: z.string().min(1), zh: z.string().min(1), en: z.string().min(1) }).strict()).min(1),
   items: z.array(architectureItemSchema).min(1),
-})
+}).strict()
 
 const result = architectureSchema.safeParse(architectureContent)
 if (!result.success) {

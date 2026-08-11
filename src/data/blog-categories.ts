@@ -6,7 +6,7 @@ const blogCategorySchema = z.object({
   title: z.string().min(1),
   titleEn: z.string().min(1),
   description: z.string().min(1),
-})
+}).strict()
 
 const result = z.array(blogCategorySchema).min(1).safeParse(categoriesContent)
 if (!result.success) {

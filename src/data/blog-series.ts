@@ -3,12 +3,14 @@ import blogSeriesContent from '../../content/site/blog-series.json'
 import { blogCategories } from './blog-categories'
 import { localizedCopySchema } from '../lib/i18n'
 
-const blogSeriesSchema = z.array(z.object({
+const blogSeriesItemSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   title: localizedCopySchema,
   description: localizedCopySchema,
   categoryIds: z.array(z.string().min(1)).min(1),
-})).min(1)
+}).strict()
+
+const blogSeriesSchema = z.array(blogSeriesItemSchema).min(1)
 
 const result = blogSeriesSchema.safeParse(blogSeriesContent)
 if (!result.success) {

@@ -7,7 +7,7 @@ const tagsSchema = z.array(z.string().trim().min(1)).refine((tags) => new Set(ta
 const externalLinksSchema = z.array(z.object({
   label: z.enum(['微信', 'X', '原文']),
   url: httpUrlSchema,
-})).superRefine((links, context) => {
+}).strict()).superRefine((links, context) => {
   const seen = new Set()
   links.forEach((link, index) => {
     if (seen.has(link.url)) {
@@ -39,7 +39,7 @@ const blog = defineCollection({
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
     externalLinks: externalLinksSchema.default([]),
-  }).superRefine((data, context) => {
+  }).strict().superRefine((data, context) => {
     if (data.contentStatus === 'index-only' && data.externalLinks.length === 0 && !data.draft) {
       context.addIssue({ code: 'custom', path: ['externalLinks'], message: 'Index-only articles require an external link.' })
     }

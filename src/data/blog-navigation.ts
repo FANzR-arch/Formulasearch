@@ -7,12 +7,12 @@ const blogNavigationItemSchema = z.object({
   id: blogSectionIdSchema,
   href: z.string().startsWith('/'),
   label: localizedCopySchema,
-})
+}).strict()
 
 const blogNavigationSchema = z.object({
   ariaLabel: localizedCopySchema,
   items: z.array(blogNavigationItemSchema).length(3),
-})
+}).strict()
 
 const result = blogNavigationSchema.safeParse(blogNavigationContent)
 if (!result.success) {

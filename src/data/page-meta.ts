@@ -5,14 +5,14 @@ import { localizedCopySchema } from '../lib/i18n'
 const pageMetaEntrySchema = z.object({
   title: localizedCopySchema,
   description: localizedCopySchema,
-})
+}).strict()
 
 const pageMetaSchema = z.object({
   home: pageMetaEntrySchema,
   blog: pageMetaEntrySchema,
   blogArchive: pageMetaEntrySchema,
   blogSeries: pageMetaEntrySchema,
-})
+}).strict()
 
 const result = pageMetaSchema.safeParse(pageMetaContent)
 if (!result.success) {

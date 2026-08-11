@@ -6,7 +6,7 @@ import { httpUrlSchema, localAssetPathSchema } from './validation'
 const workItemSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
-})
+}).strict()
 
 const homeContentSchema = z.object({
   name: z.string().min(1),
@@ -16,7 +16,7 @@ const homeContentSchema = z.object({
   social: z.object({
     label: z.string().min(1),
     url: httpUrlSchema,
-  }),
+  }).strict(),
   heroImage: z.union([z.literal(''), localAssetPathSchema]),
   heroImageAlt: z.string().default(''),
   intro: z.array(z.string().min(1)).min(1),
@@ -27,11 +27,11 @@ const homeContentSchema = z.object({
   now: z.array(z.object({
     number: z.string().min(1),
     text: z.string().min(1),
-  })).default([]),
+  }).strict()).default([]),
   work: z.array(workItemSchema).default([]),
   writing: z.string().default(''),
   resources: z.string().default(''),
-}).superRefine((data, context) => {
+}).strict().superRefine((data, context) => {
   if (data.heroImage && !data.heroImageAlt) {
     context.addIssue({ code: 'custom', path: ['heroImageAlt'], message: 'heroImageAlt is required when heroImage is set.' })
   }
