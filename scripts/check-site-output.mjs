@@ -202,6 +202,13 @@ for (const path of htmlFiles) {
   if (/<img\b(?![^>]*\balt(?:\s|=))[^>]*>/.test(html)) failures.push(`image without alt: ${relativePath}`)
   if (html.includes('alt="Article image"') || html.includes('alt="Article illustration"')) failures.push(`generic article image alt: ${relativePath}`)
   if (html.includes('querySelector<') || html.includes('querySelectorAll<')) failures.push(`untranspiled TypeScript generic in inline script: ${relativePath}`)
+  const documentLocale = /<html\b[^>]*\blang="en"/.test(html) ? 'en' : 'zh'
+  for (const match of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*\bdata-aria-en="[^"]+"[^>]*\bdata-aria-zh="[^"]+"[^>]*)>/gi)) {
+    const attributes = match[2]
+    const label = getAttribute(attributes, 'aria-label')
+    const expected = getAttribute(attributes, documentLocale === 'en' ? 'data-aria-en' : 'data-aria-zh')
+    if (label && expected && label !== expected) failures.push(`SSR aria-label locale mismatch: ${relativePath} <${match[1]}>`)
+  }
   for (const match of html.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/g)) {
     const attributes = match[1]
     const content = match[2]
