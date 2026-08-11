@@ -79,6 +79,9 @@ const localizedDescriptionEn = descriptionEn ?? description
           document.querySelectorAll('[data-title-en][data-title-zh]').forEach((element) => {
             element.setAttribute('title', element.dataset[`title${nextLocale === 'en' ? 'En' : 'Zh'}`] || '')
           })
+          document.querySelectorAll('[data-alt-en][data-alt-zh]').forEach((element) => {
+            element.setAttribute('alt', element.dataset[`alt${nextLocale === 'en' ? 'En' : 'Zh'}`] || '')
+          })
         }
 
         const getThemeLabel = (theme) => {

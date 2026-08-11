@@ -34,6 +34,12 @@ test('locale updates the dynamic background control label', async ({ page }) => 
   await expect(page.locator('#background-cycle')).toHaveAttribute('aria-label', /Current background/)
 })
 
+test('locale updates archive image alt text', async ({ page }) => {
+  await page.goto('/photos')
+  await page.locator('#language-toggle').click()
+  await expect(page.locator('[data-archive-index]:not([hidden]) img').first()).toHaveAttribute('alt', /Selected photograph/)
+})
+
 test('photo archive reveals more records without navigation', async ({ page }) => {
   await page.goto('/photos')
 

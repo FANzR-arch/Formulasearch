@@ -48,6 +48,8 @@ const activePostIsLocal = activePost ? isLocalBlogPost(activePost) : false
                 <img
                   src={post.cover}
                   alt={index === 0 ? `${post.title}的文章封面` : ''}
+                  data-alt-zh={index === 0 ? `${post.title}的文章封面` : ''}
+                  data-alt-en={index === 0 ? 'Featured article cover' : ''}
                   decoding="async"
                   fetchpriority={index === 0 ? 'high' : 'auto'}
                 />

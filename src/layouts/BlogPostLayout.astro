@@ -59,7 +59,7 @@ const structuredData = {
       </header>
 
       <figure class="article-cover">
-        <img src={post.data.cover} alt={post.data.coverAlt} decoding="async" fetchpriority="high" />
+        <img src={post.data.cover} alt={post.data.coverAlt} data-alt-zh={post.data.coverAlt} data-alt-en="Article cover" decoding="async" fetchpriority="high" />
       </figure>
 
       {toc.length > 1 && (
