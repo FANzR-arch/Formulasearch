@@ -76,8 +76,8 @@ for (const category of categories) {
   categoryIds.add(category.id)
 }
 
-const findCover = (date) => {
-  const directory = join(mediaRoot, date)
+const findCover = (sourceDate) => {
+  const directory = join(mediaRoot, sourceDate)
   if (!existsSync(directory)) throw new Error(`缺少封面目录：${directory}`)
 
   const filename = readdirSync(directory)
@@ -85,16 +85,16 @@ const findCover = (date) => {
     .sort((a, b) => a.localeCompare(b))[0]
 
   if (!filename) throw new Error(`缺少封面图片：${directory}`)
-  return `/uploads/blog/${date}/${filename}`
+  return `/uploads/blog/${sourceDate}/${filename}`
 }
 
 const posts = readdirSync(contentRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(entry.name))
   .map((entry) => {
-    const date = entry.name
-    const directory = join(contentRoot, date)
+    const sourceDate = entry.name
+    const directory = join(contentRoot, sourceDate)
     const category = readText(directory, '分类.txt')
-    if (!categoryIds.has(category)) throw new Error(`未知分类 ${category}：${date}`)
+    if (!categoryIds.has(category)) throw new Error(`未知分类 ${category}：${sourceDate}`)
 
     const externalLinks = readText(directory, '链接.txt', { allowEmpty: true })
       .split(/\r?\n/)
@@ -108,16 +108,16 @@ const posts = readdirSync(contentRoot, { withFileTypes: true })
 
     return {
       category,
-      cover: findCover(date),
-      date,
+      cover: findCover(sourceDate),
+      sourceDate,
       directory,
       externalLinks,
-      slug: `${category}-${date}`,
+      slug: `${category}-${sourceDate}`,
       summary: readText(directory, '摘要.txt'),
       title: readText(directory, '标题.txt'),
     }
   })
-  .sort((a, b) => b.date.localeCompare(a.date))
+  .sort((a, b) => b.sourceDate.localeCompare(a.sourceDate))
 
 const slugs = new Set()
 const links = new Map()
@@ -146,11 +146,13 @@ for (const post of posts) {
   }
 }
 
+// New index-only records use the source folder date until their verified
+// publication date is known. Existing index.md files keep their real pubDate.
 const renderIndex = (post, featured) => [
   '---',
   `title: ${yamlString(post.title)}`,
   `description: ${yamlString(post.summary)}`,
-  `pubDate: ${post.date}`,
+  `pubDate: ${post.sourceDate}`,
   `slug: ${post.slug}`,
   `category: ${post.category}`,
   'tags: []',

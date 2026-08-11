@@ -4,7 +4,7 @@
 
 ## 当前目录
 
-每篇文章使用发布日期作为文件夹名：
+每个迁移条目使用原始索引日期作为文件夹名。它是文字、封面和 `index.md` 的配对键，不一定等于原文的实际发布日期；公开发布日期以 `index.md` frontmatter 的 `pubDate` 为准：
 
 ```text
 content/blog/
@@ -58,8 +58,8 @@ public/uploads/blog/
 
 ## 当前更新方式
 
-1. 复制一篇现有日期文件夹；
-2. 把文件夹改成新的 `YYYY-MM-DD`；
+1. 复制一篇现有索引日期文件夹；
+2. 把文件夹改成新的 `YYYY-MM-DD` 配对键；
 3. 修改四个文字文件；
 4. 在 `public/uploads/blog/同一日期/` 放一张封面；
 5. 运行 `npm run blog:migrate`，为新目录生成或同步受管字段；
