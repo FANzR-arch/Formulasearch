@@ -30,6 +30,8 @@ const readingTimeCopy = interpolateLocalizedCopy(uiCopy.blog.readingTime, {
 })
 const authorName = siteConfig.author.name
 const authorMark = authorName.trim().slice(0, 1).toUpperCase()
+const contentLocale = post.data.contentLanguage === 'en' ? 'en' : 'zh'
+const localizedCategory = contentLocale === 'en' ? categoryLabel.titleEn : categoryLabel.title
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -39,7 +41,7 @@ const structuredData = {
       description: post.data.description,
       image: new URL(post.data.cover, Astro.site).toString(),
       url: canonical,
-      articleSection: categoryLabel.title,
+      articleSection: localizedCategory,
       ...(post.data.tags.length > 0 ? { keywords: post.data.tags } : {}),
       inLanguage: post.data.contentLanguage,
       datePublished: published,
@@ -50,8 +52,8 @@ const structuredData = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: uiCopy.blog.blog.en, item: new URL('/blog', Astro.site).toString() },
-        { '@type': 'ListItem', position: 2, name: categoryLabel.title, item: new URL('/blog/series', Astro.site).toString() },
+        { '@type': 'ListItem', position: 1, name: uiCopy.blog.blog[contentLocale], item: new URL('/blog', Astro.site).toString() },
+        { '@type': 'ListItem', position: 2, name: localizedCategory, item: new URL('/blog/series', Astro.site).toString() },
         { '@type': 'ListItem', position: 3, name: post.data.title, item: canonical },
       ],
     },
