@@ -181,6 +181,9 @@ for (const path of htmlFiles) {
     const imageTag = match[0]
     if (!/\bwidth="\d+"/.test(imageTag) || !/\bheight="\d+"/.test(imageTag)) failures.push(`blog cover is missing intrinsic dimensions: ${relativePath}`)
   }
+  for (const [, imageTag] of html.matchAll(/<img\b[^>]*\bclass="[^"]*hero-image[^"]*"[^>]*>/g)) {
+    if (!/\bwidth="\d+"/.test(imageTag) || !/\bheight="\d+"/.test(imageTag)) failures.push(`hero image is missing intrinsic dimensions: ${relativePath}`)
+  }
 
   for (const [, href] of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
     if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) continue
