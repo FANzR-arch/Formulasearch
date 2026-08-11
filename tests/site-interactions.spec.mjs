@@ -67,7 +67,10 @@ test('article copy feedback and table of contents remain interactive', async ({ 
 
   const copy = page.locator('.article-copy')
   await copy.click()
-  await expect(copy).toContainText(/Copied|已复制/)
+  await expect(copy).toHaveAttribute('data-copy-state', 'copied')
+  await expect(copy.locator('.article-copy__feedback')).toBeVisible()
+  await page.locator('#language-toggle').click()
+  await expect(copy.locator('.article-copy__feedback .localized-text__en')).toBeVisible()
 
   const tocLink = page.locator('.article-toc a').first()
   await expect(tocLink).toBeVisible()

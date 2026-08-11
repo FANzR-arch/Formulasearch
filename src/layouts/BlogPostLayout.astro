@@ -77,7 +77,7 @@ const structuredData = {
         <h1>{post.data.title}</h1>
         <div class="article-byline">
           <p class="article-author"><span class="article-author__mark" aria-hidden="true">P</span><strong>Phil</strong></p>
-          <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText zh={`${readingMinutes} 分钟阅读`} en={`${readingMinutes} min read`} /></span><button class="article-copy" type="button" data-copy-url={canonical} aria-live="polite"><Link aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText zh="复制链接" en="Copy link" /></button></p>
+          <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText zh={`${readingMinutes} 分钟阅读`} en={`${readingMinutes} min read`} /></span><button class="article-copy" type="button" data-copy-url={canonical} aria-live="polite"><Link aria-hidden="true" size={14} stroke-width={1.7} /><span class="article-copy__default"><LocalizedText zh="复制链接" en="Copy link" /></span><span class="article-copy__feedback"><LocalizedText zh="已复制" en="Copied" /></span></button></p>
         </div>
       </header>
 
@@ -123,7 +123,10 @@ const structuredData = {
         const url = button.getAttribute('data-copy-url') || window.location.href
         try {
           await navigator.clipboard.writeText(url)
-          button.querySelector('.localized-text')?.replaceWith(document.documentElement.dataset.locale === 'en' ? 'Copied' : '已复制')
+          button.dataset.copyState = 'copied'
+          window.setTimeout(() => {
+            delete button.dataset.copyState
+          }, 1800)
         } catch {
           window.prompt(document.documentElement.dataset.locale === 'en' ? 'Copy article link' : '复制文章链接', url)
         }

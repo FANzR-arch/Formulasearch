@@ -732,6 +732,10 @@
   text-transform: inherit;
 }
 
+.article-copy__feedback { display: none; }
+.article-copy[data-copy-state='copied'] .article-copy__default { display: none; }
+.article-copy[data-copy-state='copied'] .article-copy__feedback { display: inline; }
+
 .article-cover {
   grid-column: 2;
   grid-row: 2;
