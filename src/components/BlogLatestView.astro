@@ -58,7 +58,7 @@ const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, 
             aria-hidden={index === 0 ? undefined : 'true'}
             tabindex={index === 0 ? undefined : '-1'}
           >
-            {post.cover && <BlogCover src={post.cover} alt={post.coverAlt} altEn={post.coverAltEn} fetchpriority={index === 0 ? 'high' : 'low'} loading={index === 0 ? 'eager' : 'lazy'} sizes="(max-width: 820px) 100vw, 70vw" />}
+            {post.cover && <BlogCover src={post.cover} alt={post.coverAlt} altEn={post.coverAltEn} locale={locale} fetchpriority={index === 0 ? 'high' : 'low'} loading={index === 0 ? 'eager' : 'lazy'} sizes="(max-width: 820px) 100vw, 70vw" />}
           </a>
         )
       })}

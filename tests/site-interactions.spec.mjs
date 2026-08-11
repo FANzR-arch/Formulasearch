@@ -176,6 +176,13 @@ test('English routes render server-localized metadata and reciprocal hreflang', 
   await expect(page.locator('a[href="/en/blog/prompt-aesthetic-2026-07-02"]')).toHaveCount(0)
 })
 
+test('English archive images expose English alt text in SSR HTML', async ({ page }) => {
+  await page.goto('/en/photos')
+  const image = page.locator('.archive-record img').first()
+  await expect(image).toHaveAttribute('alt', await image.getAttribute('data-alt-en'))
+  await expect(image).not.toHaveAttribute('alt', await image.getAttribute('data-alt-zh'))
+})
+
 test('locale switch preserves article source language semantics', async ({ page }) => {
   await page.goto('/blog/ai-practice-2026-02-22')
   await page.locator('#language-toggle').click()

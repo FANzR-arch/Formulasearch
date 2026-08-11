@@ -10,7 +10,7 @@ import BlogLayout from './BlogLayout.astro'
 import { siteConfig } from '../data/site-config'
 import { uiCopy } from '../data/ui-copy'
 import { siteRoutes } from '../data/site-routes'
-import { interpolateLocalizedCopy } from '../lib/i18n'
+import { interpolateLocalizedCopy, type Locale } from '../lib/i18n'
 import { blogSettings } from '../data/blog-settings'
 
 interface Props {
@@ -101,7 +101,7 @@ const structuredData = {
       </header>
 
       <figure class="article-cover">
-        <BlogCover src={post.data.cover} alt={post.data.coverAlt} altEn={post.data.coverAltEn} fetchpriority="high" sizes="(max-width: 820px) 100vw, 880px" />
+        <BlogCover src={post.data.cover} alt={post.data.coverAlt} altEn={post.data.coverAltEn} locale={contentLocale as Locale} fetchpriority="high" sizes="(max-width: 820px) 100vw, 880px" />
       </figure>
 
       {toc.length > 1 && (

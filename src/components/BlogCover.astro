@@ -1,5 +1,6 @@
 ---
 import { getBlogMedia } from '../data/blog-media'
+import type { Locale } from '../lib/i18n'
 
 interface Props {
   alt?: string
@@ -8,6 +9,7 @@ interface Props {
   decoding?: 'async' | 'auto' | 'sync'
   fetchpriority?: 'high' | 'low' | 'auto'
   loading?: 'eager' | 'lazy'
+  locale?: Locale
   sizes: string
   src: string
 }
@@ -19,10 +21,12 @@ const {
   decoding = 'async',
   fetchpriority,
   loading,
+  locale = 'zh',
   sizes,
   src,
 } = Astro.props
 const media = getBlogMedia(src)
+const localizedAlt = locale === 'en' ? (altEn ?? alt) : alt
 const mediaAvifSrcSet = media?.avif.map((variant) => `${variant.src} ${variant.width}w`).join(', ')
 const mediaSrcSet = media?.optimized.map((variant) => `${variant.src} ${variant.width}w`).join(', ')
 ---
@@ -33,7 +37,7 @@ const mediaSrcSet = media?.optimized.map((variant) => `${variant.src} ${variant.
   <img
     class={className}
     src={src}
-    alt={alt}
+    alt={localizedAlt}
     {...(altEn !== undefined ? { 'data-alt-zh': alt, 'data-alt-en': altEn } : {})}
     decoding={decoding}
     fetchpriority={fetchpriority}
