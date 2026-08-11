@@ -148,6 +148,12 @@ for (const path of htmlFiles) {
   for (const [, source] of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)) {
     await checkLocalAsset(source, relativePath)
   }
+  for (const [, srcset] of html.matchAll(/\b(?:srcset|imagesrcset)="([^"]+)"/g)) {
+    for (const candidate of srcset.split(',')) {
+      const source = candidate.trim().split(/\s+/, 1)[0]
+      await checkLocalAsset(source, relativePath)
+    }
+  }
   for (const match of html.matchAll(/<img\b[^>]*\bsrc="\/uploads\/blog\/[^>]*>/g)) {
     const imageTag = match[0]
     if (!/\bwidth="\d+"/.test(imageTag) || !/\bheight="\d+"/.test(imageTag)) failures.push(`blog cover is missing intrinsic dimensions: ${relativePath}`)
