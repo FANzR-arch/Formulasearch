@@ -23,10 +23,12 @@ const {
   src,
 } = Astro.props
 const media = getBlogMedia(src)
+const mediaAvifSrcSet = media?.avif.map((variant) => `${variant.src} ${variant.width}w`).join(', ')
 const mediaSrcSet = media?.optimized.map((variant) => `${variant.src} ${variant.width}w`).join(', ')
 ---
 
 <picture>
+  {mediaAvifSrcSet && <source type="image/avif" srcset={mediaAvifSrcSet} sizes={sizes} />}
   {mediaSrcSet && <source type="image/webp" srcset={mediaSrcSet} sizes={sizes} />}
   <img
     class={className}

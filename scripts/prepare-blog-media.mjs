@@ -23,12 +23,12 @@ const getCoverPaths = () => readdirSync(contentRoot, { withFileTypes: true })
   .sort((a, b) => a.name.localeCompare(b.name))
   .map((entry) => join(contentRoot, entry.name, 'index.md'))
 
-const getVariant = (cover, width) => {
+const getVariant = (cover, width, format) => {
   const parts = cover.slice(1).split('/')
   const filename = parts.pop()
   const date = parts.pop()
   const stem = filename.slice(0, -extname(filename).length)
-  const name = `${stem}-${width}w.webp`
+  const name = `${stem}-${width}w.${format}`
   return {
     path: join(optimizedRoot, date, name),
     src: `/uploads/blog-optimized/${date}/${name}`,
@@ -60,8 +60,12 @@ const buildManifest = async () => {
     manifest[cover] = {
       bytes: statSync(sourcePath).size,
       height,
+      avif: widths.map((variantWidth) => {
+        const { src, width: variantWidthValue } = getVariant(cover, variantWidth, 'avif')
+        return { src, width: variantWidthValue }
+      }),
       optimized: widths.map((variantWidth) => {
-        const { src, width: variantWidthValue } = getVariant(cover, variantWidth)
+        const { src, width: variantWidthValue } = getVariant(cover, variantWidth, 'webp')
         return { src, width: variantWidthValue }
       }),
       width,
@@ -74,20 +78,22 @@ const formatManifest = (manifest) => `${JSON.stringify(manifest, null, 2)}\n`
 const writeOptimizedImages = async (manifest) => {
   for (const [cover, media] of Object.entries(manifest)) {
     const sourcePath = join(mediaRoot, ...cover.slice(1).split('/'))
-    for (const variant of media.optimized) {
+    for (const variant of [...media.avif, ...media.optimized]) {
       const variantPath = join(mediaRoot, ...variant.src.slice(1).split('/'))
       mkdirSync(dirname(variantPath), { recursive: true })
-      await sharp(sourcePath)
+      const image = sharp(sourcePath)
         .resize({ width: variant.width, withoutEnlargement: true })
-        .webp({ quality: 78 })
-        .toFile(variantPath)
+      const format = variant.src.endsWith('.avif')
+        ? image.avif({ quality: 50, effort: 6 })
+        : image.webp({ quality: 78 })
+      await format.toFile(variantPath)
     }
   }
 }
 
 const checkOptimizedImages = async (manifest) => {
   for (const [cover, media] of Object.entries(manifest)) {
-    for (const variant of media.optimized) {
+    for (const variant of [...media.avif, ...media.optimized]) {
       const variantPath = join(mediaRoot, ...variant.src.slice(1).split('/'))
       if (!existsSync(variantPath)) throw new Error(`Optimized blog cover is missing for ${cover}: ${variantPath}`)
       const metadata = await sharp(variantPath).metadata()
@@ -111,8 +117,8 @@ const serialized = formatManifest(expected)
 if (mode === '--write') {
   await writeOptimizedImages(expected)
   writeFileSync(manifestPath, serialized, 'utf8')
-  const variantCount = Object.values(expected).reduce((count, media) => count + media.optimized.length, 0)
-  console.log(`Blog media manifest written: ${Object.keys(expected).length} covers, ${variantCount} WebP variants.`)
+  const variantCount = Object.values(expected).reduce((count, media) => count + media.optimized.length + media.avif.length, 0)
+  console.log(`Blog media manifest written: ${Object.keys(expected).length} covers, ${variantCount} responsive variants (WebP + AVIF).`)
 } else {
   if (!existsSync(manifestPath)) throw new Error(`Blog media manifest is missing: ${manifestPath}`)
   const actual = readFileSync(manifestPath, 'utf8')
@@ -120,6 +126,6 @@ if (mode === '--write') {
     throw new Error('Blog media manifest is stale. Run npm run blog:media:prepare.')
   }
   await checkOptimizedImages(expected)
-  const variantCount = Object.values(expected).reduce((count, media) => count + media.optimized.length, 0)
-  console.log(`Blog media manifest check passed: ${Object.keys(expected).length} covers, ${variantCount} WebP variants.`)
+  const variantCount = Object.values(expected).reduce((count, media) => count + media.optimized.length + media.avif.length, 0)
+  console.log(`Blog media manifest check passed: ${Object.keys(expected).length} covers, ${variantCount} responsive variants (WebP + AVIF).`)
 }

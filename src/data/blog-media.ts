@@ -1,13 +1,16 @@
 import { z } from 'astro/zod'
 import blogMedia from '../../content/site/blog-media.json'
 
+const optimizedVariantSchema = z.object({
+  src: z.string().regex(/^\/uploads\/blog-optimized\//),
+  width: z.number().int().positive(),
+}).strict()
+
 const blogMediaItemSchema = z.object({
+  avif: z.array(optimizedVariantSchema).min(1),
   bytes: z.number().int().positive(),
   height: z.number().int().positive(),
-  optimized: z.array(z.object({
-    src: z.string().regex(/^\/uploads\/blog-optimized\//),
-    width: z.number().int().positive(),
-  }).strict()).min(1),
+  optimized: z.array(optimizedVariantSchema).min(1),
   width: z.number().int().positive(),
 }).strict()
 
