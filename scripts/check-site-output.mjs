@@ -1,15 +1,34 @@
-import { readdir, readFile } from 'node:fs/promises'
-import { basename, dirname, join } from 'node:path'
+import { access, readdir, readFile } from 'node:fs/promises'
+import { basename, dirname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const projectRoot = dirname(fileURLToPath(import.meta.url))
 const distRoot = join(projectRoot, '..', 'dist')
+const publicRoot = join(projectRoot, '..', 'public')
 const siteConfig = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'site.json'), 'utf8'))
 const siteOrigin = new URL(siteConfig.siteUrl).origin
 const failures = []
 
 async function readUtf8(relativePath) {
   return readFile(join(distRoot, relativePath), 'utf8')
+}
+
+const checkLocalAsset = async (source, relativePath) => {
+  if (!source.startsWith('/') || source.startsWith('//')) return
+  const sourcePath = source.split(/[?#]/, 1)[0]
+  const assetRoot = sourcePath.startsWith('/_astro/') ? distRoot : publicRoot
+  const relativeAsset = sourcePath.slice(1).replaceAll('/', sep)
+  const target = resolve(assetRoot, relativeAsset)
+  const root = resolve(assetRoot)
+  if (target !== root && !target.startsWith(`${root}${sep}`)) {
+    failures.push(`local asset escapes output root: ${relativePath} -> ${source}`)
+    return
+  }
+  try {
+    await access(target)
+  } catch {
+    failures.push(`missing local asset: ${relativePath} -> ${source}`)
+  }
 }
 
 async function walk(directory) {
@@ -99,6 +118,9 @@ for (const path of htmlFiles) {
   if (/<img\b(?![^>]*\balt(?:\s|=))[^>]*>/.test(html)) failures.push(`image without alt: ${relativePath}`)
   if (html.includes('alt="Article image"') || html.includes('alt="Article illustration"')) failures.push(`generic article image alt: ${relativePath}`)
   if (html.includes('querySelector<') || html.includes('querySelectorAll<')) failures.push(`untranspiled TypeScript generic in inline script: ${relativePath}`)
+  for (const [, source] of html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)) {
+    await checkLocalAsset(source, relativePath)
+  }
   for (const match of html.matchAll(/<img\b[^>]*\bsrc="\/uploads\/blog\/[^>]*>/g)) {
     const imageTag = match[0]
     if (!/\bwidth="\d+"/.test(imageTag) || !/\bheight="\d+"/.test(imageTag)) failures.push(`blog cover is missing intrinsic dimensions: ${relativePath}`)
