@@ -232,6 +232,12 @@ if (navPanelCount !== 4) failures.push(`expected 4 primary navigation panels, fo
 const homeIndex = await readUtf8('index.html')
 if (!/<noscript>[\s\S]*#intro-overlay\s*\{\s*display:\s*none/.test(homeIndex)) failures.push('homepage is missing the no-script intro overlay fallback')
 
+for (const archiveRoute of ['photos', 'architecture']) {
+  const archiveHtml = await readUtf8(`${archiveRoute}/index.html`)
+  const activeLinks = archiveHtml.match(/<a\b(?=[^>]*class="[^"]*is-active[^"]*")(?=[^>]*aria-current="page")[^>]*>/g) || []
+  if (activeLinks.length < 2) failures.push(`${archiveRoute} archive is missing aria-current on active mode and header links`)
+}
+
 if (failures.length) {
   throw new Error(`Site output check failed:\n- ${failures.join('\n- ')}`)
 }

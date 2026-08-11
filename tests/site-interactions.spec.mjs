@@ -112,6 +112,12 @@ test('locale updates archive image alt text', async ({ page }) => {
   await expect(page.locator('[data-archive-index]:not([hidden]) img').first()).toHaveAttribute('alt', /Selected photograph/)
 })
 
+test('archive navigation exposes the current page', async ({ page }) => {
+  await page.goto('/photos')
+  await expect(page.locator('.visual-archive__modes a.is-active')).toHaveAttribute('aria-current', 'page')
+  await expect(page.locator('.site-header .icon-link--archive.is-active')).toHaveAttribute('aria-current', 'page')
+})
+
 test('photo archive reveals more records without navigation', async ({ page }) => {
   await page.goto('/photos')
 
