@@ -255,7 +255,7 @@ for (const articlePath of articlePaths) {
   if (proseImages.some((imageTag) => !/\breferrerpolicy="no-referrer"/.test(imageTag))) failures.push(`article body images must use no-referrer policy: ${relativePath}`)
   if (!article.includes('property="article:modified_time"')) failures.push(`article pages are missing modified time metadata: ${relativePath}`)
   if (!article.includes('BreadcrumbList') || !article.includes('itemListElement') || !article.includes(`"item":"${siteConfig.siteUrl}/blog/series"`)) failures.push(`article pages are missing linked BreadcrumbList structured data: ${relativePath}`)
-  if (!article.includes('article-related') || !article.includes('Related articles')) failures.push(`article pages are missing related reading links: ${relativePath}`)
+  if (!/<section\b[^>]*class="[^"]*article-related[^"]*"[\s\S]*<h2\b[^>]*>/.test(article)) failures.push(`article pages are missing related reading links: ${relativePath}`)
 }
 
 const blogIndex = await readUtf8('blog/index.html')
