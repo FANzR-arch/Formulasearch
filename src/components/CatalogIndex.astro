@@ -11,9 +11,9 @@ const { page, sections } = Astro.props
 ---
 
 <header class="catalog-hero">
-  <p><LocalizedText {...page.kicker} /></p>
+  <p class="catalog-hero__kicker"><LocalizedText {...page.kicker} /></p>
   <h1><LocalizedText {...page.heading} /></h1>
-  <span><LocalizedText {...page.intro} /></span>
+  <p class="catalog-hero__intro"><LocalizedText {...page.intro} /></p>
 </header>
 <nav class="catalog-index" aria-label={page.indexLabel.zh} data-aria-en={page.indexLabel.en} data-aria-zh={page.indexLabel.zh}>
   {sections.map((section) => <a href={`#${section.id}`}><span>{section.label}</span><LocalizedText {...section.title} /></a>)}
