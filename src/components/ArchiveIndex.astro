@@ -98,11 +98,18 @@ const initialVisibleItems = active === 'photos' ? 8 : items.length
   let visibleCount = archiveRecords.filter((record) => !record.hasAttribute('hidden')).length
 
   const renderArchive = () => {
-    archiveRecords.forEach((record, index) => {
+    let matchingCount = 0
+    let visibleMatchCount = 0
+    archiveRecords.forEach((record) => {
       const matches = activeFilter === 'all' || record.getAttribute('data-archive-record')?.split(' ').includes(activeFilter)
-      record.toggleAttribute('hidden', !(index < visibleCount && matches))
+      const visible = matches && visibleMatchCount < visibleCount
+      if (matches) {
+        matchingCount += 1
+        if (visible) visibleMatchCount += 1
+      }
+      record.toggleAttribute('hidden', !visible)
     })
-    moreButton?.toggleAttribute('hidden', visibleCount >= archiveRecords.length)
+    moreButton?.toggleAttribute('hidden', visibleCount >= matchingCount)
   }
 
   filterButtons.forEach((button) => {
