@@ -98,11 +98,11 @@ Blog 不需要推翻。当前代码已经完成栏目首页、主题页、归档
 |---|---|---|
 | `src/pages/blog/index.astro` | Blog 首页编排 | 保留并收紧结构 |
 | `src/pages/blog/series.astro` | 主题/系列浏览 | 保留，后续澄清 taxonomy |
-| `src/pages/blog/archive.astro` | 时间归档 | 保留，继续以文字扫描为主 |
+| `src/pages/blog/archive.astro` | 时间归档 | 保留，按 Content Collection 数据按年份归档 |
 | `src/components/BlogPostRow.astro` | 日期、元信息、标题、摘要、封面 | 保留并扩展本地文章链接 |
 | `src/components/BlogSectionNav.astro` | Latest / Series / Archive | 保留 |
 | `src/layouts/BlogLayout.astro` | 站点头部、主题切换、页脚 | 保留 |
-| `src/lib/blog-content.ts` | 内容读取和排序 | 作为过渡适配层，随后改接 Astro 内容集合 |
+| `src/lib/blog-content.ts` | Content Collection 查询适配、排序和外链回退 | 保留，作为栏目页的统一查询入口 |
 | `src/styles/global.css` | 全站 token 与当前 Blog 样式 | 保留 token；Blog 样式逐步拆到 `blog.css` |
 
 ### 当前验证结果
@@ -110,7 +110,7 @@ Blog 不需要推翻。当前代码已经完成栏目首页、主题页、归档
 - 技术栈：Astro `7.2.0`、TypeScript strict、静态输出；
 - `npm run build` 已通过；
 - Astro 检查结果为 0 error、0 warning、0 hint；
-- 当前只生成首页、三个 Blog 栏目页和 sitemap，没有文章详情页。
+- 当前已生成首页、三个 Blog 栏目页、文章详情页、RSS 和 sitemap；实际发布门禁以 `docs/19_网站工程与交互审计.md` 为准。
 
 ---
 
@@ -306,7 +306,7 @@ src/components/blog/BlogMeta.astro
 src/components/blog/BlogToc.astro
 src/components/blog/RelatedPosts.astro
 src/components/blog/ShareLinks.astro
-src/lib/blog.ts
+src/lib/blog-content.ts
 src/styles/blog.css
 src/pages/rss.xml.ts
 ```
@@ -359,12 +359,11 @@ content/blog/**/index.md
         ↓ Astro glob loader + schema
 src/content.config.ts
         ↓
-src/lib/blog.ts
-├─ getPublishedPosts()
-├─ getFeaturedPost()
-├─ getPostsByCategory()
-├─ getPostsByYear()
-├─ getAdjacentPosts()
+src/lib/blog-content.ts
+├─ getBlogPosts()
+├─ getPrimaryBlogLink()
+└─ isLocalBlogPost()
+src/lib/blog-related.ts
 └─ getRelatedPosts()
         ↓
 页面：/blog /series /archive /[slug] /rss.xml
@@ -372,7 +371,7 @@ src/lib/blog.ts
 组件：BlogPostRow / BlogMeta / BlogToc / RelatedPosts
 ```
 
-`src/lib/blog-content.ts` 在迁移期间保留为兼容层；当 26 篇 `index.md` 都生成并通过核验后，再把三个现有栏目页改接 `src/lib/blog.ts`，最后删除旧 txt 读取逻辑。不要同时长期维护两套真实来源。
+三个 Blog 栏目页当前都通过 `src/lib/blog-content.ts` 查询 Astro Content Collection；RSS、sitemap 和文章详情也直接读取同一集合。旧 txt 只作为迁移脚本的编辑输入，不再作为页面运行时的第二套读取来源。
 
 相关文章优先级：
 
