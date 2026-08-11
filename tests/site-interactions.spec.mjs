@@ -8,6 +8,7 @@ test('mobile navigation traps focus and restores it on Escape', async ({ page })
   await expect(toggle).toHaveAttribute('aria-expanded', 'false')
   await toggle.click()
   await expect(toggle).toHaveAttribute('aria-expanded', 'true')
+  await expect(toggle).toHaveAttribute('aria-label', /关闭导航/)
   await expect(page.locator('#site-navigation')).toBeVisible()
 
   const focusable = page.locator('#site-navigation a:visible, #site-navigation button:visible')
@@ -21,7 +22,21 @@ test('mobile navigation traps focus and restores it on Escape', async ({ page })
 
   await page.keyboard.press('Escape')
   await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+  await expect(toggle).toHaveAttribute('aria-label', /打开导航/)
   await expect(toggle).toBeFocused()
+})
+
+test('navigation disclosure labels reflect open state and locale', async ({ page }) => {
+  await page.goto('/projects')
+
+  const disclosure = page.locator('.nav-disclosure').first()
+  await disclosure.evaluate((element) => element.dispatchEvent(new MouseEvent('click', { bubbles: true })))
+  await expect(disclosure).toHaveAttribute('aria-label', /关闭博客分类/)
+
+  await page.locator('#language-toggle').click()
+  await expect(disclosure).toHaveAttribute('aria-label', /Close Blog menu/)
+  await disclosure.evaluate((element) => element.dispatchEvent(new MouseEvent('click', { bubbles: true })))
+  await expect(disclosure).toHaveAttribute('aria-label', /Open Blog menu/)
 })
 
 test('locale and theme controls update document metadata', async ({ page }) => {

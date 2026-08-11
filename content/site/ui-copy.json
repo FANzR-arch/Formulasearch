@@ -13,10 +13,12 @@
       "contour": { "zh": "柔波", "en": "Contour" }
     },
     "openNavigation": { "zh": "打开导航", "en": "Open navigation" },
+    "closeNavigation": { "zh": "关闭导航", "en": "Close navigation" },
     "skipToContent": { "zh": "跳到主要内容", "en": "Skip to content" },
     "photos": { "zh": "摄影", "en": "Photography" },
     "architecture": { "zh": "建筑", "en": "Architecture" },
     "openSection": { "zh": "展开{label}分类", "en": "Open {label} menu" },
+    "closeSection": { "zh": "关闭{label}分类", "en": "Close {label} menu" },
     "sectionMenu": { "zh": "{label}子菜单", "en": "{label} menu" },
     "githubProfile": { "zh": "{name} 的 GitHub", "en": "{name} on GitHub" },
     "switchToEnglish": { "zh": "切换到英文", "en": "Switch to English" },

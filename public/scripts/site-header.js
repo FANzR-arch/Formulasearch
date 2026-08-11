@@ -4,6 +4,20 @@ const languageToggle = document.querySelector('#language-toggle')
 const navMenus = primaryNavigation ? Array.from(primaryNavigation.querySelectorAll('.nav-menu')) : []
 let navCloseTimer
 
+const updateNavigationLabels = () => {
+  const localeSuffix = document.documentElement.dataset.locale === 'en' ? 'En' : 'Zh'
+  const updateLabel = (element, isOpen) => {
+    if (!element) return
+    const state = isOpen ? 'Close' : 'Open'
+    element.setAttribute('aria-label', element.dataset[`nav${state}${localeSuffix}`] || '')
+  }
+
+  updateLabel(mobileNavigationToggle, document.querySelector('.site-header')?.classList.contains('is-nav-open'))
+  navMenus.forEach((menu) => {
+    updateLabel(menu.querySelector('.nav-disclosure'), menu.classList.contains('is-open'))
+  })
+}
+
 const closeNavigationMenus = (except) => {
   navMenus.forEach((menu) => {
     if (menu === except) return
@@ -11,6 +25,7 @@ const closeNavigationMenus = (except) => {
     menu.querySelector('.nav-disclosure')?.setAttribute('aria-expanded', 'false')
     menu.querySelector('.nav-popover')?.setAttribute('inert', '')
   })
+  updateNavigationLabels()
 }
 
 const closeMobileNavigation = ({ restoreFocus = false } = {}) => {
@@ -18,6 +33,7 @@ const closeMobileNavigation = ({ restoreFocus = false } = {}) => {
   const wasOpen = header?.classList.contains('is-nav-open')
   header?.classList.remove('is-nav-open')
   mobileNavigationToggle?.setAttribute('aria-expanded', 'false')
+  updateNavigationLabels()
   if (restoreFocus && wasOpen) mobileNavigationToggle?.focus()
 }
 
@@ -27,6 +43,7 @@ const openNavigationMenu = (menu) => {
   menu.classList.add('is-open')
   menu.querySelector('.nav-disclosure')?.setAttribute('aria-expanded', 'true')
   menu.querySelector('.nav-popover')?.removeAttribute('inert')
+  updateNavigationLabels()
 }
 
 navMenus.forEach((menu) => {
@@ -72,6 +89,7 @@ document.addEventListener('keydown', (event) => {
 mobileNavigationToggle?.addEventListener('click', () => {
   const isOpen = document.querySelector('.site-header')?.classList.toggle('is-nav-open') ?? false
   mobileNavigationToggle.setAttribute('aria-expanded', String(isOpen))
+  updateNavigationLabels()
   if (isOpen) {
     requestAnimationFrame(() => primaryNavigation?.querySelector('a, button')?.focus())
   } else {
@@ -98,8 +116,12 @@ const updateLanguageToggle = () => {
 }
 
 updateLanguageToggle()
+updateNavigationLabels()
 languageToggle?.addEventListener('click', () => {
   const nextLocale = document.documentElement.dataset.locale === 'en' ? 'zh' : 'en'
   window.formulasearchSetLocale?.(nextLocale)
 })
-window.addEventListener('formulasearch:locale', updateLanguageToggle)
+window.addEventListener('formulasearch:locale', () => {
+  updateLanguageToggle()
+  updateNavigationLabels()
+})
