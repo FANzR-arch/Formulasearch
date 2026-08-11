@@ -26,7 +26,7 @@ externalLinks:
 
 ## 一、先把主题变成一个物体
 
-![一、先把主题变成一个物体配图](https://pbs.twimg.com/media/HL9ui1bWUAASJQP?format=jpg&name=large)
+![复古 Plakatstil 海报，黑底上以金色大字、一件银色金属工具和横向彩色条纹组成单一物体主视觉](https://pbs.twimg.com/media/HL9ui1bWUAASJQP?format=jpg&name=large)
 
 <strong>Plakatstil （对象海报设计风格）</strong> 是 20 世纪初德国广告海报里的一种视觉方法，常和 Sachplakat，也就是「物体海报」一起讨论。它的画面逻辑很直接：删掉复杂场景，删掉故事背景，删掉长文案，只保留一个被强烈简化的商品或物体，再配一个极短的名称。
 
@@ -34,7 +34,7 @@ externalLinks:
 
 画面里没有抽烟的人，没有商店，没有街景，也没有一堆广告语。只有两根火柴和一个产品名。
 
-![一、先把主题变成一个物体配图](https://pbs.twimg.com/media/HL9umPCW4AABHlm?format=jpg&name=large)
+![Priester 火柴 Plakatstil 海报，黑底上用蓝色手写字、两根红色火柴和黄色火柴头突出单一产品](https://pbs.twimg.com/media/HL9umPCW4AABHlm?format=jpg&name=large)
 
 这就是它对 AI 封面的启发：
 
@@ -52,34 +52,34 @@ externalLinks:
 
 一篇讲 <strong>「AI 副业分享，然后包装成可卖的东西」</strong> 的文章，可以直接用一叠厚厚的纸币做主角。配两个中文大字 变现。读者先记住现金，再理解文章在教怎么把知识变成第一桶金。
 
-![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vRveWYAA_gOv?format=jpg&name=large)
+![AI 副业变现海报，绿色背景与金色横条上写着“变现”，右侧是一叠侧面捆扎的旧纸币](https://pbs.twimg.com/media/HL9vRveWYAA_gOv?format=jpg&name=large)
 
-![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vVhYXUAA9fN5?format=jpg&name=large)
+![AI 副业变现海报，绿色背景与金色横条上写着“变现”，下方正面展示一叠捆扎的旧纸币](https://pbs.twimg.com/media/HL9vVhYXUAA9fN5?format=jpg&name=large)
 
 <strong>02｜AI Agent 自动化｜金属齿轮</strong>
 
 一篇讲 <strong>「普通人用 AI Agent 跑通自动化系统，实现半被动收入」</strong> 的文章，不需要画流程图。它可以变成一个巨大的金属齿轮，配中文短词 自动。齿轮代表持续运转的赚钱机器。
 
 
-![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vYhxW0AAZwN6?format=jpg&name=large)
+![AI Agent 自动化海报，蓝色手写字和箭头指向一枚巨大的金属齿轮，底部标注“把流程交给系统”](https://pbs.twimg.com/media/HL9vYhxW0AAZwN6?format=jpg&name=large)
 
-![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9veBlWMAA-UMI?format=jpg&name=large)
+![AI Agent 自动化海报，黑色手写字和箭头叠在巨大的灰色齿轮上，蓝色与红色块强化“把流程交给系统”主题](https://pbs.twimg.com/media/HL9veBlWMAA-UMI?format=jpg&name=large)
 
 <strong>03｜AI 提示词和教程｜商品包装盒</strong>
 
 一篇讲 <strong>「AI分享教程、提示词模板、实操指南卖数字产品」</strong> 的文章，可以用一个商品包装盒做视觉主角。中文短词 售卖 直接印在包装标签上。盒子本身就是待售的产品。
 
-![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vxcGXIAAMrh6?format=jpg&name=large)
+![数字产品售卖海报，复古纸盒以绿色标签写着“售卖”，盒侧排列聊天、课程、计算器和下载图标](https://pbs.twimg.com/media/HL9vxcGXIAAMrh6?format=jpg&name=large)
 
-![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vusaX0AAZLh_?format=jpg&name=large)
+![数字产品售卖海报，打开的复古纸盒正面写着“售卖”和“把经验打包出售”，下方配脑图、书本和文件夹图标](https://pbs.twimg.com/media/HL9vusaX0AAZLh_?format=jpg&name=large)
 
 <strong>04｜内容增长｜扩音器</strong>
 
 一篇讲 <strong>「AI 批量生成内容 + 多平台分发矩阵变现」</strong> 的文章，可以用一个老式黄铜扩音器做主语。中文短词 触达 放在扩音器后方。暗示声音被放大，内容被更多人听到并付费。
 
-![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vnm6XcAAn2ZN?format=jpg&name=large)
+![内容触达海报，红橙背景和海浪纹样中，一只老式黄铜扩音器朝右，标题写着“触达”](https://pbs.twimg.com/media/HL9vnm6XcAAn2ZN?format=jpg&name=large)
 
-![二、文章封面的运用配图](https://pbs.twimg.com/media/HL9vpquXwAA4poy?format=jpg&name=large)
+![内容触达海报，深蓝与绿色背景中，一只金色黄铜扩音器向右扩散，配“触达”和“让内容被看见”字样](https://pbs.twimg.com/media/HL9vpquXwAA4poy?format=jpg&name=large)
 
 <strong>这些图的共同点是：每张图都先替文章选了一个能直接被记住的「主题相关」物体。</strong>
 
@@ -129,7 +129,7 @@ clean vector icon, modern UI, search bar interface, infographic, flowchart, dash
 
 ## 三、产品宣传图的运用
 
-![三、产品宣传图的运用配图](https://pbs.twimg.com/media/HL9v3kpWIAAvYQo?format=jpg&name=large)
+![复古产品宣传图拼贴，分格展示 Apple 键盘、AirPods、Sony 镜头、Starbucks 咖啡袋、移动电源、手表和 MacBook](https://pbs.twimg.com/media/HL9v3kpWIAAvYQo?format=jpg&name=large)
 
 如果上世纪20年代，就有这些电子产品，那么其海报可能是这样的风格？
 
@@ -183,7 +183,7 @@ photorealistic product render, modern launch poster, clean vector icon, sterile 
 
 严格说，人物形象转绘已经不再是标准的 Sachplakat「物体海报」，更接近 Plakatstil-inspired 的人物服务海报。它适合用在个人账号、课程、咨询服务、讲座海报这类场景。
 
-![四、延伸尝试：人物形象与个人网站配图](https://pbs.twimg.com/media/HL9v7rEXYAAEqjm?format=jpg&name=large)
+![复古人物形象海报，左右两幅阿哲 Phil 的半身肖像分别置于黑色和砖红色背景，配手写标题与关注提示](https://pbs.twimg.com/media/HL9v7rEXYAAEqjm?format=jpg&name=large)
 
 <strong>图生图｜复制即用：人物转绘提示词</strong>
 
@@ -232,7 +232,7 @@ photorealistic portrait, modern influencer poster, cinematic lighting, anime sty
 
 如果只是借用配色、手绘字、纸张质感和广告感构图，个人网站也可以拿 Plakatstil 当视觉参考。但这已经是风格迁移，不属于严格的物体海报用法。
 
-![四、延伸尝试：人物形象与个人网站配图](https://pbs.twimg.com/media/HL9v_xvXcAEyrJP?format=jpg&name=large)
+![Plakatstil 风格个人网站首页概念图，以 CARLOS 大标题和人物插画为主视觉，下方排列项目卡片、文章列表和联系入口](https://pbs.twimg.com/media/HL9v_xvXcAEyrJP?format=jpg&name=large)
 
 ## 五、直接用 Skill 生成
 
