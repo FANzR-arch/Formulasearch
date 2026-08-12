@@ -1,0 +1,48 @@
+{
+  "pageTitle": { "zh": "建筑", "en": "Architecture" },
+  "pageDescription": {
+    "zh": "Phil 的建筑项目与设计档案。",
+    "en": "Phil's architecture projects and design archive."
+  },
+  "kicker": { "zh": "建筑档案 / 01", "en": "Architecture archive / 01" },
+  "title": { "zh": "建筑作品集", "en": "Architecture portfolio" },
+  "description": {
+    "zh": "持续收集的建筑项目与过程资料，按项目整理并归档。",
+    "en": "An ongoing collection of architectural projects and process material, organised and archived by project."
+  },
+  "initialVisibleCount": "all",
+  "autoLoadBatchSize": 8,
+  "eagerImageCount": 2,
+  "filters": [
+    { "id": "all", "zh": "全部", "en": "All" }
+  ],
+  "items": [
+    {
+      "image": "white-study",
+      "alt": { "zh": "白色流动材质在光线下形成的抽象研究图像", "en": "An abstract study of flowing white material shaped by light" },
+      "index": "01",
+      "layout": "hero",
+      "tags": ["light", "material"],
+      "label": { "zh": "折叠的白", "en": "Folded white" },
+      "caption": { "zh": "材料研究 / 光", "en": "Material study / light" }
+    },
+    {
+      "image": "violet-study",
+      "alt": { "zh": "紫色透明液体与柔和反光形成的抽象研究图像", "en": "An abstract study of translucent violet liquid and soft reflections" },
+      "index": "02",
+      "layout": "portrait",
+      "tags": ["light", "material"],
+      "label": { "zh": "透明的体积", "en": "Transparent volume" },
+      "caption": { "zh": "材料研究 / 表面", "en": "Material study / surface" }
+    },
+    {
+      "image": "water-study",
+      "alt": { "zh": "红蓝色水与玻璃质感交叠的抽象研究图像", "en": "An abstract study of red and blue water layered with glass-like texture" },
+      "index": "03",
+      "layout": "wide",
+      "tags": ["light", "material"],
+      "label": { "zh": "颜色进入水里", "en": "Colour enters water" },
+      "caption": { "zh": "材料研究 / 色彩", "en": "Material study / colour" }
+    }
+  ]
+}

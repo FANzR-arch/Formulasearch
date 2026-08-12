@@ -1,0 +1,16 @@
+{
+  "author": {
+    "name": "Phil",
+    "url": "https://formulasearch.com",
+    "alternateNames": ["Fan Zheren", "阿哲 Phil", "Formulasearch"],
+    "jobTitle": "Independent builder and designer",
+    "knowsAbout": ["AI tools", "Visual systems", "Website design", "Writing"]
+  },
+  "githubUrl": "https://github.com/FANzR-arch",
+  "name": "Phil / Formula",
+  "siteUrl": "https://formulasearch.com",
+  "themeColors": {
+    "light": "#f5f1e8",
+    "dark": "#292621"
+  }
+}

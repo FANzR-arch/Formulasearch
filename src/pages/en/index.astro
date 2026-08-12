@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import HomeContent from '../../components/HomeContent.astro'
+import SiteHeader from '../../components/SiteHeader.astro'
+import { pageMeta } from '../../data/page-meta'
+---
+
+<BaseLayout title={pageMeta.home.title.zh} titleEn={pageMeta.home.title.en} description={pageMeta.home.description.zh} descriptionEn={pageMeta.home.description.en} locale="en">
+  <div id="site-page" class="site-page is-visible">
+    <canvas id="ambient-flow" class="ambient-flow" aria-hidden="true"></canvas>
+    <SiteHeader logoMode="background" locale="en" />
+
+    <HomeContent locale="en" />
+  </div>
+  <script is:inline src="/scripts/liquid-background.js"></script>
+</BaseLayout>

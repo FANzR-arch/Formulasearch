@@ -1,0 +1,38 @@
+---
+import BlogPostRow from './BlogPostRow.astro'
+import BlogSectionNav from './BlogSectionNav.astro'
+import LocalizedText from './LocalizedText.astro'
+import { getBlogPosts } from '../lib/blog-content'
+import type { Locale } from '../lib/i18n'
+import { uiCopy } from '../data/ui-copy'
+
+interface Props {
+  locale?: Locale
+}
+
+const { locale = 'zh' } = Astro.props
+const posts = await getBlogPosts()
+const showSourceLanguageNotice = posts.some((post) => post.contentLanguage !== 'en')
+const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
+---
+
+<header class="blog-hero blog-hero--compact">
+  <h1><LocalizedText {...uiCopy.blog.archiveHeading} /></h1>
+</header>
+
+<BlogSectionNav active="archive" locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
+
+<div class="archive-list">
+  {years.map((year) => {
+    const yearPosts = posts.filter((post) => post.date.startsWith(year))
+    return (
+      <section class="archive-year" aria-labelledby={`year-${year}`}>
+        <header>
+          <h2 id={`year-${year}`}>{year}</h2>
+          <span><LocalizedText zh={`${yearPosts.length} ${uiCopy.blog.archiveCountSuffix.zh}`} en={`${yearPosts.length} ${uiCopy.blog.archiveCountSuffix.en}`} /></span>
+        </header>
+        <div>{yearPosts.map((post) => <BlogPostRow post={post} compact locale={locale} />)}</div>
+      </section>
+    )
+  })}
+</div>

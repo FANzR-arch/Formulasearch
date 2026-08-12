@@ -1,106 +1,60 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs'
-import { extname, join } from 'node:path'
-
-export interface BlogCategory {
-  id: string
-  title: string
-  titleEn: string
-  description: string
-}
+import { getCollection, type CollectionEntry } from 'astro:content'
+import { getBlogCategory, type BlogCategory } from '../data/blog-categories'
+import { getBlogPostRoute, siteRoutes } from '../data/site-routes'
 
 export interface BlogLink {
-  label: '微信' | 'X' | '原文'
+  label: 'wechat' | 'x' | 'original'
   url: string
 }
 
 export interface BlogPost {
   category: BlogCategory
   categoryId: string
+  contentLanguage: 'zh-Hans' | 'en'
+  coverAlt: string
+  coverAltEn?: string
   contentStatus: 'index-only' | 'full'
   cover: string
   date: string
+  draft: boolean
+  featured: boolean
   links: BlogLink[]
   slug: string
   summary: string
+  summaryEn?: string
   title: string
+  titleEn?: string
 }
 
-const contentRoot = join(process.cwd(), 'content', 'blog')
-const mediaRoot = join(process.cwd(), 'public', 'uploads', 'blog')
-const imageExtensions = new Set(['.avif', '.jpeg', '.jpg', '.png', '.webp'])
+const toBlogPost = (entry: CollectionEntry<'blog'>): BlogPost => {
+  const category = getBlogCategory(entry.data.category)
 
-const categories = JSON.parse(
-  readFileSync(join(contentRoot, 'categories.json'), 'utf8'),
-) as BlogCategory[]
-
-const categoryMap = new Map(categories.map((category) => [category.id, category]))
-
-const readText = (directory: string, filename: string) =>
-  readFileSync(join(directory, filename), 'utf8').replace(/^\uFEFF/, '').trim()
-
-const readFrontmatterField = (markdown: string, field: string) => {
-  const match = markdown.match(new RegExp(`^${field}:\\s*["']?([^\\r\\n"']+)["']?\\s*$`, 'm'))
-  return match?.[1]?.trim() ?? ''
+  return {
+    category,
+    categoryId: entry.data.category,
+    contentLanguage: entry.data.contentLanguage,
+    coverAlt: entry.data.coverAlt,
+    coverAltEn: entry.data.coverAltEn,
+    contentStatus: entry.data.contentStatus,
+    cover: entry.data.cover,
+    date: entry.data.pubDate.toISOString().slice(0, 10),
+    draft: entry.data.draft,
+    featured: entry.data.featured,
+    links: entry.data.externalLinks,
+    slug: entry.data.slug,
+    summary: entry.data.description,
+    summaryEn: entry.data.descriptionEn,
+    title: entry.data.title,
+    titleEn: entry.data.titleEn,
+  }
 }
 
-const getLinkLabel = (url: string): BlogLink['label'] => {
-  if (url.includes('mp.weixin.qq.com')) return '微信'
-  if (url.includes('x.com/')) return 'X'
-  return '原文'
-}
+export const getBlogPosts = async () => (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((left, right) => right.data.pubDate.valueOf() - left.data.pubDate.valueOf())
+  .map(toBlogPost)
 
-const findCover = (date: string) => {
-  const directory = join(mediaRoot, date)
-  if (!existsSync(directory)) return ''
-
-  const filename = readdirSync(directory)
-    .filter((entry) => imageExtensions.has(extname(entry).toLowerCase()))
-    .sort((a, b) => a.localeCompare(b))[0]
-
-  return filename ? `/uploads/blog/${date}/${filename}` : ''
-}
-
-const loadPosts = (): BlogPost[] => readdirSync(contentRoot, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(entry.name))
-  .map((entry) => {
-    const directory = join(contentRoot, entry.name)
-    const categoryId = readText(directory, '分类.txt')
-    const category = categoryMap.get(categoryId)
-
-    if (!category) throw new Error(`Unknown blog category "${categoryId}" in ${entry.name}`)
-
-    const links = readText(directory, '链接.txt')
-      .split(/\r?\n/)
-      .map((url) => url.trim())
-      .filter(Boolean)
-      .map((url) => ({ label: getLinkLabel(url), url }))
-
-    const markdown = readFileSync(join(directory, 'index.md'), 'utf8')
-    const contentStatus = readFrontmatterField(markdown, 'contentStatus') as BlogPost['contentStatus']
-    if (contentStatus !== 'index-only' && contentStatus !== 'full') {
-      throw new Error(`Unknown contentStatus "${contentStatus}" in ${entry.name}`)
-    }
-
-    return {
-      category,
-      categoryId,
-      contentStatus,
-      cover: findCover(entry.name),
-      date: readFrontmatterField(markdown, 'pubDate') || entry.name,
-      links,
-      slug: readFrontmatterField(markdown, 'slug'),
-      summary: readText(directory, '摘要.txt'),
-      title: readText(directory, '标题.txt'),
-    }
-  })
-  .sort((a, b) => b.date.localeCompare(a.date))
-
-const posts = loadPosts()
-
-export const getBlogPosts = () => posts
-export const getBlogCategories = () => categories
 export const formatBlogDate = (date: string) => date.replaceAll('-', '.')
 export const isLocalBlogPost = (post: BlogPost) => post.contentStatus === 'full'
 export const getPrimaryBlogLink = (post: BlogPost) => isLocalBlogPost(post)
-  ? `/blog/${post.slug}`
-  : post.links[0]?.url ?? '#'
+  ? getBlogPostRoute(post.slug, post.contentLanguage)
+  : post.links[0]?.url ?? siteRoutes.blogArchive

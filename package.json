@@ -5,20 +5,49 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run blog:check && astro check && astro build",
+    "build": "node scripts/build.mjs",
+    "content:check": "node scripts/check-content.mjs",
     "preview": "astro preview",
-    "check": "astro check",
+    "check": "node scripts/check.mjs",
     "blog:migrate": "node scripts/prepare-blog-content.mjs --write",
+    "blog:media:prepare": "node scripts/prepare-blog-media.mjs --write",
+    "blog:media:check": "node scripts/prepare-blog-media.mjs --check",
+    "blog:images:prepare": "node scripts/prepare-blog-image-alt.mjs --write",
+    "blog:images:check": "node scripts/prepare-blog-image-alt.mjs --check",
+    "blog:images:dimensions": "node scripts/prepare-blog-image-dimensions.mjs --report",
+    "blog:images:dimensions:check": "node scripts/prepare-blog-image-dimensions.mjs --check",
+    "blog:images:dimensions:write": "node scripts/prepare-blog-image-dimensions.mjs --write",
+    "blog:images:availability": "node scripts/check-blog-image-availability.mjs",
+    "blog:images:report": "node scripts/prepare-blog-image-alt.mjs --report",
     "blog:import": "node scripts/import-blog-bodies.mjs",
-    "blog:check": "node scripts/prepare-blog-content.mjs --check"
+    "blog:check": "node scripts/prepare-blog-content.mjs --check",
+    "i18n:report": "node scripts/report-i18n.mjs",
+    "i18n:check": "node scripts/report-i18n.mjs --strict",
+    "contrast:check": "node scripts/check-color-contrast.mjs",
+    "photos:prepare": "node scripts/prepare-photo-archive.mjs",
+    "photos:hashes:migrate": "node scripts/migrate-photo-archive-hashes.mjs",
+    "photos:test": "node scripts/test-photo-archive.mjs",
+    "photos:source:manifest:write": "node scripts/prepare-photo-source-manifest.mjs --write",
+    "photos:source:manifest:check": "node scripts/prepare-photo-source-manifest.mjs --check",
+    "photos:source:manifest:report": "node scripts/prepare-photo-source-manifest.mjs --report",
+    "photos:source:test": "node scripts/test-photo-source-manifest.mjs",
+    "site:check": "node scripts/check-site-output.mjs",
+    "pretest:smoke": "npm run build",
+    "test:smoke": "node scripts/run-smoke.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrojs/markdown-remark": "^7.2.2",
+    "@playwright/test": "^1.62.1",
     "@types/node": "^24.0.0",
     "astro": "^7.2.0",
+    "sharp": "^0.35.3",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "@lucide/astro": "^1.31.0"
+  },
+  "registries": {
+    "@react-bits": "https://reactbits.dev/r/{name}.json"
   }
 }

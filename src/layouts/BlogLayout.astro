@@ -1,82 +1,32 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro'
-import { homeContent } from '../lib/home-content'
+import SiteFooter from '../components/SiteFooter.astro'
 import BaseLayout from './BaseLayout.astro'
+import { siteConfig } from '../data/site-config'
+import type { Locale } from '../lib/i18n'
 import '../styles/blog.css'
 
 interface Props {
   description: string
+  descriptionEn: string
   image?: string
+  locale?: Locale
+  modifiedTime?: string
   ogType?: 'website' | 'article'
   publishedTime?: string
   structuredData?: Record<string, unknown>
   title: string
+  titleEn: string
 }
 
-const { description, image, ogType, publishedTime, structuredData, title } = Astro.props
+const { description, descriptionEn, image, locale = 'zh', modifiedTime, ogType, publishedTime, structuredData, title, titleEn } = Astro.props
 ---
 
-<BaseLayout title={`${title} · Phil / Formula`} description={description} image={image} ogType={ogType} publishedTime={publishedTime} structuredData={structuredData}>
+<BaseLayout title={`${title} · ${siteConfig.name}`} titleEn={`${titleEn} · ${siteConfig.name}`} description={description} descriptionEn={descriptionEn} image={image} locale={locale} modifiedTime={modifiedTime} ogType={ogType} publishedTime={publishedTime} structuredData={structuredData}>
   <div class="site-page is-visible blog-site">
-    <SiteHeader active="blog" email={homeContent.email} />
-    <main class="blog-main"><slot /></main>
-    <footer class="site-footer">
-      <span>© {new Date().getFullYear()} Phil / Formula</span>
-      <a href="/">返回首页</a>
-    </footer>
+    <SiteHeader active="blog" locale={locale} />
+    <main id="main-content" class="blog-main"><slot /></main>
+    <SiteFooter variant="site" locale={locale} />
   </div>
 
-  <script is:inline>
-    const themeToggle = document.querySelector('#theme-toggle')
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const setTheme = (theme) => {
-      document.documentElement.dataset.theme = theme
-      themeToggle?.setAttribute('aria-pressed', String(theme === 'dark'))
-      themeToggle?.setAttribute('aria-label', theme === 'dark' ? '切换到浅色主题' : '切换到深色主题')
-    }
-
-    let savedTheme = ''
-    try { savedTheme = localStorage.getItem('formulasearch-theme') || '' } catch {}
-    setTheme(savedTheme === 'dark' ? 'dark' : 'light')
-
-    let themeChanging = false
-    themeToggle?.addEventListener('click', () => {
-      if (themeChanging) return
-      const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
-      const commitTheme = () => {
-        setTheme(nextTheme)
-        try { localStorage.setItem('formulasearch-theme', nextTheme) } catch {}
-      }
-
-      if (reduceMotion || !document.startViewTransition) {
-        commitTheme()
-        return
-      }
-
-      const rect = themeToggle.getBoundingClientRect()
-      const x = rect.left + rect.width / 2
-      const y = rect.top + rect.height / 2
-      const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
-
-      document.documentElement.style.setProperty('--theme-x', `${x}px`)
-      document.documentElement.style.setProperty('--theme-y', `${y}px`)
-      document.documentElement.style.setProperty('--theme-radius', `${radius}px`)
-      document.documentElement.classList.add('is-theme-switching')
-      themeChanging = true
-
-      try {
-        const transition = document.startViewTransition(commitTheme)
-        const finish = () => {
-          themeChanging = false
-          document.documentElement.classList.remove('is-theme-switching')
-        }
-        transition.finished.then(finish, finish)
-      } catch {
-        commitTheme()
-        themeChanging = false
-        document.documentElement.classList.remove('is-theme-switching')
-      }
-    })
-  </script>
 </BaseLayout>

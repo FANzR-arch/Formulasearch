@@ -3,9 +3,11 @@
   const cycleButton = document.querySelector('#background-cycle')
   if (!(canvas instanceof HTMLCanvasElement)) return
 
-  const variants = ['dither', 'molten', 'contour']
-  const variantIndex = { dither: 1, molten: 2, contour: 3 }
-  const variantNames = { dither: 'Dither', molten: '焦散', contour: '柔波' }
+  const variantIndex = Object.freeze({ dither: 1, molten: 2, contour: 3 })
+  let backgroundNames = {}
+  try { backgroundNames = JSON.parse(decodeURIComponent(cycleButton?.dataset.backgroundNames || '%7B%7D')) } catch {}
+  const configuredVariants = Object.keys(backgroundNames).filter((name) => Object.hasOwn(variantIndex, name))
+  const variants = configuredVariants.length ? configuredVariants : Object.keys(variantIndex)
   const randomHistoryKey = 'formulasearch-background-last-random'
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   let previousVariant = ''
@@ -290,6 +292,7 @@
   let height = 0
   let frame = 0
   let lastFrame = 0
+  let contextLost = false
   let theme = document.documentElement.dataset.theme === 'dark' ? 1 : 0
   const seed = 937
   const start = performance.now()
@@ -304,11 +307,17 @@
     if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
       canvas.width = nextWidth
       canvas.height = nextHeight
-      gl.viewport(0, 0, nextWidth, nextHeight)
+      if (!contextLost) gl.viewport(0, 0, nextWidth, nextHeight)
     }
   }
 
+  const stopAnimation = () => {
+    if (frame) window.cancelAnimationFrame(frame)
+    frame = 0
+  }
+
   const draw = (now = performance.now()) => {
+    if (contextLost) return
     gl.clearColor(0, 0, 0, 0)
     gl.clear(gl.COLOR_BUFFER_BIT)
     gl.uniform2f(uniforms.resolution, canvas.width, canvas.height)
@@ -320,7 +329,11 @@
   }
 
   const animate = (now) => {
-    if (!document.hidden && now - lastFrame >= 28) {
+    if (document.hidden || contextLost) {
+      frame = 0
+      return
+    }
+    if (now - lastFrame >= 28) {
       lastFrame = now
       draw(now)
     }
@@ -328,17 +341,33 @@
   }
 
   const syncMotion = () => {
-    if (frame) window.cancelAnimationFrame(frame)
-    frame = 0
+    stopAnimation()
+    if (contextLost) return
     draw()
     if (!reduceMotion.matches && variant !== 'off') frame = window.requestAnimationFrame(animate)
   }
+
+  // A lost WebGL context must not leave a hot animation loop throwing errors.
+  // Recreating the full shader pipeline would be more work than the ambient
+  // layer is worth, so keep the CSS fallback for the rest of this page view.
+  canvas.addEventListener('webglcontextlost', () => {
+    contextLost = true
+    stopAnimation()
+    canvas.classList.add('ambient-flow--fallback')
+  })
 
   const updateCycleLabel = () => {
     if (!(cycleButton instanceof HTMLButtonElement)) return
     const currentIndex = variants.indexOf(variant)
     const nextVariant = variants[(currentIndex + 1) % variants.length]
-    const label = `当前背景：${variantNames[variant]}。点击切换到${variantNames[nextVariant]}`
+    const locale = document.documentElement.dataset.locale === 'en' ? 'en' : 'zh'
+    const suffix = locale === 'en' ? 'En' : 'Zh'
+    const currentName = backgroundNames[variant]?.[locale] || variant
+    const nextName = backgroundNames[nextVariant]?.[locale] || nextVariant
+    const template = cycleButton.dataset[`backgroundCycle${suffix}`] || ''
+    const label = template
+      .replace('{current}', currentName)
+      .replace('{next}', nextName)
     cycleButton.setAttribute('aria-label', label)
     cycleButton.title = label
   }
@@ -379,10 +408,17 @@
     draw()
   }, { passive: true })
 
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAnimation()
+    else syncMotion()
+  })
+
   window.addEventListener('formulasearch:theme', (event) => {
     theme = event.detail?.theme === 'dark' ? 1 : 0
     draw()
   })
+
+  window.addEventListener('formulasearch:locale', updateCycleLabel)
 
   if (typeof reduceMotion.addEventListener === 'function') {
     reduceMotion.addEventListener('change', syncMotion)

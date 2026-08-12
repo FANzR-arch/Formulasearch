@@ -1,0 +1,39 @@
+---
+import LocalizedText from './LocalizedText.astro'
+import SiteFooter from './SiteFooter.astro'
+import { homeContent } from '../lib/home-content'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
+
+interface Props {
+  locale?: Locale
+}
+
+const { locale = 'zh' } = Astro.props
+const zh = homeContent.zh
+const en = homeContent.en
+const heroImageAlt = getLocalizedValue({ zh: zh.heroImageAlt, en: en.heroImageAlt }, locale)
+---
+
+<main id="main-content">
+  <section class="intro" aria-labelledby="intro-title">
+    <h1 id="intro-title"><LocalizedText zh={zh.name} en={en.name} /></h1>
+    <p class="lead"><LocalizedText zh={zh.intro.join(' ')} en={en.intro.join(' ')} /></p>
+    <div class="home-copy">
+      {zh.about.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={en.about[index]} /></p>)}
+      {zh.interest.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={en.interest[index]} /></p>)}
+      <hr />
+      <div class="home-contact">
+        <p class="home-copy__label"><LocalizedText zh={zh.contactLabel} en={en.contactLabel} /></p>
+        <p>
+          <a class="text-link" href={zh.social.url} target="_blank" rel="noopener noreferrer">{zh.social.label}</a>
+          <br />
+          <LocalizedText zh={zh.contactEmailPrefix} en={en.contactEmailPrefix} /><strong><a class="text-link" href={`mailto:${zh.email}`}>{zh.email}</a></strong>
+        </p>
+      </div>
+      <hr />
+      <p><LocalizedText zh={zh.sponsor} en={en.sponsor} /></p>
+    </div>
+    {zh.heroImage && <img class="hero-image" src={zh.heroImage} alt={heroImageAlt} data-alt-zh={zh.heroImageAlt} data-alt-en={en.heroImageAlt} width={zh.heroImageWidth} height={zh.heroImageHeight} loading="eager" />}
+  </section>
+</main>
+<SiteFooter locale={locale} />

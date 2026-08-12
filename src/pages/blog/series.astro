@@ -1,39 +1,9 @@
 ---
-import BlogPostRow from '../../components/BlogPostRow.astro'
-import BlogSectionNav from '../../components/BlogSectionNav.astro'
+import BlogSeriesView from '../../components/BlogSeriesView.astro'
 import BlogLayout from '../../layouts/BlogLayout.astro'
-import { getBlogCategories, getBlogPosts } from '../../lib/blog-content'
-
-const posts = getBlogPosts()
-const series = getBlogCategories()
-  .map((category) => ({
-    category,
-    posts: posts.filter((post) => post.categoryId === category.id),
-  }))
-  .filter((group) => group.posts.length > 0)
+import { pageMeta } from '../../data/page-meta'
 ---
 
-<BlogLayout title="Blog Series" description="按主题浏览 Phil 的文章系列。">
-  <header class="blog-hero blog-hero--compact">
-    <h1>Series</h1>
-  </header>
-
-  <BlogSectionNav active="series" />
-
-  <div class="series-list">
-    {series.map((group) => (
-      <section class="series-group" aria-labelledby={`series-${group.category.id}`}>
-        <header class="series-group__header">
-          <div>
-            <h2 id={`series-${group.category.id}`}>{group.category.title}</h2>
-            <p>{group.category.description}</p>
-          </div>
-          <strong>{group.posts.length}</strong>
-        </header>
-        <div class="series-group__posts">
-          {group.posts.map((post) => <BlogPostRow post={post} compact showCategory={false} />)}
-        </div>
-      </section>
-    ))}
-  </div>
+<BlogLayout title={pageMeta.blogSeries.title.zh} titleEn={pageMeta.blogSeries.title.en} description={pageMeta.blogSeries.description.zh} descriptionEn={pageMeta.blogSeries.description.en}>
+  <BlogSeriesView />
 </BlogLayout>

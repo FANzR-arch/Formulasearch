@@ -1,20 +1,24 @@
 ---
 interface Props {
-  active: 'latest' | 'series' | 'archive'
+  active: import('../data/blog-navigation').BlogSectionId
+  locale?: import('../lib/i18n').Locale
+  showSourceLanguageNotice?: boolean
 }
 
-const { active } = Astro.props
-const items = [
-  { id: 'latest', href: '/blog', label: 'Latest' },
-  { id: 'series', href: '/blog/series', label: 'Series' },
-  { id: 'archive', href: '/blog/archive', label: 'Archive' },
-] as const
+import LocalizedText from './LocalizedText.astro'
+import { blogSectionNavigation } from '../data/blog-navigation'
+import { getLocalizedRoute } from '../data/site-routes'
+import { getLocalizedValue } from '../lib/i18n'
+import { uiCopy } from '../data/ui-copy'
+
+const { active, locale = 'zh', showSourceLanguageNotice = false } = Astro.props
 ---
 
-<nav class="blog-section-nav" aria-label="Blog 页面">
-  {items.map((item) => (
-    <a class:list={{ 'is-active': item.id === active }} href={item.href} aria-current={item.id === active ? 'page' : undefined}>
-      {item.label}
+<nav class="blog-section-nav" aria-label={getLocalizedValue(blogSectionNavigation.ariaLabel, locale)} data-aria-en={blogSectionNavigation.ariaLabel.en} data-aria-zh={blogSectionNavigation.ariaLabel.zh}>
+  {blogSectionNavigation.items.map((item) => (
+    <a class:list={{ 'is-active': item.id === active }} href={getLocalizedRoute(item.href, locale)} aria-current={item.id === active ? 'page' : undefined}>
+      <LocalizedText {...item.label} />
     </a>
   ))}
 </nav>
+<p class="blog-language-note" data-source-language-notice={showSourceLanguageNotice ? 'true' : undefined} role="note"><LocalizedText {...uiCopy.blog.sourceLanguageNotice} /></p>

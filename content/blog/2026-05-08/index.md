@@ -6,14 +6,17 @@ slug: less-is-more-2026-05-08
 category: less-is-more
 tags: []
 cover: "/uploads/blog/2026-05-08/7a164672-bdd4-407b-b794-85ffaad51ecc.png"
-coverAlt: "少即是多（中）：让 AI 精分的提示词的文章封面"
+coverAlt: "灰白建筑构图中，一位西装老人站在长方形台座后，画面写着 Less is More 与提示词相关文字"
+titleEn: "Less Is More (Part II): Prompts That Make AI Split-Brained"
+descriptionEn: "Have you ever written hundreds of words of prompts only to get chaotic images from AI—mixed styles, greasy surfaces, and compositions that do not belong together?"
+coverAltEn: "A gray-and-white architectural composition shows an older man in a suit behind a rectangular plinth, with Less Is More and prompt-related lettering"
 contentStatus: full
 featured: false
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/zjGOoAO00rYB-m37BCGVoA"
-  - label: "X"
+  - label: "x"
     url: "https://x.com/Formulasearch/status/2064891471413588370"
 ---
 
@@ -39,7 +42,7 @@ externalLinks:
 
 <strong>每个词确实都有用，但模型只会把它们堆到一起。</strong>
 
-![图像](https://pbs.twimg.com/media/HKd99rcWQAArl2O?format=jpg&name=large)
+![流程示意图把 AI 代写、模板拼贴和修补迭代三条线汇入一张带红蓝污渍的破损文档，表现提示词越改越乱](https://pbs.twimg.com/media/HKd99rcWQAArl2O?format=jpg&name=large)
 
 ## 二、同一条规律，换了一个载体
 
@@ -53,7 +56,7 @@ externalLinks:
 
 这句话在1928年的建筑里成立，在1980年代的平面设计里成立，到了2026年，<strong>在AI生图领域依然成立。</strong>
 
-![图像](https://pbs.twimg.com/media/HKd98RGXAAAfRIn?format=jpg&name=large)
+![三格时间线从 1928 年的玻璃住宅、1980 年代的 Less but better 海报延伸到 2026 年的空白提示输入框](https://pbs.twimg.com/media/HKd98RGXAAAfRIn?format=jpg&name=large)
 
 <strong>传统的手绘或 PS 画图，是所见即所得的逐层修改——调一笔，看一眼。</strong>
 
@@ -69,7 +72,7 @@ externalLinks:
 
 每个词，模型都会给它一定的注意力权重。提示词越长，每个词分到的权重越少。十个词同时争夺模型的注意力——结果就是都不够强。
 
-![图像](https://pbs.twimg.com/media/HKd-6iJX0AAMmw-?format=jpg&name=large)
+![注意力分配对比图，上方少量粗大的蓝色区块与下方大量细小的红色区块共享同样的注意力范围](https://pbs.twimg.com/media/HKd-6iJX0AAMmw-?format=jpg&name=large)
 
 这跟上篇讲的"留白"是同一个逻辑。
 
@@ -87,7 +90,7 @@ externalLinks:
 
 就像要求厨师做菜："这道菜又辣又甜又酸又咸又清淡又浓郁"——最后端上来的东西，什么味都有，这能好吃吗？
 
-![图像](https://pbs.twimg.com/media/HKd_FRMW8AES7Cv?format=jpg&name=large)
+![概念串扰示意图，一碗灰色食物被甜、辣、酸、咸、清淡和浓郁等相互冲突的标签同时指向](https://pbs.twimg.com/media/HKd_FRMW8AES7Cv?format=jpg&name=large)
 
 ## 三、一个字，就能让图翻车
 
@@ -101,17 +104,17 @@ externalLinks:
 
 此外还能看出每家模型比例、画风等也各有区别，但这里不做具体讨论。
 
-![图像](https://pbs.twimg.com/media/HKd_NxaW8AA3F0k?format=jpg&name=large)
+![红发或绿发提示词的第一组结果，六张写实与插画风格的女性头像分别呈现红色、绿色和红绿混合发色](https://pbs.twimg.com/media/HKd_NxaW8AA3F0k?format=jpg&name=large)
 
 Gemini的结果
 
-![图像](https://pbs.twimg.com/media/HKd_QYXWEAAG9f9?format=jpg&name=large)
+![红发或绿发提示词的第二组结果，六张女性头像以红色、绿色和双色头发呈现模型的颜色偏向](https://pbs.twimg.com/media/HKd_QYXWEAAG9f9?format=jpg&name=large)
 
 Imgae-2的结果
 
 而 Grok 比较有意思，测试了几次，每次Grok都是干脆直接生成一红一绿两张图，让我自己选，哈哈。
 
-![图像](https://pbs.twimg.com/media/HKd_ZBJXsAAYyKL?format=jpg&name=large)
+![聊天界面截图中，红色头发版和绿色头发版的动漫头像上下排列，旁边文字让用户选择喜欢的颜色](https://pbs.twimg.com/media/HKd_ZBJXsAAYyKL?format=jpg&name=large)
 
 那么可以看出不管哪种处理，指向同一个事实：<strong>并不是你决定了这张图片</strong>
 
@@ -123,7 +126,7 @@ Google 官方提示指南里有一组现成的对照：<strong>描述你要什�
 
 我用 Gemini 把这组对照演示一遍：
 
-![图像](https://pbs.twimg.com/media/HKd_0nEW8AAttsr?format=jpg&name=large)
+![两组街道生成结果对比，上方是没有车辆的空旷街道，下方仍出现行人、咖啡座和自行车](https://pbs.twimg.com/media/HKd_0nEW8AAttsr?format=jpg&name=large)
 
 如图所示，上图确实是空旷的街道，而下图中“车”确实没有，但行人、露天咖啡座全冒出来了。
 
@@ -145,7 +148,7 @@ Google 官方提示指南里有一组现成的对照：<strong>描述你要什�
 
 <strong>Midjourney《Prompt Basics》原文：</strong>[Prompt Basics – Midjourney](https://docs.midjourney.com/hc/en-us/articles/32023408776205-Prompt-Basics)
 
-![图像](https://pbs.twimg.com/media/HKeANvwXMAAjS4i?format=png&name=large)
+![Midjourney Prompting Tips 页面截图，红线强调短而简单的提示词通常更好，并提醒避免长列表和复杂指令](https://pbs.twimg.com/media/HKeANvwXMAAjS4i?format=png&name=large)
 
 > "Short and simple prompts typically generate the best images."
 
@@ -157,7 +160,7 @@ Google 官方提示指南里有一组现成的对照：<strong>描述你要什�
 
 <strong>OpenAI 的官方提示指南给的方法</strong>，标题就叫"<strong>迭代，而不是堆料</strong>"（Iterate instead of overloading）：[GPT Image Generation Models Prompting Guide](https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide)
 
-![图像](https://pbs.twimg.com/media/HKeAZQuW8AABIU1?format=jpg&name=large)
+![官方提示指南截图，红线强调从干净的基础提示词开始，并通过一次只改一个变化的追问逐步迭代](https://pbs.twimg.com/media/HKeAZQuW8AABIU1?format=jpg&name=large)
 
 > "Long prompts can work well, but debugging is easier when you start with a clean base prompt and refine with small, single-change follow-ups."
 
@@ -167,7 +170,7 @@ Google 官方提示指南里有一组现成的对照：<strong>描述你要什�
 
 <strong>Google 的 Nano Banana 官方提示指南</strong>稍微有些区别。[Ultimate prompting guide for Nano Banana | Google Cloud Blog](https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-nano-banana) 它通篇虽然没说"写短"，但给的四条最佳实践却条条在省权重，如其中两条：
 
-![图像](https://pbs.twimg.com/media/HKeAedzXQAACE12?format=png&name=large)
+![图像提示指南要点截图，列出正向描述、控制镜头和通过后续提示迭代三条建议](https://pbs.twimg.com/media/HKeAedzXQAACE12?format=png&name=large)
 
 > "Use positive framing: Describe what you want, not what you don't want (e.g. 'empty street' instead of 'no cars')."
 
@@ -185,7 +188,7 @@ Google 官方提示指南里有一组现成的对照：<strong>描述你要什�
 
 各个模型的口味确实不同，Nano Banana 像爱详细菜谱的厨师，每道工序交代清楚，他照着做——所以 Google 的指南才教你连布光、镜头都写明白。GPT-Image-2 像只需要听一句"做道川菜"的厨师，菜谱太细反而绑住他的手脚。
 
-![图像](https://pbs.twimg.com/media/HKeAnOiW4AAa_RD?format=jpg&name=large)
+![黑白双厨师概念插画，左侧厨师捧着菜谱，右侧厨师举锅烹饪，火焰使用红蓝色点缀](https://pbs.twimg.com/media/HKeAnOiW4AAa_RD?format=jpg&name=large)
 
 顺带澄清一个容易混淆的点：<strong>结构化不等于堆砌。</strong> 用JSON把提示词写得整整齐齐照样出好图，因为结构化的本质是消除歧义——它和少即是多在做同一件事：让信号干净。
 
@@ -201,7 +204,7 @@ Google 官方提示指南里有一组现成的对照：<strong>描述你要什�
 
 可以把这篇文章连同上篇，原文一起复制给你的AI，加一句话："查看并分析这篇文章，以后帮我写提示词的时候，先用这套逻辑思考一遍，与我沟通交流后再产出提示词。"
 
-![图像](https://pbs.twimg.com/media/HKeAxnnXEAAYpHC?format=jpg&name=large)
+![提示词框架示意图，一篇关于注意力的文章通过线条汇入底部的 Prompt Input 输入框](https://pbs.twimg.com/media/HKeAxnnXEAAYpHC?format=jpg&name=large)
 
 下一篇·实测篇：我选择了四种比较常见的图片类型——封面、插图、海报、产品图，逐个测试，希望会对大家有帮助。
 

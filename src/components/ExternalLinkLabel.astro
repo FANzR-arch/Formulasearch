@@ -1,0 +1,18 @@
+---
+import LocalizedText from './LocalizedText.astro'
+import { uiCopy } from '../data/ui-copy'
+
+interface Props {
+  label: 'wechat' | 'x' | 'original'
+}
+
+const labels = {
+  wechat: uiCopy.platforms.wechat,
+  x: uiCopy.platforms.x,
+  original: uiCopy.platforms.original,
+} as const
+
+const { label } = Astro.props
+---
+
+<LocalizedText {...labels[label]} />

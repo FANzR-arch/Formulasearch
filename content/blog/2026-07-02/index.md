@@ -6,14 +6,17 @@ slug: prompt-aesthetic-2026-07-02
 category: prompt-aesthetic
 tags: []
 cover: "/uploads/blog/2026-07-02/HMMfIQIXkAA-qiW.jpg"
-coverAlt: "提示词美学解码 × 新粗野主义：反AI味！的文章封面"
+coverAlt: "蓝色与米白色粗野主义网页视觉拼贴，包含中文新粗野主义标题、输入输出代码面板与黄色 RUN 按钮"
+titleEn: "Prompt Aesthetics Decoded × New Brutalism: Double AI Flavor!"
+descriptionEn: "Many websites now look like the same template: soft gradients, rounded cards, and glassmorphism. They may look polished, but a screenshot makes them hard to tell apart—and vibe-coded interfaces can be ugly enough to stop you looking."
+coverAltEn: "A blue-and-warm-white New Brutalist web collage includes a Chinese headline, input/output code panels, and a yellow RUN button"
 contentStatus: full
 featured: true
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/MdVn6MkyatsS71buCJofdA"
-  - label: "X"
+  - label: "x"
     url: "https://x.com/Formulasearch/status/2072536799524646914"
 ---
 
@@ -29,7 +32,7 @@ externalLinks:
 
 <strong>2014，网页设计里的反抗</strong>
 
-![图像](https://pbs.twimg.com/media/HMMfMf9X0AAtGsj?format=jpg&name=large)
+![新粗野主义网站参考拼贴，汇集 Brutalist Websites、RAW Magazine、Disslist、个人作品站和多种高对比排版页面](https://pbs.twimg.com/media/HMMfMf9X0AAtGsj?format=jpg&name=large)
 
 2014 年，设计师 Pascal Deville 建了 [Brutalist Websites](https://brutalistwebsites.com/)，专门收录一批「反常规」的网页设计，两年后这个说法开始流行。
 
@@ -37,7 +40,7 @@ Deville 的形容是「一种不在乎自己看起来舒不舒服的粗粝感」
 
 <strong>2021，产品界面里的系统化</strong>
 
-![图像](https://pbs.twimg.com/media/HMMfO-nW4AAC3E6?format=jpg&name=large)
+![Gumroad 新粗野主义产品界面参考，展示粗黑边框、硬投影、分类导航、商品卡片和筛选面板](https://pbs.twimg.com/media/HMMfO-nW4AAC3E6?format=jpg&name=large)
 
 2021 年 [Gumroad](https://gumroad.gumroad.com/) 的改版，让这套视觉变成今天能一眼认出的样子：创始人 Sahil Lavingia 把界面推倒重做，粗黑边框，扁平高饱和主色，向右下偏移的硬投影。几个月内，Figma 社区冒出大量同款风格的 UI 组件库。2022 年，设计师 Michał Malewicz 写文章把这套视觉正式命名为 Neubrutalism。
 
@@ -51,19 +54,19 @@ Deville 的形容是「一种不在乎自己看起来舒不舒服的粗粝感」
 
 <strong>01｜本文封面｜爆裂式断裂网格｜标题「新粗野主义」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMet-VXwAAEzwC?format=jpg&name=large)
+![新粗野主义文章封面，黄色与蓝色块叠加“新粗野主义”标题、警告窗口和 Anti-Polish 标签](https://pbs.twimg.com/media/HMMet-VXwAAEzwC?format=jpg&name=large)
 
 <strong>02｜AI Agent 自动化｜破损开关 + 系统告警贴纸｜标题「Loop Engineer」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMevCuXYAAAGX6?format=jpg&name=large)
+![Loop Engineer 自动化封面，黄色与白色胶囊形按钮中放置鼠标图形，周围有警告窗口和系统状态标签](https://pbs.twimg.com/media/HMMevCuXYAAAGX6?format=jpg&name=large)
 
 <strong>03｜Prompt 方法论 / 提示词工程｜网页界面式构图｜标题「提示词」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMev-IXUAALPSp?format=jpg&name=large)
+![提示词工具封面，以 INPUT、RUN、OUTPUT 三个界面面板和红色运行按钮组成粗边框工作流](https://pbs.twimg.com/media/HMMev-IXUAALPSp?format=jpg&name=large)
 
 <strong>04｜内容资产系统｜混乱到有序的转化｜标题「资产」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMew08W4AA0T89?format=jpg&name=large)
+![内容资产系统封面，草稿、图片、视频和社交卡片沿箭头汇入“资产”面板，展示整理流程](https://pbs.twimg.com/media/HMMew08W4AA0T89?format=jpg&name=large)
 
 <strong>文生图｜复制即用：通用文章封面提示词</strong>
 
@@ -127,7 +130,7 @@ glassmorphism, soft gradient SaaS look, glossy 3D, realistic scene, full complex
 
 <strong>示例｜AI 提示词管理工具定价页｜标题「PROMPT OS」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMfd65W4AAEena?format=jpg&name=large)
+![Gumroad 产品市场界面，顶部搜索和分类导航，下方以商品卡片、价格标签、评分和筛选栏组成商城](https://pbs.twimg.com/media/HMMfd65W4AAEena?format=jpg&name=large)
 
 <strong>文生图｜复制即用：产品/工具视觉概念示意图提示词</strong>
 
@@ -187,7 +190,7 @@ glassmorphism, soft shadows, glossy 3D, Apple-style clean UI, blue-purple gradie
 
 <strong>示例｜开源 CLI 工具主页｜标题「TERMINAL KIT」</strong>
 
-![图像](https://pbs.twimg.com/media/HMMfi7NXMAA2TfL?format=jpg&name=large)
+![TERMINAL KIT 开源工具主页概念，以黑色终端窗口、彩色代码块、模块列表和系统状态卡展示 CLI 工具](https://pbs.twimg.com/media/HMMfi7NXMAA2TfL?format=jpg&name=large)
 
 <strong>文生图｜复制即用：开发者视觉概念示意图提示词</strong>
 
@@ -245,13 +248,13 @@ glassmorphism, soft gradient SaaS look, realistic IDE screenshot, readable real 
 
 <strong>风格：薄荷绿为主色+新粗野主义UI</strong>
 
-![图像](https://pbs.twimg.com/media/HMMfntpXQAAYPeE?format=jpg&name=large)
+![时间记录工具仪表盘，包含日期筛选、专注时长、应用统计、时间分布柱状图、雷达图和工作分类列表](https://pbs.twimg.com/media/HMMfntpXQAAYPeE?format=jpg&name=large)
 
 > 4月10日
 
 <strong>本篇“新粗野主义”分享完，最初起源于建筑学的“传统粗野主义”，也将在下篇展开，感谢支持。</strong>
 
-![图像](https://pbs.twimg.com/media/HMMe3lxXgAA8uzD?format=jpg&name=large)
+![新粗野主义实践案例，深灰混凝土模块建筑在黑色背景前堆叠，中央带巨大交叉体块和“真实之力”字样](https://pbs.twimg.com/media/HMMe3lxXgAA8uzD?format=jpg&name=large)
 
 <strong>🥳</strong><strong>感谢看到这里，我是阿哲Phil，"一个自由的提示词诗人"</strong>
 

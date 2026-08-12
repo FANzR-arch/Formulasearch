@@ -6,12 +6,15 @@ slug: ai-knowledge-2025-12-26
 category: ai-knowledge
 tags: []
 cover: "/uploads/blog/2025-12-26/0fc13a0e-618c-4766-812a-b30d440baa00.jpeg"
-coverAlt: "AI没有“自我”，别再问AI「你怎么看了」的文章封面"
+coverAlt: "漫画分屏对比人与 AI 的对话：左侧把 AI 当作会表达观点的人，右侧机器人以模拟器身份回应"
+titleEn: "AI Has No “Self”—Stop Asking AI “What Do You Think?”"
+descriptionEn: "AI is not a person or an entity. Stop treating it like a human when you chat with it."
+coverAltEn: "A split-screen comic contrasting a human-like AI conversation on the left with a robot answering as a simulator on the right"
 contentStatus: index-only
 featured: false
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/IknY8U4B6HJbVIuyQXU3Ow"
 ---
 

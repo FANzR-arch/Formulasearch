@@ -6,12 +6,15 @@ slug: personal-thinking-2026-03-19
 category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-03-19/1e8d3666-c710-4858-b356-f3a67f054fd9.jpeg"
-coverAlt: "请多说话，这世界会记住你的文章封面"
+coverAlt: "像素风游戏场景中的彩色多语言文字拱门，人物沿着通往城市的道路前进"
+titleEn: "Speak More. The World Will Remember You."
+descriptionEn: "Once, humanity spoke one language and tried to build a tower reaching heaven to praise itself. God took it as a challenge and scrambled everyone’s language."
+coverAltEn: "A colorful multilingual text arch stands in a pixel-art game scene as a person walks along a road toward a city"
 contentStatus: full
 featured: false
 draft: false
 externalLinks:
-  - label: "X"
+  - label: "x"
     url: "https://x.com/Formulasearch/status/2060659111637758041"
 ---
 
@@ -43,7 +46,7 @@ Grok的自动翻译上线。你用中文发帖，日本人看到的是日文，�
 
 ## 二、诅咒破了，但有人还在沉默
 
-![图像](https://pbs.twimg.com/media/HJjrqaHWQAMd2OU?format=jpg&name=large)
+![像素风方块世界中，一名人物举着发光文字方块站在裂开的石墙前，后方是阳光照亮的村镇和市场](https://pbs.twimg.com/media/HJjrqaHWQAMd2OU?format=jpg&name=large)
 
 语言的诅咒，被打破了。
 
@@ -61,7 +64,7 @@ Grok的自动翻译上线。你用中文发帖，日本人看到的是日文，�
 
 我说说我自己。
 
-![图像](https://pbs.twimg.com/media/HJjr1vXWkAIBiRS?format=jpg&name=large)
+![像素风工作室里的人物坐在桌前，旁边有建筑模型和写着 AI 的小屋，一条发光道路通向写有“开始说话”的牌子](https://pbs.twimg.com/media/HJjr1vXWkAIBiRS?format=jpg&name=large)
 
 三本毕业，考研失败，工作两年，折腾两年公司倒闭，手里只有五万块钱。
 
@@ -111,7 +114,7 @@ Grok的自动翻译上线。你用中文发帖，日本人看到的是日文，�
 
 <strong>你说的每一句话，都是你在世界里留下的一个信标。</strong>
 
-![图像](https://pbs.twimg.com/media/HJjtXi-WoAQSgtb?format=jpg&name=large)
+![俯瞰像素风大陆，彩色对话气泡节点通过发光连线连接各地，中央地面用巨型发光汉字组成坐标意象](https://pbs.twimg.com/media/HJjtXi-WoAQSgtb?format=jpg&name=large)
 
 没有坐标的人，没有人能找到你。
 
@@ -127,7 +130,7 @@ Grok的自动翻译上线。你用中文发帖，日本人看到的是日文，�
 
 但前提是，你得先说话。
 
-![图像](https://pbs.twimg.com/media/HJjtncEXIAMt3ht?format=jpg&name=large)
+![像素风城市广场中央立着巨大的“公开”字样，周围有 Build in Public、项目进展图表、社区反馈和创作者商店](https://pbs.twimg.com/media/HJjtncEXIAMt3ht?format=jpg&name=large)
 
 ## Expression is all you need.
 
@@ -143,7 +146,7 @@ build in public，learn in public——这些话我学了很久，真正理解�
 
 ## 五、可以专心经营，也可以做泛流量
 
-![图像](https://pbs.twimg.com/media/HJjtp_MW4AQAule?format=jpg&name=large)
+![社交平台个人主页截图，顶部是白色狗狗横幅，简介下方列出多个产品名称、月收入数字和关注者统计](https://pbs.twimg.com/media/HJjtp_MW4AQAule?format=jpg&name=large)
 
 Pieter Levels，一个人做了 Nomad List、Remote OK 好几个产品，年入百万美元。他的秘密不是技术——他把每一步都公开发在网上。build in public。失败公开，成功公开，收入也公开。
 
@@ -175,7 +178,7 @@ Pieter Levels，一个人做了 Nomad List、Remote OK 好几个产品，年入�
 
 <strong>说一句完整的话</strong>，不说「以后再说」。 一条就够了，今天就发。
 
-![图像](https://pbs.twimg.com/media/HJjt8BeWQAMkw3w?format=jpg&name=large)
+![明亮的像素风道路通向“开始”入口，沿途三块编号牌写着“正在发生”“你的判断”“今天就发”，右侧是说出事实、表达判断和及时行动的任务清单](https://pbs.twimg.com/media/HJjt8BeWQAMkw3w?format=jpg&name=large)
 
 ## 七、最后的那堵墙，是自己的心态
 
@@ -191,7 +194,7 @@ Pieter Levels，一个人做了 Nomad List、Remote OK 好几个产品，年入�
 
 <strong>多说话，这个世界会记住你。</strong>
 
-![图像](https://pbs.twimg.com/media/HJjuX8aWYAIZDsb?format=jpg&name=large)
+![像素风石质城堡从中央裂开，裂缝中透出金色光芒，墙面刻着巨大的发光汉字，空中漂浮着许多对话气泡](https://pbs.twimg.com/media/HJjuX8aWYAIZDsb?format=jpg&name=large)
 
 🥳 感谢看到这里，我是 Phil，前建筑师 → AI 产品
 

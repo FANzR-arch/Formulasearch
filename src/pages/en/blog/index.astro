@@ -1,0 +1,9 @@
+---
+import BlogLatestView from '../../../components/BlogLatestView.astro'
+import BlogLayout from '../../../layouts/BlogLayout.astro'
+import { pageMeta } from '../../../data/page-meta'
+---
+
+<BlogLayout title={pageMeta.blog.title.zh} titleEn={pageMeta.blog.title.en} description={pageMeta.blog.description.zh} descriptionEn={pageMeta.blog.description.en} locale="en">
+  <BlogLatestView locale="en" />
+</BlogLayout>

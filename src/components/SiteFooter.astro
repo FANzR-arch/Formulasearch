@@ -1,0 +1,19 @@
+---
+import LocalizedText from './LocalizedText.astro'
+import { siteConfig } from '../data/site-config'
+import { getLocalizedRoute, siteRoutes } from '../data/site-routes'
+import { uiCopy } from '../data/ui-copy'
+import type { Locale } from '../lib/i18n'
+
+interface Props {
+  locale?: Locale
+  variant?: 'catalog' | 'site'
+}
+
+const { locale = 'zh', variant = 'site' } = Astro.props
+---
+
+<footer class={variant === 'catalog' ? 'catalog-footer' : 'site-footer'}>
+  <span>© {new Date().getFullYear()} {siteConfig.name}</span>
+  <a href={getLocalizedRoute(siteRoutes.home, locale)}><LocalizedText {...uiCopy.common.returnHome} /></a>
+</footer>

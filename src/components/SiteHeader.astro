@@ -1,67 +1,86 @@
 ---
+import { Aperture, ChevronDown, DraftingCompass, Globe, Menu, Moon, Sun, X } from '@lucide/astro'
+import { primaryNavigation, type PrimarySection } from '../data/navigation'
+import { siteConfig } from '../data/site-config'
+import { getLocalizedRoute, siteRoutes } from '../data/site-routes'
+import { uiCopy } from '../data/ui-copy'
+import { getLocalizedValue, interpolateLocalizedCopy, type Locale } from '../lib/i18n'
+import LocalizedText from './LocalizedText.astro'
+
 interface Props {
-  active?: 'blog' | 'projects' | 'skills' | 'lab'
-  email: string
+  active?: PrimarySection | 'photos' | 'architecture'
+  locale?: Locale
   logoMode?: 'background' | 'home'
 }
 
-const { active, email, logoMode = 'home' } = Astro.props
+const { active, locale = 'zh', logoMode = 'home' } = Astro.props
+const localizedRoute = (route: string) => getLocalizedRoute(route, locale)
+const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, locale)
+const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProfile, {
+  name: { zh: siteConfig.author.name, en: siteConfig.author.name },
+})
 
-const blogMenu = [
-  { href: '/blog', label: 'Latest', note: '最近发布' },
-  { href: '/blog/series', label: 'Series', note: '按主题阅读' },
-  { href: '/blog/archive', label: 'Archive', note: '全部文章' },
-]
 ---
 
-<header class="site-header" aria-label="Primary navigation">
+<header class="site-header" aria-label={localized(uiCopy.navigation.primary)} data-aria-en={uiCopy.navigation.primary.en} data-aria-zh={uiCopy.navigation.primary.zh}>
   {logoMode === 'background' ? (
-    <button id="background-cycle" class="monogram" type="button" aria-label="切换背景特效" title="切换背景特效">
+    <button id="background-cycle" class="monogram" type="button" aria-label={localized(uiCopy.navigation.backgroundEffect)} data-aria-en={uiCopy.navigation.backgroundEffect.en} data-aria-zh={uiCopy.navigation.backgroundEffect.zh} title={localized(uiCopy.navigation.backgroundEffect)} data-title-en={uiCopy.navigation.backgroundEffect.en} data-title-zh={uiCopy.navigation.backgroundEffect.zh}
+      data-background-cycle-zh={uiCopy.navigation.backgroundCycle.zh} data-background-cycle-en={uiCopy.navigation.backgroundCycle.en}
+      data-background-names={encodeURIComponent(JSON.stringify(uiCopy.navigation.backgroundVariants))}>
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </button>
   ) : (
-    <a class="monogram" href="/" aria-label="返回首页" title="返回首页">
+    <a class="monogram" href={localizedRoute(siteRoutes.home)} aria-label={localized(uiCopy.common.returnHome)} data-aria-en={uiCopy.common.returnHome.en} data-aria-zh={uiCopy.common.returnHome.zh} title={localized(uiCopy.common.returnHome)} data-title-en={uiCopy.common.returnHome.en} data-title-zh={uiCopy.common.returnHome.zh}>
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </a>
   )}
 
-  <nav class="site-nav" aria-label="网站导航">
-    <div class="nav-menu">
-      <a class:list={['nav-link', { 'is-active': active === 'blog' }]} href="/blog" aria-haspopup="true">Blog</a>
-      <div class="nav-popover" aria-label="Blog 子菜单">
-        {blogMenu.map((item) => (
-          <a href={item.href}>
-            <span>{item.label}</span>
-            <small>{item.note}</small>
-          </a>
-        ))}
+  <button id="mobile-navigation-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label={localized(uiCopy.navigation.openNavigation)} data-nav-open-zh={uiCopy.navigation.openNavigation.zh} data-nav-open-en={uiCopy.navigation.openNavigation.en} data-nav-close-zh={uiCopy.navigation.closeNavigation.zh} data-nav-close-en={uiCopy.navigation.closeNavigation.en}>
+    <Menu class="mobile-nav-toggle__menu" aria-hidden="true" />
+    <X class="mobile-nav-toggle__close" aria-hidden="true" />
+  </button>
+
+  <nav id="site-navigation" class="site-nav" aria-label={localized(uiCopy.navigation.site)} data-aria-en={uiCopy.navigation.site.en} data-aria-zh={uiCopy.navigation.site.zh}>
+    {primaryNavigation.map((section) => (
+      <div class="nav-menu">
+        <div class="nav-menu__trigger">
+          <a class:list={['nav-link', { 'is-active': active === section.id }]} href={localizedRoute(section.href)} aria-current={active === section.id ? 'page' : undefined}><LocalizedText {...section.label} /></a>
+          <button class="nav-disclosure" type="button" aria-haspopup="true" aria-expanded="false" aria-controls={`nav-panel-${section.id}`} aria-label={localized(interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }))} data-nav-open-zh={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).zh} data-nav-open-en={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).en} data-nav-close-zh={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).zh} data-nav-close-en={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).en}>
+            <ChevronDown aria-hidden="true" />
+          </button>
+        </div>
+        <div id={`nav-panel-${section.id}`} class="nav-popover" role="group" aria-label={localized(interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }))} data-aria-en={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).en} data-aria-zh={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).zh} inert>
+          {section.menu.map((item, index) => (
+            <a href={localizedRoute(item.href)}>
+              <small>{String(index + 1).padStart(2, '0')}</small>
+              <span><LocalizedText {...item.label} /></span>
+              <em><LocalizedText {...item.note} /></em>
+            </a>
+          ))}
+        </div>
       </div>
+    ))}
+    <div class="nav-utilities">
+      <span class="nav-divider nav-divider--archive" aria-hidden="true"></span>
+      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'photos' }]} href={localizedRoute(siteRoutes.photos)} aria-current={active === 'photos' ? 'page' : undefined} aria-label={localized(uiCopy.navigation.photos)} data-aria-en={uiCopy.navigation.photos.en} data-aria-zh={uiCopy.navigation.photos.zh} title={localized(uiCopy.navigation.photos)} data-title-en={uiCopy.navigation.photos.en} data-title-zh={uiCopy.navigation.photos.zh}>
+        <Aperture aria-hidden="true" />
+      </a>
+      <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'architecture' }]} href={localizedRoute(siteRoutes.architecture)} aria-current={active === 'architecture' ? 'page' : undefined} aria-label={localized(uiCopy.navigation.architecture)} data-aria-en={uiCopy.navigation.architecture.en} data-aria-zh={uiCopy.navigation.architecture.zh} title={localized(uiCopy.navigation.architecture)} data-title-en={uiCopy.navigation.architecture.en} data-title-zh={uiCopy.navigation.architecture.zh}>
+        <DraftingCompass aria-hidden="true" />
+      </a>
+      <span class="nav-divider nav-divider--social" aria-hidden="true"></span>
+      <a class="icon-link icon-link--brand icon-link--github" href={siteConfig.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={localized(githubProfileLabel)} data-aria-en={githubProfileLabel.en} data-aria-zh={githubProfileLabel.zh} title={localized(githubProfileLabel)} data-title-en={githubProfileLabel.en} data-title-zh={githubProfileLabel.zh}>
+        <img src="/brand/github-mark.svg" alt="" aria-hidden="true" />
+      </a>
+      <button id="language-toggle" class="language-toggle" type="button" aria-label={localized(locale === 'en' ? uiCopy.navigation.switchToChinese : uiCopy.navigation.switchToEnglish)} title={localized(locale === 'en' ? uiCopy.navigation.switchToChinese : uiCopy.navigation.switchToEnglish)} data-label-en-zh={uiCopy.navigation.switchToEnglish.zh} data-label-en-en={uiCopy.navigation.switchToEnglish.en} data-label-zh-zh={uiCopy.navigation.switchToChinese.zh} data-label-zh-en={uiCopy.navigation.switchToChinese.en} aria-pressed={locale === 'en' ? 'true' : 'false'}>
+        <Globe aria-hidden="true" />
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label={localized(uiCopy.navigation.themeToDark)} data-aria-en={uiCopy.navigation.themeToDark.en} data-aria-zh={uiCopy.navigation.themeToDark.zh} title={localized(uiCopy.navigation.themeToDark)} data-title-en={uiCopy.navigation.themeToDark.en} data-title-zh={uiCopy.navigation.themeToDark.zh} aria-pressed="false">
+        <Sun class="theme-icon__sun" aria-hidden="true" />
+        <Moon class="theme-icon__moon" aria-hidden="true" />
+      </button>
     </div>
-    <span class:list={['nav-link', 'nav-link--pending', { 'is-active': active === 'projects' }]} title="即将开放">Projects</span>
-    <span class:list={['nav-link', 'nav-link--pending', { 'is-active': active === 'skills' }]} title="即将开放">Skills</span>
-    <span class:list={['nav-link', 'nav-link--pending', { 'is-active': active === 'lab' }]} title="即将开放">Lab</span>
-    <span class="nav-divider" aria-hidden="true"></span>
-    <a class="icon-link icon-link--brand icon-link--x" href="https://x.com/Formulasearch" target="_blank" rel="noreferrer" aria-label="Carlos Phil on X" title="X">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z" />
-      </svg>
-    </a>
-    <a class="icon-link icon-link--brand icon-link--github" href="https://github.com/FANzR-arch" target="_blank" rel="noreferrer" aria-label="Carlos Phil on GitHub" title="GitHub">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-      </svg>
-    </a>
-    <a class="icon-link icon-link--ui icon-link--mail" href={`mailto:${email}`} aria-label="给 Carlos Phil 发邮件" title="Email">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-      </svg>
-    </a>
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换黑白主题" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path class="theme-icon__sun" d="M12 3v2m0 14v2M3 12h2m14 0h2m-2.64-6.36-1.42 1.42M6.06 17.94l1.42-1.42m0-9.46-1.42-1.42m12.02 12.02-1.42-1.42M15.5 12a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" />
-        <path class="theme-icon__moon" d="M18.5 15.32A7.2 7.2 0 0 1 8.68 5.5 7.2 7.2 0 1 0 18.5 15.32Z" />
-      </svg>
-    </button>
   </nav>
 </header>
+
+<script is:inline src="/scripts/site-header.js"></script>

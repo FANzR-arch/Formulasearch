@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getBlogCategory } from '../data/blog-categories'
+import { getBlogPostRoute } from '../data/site-routes'
+import LocalizedText from './LocalizedText.astro'
+import { uiCopy } from '../data/ui-copy'
+
+interface Props {
+  posts: CollectionEntry<'blog'>[]
+}
+
+const { posts } = Astro.props
+const formatDate = (date: Date) => date.toISOString().slice(0, 10).replaceAll('-', '.')
+---
+
+{posts.length > 0 && (
+  <section class="article-related" aria-labelledby="related-title">
+    <header class="article-related__heading">
+      <p><LocalizedText {...uiCopy.blog.keepReading} /></p>
+      <h2 id="related-title"><LocalizedText {...uiCopy.blog.relatedArticles} /></h2>
+    </header>
+    <div class="article-related__list">
+      {posts.map((post) => {
+        const category = getBlogCategory(post.data.category)
+        const titleEn = post.data.titleEn ?? post.data.title
+        const descriptionEn = post.data.descriptionEn ?? post.data.description
+        return (
+          <article class="article-related__item">
+            <p class="article-related__meta">
+              <LocalizedText zh={category.title} en={category.titleEn} />
+              <span aria-hidden="true">·</span>
+              <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate)}</time>
+            </p>
+            <h3><a href={getBlogPostRoute(post.data.slug, post.data.contentLanguage)}><LocalizedText zh={post.data.title} en={titleEn} enLang={post.data.titleEn ? 'en' : 'zh-Hans'} /></a></h3>
+            <p class="article-related__description"><LocalizedText zh={post.data.description} en={descriptionEn} enLang={post.data.descriptionEn ? 'en' : 'zh-Hans'} /></p>
+          </article>
+        )
+      })}
+    </div>
+  </section>
+)}

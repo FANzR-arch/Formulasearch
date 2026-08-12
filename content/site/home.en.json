@@ -1,0 +1,28 @@
+{
+  "name": "Phil",
+  "email": "vphil981011@gmail.com",
+  "social": {
+    "label": "@Formulasearch",
+    "url": "https://x.com/Formulasearch"
+  },
+  "contactLabel": "Find me here",
+  "contactEmailPrefix": "Or email me: ",
+  "heroImage": "",
+  "heroImageAlt": "",
+  "intro": [
+    "Hi, I’m Phil — a curious AI builder and designer."
+  ],
+  "about": [
+    "My exploration began with architectural design and gradually moved toward the intersection of AIGC, interaction design, and the internet.",
+    "I enjoy working with AI to clarify fuzzy ideas and turn them into useful things. Formulasearch is my personal practice hub: a place for the projects I am making, blog posts, Skills, and tools I want to share. Some come from independent exploration; others are made with collaborators."
+  ],
+  "interest": [
+    "Outside of vibe coding, I also enjoy photography and travel, and occasionally share the images and fragments I record along the way."
+  ],
+  "sponsor": "If something I share is useful to you, you are welcome to buy me a coffee. Thank you.",
+  "identity": [],
+  "now": [],
+  "work": [],
+  "writing": "",
+  "resources": ""
+}

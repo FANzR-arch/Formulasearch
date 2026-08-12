@@ -6,14 +6,17 @@ slug: ai-practice-2026-03-27
 category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-03-27/12370608-bc33-4e31-81b3-18e20fcfab99.png"
-coverAlt: "如何使用codex+image2进行视频内容创作的文章封面"
+coverAlt: "米白色流程图展示 GPT-Image-2 与 Codex 制作产品视频，包含写分镜、生成预览、布局、代码、动画和输出视频等节点"
+titleEn: "How to Create Video Content with Codex + Image2"
+descriptionEn: "A few dozen seconds of product video can cost tens of thousands, but I did not open an editing app. I built it with code: first create visual previsualizations for every scene with GPT-Image-2, then hand them to Codex to reproduce in code."
+coverAltEn: "A warm-white flowchart shows GPT-Image-2 and Codex creating a product video through storyboards, previews, layout, code, animation, and final output"
 contentStatus: full
 featured: false
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/-sTHd6EKz_LrsmKGBeO-SQ"
-  - label: "X"
+  - label: "x"
     url: "https://x.com/Formulasearch/status/2051491008378974303"
 ---
 
@@ -23,13 +26,10 @@ externalLinks:
 
 <strong>先看成品</strong><strong>👇</strong><strong>：</strong>
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2051489040344449024/img/6HoM7w4jgSqzECHr.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+![白色界面的成品视频预览，画面中央几乎留白，只显示一个小型“LANGUAGE PROOF”标签](https://pbs.twimg.com/amplify_video_thumb/2051489040344449024/img/6HoM7w4jgSqzECHr.jpg)
 
-0:18
+![深色 Knowledge Hub 社区支持界面，community-help 频道中显示用户询问如何连接第一个知识库](https://pbs.twimg.com/amplify_video_thumb/2051488771829338118/img/VYK2KDJ_kx1Jyd39.jpg)
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2051488771829338118/img/VYK2KDJ_kx1Jyd39.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
-
-![](https://pbs.twimg.com/amplify_video_thumb/2051488771829338118/img/VYK2KDJ_kx1Jyd39.jpg?name=large)
 
 ## 为什么要先出图
 
@@ -79,15 +79,15 @@ Floating annotation card lower-right · semi-transparent dark background
 Overall tone: clinical and quietly wasteful.
 ```
 
-![图像](https://pbs.twimg.com/media/HHhZYjlXoAM74pP?format=jpg&name=large)
+![深色数据看板分镜，左侧是标注 32% 与 68% 的圆环图，右侧显示“4.2 hrs”和重复问题说明](https://pbs.twimg.com/media/HHhZYjlXoAM74pP?format=jpg&name=large)
 
 其他三个场景用同样格式出图。
 
-![图像](https://pbs.twimg.com/media/HHhZmZQXQAQcJns?format=jpg&name=large)
+![深色分屏分镜，左侧是 Knowledge Hub 文档页面，右侧堆满 community-help 的重复求助消息，底部写着“The answers exist. Nobody looks.”](https://pbs.twimg.com/media/HHhZmZQXQAQcJns?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HHhZmZQWYAIYLIz?format=jpg&name=large)
+![深色 ByteRider 用户教练卡片分镜，显示 Intermediate 等级、onboarding stuck、knowledge base 和 repeated questions 标签，以及绿色 readiness 进度条](https://pbs.twimg.com/media/HHhZmZQWYAIYLIz?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HHhZmZPWEAEqK8Y?format=jpg&name=large)
+![Knowledge Hub 的 community-help 频道分镜，三名用户重复询问如何连接知识库，右上角红色卡片标注同一问题本周出现 47 次](https://pbs.twimg.com/media/HHhZmZPWEAEqK8Y?format=jpg&name=large)
 
 每张图只问一件事：这个视觉方向对不对？对了才进下一步。
 
@@ -103,11 +103,11 @@ Style: product editorial illustration, not photo-realistic.
 Avoid: dark tones, heavy shadows, corporate clipart.
 ```
 
-![图像](https://pbs.twimg.com/media/HHhZGbsXUAIo52A?format=jpg&name=large)
+![米白色 Lucius 产品视觉图，标题写着“Language quality is designed.”，女性肖像被语气、上下文、耐心和诚实披露卡片环绕](https://pbs.twimg.com/media/HHhZGbsXUAIo52A?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HHhZjmPXkAMB2JO?format=jpg&name=large)
+![Lucius 对话界面，左侧写着“The conversation keeps going. Because it feels patient and human.”，右侧展示用户与 AI 支持助手的连续对话](https://pbs.twimg.com/media/HHhZjmPXkAMB2JO?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HHhZjmMWUAk77q_?format=jpg&name=large)
+![Lucius 对话界面，左侧写着“No handoff request.”，右侧用户询问 AI 的名字，助手自称支持队友并表示随时可以提供帮助](https://pbs.twimg.com/media/HHhZjmMWUAk77q_?format=jpg&name=large)
 
 <strong>背景纹理型（铺在 UI 下层用）</strong>
 
@@ -162,7 +162,7 @@ No patterns, no icons, no text, no focal point.
 
 美化一下然后配个bgm，就完成了。当然，为了让视频更好看，我选择使用[@FocuSeeHQ](https://x.com/@FocuSeeHQ)
 
-![图像](https://pbs.twimg.com/media/HHhZ3wcXkAMs96R?format=jpg&name=large)
+![FocuSee 视频编辑界面截图，正在编辑包含 68% 圆环图和 4.2 hrs 数据的深色画面，左侧显示 16:9 尺寸选项，底部有时间线和导出按钮](https://pbs.twimg.com/media/HHhZ3wcXkAMs96R?format=jpg&name=large)
 
 ## 这个工作流适合谁
 

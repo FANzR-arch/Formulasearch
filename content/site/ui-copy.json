@@ -1,0 +1,67 @@
+{
+  "common": {
+    "returnHome": { "zh": "返回首页", "en": "Return home" }
+  },
+  "navigation": {
+    "primary": { "zh": "网站主导航", "en": "Primary navigation" },
+    "site": { "zh": "网站导航", "en": "Site navigation" },
+    "backgroundEffect": { "zh": "切换背景效果", "en": "Change background effect" },
+    "backgroundCycle": { "zh": "当前背景：{current}。点击切换到{next}", "en": "Current background: {current}. Click to switch to {next}" },
+    "backgroundVariants": {
+      "dither": { "zh": "Dither", "en": "Dither" },
+      "molten": { "zh": "焦散", "en": "Molten" },
+      "contour": { "zh": "柔波", "en": "Contour" }
+    },
+    "openNavigation": { "zh": "打开导航", "en": "Open navigation" },
+    "closeNavigation": { "zh": "关闭导航", "en": "Close navigation" },
+    "skipToContent": { "zh": "跳到主要内容", "en": "Skip to content" },
+    "photos": { "zh": "摄影", "en": "Photography" },
+    "architecture": { "zh": "建筑", "en": "Architecture" },
+    "openSection": { "zh": "展开{label}分类", "en": "Open {label} menu" },
+    "closeSection": { "zh": "关闭{label}分类", "en": "Close {label} menu" },
+    "sectionMenu": { "zh": "{label}子菜单", "en": "{label} menu" },
+    "githubProfile": { "zh": "{name} 的 GitHub", "en": "{name} on GitHub" },
+    "switchToEnglish": { "zh": "切换到英文", "en": "Switch to English" },
+    "switchToChinese": { "zh": "切换到中文", "en": "Switch to Chinese" },
+    "themeToDark": { "zh": "切换到深色主题", "en": "Switch to dark theme" },
+    "themeToLight": { "zh": "切换到浅色主题", "en": "Switch to light theme" }
+  },
+  "blog": {
+    "blog": { "zh": "博客", "en": "Blog" },
+    "heroEyebrow": { "zh": "写作 / 笔记 / 实验", "en": "Writing / Notes / Experiments" },
+    "heroIntro": { "zh": "记录我如何把模糊的想法，变成可以使用、理解和继续迭代的东西。", "en": "Notes on turning fuzzy ideas into things people can use, understand, and keep improving." },
+    "featuredIndex": { "zh": "精选索引", "en": "Featured index" },
+    "featuredArticles": { "zh": "重点文章", "en": "Featured articles" },
+    "recentArticles": { "zh": "最新文章", "en": "Recent" },
+    "archiveHeading": { "zh": "归档", "en": "Archive" },
+    "seriesHeading": { "zh": "主题", "en": "Topics" },
+    "recentCountSuffix": { "zh": "篇", "en": "entries" },
+    "archiveCountSuffix": { "zh": "篇", "en": "articles" },
+    "sourceLanguageNotice": { "zh": "部分文章目前仅提供中文正文。", "en": "Some article bodies are currently available only in Chinese." },
+    "articleLocation": { "zh": "文章位置", "en": "Article location" },
+    "articleContents": { "zh": "文章目录", "en": "Article contents" },
+    "onThisPage": { "zh": "本页目录", "en": "On this page" },
+    "readingTime": { "zh": "{minutes} 分钟阅读", "en": "{minutes} min read" },
+    "copyLink": { "zh": "复制链接", "en": "Copy link" },
+    "copied": { "zh": "已复制", "en": "Copied" },
+    "copyFailed": { "zh": "复制失败，请手动复制链接", "en": "Copy failed. Please copy the link manually." },
+    "backToBlog": { "zh": "返回博客", "en": "Back to blog" },
+    "allArticles": { "zh": "全部文章", "en": "All articles" },
+    "originallyPublished": { "zh": "原文发布", "en": "Originally published on" },
+    "originalPublication": { "zh": "原文平台", "en": "Original publication" },
+    "keepReading": { "zh": "继续阅读", "en": "Keep reading" },
+    "relatedArticles": { "zh": "相关文章", "en": "Related articles" }
+  },
+  "archive": {
+    "filters": { "zh": "档案筛选", "en": "Archive filters" },
+    "browse": { "zh": "浏览", "en": "Browse" },
+    "results": { "zh": "已显示 {visible} / {total} 项", "en": "Showing {visible} of {total} items" },
+    "note": { "zh": "持续整理中的公开视觉档案。", "en": "A public visual archive, continuously edited." },
+    "backToTop": { "zh": "回到顶部", "en": "Back to top" }
+  },
+  "platforms": {
+    "wechat": { "zh": "微信", "en": "WeChat" },
+    "x": { "zh": "X", "en": "X" },
+    "original": { "zh": "原文", "en": "Original" }
+  }
+}

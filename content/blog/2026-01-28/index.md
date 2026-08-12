@@ -6,12 +6,15 @@ slug: personal-thinking-2026-01-28
 category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-01-28/a4c57412-2a56-4c90-a6ef-e3dad51ca831.png"
-coverAlt: "15岁少年赚百万，94%企业却在亏？AI 到底平权在哪里？的文章封面"
+coverAlt: "科幻风人脸轮廓中嵌有机械齿轮、发光几何符号和数学公式，象征 AI 与人的能力重组"
+titleEn: "A 15-Year-Old Made a Million—Why Are 94% of Companies Still Losing Money? Where Does AI Actually Level the Playing Field?"
+descriptionEn: "These “genius teenagers” make AI look like a wishing well of gold. But McKinsey’s latest December report says 94% of companies use AI, while only 6% actually make money from it."
+coverAltEn: "A sci-fi human face contains mechanical gears, glowing geometric symbols, and mathematical formulas, suggesting a reconfiguration of human and AI capabilities"
 contentStatus: index-only
 featured: false
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/NQw2Yuzaa6g9iTDAbRTa8w"
 ---
 

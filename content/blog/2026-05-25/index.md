@@ -6,20 +6,23 @@ slug: ai-practice-2026-05-25
 category: ai-practice
 tags: []
 cover: "/uploads/blog/2026-05-25/cea64e7f-aa53-4bcb-8707-101fa7bc88ba.png"
-coverAlt: "还在写提示词？让AI自己动_Loop Engineering的文章封面"
+coverAlt: "白底手绘示意图，左侧人物输入 prompt，右侧橙色 LOOP 环形箭头标注自动触发与持续运转"
+titleEn: "Still Writing Prompts? Let AI Run Its Own Loop Engineering"
+descriptionEn: "Boris Cherny said, “I no longer prompt Claude. I let a set of loops run, prompting Claude and figuring out what to do. My work became writing loops.”"
+coverAltEn: "A hand-drawn diagram on white shows a person entering a prompt on the left and an orange LOOP arrow on the right for automatic, continuous execution"
 contentStatus: full
 featured: false
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/QLeNRhqgNxeZJkQ7Osha5Q"
-  - label: "X"
+  - label: "x"
     url: "https://x.com/Formulasearch/status/2067479963268518337"
 ---
 
 Boris Cherny，Claude Code 的负责人，说了这么一句话： <strong>"我不再 prompt Claude 了。我让一堆循环跑着，由它们去提示 Claude、去琢磨该干什么。我的工作变成了写循环。"</strong>他不是在描述未来。他现在就这么干。
 
-![图像](https://pbs.twimg.com/media/HLBl8NlXQAA8eyR?format=jpg&name=large)
+![手绘 Loop Engineering 示意图，坐在键盘前的人从 prompt 出发，橙色循环箭头标注自动触发和持续运转](https://pbs.twimg.com/media/HLBl8NlXQAA8eyR?format=jpg&name=large)
 
 你花了多少时间学提示词技巧？ 我花了不少时间。 提示词技巧解决的是"你在场"的问题。你一离开键盘，工作就停了。
 
@@ -37,7 +40,7 @@ Boris Cherny，Claude Code 的负责人，说了这么一句话： <strong>"我�
 
 你把自己练成了提示词专家，结果发现被自动化掉的，正是你这个"发指令的人"。
 
-![图像](https://pbs.twimg.com/media/HLBlreYXsAAim6V?format=jpg&name=large)
+![黑白橙色工厂流程图，左侧任务输入经过齿轮和代表人的中心齿轮，右侧由机械臂完成 AI 生成，底部写着输入、等待、检查、再输入](https://pbs.twimg.com/media/HLBlreYXsAAim6V?format=jpg&name=large)
 
 ## 二、循环从哪里来
 
@@ -59,7 +62,7 @@ while :; do cat PROMPT.md | claude-code; done
 
 提示词让 AI 一次动一下， 循环让 AI 一直动。
 
-![图像](https://pbs.twimg.com/media/HLBlpnrWQAAs31a?format=jpg&name=large)
+![左右对照的手绘图，左侧手指按下键盘代表一次性 prompt，右侧橙色箭头围成 LOOP 代表自动持续运行](https://pbs.twimg.com/media/HLBlpnrWQAAs31a?format=jpg&name=large)
 
 ## 三、解剖一个成熟的循环：5 个零件和 1 个记忆
 
@@ -81,7 +84,7 @@ AI 在轮次间会遗忘。进度必须存磁盘，一个 Markdown 文件就够�
 
 循环是个不睡觉的工程师。但你得给它留便条——否则它每天早上都以为是第一天上班。
 
-![图像](https://pbs.twimg.com/media/HLBl_wRX0AA98eL?format=jpg&name=large)
+![循环系统结构图，中心是写着记忆的橙色循环，外围连接触发器、工作区、技能文件、连接器和审查者五个圆形节点](https://pbs.twimg.com/media/HLBl_wRX0AA98eL?format=jpg&name=large)
 
 ## 四、自动化欠的三笔债
 
@@ -97,7 +100,7 @@ AI 在轮次间会遗忘。进度必须存磁盘，一个 Markdown 文件就够�
 
 <strong>还有一个账单：没有迭代上限的循环，一夜可以重试几百次，直接把 API 的钱包刷爆。</strong>
 
-![图像](https://pbs.twimg.com/media/HLBmCOeWkAAwkTb?format=jpg&name=large)
+![三张橙色手绘账单卡片，分别写着验证债、理解债和认知妥协，并用虫子、问号和带叉的大脑图标表示自动化代价](https://pbs.twimg.com/media/HLBmCOeWkAAwkTb?format=jpg&name=large)
 
 ## 五、现在就可以开始（两种方法）
 
@@ -113,15 +116,15 @@ AI 在轮次间会遗忘。进度必须存磁盘，一个 Markdown 文件就够�
 
 完成了。
 
-![图像](https://pbs.twimg.com/media/HLBmPaqWMAAYVXr?format=jpg&name=large)
+![桌面端工作区截图，聊天记录说明刚刚编辑 8 个文件，右侧列出 README、PROJECT PLAN 和生成图片等输出](https://pbs.twimg.com/media/HLBmPaqWMAAYVXr?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HLBmRvbWsAACmpR?format=jpg&name=large)
+![X Native Scheduler 界面，左侧填写帖子和自动排期规则，右侧显示空的帖子预览、发布控制和执行日志](https://pbs.twimg.com/media/HLBmRvbWsAACmpR?format=jpg&name=large)
 
 <strong>能跑，能用，验收基本是通过的。</strong>
 
 门槛只有一个：你需要说清楚"什么叫完成"，而不是"大概做个这样的东西"。条件越精准，结果越可靠。
 
-![图像](https://pbs.twimg.com/media/HLBmZbuWMAA-pEd?format=jpg&name=large)
+![三格手绘流程图，Step 1 启动验收条件，Step 2 循环执行并显示 65% 进度，Step 3 在屏幕上显示验收通过](https://pbs.twimg.com/media/HLBmZbuWMAA-pEd?format=jpg&name=large)
 
 <strong>方法 B：极简拉尔夫循环（10 行 bash，适合折腾派）</strong>
 

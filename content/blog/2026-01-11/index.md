@@ -6,12 +6,15 @@ slug: personal-thinking-2026-01-11
 category: personal-thinking
 tags: []
 cover: "/uploads/blog/2026-01-11/d8242c6b-c114-499d-a200-aa4a0d2c79d5.png"
-coverAlt: "一人成行？你只需要“学会表达”的文章封面"
+coverAlt: "橙蓝对比插画中，一名人物向电脑表达需求，屏幕右侧延伸出代码、数据和应用图标"
+titleEn: "A One-Person Company? You Only Need to Learn How to Express Yourself"
+descriptionEn: "What if, in 2025, speaking well mattered more than writing code? This is not a motivational cliché, but a real redistribution of the power to express ideas happening in Silicon Valley."
+coverAltEn: "An orange-and-blue illustration of a person expressing a request to a computer, with code, data, and app icons extending from the right side of the screen"
 contentStatus: index-only
 featured: false
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/hP3dzHU7mAkDCeQlE0FzCg"
 ---
 

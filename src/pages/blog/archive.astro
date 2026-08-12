@@ -1,32 +1,9 @@
 ---
-import BlogPostRow from '../../components/BlogPostRow.astro'
-import BlogSectionNav from '../../components/BlogSectionNav.astro'
+import BlogArchiveView from '../../components/BlogArchiveView.astro'
 import BlogLayout from '../../layouts/BlogLayout.astro'
-import { getBlogPosts } from '../../lib/blog-content'
-
-const posts = getBlogPosts()
-const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
+import { pageMeta } from '../../data/page-meta'
 ---
 
-<BlogLayout title="Blog Archive" description="Phil 的全部文章归档。">
-  <header class="blog-hero blog-hero--compact">
-    <h1>Archive</h1>
-  </header>
-
-  <BlogSectionNav active="archive" />
-
-  <div class="archive-list">
-    {years.map((year) => {
-      const yearPosts = posts.filter((post) => post.date.startsWith(year))
-      return (
-        <section class="archive-year" aria-labelledby={`year-${year}`}>
-          <header>
-            <h2 id={`year-${year}`}>{year}</h2>
-            <span>{yearPosts.length} 篇</span>
-          </header>
-          <div>{yearPosts.map((post) => <BlogPostRow post={post} compact />)}</div>
-        </section>
-      )
-    })}
-  </div>
+<BlogLayout title={pageMeta.blogArchive.title.zh} titleEn={pageMeta.blogArchive.title.en} description={pageMeta.blogArchive.description.zh} descriptionEn={pageMeta.blogArchive.description.en}>
+  <BlogArchiveView />
 </BlogLayout>

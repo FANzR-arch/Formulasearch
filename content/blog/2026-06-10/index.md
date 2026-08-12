@@ -6,14 +6,17 @@ slug: prompt-aesthetic-2026-06-10
 category: prompt-aesthetic
 tags: []
 cover: "/uploads/blog/2026-06-10/69322440-ac22-4730-9c1e-30a062baa88e.jpeg"
-coverAlt: "提示词美学解码 × 瑞士国际主义 _ 信息的秩序的文章封面"
+coverAlt: "红黄黑色带状网格海报，依次展示 ORDER、FRICTION、HIDDEN COST、OVERLOAD、DECISION 等关于秩序的信息"
+titleEn: "Prompt Aesthetics Decoded × Swiss International Style: The Order of Information"
+descriptionEn: "Swiss International Style, also called International Typographic Style or Swiss Design, was a visual communication method systematized by Swiss and German designers after World War II."
+coverAltEn: "A red, yellow, and black banded grid poster presents ORDER, FRICTION, HIDDEN COST, OVERLOAD, and DECISION as a sequence about information order"
 contentStatus: full
 featured: false
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/B3-UNAdvPO_uphAqy6hBkA"
-  - label: "X"
+  - label: "x"
     url: "https://x.com/Formulasearch/status/2069786567187578902"
 ---
 
@@ -25,9 +28,9 @@ externalLinks:
 
 ## 1\. 何为"瑞士国际主义"
 
-![图像](https://pbs.twimg.com/media/HLlYYBzWMAAzAl4?format=jpg&name=large)
+![瑞士国际主义风格“System”的蓝底构成图，以白色网格、黑白旋转方形和中心嵌套菱形形成系统化视觉秩序](https://pbs.twimg.com/media/HLlYYBzWMAAzAl4?format=jpg&name=large)
 
-![图像](https://pbs.twimg.com/media/HLlYb4xX0AAbLwA?format=jpg&name=large)
+![“System”瑞士风格版式研究图，米白底六栏网格配蓝黑方块、左侧原则清单和右侧比例图例](https://pbs.twimg.com/media/HLlYb4xX0AAbLwA?format=jpg&name=large)
 
 <strong>瑞士国际主义</strong>，也常被称为 International Typographic Style / Swiss Design，是二战后瑞士和德国设计师将现代主义平面设计进一步系统化形成的视觉传达方法。
 
@@ -39,7 +42,7 @@ externalLinks:
 
 ## 2\. 适用场景
 
-![图像](https://pbs.twimg.com/media/HLlY3QRXYAA0ZJZ?format=jpg&name=large)
+![“Signal”瑞士风格信息图，用黑色圆点、红色箭头和竖线展示信号在六栏网格中的传递序列](https://pbs.twimg.com/media/HLlY3QRXYAA0ZJZ?format=jpg&name=large)
 
 | 内容类型 | 是否适合 | 为什么 |
 | --- | --- | --- |
@@ -60,7 +63,7 @@ externalLinks:
 
 重点是网格。标题、图片、短说明、日期、编号、品牌信息，都应受同一套网格约束。画面可以不居中，但关系要明确。
 
-![图像](https://pbs.twimg.com/media/HLlY9ZTXQAAvIBO?format=jpg&name=large)
+![“Grid”构图研究海报，红色方块按单位倍数递增，底部以超大 GRID 和网格原则文字收束](https://pbs.twimg.com/media/HLlY9ZTXQAAvIBO?format=jpg&name=large)
 
 ```text
 strict modular grid, asymmetric layout, rational hierarchy, aligned text blocks, generous margins
@@ -72,7 +75,7 @@ strict modular grid, asymmetric layout, rational hierarchy, aligned text blocks,
 
 做法是单一无衬线字体、两级字号；标题承担主结构，小字进入辅助层级。字重中等，重美术黑体会让中文偏标语感。
 
-![图像](https://pbs.twimg.com/media/HLlZKKDWUAAZjCk?format=jpg&name=large)
+![“Type”字体结构海报，黑色无衬线字母分布在六栏网格中，左侧红色块和下方字距、层级清单构成版式](https://pbs.twimg.com/media/HLlZKKDWUAAZjCk?format=jpg&name=large)
 
 ```text
 one medium-weight grotesk family, two type sizes, flush-left, Latin headline plus small Chinese line
@@ -82,7 +85,7 @@ one medium-weight grotesk family, two type sizes, flush-left, Latin headline plu
 
 配色克制，但强调色常以大面积平涂出现，而非小面积点缀。常见做法是一个高饱和色（红、黄、钴蓝）铺满主场，黑与米白承担文字和图形；颜色平涂、硬边、无渐变。
 
-![图像](https://pbs.twimg.com/media/HLlZQ-5WcAAKYQP?format=jpg&name=large)
+![“Color”色彩比例研究图，以黑色、暖灰、米白和红色组成六列比例色板，并标注系统、顺序和网格](https://pbs.twimg.com/media/HLlZQ-5WcAAKYQP?format=jpg&name=large)
 
 ```text
 one large flat saturated color field, black and off-white, hard edges, no gradients
@@ -94,7 +97,7 @@ one large flat saturated color field, black and off-white, hard edges, no gradie
 
 关键不在图形数量，而在是否承担信息功能：引导视线、划分区域、强调标题、连接图文。
 
-![图像](https://pbs.twimg.com/media/HLlZaQfWgAE2mIk?format=jpg&name=large)
+![“Form”几何图形研究海报，黑色圆形、三角形和矩形在网格中组合，配“几何即系统”标题](https://pbs.twimg.com/media/HLlZaQfWgAE2mIk?format=jpg&name=large)
 
 ```text
 systematic geometric composition, concentric arcs / nested squares / progressive bands, thin functional rules
@@ -106,7 +109,7 @@ systematic geometric composition, concentric arcs / nested squares / progressive
 
 瑞士国际主义的专业感主要来自边距、栏距、行距和空白区域的控制。提示词里应明确 generous margins，否则模型容易把画面填满。
 
-![图像](https://pbs.twimg.com/media/HLlZfWhWwAACcGx?format=jpg&name=large)
+![留白与平面印刷研究海报，米白网格中以超大黑色字母、红色竖向色块和大面积留白组织信息](https://pbs.twimg.com/media/HLlZfWhWwAACcGx?format=jpg&name=large)
 
 ## 材质 / 质感
 
@@ -136,7 +139,7 @@ no vintage paper texture, no glossy 3D, no heavy shadows, no grunge noise
 设计师锚点 + 画幅 + 主视觉（几何系统）+ 配色 + 排印（拉丁主标/中文小标）+ 网格与留白 + 文字控制 + 禁止项
 ```
 
-![图像](https://pbs.twimg.com/media/HLlZro6XMAAkwj-?format=jpg&name=large)
+![瑞士风格提示词编译方法海报，以 STRUCTURE 标题、六栏模块网格和蓝色结构色块展示信息架构](https://pbs.twimg.com/media/HLlZro6XMAAkwj-?format=jpg&name=large)
 
 ## 表现取向
 
@@ -212,7 +215,7 @@ Sharp edges, precise grid alignment, flat offset-print feeling, clean hierarchy,
 
 <strong>案例一：GRID · 纯网格 / 黑白红（Müller-Brockmann der Film）</strong>
 
-![图像](https://pbs.twimg.com/media/HLlauZHXgAAoWxK?format=jpg&name=large)
+![GRID 案例海报，黑底米白字配六栏网格和红色方块递增序列，强调网格是结构而非装饰](https://pbs.twimg.com/media/HLlauZHXgAAoWxK?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Josef Müller-Brockmann der Film: mathematical grid, systematic geometry, type as structure.
@@ -241,7 +244,7 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 <strong>案例二：SIGNAL · 图解过程 / 米白红（Anton Stankowski）</strong>
 
-![图像](https://pbs.twimg.com/media/HLlazKdW4AAJpV8?format=jpg&name=large)
+![SIGNAL 案例海报，以红色箭头、黑色屏障、点阵和圆点串联 source、transmission、reception、response 的通信流程](https://pbs.twimg.com/media/HLlazKdW4AAJpV8?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Anton Stankowski: constructive graphics, diagrammatic marks visualizing a process.
@@ -270,7 +273,7 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 <strong>案例三：COLOR · 序列比例 / 黑白灰+单红（Richard Paul Lohse）</strong>
 
-![图像](https://pbs.twimg.com/media/HLla4soW0AAv2TK?format=jpg&name=large)
+![COLOR 案例海报，以六列灰度方格按明度递进，单个红色方块作为强调色，展示比例与层级](https://pbs.twimg.com/media/HLla4soW0AAv2TK?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Richard Paul Lohse: concrete art, serial and modular color systems.
@@ -299,7 +302,7 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 <strong>案例四：STRUCTURE · 网格场域 / 米白黑蓝（Karl Gerstner）</strong>
 
-![图像](https://pbs.twimg.com/media/HLlbnEEXwAA2npG?format=jpg&name=large)
+![STRUCTURE 案例海报，米白底六栏网格中排列黑白三角与蓝色几何模块，左下配结构标题](https://pbs.twimg.com/media/HLlbnEEXwAA2npG?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Karl Gerstner: programmatic design, systematic parametric grid variation.
@@ -328,7 +331,7 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 <strong>案例五：ORDER · 同心弧 / 红（Müller-Brockmann，强传播封面向）</strong>
 
-![图像](https://pbs.twimg.com/media/HLlbp7dW4AEkv5p?format=jpg&name=large)
+![ORDER 案例海报，红色底上黑白同心弧线向右密集递进，形成信息秩序和节奏](https://pbs.twimg.com/media/HLlbp7dW4AEkv5p?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Josef Müller-Brockmann's 1950s Zürich concert posters: mathematical grid, systematic geometry, type as structure.
@@ -357,7 +360,7 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 <strong>案例六：CRAFT · 功能性破格 / 米白橙（Wolfgang Weingart）</strong>
 
-![图像](https://pbs.twimg.com/media/HLlbtHJWQAEnQ_a?format=jpg&name=large)
+![CRAFT 案例海报，米白底六栏网格中叠加一块略微倾斜的橙色矩形，配纵向 CRAFT 与“受控的破格”标题](https://pbs.twimg.com/media/HLlbtHJWQAEnQ_a?format=jpg&name=large)
 
 ```text
 STYLE ANCHOR — in the manner of Wolfgang Weingart: Swiss New Wave, one controlled rule-break, layering.

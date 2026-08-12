@@ -6,12 +6,15 @@ slug: prompt-sharing-2025-12-17
 category: prompt-sharing
 tags: []
 cover: "/uploads/blog/2025-12-17/52044e89-edee-4665-b3f1-ab2b0c4c5c4a.png"
-coverAlt: "“Prompt”，AI时代的施法咒语的文章封面"
+coverAlt: "左右对比漫画：左侧人物被混乱的提示词和符号困扰，右侧人物面对清晰的项目符号并出现灯泡"
+titleEn: "“Prompt”: The Spellcasting Incantation of the AI Era"
+descriptionEn: "There is a saying: “Garbage In, Garbage Out.” When your instructions are vague, AI can only return a bland, safe, all-purpose answer. Clear, detailed instructions matter."
+coverAltEn: "A split-screen comic: a person on the left is overwhelmed by messy prompts and symbols; on the right, a person faces clear project bullets and a light bulb appears"
 contentStatus: index-only
 featured: false
 draft: false
 externalLinks:
-  - label: "微信"
+  - label: "wechat"
     url: "https://mp.weixin.qq.com/s/0qg7bY_9mSxiVUjNL-mZGQ"
 ---
 

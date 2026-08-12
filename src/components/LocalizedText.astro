@@ -1,0 +1,14 @@
+---
+import type { LocalizedCopy } from '../lib/i18n'
+
+interface Props {
+  en: LocalizedCopy['en']
+  enLang?: string
+  zh: LocalizedCopy['zh']
+  zhLang?: string
+}
+
+const { en, enLang = 'en', zh, zhLang = 'zh-Hans' } = Astro.props
+---
+
+<span class="localized-text"><span class="localized-text__zh" lang={zhLang}>{zh}</span><span class="localized-text__en" lang={enLang}>{en}</span></span>

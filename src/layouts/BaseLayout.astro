@@ -1,54 +1,94 @@
 ---
 import '../styles/global.css'
+import { siteConfig } from '../data/site-config'
+import { getLocalizedRoute, localizedSiteRoutes, siteRoutes } from '../data/site-routes'
+import { uiCopy } from '../data/ui-copy'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
+import { serializeJsonLd } from '../lib/xml'
 
 interface Props {
-  description?: string
+  description: string
+  descriptionEn: string
   image?: string
+  locale?: Locale
+  modifiedTime?: string
   ogType?: 'website' | 'article'
   publishedTime?: string
   structuredData?: Record<string, unknown>
-  title?: string
+  title: string
+  titleEn: string
 }
 
 const {
-  description = 'Phil builds AI tools, visual systems, websites, and notes for turning fuzzy ideas into useful things.',
+  description,
+  descriptionEn,
   image,
+  locale = 'zh',
+  modifiedTime,
   ogType = 'website',
   publishedTime,
   structuredData,
-  title = 'Phil / Formula',
+  title,
+  titleEn,
 } = Astro.props
 
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const socialImage = image ? new URL(image, Astro.site) : undefined
+const initialTitle = getLocalizedValue({ zh: title, en: titleEn }, locale)
+const initialDescription = getLocalizedValue({ zh: description, en: descriptionEn }, locale)
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
+const chinesePath = currentPath === '/en' ? '/' : currentPath.startsWith('/en/') ? currentPath.slice(3) : currentPath
+const hasLocalizedRoute = localizedSiteRoutes.includes(chinesePath as (typeof localizedSiteRoutes)[number])
+const englishAlternate = hasLocalizedRoute ? new URL(getLocalizedRoute(chinesePath, 'en'), Astro.site) : undefined
+const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : undefined
 ---
 
 <!doctype html>
-<html lang="zh-Hans">
+<html lang={locale === 'en' ? 'en' : 'zh-Hans'} data-locale={locale} data-route-locale={locale} data-theme="light" data-meta-title-zh={title} data-meta-title-en={titleEn} data-meta-description-zh={description} data-meta-description-en={descriptionEn}
+  data-theme-color-light={siteConfig.themeColors.light} data-theme-color-dark={siteConfig.themeColors.dark}
+  data-theme-to-dark-zh={uiCopy.navigation.themeToDark.zh} data-theme-to-dark-en={uiCopy.navigation.themeToDark.en}
+  data-theme-to-light-zh={uiCopy.navigation.themeToLight.zh} data-theme-to-light-en={uiCopy.navigation.themeToLight.en}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content={description} />
+    <meta name="theme-color" content={siteConfig.themeColors.light} />
+    <meta name="description" content={initialDescription} />
+    <link rel="icon" href="/brand/logo.svg" type="image/svg+xml" />
+    <meta id="og-locale" property="og:locale" content={locale === 'en' ? 'en_US' : 'zh_CN'} />
     <link rel="canonical" href={canonical} />
+    {chineseAlternate && <link rel="alternate" hreflang="zh-Hans" href={chineseAlternate} />}
+    {englishAlternate && <link rel="alternate" hreflang="en" href={englishAlternate} />}
+    {chineseAlternate && <link rel="alternate" hreflang="x-default" href={chineseAlternate} />}
+    <link rel="alternate" type="application/rss+xml" title={`${siteConfig.name} RSS`} href={siteRoutes.rss} />
     <meta property="og:type" content={ogType} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta id="og-title" property="og:title" content={initialTitle} />
+    <meta id="og-description" property="og:description" content={initialDescription} />
     <meta property="og:url" content={canonical} />
     {socialImage && <meta property="og:image" content={socialImage} />}
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
     <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
+    <meta id="twitter-title" name="twitter:title" content={initialTitle} />
+    <meta id="twitter-description" name="twitter:description" content={initialDescription} />
     {socialImage && <meta name="twitter:image" content={socialImage} />}
-    <title>{title}</title>
-    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+    <title>{initialTitle}</title>
+    <script is:inline src="/scripts/site-shell.js"></script>
+    <script is:inline type="application/ld+json" set:html={serializeJsonLd({
       '@context': 'https://schema.org',
       '@type': 'Person',
-      name: 'Phil',
-      alternateName: ['Fan Zheren', 'Formulasearch'],
-      url: 'https://formulasearch.com',
-      jobTitle: 'Independent builder and designer',
-      knowsAbout: ['AI tools', 'Visual systems', 'Website design', 'Writing'],
+      name: siteConfig.author.name,
+      alternateName: siteConfig.author.alternateNames,
+      url: siteConfig.author.url,
+      jobTitle: siteConfig.author.jobTitle,
+      knowsAbout: siteConfig.author.knowsAbout,
     })} />
-    {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
+    {structuredData && <script is:inline type="application/ld+json" set:html={serializeJsonLd(structuredData)} />}
   </head>
-  <body><slot /></body>
+  <body>
+    <a class="skip-link" href="#main-content">
+      <span class="localized-text__zh">{uiCopy.navigation.skipToContent.zh}</span>
+      <span class="localized-text__en">{uiCopy.navigation.skipToContent.en}</span>
+    </a>
+    <slot />
+  </body>
 </html>

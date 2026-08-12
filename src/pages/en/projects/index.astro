@@ -1,0 +1,10 @@
+---
+import CatalogIndex from '../../../components/CatalogIndex.astro'
+import CatalogLayout from '../../../layouts/CatalogLayout.astro'
+import { catalogPages, projectSections as sections } from '../../../data/catalog'
+const page = catalogPages.projects
+---
+
+<CatalogLayout active="projects" locale="en" title={page.title} description={page.description}>
+  <CatalogIndex locale="en" page={page} sections={sections} />
+</CatalogLayout>

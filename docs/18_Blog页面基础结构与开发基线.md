@@ -1,16 +1,17 @@
 # Blog 页面基础结构与开发基线
 
-> 更新：2026-08-10
-> 状态：Phase 0、Phase 1 与详情页骨架已完成；16 篇正文已迁移，另有 10 篇保留为外链索引，图片优化与关联网络待后续推进。
+> 更新：2026-08-11
+> 状态：Phase 0、Phase 1 与详情页骨架已完成；16 篇正文已迁移，另有 10 篇保留为外链索引；封面尺寸清单与 80 个响应式 WebP + 80 个 AVIF 变体已接入构建门禁，详情页自动相关内容也已完成。当前仍可评估是否迁移到 Astro 图片管线，但不需要再手工维护变体路径。
 > 目标：复用现有 26 篇文章、封面、分类和 Astro 页面，不从零重建 Blog。
+> 说明：本文同时保留迁移阶段的历史方案；文中的“计划新增”只代表当时的设计，不是待办清单。当前内容 schema、维护脚本、路由和发布门禁以 [`docs/19_网站工程与交互审计.md`](19_网站工程与交互审计.md)、[`content/blog/README.md`](../content/blog/README.md) 和 `src/content.config.ts` 为准。
 
 ## 先看结论
 
 Blog 不需要推翻。当前代码已经完成栏目首页、主题页、归档页、文章详情页、导航、主题切换和内容读取；后续应当在这套骨架上继续补齐三件事：
 
 1. 为剩余 10 篇外链索引补齐可迁移正文；
-2. 进一步压缩现有超宽封面，并生成响应式图片；
-3. 在现有 Astro 内容集合、SEO 与 sitemap 基础上补充 RSS 和文章关联网络。
+2. 在现有 WebP/AVIF 管线之上继续完善响应式图片治理；Astro 图片管线属于后续可选迁移；
+3. 在现有 Astro 内容集合、SEO 与 sitemap 基础上继续维护文章关联网络；详情页已按 series/category/tags 评分，历史文章缺少 tags 时使用分类兜底。
 
 推荐的视觉组合是：
 
@@ -67,7 +68,7 @@ Blog 不需要推翻。当前代码已经完成栏目首页、主题页、归档
 
 ### 1.3 当前内容缺口
 
-现有每篇文章只有：
+每篇文章的内容源由四个索引 txt、`index.md` 和一张封面组成：
 
 ```text
 标题.txt
@@ -77,7 +78,7 @@ Blog 不需要推翻。当前代码已经完成栏目首页、主题页、归档
 封面图片
 ```
 
-没有正文文件。因此当前 `/blog` 是外部文章索引，点击后进入微信或 X；它还没有达到现有规划中“正文在本站可读、每篇有独立 URL”的标准。
+其中 16 篇 `contentStatus: full` 已有本站正文和独立 URL；10 篇 `index-only` 仍是外部文章索引，点击后进入微信、X 或其他原文地址。只有确认可靠原稿后，才应把 `index-only` 改为 `full`。
 
 ---
 
@@ -97,11 +98,11 @@ Blog 不需要推翻。当前代码已经完成栏目首页、主题页、归档
 |---|---|---|
 | `src/pages/blog/index.astro` | Blog 首页编排 | 保留并收紧结构 |
 | `src/pages/blog/series.astro` | 主题/系列浏览 | 保留，后续澄清 taxonomy |
-| `src/pages/blog/archive.astro` | 时间归档 | 保留，继续以文字扫描为主 |
+| `src/pages/blog/archive.astro` | 时间归档 | 保留，按 Content Collection 数据按年份归档 |
 | `src/components/BlogPostRow.astro` | 日期、元信息、标题、摘要、封面 | 保留并扩展本地文章链接 |
 | `src/components/BlogSectionNav.astro` | Latest / Series / Archive | 保留 |
 | `src/layouts/BlogLayout.astro` | 站点头部、主题切换、页脚 | 保留 |
-| `src/lib/blog-content.ts` | 内容读取和排序 | 作为过渡适配层，随后改接 Astro 内容集合 |
+| `src/lib/blog-content.ts` | Content Collection 查询适配、排序和外链回退 | 保留，作为栏目页的统一查询入口 |
 | `src/styles/global.css` | 全站 token 与当前 Blog 样式 | 保留 token；Blog 样式逐步拆到 `blog.css` |
 
 ### 当前验证结果
@@ -109,7 +110,7 @@ Blog 不需要推翻。当前代码已经完成栏目首页、主题页、归档
 - 技术栈：Astro `7.2.0`、TypeScript strict、静态输出；
 - `npm run build` 已通过；
 - Astro 检查结果为 0 error、0 warning、0 hint；
-- 当前只生成首页、三个 Blog 栏目页和 sitemap，没有文章详情页。
+- 当前已生成首页、三个 Blog 栏目页、文章详情页、RSS 和 sitemap；实际发布门禁以 `docs/19_网站工程与交互审计.md` 为准。
 
 ---
 
@@ -266,13 +267,15 @@ tags:
   - 图像提示词
 cover: /uploads/blog/2026-07-02/HMMfIQIXkAA-qiW.jpg
 coverAlt: "新粗野主义提示词视觉封面"
+# 可选：只有确实有英文视觉描述时填写
+coverAltEn: "A brutalist editorial cover with ..."
 contentStatus: index-only
 featured: true
 draft: false
 externalLinks:
-  - label: 微信
+  - label: wechat
     url: https://mp.weixin.qq.com/...
-  - label: X
+  - label: x
     url: https://x.com/...
 ---
 
@@ -284,6 +287,7 @@ externalLinks:
 - `description` 是站内摘要和 SEO description，不从正文运行时截断；
 - `slug` 一经上线不随标题变化；
 - `coverAlt` 描述图片内容，不能继续用空字符串；
+- `coverAltEn` 对中文文章可选，只在有真实英文视觉描述时填写；缺省时页面保留文章原始语言，不自动拼接通用英文占位；`contentLanguage: en` 的文章必须填写它；
 - `externalLinks` 保留原发布平台，不再承担本站主链接；
 - `contentStatus` 让索引迁移和正文迁移可以分开进行；
 - `series` 可选，`category` 必填；
@@ -305,7 +309,7 @@ src/components/blog/BlogMeta.astro
 src/components/blog/BlogToc.astro
 src/components/blog/RelatedPosts.astro
 src/components/blog/ShareLinks.astro
-src/lib/blog.ts
+src/lib/blog-content.ts
 src/styles/blog.css
 src/pages/rss.xml.ts
 ```
@@ -338,7 +342,7 @@ const blog = defineCollection({
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
     externalLinks: z.array(z.object({
-      label: z.enum(['微信', 'X', '原文']),
+      label: z.enum(['wechat', 'x', 'original']),
       url: z.url(),
     })).default([]),
   }),
@@ -347,7 +351,7 @@ const blog = defineCollection({
 export const collections = { blog }
 ```
 
-说明：首阶段继续使用 `public/uploads/blog` 的 URL，减少迁移变量。文章路由稳定后，再把封面放到可被 Astro 处理的本地资源目录，使用 `image()`、`<Image />` 或 `<Picture />` 生成 WebP/AVIF、`srcset`、宽高和响应式尺寸。Astro 官方文档明确指出 `public/` 文件会原样复制，不会自动优化。
+说明：当前仍使用 `public/uploads/blog` 的稳定 URL，但已由独立 Sharp 管线生成并校验 WebP/AVIF、`srcset`、宽高和响应式尺寸；Astro 官方图片管线仍是可选的后续迁移，不应在没有发布策略评估时重复引入第二套生成逻辑。
 
 ---
 
@@ -358,12 +362,11 @@ content/blog/**/index.md
         ↓ Astro glob loader + schema
 src/content.config.ts
         ↓
-src/lib/blog.ts
-├─ getPublishedPosts()
-├─ getFeaturedPost()
-├─ getPostsByCategory()
-├─ getPostsByYear()
-├─ getAdjacentPosts()
+src/lib/blog-content.ts
+├─ getBlogPosts()
+├─ getPrimaryBlogLink()
+└─ isLocalBlogPost()
+src/lib/blog-related.ts
 └─ getRelatedPosts()
         ↓
 页面：/blog /series /archive /[slug] /rss.xml
@@ -371,7 +374,7 @@ src/lib/blog.ts
 组件：BlogPostRow / BlogMeta / BlogToc / RelatedPosts
 ```
 
-`src/lib/blog-content.ts` 在迁移期间保留为兼容层；当 26 篇 `index.md` 都生成并通过核验后，再把三个现有栏目页改接 `src/lib/blog.ts`，最后删除旧 txt 读取逻辑。不要同时长期维护两套真实来源。
+三个 Blog 栏目页当前都通过 `src/lib/blog-content.ts` 查询 Astro Content Collection；RSS、sitemap 和文章详情也直接读取同一集合。旧 txt 只作为迁移脚本的编辑输入，不再作为页面运行时的第二套读取来源。
 
 相关文章优先级：
 
@@ -386,7 +389,7 @@ src/lib/blog.ts
 
 ## 8. SEO、GEO 与分享基线
 
-当前 `BaseLayout.astro` 对所有页面都输出 `website` OG 类型和 `Person` JSON-LD，文章页需要改成按页面传入元数据。
+当前 `BaseLayout.astro` 按页面接收 `ogType`、发布时间、更新时间和结构化数据；文章页输出 `article` OG 类型、BlogPosting 与 BreadcrumbList，Person JSON-LD 继续作为全站作者实体。
 
 文章页必须具备：
 
@@ -400,7 +403,7 @@ src/lib/blog.ts
 - RSS 输出已完成本地正文的文章；
 - 原平台链接使用普通外链，不把微信 URL 设为本站 canonical。
 
-建议用官方 `@astrojs/sitemap` 自动收集静态文章路由，用 `@astrojs/rss` 生成订阅源，替换当前手写固定页面数组。
+当前 sitemap 与 RSS 使用 Astro Content Collection 过滤 draft/index-only 状态，并由 `site:check` 校验静态路由、日期、内部链接和草稿排除；如未来切换官方集成，必须保留这些内容状态门禁。
 
 ---
 
@@ -446,23 +449,25 @@ src/lib/blog.ts
 
 - 26 张封面约 13.18 MB；
 - 8 张大于 700 KB，其中最大一张约 3.2 MB；
-- 当前图片来自 `public/`，不会被 Astro 自动优化；
-- 当前 `<img>` 没有固有宽高，存在布局抖动风险；
+- 原始图片仍来自 `public/`，但构建前会用 Sharp 生成响应式 WebP/AVIF；
+- 当前 `<img>` 已通过 `content/site/blog-media.json` 输出固有宽高，布局抖动风险已受构建门禁控制；
 - 当前主推和列表容器会裁切超宽封面。
 
 分两步处理：
 
-1. 页面结构阶段：保留原文件路径，补固定比例、`width/height` 或 `aspect-ratio`，主图设置正确的加载优先级；
-2. 内容集合稳定后：把封面迁到可处理资源目录，使用 Astro 图片组件生成多尺寸 WebP/AVIF；若根目录内容与图片组件存在兼容问题，再复用旧站 Sharp 脚本的思路做构建前优化，不复用旧硬编码任务表。
+1. 页面结构阶段：保留原文件路径，补固定比例、`width/height` 或 `aspect-ratio`，主图设置正确的加载优先级（已完成）；
+2. 内容集合稳定后：当前已用独立 Sharp 清单生成多尺寸 WebP/AVIF，并由 `BlogCover.astro` 统一输出；确认缓存、存储和发布策略后，再评估是否迁移到 Astro 图片管线，不复用旧硬编码任务表。
 
 性能验收：
 
 - 首页 LCP 主图有明确尺寸和 `fetchpriority=high`；
 - 列表图 lazy-load；
-- 移动端不下载桌面尺寸封面；
+- 移动端通过 `srcset` 不下载不必要的桌面尺寸封面；
 - 单张列表图目标控制在约 100–180 KB；
 - 最大内容宽度下不放大原图；
 - 无横向页面溢出。
+
+本阶段新增 `scripts/prepare-blog-media.mjs`：它从实际封面读取宽高和文件大小，生成 `content/site/blog-media.json` 与 80 个响应式 WebP + 80 个 AVIF 变体；`blog:media:check` 已接入构建，文章封面、首页精选舞台和列表封面均通过 `BlogCover.astro` 输出 `width`、`height`、`sizes` 与 AVIF → WebP → 原图回退。
 
 ---
 

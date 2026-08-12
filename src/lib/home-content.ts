@@ -1,83 +1,103 @@
-import raw from '../../content/site/home.md?raw'
+import { z } from 'astro/zod'
+import homeEn from '../../content/site/home.en.json'
+import homeZh from '../../content/site/home.json'
+import { siteConfig } from '../data/site-config'
+import { httpUrlSchema, localAssetPathSchema } from './validation'
 
-type WorkItem = { title: string; description: string }
+const workItemSchema = z.object({
+  title: z.string().min(1),
+  description: z.string().min(1),
+}).strict()
 
-export type HomeContent = {
-  about: string[]
-  email: string
-  eyebrow: string
-  heroImage: string
-  identity: string[]
-  intro: string[]
-  interest: string[]
-  name: string
-  now: { number: string; text: string }[]
-  resources: string
-  socialLabel: string
-  socialUrl: string
-  sponsor: string
-  statement: string
-  work: WorkItem[]
-  writing: string
+const homeContentSchema = z.object({
+  name: z.string().min(1),
+  email: z.email(),
+  contactLabel: z.string().min(1),
+  contactEmailPrefix: z.string().min(1),
+  social: z.object({
+    label: z.string().min(1),
+    url: httpUrlSchema,
+  }).strict(),
+  heroImage: z.union([z.literal(''), localAssetPathSchema]),
+  heroImageAlt: z.string().default(''),
+  heroImageHeight: z.number().int().positive().optional(),
+  heroImageWidth: z.number().int().positive().optional(),
+  intro: z.array(z.string().min(1)).min(1),
+  about: z.array(z.string().min(1)).min(1),
+  interest: z.array(z.string().min(1)).min(1),
+  sponsor: z.string().min(1),
+  identity: z.array(z.string().min(1)).default([]),
+  now: z.array(z.object({
+    number: z.string().min(1),
+    text: z.string().min(1),
+  }).strict()).default([]),
+  work: z.array(workItemSchema).default([]),
+  writing: z.string().default(''),
+  resources: z.string().default(''),
+}).strict().superRefine((data, context) => {
+  if (data.heroImage && !data.heroImageAlt) {
+    context.addIssue({ code: 'custom', path: ['heroImageAlt'], message: 'heroImageAlt is required when heroImage is set.' })
+  }
+  if (data.heroImage && (!data.heroImageWidth || !data.heroImageHeight)) {
+    context.addIssue({ code: 'custom', path: ['heroImageWidth'], message: 'heroImageWidth and heroImageHeight are required when heroImage is set.' })
+  }
+  if (!data.heroImage && data.heroImageAlt) {
+    context.addIssue({ code: 'custom', path: ['heroImageAlt'], message: 'heroImageAlt must be empty when heroImage is empty.' })
+  }
+  if (!data.heroImage && (data.heroImageWidth || data.heroImageHeight)) {
+    context.addIssue({ code: 'custom', path: ['heroImageWidth'], message: 'Hero image dimensions must be empty when heroImage is empty.' })
+  }
+  if (Boolean(data.heroImageWidth) !== Boolean(data.heroImageHeight)) {
+    context.addIssue({ code: 'custom', path: ['heroImageWidth'], message: 'heroImageWidth and heroImageHeight must be provided together.' })
+  }
+})
+
+export type HomeContent = z.infer<typeof homeContentSchema>
+
+function parseHomeContent(value: unknown, locale: 'zh' | 'en') {
+  const result = homeContentSchema.safeParse(value)
+  if (!result.success) {
+    const issues = result.error.issues.map((issue) => `${issue.path.join('.') || 'root'}: ${issue.message}`).join('; ')
+    throw new Error(`首页 ${locale} 内容校验失败：${issues}`)
+  }
+  return result.data
 }
 
-function frontmatterValue(key: string) {
-  const match = raw.match(new RegExp(`^${key}:\\s*["']?([^\\n"']*)["']?\\s*$`, 'm'))
-  return match?.[1]?.trim() ?? ''
+function validateLocalePairs(zh: HomeContent, en: HomeContent) {
+  const pairedFields = ['intro', 'about', 'interest', 'identity', 'now', 'work'] as const
+  for (const field of pairedFields) {
+    if (zh[field].length !== en[field].length) {
+      throw new Error(`首页中英文 ${field} 段落数量不一致：中文 ${zh[field].length}，英文 ${en[field].length}`)
+    }
+  }
+
+  const sharedFields = [
+    ['email', zh.email, en.email],
+    ['social.label', zh.social.label, en.social.label],
+    ['social.url', zh.social.url, en.social.url],
+    ['heroImage', zh.heroImage, en.heroImage],
+    ['heroImageWidth', zh.heroImageWidth, en.heroImageWidth],
+    ['heroImageHeight', zh.heroImageHeight, en.heroImageHeight],
+  ] as const
+  for (const [field, zhValue, enValue] of sharedFields) {
+    if (zhValue !== enValue) {
+      throw new Error(`Homepage shared field must match between locales: ${field}`)
+    }
+  }
 }
 
-function section(title: string) {
-  const heading = `\n## ${title}\n`
-  const headingStart = raw.indexOf(heading)
-  if (headingStart === -1) return ''
-  const contentStart = headingStart + heading.length
-  const nextHeading = raw.indexOf('\n## ', contentStart)
-  return raw.slice(contentStart, nextHeading === -1 ? raw.length : nextHeading).trim()
+function validateHomepageIdentity(...homepages: HomeContent[]) {
+  const acceptedNames = new Set([siteConfig.author.name, ...siteConfig.author.alternateNames])
+  for (const homepage of homepages) {
+    if (!acceptedNames.has(homepage.name)) {
+      throw new Error(`Homepage name "${homepage.name}" must be listed in site.json author aliases.`)
+    }
+  }
 }
 
-function paragraphs(value: string) {
-  return value.split('\n').map((line) => line.replace(/\r$/, '').trim()).filter((line) => line && !line.startsWith('<!--'))
-}
+const zh = parseHomeContent(homeZh, 'zh')
+const en = parseHomeContent(homeEn, 'en')
+validateLocalePairs(zh, en)
+validateHomepageIdentity(zh, en)
 
-function paragraphBlocks(value: string) {
-  return value
-    .split(/\n\s*\n/)
-    .map((block) => block.split('\n').map((line) => line.replace(/\r$/, '').trim()).filter(Boolean).join(' '))
-    .filter((block) => block && !block.startsWith('<!--'))
-}
-
-function list(value: string) {
-  return value.split('\n').map((line) => line.replace(/\r$/, '').replace(/^-\s*/, '').trim()).filter(Boolean)
-}
-
-function workItems(value: string): WorkItem[] {
-  return value.split(/^### /m).slice(1).map((block) => {
-    const [title, ...description] = block.split('\n')
-    return { title: title.trim(), description: paragraphs(description.join('\n')).join(' ') }
-  })
-}
-
-const intro = paragraphs(section('Intro'))
-const about = paragraphBlocks(section('About'))
-const interest = paragraphBlocks(section('Interest'))
-const identity = list(section('Identity'))
-const now = list(section('Now')).slice(1).map((text, index) => ({ number: String(index + 1).padStart(2, '0'), text }))
-
-export const homeContent: HomeContent = {
-  name: frontmatterValue('name') || 'Phil',
-  eyebrow: frontmatterValue('eyebrow'),
-  email: frontmatterValue('email'),
-  socialLabel: frontmatterValue('xLabel') || '@Formulasearch',
-  socialUrl: frontmatterValue('xUrl') || 'https://x.com/Formulasearch',
-  heroImage: frontmatterValue('heroImage'),
-  intro,
-  about,
-  interest,
-  sponsor: paragraphBlocks(section('Sponsor')).join(' '),
-  statement: paragraphs(section('Statement')).join(' '),
-  identity,
-  work: workItems(section('Work')),
-  writing: paragraphs(section('Writing')).join(' '),
-  resources: paragraphs(section('Resources')).join(' '),
-  now,
-}
+export const homeContent = { en, zh }
