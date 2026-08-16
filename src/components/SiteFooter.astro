@@ -14,7 +14,7 @@ interface Props {
 const { locale = 'zh', showHomeLink = true, variant = 'site' } = Astro.props
 ---
 
-<footer class={variant === 'catalog' ? 'catalog-footer' : 'site-footer'} data-site-reveal>
+<footer class:list={[variant === 'catalog' ? 'catalog-footer' : 'site-footer', { 'site-footer--home': variant === 'site' && !showHomeLink }]} data-site-reveal>
   <span>© {new Date().getFullYear()} {siteConfig.name}</span>
   {showHomeLink && <a href={getLocalizedRoute(siteRoutes.home, locale)}><LocalizedText {...uiCopy.common.returnHome} /></a>}
 </footer>

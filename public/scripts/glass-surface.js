@@ -89,6 +89,23 @@ const initializeGlassSurface = (container) => {
     const resizeObserver = new ResizeObserver(() => window.setTimeout(updateDisplacementMap, 0))
     resizeObserver.observe(container)
   }
+
+  const lightTarget = container.closest('.site-header') || container
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    lightTarget.addEventListener('pointermove', (event) => {
+      const rect = container.getBoundingClientRect()
+      const x = Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100))
+      const y = Math.max(0, Math.min(100, ((event.clientY - rect.top) / rect.height) * 100))
+      container.style.setProperty('--glass-light-x', `${x.toFixed(2)}%`)
+      container.style.setProperty('--glass-light-y', `${y.toFixed(2)}%`)
+      container.classList.add('is-glass-active')
+    })
+    lightTarget.addEventListener('pointerleave', () => {
+      container.style.setProperty('--glass-light-x', '22%')
+      container.style.setProperty('--glass-light-y', '0%')
+      container.classList.remove('is-glass-active')
+    })
+  }
 }
 
 glassSurfaces.forEach(initializeGlassSurface)
