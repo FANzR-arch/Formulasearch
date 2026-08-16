@@ -1,5 +1,35 @@
 import { expect, test } from '@playwright/test'
 
+const installBackgroundUniformProbe = async (page) => {
+  await page.addInitScript(() => {
+    const locations = new WeakMap()
+    const values = Object.create(null)
+    const getUniformLocation = WebGLRenderingContext.prototype.getUniformLocation
+    const uniform1f = WebGLRenderingContext.prototype.uniform1f
+    const uniform2f = WebGLRenderingContext.prototype.uniform2f
+
+    WebGLRenderingContext.prototype.getUniformLocation = function getUniformLocationProbe(program, name) {
+      const location = getUniformLocation.call(this, program, name)
+      if (location) locations.set(location, name)
+      return location
+    }
+
+    WebGLRenderingContext.prototype.uniform1f = function uniform1fProbe(location, value) {
+      const name = location && locations.get(location)
+      if (name) values[name] = value
+      return uniform1f.call(this, location, value)
+    }
+
+    WebGLRenderingContext.prototype.uniform2f = function uniform2fProbe(location, x, y) {
+      const name = location && locations.get(location)
+      if (name) values[name] = [x, y]
+      return uniform2f.call(this, location, x, y)
+    }
+
+    window.__formulasearchBackgroundUniforms = () => ({ ...values })
+  })
+}
+
 test('mobile navigation traps focus and restores it on Escape', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/blog')
@@ -51,8 +81,9 @@ test('archive and header controls keep touch-friendly hit areas', async ({ page 
 
   expect(sizes.length).toBeGreaterThan(0)
   for (const size of sizes) {
-    expect(size.width).toBeGreaterThanOrEqual(40)
-    expect(size.height).toBeGreaterThanOrEqual(40)
+    // CSS pixels can arrive a few micro-pixels below an authored 40px size.
+    expect(size.width).toBeGreaterThanOrEqual(39.5)
+    expect(size.height).toBeGreaterThanOrEqual(39.5)
   }
 })
 
@@ -95,6 +126,67 @@ test('key routes do not overflow a narrow viewport', async ({ page }) => {
   }
 })
 
+test('title scale remains subordinate to content on desktop and mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/projects')
+  expect(parseFloat(await page.locator('.catalog-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(88)
+  await page.goto('/blog')
+  expect(parseFloat(await page.locator('.blog-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(88)
+
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/blog')
+  expect(parseFloat(await page.locator('.blog-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(48)
+  await page.goto('/blog/prompt-aesthetic-2026-07-02')
+  expect(parseFloat(await page.locator('.article-header h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(40)
+})
+
+test('mobile article sources stay in the reading flow with touch-sized links', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/blog/prompt-aesthetic-2026-07-02')
+
+  const sources = page.locator('.article-sources')
+  await expect(sources).toBeVisible()
+  await expect(sources).toHaveCSS('position', 'static')
+  expect(await page.locator('.article-context__inner > a').evaluate((element) => element.getBoundingClientRect().height)).toBeGreaterThanOrEqual(44)
+  const sourceLinks = await sources.locator('a').evaluateAll((elements) => elements.map((element) => element.getBoundingClientRect().height))
+  expect(sourceLinks.length).toBeGreaterThan(0)
+  sourceLinks.forEach((height) => expect(height).toBeGreaterThanOrEqual(44))
+})
+
+test('internal pointer navigation records a circular route-transition origin', async ({ page }) => {
+  await page.goto('/projects')
+  await expect.poll(() => page.evaluate(() => [...document.styleSheets].some((sheet) => {
+    try {
+      return [...sheet.cssRules].some((rule) => rule.cssText.includes('@view-transition'))
+    } catch {
+      return false
+    }
+  }))).toBeTruthy()
+
+  await page.locator('.site-nav .nav-link').first().evaluate((link) => {
+    link.addEventListener('click', (event) => event.preventDefault(), { once: true })
+  })
+  await page.locator('.site-nav .nav-link').first().click()
+  const transition = await page.evaluate(() => JSON.parse(sessionStorage.getItem('formulasearch-route-transition') || 'null'))
+  expect(transition).toEqual(expect.objectContaining({ x: expect.any(Number), y: expect.any(Number), timestamp: expect.any(Number) }))
+})
+
+test('supported cross-document navigation consumes the route-transition origin', async ({ page }) => {
+  await page.goto('/projects')
+  await page.locator('.site-nav .nav-link').first().click()
+  await expect(page).toHaveURL(/\/blog$/)
+  await expect.poll(() => page.evaluate(() => sessionStorage.getItem('formulasearch-route-transition'))).toBeNull()
+})
+
+test('reduced-motion route navigation clears the stored origin without animation state', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/projects')
+  await page.locator('.site-nav .nav-link').first().click()
+  await expect(page).toHaveURL(/\/blog$/)
+  await expect.poll(() => page.evaluate(() => sessionStorage.getItem('formulasearch-route-transition'))).toBeNull()
+  await expect(page.locator('html')).not.toHaveAttribute('data-view-transition', 'route')
+})
+
 test('homepage falls back when WebGL is unavailable', async ({ page }) => {
   await page.addInitScript(() => {
     const getContext = HTMLCanvasElement.prototype.getContext
@@ -107,11 +199,110 @@ test('homepage falls back when WebGL is unavailable', async ({ page }) => {
   await expect(page.locator('#ambient-flow')).toHaveClass(/ambient-flow--fallback/)
 })
 
-test('Chinese and English homepages share the site footer', async ({ page }) => {
+test('desktop pointer movement permanently changes the active background flow', async ({ page }) => {
+  await installBackgroundUniformProbe(page)
+  await page.goto('/')
+
+  await page.mouse.move(160, 220)
+  await page.mouse.move(240, 260)
+  await expect.poll(() => page.evaluate(() => {
+    const uniforms = window.__formulasearchBackgroundUniforms?.() || {}
+    return Math.hypot(...(uniforms.uFlowMemory || [0, 0]))
+  })).toBeGreaterThan(0)
+
+  const before = await page.evaluate(() => window.__formulasearchBackgroundUniforms?.() || {})
+  await page.waitForTimeout(650)
+  const after = await page.evaluate(() => window.__formulasearchBackgroundUniforms?.() || {})
+  expect(after.uFlowPhase).toBeGreaterThan(0)
+  expect(after.uFlowPhase).toBeGreaterThan(before.uFlowPhase)
+  expect(Math.hypot(...after.uFlowMemory)).toBeGreaterThan(0)
+})
+
+test('each desktop primary click triggers only an outward ripple', async ({ page }) => {
+  await installBackgroundUniformProbe(page)
+  await page.goto('/')
+
+  for (const point of [[30, 220], [260, 420], [520, 650]]) {
+    await page.mouse.click(point[0], point[1])
+    await expect.poll(() => page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uImpulseAge ?? -1)).toBeGreaterThanOrEqual(0)
+    await expect.poll(() => page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uImpulseAge ?? 99)).toBeLessThan(0.6)
+  }
+})
+
+test('background clicks do not block existing controls or navigation', async ({ page }) => {
+  await installBackgroundUniformProbe(page)
+  await page.goto('/')
+
+  const theme = page.locator('#theme-toggle')
+  const initialTheme = await page.locator('html').getAttribute('data-theme')
+  await theme.click()
+  await expect(page.locator('html')).not.toHaveAttribute('data-theme', initialTheme || '')
+  await expect.poll(() => page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uImpulseAge ?? -1)).toBeGreaterThanOrEqual(0)
+
+  const navLink = page.locator('.site-nav .nav-link').first()
+  await navLink.evaluate((link) => link.addEventListener('click', (event) => event.preventDefault(), { once: true }))
+  await navLink.click()
+  await expect.poll(() => page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uImpulseAge ?? -1)).toBeGreaterThanOrEqual(0)
+})
+
+test('coarse pointers, non-primary clicks, and reduced motion keep disturbances off', async ({ page }) => {
+  await page.addInitScript(() => {
+    const originalMatchMedia = window.matchMedia.bind(window)
+    window.matchMedia = (query) => {
+      if (!query.includes('(hover: hover) and (pointer: fine)')) return originalMatchMedia(query)
+      return {
+        matches: false,
+        media: query,
+        addEventListener() {},
+        removeEventListener() {},
+      }
+    }
+  })
+  await installBackgroundUniformProbe(page)
+  await page.goto('/')
+
+  await page.mouse.move(180, 240)
+  await page.mouse.click(180, 240)
+  await page.waitForTimeout(80)
+  let uniforms = await page.evaluate(() => window.__formulasearchBackgroundUniforms?.() || {})
+  expect(uniforms.uInteractionStrength).toBe(0)
+  expect(uniforms.uImpulseAge).toBe(-1)
+
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.mouse.click(360, 420)
+  await page.mouse.click(360, 420, { button: 'right' })
+  await page.waitForTimeout(80)
+  uniforms = await page.evaluate(() => window.__formulasearchBackgroundUniforms?.() || {})
+  expect(uniforms.uInteractionStrength).toBe(0)
+  expect(uniforms.uImpulseAge).toBe(-1)
+})
+
+test('interaction strength follows the active background variant', async ({ page }) => {
+  await installBackgroundUniformProbe(page)
+  await page.goto('/')
+
+  const strengths = []
+  const cycle = page.locator('#background-cycle')
+  for (let index = 0; index < 3; index += 1) {
+    await expect.poll(() => page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uInteractionStrength ?? 0)).toBeGreaterThan(0)
+    strengths.push(await page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uInteractionStrength ?? 0))
+    await cycle.click()
+    await page.waitForTimeout(190)
+  }
+
+  expect(strengths.sort((a, b) => a - b)).toEqual([0.65, 0.8, 1])
+})
+
+test('Chinese and English homepages omit the redundant home link', async ({ page }) => {
   for (const route of ['/', '/en']) {
     await page.goto(route)
     await expect(page.locator('.site-footer')).toHaveCount(1)
-    await expect(page.locator('.site-footer a')).toHaveAttribute('href', route === '/' ? '/' : '/en')
+    await expect(page.locator('.site-footer a')).toHaveCount(0)
+  }
+
+  for (const [route, homeRoute] of [['/blog', '/'], ['/en/blog', '/en']]) {
+    await page.goto(route)
+    await expect(page.locator('.site-footer a')).toHaveAttribute('href', homeRoute)
   }
 })
 
@@ -122,10 +313,10 @@ test('homepage identity aliases cover the visible display name', async ({ page }
 
   expect(person).toBeTruthy()
   expect(person.name).toBe('Phil')
-  expect(person.alternateName).toEqual(expect.arrayContaining(['Fan Zheren', '阿哲 Phil', 'Formulasearch']))
-  await expect(page.locator('#intro-title .localized-text__zh')).toHaveText('阿哲 Phil')
+  expect(person.alternateName).toEqual(expect.arrayContaining(['Fan Zheren', '阿哲 Phil', 'Phil Carlos', 'Formulasearch']))
+  await expect(page.locator('#intro-title .localized-text__zh')).toHaveText('Phil Carlos')
   await page.locator('#language-toggle').click()
-  await expect(page.locator('#intro-title .localized-text__en')).toHaveText('Phil')
+  await expect(page.locator('#intro-title .localized-text__en')).toHaveText('Phil Carlos')
 })
 
 test('reduced motion skips decorative animation loops', async ({ page }) => {
@@ -335,16 +526,65 @@ test('archive navigation exposes the current page', async ({ page }) => {
   await expect(page.locator('.site-header .icon-link--archive.is-active')).toHaveAttribute('aria-current', 'page')
 })
 
-test('photo archive auto-loads more records on scroll', async ({ page }) => {
+test('photo selection accordion supports pointer and keyboard selection', async ({ page }) => {
   await page.goto('/photos')
 
+  const panels = page.locator('[data-photo-panel]')
+  await expect(page.locator('.photo-accordion__stage')).toBeVisible()
+  await expect(page.locator('.photo-accordion__stage')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
+  await expect(page.locator('.photo-accordion__stage')).toHaveCSS('padding-top', '0px')
+  await expect(panels).toHaveCount(5)
+  await expect(panels.nth(2)).toHaveAttribute('aria-pressed', 'true')
+  await expect(panels.nth(2).locator('img')).toHaveAttribute('src', /-960\.webp$/)
+  await panels.nth(3).click()
+  await expect(panels.nth(3)).toHaveAttribute('aria-pressed', 'true')
+  await expect.poll(() => panels.nth(3).evaluate((panel) => panel.getAnimations().length)).toBeGreaterThan(0)
+  await expect(panels.nth(3).locator('.photo-accordion__label')).toBeVisible()
+
+  await panels.nth(3).focus()
+  await page.keyboard.press('ArrowRight')
+  await expect(panels.nth(4)).toBeFocused()
+  await expect(panels.nth(4)).toHaveAttribute('aria-pressed', 'true')
+})
+
+test('photo selection remains readable when reduced motion is requested', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/photos')
+  await expect(page.locator('[data-photo-panel].is-active img')).toBeVisible()
+  await expect(page.locator('html')).not.toHaveClass(/site-motion-pending/)
+})
+
+test('photo archive keeps a stable masonry layout while images lazy-load', async ({ page }) => {
+  await page.goto('/photos')
+
+  await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe('auto')
+  const records = page.locator('[data-archive-index]:not([hidden])')
   const status = page.locator('[data-archive-status]')
-  const beforeStatus = await status.textContent()
-  const before = await page.locator('[data-archive-index]:not([hidden])').count()
-  await expect(page.locator('[data-archive-more]')).toHaveCount(0)
-  await page.locator('[data-archive-sentinel]').scrollIntoViewIfNeeded()
-  await expect.poll(() => page.locator('[data-archive-index]:not([hidden])').count()).toBeGreaterThan(before)
-  await expect(status).not.toHaveText(beforeStatus || '')
+  const sentinel = page.locator('[data-archive-sentinel]')
+  await expect(sentinel).toHaveCount(1)
+  await expect(records).toHaveCount(8)
+  await expect(page.locator('.archive-masonry')).toBeVisible()
+  await expect(page.locator('.archive-masonry__column')).toHaveCount(3)
+  const firstArchiveImage = page.locator('#archive-grid img').first()
+  await expect(firstArchiveImage).toHaveAttribute('srcset', /-960\.webp/)
+  await expect.poll(() => firstArchiveImage.evaluate((image) => new URL(image.currentSrc).pathname)).toMatch(/-960\.webp$/)
+  const before = await records.evaluateAll((elements) => elements.map((element) => {
+    const rect = element.getBoundingClientRect()
+    return { index: element.getAttribute('data-archive-index'), left: rect.left, top: rect.top + window.scrollY }
+  }))
+  await sentinel.scrollIntoViewIfNeeded()
+  await expect.poll(() => records.count()).toBe(16)
+  const after = await page.locator('[data-archive-record]:not([hidden])').evaluateAll((elements, initial) => elements
+    .filter((element) => initial.some((entry) => entry.index === element.getAttribute('data-archive-index')))
+    .map((element) => {
+      const rect = element.getBoundingClientRect()
+      return { index: element.getAttribute('data-archive-index'), left: rect.left, top: rect.top + window.scrollY }
+    }), before)
+  expect(after.map((entry) => entry.index)).toEqual(before.map((entry) => entry.index))
+  after.forEach((entry, index) => {
+    expect(Math.abs(entry.left - before[index].left)).toBeLessThan(.5)
+    expect(Math.abs(entry.top - before[index].top)).toBeLessThan(.5)
+  })
 
   await page.locator('#language-toggle').click()
   await expect(status).toContainText('Showing')
@@ -355,7 +595,7 @@ test('photo archive reveals all records when IntersectionObserver is unavailable
     Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: undefined })
   })
   await page.goto('/photos')
-  await expect(page.locator('#archive-grid [data-archive-record]:not([hidden])')).toHaveCount(8)
+  await expect(page.locator('#archive-grid [data-archive-record]:not([hidden])')).toHaveCount(50)
 })
 
 test('photo archive remains readable without JavaScript', async ({ browser }) => {
@@ -363,8 +603,21 @@ test('photo archive remains readable without JavaScript', async ({ browser }) =>
   const page = await context.newPage()
   await page.goto('http://127.0.0.1:4321/photos')
   const total = await page.locator('#archive-grid [data-archive-record]').count()
-  await expect(page.locator('#archive-grid [data-archive-record]:not([hidden])')).toHaveCount(total)
+  const displayed = await page.locator('#archive-grid [data-archive-record]').evaluateAll((elements) => elements.filter((element) => getComputedStyle(element).display !== 'none').length)
+  expect(displayed).toBe(total)
   await context.close()
+})
+
+test('photo records open an accessible full-resolution viewer', async ({ page }) => {
+  await page.goto('/photos')
+  const opener = page.locator('[data-photo-open]').first()
+  await opener.click()
+  const dialog = page.locator('[data-photo-lightbox]')
+  await expect(dialog).toHaveAttribute('open', '')
+  await expect(dialog.locator('[data-photo-lightbox-image]')).toHaveAttribute('src', /photo-001\.webp$/)
+  await expect(dialog.locator('[data-photo-lightbox-title]')).toHaveText('照片 01')
+  await dialog.locator('[data-photo-lightbox-close]').click()
+  await expect(dialog).not.toHaveAttribute('open', '')
 })
 
 test('photo archive removes repetitive captions', async ({ page }) => {

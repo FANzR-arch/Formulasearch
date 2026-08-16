@@ -4,6 +4,8 @@
   if (!(canvas instanceof HTMLCanvasElement)) return
 
   const variantIndex = Object.freeze({ dither: 1, molten: 2, contour: 3 })
+  const interactionStrengthByVariant = Object.freeze({ dither: 0.65, molten: 1, contour: 0.8 })
+  const interactionScale = 0.5
   let backgroundNames = {}
   try { backgroundNames = JSON.parse(decodeURIComponent(cycleButton?.dataset.backgroundNames || '%7B%7D')) } catch {}
   const configuredVariants = Object.keys(backgroundNames).filter((name) => Object.hasOwn(variantIndex, name))
@@ -50,6 +52,11 @@
     uniform float uSeed;
     uniform float uTheme;
     uniform float uVariant;
+    uniform vec2 uImpulse;
+    uniform float uImpulseAge;
+    uniform vec2 uFlowMemory;
+    uniform float uFlowPhase;
+    uniform float uInteractionStrength;
 
     float hash(vec2 point) {
       point = fract(point * vec2(123.34, 456.21));
@@ -114,12 +121,34 @@
       return clamp(first + second, 0.0, 1.0);
     }
 
+    vec2 applyRipple(vec2 point) {
+      if (uImpulseAge < 0.0 || uImpulseAge >= 1.1) return point;
+
+      vec2 impulseDelta = point - uImpulse;
+      float impulseDistance = length(impulseDelta);
+      vec2 impulseDirection = impulseDelta / max(impulseDistance, 0.0001);
+      float progress = clamp(uImpulseAge / 0.92, 0.0, 1.0);
+      float easedProgress = 1.0 - pow(1.0 - progress, 1.65);
+      float waveRadius = mix(0.014, 0.25, easedProgress);
+      float waveEnvelope = exp(-pow((impulseDistance - waveRadius) * 16.0, 2.0));
+      float rippleBirth = smoothstep(0.02, 0.14, uImpulseAge);
+      float rippleFade = rippleBirth
+        * (1.0 - smoothstep(0.66, 1.1, uImpulseAge))
+        * uInteractionStrength
+        * 0.5;
+      float ripple = waveEnvelope * rippleFade;
+
+      point += impulseDirection * ripple * 0.055;
+      return point;
+    }
+
     vec4 renderDither(vec2 point) {
-      float time = uTime * 0.028;
-      vec2 p = point * 1.18;
+      float flowPhase = uFlowPhase * 0.06;
+      float time = uTime * 0.028 + flowPhase;
+      vec2 p = point * 1.18 + uFlowMemory * 0.30;
       vec2 firstWarp = vec2(
-        fbm(p * 2.1 + vec2(time, -time * 0.7)),
-        fbm(p * 2.0 + vec2(-time * 0.6, time) + 9.4)
+        fbm(p * 2.1 + vec2(time, -time * 0.7) + uFlowMemory * 0.42),
+        fbm(p * 2.0 + vec2(-time * 0.6, time) - uFlowMemory * 0.34 + 9.4)
       );
       float field = fbm(p * 4.8 + firstWarp * 1.08);
       float primaryWave = 1.0 - smoothstep(0.045, 0.30, abs(sin((field + p.y * 0.16) * 7.2)));
@@ -141,8 +170,8 @@
     }
 
     vec4 renderMolten(vec2 point) {
-      float time = uTime * 0.17;
-      vec2 p = 4.0 * point - 0.5;
+      float time = uTime * 0.17 + uFlowPhase * 0.035;
+      vec2 p = 4.0 * point - 0.5 + uFlowMemory * 0.24;
       vec2 i = p;
       float c = 0.0;
       float r = length(p + vec2(sin(time), sin(time * 0.3 + 5.0)) * 0.5);
@@ -192,7 +221,8 @@
     }
 
     vec4 renderContour(vec2 point) {
-      float slowTime = uTime * 0.07;
+      float slowTime = uTime * 0.07 + uFlowPhase * 0.045;
+      point += uFlowMemory * 0.18;
 
       vec2 firstWarp = vec2(
         fbm(point * 1.65 + vec2(slowTime, -slowTime * 0.62)),
@@ -225,6 +255,7 @@
       vec2 uv = gl_FragCoord.xy / uResolution.xy;
       vec2 point = uv - 0.5;
       point.x *= uResolution.x / max(uResolution.y, 1.0);
+      point = applyRipple(point);
 
       if (uVariant < 0.5) {
         gl_FragColor = vec4(0.0);
@@ -279,6 +310,11 @@
     seed: gl.getUniformLocation(program, 'uSeed'),
     theme: gl.getUniformLocation(program, 'uTheme'),
     variant: gl.getUniformLocation(program, 'uVariant'),
+    impulse: gl.getUniformLocation(program, 'uImpulse'),
+    impulseAge: gl.getUniformLocation(program, 'uImpulseAge'),
+    flowMemory: gl.getUniformLocation(program, 'uFlowMemory'),
+    flowPhase: gl.getUniformLocation(program, 'uFlowPhase'),
+    interactionStrength: gl.getUniformLocation(program, 'uInteractionStrength'),
   }
 
   gl.useProgram(program)
@@ -294,8 +330,77 @@
   let lastFrame = 0
   let contextLost = false
   let theme = document.documentElement.dataset.theme === 'dark' ? 1 : 0
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
+  let pointerPrevious = { x: 99, y: 99 }
+  let hasPointerPosition = false
+  let impulse = { x: 99, y: 99 }
+  let impulseStartedAt = -Infinity
+  let flowMemoryTarget = { x: 0, y: 0 }
+  let flowMemory = { x: 0, y: 0 }
+  let flowPhaseTarget = 0
+  let flowPhase = 0
   const seed = 937
   const start = performance.now()
+
+  const clamp = (value, minimum, maximum) => Math.min(Math.max(value, minimum), maximum)
+  const interactionEnabled = () => finePointer.matches && !reduceMotion.matches
+
+  const resetRipple = () => {
+    pointerPrevious = { x: 99, y: 99 }
+    hasPointerPosition = false
+    impulse = { x: 99, y: 99 }
+    impulseStartedAt = -Infinity
+  }
+
+  const resetInteraction = () => {
+    resetRipple()
+    flowMemoryTarget = { x: 0, y: 0 }
+    flowMemory = { x: 0, y: 0 }
+    flowPhaseTarget = 0
+    flowPhase = 0
+  }
+
+  const pointerToPoint = (clientX, clientY) => {
+    const safeWidth = Math.max(width, 1)
+    const safeHeight = Math.max(height, 1)
+    return {
+      x: (clientX / safeWidth - 0.5) * (safeWidth / safeHeight),
+      y: 0.5 - clientY / safeHeight,
+    }
+  }
+
+  const updatePointerTarget = (event) => {
+    if (!interactionEnabled() || (event.pointerType && event.pointerType !== 'mouse')) return
+    const point = pointerToPoint(event.clientX, event.clientY)
+    if (!hasPointerPosition) {
+      pointerPrevious = point
+      hasPointerPosition = true
+      return
+    }
+
+    const delta = {
+      x: point.x - pointerPrevious.x,
+      y: point.y - pointerPrevious.y,
+    }
+    const distance = Math.hypot(delta.x, delta.y)
+    flowMemoryTarget = {
+      x: clamp(flowMemoryTarget.x + delta.x * 0.16 * interactionScale, -0.12, 0.12),
+      y: clamp(flowMemoryTarget.y + delta.y * 0.16 * interactionScale, -0.12, 0.12),
+    }
+    flowPhaseTarget += distance * 3.0 * interactionScale
+    pointerPrevious = point
+  }
+
+  const triggerImpulse = (event) => {
+    if (!interactionEnabled() || event.button !== 0 || (event.pointerType && event.pointerType !== 'mouse')) return
+    const point = pointerToPoint(event.clientX, event.clientY)
+    if (!hasPointerPosition) {
+      pointerPrevious = point
+      hasPointerPosition = true
+    }
+    impulse = point
+    impulseStartedAt = performance.now()
+  }
 
   const resize = () => {
     width = window.innerWidth
@@ -316,8 +421,20 @@
     frame = 0
   }
 
+  const updateInteraction = () => {
+    if (!interactionEnabled()) {
+      resetInteraction()
+      return
+    }
+
+    flowMemory.x += (flowMemoryTarget.x - flowMemory.x) * 0.08
+    flowMemory.y += (flowMemoryTarget.y - flowMemory.y) * 0.08
+    flowPhase += (flowPhaseTarget - flowPhase) * 0.18
+  }
+
   const draw = (now = performance.now()) => {
     if (contextLost) return
+    updateInteraction()
     gl.clearColor(0, 0, 0, 0)
     gl.clear(gl.COLOR_BUFFER_BIT)
     gl.uniform2f(uniforms.resolution, canvas.width, canvas.height)
@@ -325,6 +442,12 @@
     gl.uniform1f(uniforms.seed, seed)
     gl.uniform1f(uniforms.theme, theme)
     gl.uniform1f(uniforms.variant, variantIndex[variant])
+    gl.uniform2f(uniforms.impulse, impulse.x, impulse.y)
+    const impulseAge = interactionEnabled() && impulseStartedAt > 0 ? Math.max(0, (now - impulseStartedAt) / 1000) : -1
+    gl.uniform1f(uniforms.impulseAge, impulseAge)
+    gl.uniform2f(uniforms.flowMemory, flowMemory.x, flowMemory.y)
+    gl.uniform1f(uniforms.flowPhase, flowPhase)
+    gl.uniform1f(uniforms.interactionStrength, interactionEnabled() ? (interactionStrengthByVariant[variant] || 0) : 0)
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
   }
 
@@ -352,9 +475,13 @@
   // layer is worth, so keep the CSS fallback for the rest of this page view.
   canvas.addEventListener('webglcontextlost', () => {
     contextLost = true
+    resetInteraction()
     stopAnimation()
     canvas.classList.add('ambient-flow--fallback')
   })
+
+  window.addEventListener('pointermove', updatePointerTarget, { passive: true })
+  window.addEventListener('pointerdown', triggerImpulse, { capture: true, passive: true })
 
   const updateCycleLabel = () => {
     if (!(cycleButton instanceof HTMLButtonElement)) return
@@ -409,7 +536,10 @@
   }, { passive: true })
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopAnimation()
+    if (document.hidden) {
+      resetRipple()
+      stopAnimation()
+    }
     else syncMotion()
   })
 
@@ -421,7 +551,17 @@
   window.addEventListener('formulasearch:locale', updateCycleLabel)
 
   if (typeof reduceMotion.addEventListener === 'function') {
-    reduceMotion.addEventListener('change', syncMotion)
+    reduceMotion.addEventListener('change', () => {
+      resetInteraction()
+      syncMotion()
+    })
+  }
+
+  if (typeof finePointer.addEventListener === 'function') {
+    finePointer.addEventListener('change', () => {
+      resetInteraction()
+      draw()
+    })
   }
 
   resize()
