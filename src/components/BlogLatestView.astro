@@ -1,5 +1,4 @@
 ---
-import { ArrowRight } from '@lucide/astro'
 import BlogCover from './BlogCover.astro'
 import BlogPostRow from './BlogPostRow.astro'
 import BlogSectionNav from './BlogSectionNav.astro'
@@ -9,6 +8,7 @@ import { getLocalizedRoute } from '../data/site-routes'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
 import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } from '../lib/blog-content'
 import { uiCopy } from '../data/ui-copy'
+import Icon from './icon-system/Icon.astro'
 
 interface Props {
   locale?: Locale
@@ -130,7 +130,7 @@ const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, 
 
 <a class="archive-cta" href={localizedRoute('/blog/archive')} data-reveal>
   <span><LocalizedText {...uiCopy.blog.allArticles} /></span>
-  <ArrowRight aria-hidden="true" size={16} stroke-width={1.7} />
+  <Icon name="blog-forward" role="control" />
 </a>
 
 <script is:inline src="/scripts/blog-index.js"></script>

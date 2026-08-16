@@ -4,6 +4,7 @@ import LocalizedText from './LocalizedText.astro'
 import PhotoAccordionGallery from './PhotoAccordionGallery.astro'
 import { uiCopy } from '../data/ui-copy'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
+import Icon from './icon-system/Icon.astro'
 
 interface ArchiveItem {
   alt: { en: string; zh: string }
@@ -92,6 +93,10 @@ if (active === 'photos') {
   {active === 'photos' && (
     <dialog class="photo-lightbox" data-photo-lightbox aria-label={locale === 'en' ? 'Photograph viewer' : '照片查看器'}>
       <div class="photo-lightbox__frame">
+        <button class="photo-lightbox__close" type="button" data-photo-lightbox-close aria-label={locale === 'en' ? 'Close photo viewer' : '关闭照片查看器'} data-aria-en="Close photo viewer" data-aria-zh="关闭照片查看器">
+          <Icon name="cursor-photo-close" role="control" />
+          <span class="visually-hidden">{locale === 'en' ? 'Close' : '关闭'}</span>
+        </button>
         <div class="photo-lightbox__media">
           <img data-photo-lightbox-image alt="" />
         </div>

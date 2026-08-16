@@ -9,6 +9,8 @@
     "content:check": "node scripts/check-content.mjs",
     "preview": "astro preview",
     "check": "node scripts/check.mjs",
+    "icons:gallery": "astro dev --root refs/icon-system --port 4331",
+    "icons:gallery:check": "node scripts/check-icon-gallery.mjs",
     "blog:migrate": "node scripts/prepare-blog-content.mjs --write",
     "blog:media:prepare": "node scripts/prepare-blog-media.mjs --write",
     "blog:media:check": "node scripts/prepare-blog-media.mjs --check",

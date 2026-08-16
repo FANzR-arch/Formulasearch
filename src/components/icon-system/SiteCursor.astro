@@ -1,0 +1,41 @@
+---
+import Icon from './Icon.astro'
+---
+
+<div class="site-cursor" data-site-cursor aria-hidden="true">
+  <div class="site-cursor__inner">
+    <div class="site-cursor__body">
+      <span class="site-cursor__shape site-cursor__shape--default">
+        <Icon name="cursor-default" role="cursor" />
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--interactive">
+        <Icon name="cursor-interactive" role="cursor" />
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--text">
+        <Icon name="cursor-text" role="cursor" />
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--photo-nav">
+        <span class="site-cursor__photo-circle"><Icon name="cursor-photo-nav" role="cursor" /></span>
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--highlight">
+        <Icon name="cursor-highlight" role="cursor" />
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--capsule">
+        <Icon name="cursor-capsule" role="cursor" />
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--media">
+        <span class="site-cursor__photo-circle"><Icon name="cursor-media" role="cursor" /></span>
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--photo-open">
+        <span class="site-cursor__photo-circle"><Icon name="cursor-photo-open" role="cursor" /></span>
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--photo-shrink">
+        <span class="site-cursor__photo-circle"><Icon name="cursor-photo-shrink" role="cursor" /></span>
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--photo-close">
+        <span class="site-cursor__photo-circle"><Icon name="cursor-photo-close" role="cursor" /></span>
+      </span>
+      <span class="site-cursor__label" data-cursor-label hidden></span>
+    </div>
+  </div>
+</div>

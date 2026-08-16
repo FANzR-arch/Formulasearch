@@ -1,7 +1,6 @@
 ---
 import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
-import { ArrowLeft, ArrowRight, Clock3, House, Link } from '@lucide/astro'
 import LocalizedText from '../components/LocalizedText.astro'
 import BlogExternalLinks from '../components/BlogExternalLinks.astro'
 import RelatedPosts from '../components/RelatedPosts.astro'
@@ -12,6 +11,7 @@ import { uiCopy } from '../data/ui-copy'
 import { getBlogPostRoute, getLocalizedRoute, siteRoutes } from '../data/site-routes'
 import { getLocalizedValue, interpolateLocalizedCopy, type Locale } from '../lib/i18n'
 import { blogSettings } from '../data/blog-settings'
+import Icon from '../components/icon-system/Icon.astro'
 
 interface Props {
   categoryLabel: { title: string; titleEn: string }
@@ -89,7 +89,7 @@ const structuredData = {
     <article class="article-page" lang={post.data.contentLanguage}>
     <nav class="article-context" aria-label={getLocalizedValue(uiCopy.blog.articleLocation, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleLocation.en} data-aria-zh={uiCopy.blog.articleLocation.zh} data-site-reveal>
       <div class="article-context__inner">
-        <a href={localizedBlogRoute}><House aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.blog} /></a>
+        <a href={localizedBlogRoute}><Icon name="blog-home" role="meta" /> <LocalizedText {...uiCopy.blog.blog} /></a>
         <span class="article-context__pill"><LocalizedText zh={categoryLabel.title} en={categoryLabel.titleEn} /></span>
       </div>
     </nav>
@@ -100,7 +100,7 @@ const structuredData = {
         <h1><LocalizedText zh={post.data.title} en={titleEn} enLang={titleEnLang} /></h1>
         <div class="article-byline">
           <p class="article-author"><span class="article-author__mark" aria-hidden="true">{authorMark}</span><strong>{authorName}</strong></p>
-        <p class="article-tools"><span><Clock3 aria-hidden="true" size={14} stroke-width={1.7} /><LocalizedText {...readingTimeCopy} /></span><span class="article-copy-wrap"><button class="article-copy" type="button" data-copy-url={canonical} aria-live="polite"><Link aria-hidden="true" size={14} stroke-width={1.7} /><span class="article-copy__default"><LocalizedText {...uiCopy.blog.copyLink} /></span><span class="article-copy__feedback"><LocalizedText {...uiCopy.blog.copied} /></span><span class="article-copy__failure"><LocalizedText {...uiCopy.blog.copyFailed} /></span></button><input class="article-copy__failure-url" type="text" value={canonical} readonly hidden aria-label={getLocalizedValue(uiCopy.blog.copyFailed, contentLocale as Locale)} data-aria-en={uiCopy.blog.copyFailed.en} data-aria-zh={uiCopy.blog.copyFailed.zh} /></span></p>
+        <p class="article-tools"><span><Icon name="blog-time" role="meta" /><LocalizedText {...readingTimeCopy} /></span><span class="article-copy-wrap"><button class="article-copy" type="button" data-copy-url={canonical} aria-live="polite"><Icon name="blog-link" role="meta" /><span class="article-copy__default"><LocalizedText {...uiCopy.blog.copyLink} /></span><span class="article-copy__feedback"><LocalizedText {...uiCopy.blog.copied} /></span><span class="article-copy__failure"><LocalizedText {...uiCopy.blog.copyFailed} /></span></button><input class="article-copy__failure-url" type="text" value={canonical} readonly hidden aria-label={getLocalizedValue(uiCopy.blog.copyFailed, contentLocale as Locale)} data-aria-en={uiCopy.blog.copyFailed.en} data-aria-zh={uiCopy.blog.copyFailed.zh} /></span></p>
         </div>
       </header>
 
@@ -120,8 +120,8 @@ const structuredData = {
       <div class="article-prose" data-site-reveal><slot /></div>
 
       <footer class="article-footer" data-site-reveal>
-        <a href={localizedBlogRoute}><ArrowLeft aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.backToBlog} /></a>
-        <a href={localizedArchiveRoute}><LocalizedText {...uiCopy.blog.allArticles} /> <ArrowRight aria-hidden="true" size={14} stroke-width={1.7} /></a>
+        <a href={localizedBlogRoute}><Icon name="blog-back" role="meta" /> <LocalizedText {...uiCopy.blog.backToBlog} /></a>
+        <a href={localizedArchiveRoute}><LocalizedText {...uiCopy.blog.allArticles} /> <Icon name="blog-forward" role="meta" /></a>
       </footer>
 
       <RelatedPosts posts={relatedPosts} />

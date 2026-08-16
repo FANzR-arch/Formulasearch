@@ -5,7 +5,8 @@ import { getLocalizedRoute, localizedSiteRoutes, siteRoutes } from '../data/site
 import { uiCopy } from '../data/ui-copy'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
 import { serializeJsonLd } from '../lib/xml'
-import SiteCursor from '../components/SiteCursor.astro'
+import '../components/icon-system/icon-system.css'
+import SiteCursor from '../components/icon-system/SiteCursor.astro'
 
 interface Props {
   description: string
@@ -51,6 +52,17 @@ const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : 
   data-theme-to-light-zh={uiCopy.navigation.themeToLight.zh} data-theme-to-light-en={uiCopy.navigation.themeToLight.en}
   data-page={chinesePath === '/photos' ? 'photos' : undefined}>
   <head>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement
+        const capability = window.matchMedia('(any-hover: hover) and (any-pointer: fine)')
+        if (capability.matches) root.dataset.cursorCapability = 'fine'
+        capability.addEventListener?.('change', ({ matches }) => {
+          if (matches) root.dataset.cursorCapability = 'fine'
+          else delete root.dataset.cursorCapability
+        })
+      })()
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content={siteConfig.themeColors.light} />
@@ -88,11 +100,13 @@ const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : 
   </head>
   <body>
     <SiteCursor />
+    <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
     <a class="skip-link" href="#main-content">
       <span class="localized-text__zh">{uiCopy.navigation.skipToContent.zh}</span>
       <span class="localized-text__en">{uiCopy.navigation.skipToContent.en}</span>
     </a>
     <slot />
     <script is:inline src="/scripts/site-cursor.js"></script>
+    <script is:inline src="/scripts/scroll-progress.js"></script>
   </body>
 </html>

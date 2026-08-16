@@ -117,6 +117,25 @@ test('header utility controls keep fixed square hit areas', async ({ page }) => 
   }
 })
 
+test('desktop fine pointers always use custom cursor icons', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/blog/ai-practice-2026-02-22')
+
+  await page.mouse.move(420, 350)
+  const siteCursor = page.locator('[data-site-cursor]')
+  await expect(siteCursor).toHaveClass(/is-visible/)
+  await expect.poll(() => page.locator('html').evaluate((element) => getComputedStyle(element).cursor)).toBe('none')
+  await expect(siteCursor).not.toHaveCSS('display', 'none')
+
+  const fallbackInput = page.locator('.article-copy__failure-url')
+  await fallbackInput.evaluate((element) => { element.hidden = false })
+  await fallbackInput.hover()
+  await expect.poll(() => fallbackInput.evaluate((element) => getComputedStyle(element).cursor)).toBe('none')
+  await expect(siteCursor).toHaveAttribute('data-state', 'text')
+  await expect(siteCursor.locator('.site-cursor__shape--text')).toBeAttached()
+})
+
 test('key routes do not overflow a narrow viewport', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 800 })
   for (const route of ['/', '/blog', '/blog/ai-practice-2026-02-22', '/photos', '/architecture', '/projects', '/skills', '/lab']) {
