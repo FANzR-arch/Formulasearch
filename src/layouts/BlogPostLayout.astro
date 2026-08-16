@@ -87,7 +87,7 @@ const structuredData = {
   structuredData={structuredData}
 >
     <article class="article-page" lang={post.data.contentLanguage}>
-    <nav class="article-context" aria-label={getLocalizedValue(uiCopy.blog.articleLocation, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleLocation.en} data-aria-zh={uiCopy.blog.articleLocation.zh}>
+    <nav class="article-context" aria-label={getLocalizedValue(uiCopy.blog.articleLocation, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleLocation.en} data-aria-zh={uiCopy.blog.articleLocation.zh} data-site-reveal>
       <div class="article-context__inner">
         <a href={localizedBlogRoute}><House aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.blog} /></a>
         <span class="article-context__pill"><LocalizedText zh={categoryLabel.title} en={categoryLabel.titleEn} /></span>
@@ -95,7 +95,7 @@ const structuredData = {
     </nav>
 
     <div class="article-grid">
-      <header class="article-header">
+      <header class="article-header" data-site-reveal data-site-reveal-delay="60">
         <p class="article-meta"><time datetime={published}>{displayDate}</time></p>
         <h1><LocalizedText zh={post.data.title} en={titleEn} enLang={titleEnLang} /></h1>
         <div class="article-byline">
@@ -104,12 +104,12 @@ const structuredData = {
         </div>
       </header>
 
-      <figure class="article-cover">
+      <figure class="article-cover" data-site-reveal data-site-reveal-delay="100">
         <BlogCover src={post.data.cover} alt={post.data.coverAlt} altEn={post.data.coverAltEn} locale={contentLocale as Locale} fetchpriority="high" sizes="(max-width: 820px) 100vw, 880px" />
       </figure>
 
       {toc.length > 1 && (
-        <details class="article-toc" open>
+        <details class="article-toc" open data-site-reveal>
           <summary><LocalizedText {...uiCopy.blog.onThisPage} /></summary>
           <nav aria-label={getLocalizedValue(uiCopy.blog.articleContents, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleContents.en} data-aria-zh={uiCopy.blog.articleContents.zh}>
             {toc.map((heading) => <a class:list={{ 'is-subheading': heading.depth === 3 }} href={`#${heading.slug}`}>{heading.text}</a>)}
@@ -117,9 +117,9 @@ const structuredData = {
         </details>
       )}
 
-      <div class="article-prose"><slot /></div>
+      <div class="article-prose" data-site-reveal><slot /></div>
 
-      <footer class="article-footer">
+      <footer class="article-footer" data-site-reveal>
         <a href={localizedBlogRoute}><ArrowLeft aria-hidden="true" size={14} stroke-width={1.7} /> <LocalizedText {...uiCopy.blog.backToBlog} /></a>
         <a href={localizedArchiveRoute}><LocalizedText {...uiCopy.blog.allArticles} /> <ArrowRight aria-hidden="true" size={14} stroke-width={1.7} /></a>
       </footer>

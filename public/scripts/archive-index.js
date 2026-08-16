@@ -1,10 +1,21 @@
 const filterButtons = document.querySelectorAll('[data-archive-filter]')
 const archiveRecords = [...document.querySelectorAll('[data-archive-record]')]
+  .sort((left, right) => Number(left.getAttribute('data-archive-index')) - Number(right.getAttribute('data-archive-index')))
 const sentinel = document.querySelector('[data-archive-sentinel]')
 const statusRegion = document.querySelector('[data-archive-status]')
 const batchSize = Number(document.querySelector('[data-archive-batch-size]')?.getAttribute('data-archive-batch-size')) || 1
 let activeFilter = filterButtons[0]?.getAttribute('data-archive-filter') ?? 'all'
 let visibleCount = archiveRecords.filter((record) => record.getAttribute('data-archive-initial-hidden') !== 'true').length
+
+const markMediaReady = (record) => {
+  const image = record.querySelector('img')
+  if (!(image instanceof HTMLImageElement)) return
+  const ready = () => record.setAttribute('data-media-ready', 'true')
+  if (image.complete) ready()
+  else image.addEventListener('load', ready, { once: true })
+}
+
+archiveRecords.forEach(markMediaReady)
 
 const renderArchive = () => {
   let matchingCount = 0
@@ -16,7 +27,13 @@ const renderArchive = () => {
       matchingCount += 1
       if (visible) visibleMatchCount += 1
     }
+    const wasHidden = record.hidden
     record.toggleAttribute('hidden', !visible)
+    if (visible && wasHidden && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      record.classList.remove('is-archive-entering')
+      requestAnimationFrame(() => record.classList.add('is-archive-entering'))
+      record.addEventListener('animationend', () => record.classList.remove('is-archive-entering'), { once: true })
+    }
   })
   if (statusRegion instanceof HTMLElement) {
     const locale = document.documentElement.dataset.locale === 'en' ? 'en' : 'zh'
@@ -48,10 +65,10 @@ const loadMore = () => {
   renderArchive()
 }
 
-const observer = sentinel instanceof HTMLElement && 'IntersectionObserver' in window
+const observer = sentinel instanceof HTMLElement && typeof window.IntersectionObserver === 'function'
   ? new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) loadMore()
-    }, { rootMargin: '0px 0px 480px' })
+    }, { rootMargin: '0px 0px 160px' })
   : null
 
 if (observer && sentinel instanceof HTMLElement) {

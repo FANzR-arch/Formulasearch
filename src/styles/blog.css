@@ -5,6 +5,7 @@
 
 .blog-main {
   width: min(calc(100% - 48px), 1180px);
+  padding-top: clamp(18px, 3vw, 34px);
   padding-bottom: clamp(80px, 10vw, 128px);
 }
 
@@ -17,7 +18,7 @@
 .blog-hero h1 {
   margin: 0;
   font-family: var(--sans);
-  font-size: clamp(4rem, 7.5vw, 6.7rem);
+  font-size: var(--text-page-title);
   font-weight: 650;
   letter-spacing: -.075em;
   line-height: .88;
@@ -49,10 +50,7 @@
   text-transform: uppercase;
 }
 
-.blog-hero--journal h1 span {
-  display: inline-block;
-  animation: blog-title-in 720ms var(--ease-out) both;
-}
+.blog-hero--journal h1 span { display: inline-block; }
 
 .blog-hero__intro {
   max-width: 25rem;
@@ -85,11 +83,6 @@
 
 .blog-hero__threads path:nth-child(2) { animation-duration: 24s; animation-direction: reverse; }
 .blog-hero__threads path:nth-child(3) { animation-duration: 31s; }
-
-@keyframes blog-title-in {
-  from { opacity: 0; transform: translateY(24px); filter: blur(12px); }
-  to { opacity: 1; transform: none; filter: blur(0); }
-}
 
 @keyframes thread-drift { to { stroke-dashoffset: -230; } }
 
@@ -174,7 +167,7 @@
   max-width: 16ch;
   margin: 13px 0 0;
   font-family: var(--sans);
-  font-size: clamp(2.35rem, 4vw, 3.85rem);
+  font-size: var(--text-feature-title);
   font-weight: 620;
   letter-spacing: -.06em;
   line-height: 1.04;
@@ -296,7 +289,7 @@
   max-width: 19ch;
   margin: 0;
   font-family: var(--sans);
-  font-size: clamp(2.45rem, 5.2vw, 4.8rem);
+  font-size: var(--text-feature-title);
   font-weight: 620;
   letter-spacing: -.065em;
   line-height: .98;
@@ -415,7 +408,7 @@
 .motion-ready .recent-stream .post-row.is-visible {
   opacity: 1;
   transform: none;
-  transition: opacity 620ms var(--ease-out), transform 620ms var(--ease-out);
+  transition: opacity var(--motion-reveal) var(--ease-out), transform var(--motion-reveal) var(--ease-out);
 }
 
 .motion-ready .recent-stream .post-row:nth-child(2n) { transition-delay: 70ms; }
@@ -670,7 +663,7 @@
   max-width: 19ch;
   margin: 18px 0 0;
   font-family: var(--sans);
-  font-size: clamp(2.55rem, 3.7vw, 3.5rem);
+  font-size: var(--text-article-title);
   font-weight: 620;
   letter-spacing: -.055em;
   line-height: 1.02;
@@ -906,7 +899,7 @@
 .article-prose h2 {
   margin-top: 2.35em;
   padding-top: .2em;
-  font-size: clamp(1.9rem, 3.2vw, 2.55rem);
+  font-size: clamp(1.75rem, 2.7vw, 2.25rem);
 }
 
 .article-prose h3 {
@@ -1157,7 +1150,7 @@
     padding: 56px 0 38px;
   }
 
-  .blog-hero h1 { font-size: clamp(3.8rem, 18vw, 5.6rem); }
+  .blog-hero h1 { font-size: clamp(3rem, 12vw, 4.25rem); }
 
   .blog-hero--journal {
     min-height: 330px;
@@ -1263,6 +1256,7 @@
     border-right: 0;
     border-left: 0;
   }
+  .article-context__inner > a { min-height: 44px; }
 
   .article-header,
   .article-cover,
@@ -1281,7 +1275,7 @@
     border-left: 0;
   }
 
-  .article-header h1 { font-size: clamp(2.15rem, 8.5vw, 3.2rem); }
+  .article-header h1 { font-size: clamp(2rem, 8.1vw, 2.5rem); }
 
   .article-cover {
     padding: 38px 0 0;
@@ -1317,6 +1311,23 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px 22px;
   }
+  .article-toc a { display: flex; min-height: 44px; align-items: center; }
+
+  .article-sources {
+    position: static;
+    inset: auto;
+    width: auto;
+    max-height: none;
+    margin-top: 40px;
+    padding: 22px 0;
+    border-top: 1px solid var(--hairline);
+    border-right: 0;
+    border-bottom: 1px solid var(--hairline);
+    border-left: 0;
+    background: transparent;
+  }
+
+  .article-sources .post-row__links a { min-height: 44px; }
 
   .article-footer {
     padding: 72px 0 22px;
@@ -1338,12 +1349,12 @@
 
 @media (max-width: 460px) {
   .blog-hero { padding-top: 52px; }
-  .blog-hero h1 { font-size: clamp(3.65rem, 19vw, 5rem); }
+  .blog-hero h1 { font-size: clamp(3rem, 12vw, 4rem); }
 
   .blog-hero--journal { min-height: 310px; padding-top: 64px; }
   .blog-hero__eyebrow { margin-bottom: 14px; }
   .cover-stage__chrome { padding: 7px 9px; font-size: .54rem; }
-  .cover-stage__details h2 { font-size: clamp(2.05rem, 10.5vw, 2.85rem); }
+  .cover-stage__details h2 { font-size: clamp(2rem, 9vw, 2.4rem); }
   .cover-stage__index { grid-template-columns: repeat(4, minmax(168px, 1fr)); }
 
   .post-row {

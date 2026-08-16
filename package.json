@@ -25,6 +25,7 @@
     "i18n:check": "node scripts/report-i18n.mjs --strict",
     "contrast:check": "node scripts/check-color-contrast.mjs",
     "photos:prepare": "node scripts/prepare-photo-archive.mjs",
+    "photos:previews": "node scripts/prepare-photo-previews.mjs",
     "photos:hashes:migrate": "node scripts/migrate-photo-archive-hashes.mjs",
     "photos:test": "node scripts/test-photo-archive.mjs",
     "photos:source:manifest:write": "node scripts/prepare-photo-source-manifest.mjs --write",

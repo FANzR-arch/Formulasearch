@@ -61,7 +61,7 @@ navMenus.forEach((menu) => {
   })
 
   menu.addEventListener('pointerenter', (event) => {
-    if (event.pointerType === 'mouse') openNavigationMenu(menu)
+    if (event.pointerType === 'mouse' && !window.matchMedia('(max-width: 760px)').matches) openNavigationMenu(menu)
   })
   menu.addEventListener('pointerleave', (event) => {
     if (event.pointerType !== 'mouse') return
@@ -70,7 +70,10 @@ navMenus.forEach((menu) => {
       closeNavigationMenus()
     }, 180)
   })
-  menu.addEventListener('focusin', () => openNavigationMenu(menu))
+  menu.addEventListener('focusin', () => {
+    if (window.matchMedia('(max-width: 760px)').matches) return
+    openNavigationMenu(menu)
+  })
 })
 
 document.addEventListener('keydown', (event) => {

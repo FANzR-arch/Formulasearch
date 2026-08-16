@@ -1,19 +1,24 @@
 ---
-import { Image } from 'astro:assets'
-import type { ImageMetadata } from 'astro'
+import ArchiveRecord from './ArchiveRecord.astro'
 import LocalizedText from './LocalizedText.astro'
+import PhotoAccordionGallery from './PhotoAccordionGallery.astro'
 import { uiCopy } from '../data/ui-copy'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
 
 interface ArchiveItem {
   alt: { en: string; zh: string }
   caption?: { en: string; zh: string }
+  date?: { en: string; zh: string }
   height?: number
-  image: ImageMetadata | string
+  image: import('astro').ImageMetadata | string
   index: string
   label?: { en: string; zh: string }
   layout: 'hero' | 'portrait' | 'landscape' | 'square' | 'wide'
+  location?: { en: string; zh: string }
+  previewImage?: string
+  previewWidth?: number
   tags: string[]
+  title?: { en: string; zh: string }
   width?: number
 }
 
@@ -38,19 +43,29 @@ interface Props {
 
 const { active, autoLoadBatchSize, description, eagerImageCount, filters, initialVisibleCount, items, kicker, locale = 'zh', title } = Astro.props
 const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, locale)
-const localizedAlt = (alt: { zh: string; en: string }) => getLocalizedValue(alt, locale)
 const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.min(initialVisibleCount, items.length)
+const photoColumns = Array.from({ length: 3 }, () => ({ items: [] as Array<{ item: ArchiveItem; index: number }>, height: 0 }))
+
+if (active === 'photos') {
+  items.forEach((item, index) => {
+    const shortestColumn = photoColumns.reduce((shortest, column) => column.height < shortest.height ? column : shortest)
+    shortestColumn.items.push({ item, index })
+    shortestColumn.height += (item.height ?? 1) / (item.width ?? 1)
+  })
+}
 ---
 
 <section class:list={['visual-archive', { 'visual-archive--photos': active === 'photos' }]} aria-labelledby="archive-title" data-archive-batch-size={autoLoadBatchSize}>
-  <header class="visual-archive__intro">
+  <header class="visual-archive__intro" data-site-reveal>
     <p class="visual-archive__kicker"><LocalizedText {...kicker} /></p>
     <h1 id="archive-title"><LocalizedText {...title} /></h1>
     <p class="visual-archive__description"><LocalizedText {...description} /></p>
   </header>
 
+  {active === 'photos' && <PhotoAccordionGallery items={items.slice(0, 5)} locale={locale} />}
+
   {filters.length > 1 && (
-    <div class="visual-archive__utility">
+    <div class="visual-archive__utility" data-site-reveal data-site-reveal-delay="80">
       <div class="visual-archive__filters" role="group" aria-label={localized(uiCopy.archive.filters)} data-aria-en={uiCopy.archive.filters.en} data-aria-zh={uiCopy.archive.filters.zh}>
         <span><LocalizedText {...uiCopy.archive.browse} /></span>
         {filters.map((filter, index) => (
@@ -62,33 +77,48 @@ const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.
     </div>
   )}
 
-  <div id="archive-grid" class="visual-archive__grid" data-archive-grid>
-    {items.map((item, index) => (
-      <figure class:list={['archive-record', `archive-record--${item.layout}`]} data-archive-record={item.tags.join(' ')} data-archive-index={index} data-archive-initial-hidden={index >= initialVisibleItems ? 'true' : undefined}>
-        {typeof item.image === 'string' ? (
-          <img src={item.image} alt={localizedAlt(item.alt)} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} width={item.width} height={item.height} loading={index < eagerImageCount ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
-        ) : (
-          <Image src={item.image} alt={localizedAlt(item.alt)} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={index < eagerImageCount ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
-        )}
-        {active !== 'photos' && item.label && item.caption && (
-          <figcaption>
-            <span>{item.index}</span>
-            <strong><LocalizedText {...item.label} /></strong>
-            <em><LocalizedText {...item.caption} /></em>
-          </figcaption>
-        )}
-      </figure>
-    ))}
+  <div id="archive-grid" class:list={['visual-archive__grid', { 'visual-archive__grid--masonry': active === 'photos' }]} data-archive-grid>
+    {active === 'photos' ? (
+      <div class="archive-masonry">
+        {photoColumns.map((column) => (
+          <div class="archive-masonry__column">
+            {column.items.map(({ item, index }) => <ArchiveRecord active={active} eager={index < eagerImageCount} item={item} index={index} initialHidden={index >= initialVisibleItems} locale={locale} />)}
+          </div>
+        ))}
+      </div>
+    ) : items.map((item, index) => <ArchiveRecord active={active} eager={index < eagerImageCount} item={item} index={index} initialHidden={index >= initialVisibleItems} locale={locale} />)}
   </div>
+
+  {active === 'photos' && (
+    <dialog class="photo-lightbox" data-photo-lightbox aria-label={locale === 'en' ? 'Photograph viewer' : '照片查看器'}>
+      <div class="photo-lightbox__frame">
+        <div class="photo-lightbox__media">
+          <img data-photo-lightbox-image alt="" />
+        </div>
+        <section class="photo-lightbox__details" aria-live="polite">
+          <p class="photo-lightbox__index" data-photo-lightbox-index></p>
+          <h2 data-photo-lightbox-title></h2>
+          <p class="photo-lightbox__caption" data-photo-lightbox-caption></p>
+          <dl class="photo-lightbox__meta">
+            <div data-photo-lightbox-date-row hidden><dt><LocalizedText zh="时间" en="Date" /></dt><dd data-photo-lightbox-date></dd></div>
+            <div data-photo-lightbox-location-row hidden><dt><LocalizedText zh="地点" en="Location" /></dt><dd data-photo-lightbox-location></dd></div>
+          </dl>
+        </section>
+      </div>
+    </dialog>
+  )}
+
+  {active === 'photos' && <noscript><style>#archive-grid [data-archive-record][hidden] { display: block !important; } #archive-grid [data-media-ready='false'] img { opacity: 1 !important; }</style></noscript>}
 
   <p class="visually-hidden" data-archive-status data-status-zh={uiCopy.archive.results.zh} data-status-en={uiCopy.archive.results.en} role="status" aria-live="polite"></p>
 
   {items.length > initialVisibleItems && <div class="visual-archive__sentinel" data-archive-sentinel aria-hidden="true"></div>}
 
-  <footer class="visual-archive__note">
+  <footer class="visual-archive__note" data-site-reveal>
     <p><LocalizedText {...uiCopy.archive.note} /></p>
     <a href="#archive-title"><LocalizedText {...uiCopy.archive.backToTop} /></a>
   </footer>
 </section>
 
 <script is:inline src="/scripts/archive-index.js"></script>
+{active === 'photos' && <script is:inline src="/scripts/photo-lightbox.js"></script>}

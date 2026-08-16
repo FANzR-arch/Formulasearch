@@ -1,0 +1,42 @@
+---
+import { ArrowUpRight, Maximize2, Minus, MousePointer2, Plus, X } from '@lucide/astro'
+---
+
+<div class="site-cursor" data-site-cursor aria-hidden="true">
+  <div class="site-cursor__inner">
+    <div class="site-cursor__body">
+      <span class="site-cursor__shape site-cursor__shape--default">
+        <MousePointer2 size={22} stroke-width={1.8} />
+        <span class="site-cursor__dot"></span>
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--interactive">
+        <ArrowUpRight size={22} stroke-width={1.8} />
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--photo-nav">
+        <Plus size={17} stroke-width={1.8} />
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--highlight">
+        <span class="site-cursor__highlight-circle"></span>
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--media">
+        <Maximize2 size={20} stroke-width={1.8} />
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--photo-open">
+        <span class="site-cursor__photo-circle">
+          <Plus size={18} stroke-width={1.8} />
+        </span>
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--photo-shrink">
+        <span class="site-cursor__photo-circle">
+          <Minus size={18} stroke-width={1.8} />
+        </span>
+      </span>
+      <span class="site-cursor__shape site-cursor__shape--photo-close">
+        <span class="site-cursor__photo-circle">
+          <X size={20} stroke-width={1.8} />
+        </span>
+      </span>
+      <span class="site-cursor__label" data-cursor-label></span>
+    </div>
+  </div>
+</div>

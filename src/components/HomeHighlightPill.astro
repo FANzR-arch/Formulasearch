@@ -1,0 +1,15 @@
+---
+interface Props {
+  label: string
+  className?: string
+}
+
+const { label, className = 'home-copy__highlight' } = Astro.props
+---
+
+<span class={className} data-highlight-label={label}>
+  <span class="home-highlight-pill__track">
+    <span class="home-highlight-pill__text">{label}</span>
+    <span class="home-highlight-pill__text home-highlight-pill__text--clone" aria-hidden="true">{label}</span>
+  </span>
+</span>

@@ -13,16 +13,16 @@ const { locale = 'zh', page, sections } = Astro.props
 const indexLabel = getLocalizedValue(page.indexLabel, locale)
 ---
 
-<header class="catalog-hero">
+<header class="catalog-hero" data-site-reveal>
   <p class="catalog-hero__kicker"><LocalizedText {...page.kicker} /></p>
   <h1><LocalizedText {...page.heading} /></h1>
   <p class="catalog-hero__intro"><LocalizedText {...page.intro} /></p>
 </header>
-<nav class="catalog-index" aria-label={indexLabel} data-aria-en={page.indexLabel.en} data-aria-zh={page.indexLabel.zh}>
+<nav class="catalog-index" aria-label={indexLabel} data-aria-en={page.indexLabel.en} data-aria-zh={page.indexLabel.zh} data-site-reveal data-site-reveal-delay="70">
   {sections.map((section) => <a href={`#${section.id}`}><span>{section.label}</span><LocalizedText {...section.title} /></a>)}
 </nav>
 <div class="catalog-sections">
-  {sections.map((section) => <section id={section.id} class="catalog-section">
+  {sections.map((section, index) => <section id={section.id} class="catalog-section" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
     <p class="catalog-section__number">{section.label}</p>
     <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
     <ul>{section.items.map((item) => <li><LocalizedText {...item} /></li>)}</ul>

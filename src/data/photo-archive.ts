@@ -2,15 +2,25 @@ import { z } from 'astro/zod'
 import photoArchive from '../../content/site/photo-archive.json'
 import { localAssetPathSchema } from '../lib/validation'
 import { archiveItemBaseSchema, archivePageBaseSchema, validateArchiveRelations } from './archive-schema'
+import { localizedCopySchema } from '../lib/i18n'
 
 const photoArchiveItemSchema = archiveItemBaseSchema.extend({
   assetHash: z.string().regex(/^[a-f0-9]{64}$/i),
   height: z.number().int().positive(),
   image: localAssetPathSchema,
+  previewImage: localAssetPathSchema.optional(),
+  previewWidth: z.number().int().positive().optional(),
+  title: localizedCopySchema.optional(),
+  caption: localizedCopySchema.optional(),
+  date: localizedCopySchema.optional(),
+  location: localizedCopySchema.optional(),
   width: z.number().int().positive(),
 }).strict().superRefine((item, context) => {
   if (/^(?:Phil 的精选摄影作品|待补充摄影描述) \d+$/.test(item.alt.zh) || /^(?:Selected photograph \d+|Photography record \d+ awaiting description)$/i.test(item.alt.en)) {
     context.addIssue({ code: 'custom', path: ['alt'], message: 'Photo archive alt text must describe the image, not only its index or review status.' })
+  }
+  if ((item.previewImage == null) !== (item.previewWidth == null)) {
+    context.addIssue({ code: 'custom', path: ['previewImage'], message: 'Photo preview image and width must be provided together.' })
   }
 })
 

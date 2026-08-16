@@ -1,5 +1,8 @@
 ---
 import LocalizedText from './LocalizedText.astro'
+import HomeAvatar from './HomeAvatar.astro'
+import HomeHighlightPill from './HomeHighlightPill.astro'
+import HomeHighlightedText from './HomeHighlightedText.astro'
 import SiteFooter from './SiteFooter.astro'
 import { homeContent } from '../lib/home-content'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
@@ -11,16 +14,72 @@ interface Props {
 const { locale = 'zh' } = Astro.props
 const zh = homeContent.zh
 const en = homeContent.en
+const zhAboutHighlights = [
+  ['建筑设计', 'AIGC', '交互设计'],
+  ['AI 协作', '变成现实', 'Formulasearch', '独立探索'],
+]
+const enAboutHighlights = [
+  ['architectural design', 'AIGC', 'interaction design'],
+  ['working with AI', 'useful things', 'Formulasearch', 'independent exploration'],
+]
+const zhInterestHighlights = ['vibe coding', '摄影和旅行', '图像与片段']
+const enInterestHighlights = ['vibe coding', 'photography and travel', 'images and fragments']
 const heroImageAlt = getLocalizedValue({ zh: zh.heroImageAlt, en: en.heroImageAlt }, locale)
+const zhLead = zh.intro.join(' ')
+const enLead = en.intro.join(' ')
+const splitLeadIdentity = (text: string, marker: string, boundary: string, roleOne: string, roleTwo: string) => {
+  const markerStart = text.indexOf(marker)
+  const boundaryStart = text.indexOf(boundary, markerStart + marker.length)
+  if (markerStart < 0 || boundaryStart < 0) return { before: text, marker: '', after: '', beforeRole: '', roleOne: '', connector: '', roleTwo: '', trailing: '', rest: '' }
+  const after = text.slice(markerStart + marker.length, boundaryStart + boundary.length)
+  const rest = text.slice(boundaryStart + boundary.length)
+  const roleOneStart = rest.indexOf(roleOne)
+  const roleTwoStart = rest.indexOf(roleTwo, roleOneStart + roleOne.length)
+  if (roleOneStart < 0 || roleTwoStart < 0) {
+    return {
+      before: text.slice(0, markerStart),
+      marker,
+      after,
+      beforeRole: '',
+      roleOne: '',
+      connector: '',
+      roleTwo: '',
+      trailing: '',
+      rest,
+    }
+  }
+  return {
+    before: text.slice(0, markerStart),
+    marker,
+    after,
+    beforeRole: rest.slice(0, roleOneStart),
+    roleOne: rest.slice(roleOneStart, roleOneStart + roleOne.length),
+    connector: rest.slice(roleOneStart + roleOne.length, roleTwoStart),
+    roleTwo: rest.slice(roleTwoStart, roleTwoStart + roleTwo.length),
+    trailing: rest.slice(roleTwoStart + roleTwo.length),
+    rest: '',
+  }
+}
+const zhIdentity = splitLeadIdentity(zhLead, '阿哲', '，', '构建者', '设计师')
+const enIdentity = splitLeadIdentity(enLead, 'Phil', ' —', 'builder', 'designer')
 ---
 
 <main id="main-content">
   <section class="intro" aria-labelledby="intro-title">
-    <h1 id="intro-title"><LocalizedText zh={zh.name} en={en.name} /></h1>
-    <p class="lead"><LocalizedText zh={zh.intro.join(' ')} en={en.intro.join(' ')} /></p>
-    <div class="home-copy">
-      {zh.about.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={en.about[index]} /></p>)}
-      {zh.interest.map((paragraph, index) => <p><LocalizedText zh={paragraph} en={en.interest[index]} /></p>)}
+    <h1 id="intro-title" data-site-reveal><LocalizedText zh={zh.name} en={en.name} /></h1>
+    <p class="lead" data-site-reveal data-site-reveal-delay="70">
+      <span class="localized-text">
+        <span class="localized-text__zh" lang="zh-Hans">
+          {zhIdentity.marker ? <><span class="home-lead__identity">{zhIdentity.before}{zhIdentity.marker}<HomeAvatar locale={locale} />{zhIdentity.after}{zhIdentity.roleOne ? <>{zhIdentity.beforeRole}<HomeHighlightPill className="home-lead__role" label={zhIdentity.roleOne} />{zhIdentity.connector}<HomeHighlightPill className="home-lead__role" label={zhIdentity.roleTwo} />{zhIdentity.trailing}</> : zhIdentity.rest}</span></> : zhLead}
+        </span>
+        <span class="localized-text__en" lang="en">
+          {enIdentity.marker ? <><span class="home-lead__identity">{enIdentity.before}{enIdentity.marker}<HomeAvatar locale={locale} />{enIdentity.after}{enIdentity.roleOne ? <>{enIdentity.beforeRole}<HomeHighlightPill className="home-lead__role" label={enIdentity.roleOne} />{enIdentity.connector}<HomeHighlightPill className="home-lead__role" label={enIdentity.roleTwo} />{enIdentity.trailing}</> : enIdentity.rest}</span></> : enLead}
+        </span>
+      </span>
+    </p>
+    <div class="home-copy" data-site-reveal data-site-reveal-delay="140">
+      {zh.about.map((paragraph, index) => <p><HomeHighlightedText zh={paragraph} en={en.about[index]} zhHighlights={zhAboutHighlights[index]} enHighlights={enAboutHighlights[index]} /></p>)}
+      {zh.interest.map((paragraph, index) => <p><HomeHighlightedText zh={paragraph} en={en.interest[index]} zhHighlights={zhInterestHighlights} enHighlights={enInterestHighlights} /></p>)}
       <hr />
       <div class="home-contact">
         <p class="home-copy__label"><LocalizedText zh={zh.contactLabel} en={en.contactLabel} /></p>
@@ -33,7 +92,22 @@ const heroImageAlt = getLocalizedValue({ zh: zh.heroImageAlt, en: en.heroImageAl
       <hr />
       <p><LocalizedText zh={zh.sponsor} en={en.sponsor} /></p>
     </div>
-    {zh.heroImage && <img class="hero-image" src={zh.heroImage} alt={heroImageAlt} data-alt-zh={zh.heroImageAlt} data-alt-en={en.heroImageAlt} width={zh.heroImageWidth} height={zh.heroImageHeight} loading="eager" />}
+    {zh.heroImage && <img class="hero-image" src={zh.heroImage} alt={heroImageAlt} data-alt-zh={zh.heroImageAlt} data-alt-en={en.heroImageAlt} width={zh.heroImageWidth} height={zh.heroImageHeight} loading="eager" data-site-reveal data-site-reveal-delay="180" />}
   </section>
 </main>
-<SiteFooter locale={locale} />
+<SiteFooter locale={locale} showHomeLink={false} />
+
+<script>
+  const highlightSelector = '[data-highlight-label]'
+
+  const updateHighlightOrigin = (event: PointerEvent) => {
+    if (!(event.target instanceof Element)) return
+    const pill = event.target.closest(highlightSelector)
+    if (!(pill instanceof HTMLElement)) return
+    const bounds = pill.getBoundingClientRect()
+    pill.style.setProperty('--enter-x', `${event.clientX - bounds.left}px`)
+    pill.style.setProperty('--enter-y', `${event.clientY - bounds.top}px`)
+  }
+
+  document.addEventListener('pointerover', updateHighlightOrigin, true)
+</script>

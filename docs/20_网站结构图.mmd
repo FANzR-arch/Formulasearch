@@ -1,0 +1,50 @@
+flowchart TD
+    Site["FORMULASEARCH"]
+
+    Site --> Home["Home<br/>/"]
+    Site --> Blog["Blog<br/>/blog"]
+    Blog --> Latest["Latest posts"]
+    Blog --> Series["Series<br/>/blog/series"]
+    Blog --> Archive["Archive<br/>/blog/archive"]
+    Blog --> Article["Article detail<br/>/blog/:slug"]
+
+    Site --> Projects["Projects<br/>/projects"]
+    Projects --> Products["Products & Tools"]
+    Projects --> Websites["Websites"]
+    Projects --> ProjectIndex["All Projects"]
+
+    Site --> Skills["Skills<br/>/skills"]
+    Skills --> Design["Design Skills"]
+    Skills --> Workflows["Agent & Workflows"]
+    Skills --> SkillIndex["All Skills"]
+
+    Site --> Lab["Lab<br/>/lab"]
+    Lab --> Experiments["Experiments"]
+    Lab --> Courses["Courses"]
+    Lab --> Now["Now"]
+
+    Site --> Collections["Collections"]
+    Collections --> Photos["Photos<br/>/photos"]
+    Collections --> Architecture["Architecture<br/>/architecture"]
+
+    Site --> English["English mirror<br/>/en"]
+    English --> EnglishPages["Home · Blog · Projects<br/>Skills · Lab"]
+
+    Site -.-> Discovery["Discovery & feeds"]
+    Discovery -.-> RSS["RSS<br/>/rss.xml"]
+    Discovery -.-> Sitemap["Sitemap<br/>/sitemap.xml"]
+    Discovery -.-> LLMs["LLM index<br/>/llms.txt"]
+
+    classDef root fill:#17324d,stroke:#17324d,color:#ffffff,stroke-width:2px;
+    classDef primary fill:#2f5d7e,stroke:#2f5d7e,color:#ffffff;
+    classDef detail fill:#eaf2f8,stroke:#9cb8cc,color:#17324d;
+    classDef collection fill:#5f7f71,stroke:#5f7f71,color:#ffffff;
+    classDef locale fill:#8b6f47,stroke:#8b6f47,color:#ffffff;
+    classDef utility fill:#f4f0e8,stroke:#c7b998,color:#4a3b27,stroke-dasharray: 4 3;
+
+    class Site root;
+    class Home,Blog,Projects,Skills,Lab primary;
+    class Latest,Series,Archive,Article,Products,Websites,ProjectIndex,Design,Workflows,SkillIndex,Experiments,Courses,Now,EnglishPages detail;
+    class Collections,Photos,Architecture collection;
+    class English locale;
+    class Discovery,RSS,Sitemap,LLMs utility;

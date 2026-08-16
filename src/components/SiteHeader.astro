@@ -5,6 +5,7 @@ import { siteConfig } from '../data/site-config'
 import { getLocalizedRoute, siteRoutes } from '../data/site-routes'
 import { uiCopy } from '../data/ui-copy'
 import { getLocalizedValue, interpolateLocalizedCopy, type Locale } from '../lib/i18n'
+import GlassSurface from './GlassSurface.astro'
 import LocalizedText from './LocalizedText.astro'
 
 interface Props {
@@ -22,7 +23,8 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
 
 ---
 
-<header class="site-header" aria-label={localized(uiCopy.navigation.primary)} data-aria-en={uiCopy.navigation.primary.en} data-aria-zh={uiCopy.navigation.primary.zh}>
+<header class="site-header" aria-label={localized(uiCopy.navigation.primary)} data-aria-en={uiCopy.navigation.primary.en} data-aria-zh={uiCopy.navigation.primary.zh} data-site-reveal>
+  <GlassSurface id="site-nav" className="site-header__glass" width="100%" height="100%" borderRadius={999} borderWidth={0.08} brightness={52} opacity={0.94} blur={8} backgroundOpacity={0.1} saturation={1.12} displace={0} distortionScale={-14} redOffset={0} greenOffset={1} blueOffset={2} mixBlendMode="difference" useSvgFilter={false} ariaHidden />
   {logoMode === 'background' ? (
     <button id="background-cycle" class="monogram" type="button" aria-label={localized(uiCopy.navigation.backgroundEffect)} data-aria-en={uiCopy.navigation.backgroundEffect.en} data-aria-zh={uiCopy.navigation.backgroundEffect.zh} title={localized(uiCopy.navigation.backgroundEffect)} data-title-en={uiCopy.navigation.backgroundEffect.en} data-title-zh={uiCopy.navigation.backgroundEffect.zh}
       data-background-cycle-zh={uiCopy.navigation.backgroundCycle.zh} data-background-cycle-en={uiCopy.navigation.backgroundCycle.en}

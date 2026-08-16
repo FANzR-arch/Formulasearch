@@ -7,6 +7,7 @@ const sourceDirectory = process.env.PHOTO_ARCHIVE_SOURCE ?? process.argv[2]
 const outputDirectory = path.resolve(process.env.PHOTO_ARCHIVE_OUTPUT ?? 'public/uploads/photos/select')
 const manifestPath = path.resolve(process.env.PHOTO_ARCHIVE_MANIFEST ?? 'content/site/photo-archive.json')
 const maxDimension = 2560
+const previewMaxWidth = 960
 const supportedImage = /\.(?:jpe?g|png)$/i
 const allowShrink = process.env.PHOTO_ARCHIVE_ALLOW_SHRINK === '1' || process.argv.includes('--allow-shrink')
 
@@ -70,7 +71,7 @@ const defaultPage = {
   kicker: { zh: '影像档案 / 01', en: 'Visual archive / 01' },
   title: { zh: '记录自由', en: 'Photographic records' },
   description: { zh: '持续收集的摄影作品与日常影像，按时间与地点整理并归档。', en: 'An ongoing collection of photographs and everyday images, organised and archived by time and place.' },
-  initialVisibleCount: 8,
+  initialVisibleCount: 50,
   autoLoadBatchSize: 8,
   eagerImageCount: 2,
   filters: [{ id: 'all', zh: '全部', en: 'All' }],
@@ -126,6 +127,8 @@ for (const [index, input] of images.entries()) {
   const { width, height } = displayDimensions(metadata)
   const filename = `photo-${String(index + 1).padStart(3, '0')}.webp`
   const output = path.join(outputDirectory, filename)
+  const previewFilename = `photo-${String(index + 1).padStart(3, '0')}-960.webp`
+  const previewOutput = path.join(outputDirectory, previewFilename)
 
   const outputBuffer = await sharp(input)
     .rotate()
@@ -134,6 +137,14 @@ for (const [index, input] of images.entries()) {
     .toBuffer()
 
   await fs.writeFile(output, outputBuffer)
+  const previewBuffer = await sharp(input)
+    .rotate()
+    .resize({ width: previewMaxWidth, withoutEnlargement: true })
+    .webp({ quality: 80, effort: 5, smartSubsample: true })
+    .toBuffer()
+  const previewMetadata = await sharp(previewBuffer).metadata()
+  if (!previewMetadata.width) throw new Error(`Preview dimensions are unavailable for ${filename}.`)
+  await fs.writeFile(previewOutput, previewBuffer)
   totalBytes += outputBuffer.byteLength
   const number = String(index + 1).padStart(2, '0')
   const image = `/uploads/photos/select/${filename}`
@@ -147,6 +158,8 @@ for (const [index, input] of images.entries()) {
     image,
     index: number,
     layout: layoutFor(index, width, height),
+    previewImage: `/uploads/photos/select/${previewFilename}`,
+    previewWidth: previewMetadata.width,
     tags: existing?.tags ?? ['selected'],
     width,
   })

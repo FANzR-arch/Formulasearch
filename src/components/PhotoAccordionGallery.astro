@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+import LocalizedText from './LocalizedText.astro'
+import type { Locale } from '../lib/i18n'
+
+interface PhotoItem {
+  alt: { en: string; zh: string }
+  height?: number
+  image: ImageMetadata | string
+  index: string
+  previewImage?: string
+  previewWidth?: number
+  width?: number
+}
+
+interface Props {
+  items: PhotoItem[]
+  locale?: Locale
+}
+
+const { items, locale = 'zh' } = Astro.props
+const defaultIndex = Math.min(2, Math.max(items.length - 1, 0))
+const selectedTitle = { zh: '本次选片', en: 'Selected frames' }
+const selectedDescription = { zh: '五张照片，五个停留的瞬间。', en: 'Five photographs, five moments to pause.' }
+const galleryLabel = { zh: '摄影精选画廊', en: 'Selected photography gallery' }
+const frameLabel = (item: PhotoItem) => ({
+  zh: `照片 ${item.index}`,
+  en: `Frame ${item.index}`,
+})
+const photoLabel = (item: PhotoItem) => ({
+  zh: `查看照片 ${item.index}：${item.alt.zh}`,
+  en: `View photograph ${item.index}: ${item.alt.en}`,
+})
+---
+
+<section class="photo-accordion" aria-labelledby="photo-selection-title" data-site-reveal data-site-reveal-delay="100">
+  <header class="photo-accordion__header">
+    <div>
+      <p class="photo-accordion__eyebrow"><LocalizedText {...selectedTitle} /></p>
+      <h2 id="photo-selection-title"><LocalizedText {...selectedDescription} /></h2>
+    </div>
+    <p class="photo-accordion__count" aria-hidden="true">01 — {String(items.length).padStart(2, '0')}</p>
+  </header>
+
+  <div class="photo-accordion__stage">
+    <div class="photo-accordion__panels" data-photo-accordion role="group" aria-label={locale === 'en' ? galleryLabel.en : galleryLabel.zh} data-aria-en={galleryLabel.en} data-aria-zh={galleryLabel.zh} data-active-index={defaultIndex}>
+      {items.map((item, index) => {
+        const label = photoLabel(item)
+        const displayLabel = frameLabel(item)
+        return (
+          <button
+            class:list={['photo-accordion__panel', { 'is-active': index === defaultIndex }]}
+            type="button"
+            data-photo-panel={index}
+            aria-pressed={index === defaultIndex ? 'true' : 'false'}
+            aria-label={locale === 'en' ? label.en : label.zh}
+            data-aria-en={label.en}
+            data-aria-zh={label.zh}
+          >
+            {typeof item.image === 'string' ? (
+              <img src={item.previewImage ?? item.image} alt={locale === 'en' ? item.alt.en : item.alt.zh} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} width={item.width} height={item.height} loading={index === defaultIndex ? 'eager' : 'lazy'} fetchpriority={index === defaultIndex ? 'high' : undefined} decoding="async" />
+            ) : (
+              <Image src={item.image} alt={locale === 'en' ? item.alt.en : item.alt.zh} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={index === defaultIndex ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 70vw, 52vw" />
+            )}
+            <span class="photo-accordion__shade" aria-hidden="true"></span>
+            <span class="photo-accordion__label" aria-hidden="true">
+              <span class="photo-accordion__label-mark"></span>
+              <span class="photo-accordion__label-text"><LocalizedText {...displayLabel} /></span>
+            </span>
+          </button>
+        )
+      })}
+    </div>
+  </div>
+
+  <div class="visually-hidden" aria-live="polite">
+    {items.map((item, index) => (
+      <span data-photo-caption={index} hidden={index !== defaultIndex}><LocalizedText {...item.alt} /></span>
+    ))}
+  </div>
+</section>
+
+<script is:inline src="/scripts/photo-accordion.js"></script>

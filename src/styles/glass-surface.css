@@ -1,0 +1,107 @@
+.glass-surface {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.26s ease-out;
+}
+
+.glass-surface__filter {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.glass-surface__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem;
+  border-radius: inherit;
+}
+
+.glass-surface--svg {
+  --glass-rim: light-dark(color-mix(in oklab, var(--ink) 14%, transparent), color-mix(in oklab, var(--accent) 12%, transparent));
+  --glass-edge-soft: light-dark(color-mix(in oklab, var(--paper) 24%, transparent), color-mix(in oklab, var(--ink) 8%, transparent));
+  background: light-dark(hsl(0 0% 100% / var(--glass-frost, 0)), hsl(0 0% 0% / var(--glass-frost, 0)));
+  -webkit-backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(var(--glass-saturation, 1)) brightness(1.04);
+  backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(var(--glass-saturation, 1)) brightness(1.04);
+  box-shadow:
+    0 0 0 1px var(--glass-rim) inset,
+    0 0 10px 2px var(--glass-edge-soft) inset,
+    0 8px 18px light-dark(rgb(88 74 58 / 5%), color-mix(in oklab, var(--paper) 18%, transparent));
+}
+
+/* The header keeps the React Bits refraction on a narrow rim only. Applying
+   the SVG filter to the full, extra-wide capsule makes Chromium sample too
+   much of the photo behind it. */
+.site-header__glass.glass-surface--svg {
+  background: light-dark(hsl(0 0% 100% / var(--glass-frost, 0)), hsl(0 0% 0% / var(--glass-frost, 0)));
+  -webkit-backdrop-filter: blur(14px) saturate(var(--glass-saturation, 1)) brightness(1.02);
+  backdrop-filter: blur(14px) saturate(var(--glass-saturation, 1)) brightness(1.02);
+}
+
+.site-header__glass.glass-surface--svg::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  box-sizing: border-box;
+  padding: 3px;
+  border-radius: inherit;
+  pointer-events: none;
+  content: '';
+  -webkit-backdrop-filter: var(--filter-id) saturate(var(--glass-saturation, 1));
+  backdrop-filter: var(--filter-id) saturate(var(--glass-saturation, 1));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.glass-surface--fallback {
+  border: 1px solid color-mix(in oklab, white 58%, transparent);
+  background: color-mix(in oklab, var(--paper) 70%, transparent);
+  backdrop-filter: blur(22px) saturate(1.18) brightness(1.04);
+  -webkit-backdrop-filter: blur(22px) saturate(1.18) brightness(1.04);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 82%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, var(--ink) 7%, transparent),
+    0 1px 1px color-mix(in oklab, var(--ink) 4%, transparent),
+    0 12px 34px color-mix(in oklab, var(--ink) 10%, transparent);
+}
+
+:root[data-theme='dark'] .glass-surface--fallback {
+  border-color: color-mix(in oklab, var(--ink) 16%, transparent);
+  background: color-mix(in oklab, var(--paper) 76%, transparent);
+  backdrop-filter: blur(22px) saturate(1.12) brightness(.96);
+  -webkit-backdrop-filter: blur(22px) saturate(1.12) brightness(.96);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--ink) 14%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, black 18%, transparent),
+    0 14px 38px rgb(0 0 0 / 24%);
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  .glass-surface--fallback {
+    background: rgb(255 255 255 / 40%);
+    box-shadow: 0 0 0 .5px rgb(255 255 255 / 22%);
+  }
+
+  .glass-surface--fallback::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border-radius: inherit;
+    background: rgb(255 255 255 / 15%);
+    content: '';
+  }
+}
