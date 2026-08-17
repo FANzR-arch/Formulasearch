@@ -53,6 +53,8 @@ const photoLabel = (item: PhotoItem) => ({
             class:list={['photo-accordion__panel', { 'is-active': index === defaultIndex }]}
             type="button"
             data-photo-panel={index}
+            data-sound="select"
+            data-sound-volume="0.18"
             aria-pressed={index === defaultIndex ? 'true' : 'false'}
             aria-label={locale === 'en' ? label.en : label.zh}
             data-aria-en={label.en}

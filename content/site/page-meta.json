@@ -26,5 +26,12 @@
       "zh": "按内容方向浏览 Phil 的文章。",
       "en": "Browse Phil's writing by topic."
     }
+  },
+  "soundPreview": {
+    "title": { "zh": "声音试听", "en": "Sound Preview" },
+    "description": {
+      "zh": "试听网站交互音效，记录素材来源，并为未来的背景音乐保留接口。",
+      "en": "Preview interface sounds, document their sources, and leave room for future background music."
+    }
   }
 }

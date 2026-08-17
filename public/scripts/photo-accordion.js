@@ -56,6 +56,7 @@
             ? 0
             : panels.length - 1
       activate((nextIndex + panels.length) % panels.length, true)
+      window.formulasearchAudio?.play('select', { volume: 0.18 })
     })
   })
 })()

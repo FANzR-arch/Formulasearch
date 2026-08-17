@@ -70,7 +70,7 @@ if (active === 'photos') {
       <div class="visual-archive__filters" role="group" aria-label={localized(uiCopy.archive.filters)} data-aria-en={uiCopy.archive.filters.en} data-aria-zh={uiCopy.archive.filters.zh}>
         <span><LocalizedText {...uiCopy.archive.browse} /></span>
         {filters.map((filter, index) => (
-          <button class:list={{ 'is-active': index === 0 }} type="button" data-archive-filter={filter.id} aria-pressed={index === 0 ? 'true' : 'false'}>
+          <button class:list={{ 'is-active': index === 0 }} type="button" data-archive-filter={filter.id} aria-pressed={index === 0 ? 'true' : 'false'} data-sound="select" data-sound-volume="0.18">
             <LocalizedText zh={filter.zh} en={filter.en} />
           </button>
         ))}
@@ -93,7 +93,7 @@ if (active === 'photos') {
   {active === 'photos' && (
     <dialog class="photo-lightbox" data-photo-lightbox aria-label={locale === 'en' ? 'Photograph viewer' : '照片查看器'}>
       <div class="photo-lightbox__frame">
-        <button class="photo-lightbox__close" type="button" data-photo-lightbox-close aria-label={locale === 'en' ? 'Close photo viewer' : '关闭照片查看器'} data-aria-en="Close photo viewer" data-aria-zh="关闭照片查看器">
+        <button class="photo-lightbox__close" type="button" data-photo-lightbox-close data-no-sound aria-label={locale === 'en' ? 'Close photo viewer' : '关闭照片查看器'} data-aria-en="Close photo viewer" data-aria-zh="关闭照片查看器">
           <Icon name="cursor-photo-close" role="control" />
           <span class="visually-hidden">{locale === 'en' ? 'Close' : '关闭'}</span>
         </button>

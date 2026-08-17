@@ -89,6 +89,7 @@
 
   const closeWithAnimation = () => {
     if (!dialog.open || closingPromise) return
+    window.formulasearchAudio?.play('close', { volume: 0.22 })
     const originRect = getOpeningRect(opener) || openingRect
     dialog.classList.add('is-closing')
     closingPromise = animateToThumbnail(originRect).then(() => {

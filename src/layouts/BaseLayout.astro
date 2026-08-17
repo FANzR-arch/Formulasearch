@@ -87,6 +87,7 @@ const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : 
     {socialImage && <meta name="twitter:image" content={socialImage} />}
     <title>{initialTitle}</title>
     <script is:inline src="/scripts/site-shell.js"></script>
+    <script is:inline src="/scripts/site-audio.js"></script>
     <script is:inline type="application/ld+json" set:html={serializeJsonLd({
       '@context': 'https://schema.org',
       '@type': 'Person',

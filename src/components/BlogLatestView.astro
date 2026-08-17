@@ -96,6 +96,8 @@ const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, 
           rel={isLocalBlogPost(post) ? undefined : 'noopener noreferrer'}
           aria-current={index === 0 ? 'true' : undefined}
           data-stage-trigger={index}
+          data-sound="select"
+          data-sound-volume="0.18"
           data-stage-title-zh={post.title}
           data-stage-title-en={post.titleEn ?? post.title}
           data-stage-title-translated={String(Boolean(post.titleEn))}

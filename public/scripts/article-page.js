@@ -7,11 +7,13 @@ document.querySelectorAll('.article-copy').forEach((button) => {
       await navigator.clipboard.writeText(url)
       if (fallbackInput instanceof HTMLInputElement) fallbackInput.hidden = true
       button.dataset.copyState = 'copied'
+      window.formulasearchAudio?.play('success', { volume: 0.26 })
       window.setTimeout(() => {
         if (button.dataset.copyState === 'copied') delete button.dataset.copyState
       }, 1800)
     } catch {
       button.dataset.copyState = 'failed'
+      window.formulasearchAudio?.play('error', { volume: 0.24 })
       if (fallbackInput instanceof HTMLInputElement) {
         fallbackInput.hidden = false
         fallbackInput.focus()

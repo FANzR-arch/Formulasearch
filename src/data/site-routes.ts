@@ -11,6 +11,7 @@ const staticRouteKeys = [
   'lab',
   'photos',
   'architecture',
+  'soundPreview',
 ] as const
 
 const routePathSchema = z.string()
@@ -29,6 +30,7 @@ const routeContentSchema = z.object({
   lab: routePathSchema,
   photos: routePathSchema,
   architecture: routePathSchema,
+  soundPreview: routePathSchema,
   rss: routePathSchema,
   sitemap: routePathSchema,
   llms: routePathSchema,
