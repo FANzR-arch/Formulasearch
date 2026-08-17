@@ -3,6 +3,7 @@ const mobileNavigationToggle = document.querySelector('#mobile-navigation-toggle
 const languageToggle = document.querySelector('#language-toggle')
 const navMenus = primaryNavigation ? Array.from(primaryNavigation.querySelectorAll('.nav-menu')) : []
 let navCloseTimer
+const navCloseDelay = 360
 
 const getFocusableNavigationItems = () => [...(primaryNavigation?.querySelectorAll('a, button') ?? [])]
   .filter((element) => !element.hasAttribute('disabled') && !element.closest('[inert]') && element.getClientRects().length)
@@ -65,10 +66,13 @@ navMenus.forEach((menu) => {
   })
   menu.addEventListener('pointerleave', (event) => {
     if (event.pointerType !== 'mouse') return
+    if (event.relatedTarget instanceof Node && menu.contains(event.relatedTarget)) return
+    clearTimeout(navCloseTimer)
     navCloseTimer = window.setTimeout(() => {
-      if (menu.contains(document.activeElement)) return
+      const popover = menu.querySelector('.nav-popover')
+      if (menu.matches(':hover') || popover?.matches(':hover') || menu.contains(document.activeElement)) return
       closeNavigationMenus()
-    }, 180)
+    }, navCloseDelay)
   })
   menu.addEventListener('focusin', () => {
     if (window.matchMedia('(max-width: 760px)').matches) return
