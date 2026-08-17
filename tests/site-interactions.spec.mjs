@@ -117,6 +117,63 @@ test('header utility controls keep fixed square hit areas', async ({ page }) => 
   }
 })
 
+test('sound preview exposes local candidates and source guides', async ({ page }) => {
+  await page.goto('/sound-preview')
+  await expect(page).toHaveTitle(/声音试听/)
+  await expect(page.locator('[data-audio-preview]')).toHaveCount(90)
+  await expect(page.locator('[data-audio-preview]').first()).toHaveAttribute('data-audio-preview', /\/audio\/kenney-interface\/click1\.wav$/)
+  await expect(page.locator('.sound-preview-source')).toHaveCount(8)
+  await page.locator('[data-sound-filter="feedback"]').click()
+  await expect(page.locator('[data-sound-group]:not([hidden]) [data-audio-preview]')).toHaveCount(23)
+  await expect(page.locator('[data-sound-group="core"][hidden]')).toHaveCount(3)
+})
+
+test('sound toggle is removed while interaction audio remains enabled', async ({ page }) => {
+  await page.goto('/sound-preview')
+  await expect(page.locator('#sound-toggle')).toHaveCount(0)
+  await expect(page.locator('html')).toHaveAttribute('data-sound', 'on')
+  await expect(page.locator('[data-sound="switch"]').first()).toBeAttached()
+})
+
+test('desktop navigation uses concise popovers and expanded trigger areas', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/')
+  const trigger = page.locator('.nav-menu__trigger').first()
+  await expect(trigger).toHaveCSS('min-height', '46px')
+  await trigger.locator('.nav-disclosure').click()
+  const popover = page.locator('.nav-popover').first()
+  await expect(popover).toBeVisible()
+  await expect(popover.locator('em')).toHaveCount(0)
+})
+
+test('desktop navigation stays open while moving from a trigger into its popover', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/')
+  const menu = page.locator('.nav-menu').first()
+  const popover = menu.locator('.nav-popover')
+  const menuBox = await menu.boundingBox()
+  const firstLinkBox = await popover.locator('a').first().boundingBox()
+  if (!menuBox || !firstLinkBox) throw new Error('Navigation geometry is unavailable')
+
+  await page.mouse.move(menuBox.x + menuBox.width / 2, menuBox.y + menuBox.height / 2)
+  await expect(popover).toBeVisible()
+  await page.mouse.move(firstLinkBox.x + 16, firstLinkBox.y + firstLinkBox.height / 2, { steps: 10 })
+  await expect(popover).toBeVisible()
+  await expect(popover.locator('a').first()).toBeVisible()
+})
+
+test('navigation links do not render hover marker dots', async ({ page }) => {
+  await page.goto('/')
+  await expect.poll(() => page.locator('.nav-link').first().evaluate((element) => getComputedStyle(element, '::after').content)).toBe('none')
+})
+
+test('sound preview remains readable on a narrow viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 })
+  await page.goto('/sound-preview')
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)
+  expect(overflow).toBeFalsy()
+})
+
 test('desktop fine pointers always use custom cursor icons', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.emulateMedia({ reducedMotion: 'reduce' })
