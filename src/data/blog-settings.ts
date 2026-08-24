@@ -3,7 +3,6 @@ import blogSettingsContent from '../../content/site/blog-settings.json'
 
 const blogSettingsSchema = z.object({
   featuredCount: z.number().int().positive(),
-  recentCount: z.number().int().positive(),
   relatedCount: z.number().int().positive(),
   readingUnitsPerMinute: z.number().int().positive(),
 }).strict()

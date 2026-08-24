@@ -1,0 +1,17 @@
+---
+import type { Locale } from '../lib/i18n'
+
+interface Props {
+  locale?: Locale
+}
+
+const { locale = 'zh' } = Astro.props
+const label = locale === 'en' ? "Phil's profile portrait" : '阿哲的头像'
+---
+
+<span class="home-avatar" role="img" aria-label={label} data-aria-en="Phil's profile portrait" data-aria-zh="阿哲的头像">
+  <span class="home-avatar__frame">
+    <img class="home-avatar__image home-avatar__image--light" src="/uploads/home/profile-light.png" alt="" aria-hidden="true" width="1074" height="825" loading="eager" decoding="async" />
+    <img class="home-avatar__image home-avatar__image--dark" src="/uploads/home/profile-dark.png" alt="" aria-hidden="true" width="1114" height="868" loading="eager" decoding="async" />
+  </span>
+</span>

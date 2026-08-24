@@ -1,48 +1,134 @@
 {
-  "pageTitle": { "zh": "建筑", "en": "Architecture" },
+  "pageTitle": { "zh": "建筑设计", "en": "Architecture" },
   "pageDescription": {
-    "zh": "Phil 的建筑项目与设计档案。",
-    "en": "Phil's architecture projects and design archive."
+    "zh": "南京石头城遗址博物馆入口与青岛山海博物馆设计作品集。",
+    "en": "Architecture portfolio featuring the Nanjing Stone City heritage museum entrance and Qingdao Hill & Ocean Museum."
   },
-  "kicker": { "zh": "建筑档案 / 01", "en": "Architecture archive / 01" },
+  "kicker": { "zh": "建筑设计 / 02 个项目", "en": "Architecture / 02 projects" },
   "title": { "zh": "建筑作品集", "en": "Architecture portfolio" },
   "description": {
-    "zh": "持续收集的建筑项目与过程资料，按项目整理并归档。",
-    "en": "An ongoing collection of architectural projects and process material, organised and archived by project."
+    "zh": "两组面向城市、遗址与自然界面的公共建筑设计。",
+    "en": "Two public architecture proposals shaped by the city, heritage and the natural landscape."
   },
+  "projectListLabel": { "zh": "建筑项目", "en": "Architecture projects" },
+  "openProjectLabel": { "zh": "查看项目", "en": "View project" },
+  "backLabel": { "zh": "返回建筑作品集", "en": "Back to architecture portfolio" },
+  "projects": [
+    {
+      "slug": "nanjing-stone-city",
+      "index": "01",
+      "title": { "zh": "南京石头城遗址博物馆入口", "en": "Nanjing Stone City Heritage Museum Entrance" },
+      "summary": { "zh": "入口设计竞赛方案，以新的公共路径回应遗址、地形与城市界面。", "en": "An entrance competition proposal responding to heritage, terrain and the urban edge through a new public path." },
+      "cover": "nanjing-entrance-render",
+      "imageIds": ["nanjing-entrance-render", "nanjing-exploded-axon"]
+    },
+    {
+      "slug": "qingdao-hill-ocean",
+      "index": "02",
+      "title": { "zh": "青岛山海博物馆", "en": "Qingdao Hill & Ocean Museum" },
+      "summary": { "zh": "以抬升、折叠与连续步行系统，重新缝合高密度城市与崎岖海岸。", "en": "An elevated, folded and continuous walking system reconnecting the dense city with its rugged coast." },
+      "cover": "qingdao-hero",
+      "imageIds": ["qingdao-hero", "qingdao-board-01", "qingdao-board-02", "qingdao-board-03", "qingdao-board-04", "qingdao-board-05", "qingdao-board-06", "qingdao-board-07"]
+    }
+  ],
   "initialVisibleCount": "all",
-  "autoLoadBatchSize": 8,
+  "autoLoadBatchSize": 10,
   "eagerImageCount": 2,
   "filters": [
-    { "id": "all", "zh": "全部", "en": "All" }
+    { "id": "all", "zh": "全部", "en": "All" },
+    { "id": "nanjing-stone-city", "zh": "南京石头城", "en": "Nanjing Stone City" },
+    { "id": "qingdao-hill-ocean", "zh": "青岛山海博物馆", "en": "Qingdao Hill & Ocean Museum" }
   ],
   "items": [
     {
-      "image": "white-study",
-      "alt": { "zh": "白色流动材质在光线下形成的抽象研究图像", "en": "An abstract study of flowing white material shaped by light" },
+      "image": "nanjing-entrance-render",
+      "alt": { "zh": "南京石头城遗址博物馆入口设计效果图", "en": "Architectural rendering of the Nanjing Stone City heritage museum entrance" },
       "index": "01",
       "layout": "hero",
-      "tags": ["light", "material"],
-      "label": { "zh": "折叠的白", "en": "Folded white" },
-      "caption": { "zh": "材料研究 / 光", "en": "Material study / light" }
+      "tags": ["nanjing-stone-city"],
+      "label": { "zh": "南京石头城遗址博物馆入口", "en": "Nanjing Stone City Heritage Museum Entrance" },
+      "caption": { "zh": "入口设计竞赛方案 / 效果图", "en": "Entrance design competition / architectural rendering" }
     },
     {
-      "image": "violet-study",
-      "alt": { "zh": "紫色透明液体与柔和反光形成的抽象研究图像", "en": "An abstract study of translucent violet liquid and soft reflections" },
+      "image": "nanjing-exploded-axon",
+      "alt": { "zh": "南京石头城遗址博物馆入口设计爆炸轴测图", "en": "Exploded axonometric drawing of the Nanjing Stone City heritage museum entrance" },
       "index": "02",
-      "layout": "portrait",
-      "tags": ["light", "material"],
-      "label": { "zh": "透明的体积", "en": "Transparent volume" },
-      "caption": { "zh": "材料研究 / 表面", "en": "Material study / surface" }
+      "layout": "wide",
+      "tags": ["nanjing-stone-city"],
+      "label": { "zh": "体量与构造拆解", "en": "Massing and assembly" },
+      "caption": { "zh": "入口设计竞赛方案 / 爆炸轴测图", "en": "Entrance design competition / exploded axonometric" }
     },
     {
-      "image": "water-study",
-      "alt": { "zh": "红蓝色水与玻璃质感交叠的抽象研究图像", "en": "An abstract study of red and blue water layered with glass-like texture" },
+      "image": "qingdao-hero",
+      "alt": { "zh": "青岛山海博物馆建筑整体效果图", "en": "Overall architectural rendering of Qingdao Hill & Ocean Museum" },
       "index": "03",
+      "layout": "hero",
+      "tags": ["qingdao-hill-ocean"],
+      "label": { "zh": "青岛山海博物馆", "en": "Qingdao Hill & Ocean Museum" },
+      "caption": { "zh": "城市与海岸之间的立体渗透与缝合", "en": "Stereoscopic permeation and seam between city and coast" }
+    },
+    {
+      "image": "qingdao-board-01",
+      "alt": { "zh": "青岛山海博物馆方案总览展板，说明城市与海岸缝合概念", "en": "Qingdao Hill & Ocean Museum overview board explaining the seam between city and coast" },
+      "index": "04",
+      "layout": "landscape",
+      "tags": ["qingdao-hill-ocean"],
+      "label": { "zh": "方案总览", "en": "Project overview" },
+      "caption": { "zh": "可渗透节点 / 城市会客厅", "en": "Permeable node / urban meeting place" }
+    },
+    {
+      "image": "qingdao-board-02",
+      "alt": { "zh": "青岛滨海景观序列与文化功能空白分析展板", "en": "Analysis board of the functional void in Qingdao's coastal landscape sequence" },
+      "index": "05",
       "layout": "wide",
-      "tags": ["light", "material"],
-      "label": { "zh": "颜色进入水里", "en": "Colour enters water" },
-      "caption": { "zh": "材料研究 / 色彩", "en": "Material study / colour" }
+      "tags": ["qingdao-hill-ocean"],
+      "label": { "zh": "滨海序列中的功能空白", "en": "A void in the coastal sequence" },
+      "caption": { "zh": "场地研究 / 文化锚点", "en": "Site research / cultural anchor" }
+    },
+    {
+      "image": "qingdao-board-03",
+      "alt": { "zh": "青岛山海博物馆场地交通、视线、流线与体量生成分析展板", "en": "Site, circulation, sightline and massing analysis board for Qingdao Hill & Ocean Museum" },
+      "index": "06",
+      "layout": "landscape",
+      "tags": ["qingdao-hill-ocean"],
+      "label": { "zh": "从阻隔到连接", "en": "From barrier to connection" },
+      "caption": { "zh": "城市轴线、游览流线与体量生成", "en": "Urban axis, visitor circulation and massing" }
+    },
+    {
+      "image": "qingdao-board-04",
+      "alt": { "zh": "青岛山海博物馆首层平面、城市门廊与中庭空间展板", "en": "Ground-floor plan, urban porch and atrium board for Qingdao Hill & Ocean Museum" },
+      "index": "07",
+      "layout": "wide",
+      "tags": ["qingdao-hill-ocean"],
+      "label": { "zh": "城市门廊与中庭", "en": "The Urban Porch and Atrium" },
+      "caption": { "zh": "首层平面 / 24 小时城市客厅", "en": "Ground-floor plan / a 24-hour urban living room" }
+    },
+    {
+      "image": "qingdao-board-05",
+      "alt": { "zh": "青岛山海博物馆地下层、二层、屋顶平面与海洋展廊展板", "en": "Lower-ground, second-floor and roof plans with the Ocean Gallery for Qingdao Hill & Ocean Museum" },
+      "index": "08",
+      "layout": "landscape",
+      "tags": ["qingdao-hill-ocean"],
+      "label": { "zh": "海洋展廊", "en": "The Ocean Gallery" },
+      "caption": { "zh": "多层平面 / 艺术与自然的双重引导", "en": "Multi-level plans / dual guidance of art and nature" }
+    },
+    {
+      "image": "qingdao-board-06",
+      "alt": { "zh": "青岛山海博物馆城市展廊、自然展廊与建筑剖面展板", "en": "City Gallery, Nature Gallery and architectural sections for Qingdao Hill & Ocean Museum" },
+      "index": "09",
+      "layout": "wide",
+      "tags": ["qingdao-hill-ocean"],
+      "label": { "zh": "城市展廊与自然展廊", "en": "City Gallery and Nature Gallery" },
+      "caption": { "zh": "剖面设计 / 将城市与自然转化为展品", "en": "Sections / framing the city and nature as exhibits" }
+    },
+    {
+      "image": "qingdao-board-07",
+      "alt": { "zh": "青岛山海博物馆城市界面效果与建筑剖面展板", "en": "Urban interface view and architectural sections for Qingdao Hill & Ocean Museum" },
+      "index": "10",
+      "layout": "landscape",
+      "tags": ["qingdao-hill-ocean"],
+      "label": { "zh": "城市界面", "en": "The Urban Interface" },
+      "caption": { "zh": "克制的城市正面 / 开放的视觉廊道", "en": "A restrained city front / open visual corridors" }
     }
   ]
 }

@@ -20,15 +20,15 @@ const series = blogSeries.map((group) => ({
 const showSourceLanguageNotice = posts.some((post) => post.contentLanguage !== 'en')
 ---
 
-<header class="blog-hero blog-hero--compact">
+<header class="blog-hero blog-hero--compact" data-site-reveal>
   <h1><LocalizedText {...uiCopy.blog.seriesHeading} /></h1>
 </header>
 
 <BlogSectionNav active="series" locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
 
 <div class="series-list">
-  {series.map((group) => (
-    <section id={group.id} class="series-group" aria-labelledby={`series-${group.id}`}>
+  {series.map((group, index) => (
+    <section id={group.id} class="series-group" aria-labelledby={`series-${group.id}`} data-site-reveal data-site-reveal-delay={String((index % 2) * 60)}>
       <header class="series-group__header">
         <div>
           <h2 id={`series-${group.id}`}><LocalizedText {...group.title} /></h2>
@@ -37,7 +37,7 @@ const showSourceLanguageNotice = posts.some((post) => post.contentLanguage !== '
         <strong>{group.posts.length}</strong>
       </header>
       <div class="series-group__posts">
-        {group.posts.map((post) => <BlogPostRow post={post} compact locale={locale} showCategory={false} />)}
+        {group.posts.map((post) => <BlogPostRow post={post} compact locale={locale} />)}
       </div>
     </section>
   ))}

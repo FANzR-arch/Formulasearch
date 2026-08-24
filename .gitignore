@@ -3,6 +3,7 @@ node_modules/
 
 # Astro and production output
 .astro/
+.astro-icon-gallery-check/
 dist/
 
 # Local environment files

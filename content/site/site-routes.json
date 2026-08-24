@@ -8,9 +8,11 @@
   "lab": "/lab",
   "photos": "/photos",
   "architecture": "/architecture",
+  "partners": "/partners",
+  "soundPreview": "/sound-preview",
   "rss": "/rss.xml",
   "sitemap": "/sitemap.xml",
   "llms": "/llms.txt",
-  "static": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "lab", "photos", "architecture"],
-  "localized": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "lab", "photos", "architecture"]
+  "static": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "lab", "photos", "architecture", "partners", "soundPreview"],
+  "localized": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "lab", "photos", "architecture", "partners", "soundPreview"]
 }

@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets'
+import { architecturePage, architectureProjects } from '../data/architecture'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
+import LocalizedText from './LocalizedText.astro'
+import PageHero from './PageHero.astro'
+
+interface Props {
+  locale?: Locale
+}
+
+const { locale = 'zh' } = Astro.props
+const root = locale === 'en' ? '/en/architecture' : '/architecture'
+const listLabel = getLocalizedValue(architecturePage.projectListLabel, locale)
+---
+
+<section class="architecture-index" aria-labelledby="architecture-title">
+  <PageHero id="architecture-title" title={architecturePage.title} description={architecturePage.description} />
+  <nav class="architecture-project-list" aria-label={listLabel} data-aria-en={architecturePage.projectListLabel.en} data-aria-zh={architecturePage.projectListLabel.zh}>
+    {architectureProjects.map((project, index) => {
+      const coverItem = project.items.find((item) => item.image === project.cover) ?? project.items[0]
+      return (
+        <a class="architecture-project-entry" href={`${root}/${project.slug}`} data-site-reveal data-site-reveal-delay={String(70 + index * 60)}>
+          <figure>
+            <Image src={project.cover} alt={getLocalizedValue(coverItem.alt, locale)} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} sizes="(max-width: 820px) 100vw, 50vw" />
+          </figure>
+          <div class="architecture-project-entry__meta">
+            <span>{project.index}</span>
+            <div>
+              <h2><LocalizedText {...project.title} /></h2>
+              <p><LocalizedText {...project.summary} /></p>
+            </div>
+            <small><LocalizedText {...architecturePage.openProjectLabel} /></small>
+          </div>
+        </a>
+      )
+    })}
+  </nav>
+</section>

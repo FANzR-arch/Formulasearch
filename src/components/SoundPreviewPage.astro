@@ -1,0 +1,332 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import SiteFooter from './SiteFooter.astro'
+import SiteHeader from './SiteHeader.astro'
+import LocalizedText from './LocalizedText.astro'
+import Icon from './icon-system/Icon.astro'
+import { pageMeta } from '../data/page-meta'
+import { siteConfig } from '../data/site-config'
+import type { Locale } from '../lib/i18n'
+import '../styles/sound-preview.css'
+
+interface Props {
+  locale?: Locale
+}
+
+const { locale = 'zh' } = Astro.props
+const meta = pageMeta.soundPreview
+
+type LocalizedLabel = { zh: string; en: string }
+type SoundSpec = {
+  folder?: string
+  file: string
+  fileLabel?: string
+  zh: string
+  en?: string
+  tone?: string
+  tags?: LocalizedLabel
+}
+
+const audioSrc = (folder: string, relativeFile: string) => `/audio/${folder.split('/').map(encodeURIComponent).join('/')}/${relativeFile.split('/').map(encodeURIComponent).join('/')}`
+const makeSound = (spec: SoundSpec) => {
+  const folder = spec.folder || 'kenney-interface'
+  const fileLabel = spec.fileLabel || spec.file.split('/').pop() || spec.file
+  return {
+    src: audioSrc(folder, spec.file),
+    file: fileLabel,
+    zh: spec.zh,
+    en: spec.en || spec.zh,
+    tone: spec.tone || 'pin',
+    tags: spec.tags || { zh: '候选', en: 'candidate' },
+  }
+}
+
+const coreClicks = [
+  ['click1.wav', 'Click 01'], ['click2.wav', 'Click 02'], ['click3.wav', 'Click 03'],
+  ['click4.wav', 'Click 04'], ['click5.wav', 'Click 05'],
+  ['mouseclick1.wav', 'Mouse click'], ['mouserelease1.wav', 'Mouse release'],
+].map(([file, label]) => makeSound({ file, zh: label, tags: { zh: '按钮 / 链接', en: 'button / link' } }))
+
+const rollovers = Array.from({ length: 6 }, (_, index) => makeSound({
+  file: `rollover${index + 1}.wav`,
+  zh: `Rollover ${String(index + 1).padStart(2, '0')}`,
+  tone: 'air',
+  tags: { zh: '桌面 hover', en: 'desktop hover' },
+}))
+
+const switches = Array.from({ length: 38 }, (_, index) => makeSound({
+  file: `switch${index + 1}.wav`,
+  zh: `Switch ${String(index + 1).padStart(2, '0')}`,
+  tone: 'wave',
+  tags: index % 3 === 0
+    ? { zh: '主题 / 模式', en: 'theme / mode' }
+    : index % 3 === 1
+      ? { zh: '筛选 / 状态', en: 'filter / state' }
+      : { zh: '菜单 / 工具', en: 'menu / tool' },
+}))
+
+const feedbackSounds = [
+  ['ui_wav/alarm.wav', 'Alarm', '警告 / warning'],
+  ['ui_wav/alarm2.wav', 'Alarm 02', '警告 / warning'],
+  ['ui_wav/chimes.wav', 'Chimes', '成功 / success'],
+  ['ui_wav/click_1.wav', 'Click 01', '确认 / confirm'],
+  ['ui_wav/click_2.wav', 'Click 02', '确认 / confirm'],
+  ['ui_wav/click_3.wav', 'Click 03', '确认 / confirm'],
+  ['ui_wav/click_4.wav', 'Click 04', '确认 / confirm'],
+  ['ui_wav/ding_deep.wav', 'Ding deep', '完成 / complete'],
+  ['ui_wav/Ding.wav', 'Ding', '通知 / notice'],
+  ['ui_wav/dum.wav', 'Dum', '阻止 / blocked'],
+  ['ui_wav/negative_sound.wav', 'Negative', '失败 / error'],
+  ['ui_wav/negative_sound2.wav', 'Negative 02', '失败 / error'],
+].map(([file, label, tag]) => makeSound({ folder: 'cc0-feedback/ui-feedback', file, zh: label, tone: tag.includes('失败') ? 'status' : 'signal', tags: { zh: tag, en: tag.split(' / ')[1] || 'feedback' } }))
+
+const labBeeps = Array.from({ length: 16 }, (_, index) => makeSound({
+  folder: 'cc0-feedback/interface-beeps',
+  file: `Beeps/beep-${String(index).padStart(2, '0')}.wav`,
+  zh: `Beep ${String(index).padStart(2, '0')}`,
+  tone: 'signal',
+  tags: { zh: 'Lab / 扫描', en: 'lab / scan' },
+}))
+
+const statusFiles = Array.from({ length: 10 }, (_, index) => ({ file: `New folder/status-${String(index).padStart(2, '0')}.wav`, label: `Status ${String(index).padStart(2, '0')}` }))
+  .concat([{ file: 'New folder/status-wrong-error.wav', label: 'Wrong error' }])
+const statusSounds = statusFiles.map(({ file, label }, index) => makeSound({
+  folder: 'cc0-feedback/ui-status',
+  file,
+  zh: label,
+  tone: index === statusFiles.length - 1 ? 'status' : 'signal',
+  tags: index === statusFiles.length - 1
+    ? { zh: '错误 / error', en: 'error' }
+    : { zh: '通知 / attention', en: 'notice / attention' },
+}))
+
+const soundGroups = [
+  { id: 'core-click', filter: 'core', index: '01', label: { zh: '点击 / Click', en: 'Click' }, note: { zh: '按钮、链接、轻量操作', en: 'Buttons, links, small actions' }, sounds: coreClicks },
+  { id: 'core-rollover', filter: 'core', index: '02', label: { zh: '掠过 / Rollover', en: 'Rollover' }, note: { zh: '仅建议用于少量重点桌面控件', en: 'Use sparingly for highlighted desktop controls' }, sounds: rollovers },
+  { id: 'core-switch', filter: 'core', index: '03', label: { zh: '切换 / Switch', en: 'Switch' }, note: { zh: '主题、筛选器、菜单和状态变化', en: 'Themes, filters, menus, state changes' }, sounds: switches },
+  { id: 'feedback', filter: 'feedback', index: '04', label: { zh: '反馈 / Feedback', en: 'Feedback' }, note: { zh: '成功、完成、警告、失败和阻止', en: 'Success, complete, warning, error, blocked' }, sounds: feedbackSounds },
+  { id: 'lab', filter: 'lab', index: '05', label: { zh: '实验 / Lab', en: 'Lab' }, note: { zh: '扫描、运行、数据和数字界面', en: 'Scanning, running, data, digital interfaces' }, sounds: labBeeps },
+  { id: 'status', filter: 'feedback', index: '06', label: { zh: '通知 / Status', en: 'Status' }, note: { zh: '更长、更有存在感的提醒候选', en: 'Longer, more present notification candidates' }, sounds: statusSounds },
+]
+
+const candidateCount = soundGroups.reduce((total, group) => total + group.sounds.length, 0)
+
+const filterOptions = [
+  { id: 'all', zh: '全部', en: 'All' },
+  { id: 'core', zh: '基础交互', en: 'Core UI' },
+  { id: 'feedback', zh: '反馈与通知', en: 'Feedback' },
+  { id: 'lab', zh: 'Lab / 数字', en: 'Lab / Digital' },
+]
+
+const sourceGuides = [
+  {
+    index: 'A',
+    name: 'Kenney',
+    license: 'CC0',
+    href: 'https://kenney.nl/assets/interface-sounds',
+    label: { zh: '先看 Interface Sounds；原页面标注 100 个文件和 CC0。页面试听能力有限，完整素材需要下载。', en: 'Start with Interface Sounds; the page lists 100 files under CC0. Its inline preview is limited, so download the pack for the full set.' },
+  },
+  {
+    index: 'B',
+    name: 'OpenGameArt',
+    license: 'CC0 / preview',
+    href: 'https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks',
+    label: { zh: '打开具体素材页，点击 Preview；注意页面说明试听只是低质量 MP3，完整文件在 ZIP 中。', en: 'Open an individual asset page and use Preview; the page notes that the preview is a low-quality MP3 and the full files are in the ZIP.' },
+  },
+  {
+    index: 'C',
+    name: 'Freesound',
+    license: '逐条确认',
+    href: 'https://freesound.org/search/?q=ui+click',
+    label: { zh: '搜索 ui click、interface beep；逐条试听，并进入详情页确认 License，优先 CC0。', en: 'Search ui click or interface beep; preview each result and open its detail page to confirm the license, preferably CC0.' },
+  },
+  {
+    index: 'D',
+    name: 'Mixkit',
+    license: 'Free License',
+    href: 'https://mixkit.co/free-sound-effects/',
+    label: { zh: '页面可直接试听，适合快速找现代、短促的 UI 反馈；它是免费授权，不是严格意义的开源。', en: 'Play sounds directly on the page; useful for modern, short UI feedback. It is free-licensed, not strictly open-source.' },
+  },
+  {
+    index: 'E',
+    name: 'Sonniss GDC',
+    license: 'Commercial use',
+    href: 'https://sonniss.com/gameaudiogdc/',
+    label: { zh: '适合下载大包后本地筛选高质量素材；可商用，但不能把原始文件单独再分发。', en: 'Download the large bundles and audition locally for higher-quality material; commercial use is allowed, but standalone redistribution is not.' },
+  },
+  {
+    index: 'F',
+    name: 'OGA / Feedback',
+    license: 'CC0 / WAV + OGG',
+    href: 'https://opengameart.org/content/ui-sound-effects-button-clicks-user-feedback-notifications',
+    label: { zh: '这里专门找成功、失败、通知、铃声和提示音；页面提供 WAV 与 OGG 两种格式。', en: 'Use this pack for success, error, notification, bell, and feedback sounds; it includes both WAV and OGG.' },
+  },
+  {
+    index: 'G',
+    name: 'OGA / Interface beeps',
+    license: 'CC0 / Sci-Fi',
+    href: 'https://opengameart.org/content/interface-beeps',
+    label: { zh: '适合 Lab、扫描、数字状态和未来感界面；声音整体更长、更有空间感。', en: 'Useful for Lab, scanning, digital states, and future-facing interfaces; these sounds are longer and more spatial.' },
+  },
+  {
+    index: 'H',
+    name: 'OGA / UI Sounds',
+    license: 'CC0 / status',
+    href: 'https://opengameart.org/content/ui-sounds-0',
+    label: { zh: '重点看 Error、Accept、Notification、Attention 四类，适合做状态反馈的第二层。', en: 'Look for Error, Accept, Notification, and Attention sounds as a second layer of state feedback.' },
+  },
+]
+---
+
+<BaseLayout title={`${meta.title.zh} / ${siteConfig.name}`} titleEn={`${meta.title.en} / ${siteConfig.name}`} description={meta.description.zh} descriptionEn={meta.description.en} locale={locale}>
+  <div class="sound-preview-site site-page is-visible">
+    <SiteHeader locale={locale} />
+
+    <main id="main-content" class="sound-preview-main">
+      <header class="sound-preview-hero" data-site-reveal>
+        <div class="sound-preview-hero__copy">
+          <h1><LocalizedText zh="声音试听" en="Sound preview" /></h1>
+          <p><LocalizedText zh={`先听，再决定。这里现在有 ${candidateCount} 个候选，覆盖基础交互、反馈通知和 Lab 数字界面；试听动作会明确播放，页面本身不会自动播放。`} en={`Listen first, decide later. There are now ${candidateCount} candidates across core UI, feedback, and Lab interfaces; previews play only after an explicit action.`} /></p>
+        </div>
+        <div class="sound-preview-hero__status" role="status" aria-label="Audio status">
+          <span class="sound-preview-hero__status-dot" aria-hidden="true"></span>
+          <span><LocalizedText zh={`${candidateCount} 个候选 / 6 组素材`} en={`${candidateCount} candidates / 6 groups`} /></span>
+        </div>
+      </header>
+
+      <section class="sound-preview-section sound-preview-lab" aria-labelledby="sound-preview-lab-title">
+        <div class="sound-preview-section__intro">
+          <p class="sound-preview-section__eyebrow">01 / LISTEN</p>
+          <h2 id="sound-preview-lab-title"><LocalizedText zh="试听台" en="Listening desk" /></h2>
+          <p><LocalizedText zh="试听按钮会在全局交互声音关闭时仍然播放，因为这是明确的试听动作。" en="Preview buttons still play when global interaction sounds are muted, because they are explicit listening actions." /></p>
+          <p class="sound-preview-status" data-audio-status aria-live="polite"><LocalizedText zh="选择一个声音开始。" en="Choose a sound to begin." /></p>
+          <div class="sound-preview-filter" data-sound-filters role="group" aria-label="Sound categories">
+            {filterOptions.map((filter) => (
+              <button type="button" data-sound-filter={filter.id} aria-pressed={filter.id === 'all' ? 'true' : 'false'}><LocalizedText {...filter} /></button>
+            ))}
+          </div>
+          <p class="sound-preview-count" data-sound-count><LocalizedText zh={`显示 ${candidateCount} 个候选`} en={`Showing ${candidateCount} candidates`} /></p>
+        </div>
+
+        <div class="sound-preview-groups">
+          {soundGroups.map((group) => (
+            <section class="sound-preview-group" data-sound-group={group.filter} aria-labelledby={`sound-group-${group.id}`}>
+              <div class="sound-preview-group__label">
+                <span class="sound-preview-group__index">{group.index}</span>
+                <h3 id={`sound-group-${group.id}`}><LocalizedText {...group.label} /></h3>
+                <p><LocalizedText {...group.note} /></p>
+              </div>
+              <div class="sound-preview-grid">
+                {group.sounds.map((sound, index) => (
+                  <button class="sound-preview-card" type="button" data-audio-preview={sound.src} data-audio-label-zh={sound.zh} data-audio-label-en={sound.en}>
+                    <span class:list={['sound-preview-card__meter', `sound-preview-card__meter--${sound.tone}`]} aria-hidden="true">
+                      {Array.from({ length: 7 }, (_, meterIndex) => <i style={`--meter-index:${meterIndex}`} />)}
+                    </span>
+                    <span class="sound-preview-card__meta">
+                      <small>{String(index + 1).padStart(2, '0')}</small>
+                      <strong><LocalizedText zh={sound.zh} en={sound.en} /></strong>
+                    </span>
+                    <span class="sound-preview-card__tags"><LocalizedText {...sound.tags} /></span>
+                    <span class="sound-preview-card__file">{sound.file}</span>
+                    <Icon name="blog-forward" role="control" class="sound-preview-card__icon" />
+                  </button>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </section>
+
+      <section class="sound-preview-section sound-preview-sources" aria-labelledby="sound-preview-sources-title">
+        <div class="sound-preview-section__intro">
+          <p class="sound-preview-section__eyebrow">02 / SOURCE WALK</p>
+          <h2 id="sound-preview-sources-title"><LocalizedText zh="去原网站怎么找" en="How to browse the source sites" /></h2>
+          <p><LocalizedText zh="先用试听页缩小风格，再去原站确认授权和下载。免费、CC0、商用授权不是一回事。" en="Use this page to narrow the style, then verify the license and download from the original site. Free, CC0, and commercial-use licenses are not the same thing." /></p>
+        </div>
+        <ol class="sound-preview-source-list">
+          {sourceGuides.map((source) => (
+            <li class="sound-preview-source">
+              <span class="sound-preview-source__index">{source.index}</span>
+              <div class="sound-preview-source__main">
+                <a href={source.href} target="_blank" rel="noopener noreferrer">
+                  <strong>{source.name}</strong>
+                  <small>{source.license}</small>
+                  <Icon name="blog-external" role="meta" />
+                </a>
+                <p><LocalizedText {...source.label} /></p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="sound-preview-section sound-preview-bgm" aria-labelledby="sound-preview-bgm-title">
+        <div class="sound-preview-bgm__mark">HOLD</div>
+        <div>
+          <p class="sound-preview-section__eyebrow">03 / FUTURE ROOM</p>
+          <h2 id="sound-preview-bgm-title"><LocalizedText zh="BGM 先留白" en="Leave room for BGM" /></h2>
+          <p><LocalizedText zh="现在只接入短音效，不自动播放背景音乐。音频层已经把 BGM 和交互音效分开，未来可以加循环、淡入淡出、页面级音量和用户记忆。" en="Only short effects are connected for now; background music will not autoplay. The audio layer already separates BGM from interaction effects, leaving room for loops, fades, page-level volume, and remembered preferences." /></p>
+        </div>
+        <div class="sound-preview-bgm__rule"><span>NO AUTOPLAY / USER DECIDES</span></div>
+      </section>
+    </main>
+
+    <SiteFooter locale={locale} />
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  const previewButtons = [...document.querySelectorAll('[data-audio-preview]')]
+  const filterButtons = [...document.querySelectorAll('[data-sound-filter]')]
+  const soundGroups = [...document.querySelectorAll('[data-sound-group]')]
+  const soundCount = document.querySelector('[data-sound-count]')
+  const status = document.querySelector('[data-audio-status]')
+  let activeButton
+  let activeFilter = 'all'
+  let resetTimer
+
+  const updateStatus = (button) => {
+    if (!status || !button) return
+    const locale = document.documentElement.dataset.locale === 'en' ? 'en' : 'zh'
+    status.textContent = `${locale === 'en' ? 'Playing' : '试听中'} · ${button.dataset[`audioLabel${locale === 'en' ? 'En' : 'Zh'}`] || ''}`
+  }
+
+  const updateCount = (visible) => {
+    if (!soundCount) return
+    const locale = document.documentElement.dataset.locale === 'en' ? 'en' : 'zh'
+    soundCount.textContent = locale === 'en' ? `Showing ${visible} candidates` : `显示 ${visible} 个候选`
+  }
+
+  const applyFilter = (filter) => {
+    activeFilter = filter
+    filterButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.soundFilter === filter)))
+    let visible = 0
+    soundGroups.forEach((group) => {
+      const shown = filter === 'all' || group.dataset.soundGroup === filter
+      group.hidden = !shown
+      if (shown) visible += group.querySelectorAll('[data-audio-preview]').length
+    })
+    updateCount(visible)
+  }
+
+  filterButtons.forEach((button) => button.addEventListener('click', () => applyFilter(button.dataset.soundFilter || 'all')))
+
+  previewButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      activeButton?.removeAttribute('data-audio-playing')
+      activeButton = button
+      activeButton.setAttribute('data-audio-playing', 'true')
+      updateStatus(button)
+      const play = window.formulasearchAudio?.playPreview || window.formulasearchPlaySound
+      play?.(button.dataset.audioPreview, { volume: 0.32 })
+      window.clearTimeout(resetTimer)
+      resetTimer = window.setTimeout(() => activeButton?.removeAttribute('data-audio-playing'), 900)
+    })
+  })
+
+  applyFilter(activeFilter)
+  window.addEventListener('formulasearch:locale', () => {
+    updateStatus(activeButton)
+    applyFilter(activeFilter)
+  })
+</script>

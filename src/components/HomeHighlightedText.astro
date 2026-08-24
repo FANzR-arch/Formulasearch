@@ -1,0 +1,49 @@
+---
+import type { LocalizedCopy } from '../lib/i18n'
+import HomeHighlightPill from './HomeHighlightPill.astro'
+
+interface Props extends LocalizedCopy {
+  zhHighlights?: string[]
+  enHighlights?: string[]
+}
+
+interface Segment {
+  text: string
+  highlight: boolean
+}
+
+const { zh, en, zhHighlights = [], enHighlights = [] } = Astro.props
+
+const splitHighlights = (text: string, terms: string[]): Segment[] => {
+  const matches = [...new Set(terms)].filter(Boolean).sort((a, b) => b.length - a.length)
+  const segments: Segment[] = []
+  let cursor = 0
+  let plainStart = 0
+
+  while (cursor < text.length) {
+    const match = matches.find((term) => text.startsWith(term, cursor))
+    if (!match) {
+      cursor += 1
+      continue
+    }
+
+    if (plainStart < cursor) segments.push({ text: text.slice(plainStart, cursor), highlight: false })
+    segments.push({ text: match, highlight: true })
+    cursor += match.length
+    plainStart = cursor
+  }
+
+  if (plainStart < text.length) segments.push({ text: text.slice(plainStart), highlight: false })
+  return segments.length > 0 ? segments : [{ text, highlight: false }]
+}
+
+---
+
+<span class="localized-text">
+  <span class="localized-text__zh" lang="zh-Hans">
+    {splitHighlights(zh, zhHighlights).map((segment) => segment.highlight ? <HomeHighlightPill label={segment.text} /> : segment.text)}
+  </span>
+  <span class="localized-text__en" lang="en">
+    {splitHighlights(en, enHighlights).map((segment) => segment.highlight ? <HomeHighlightPill label={segment.text} /> : segment.text)}
+  </span>
+</span>

@@ -1,14 +1,15 @@
 ---
-import { Aperture, ChevronDown, DraftingCompass, Globe, Menu, Moon, Sun, X } from '@lucide/astro'
 import { primaryNavigation, type PrimarySection } from '../data/navigation'
 import { siteConfig } from '../data/site-config'
 import { getLocalizedRoute, siteRoutes } from '../data/site-routes'
 import { uiCopy } from '../data/ui-copy'
 import { getLocalizedValue, interpolateLocalizedCopy, type Locale } from '../lib/i18n'
+import GlassSurface from './GlassSurface.astro'
+import Icon from './icon-system/Icon.astro'
 import LocalizedText from './LocalizedText.astro'
 
 interface Props {
-  active?: PrimarySection | 'photos' | 'architecture'
+  active?: PrimarySection | 'photos' | 'architecture' | 'partners'
   locale?: Locale
   logoMode?: 'background' | 'home'
 }
@@ -22,9 +23,11 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
 
 ---
 
-<header class="site-header" aria-label={localized(uiCopy.navigation.primary)} data-aria-en={uiCopy.navigation.primary.en} data-aria-zh={uiCopy.navigation.primary.zh}>
+<header class="site-header" aria-label={localized(uiCopy.navigation.primary)} data-aria-en={uiCopy.navigation.primary.en} data-aria-zh={uiCopy.navigation.primary.zh} data-site-reveal>
+  <GlassSurface id="site-nav" className="site-header__glass" width="100%" height="100%" borderRadius={999} borderWidth={0.08} brightness={58} opacity={0.86} blur={14} backgroundOpacity={0.16} saturation={1.28} displace={0} distortionScale={-14} redOffset={0} greenOffset={1} blueOffset={2} mixBlendMode="difference" useSvgFilter={false} ariaHidden />
   {logoMode === 'background' ? (
     <button id="background-cycle" class="monogram" type="button" aria-label={localized(uiCopy.navigation.backgroundEffect)} data-aria-en={uiCopy.navigation.backgroundEffect.en} data-aria-zh={uiCopy.navigation.backgroundEffect.zh} title={localized(uiCopy.navigation.backgroundEffect)} data-title-en={uiCopy.navigation.backgroundEffect.en} data-title-zh={uiCopy.navigation.backgroundEffect.zh}
+      data-sound="switch" data-sound-volume="0.22"
       data-background-cycle-zh={uiCopy.navigation.backgroundCycle.zh} data-background-cycle-en={uiCopy.navigation.backgroundCycle.en}
       data-background-names={encodeURIComponent(JSON.stringify(uiCopy.navigation.backgroundVariants))}>
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
@@ -35,9 +38,9 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
     </a>
   )}
 
-  <button id="mobile-navigation-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label={localized(uiCopy.navigation.openNavigation)} data-nav-open-zh={uiCopy.navigation.openNavigation.zh} data-nav-open-en={uiCopy.navigation.openNavigation.en} data-nav-close-zh={uiCopy.navigation.closeNavigation.zh} data-nav-close-en={uiCopy.navigation.closeNavigation.en}>
-    <Menu class="mobile-nav-toggle__menu" aria-hidden="true" />
-    <X class="mobile-nav-toggle__close" aria-hidden="true" />
+  <button id="mobile-navigation-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label={localized(uiCopy.navigation.openNavigation)} data-nav-open-zh={uiCopy.navigation.openNavigation.zh} data-nav-open-en={uiCopy.navigation.openNavigation.en} data-nav-close-zh={uiCopy.navigation.closeNavigation.zh} data-nav-close-en={uiCopy.navigation.closeNavigation.en} data-sound="switch" data-sound-volume="0.18">
+    <Icon name="nav-menu" role="control" class="mobile-nav-toggle__menu" />
+    <Icon name="nav-close" role="control" class="mobile-nav-toggle__close" />
   </button>
 
   <nav id="site-navigation" class="site-nav" aria-label={localized(uiCopy.navigation.site)} data-aria-en={uiCopy.navigation.site.en} data-aria-zh={uiCopy.navigation.site.zh}>
@@ -45,8 +48,8 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
       <div class="nav-menu">
         <div class="nav-menu__trigger">
           <a class:list={['nav-link', { 'is-active': active === section.id }]} href={localizedRoute(section.href)} aria-current={active === section.id ? 'page' : undefined}><LocalizedText {...section.label} /></a>
-          <button class="nav-disclosure" type="button" aria-haspopup="true" aria-expanded="false" aria-controls={`nav-panel-${section.id}`} aria-label={localized(interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }))} data-nav-open-zh={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).zh} data-nav-open-en={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).en} data-nav-close-zh={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).zh} data-nav-close-en={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).en}>
-            <ChevronDown aria-hidden="true" />
+          <button class="nav-disclosure" type="button" aria-haspopup="true" aria-expanded="false" aria-controls={`nav-panel-${section.id}`} aria-label={localized(interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }))} data-nav-open-zh={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).zh} data-nav-open-en={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).en} data-nav-close-zh={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).zh} data-nav-close-en={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).en} data-sound="switch" data-sound-volume="0.16">
+            <Icon name="nav-chevron" role="control" />
           </button>
         </div>
         <div id={`nav-panel-${section.id}`} class="nav-popover" role="group" aria-label={localized(interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }))} data-aria-en={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).en} data-aria-zh={interpolateLocalizedCopy(uiCopy.navigation.sectionMenu, { label: section.label }).zh} inert>
@@ -54,30 +57,31 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
             <a href={localizedRoute(item.href)}>
               <small>{String(index + 1).padStart(2, '0')}</small>
               <span><LocalizedText {...item.label} /></span>
-              <em><LocalizedText {...item.note} /></em>
             </a>
           ))}
         </div>
       </div>
     ))}
     <div class="nav-utilities">
-      <span class="nav-divider nav-divider--archive" aria-hidden="true"></span>
       <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'photos' }]} href={localizedRoute(siteRoutes.photos)} aria-current={active === 'photos' ? 'page' : undefined} aria-label={localized(uiCopy.navigation.photos)} data-aria-en={uiCopy.navigation.photos.en} data-aria-zh={uiCopy.navigation.photos.zh} title={localized(uiCopy.navigation.photos)} data-title-en={uiCopy.navigation.photos.en} data-title-zh={uiCopy.navigation.photos.zh}>
-        <Aperture aria-hidden="true" />
+        <Icon name="nav-photos" role="control" />
       </a>
       <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'architecture' }]} href={localizedRoute(siteRoutes.architecture)} aria-current={active === 'architecture' ? 'page' : undefined} aria-label={localized(uiCopy.navigation.architecture)} data-aria-en={uiCopy.navigation.architecture.en} data-aria-zh={uiCopy.navigation.architecture.zh} title={localized(uiCopy.navigation.architecture)} data-title-en={uiCopy.navigation.architecture.en} data-title-zh={uiCopy.navigation.architecture.zh}>
-        <DraftingCompass aria-hidden="true" />
+        <Icon name="nav-architecture" role="control" />
+      </a>
+      <a class:list={['icon-link', 'icon-link--ui', { 'is-active': active === 'partners' }]} href={localizedRoute(siteRoutes.partners)} aria-current={active === 'partners' ? 'page' : undefined} aria-label={localized(uiCopy.navigation.partners)} data-aria-en={uiCopy.navigation.partners.en} data-aria-zh={uiCopy.navigation.partners.zh} title={localized(uiCopy.navigation.partners)} data-title-en={uiCopy.navigation.partners.en} data-title-zh={uiCopy.navigation.partners.zh}>
+        <Icon name="nav-partners" role="control" />
       </a>
       <span class="nav-divider nav-divider--social" aria-hidden="true"></span>
       <a class="icon-link icon-link--brand icon-link--github" href={siteConfig.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={localized(githubProfileLabel)} data-aria-en={githubProfileLabel.en} data-aria-zh={githubProfileLabel.zh} title={localized(githubProfileLabel)} data-title-en={githubProfileLabel.en} data-title-zh={githubProfileLabel.zh}>
         <img src="/brand/github-mark.svg" alt="" aria-hidden="true" />
       </a>
-      <button id="language-toggle" class="language-toggle" type="button" aria-label={localized(locale === 'en' ? uiCopy.navigation.switchToChinese : uiCopy.navigation.switchToEnglish)} title={localized(locale === 'en' ? uiCopy.navigation.switchToChinese : uiCopy.navigation.switchToEnglish)} data-label-en-zh={uiCopy.navigation.switchToEnglish.zh} data-label-en-en={uiCopy.navigation.switchToEnglish.en} data-label-zh-zh={uiCopy.navigation.switchToChinese.zh} data-label-zh-en={uiCopy.navigation.switchToChinese.en} aria-pressed={locale === 'en' ? 'true' : 'false'}>
-        <Globe aria-hidden="true" />
+      <button id="language-toggle" class="language-toggle" type="button" aria-label={localized(locale === 'en' ? uiCopy.navigation.switchToChinese : uiCopy.navigation.switchToEnglish)} title={localized(locale === 'en' ? uiCopy.navigation.switchToChinese : uiCopy.navigation.switchToEnglish)} data-label-en-zh={uiCopy.navigation.switchToEnglish.zh} data-label-en-en={uiCopy.navigation.switchToEnglish.en} data-label-zh-zh={uiCopy.navigation.switchToChinese.zh} data-label-zh-en={uiCopy.navigation.switchToChinese.en} aria-pressed={locale === 'en' ? 'true' : 'false'} data-sound="switch" data-sound-volume="0.2">
+        <Icon name="nav-language" role="control" />
       </button>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label={localized(uiCopy.navigation.themeToDark)} data-aria-en={uiCopy.navigation.themeToDark.en} data-aria-zh={uiCopy.navigation.themeToDark.zh} title={localized(uiCopy.navigation.themeToDark)} data-title-en={uiCopy.navigation.themeToDark.en} data-title-zh={uiCopy.navigation.themeToDark.zh} aria-pressed="false">
-        <Sun class="theme-icon__sun" aria-hidden="true" />
-        <Moon class="theme-icon__moon" aria-hidden="true" />
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label={localized(uiCopy.navigation.themeToDark)} data-aria-en={uiCopy.navigation.themeToDark.en} data-aria-zh={uiCopy.navigation.themeToDark.zh} title={localized(uiCopy.navigation.themeToDark)} data-title-en={uiCopy.navigation.themeToDark.en} data-title-zh={uiCopy.navigation.themeToDark.zh} aria-pressed="false" data-sound="switch" data-sound-volume="0.22">
+        <Icon name="nav-light" role="control" class="theme-icon__sun" />
+        <Icon name="nav-dark" role="control" class="theme-icon__moon" />
       </button>
     </div>
   </nav>

@@ -1,0 +1,36 @@
+---
+import { partnersPage } from '../data/partners'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
+import Icon from './icon-system/Icon.astro'
+import LocalizedText from './LocalizedText.astro'
+import PageHero from './PageHero.astro'
+
+interface Props {
+  locale?: Locale
+}
+
+const { locale = 'zh' } = Astro.props
+const listLabel = getLocalizedValue(partnersPage.listLabel, locale)
+---
+
+<PageHero title={partnersPage.heading} description={partnersPage.intro} />
+
+<section class="partners-directory" aria-label={listLabel} data-aria-en={partnersPage.listLabel.en} data-aria-zh={partnersPage.listLabel.zh}>
+  {partnersPage.items.map((partner, index) => {
+    const domain = new URL(partner.url).hostname.replace(/^www\./, '')
+    return (
+      <a class="partner-entry" href={partner.url} target="_blank" rel="noopener noreferrer" data-site-reveal data-site-reveal-delay={String(80 + index * 60)}>
+        <span class="partner-entry__index">{String(index + 1).padStart(2, '0')}</span>
+        <span class="partner-entry__identity">
+          <strong><LocalizedText {...partner.name} /></strong>
+          <small>{domain}</small>
+        </span>
+        <span class="partner-entry__relationship"><LocalizedText {...partnersPage.relationshipLabel} /></span>
+        <span class="partner-entry__visit">
+          <LocalizedText {...partnersPage.visitLabel} />
+          <Icon name="catalog-external" role="meta" />
+        </span>
+      </a>
+    )
+  })}
+</section>

@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets'
+import { architecturePage, architectureProjects } from '../data/architecture'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
+import LocalizedText from './LocalizedText.astro'
+import PageHero from './PageHero.astro'
+
+type ArchitectureProject = (typeof architectureProjects)[number]
+
+interface Props {
+  locale?: Locale
+  project: ArchitectureProject
+}
+
+const { locale = 'zh', project } = Astro.props
+const root = locale === 'en' ? '/en/architecture' : '/architecture'
+---
+
+<article class="architecture-project" aria-labelledby="architecture-project-title">
+  <a class="architecture-project__back" href={root}><LocalizedText {...architecturePage.backLabel} /></a>
+  <PageHero id="architecture-project-title" title={project.title} description={project.summary} />
+  <div class="architecture-project__images">
+    {project.items.map((item, index) => (
+      <figure class="architecture-project-image" data-site-reveal data-site-reveal-delay={String((index % 3) * 60)}>
+        <Image
+          src={item.image}
+          alt={getLocalizedValue(item.alt, locale)}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          fetchpriority={index === 0 ? 'high' : undefined}
+          sizes="(max-width: 820px) 100vw, 1180px"
+        />
+      </figure>
+    ))}
+  </div>
+</article>

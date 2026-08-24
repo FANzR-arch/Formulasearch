@@ -1,0 +1,196 @@
+:root {
+  --icon-size-meta: 14px;
+  --icon-size-control: 18px;
+  --icon-size-cursor: 20px;
+  --icon-stroke: 1.75;
+  --cursor-shell-size: 36px;
+}
+
+.icon {
+  display: block;
+  flex: 0 0 auto;
+  color: currentColor;
+  stroke-width: var(--icon-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: middle;
+}
+
+.icon--meta { width: var(--icon-size-meta); height: var(--icon-size-meta); }
+.icon--control { width: var(--icon-size-control); height: var(--icon-size-control); }
+.icon--cursor { width: var(--icon-size-cursor); height: var(--icon-size-cursor); }
+
+html {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+html *::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* The `any-*` query covers a mouse attached to a touch-first laptop. The
+   data attribute is set by the early capability bootstrap and updated by the
+   cursor controller when hardware changes without a reload. */
+@media (any-hover: hover) and (any-pointer: fine) {
+  html,
+  html * { cursor: none !important; }
+}
+
+html[data-cursor-capability='fine'],
+html[data-cursor-capability='fine'] * {
+  cursor: none !important;
+}
+
+html[data-cursor-mode='custom'],
+html[data-cursor-mode='custom'] * {
+  cursor: none !important;
+}
+
+.site-cursor {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  opacity: 0;
+  contain: layout style;
+  color: var(--cursor-color);
+  mix-blend-mode: exclusion;
+  transform: translate3d(-80px, -80px, 0);
+  transition: opacity 160ms var(--ease-out);
+}
+
+html:not([data-cursor-capability='fine']) .site-cursor { display: none; }
+.site-cursor.is-visible { opacity: 1; }
+.site-cursor__inner,
+.site-cursor__body { position: relative; width: 1px; height: 1px; }
+.site-cursor__body { transform-origin: 0 0; transition: transform 120ms var(--ease-out); }
+.site-cursor__body.is-pressed { transform: scale(.82); }
+
+.site-cursor__shape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.7) rotate(-10deg);
+  transform-origin: center;
+  transition: opacity 120ms var(--ease-out), transform 180ms var(--ease-out);
+}
+
+.site-cursor__shape svg { display: block; }
+.site-cursor__shape--default {
+  width: var(--icon-size-cursor);
+  height: var(--icon-size-cursor);
+  place-items: start;
+  opacity: 1;
+  transform: translate(-4px, -4px) scale(1);
+  transform-origin: 4px 4px;
+}
+.site-cursor[data-state='interactive'] .site-cursor__shape--default,
+.site-cursor[data-state='nav'] .site-cursor__shape--default,
+.site-cursor[data-state='highlight'] .site-cursor__shape--default,
+.site-cursor[data-state='capsule'] .site-cursor__shape--default,
+.site-cursor[data-state='media'] .site-cursor__shape--default,
+.site-cursor[data-state='photo-open'] .site-cursor__shape--default,
+.site-cursor[data-state='photo-shrink'] .site-cursor__shape--default,
+.site-cursor[data-state='photo-close'] .site-cursor__shape--default,
+.site-cursor[data-state='text'] .site-cursor__shape--default { opacity: 0; transform: translate(-4px, -4px) scale(.72) rotate(-8deg); }
+.site-cursor[data-state='interactive'] .site-cursor__shape--interactive,
+.site-cursor[data-state='nav'] .site-cursor__shape--interactive,
+.site-cursor[data-state='highlight'] .site-cursor__shape--highlight,
+.site-cursor[data-state='capsule'] .site-cursor__shape--capsule,
+.site-cursor[data-state='media'] .site-cursor__shape--media,
+.site-cursor[data-state='text'] .site-cursor__shape--text { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.site-cursor[data-state='interactive'] .site-cursor__shape--interactive { transform: translate(-50%, -50%) scale(1.08); }
+.site-cursor[data-state='nav'] .site-cursor__shape--interactive { transform: translate(-50%, -50%) scaleX(-1) scale(1.08); }
+.site-cursor__shape--text { width: 26px; height: 26px; }
+.site-cursor__shape--photo-nav { opacity: 0; transform: translate(-50%, -50%) scale(.15); }
+.site-cursor__shape--highlight { width: 32px; height: 32px; }
+.site-cursor[data-state='highlight'] .site-cursor__shape--highlight { transform: translate(-50%, -50%) scale(1); }
+.site-cursor__shape--capsule { width: 20px; height: 20px; transform: translate(-50%, -50%) scale(.15); color: #fff; mix-blend-mode: difference; }
+.site-cursor__shape--capsule .icon { fill: currentColor; stroke: currentColor; }
+.site-cursor[data-state='capsule'] .site-cursor__shape--capsule { opacity: 1; transform: translate(-50%, -50%) scale(1.28); }
+.site-cursor__shape--photo-open,
+.site-cursor__shape--photo-shrink,
+.site-cursor__shape--photo-close,
+.site-cursor__shape--media { width: var(--cursor-shell-size); height: var(--cursor-shell-size); transform: translate(-50%, -50%) scale(.15); }
+.site-cursor__photo-circle { display: grid; width: 100%; height: 100%; place-items: center; border: 1.5px solid currentColor; border-radius: 50%; background: transparent; }
+.site-cursor__photo-circle .icon { color: var(--cursor-icon-color); }
+.site-cursor[data-state='media'] .site-cursor__shape--media,
+.site-cursor[data-state='photo-open'] .site-cursor__shape--photo-open,
+.site-cursor[data-state='photo-shrink'] .site-cursor__shape--photo-shrink,
+.site-cursor[data-state='photo-close'] .site-cursor__shape--photo-close { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.site-cursor[data-state='photo-open'] .site-cursor__shape--photo-open { transform: translate(-50%, -50%) scale(1.04); }
+
+html[data-page='photos'] .site-cursor__shape { transition: opacity 120ms var(--ease-out), transform 300ms var(--ease-out); }
+html[data-page='photos'] .site-cursor[data-state='interactive'] .site-cursor__shape--interactive,
+html[data-page='photos'] .site-cursor[data-state='nav'] .site-cursor__shape--interactive { opacity: 0; transform: translate(-50%, -50%) scale(.15); }
+html[data-page='photos'] .site-cursor[data-state='interactive'] .site-cursor__shape--photo-nav,
+html[data-page='photos'] .site-cursor[data-state='nav'] .site-cursor__shape--photo-nav { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+html[data-page='photos'] .site-cursor__shape--photo-nav { width: var(--cursor-shell-size); height: var(--cursor-shell-size); border: 1.5px solid currentColor; border-radius: 50%; }
+html[data-page='photos'] .site-cursor[data-state='nav'] .site-cursor__shape--photo-nav { border-color: transparent; background: color-mix(in oklab, currentColor 24%, transparent); }
+html[data-page='photos'] .site-cursor__shape--highlight { transform: translate(-50%, -50%) scale(.15); }
+html[data-page='photos'] .site-cursor[data-state='highlight'] .site-cursor__shape--highlight { transform: translate(-50%, -50%) scale(1); }
+
+.site-cursor__label {
+  position: absolute;
+  top: 0;
+  left: 22px;
+  display: block;
+  max-width: 160px;
+  padding: 3px 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 10px;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-50%) scale(.86);
+  transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+}
+.site-cursor__label:not([hidden]) { opacity: 1; transform: translateY(-50%) scale(1); }
+
+.scroll-progress {
+  position: fixed;
+  z-index: 8;
+  top: max(12px, env(safe-area-inset-top));
+  right: max(7px, env(safe-area-inset-right));
+  width: 1px;
+  height: min(160px, 25vh);
+  pointer-events: none;
+  opacity: 0;
+  background: color-mix(in oklab, var(--ink) 15%, transparent);
+  transition: opacity 180ms var(--ease-out);
+}
+.scroll-progress::after {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 100%;
+  background: currentColor;
+  color: var(--accent);
+  content: '';
+  transform: scaleY(var(--scroll-progress, 0));
+  transform-origin: top;
+}
+.scroll-progress.is-visible { opacity: .78; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-cursor,
+  .site-cursor__body,
+  .site-cursor__shape,
+  .site-cursor__label,
+  .scroll-progress { transition: none; }
+  .site-cursor[data-state='capsule'] .site-cursor__shape--capsule { transform: translate(-50%, -50%) scale(1.28); }
+}
+
+@media (any-hover: none) and (any-pointer: coarse) {
+  .site-cursor { display: none; }
+}

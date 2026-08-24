@@ -16,7 +16,7 @@ const showSourceLanguageNotice = posts.some((post) => post.contentLanguage !== '
 const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
 ---
 
-<header class="blog-hero blog-hero--compact">
+<header class="blog-hero blog-hero--compact" data-site-reveal>
   <h1><LocalizedText {...uiCopy.blog.archiveHeading} /></h1>
 </header>
 
@@ -26,7 +26,7 @@ const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
   {years.map((year) => {
     const yearPosts = posts.filter((post) => post.date.startsWith(year))
     return (
-      <section class="archive-year" aria-labelledby={`year-${year}`}>
+      <section class="archive-year" aria-labelledby={`year-${year}`} data-site-reveal>
         <header>
           <h2 id={`year-${year}`}>{year}</h2>
           <span><LocalizedText zh={`${yearPosts.length} ${uiCopy.blog.archiveCountSuffix.zh}`} en={`${yearPosts.length} ${uiCopy.blog.archiveCountSuffix.en}`} /></span>

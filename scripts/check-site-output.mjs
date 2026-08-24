@@ -76,6 +76,8 @@ const { static: staticRouteKeys, localized: localizedRouteKeys, ...routeEntries 
 const staticRoutes = staticRouteKeys.map((key) => routeEntries[key]).filter(Boolean)
 const localizedRoutes = localizedRouteKeys.map((key) => routeEntries[key]).filter(Boolean)
 const englishStaticRoutes = localizedRoutes.map((route) => route === '/' ? '/en' : `/en${route}`)
+const architectureManifest = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'architecture.json'), 'utf8'))
+const architectureProjectRoutes = architectureManifest.projects.flatMap(({ slug }) => [`/architecture/${slug}`, `/en/architecture/${slug}`])
 const blogRoute = routeEntries.blog
 const htmlFiles = (await walk(distRoot)).filter((path) => path.endsWith('.html'))
 const htmlByRoute = new Map()
@@ -108,6 +110,10 @@ for (const route of staticRoutes) {
 }
 for (const route of englishStaticRoutes) {
   if (!sitemap.includes(`<loc>${siteConfig.siteUrl}${route}</loc>`)) failures.push(`sitemap missing English route: ${route}`)
+}
+for (const route of architectureProjectRoutes) {
+  if (!sitemap.includes(`<loc>${siteConfig.siteUrl}${route}</loc>`)) failures.push(`sitemap missing architecture project route: ${route}`)
+  if (!htmlByRoute.has(route)) failures.push(`architecture project missing HTML route: ${route}`)
 }
 
 let robots = ''
@@ -163,7 +169,7 @@ const fullArticleRoutes = new Set(blogRecords.filter(({ contentStatus, draft }) 
 if (llms) {
   if (!llms.includes(`# ${siteConfig.name}`)) failures.push('llms.txt is missing the site heading')
   const llmsRoutes = [...llms.matchAll(/^- (\/\S*)\s+—/gm)].map((match) => match[1])
-  const expectedLlmsRoutes = new Set([...staticRoutes, ...englishStaticRoutes, ...fullArticleRoutes])
+  const expectedLlmsRoutes = new Set([...staticRoutes, ...englishStaticRoutes, ...architectureProjectRoutes, ...fullArticleRoutes])
   for (const route of expectedLlmsRoutes) {
     if (!llmsRoutes.includes(route)) failures.push(`llms.txt missing route: ${route}`)
   }

@@ -1,6 +1,6 @@
 ---
-import { ArrowUpRight } from '@lucide/astro'
 import ExternalLinkLabel from './ExternalLinkLabel.astro'
+import Icon from './icon-system/Icon.astro'
 import { uiCopy } from '../data/ui-copy'
 import type { BlogLink } from '../lib/blog-content'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
@@ -18,7 +18,7 @@ const { links, locale = 'zh' } = Astro.props
     {links.map((link) => (
       <a href={link.url} target="_blank" rel="noopener noreferrer">
         <ExternalLinkLabel label={link.label} />
-        <ArrowUpRight aria-hidden="true" size={13} stroke-width={1.7} />
+        <Icon name="blog-external" role="meta" />
       </a>
     ))}
   </div>

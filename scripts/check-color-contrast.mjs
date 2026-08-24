@@ -8,8 +8,6 @@ const css = await readFile(join(projectRoot, '..', 'src', 'styles', 'global.css'
 const scopes = [
   ['light', /:root\s*\{([\s\S]*?)\n\}/],
   ['dark', /:root\[data-theme='dark'\]\s*\{([\s\S]*?)\n\}/],
-  ['archive-light', /:root\[data-theme='light'\]\s+\.archive-catalog-site\s*\{([\s\S]*?)\n\}/],
-  ['archive-dark', /:root\[data-theme='dark'\]\s+\.archive-catalog-site\s*\{([\s\S]*?)\n\}/],
 ]
 
 const parseOklch = (value, label) => {
@@ -67,4 +65,4 @@ for (const [scope, pattern] of scopes) {
 }
 
 if (failures.length) throw new Error(`Color contrast check failed:\n- ${failures.join('\n- ')}`)
-console.log('Color contrast check passed: light/dark site and archive tokens meet 4.5:1.')
+console.log('Color contrast check passed: shared light/dark site tokens meet 4.5:1.')

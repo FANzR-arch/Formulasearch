@@ -1,0 +1,9 @@
+---
+import PartnersIndex from '../../components/PartnersIndex.astro'
+import { partnersPage } from '../../data/partners'
+import CatalogLayout from '../../layouts/CatalogLayout.astro'
+---
+
+<CatalogLayout active="partners" title={partnersPage.title} description={partnersPage.description}>
+  <PartnersIndex />
+</CatalogLayout>

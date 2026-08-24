@@ -1,0 +1,78 @@
+import {
+  Aperture,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  ChevronDown,
+  Circle,
+  Clock3,
+  DraftingCompass,
+  Globe,
+  HeartHandshake,
+  Highlighter,
+  House,
+  Link,
+  Maximize2,
+  Menu,
+  Minus,
+  Moon,
+  MousePointer2,
+  Plus,
+  Sun,
+  TextCursorInput,
+  X,
+} from '@lucide/astro'
+import type { AstroComponent } from '@lucide/astro'
+
+export const iconRegistry = {
+  'cursor-default': MousePointer2,
+  'cursor-interactive': ArrowUpRight,
+  'cursor-text': TextCursorInput,
+  'cursor-photo-nav': Plus,
+  'cursor-highlight': Highlighter,
+  'cursor-capsule': Circle,
+  'cursor-media': Maximize2,
+  'cursor-photo-open': Plus,
+  'cursor-photo-shrink': Minus,
+  'cursor-photo-close': X,
+  'nav-menu': Menu,
+  'nav-close': X,
+  'nav-chevron': ChevronDown,
+  'nav-photos': Aperture,
+  'nav-architecture': DraftingCompass,
+  'nav-partners': HeartHandshake,
+  'nav-language': Globe,
+  'nav-light': Sun,
+  'nav-dark': Moon,
+  'blog-back': ArrowLeft,
+  'blog-forward': ArrowRight,
+  'blog-time': Clock3,
+  'blog-home': House,
+  'blog-link': Link,
+  'blog-external': ArrowUpRight,
+  'catalog-external': ArrowUpRight,
+} satisfies Record<string, AstroComponent>
+
+export type IconName = keyof typeof iconRegistry
+export type IconRole = 'meta' | 'control' | 'cursor'
+
+export const iconRoleSizes: Record<IconRole, number> = {
+  meta: 14,
+  control: 18,
+  cursor: 20,
+}
+
+export const iconStrokeWidth = 1.75
+
+export const cursorStates = [
+  { state: 'default', name: 'cursor-default' as const, label: '普通 / Default', mode: '裸线 / naked line' },
+  { state: 'interactive', name: 'cursor-interactive' as const, label: '链接与控件 / Interactive', mode: '裸线 / naked line' },
+  { state: 'text', name: 'cursor-text' as const, label: '文字输入 / Text input', mode: '裸线 / naked line' },
+  { state: 'photo-nav', name: 'cursor-photo-nav' as const, label: '照片导航 / Photo navigation', mode: '圆环 / ring' },
+  { state: 'highlight', name: 'cursor-highlight' as const, label: '高亮 / Highlight', mode: 'Lucide Highlighter' },
+  { state: 'capsule', name: 'cursor-capsule' as const, label: '胶囊 / Capsule', mode: '小圆圈 / small circle' },
+  { state: 'media', name: 'cursor-media' as const, label: '媒体预览 / Media preview', mode: '圆环 / ring' },
+  { state: 'photo-open', name: 'cursor-photo-open' as const, label: '打开照片 / Open photo', mode: '圆环 / ring' },
+  { state: 'photo-shrink', name: 'cursor-photo-shrink' as const, label: '缩小照片 / Shrink photo', mode: '圆环 / ring' },
+  { state: 'photo-close', name: 'cursor-photo-close' as const, label: '关闭查看器 / Close viewer', mode: '圆环 / ring' },
+] as const

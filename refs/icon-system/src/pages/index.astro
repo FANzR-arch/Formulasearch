@@ -1,0 +1,61 @@
+---
+import Icon from '../../../../src/components/icon-system/Icon.astro'
+import { cursorStates, iconRegistry, iconRoleSizes, iconStrokeWidth, type IconName, type IconRole } from '../../../../src/components/icon-system/icons'
+import '../../../../src/components/icon-system/icon-system.css'
+
+const names = Object.keys(iconRegistry) as IconName[]
+const cursorNameSet = new Set<IconName>(cursorStates.map((item) => item.name))
+const roleFor = (name: IconName): IconRole => cursorNameSet.has(name) ? 'cursor' : name.startsWith('blog-') ? 'meta' : 'control'
+const titleFor = (name: IconName) => name.replaceAll('-', ' ')
+---
+
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Formulasearch icon system</title>
+    <style>
+      :root { color-scheme: light; --paper: #f4f0e8; --ink: #26231e; --muted: #716c62; --line: #d7d0c4; --accent: #a76235; font-family: system-ui, sans-serif; }
+      * { box-sizing: border-box; }
+      body { max-width: 1120px; margin: 0 auto; padding: 48px 24px 80px; color: var(--ink); background: var(--paper); }
+      h1 { margin: 0; font: 400 clamp(2.4rem, 5vw, 4.2rem)/1.05 Georgia, serif; letter-spacing: -.05em; }
+      h2 { margin: 52px 0 16px; font: 500 1.05rem/1.2 system-ui, sans-serif; text-transform: uppercase; letter-spacing: .08em; }
+      p { color: var(--muted); line-height: 1.6; }
+      .token-grid, .icon-grid, .cursor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+      .token, .icon-card, .cursor-card { min-height: 128px; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: color-mix(in srgb, white 38%, transparent); }
+      .token strong, .icon-card strong, .cursor-card strong { display: block; margin-top: 12px; font-size: .82rem; }
+      .token small, .icon-card small, .cursor-card small { color: var(--muted); font-size: .72rem; }
+      .icon-card { display: flex; flex-direction: column; justify-content: space-between; }
+      .icon-card .icon { color: var(--accent); }
+      .cursor-card { display: grid; place-items: center; text-align: center; }
+      .cursor-card__shell { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid currentColor; border-radius: 50%; color: var(--accent); }
+      .cursor-card__shell .icon { color: var(--ink); }
+      code { color: var(--accent); font-size: .75rem; }
+    </style>
+  </head>
+  <body>
+    <p>本地参考页 · 直接读取生产注册表，不复制 SVG；不会进入主站路由、导航、Sitemap 或正式构建结果。</p>
+    <h1>Icon system<br /><em>图标总览</em></h1>
+
+    <h2>规格 / Tokens</h2>
+    <div class="token-grid">
+      {Object.entries(iconRoleSizes).map(([role, size]) => <div class="token"><code>{role}</code><strong>{size}px</strong><small>role size</small></div>)}
+      <div class="token"><code>stroke</code><strong>{iconStrokeWidth}</strong><small>round caps / joins</small></div>
+      <div class="token"><code>cursor shell</code><strong>36px</strong><small>optical ring</small></div>
+    </div>
+
+    <h2>全部语义名称 / Registry</h2>
+    <div class="icon-grid">
+      {names.map((name) => <div class="icon-card"><Icon name={name} role={roleFor(name)} /><strong>{titleFor(name)}</strong><small>{roleFor(name)} · currentColor · 1.75</small></div>)}
+    </div>
+
+    <h2>鼠标状态 / Cursor states</h2>
+    <div class="cursor-grid">
+      {cursorStates.map((item) => <div class="cursor-card"><div class="cursor-card__shell"><Icon name={item.name} role="cursor" /></div><strong>{item.label}</strong><small>{item.state} · {item.mode}</small></div>)}
+    </div>
+
+    <h2>主题 / Theme</h2>
+    <p>生产站的 `currentColor` 图标在亮暗主题中继承上下文颜色；品牌 Logo、GitHub 官方标志、装饰 SVG 与文章 Emoji 维持原有资源。</p>
+  </body>
+</html>

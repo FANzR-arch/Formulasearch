@@ -1,30 +1,29 @@
 ---
 import LocalizedText from './LocalizedText.astro'
+import Icon from './icon-system/Icon.astro'
+import PageHero from './PageHero.astro'
 import type { CatalogPage, CatalogSection } from '../data/catalog'
-import { getLocalizedValue, type Locale } from '../lib/i18n'
+import type { Locale } from '../lib/i18n'
 
 interface Props {
   page: CatalogPage
+  motionVariant: 'projects' | 'skills' | 'lab'
   sections: CatalogSection[]
   locale?: Locale
 }
 
-const { locale = 'zh', page, sections } = Astro.props
-const indexLabel = getLocalizedValue(page.indexLabel, locale)
+const { motionVariant, page, sections } = Astro.props
 ---
 
-<header class="catalog-hero">
-  <p class="catalog-hero__kicker"><LocalizedText {...page.kicker} /></p>
-  <h1><LocalizedText {...page.heading} /></h1>
-  <p class="catalog-hero__intro"><LocalizedText {...page.intro} /></p>
-</header>
-<nav class="catalog-index" aria-label={indexLabel} data-aria-en={page.indexLabel.en} data-aria-zh={page.indexLabel.zh}>
-  {sections.map((section) => <a href={`#${section.id}`}><span>{section.label}</span><LocalizedText {...section.title} /></a>)}
-</nav>
+<PageHero title={page.heading} description={page.intro} motionVariant={motionVariant} />
 <div class="catalog-sections">
-  {sections.map((section) => <section id={section.id} class="catalog-section">
-    <p class="catalog-section__number">{section.label}</p>
+  {sections.map((section, index) => <section id={section.id} class="catalog-section" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
     <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
-    <ul>{section.items.map((item) => <li><LocalizedText {...item} /></li>)}</ul>
+    <ul>{section.items.map((item) => <li>{item.externalUrl ? (
+      <a class="catalog-section__external" href={item.externalUrl} target="_blank" rel="noopener noreferrer">
+        <LocalizedText zh={item.zh} en={item.en} />
+        <Icon name="catalog-external" role="meta" />
+      </a>
+    ) : <LocalizedText zh={item.zh} en={item.en} />}</li>)}</ul>
   </section>)}
 </div>

@@ -1,0 +1,24 @@
+---
+import { iconRegistry, iconRoleSizes, iconStrokeWidth, type IconName, type IconRole } from './icons'
+
+interface Props {
+  name: IconName
+  role: IconRole
+  label?: string
+  title?: string
+  class?: string
+}
+
+const { name, role, label, title, class: className } = Astro.props
+const IconComponent = iconRegistry[name]
+---
+
+<IconComponent
+  class:list={['icon', `icon--${role}`, className]}
+  size={iconRoleSizes[role]}
+  stroke-width={iconStrokeWidth}
+  aria-hidden={label ? undefined : 'true'}
+  aria-label={label}
+  title={title}
+  focusable="false"
+/>

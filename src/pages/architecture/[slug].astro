@@ -1,0 +1,18 @@
+---
+import ArchitectureProject from '../../components/ArchitectureProject.astro'
+import { architectureProjects } from '../../data/architecture'
+import CatalogLayout from '../../layouts/CatalogLayout.astro'
+
+export function getStaticPaths() {
+  return architectureProjects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }))
+}
+
+const { project } = Astro.props
+---
+
+<CatalogLayout active="architecture" variant="archive" title={project.title} description={project.summary}>
+  <ArchitectureProject project={project} />
+</CatalogLayout>

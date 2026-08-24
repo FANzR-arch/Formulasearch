@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+import LocalizedText from './LocalizedText.astro'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
+
+interface LocalizedCopy {
+  en: string
+  zh: string
+}
+
+interface ArchiveItem {
+  alt: LocalizedCopy
+  caption?: LocalizedCopy
+  date?: LocalizedCopy
+  height?: number
+  image: ImageMetadata | string
+  index: string
+  label?: LocalizedCopy
+  layout: 'hero' | 'portrait' | 'landscape' | 'square' | 'wide'
+  location?: LocalizedCopy
+  previewImage?: string
+  previewWidth?: number
+  tags: string[]
+  title?: LocalizedCopy
+  width?: number
+}
+
+interface Props {
+  active: 'architecture' | 'photos'
+  eager: boolean
+  index: number
+  initialHidden: boolean
+  item: ArchiveItem
+  locale: Locale
+}
+
+const { active, eager, index, initialHidden, item, locale } = Astro.props
+const localizedAlt = getLocalizedValue(item.alt, locale)
+const photoTitle = item.title ?? { zh: `照片 ${item.index}`, en: `Photograph ${item.index}` }
+const photoCaption = item.caption ?? item.alt
+const photoSource = typeof item.image === 'string' ? item.image : item.image.src
+---
+
+<figure
+  class:list={['archive-record', `archive-record--${item.layout}`]}
+  data-archive-record={item.tags.join(' ')}
+  data-archive-index={index}
+  data-archive-initial-hidden={initialHidden ? 'true' : undefined}
+  data-media-ready="false"
+  hidden={initialHidden}
+>
+  {active === 'photos' ? (
+    <button
+      class="archive-record__open"
+      type="button"
+      data-photo-open
+      data-sound="open"
+      data-sound-volume="0.24"
+      data-photo-full-src={photoSource}
+      data-photo-index={item.index}
+      data-photo-width={item.width}
+      data-photo-height={item.height}
+      data-photo-title-zh={photoTitle.zh}
+      data-photo-title-en={photoTitle.en}
+      data-photo-caption-zh={photoCaption.zh}
+      data-photo-caption-en={photoCaption.en}
+      data-photo-date-zh={item.date?.zh || undefined}
+      data-photo-date-en={item.date?.en || undefined}
+      data-photo-location-zh={item.location?.zh || undefined}
+      data-photo-location-en={item.location?.en || undefined}
+      aria-label={locale === 'en' ? `View photograph ${item.index}: ${photoTitle.en}` : `查看照片 ${item.index}：${photoTitle.zh}`}
+    >
+      {typeof item.image === 'string' ? (
+        <img src={item.image} srcset={item.previewImage && item.previewWidth ? `${item.previewImage} ${item.previewWidth}w, ${item.image} ${item.width ?? 2560}w` : undefined} alt={localizedAlt} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} width={item.width} height={item.height} loading={eager ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
+      ) : (
+        <Image src={item.image} alt={localizedAlt} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={eager ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
+      )}
+    </button>
+  ) : (
+    <>
+      {typeof item.image === 'string' ? (
+        <img src={item.image} srcset={item.previewImage && item.previewWidth ? `${item.previewImage} ${item.previewWidth}w, ${item.image} ${item.width ?? 2560}w` : undefined} alt={localizedAlt} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} width={item.width} height={item.height} loading={eager ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
+      ) : (
+        <Image src={item.image} alt={localizedAlt} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={eager ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
+      )}
+      {item.label && item.caption && (
+        <figcaption>
+          <span>{item.index}</span>
+          <strong><LocalizedText {...item.label} /></strong>
+          <em><LocalizedText {...item.caption} /></em>
+        </figcaption>
+      )}
+    </>
+  )}
+</figure>

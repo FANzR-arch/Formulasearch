@@ -1,19 +1,9 @@
 ---
-import ArchiveIndex from '../components/ArchiveIndex.astro'
+import ArchitectureIndex from '../components/ArchitectureIndex.astro'
 import CatalogLayout from '../layouts/CatalogLayout.astro'
-import { architectureItems, architecturePage } from '../data/architecture'
+import { architecturePage } from '../data/architecture'
 ---
 
 <CatalogLayout active="architecture" variant="archive" title={architecturePage.pageTitle} description={architecturePage.pageDescription}>
-  <ArchiveIndex
-    active="architecture"
-    kicker={architecturePage.kicker}
-    title={architecturePage.title}
-    description={architecturePage.description}
-    eagerImageCount={architecturePage.eagerImageCount}
-    initialVisibleCount={architecturePage.initialVisibleCount}
-    autoLoadBatchSize={architecturePage.autoLoadBatchSize}
-    filters={architecturePage.filters}
-    items={architectureItems}
-  />
+  <ArchitectureIndex />
 </CatalogLayout>

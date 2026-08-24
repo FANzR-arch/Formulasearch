@@ -20,3 +20,11 @@ React Bits is distributed under the [MIT + Commons Clause License Condition v1.0
 
 - [Lucide](https://lucide.dev/) is used for interface icons under the [ISC License](https://github.com/lucide-icons/lucide/blob/main/LICENSE).
 - [Simple Icons](https://simpleicons.org/) is used for brand icons under [CC0 1.0](https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md). Brand marks remain the property of their respective owners and are used only to identify their linked services.
+
+## Interface sounds
+
+- The local sound preview and interaction feedback use the [UI SFX set by Kenney Vleugels](https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks), released under [CC0](https://creativecommons.org/publicdomain/zero/1.0/). The original readme states that the sounds may be used in personal and commercial projects; attribution is appreciated but not required.
+- The source archive is stored locally under `public/audio/kenney-interface/` for preview and playback. The source page's license should be rechecked before adding new files from the pack.
+- Additional feedback candidates come from [UI Sound Effects (Button Clicks, User Feedback, Notifications)](https://opengameart.org/content/ui-sound-effects-button-clicks-user-feedback-notifications), marked CC0 on OpenGameArt and provided in WAV/OGG formats. They are stored under `public/audio/cc0-feedback/ui-feedback/`.
+- Additional Lab candidates come from [Interface beeps](https://opengameart.org/content/interface-beeps), marked CC0 and described as interface/menu beeps. They are stored under `public/audio/cc0-feedback/interface-beeps/`.
+- Additional status candidates come from [UI Sounds](https://opengameart.org/content/ui-sounds-0), marked CC0 and described as Error, Accept, Notification and Attention sounds. They are stored under `public/audio/cc0-feedback/ui-status/`.
