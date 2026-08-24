@@ -195,23 +195,34 @@ test('desktop fine pointers always use custom cursor icons', async ({ page }) =>
 
 test('key routes do not overflow a narrow viewport', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 800 })
-  for (const route of ['/', '/blog', '/blog/ai-practice-2026-02-22', '/photos', '/architecture', '/projects', '/skills', '/lab']) {
+  for (const route of ['/', '/blog', '/blog/ai-practice-2026-02-22', '/photos', '/architecture', '/architecture/nanjing-stone-city', '/architecture/qingdao-hill-ocean', '/partners', '/projects', '/skills', '/lab']) {
     await page.goto(route)
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)
     expect(overflow, `${route} overflows at 320px`).toBeFalsy()
   }
 })
 
+test('partners page exposes its mutual site as a safe external link', async ({ page }) => {
+  await page.goto('/partners')
+  const partner = page.locator('.partner-entry')
+  await expect(partner).toHaveCount(1)
+  await expect(partner).toHaveAttribute('href', 'https://shuitu.studio/index.html')
+  await expect(partner).toHaveAttribute('target', '_blank')
+  await expect(partner).toHaveAttribute('rel', 'noopener noreferrer')
+  await expect(partner.locator('strong')).toContainText('水土营造')
+  await expect(page.locator('a[aria-current="page"]')).toHaveAttribute('href', '/partners')
+})
+
 test('title scale remains subordinate to content on desktop and mobile', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/projects')
-  expect(parseFloat(await page.locator('.catalog-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(88)
+  expect(parseFloat(await page.locator('.page-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(44)
   await page.goto('/blog')
-  expect(parseFloat(await page.locator('.blog-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(88)
+  expect(parseFloat(await page.locator('.blog-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(44)
 
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/blog')
-  expect(parseFloat(await page.locator('.blog-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(48)
+  expect(parseFloat(await page.locator('.blog-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(24)
   await page.goto('/blog/prompt-aesthetic-2026-07-02')
   expect(parseFloat(await page.locator('.article-header h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(40)
 })
@@ -480,8 +491,8 @@ test('English routes render server-localized metadata and reciprocal hreflang', 
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Phil's products/)
   await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', /\/en\/projects$/)
   await expect(page.locator('link[hreflang="zh-Hans"]')).toHaveAttribute('href', /\/projects$/)
-  await expect(page.locator('.catalog-hero h1 .localized-text__en')).toBeVisible()
-  await expect(page.locator('.catalog-hero h1 .localized-text__zh')).toBeHidden()
+  await expect(page.locator('.page-hero h1 .localized-text__en')).toBeVisible()
+  await expect(page.locator('.page-hero h1 .localized-text__zh')).toBeHidden()
   await expect(page.locator('.nav-link[href="/en/blog"]')).toBeVisible()
   await page.locator('.nav-disclosure').first().click()
   await expect(page.locator('.nav-popover a').first()).toHaveAttribute('href', /\/en\/blog\/series#ai-tools$/)
@@ -535,29 +546,49 @@ test('locale switch preserves article source language semantics', async ({ page 
   await expect(page.locator('.article-header h1 .localized-text__en')).toHaveAttribute('lang', 'en')
 })
 
-test('blog featured stage keeps localized title and summary on locale switch', async ({ page }) => {
+test('blog featured stage is static, localized, and omits the article index', async ({ page }) => {
   await page.goto('/blog')
-
-  const trigger = page.locator('[data-stage-trigger]').first()
   const stageTitle = page.locator('[data-stage-title]')
   const stageSummary = page.locator('[data-stage-summary]')
-  await page.locator('#language-toggle').click()
+  const slide = page.locator('[data-cover-slide]')
 
-  await expect(stageTitle.locator('.localized-text__en')).toHaveText(await trigger.getAttribute('data-stage-title-en') || '')
-  await expect(stageSummary.locator('.localized-text__en')).toHaveText(await trigger.getAttribute('data-stage-summary-en') || '')
+  await expect(page.locator('.cover-stage__index')).toHaveCount(0)
+  await expect(page.locator('[data-stage-trigger]')).toHaveCount(0)
+  await expect(slide).toHaveCount(1)
+  await expect(slide.locator('img')).toHaveAttribute('alt', /.+/)
+  await expect(page.locator('[data-stage-count]')).toHaveText('01 / 01')
+
+  await page.locator('#language-toggle').click()
+  await expect(stageTitle.locator('.localized-text__en')).toBeVisible()
+  await expect(stageSummary.locator('.localized-text__en')).toBeVisible()
   await expect(stageTitle.locator('.localized-text__en')).toHaveAttribute('lang', 'en')
   await expect(stageSummary.locator('.localized-text__en')).toHaveAttribute('lang', 'en')
 
-  await page.locator('[data-stage-trigger="1"]').focus()
-  await expect(stageTitle.locator('.localized-text__en')).toHaveText(await page.locator('[data-stage-trigger="1"]').getAttribute('data-stage-title-en') || '')
-  await expect(stageSummary.locator('.localized-text__en')).toHaveText(await page.locator('[data-stage-trigger="1"]').getAttribute('data-stage-summary-en') || '')
 })
-
-test('blog featured stage honors frontmatter featured records', async ({ page }) => {
+test('blog index shows every article without archive controls or duplicate metadata', async ({ page }) => {
   await page.goto('/blog')
 
-  const featuredTrigger = page.locator('[data-stage-featured="true"]').first()
-  await expect(featuredTrigger).toHaveAttribute('data-stage-trigger', '0')
+  await expect(page.locator('#recent-title')).toHaveCount(0)
+  await expect(page.locator('.section-heading--indexed')).toHaveCount(0)
+  await expect(page.locator('.archive-cta')).toHaveCount(0)
+
+  const recentRows = page.locator('.recent-stream .post-row')
+  expect(await recentRows.count()).toBeGreaterThan(0)
+  const metadata = await recentRows.evaluateAll((rows) => rows.map((row) => ({
+    bodyTimes: row.querySelectorAll('.post-row__body time.post-row__meta').length,
+    directTimes: Array.from(row.children).filter((child) => child.tagName === 'TIME').length,
+    timeText: row.querySelector('.post-row__body time')?.textContent?.trim() ?? '',
+  })))
+
+  for (const item of metadata) {
+    expect(item.bodyTimes).toBe(1)
+    expect(item.directTimes).toBe(0)
+    expect(item.timeText).toMatch(/^\d{4}\.\d{2}\.\d{2}$/)
+  }
+
+  const indexArticleCount = (await recentRows.count()) + (await page.locator('[data-cover-slide]').count())
+  await page.goto('/blog/archive')
+  expect(await page.locator('.archive-list .post-row').count()).toBe(indexArticleCount)
 })
 
 test('theme preference survives a page reload', async ({ page }) => {
@@ -702,10 +733,46 @@ test('photo archive removes repetitive captions', async ({ page }) => {
   await expect(page.locator('.visual-archive__modes')).toHaveCount(0)
 })
 
-test('architecture archive keeps its narrative captions', async ({ page }) => {
+test('architecture index exposes one entrance per project and details keep natural images', async ({ page }) => {
   await page.goto('/architecture')
-  await expect(page.locator('.archive-record figcaption').first()).toBeVisible()
-  await expect(page.locator('.archive-record figcaption strong').first()).not.toBeEmpty()
+  const entries = page.locator('.architecture-project-entry')
+  await expect(entries).toHaveCount(2)
+  await expect(entries.nth(0)).toHaveAttribute('href', '/architecture/nanjing-stone-city')
+  await expect(entries.nth(1)).toHaveAttribute('href', '/architecture/qingdao-hill-ocean')
+  await expect(entries.locator('img')).toHaveCount(2)
+
+  await page.goto('/architecture/nanjing-stone-city')
+  await expect(page.locator('.architecture-project-image')).toHaveCount(2)
+  await page.goto('/architecture/qingdao-hill-ocean')
+  await expect(page.locator('.architecture-project-image')).toHaveCount(8)
+  await expect(page.locator('.architecture-project-image figcaption')).toHaveCount(0)
+  await expect(page.locator('.architecture-project__images')).toHaveCSS('row-gap', '0px')
+  const imageStyle = await page.locator('.architecture-project-image img').first().evaluate((element) => {
+    const style = getComputedStyle(element)
+    return { aspectRatio: style.aspectRatio, backgroundColor: style.backgroundColor, borderWidth: style.borderWidth, height: style.height, naturalRatio: element.naturalWidth / element.naturalHeight, width: style.width }
+  })
+  expect(imageStyle.aspectRatio).toMatch(/^auto(?:\s|$)/)
+  expect(imageStyle.backgroundColor).toBe('rgba(0, 0, 0, 0)')
+  expect(imageStyle.borderWidth).toBe('0px')
+  expect(Math.abs(parseFloat(imageStyle.width) / parseFloat(imageStyle.height) - imageStyle.naturalRatio)).toBeLessThan(0.02)
+})
+
+test('top-level pages share the dotted transparent template without kickers', async ({ page }) => {
+  for (const route of ['/photos', '/architecture', '/projects', '/partners']) {
+    await page.goto(route)
+    await expect(page.locator('.page-hero')).toHaveCount(1)
+    await expect(page.locator('.page-hero').locator('[class*="kicker"], [class*="eyebrow"]')).toHaveCount(0)
+    const styles = await page.evaluate(() => ({
+      bodyImage: getComputedStyle(document.body).backgroundImage,
+      mainBackground: getComputedStyle(document.querySelector('main')).backgroundColor,
+      pageBackground: getComputedStyle(document.querySelector('.site-page')).backgroundColor,
+    }))
+    expect(styles.bodyImage).toContain('radial-gradient')
+    expect(styles.mainBackground).toBe('rgba(0, 0, 0, 0)')
+    expect(styles.pageBackground).toBe('rgba(0, 0, 0, 0)')
+  }
+  await page.goto('/photos')
+  await expect(page.locator('.photo-accordion__eyebrow')).toHaveCount(0)
 })
 
 test('article copy feedback and table of contents remain interactive', async ({ page, context }) => {
@@ -800,24 +867,6 @@ test('failed media placeholders follow locale changes', async ({ page }) => {
   await expect(fallback).toHaveText('English fallback')
 })
 
-test('featured stage keeps safe rel on dynamic external links', async ({ page }) => {
-  await page.goto('/blog')
-  const trigger = page.locator('[data-stage-trigger]').nth(1)
-  await trigger.evaluate((element) => {
-    element.dataset.stageExternal = 'true'
-    element.dataset.stageHref = 'https://example.com/reference'
-  })
-  await trigger.focus()
-  await expect(page.locator('[data-stage-link]')).toHaveAttribute('rel', 'noopener noreferrer')
-})
-
-test('featured stage fails closed when a dynamic target is missing', async ({ page }) => {
-  await page.goto('/blog')
-  const trigger = page.locator('[data-stage-trigger]').nth(1)
-  await trigger.evaluate((element) => element.removeAttribute('data-stage-href'))
-  await trigger.focus()
-  await expect(page.locator('[data-stage-link]')).not.toHaveAttribute('href')
-})
 
 test('article exposes related reading links', async ({ page }) => {
   await page.goto('/blog/ai-practice-2026-02-22')
@@ -825,16 +874,6 @@ test('article exposes related reading links', async ({ page }) => {
   await expect(page.locator('.article-related__item a').first()).toHaveAttribute('href', /\/blog\//)
 })
 
-test('featured stage keeps cover alt text when switching articles', async ({ page }) => {
-  await page.goto('/blog')
-  const slides = page.locator('[data-cover-slide]')
-  await expect(slides).toHaveCount(4)
-  await expect(slides.nth(0).locator('img')).toHaveAttribute('alt', /.+/)
-  await expect(slides.nth(1).locator('img')).toHaveAttribute('alt', /.+/)
-  await page.locator('[data-stage-trigger="1"]').focus()
-  await expect(slides.nth(1)).toHaveClass(/is-active/)
-  await expect(slides.nth(1).locator('img')).toHaveAttribute('alt', /.+/)
-})
 
 test('blog archive hides draft records and placeholder links', async ({ page }) => {
   await page.goto('/blog/archive')
@@ -868,4 +907,39 @@ test('llms exposes published pages and articles', async ({ request }) => {
 test('static preview server rejects paths outside dist', async ({ request }) => {
   const response = await request.get('/%2e%2e/%2e%2e/package.json')
   expect(response.status()).toBe(404)
+})
+test('catalog pages omit index navigation and section numbers', async ({ page }) => {
+  for (const route of ['/projects', '/skills', '/lab']) {
+    await page.goto(route)
+    await expect(page.locator('.catalog-index')).toHaveCount(0)
+    await expect(page.locator('.catalog-section__number')).toHaveCount(0)
+    await expect(page.locator('.catalog-section')).toHaveCount(3)
+  }
+})
+test('catalog and blog heroes share an extensible visible motion layer', async ({ page }) => {
+  for (const [route, variant] of [['/projects', 'projects'], ['/skills', 'skills'], ['/lab', 'lab'], ['/blog', 'blog']]) {
+    await page.goto(route)
+    const host = page.locator(`[data-hero-motion="${variant}"]`)
+    const motion = host.locator('.hero-motion')
+    await expect(host).toHaveCount(1)
+    await expect(motion.locator('.hero-motion__trail')).toHaveCount(4)
+    await expect(motion.locator('.hero-motion__node')).toHaveCount(3)
+    const style = await motion.evaluate((element) => {
+      const computed = getComputedStyle(element)
+      return { animationName: computed.animationName, opacity: Number(computed.opacity) }
+    })
+    expect(style.animationName).not.toBe('none')
+    expect(style.opacity).toBeGreaterThanOrEqual(0.2)
+  }
+})
+
+test('shared hero motion respects reduced-motion preference', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/projects')
+  const style = await page.locator('.hero-motion').evaluate((element) => {
+    const computed = getComputedStyle(element)
+    return { animationName: computed.animationName, opacity: Number(computed.opacity) }
+  })
+  expect(style.animationName).toBe('none')
+  expect(style.opacity).toBeLessThanOrEqual(0.14)
 })

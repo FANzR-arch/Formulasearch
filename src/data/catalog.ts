@@ -2,12 +2,16 @@ import { z } from 'astro/zod'
 import catalogContent from '../../content/site/catalog.json'
 import { localizedCopySchema } from '../lib/i18n'
 
+const catalogItemSchema = localizedCopySchema.extend({
+  externalUrl: z.url().optional(),
+}).strict()
+
 const catalogSectionSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   label: z.string().min(1),
   title: localizedCopySchema,
   description: localizedCopySchema,
-  items: z.array(localizedCopySchema).min(1),
+  items: z.array(catalogItemSchema).min(1),
 }).strict()
 
 const catalogPageSchema = z.object({

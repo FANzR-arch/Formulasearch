@@ -8,6 +8,7 @@ import {
   Clock3,
   DraftingCompass,
   Globe,
+  HeartHandshake,
   Highlighter,
   House,
   Link,
@@ -39,6 +40,7 @@ export const iconRegistry = {
   'nav-chevron': ChevronDown,
   'nav-photos': Aperture,
   'nav-architecture': DraftingCompass,
+  'nav-partners': HeartHandshake,
   'nav-language': Globe,
   'nav-light': Sun,
   'nav-dark': Moon,
@@ -48,6 +50,7 @@ export const iconRegistry = {
   'blog-home': House,
   'blog-link': Link,
   'blog-external': ArrowUpRight,
+  'catalog-external': ArrowUpRight,
 } satisfies Record<string, AstroComponent>
 
 export type IconName = keyof typeof iconRegistry

@@ -37,7 +37,7 @@ const showSourceLanguageNotice = posts.some((post) => post.contentLanguage !== '
         <strong>{group.posts.length}</strong>
       </header>
       <div class="series-group__posts">
-        {group.posts.map((post) => <BlogPostRow post={post} compact locale={locale} showCategory={false} />)}
+        {group.posts.map((post) => <BlogPostRow post={post} compact locale={locale} />)}
       </div>
     </section>
   ))}

@@ -1,8 +1,9 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
-import { architecturePage } from '../data/architecture'
+import { architecturePage, architectureProjects } from '../data/architecture'
 import { catalogPages } from '../data/catalog'
 import { pageMeta } from '../data/page-meta'
+import { partnersPage } from '../data/partners'
 import { photoArchivePage } from '../data/photo-archive'
 import { siteConfig } from '../data/site-config'
 import { getBlogPostRoute, getLocalizedRoute, localizedSiteRoutes, siteRoutes, staticSiteRoutes } from '../data/site-routes'
@@ -20,6 +21,7 @@ export const GET: APIRoute = async () => {
     [siteRoutes.lab]: catalogPages.lab.description.en,
     [siteRoutes.photos]: photoArchivePage.pageDescription.en,
     [siteRoutes.architecture]: architecturePage.pageDescription.en,
+    [siteRoutes.partners]: partnersPage.description.en,
     [siteRoutes.blog]: pageMeta.blog.description.en,
     [siteRoutes.blogSeries]: pageMeta.blogSeries.description.en,
     [siteRoutes.blogArchive]: pageMeta.blogArchive.description.en,
@@ -32,6 +34,7 @@ export const GET: APIRoute = async () => {
     const description = post.data.descriptionEn ?? post.data.description
     return `- ${getBlogPostRoute(post.data.slug, post.data.contentLanguage)} — ${cleanLine(title)}. ${cleanLine(description)}`
   })
+  const architectureLines = architectureProjects.flatMap((project) => [`- /architecture/${project.slug} — ${cleanLine(project.title.en)}. ${cleanLine(project.summary.en)}`, `- /en/architecture/${project.slug} — ${cleanLine(project.title.en)}. ${cleanLine(project.summary.en)}`])
 
   const lines = [
     `# ${siteConfig.name}`,
@@ -42,8 +45,11 @@ export const GET: APIRoute = async () => {
     ...pageLines,
     ...englishPageLines,
     '',
-    '## Published articles',
+    '## Architecture projects',
+    ...architectureLines,
+    '',
     ...articleLines,
+    '## Published articles',
     '',
   ]
 

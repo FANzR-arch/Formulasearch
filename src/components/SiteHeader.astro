@@ -9,7 +9,7 @@ import Icon from './icon-system/Icon.astro'
 import LocalizedText from './LocalizedText.astro'
 
 interface Props {
-  active?: PrimarySection | 'photos' | 'architecture'
+  active?: PrimarySection | 'photos' | 'architecture' | 'partners'
   locale?: Locale
   logoMode?: 'background' | 'home'
 }
@@ -63,12 +63,14 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
       </div>
     ))}
     <div class="nav-utilities">
-      <span class="nav-divider nav-divider--archive" aria-hidden="true"></span>
       <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'photos' }]} href={localizedRoute(siteRoutes.photos)} aria-current={active === 'photos' ? 'page' : undefined} aria-label={localized(uiCopy.navigation.photos)} data-aria-en={uiCopy.navigation.photos.en} data-aria-zh={uiCopy.navigation.photos.zh} title={localized(uiCopy.navigation.photos)} data-title-en={uiCopy.navigation.photos.en} data-title-zh={uiCopy.navigation.photos.zh}>
         <Icon name="nav-photos" role="control" />
       </a>
       <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'architecture' }]} href={localizedRoute(siteRoutes.architecture)} aria-current={active === 'architecture' ? 'page' : undefined} aria-label={localized(uiCopy.navigation.architecture)} data-aria-en={uiCopy.navigation.architecture.en} data-aria-zh={uiCopy.navigation.architecture.zh} title={localized(uiCopy.navigation.architecture)} data-title-en={uiCopy.navigation.architecture.en} data-title-zh={uiCopy.navigation.architecture.zh}>
         <Icon name="nav-architecture" role="control" />
+      </a>
+      <a class:list={['icon-link', 'icon-link--ui', { 'is-active': active === 'partners' }]} href={localizedRoute(siteRoutes.partners)} aria-current={active === 'partners' ? 'page' : undefined} aria-label={localized(uiCopy.navigation.partners)} data-aria-en={uiCopy.navigation.partners.en} data-aria-zh={uiCopy.navigation.partners.zh} title={localized(uiCopy.navigation.partners)} data-title-en={uiCopy.navigation.partners.en} data-title-zh={uiCopy.navigation.partners.zh}>
+        <Icon name="nav-partners" role="control" />
       </a>
       <span class="nav-divider nav-divider--social" aria-hidden="true"></span>
       <a class="icon-link icon-link--brand icon-link--github" href={siteConfig.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={localized(githubProfileLabel)} data-aria-en={githubProfileLabel.en} data-aria-zh={githubProfileLabel.zh} title={localized(githubProfileLabel)} data-title-en={githubProfileLabel.en} data-title-zh={githubProfileLabel.zh}>

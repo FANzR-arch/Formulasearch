@@ -1,0 +1,22 @@
+{
+  "title": { "zh": "伙伴", "en": "Partners" },
+  "description": {
+    "zh": "与我互相推荐的独立站点。",
+    "en": "Independent sites that mutually recommend this website."
+  },
+  "kicker": { "zh": "伙伴 / 互推站点", "en": "Partners / Mutual links" },
+  "heading": { "zh": "伙伴", "en": "Partners" },
+  "intro": {
+    "zh": "这里收录与我互相推荐、值得被更多人看见的独立站点。",
+    "en": "A small directory of independent sites that we recommend to each other and believe deserve a wider audience."
+  },
+  "listLabel": { "zh": "伙伴站点", "en": "Partner sites" },
+  "relationshipLabel": { "zh": "互相推荐", "en": "Mutual recommendation" },
+  "visitLabel": { "zh": "访问站点", "en": "Visit site" },
+  "items": [
+    {
+      "name": { "zh": "水土营造", "en": "Shui Tu Atelier" },
+      "url": "https://shuitu.studio/index.html"
+    }
+  ]
+}

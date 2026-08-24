@@ -54,8 +54,16 @@
         "en": "Visual references, layouts, and image languages compiled into ready-to-use Skills."
       },
       "items": [
-        { "zh": "Phil Design Skills — 视觉提示词与图像方向", "en": "Phil Design Skills — visual prompts and image direction" },
-        { "zh": "Aesthetic formulas — 视觉方法与样式实验", "en": "Aesthetic formulas — visual methods and style experiments" },
+        {
+          "zh": "Phil Design Skills — 视觉提示词与图像方向",
+          "en": "Phil Design Skills — visual prompts and image direction",
+          "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills"
+        },
+        {
+          "zh": "Aesthetic formulas — 视觉方法与样式实验",
+          "en": "Aesthetic formulas — visual methods and style experiments",
+          "externalUrl": "https://fanzr-arch.github.io/Phil-aesthetic-formulas/"
+        },
         { "zh": "中文排版与视觉身份扩展", "en": "Chinese typography and visual identity expansion" }
       ]
     },
@@ -98,7 +106,11 @@
         "en": "Directions not yet finished, but already worth seeing, trying, or extending."
       },
       "items": [
-        { "zh": "Aesthetic Formulas", "en": "Aesthetic Formulas" },
+        {
+          "zh": "Aesthetic Formulas",
+          "en": "Aesthetic Formulas",
+          "externalUrl": "https://fanzr-arch.github.io/Phil-aesthetic-formulas/"
+        },
         { "zh": "动态背景与交互视觉", "en": "Dynamic backgrounds and interactive visuals" },
         { "zh": "原型、生成式图像与数字人测试", "en": "Prototypes, generated images, and digital-human tests" }
       ]
@@ -112,8 +124,16 @@
         "en": "A home for lessons in progress and knowledge that has already been tested."
       },
       "items": [
-        { "zh": "SEO / GEO 学习与实践", "en": "SEO / GEO learning and practice" },
-        { "zh": "Price Action Course", "en": "Price Action Course" },
+        {
+          "zh": "SEO × GEO 入门课",
+          "en": "SEO × GEO Foundations",
+          "externalUrl": "https://seo-learn-eight.vercel.app/"
+        },
+        {
+          "zh": "Price Action Course",
+          "en": "Price Action Course",
+          "externalUrl": "https://price-action-course.vercel.app/"
+        },
         { "zh": "AI 辅助设计与生产实验", "en": "AI-assisted design and production experiments" }
       ]
     },

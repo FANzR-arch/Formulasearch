@@ -21,7 +21,6 @@ interface Props {
 
 const { items, locale = 'zh' } = Astro.props
 const defaultIndex = Math.min(2, Math.max(items.length - 1, 0))
-const selectedTitle = { zh: '本次选片', en: 'Selected frames' }
 const selectedDescription = { zh: '五张照片，五个停留的瞬间。', en: 'Five photographs, five moments to pause.' }
 const galleryLabel = { zh: '摄影精选画廊', en: 'Selected photography gallery' }
 const frameLabel = (item: PhotoItem) => ({
@@ -37,7 +36,6 @@ const photoLabel = (item: PhotoItem) => ({
 <section class="photo-accordion" aria-labelledby="photo-selection-title" data-site-reveal data-site-reveal-delay="100">
   <header class="photo-accordion__header">
     <div>
-      <p class="photo-accordion__eyebrow"><LocalizedText {...selectedTitle} /></p>
       <h2 id="photo-selection-title"><LocalizedText {...selectedDescription} /></h2>
     </div>
     <p class="photo-accordion__count" aria-hidden="true">01 — {String(items.length).padStart(2, '0')}</p>

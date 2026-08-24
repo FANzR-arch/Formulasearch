@@ -40,8 +40,9 @@ const initialTitle = getLocalizedValue({ zh: title, en: titleEn }, locale)
 const initialDescription = getLocalizedValue({ zh: description, en: descriptionEn }, locale)
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
 const chinesePath = currentPath === '/en' ? '/' : currentPath.startsWith('/en/') ? currentPath.slice(3) : currentPath
-const hasLocalizedRoute = localizedSiteRoutes.includes(chinesePath as (typeof localizedSiteRoutes)[number])
-const englishAlternate = hasLocalizedRoute ? new URL(getLocalizedRoute(chinesePath, 'en'), Astro.site) : undefined
+const isArchitectureProject = chinesePath.startsWith(`${siteRoutes.architecture}/`)
+const hasLocalizedRoute = localizedSiteRoutes.includes(chinesePath as (typeof localizedSiteRoutes)[number]) || isArchitectureProject
+const englishAlternate = hasLocalizedRoute ? new URL(isArchitectureProject ? `/en${chinesePath}` : getLocalizedRoute(chinesePath, 'en'), Astro.site) : undefined
 const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : undefined
 ---
 
