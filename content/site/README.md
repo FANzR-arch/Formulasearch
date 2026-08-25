@@ -3,10 +3,10 @@
 - 修改多个内容 manifest 后，先运行 `npm run content:check` 做统一的内容、i18n、媒体和摄影清单预检，再运行 `npm run build`；不需要手工串联所有单项脚本。
 - `home.json` 是中文首页内容。
 - `home.en.json` 是英文首页内容。
-- `email`、`social` 和 `heroImage` 是中英文共用字段，两个文件必须保持一致；`name` 可以按语言显示为对应称呼，但必须出现在 `site.json` 的作者名或别名中；`contactLabel`、`contactEmailPrefix` 和 `heroImageAlt` 分别填写对应语言的首页文案/替代文本。
+- `home.shared.json` 是首页共享设置，统一维护 `email`、`social`、`heroImage` 和图片宽高；`name` 可以按语言显示为对应称呼，但必须出现在 `site.json` 的作者名或别名中；`contactLabel`、`contactEmailPrefix` 和 `heroImageAlt` 分别填写对应语言的首页文案/替代文本。
 - `photo-archive.json` 是 `/photos` 的页面文案、筛选器和照片清单；可直接编辑标题、说明、标签和公开图片路径。图片必须使用单斜杠开头的站内绝对路径（例如 `/uploads/photos/...`），不能写 `//host/...`。
 - `catalog.json` 是 Projects、Skills、Lab 的目录内容；每个区块必须有中英文标题、说明和至少一条内容。
-- `architecture.json` 是 `/architecture` 的页面文案、筛选器和研究图像清单；图片标识对应 `src/data/architecture.ts` 中的构建资源映射。
+- `architecture.json` 只维护 `/architecture` 的页面文案和筛选器；项目资料位于 `content/architecture/<slug>/index.json`，图片位于 `src/assets/archive/architecture/<slug>/`，由 Astro 动态收集并优化。
 - 两个档案 manifest 的第一个筛选器必须是 `all`，新增筛选器必须至少命中一个条目的 `tags`；构建会检查筛选器和实际图片资源是否同步。
 - `navigation.json` 是全站一级导航和下拉菜单内容；链接应使用站内绝对路径，构建时会校验四组主导航和双语字段。
 - `navigation.json` 的下拉 hash 必须对应 Blog 主题或 Projects、Skills、Lab 的真实 section ID；修改这些 manifest 后运行 `npm run build` 检查导航是否仍然同步。
@@ -25,7 +25,7 @@
 - `blog-media.json` 是 Blog 封面的尺寸和响应式 WebP/AVIF 变体清单；它由 `npm run blog:media:prepare` 从 `public/uploads/blog/` 生成，不要手工填写宽高或变体路径。脚本会同时维护 `public/uploads/blog-optimized/` 下的生成文件，并在检查模式拒绝孤儿变体。
 - 两个文件的 `intro`、`about`、`interest` 数组必须逐项对应；构建会检查数量。
 - `email` 必须是有效邮箱，`social.url` 必须是完整 URL，必填文本不能是空字符串。
-- `heroImage` 留空时不显示首页图片；填写时使用 `public/` 下的公开路径，例如 `/uploads/home/portrait.jpg`，并在中英文文件中填写对应的 `heroImageAlt`。
+- `home.shared.json` 的 `heroImage` 留空时不显示首页图片；填写时使用 `public/` 下的公开路径，例如 `/uploads/home/portrait.jpg`，同时填写真实宽高，并在中英文文件中填写对应的 `heroImageAlt`。
 - Photography 与 Architecture 归档的每条 `alt` 都是 `{ zh, en }` 双语对象，必须描述画面内容，而不是只写“作品 + 编号”；摄影归档构建会拒绝已知的占位式 alt。
 
 `identity`、`now`、`work`、`writing`、`resources` 是预留字段。页面需要这些内容时，可以直接扩展对应组件，不必再添加新的解析规则。
@@ -42,4 +42,4 @@ Blog 完整正文的路由由 frontmatter 的 `contentLanguage` 决定：`zh-Han
 
 目录清单由 `src/data/catalog.ts` 在构建时做结构校验。修改 `catalog.json` 后运行 `npm run build`，即可同时检查三组目录的结构和双语字段。
 
-建筑档案由 `src/data/architecture.ts` 在构建时做结构校验。修改 `architecture.json` 后运行 `npm run build`，即可检查图片标识、布局、标签和双语文案。
+建筑档案由 `src/data/architecture.ts` 在构建时校验项目 slug、封面归属、图片唯一性、布局、标签和双语文案。通过 Keystatic 新增项目或图片后运行“准备预览”，即可同时验证 Astro 图片优化和项目路由。
