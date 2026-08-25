@@ -76,8 +76,10 @@ const { static: staticRouteKeys, localized: localizedRouteKeys, ...routeEntries 
 const staticRoutes = staticRouteKeys.map((key) => routeEntries[key]).filter(Boolean)
 const localizedRoutes = localizedRouteKeys.map((key) => routeEntries[key]).filter(Boolean)
 const englishStaticRoutes = localizedRoutes.map((route) => route === '/' ? '/en' : `/en${route}`)
-const architectureManifest = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'architecture.json'), 'utf8'))
-const architectureProjectRoutes = architectureManifest.projects.flatMap(({ slug }) => [`/architecture/${slug}`, `/en/architecture/${slug}`])
+const architectureRoot = join(projectRoot, '..', 'content', 'architecture')
+const architectureProjectDirectories = (await readdir(architectureRoot, { withFileTypes: true })).filter((entry) => entry.isDirectory())
+const architectureProjects = await Promise.all(architectureProjectDirectories.map(async (entry) => JSON.parse(await readFile(join(architectureRoot, entry.name, 'index.json'), 'utf8'))))
+const architectureProjectRoutes = architectureProjects.flatMap(({ slug }) => [`/architecture/${slug}`, `/en/architecture/${slug}`])
 const blogRoute = routeEntries.blog
 const htmlFiles = (await walk(distRoot)).filter((path) => path.endsWith('.html'))
 const htmlByRoute = new Map()
@@ -137,7 +139,7 @@ if (!rss.includes('<rss version="2.0">') || !rss.includes('<lastBuildDate>') || 
 
 const blogRoot = join(projectRoot, '..', 'content', 'blog')
 const blogDirectories = (await readdir(blogRoot, { withFileTypes: true }))
-  .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(entry.name))
+  .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}(?:-[a-z0-9-]+)?$/.test(entry.name))
 const blogRecords = []
 for (const directory of blogDirectories) {
   const markdown = await readFile(join(blogRoot, directory.name, 'index.md'), 'utf8')
@@ -349,7 +351,7 @@ for (const articlePath of articlePaths) {
 
 const blogIndex = await readUtf8('blog/index.html')
 const navPanelCount = (blogIndex.match(/class="nav-popover"/g) || []).length
-const expectedNavPanelCount = Array.isArray(navigationContent) ? navigationContent.length : 0
+const expectedNavPanelCount = Array.isArray(navigationContent.items) ? navigationContent.items.length : 0
 if (navPanelCount !== expectedNavPanelCount) failures.push(`expected ${expectedNavPanelCount} primary navigation panels, found ${navPanelCount}`)
 
 const homeIndex = await readUtf8('index.html')

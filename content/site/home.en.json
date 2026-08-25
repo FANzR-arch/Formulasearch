@@ -1,13 +1,7 @@
 {
   "name": "Phil Carlos",
-  "email": "vphil981011@gmail.com",
-  "social": {
-    "label": "@Formulasearch",
-    "url": "https://x.com/Formulasearch"
-  },
   "contactLabel": "Find me here",
   "contactEmailPrefix": "Or email me: ",
-  "heroImage": "",
   "heroImageAlt": "",
   "intro": [
     "Hi, I’m Phil — a curious AI builder and designer."

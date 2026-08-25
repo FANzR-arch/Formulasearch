@@ -1,0 +1,75 @@
+---
+import Icon from '../../components/icon-system/Icon.astro'
+import StudioShell from '../components/StudioShell.astro'
+---
+
+<StudioShell title="预览与安全发布" eyebrow="Build / inspect / confirm">
+  <ol class="mb-12 grid gap-3" aria-label="发布步骤">
+    <li class="studio-panel grid gap-4 rounded-box p-5 sm:grid-cols-[3rem_1fr_auto] sm:items-center sm:gap-5">
+      <span class="studio-kicker">01</span><div><h2 class="m-0 text-2xl font-medium">准备生产预览</h2><p class="studio-copy mb-0 mt-2 text-sm">生成 Blog 媒体、检查内容与类型、完成静态构建，并确认生产输出没有后台路由。</p></div><button id="prepare" class="btn btn-primary sm:justify-self-end"><Icon name="studio-refresh" role="control" />准备预览</button>
+    </li>
+    <li class="studio-panel grid gap-4 rounded-box p-5 sm:grid-cols-[3rem_1fr_auto] sm:items-center sm:gap-5">
+      <span class="studio-kicker">02</span><div><h2 class="m-0 text-2xl font-medium">检查本地结果</h2><p class="studio-copy mb-0 mt-2 text-sm">浏览生产预览，再核对新增、修改和删除文件。保存动作本身不会触碰 Git。</p></div><a id="preview" class="btn btn-outline sm:justify-self-end" href="http://127.0.0.1:4322" target="_blank" rel="noopener"><Icon name="studio-eye" role="control" />打开预览</a>
+    </li>
+  </ol>
+  <section class="card studio-panel mb-12 rounded-box shadow-none" aria-labelledby="diff-heading">
+    <div class="card-body gap-3 p-0">
+      <header class="flex flex-wrap items-center justify-between gap-3 px-5 pt-5"><div class="flex items-center gap-3"><Icon name="studio-diff" role="control" /><div><span class="studio-kicker">Git workspace</span><h2 id="diff-heading" class="m-0 mt-1 font-sans text-sm font-semibold"><span id="branch">读取分支…</span></h2></div></div><button id="refresh" class="btn btn-ghost btn-sm">刷新 diff</button></header>
+      <pre id="changes" class="studio-code mb-0 rounded-b-box">正在读取工作区…</pre>
+    </div>
+  </section>
+  <section class="studio-panel mb-6 grid gap-5 rounded-box border-error/30 p-5 sm:grid-cols-[3rem_1fr]" aria-labelledby="confirm-heading">
+    <span class="studio-kicker pt-1">03</span>
+    <div class="grid max-w-3xl gap-4">
+      <div><span class="badge badge-error badge-outline mb-3">不可撤销的外部操作</span><h2 id="confirm-heading" class="m-0 text-3xl font-medium">最终确认</h2></div>
+      <label class="label cursor-pointer justify-start gap-3 rounded-field border border-base-300 bg-base-100 p-3 text-sm"><input id="confirm-diff" class="checkbox checkbox-primary checkbox-sm" type="checkbox" /><span>我已确认 diff 中的新增、修改和删除都属于本次内容更新。</span></label>
+      <label class="label cursor-pointer justify-start gap-3 rounded-field border border-base-300 bg-base-100 p-3 text-sm"><input id="confirm-vercel" class="checkbox checkbox-primary checkbox-sm" type="checkbox" /><span>我已确认 Vercel 连接目标仓库，Production Branch 为 <code>main</code>。</span></label>
+      <div class="grid gap-3 md:grid-cols-2">
+        <fieldset class="fieldset"><legend class="fieldset-legend">正式页面路径</legend><input class="input input-bordered w-full" id="verify-path" value="/" placeholder="/blog/my-post" /></fieldset>
+        <fieldset class="fieldset"><legend class="fieldset-legend">发布后必须出现的唯一文字</legend><input class="input input-bordered w-full" id="verify-text" placeholder="本次新增内容中的一段唯一文字" /></fieldset>
+      </div>
+      <fieldset class="fieldset"><legend class="fieldset-legend">最终确认文字</legend><input class="input input-bordered w-full font-mono" id="phrase" placeholder="PUBLISH MAIN" /></fieldset>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center"><button id="publish" class="btn btn-error"><Icon name="studio-publish" role="control" />创建 commit 并推送 main</button><p class="m-0 flex items-start gap-2 text-xs leading-relaxed text-error"><Icon name="studio-warning" role="control" />无关代码、过期预览、非 main 分支或已有暂存文件都会阻止发布。</p></div>
+    </div>
+  </section>
+  <p id="status" class="alert alert-info studio-status mb-3 text-sm" aria-live="polite">读取状态中…</p>
+  <pre id="task-log" class="studio-code rounded-box" hidden></pre>
+  <div class="mt-5 flex flex-wrap items-center gap-2 text-sm"><a class="btn btn-link px-2" href="https://github.com/FANzR-arch/Formulasearch/actions" target="_blank" rel="noopener">GitHub Actions</a><a class="btn btn-link px-2" href="https://vercel.com/dashboard" target="_blank" rel="noopener">Vercel Dashboard</a><span class="ml-auto flex items-center gap-2 text-success"><Icon name="studio-success" role="control" />只有正式页面返回成功并包含校验文字，才算发布完成。</span></div>
+</StudioShell>
+
+<script is:inline>
+  const status = document.querySelector('#status')
+  const changes = document.querySelector('#changes')
+  const taskLog = document.querySelector('#task-log')
+  let polling
+  const setStatus = (message, kind = '') => {
+    status.textContent = message; status.dataset.kind = kind
+    status.classList.remove('alert-info', 'alert-success', 'alert-error')
+    status.classList.add(kind === 'success' ? 'alert-success' : kind === 'error' ? 'alert-error' : 'alert-info')
+  }
+  const request = async (url, options) => { const response = await fetch(url, options); const data = await response.json(); if (!response.ok) throw new Error(data.error || '操作失败。'); return data }
+  const refresh = async () => {
+    const data = await request('/api/content-studio/status')
+    document.querySelector('#branch').textContent = `当前分支 / ${data.branch || '未知'}`
+    changes.textContent = `${data.diffStat || '没有未提交 diff'}\n\n${data.changes.join('\n') || '工作区干净'}`
+    if (data.prepare?.previewUrl) document.querySelector('#preview').href = data.prepare.previewUrl
+    if (data.task) {
+      taskLog.hidden = false; taskLog.textContent = data.taskLog || '任务已启动，等待输出…'
+      setStatus(data.task.running ? `${data.task.name} 正在运行…` : `${data.task.name} 已结束，退出码 ${data.task.code}。`, data.task.code === 0 ? 'success' : data.task.running ? '' : 'error')
+      if (!data.task.running) { clearInterval(polling); polling = null }
+    } else if (data.prepare) setStatus(`上次成功准备：${new Date(data.prepare.preparedAt).toLocaleString()}。预览没有执行 Git 操作。`, 'success')
+    else setStatus('尚未完成准备预览。')
+  }
+  const startPolling = () => { if (!polling) polling = setInterval(() => refresh().catch((error) => setStatus(error.message, 'error')), 2500) }
+  document.querySelector('#refresh').addEventListener('click', () => refresh().catch((error) => setStatus(error.message, 'error')))
+  document.querySelector('#prepare').addEventListener('click', async () => { try { await request('/api/content-studio/prepare', { method: 'POST' }); setStatus('准备任务已启动。'); startPolling(); await refresh() } catch (error) { setStatus(error.message, 'error') } })
+  document.querySelector('#publish').addEventListener('click', async () => {
+    if (!confirm('最终操作会创建 commit 并推送 origin/main。是否继续发送发布请求？')) return
+    try {
+      const payload = { confirmDiff: document.querySelector('#confirm-diff').checked, confirmVercel: document.querySelector('#confirm-vercel').checked, verifyPath: document.querySelector('#verify-path').value, verifyText: document.querySelector('#verify-text').value, phrase: document.querySelector('#phrase').value }
+      await request('/api/content-studio/publish', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) })
+      setStatus('发布任务已启动；正在等待 GitHub、Vercel 和正式页面验证。'); startPolling(); await refresh()
+    } catch (error) { setStatus(error.message, 'error') }
+  })
+  refresh().catch((error) => setStatus(error.message, 'error'))
+</script>

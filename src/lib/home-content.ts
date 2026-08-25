@@ -1,5 +1,6 @@
 import { z } from 'astro/zod'
 import homeEn from '../../content/site/home.en.json'
+import homeShared from '../../content/site/home.shared.json'
 import homeZh from '../../content/site/home.json'
 import { siteConfig } from '../data/site-config'
 import { httpUrlSchema, localAssetPathSchema } from './validation'
@@ -9,19 +10,22 @@ const workItemSchema = z.object({
   description: z.string().min(1),
 }).strict()
 
-const homeContentSchema = z.object({
-  name: z.string().min(1),
+const sharedHomeContentSchema = z.object({
   email: z.email(),
-  contactLabel: z.string().min(1),
-  contactEmailPrefix: z.string().min(1),
   social: z.object({
     label: z.string().min(1),
     url: httpUrlSchema,
   }).strict(),
-  heroImage: z.union([z.literal(''), localAssetPathSchema]),
-  heroImageAlt: z.string().default(''),
+  heroImage: z.union([z.literal(''), localAssetPathSchema]).default(''),
   heroImageHeight: z.number().int().positive().optional(),
   heroImageWidth: z.number().int().positive().optional(),
+}).strict()
+
+const localizedHomeContentSchema = z.object({
+  name: z.string().min(1),
+  contactLabel: z.string().min(1),
+  contactEmailPrefix: z.string().min(1),
+  heroImageAlt: z.string().default(''),
   intro: z.array(z.string().min(1)).min(1),
   about: z.array(z.string().min(1)).min(1),
   interest: z.array(z.string().min(1)).min(1),
@@ -34,7 +38,9 @@ const homeContentSchema = z.object({
   work: z.array(workItemSchema).default([]),
   writing: z.string().default(''),
   resources: z.string().default(''),
-}).strict().superRefine((data, context) => {
+}).strict()
+
+const homeContentSchema = sharedHomeContentSchema.and(localizedHomeContentSchema).superRefine((data, context) => {
   if (data.heroImage && !data.heroImageAlt) {
     context.addIssue({ code: 'custom', path: ['heroImageAlt'], message: 'heroImageAlt is required when heroImage is set.' })
   }
@@ -54,8 +60,11 @@ const homeContentSchema = z.object({
 
 export type HomeContent = z.infer<typeof homeContentSchema>
 
-function parseHomeContent(value: unknown, locale: 'zh' | 'en') {
-  const result = homeContentSchema.safeParse(value)
+function parseHomeContent(shared: unknown, localized: unknown, locale: 'zh' | 'en') {
+  const result = homeContentSchema.safeParse({
+    ...sharedHomeContentSchema.parse(shared),
+    ...localizedHomeContentSchema.parse(localized),
+  })
   if (!result.success) {
     const issues = result.error.issues.map((issue) => `${issue.path.join('.') || 'root'}: ${issue.message}`).join('; ')
     throw new Error(`首页 ${locale} 内容校验失败：${issues}`)
@@ -71,19 +80,6 @@ function validateLocalePairs(zh: HomeContent, en: HomeContent) {
     }
   }
 
-  const sharedFields = [
-    ['email', zh.email, en.email],
-    ['social.label', zh.social.label, en.social.label],
-    ['social.url', zh.social.url, en.social.url],
-    ['heroImage', zh.heroImage, en.heroImage],
-    ['heroImageWidth', zh.heroImageWidth, en.heroImageWidth],
-    ['heroImageHeight', zh.heroImageHeight, en.heroImageHeight],
-  ] as const
-  for (const [field, zhValue, enValue] of sharedFields) {
-    if (zhValue !== enValue) {
-      throw new Error(`Homepage shared field must match between locales: ${field}`)
-    }
-  }
 }
 
 function validateHomepageIdentity(...homepages: HomeContent[]) {
@@ -95,8 +91,8 @@ function validateHomepageIdentity(...homepages: HomeContent[]) {
   }
 }
 
-const zh = parseHomeContent(homeZh, 'zh')
-const en = parseHomeContent(homeEn, 'en')
+const zh = parseHomeContent(homeShared, homeZh, 'zh')
+const en = parseHomeContent(homeShared, homeEn, 'en')
 validateLocalePairs(zh, en)
 validateHomepageIdentity(zh, en)
 

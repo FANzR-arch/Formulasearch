@@ -1,0 +1,14 @@
+---
+import Icon from '../../components/icon-system/Icon.astro'
+import StudioShell from '../components/StudioShell.astro'
+---
+
+<StudioShell title="内容编辑" eyebrow="Keystatic / local files">
+  <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <p class="studio-copy m-0 text-sm">所有保存只写入当前工作区。需要更宽的编辑空间时，可单独全屏打开 Keystatic。</p>
+    <a class="btn btn-outline btn-sm shrink-0" href="/keystatic" target="_blank" rel="noopener"><Icon name="blog-external" role="control" />全屏打开编辑器</a>
+  </div>
+  <div class="studio-panel overflow-hidden rounded-box bg-base-100">
+    <iframe class="block min-h-[calc(100vh-15rem)] w-full border-0 bg-base-100" src="/keystatic" title="Keystatic 内容编辑器"></iframe>
+  </div>
+</StudioShell>

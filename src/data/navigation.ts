@@ -18,7 +18,7 @@ const primaryNavigationItemSchema = z.object({
   menu: z.array(navigationItemSchema).min(1),
 }).strict()
 
-const navigationSchema = z.array(primaryNavigationItemSchema).length(4)
+const navigationSchema = z.object({ items: z.array(primaryNavigationItemSchema).length(4) }).strict()
 const result = navigationSchema.safeParse(navigationContent)
 if (!result.success) {
   const issues = result.error.issues
@@ -31,7 +31,7 @@ export type PrimarySection = z.infer<typeof primaryNavigationItemSchema>['id']
 export type NavigationItem = z.infer<typeof navigationItemSchema>
 export type PrimaryNavigationItem = z.infer<typeof primaryNavigationItemSchema>
 
-export const primaryNavigation = result.data
+export const primaryNavigation = result.data.items
 
 const sectionIds = primaryNavigation.map((section) => section.id)
 if (new Set(sectionIds).size !== sectionIds.length) throw new Error('Navigation content validation failed: duplicate primary ids.')

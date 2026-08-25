@@ -1,13 +1,7 @@
 {
   "name": "Phil Carlos",
-  "email": "vphil981011@gmail.com",
-  "social": {
-    "label": "@Formulasearch",
-    "url": "https://x.com/Formulasearch"
-  },
   "contactLabel": "在这里找到我",
   "contactEmailPrefix": "或者给我发个邮件：",
-  "heroImage": "",
   "heroImageAlt": "",
   "intro": [
     "你好，我是阿哲，一名对 AI 充满好奇的构建者和设计师。"

@@ -1,4 +1,8 @@
 import { defineConfig } from 'astro/config'
+import react from '@astrojs/react'
+import keystatic from '@keystatic/astro'
+import tailwindcss from '@tailwindcss/vite'
+import contentStudio from './src/content-studio/integration.ts'
 import { unified } from '@astrojs/markdown-remark'
 import siteConfig from './content/site/site.json' with { type: 'json' }
 import blogImageDimensions from './content/site/blog-image-dimensions.json' with { type: 'json' }
@@ -68,10 +72,16 @@ const addRenderedImageAttributes = () => (tree) => {
   visit(tree)
 }
 
+const contentStudioEnabled = process.env.CONTENT_STUDIO === '1'
+
 export default defineConfig({
   site: siteConfig.siteUrl,
   output: 'static',
   trailingSlash: 'never',
+  integrations: contentStudioEnabled ? [react(), keystatic(), contentStudio()] : [],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   markdown: {
     processor: unified({
       remarkPlugins: [addArticleImageAttributes],

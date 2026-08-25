@@ -1,0 +1,33 @@
+---
+import Icon from '../../components/icon-system/Icon.astro'
+import type { IconName } from '../../components/icon-system/icons'
+import StudioShell from '../components/StudioShell.astro'
+
+const workflow = [
+  ['01', '编辑内容', 'Blog、页面文案、项目、Architecture 与高级设置。', '/content-studio/editor', 'blog-external'],
+  ['02', '整理照片', '逐张追加、批量导入、换序、双语描述和直接删除。', '/content-studio/photos', 'studio-camera'],
+  ['03', '准备预览', '生成媒体，检查内容与类型，并完成一次生产静态构建。', '/content-studio/publish', 'studio-eye'],
+  ['04', '确认发布', '复核新增、修改和删除；无关代码变更会阻止自动发布。', '/content-studio/publish', 'studio-publish'],
+] satisfies Array<[string, string, string, string, IconName]>
+---
+
+<StudioShell title="内容先落地，再发布" eyebrow="Local editorial control">
+  <section class="mb-16 grid gap-8 lg:grid-cols-[minmax(18rem,.8fr)_minmax(25rem,1.2fr)] lg:items-end lg:gap-[8vw]">
+    <p class="m-0 font-serif text-xl leading-relaxed sm:text-2xl">这里是全站内容的本地入口。编辑、删除和媒体处理都留在这台电脑；只有完整预览通过，并再次确认 Git diff 后，内容才会进入 <code>main</code>。</p>
+    <a class="group flex min-h-36 items-end justify-between bg-primary p-7 text-primary-content no-underline hover:bg-primary/90" href="/content-studio/editor">
+      <span><small class="mb-3 block font-sans text-xs font-bold uppercase tracking-[.15em] opacity-70">Keystatic editor</small><strong class="font-serif text-3xl font-medium sm:text-4xl">打开内容编辑器</strong></span>
+      <span class="grid size-11 place-items-center border border-current/30 transition-transform group-hover:translate-x-1"><Icon name="studio-editor" role="control" /></span>
+    </a>
+  </section>
+  <section class="border-t border-neutral" aria-labelledby="workflow-title">
+    <div class="flex items-baseline justify-between py-5"><h2 id="workflow-title" class="m-0 text-2xl font-medium">今日工作流</h2><span class="badge badge-outline">4 steps</span></div>
+    {workflow.map(([number, heading, copy, href, icon]) => (
+      <article class="grid grid-cols-[2.5rem_1fr_auto] items-center gap-4 border-t border-base-300 py-5 sm:grid-cols-[4rem_1fr_auto] sm:gap-6">
+        <span class="studio-kicker">{number}</span>
+        <div><h3 class="m-0 text-xl font-medium sm:text-2xl">{heading}</h3><p class="studio-copy mb-0 mt-1 text-sm">{copy}</p></div>
+        <a class="btn btn-square btn-ghost border-base-300" href={href} aria-label={`打开${heading}`}><Icon name={icon} role="control" /></a>
+      </article>
+    ))}
+  </section>
+  <footer class="alert alert-success mt-10 items-start sm:items-center" role="note"><Icon name="studio-checked" role="control" /><p class="m-0"><strong>生产隔离</strong>　正式构建不会包含 <code>/content-studio</code>、<code>/keystatic</code> 或对应 API。</p></footer>
+</StudioShell>
