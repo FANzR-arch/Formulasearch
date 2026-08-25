@@ -2,6 +2,7 @@
 title: "15岁少年赚百万，94%企业却在亏？AI 到底平权在哪里？"
 description: "看着这些“天才少年”，AI就好像是遍地黄金的许愿池。但切回现实，麦肯锡12月的最新重磅报告却显示：94%的企业都在用AI，但其中只有6%真正赚到了钱。"
 pubDate: 2026-01-28
+sourceId: "2026-01-28"
 slug: personal-thinking-2026-01-28
 category: personal-thinking
 tags: []

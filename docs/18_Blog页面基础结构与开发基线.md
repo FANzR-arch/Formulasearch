@@ -68,13 +68,10 @@ Blog 不需要推翻。当前代码已经完成栏目首页、主题页、归档
 
 ### 1.3 当前内容缺口
 
-每篇文章的内容源由四个索引 txt、`index.md` 和一张封面组成：
+每篇文章以 `index.md` 作为唯一文字内容源，封面按同一 `sourceId` 归档：
 
 ```text
-标题.txt
-摘要.txt
-分类.txt
-链接.txt
+index.md（frontmatter + Markdown 正文）
 封面图片
 ```
 
@@ -234,22 +231,16 @@ Formulasearch 自己的处理：
 
 ---
 
-## 5. 内容模型：从四个 txt 过渡到 Markdown
+## 5. 内容模型：Markdown 单一内容源
 
-### 5.1 过渡策略
-
-不一次性推倒当前内容目录。每个现有日期文件夹逐步增加一个 `index.md`：
+### 5.1 当前结构
 
 ```text
 content/blog/2026-07-02/
-├─ 标题.txt              迁移核验前保留
-├─ 摘要.txt              迁移核验前保留
-├─ 分类.txt              迁移核验前保留
-├─ 链接.txt              迁移核验前保留
-└─ index.md              新的统一元数据与正文
+└─ index.md              统一元数据、外链、草稿状态与正文
 ```
 
-第一步可以用脚本把 26 组 txt 自动转换成 26 个 `index.md` 的 frontmatter，正文暂时为空，并标记 `contentStatus: index-only`。只有正文迁移完成并改成 `contentStatus: full` 的文章才生成本地详情页。
+26 组旧 txt 已完成语义核对并删除；16 篇 `full` 保留本站正文，10 篇 `index-only` 保留可靠外链。Keystatic 使用 `sourceId` 管理目录，公开 URL 继续由独立 `slug` 决定。
 
 ### 5.2 建议 frontmatter
 
@@ -501,13 +492,13 @@ src/lib/blog-related.ts
 
 验收：样板文章在禁用 JavaScript时仍可完整阅读，目录和锚点可用。
 
-### Phase 3：批量正文迁移（部分完成：16 / 26）
+### Phase 3：批量正文迁移（索引迁移已完成，正文 16 / 26）
 
 1. 从微信/X/原始 Markdown 找回正文；
 2. 清洗标题层级、图片、链接和引用；
 3. 每篇核验后将 `contentStatus` 改为 `full`；
 4. 原平台链接降级为辅助入口；
-5. 迁移完成后移除四个 txt 文件和旧读取器。
+5. 旧 txt 文件和旧读取器已经移除；新增内容直接由 Keystatic 写入 `index.md`。
 
 验收：每篇文章有本站 URL、正文、封面 alt、正确分类和 canonical。
 

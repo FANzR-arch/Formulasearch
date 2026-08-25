@@ -2,6 +2,7 @@
 title: "AI没有“自我”，别再问AI「你怎么看了」"
 description: "AI根本不是一个人，也不是某种“实体”，请停止把它当成一个人类来聊天。"
 pubDate: 2025-12-26
+sourceId: "2025-12-26"
 slug: ai-knowledge-2025-12-26
 category: ai-knowledge
 tags: []

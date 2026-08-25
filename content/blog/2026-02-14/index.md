@@ -2,6 +2,7 @@
 title: "MIT学霸逃离谷歌：一个Bug让我清醒"
 description: "一篇关于离开大厂、Bug 与职业选择的个人思考。"
 pubDate: 2026-02-14
+sourceId: "2026-02-14"
 slug: personal-thinking-2026-02-14
 category: personal-thinking
 tags: []

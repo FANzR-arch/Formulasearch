@@ -1,20 +1,49 @@
-[
-  {
-    "id": "ai-tools",
-    "title": { "zh": "AI 与工具", "en": "AI & Tools" },
-    "description": { "zh": "AI 知识、工具与真实实践。", "en": "AI knowledge, tools, and hands-on practice." },
-    "categoryIds": ["ai-knowledge", "ai-practice"]
-  },
-  {
-    "id": "aesthetic-systems",
-    "title": { "zh": "美学系统", "en": "Aesthetic Systems" },
-    "description": { "zh": "提示词美学、视觉拆解与可复用的方法。", "en": "Prompt aesthetics, visual studies, and reusable methods." },
-    "categoryIds": ["prompt-aesthetic", "less-is-more", "prompt-sharing"]
-  },
-  {
-    "id": "notes",
-    "title": { "zh": "笔记", "en": "Notes" },
-    "description": { "zh": "个人观察、职业思考与持续记录。", "en": "Personal observations, career thinking, and ongoing notes." },
-    "categoryIds": ["personal-thinking"]
-  }
-]
+{
+  "items": [
+    {
+      "id": "ai-tools",
+      "title": {
+        "zh": "AI 与工具",
+        "en": "AI & Tools"
+      },
+      "description": {
+        "zh": "AI 知识、工具与真实实践。",
+        "en": "AI knowledge, tools, and hands-on practice."
+      },
+      "categoryIds": [
+        "ai-knowledge",
+        "ai-practice"
+      ]
+    },
+    {
+      "id": "aesthetic-systems",
+      "title": {
+        "zh": "美学系统",
+        "en": "Aesthetic Systems"
+      },
+      "description": {
+        "zh": "提示词美学、视觉拆解与可复用的方法。",
+        "en": "Prompt aesthetics, visual studies, and reusable methods."
+      },
+      "categoryIds": [
+        "prompt-aesthetic",
+        "less-is-more",
+        "prompt-sharing"
+      ]
+    },
+    {
+      "id": "notes",
+      "title": {
+        "zh": "笔记",
+        "en": "Notes"
+      },
+      "description": {
+        "zh": "个人观察、职业思考与持续记录。",
+        "en": "Personal observations, career thinking, and ongoing notes."
+      },
+      "categoryIds": [
+        "personal-thinking"
+      ]
+    }
+  ]
+}

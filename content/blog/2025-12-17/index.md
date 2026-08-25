@@ -2,6 +2,7 @@
 title: "“Prompt”，AI时代的施法咒语"
 description: "有一句话叫 “Garbage In, Garbage Out”  (垃圾进，垃圾出)，如果你给AI的指令模糊不清，它只能给你返回一个平庸、安全的“万金油”答案。因此详实清晰的指令是非常重要的一点。"
 pubDate: 2025-12-17
+sourceId: "2025-12-17"
 slug: prompt-sharing-2025-12-17
 category: prompt-sharing
 tags: []

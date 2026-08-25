@@ -10,7 +10,7 @@ const blogSeriesItemSchema = z.object({
   categoryIds: z.array(z.string().min(1)).min(1),
 }).strict()
 
-const blogSeriesSchema = z.array(blogSeriesItemSchema).min(1)
+const blogSeriesSchema = z.object({ items: z.array(blogSeriesItemSchema).min(1) }).strict()
 
 const result = blogSeriesSchema.safeParse(blogSeriesContent)
 if (!result.success) {
@@ -20,15 +20,15 @@ if (!result.success) {
   throw new Error(`Blog series content validation failed: ${issues}`)
 }
 
-const ids = result.data.map((series) => series.id)
+const ids = result.data.items.map((series) => series.id)
 if (new Set(ids).size !== ids.length) {
   throw new Error('Blog series content validation failed: duplicate series ids.')
 }
 
 const categoryIds = new Set(blogCategories.map((category) => category.id))
-const unknownCategory = result.data.flatMap((series) => series.categoryIds.filter((id) => !categoryIds.has(id)))
+const unknownCategory = result.data.items.flatMap((series) => series.categoryIds.filter((id) => !categoryIds.has(id)))
 if (unknownCategory.length) {
   throw new Error(`Blog series content validation failed: unknown category ids: ${unknownCategory.join(', ')}`)
 }
 
-export const blogSeries = result.data
+export const blogSeries = result.data.items

@@ -2,6 +2,7 @@
 title: "一人成行？你只需要“学会表达”"
 description: "如果我告诉你，在 2025 年，“会说话”比“会写代码”更重要呢？ 这不只是一句鸡汤，而是一场正在硅谷发生的、关于“表达权”的再分配。"
 pubDate: 2026-01-11
+sourceId: "2026-01-11"
 slug: personal-thinking-2026-01-11
 category: personal-thinking
 tags: []

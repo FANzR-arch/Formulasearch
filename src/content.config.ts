@@ -35,6 +35,7 @@ const blog = defineCollection({
     description: z.string().trim().min(1),
     descriptionEn: z.string().trim().min(1).optional(),
     pubDate: z.coerce.date(),
+    sourceId: z.string().regex(/^\d{4}-\d{2}-\d{2}(?:-[a-z0-9-]+)?$/, 'sourceId must identify the content folder.'),
     updatedDate: z.coerce.date().optional(),
     slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Slug must use lowercase letters, numbers, and hyphens.'),
     category: z.string().trim().min(1),

@@ -1,0 +1,55 @@
+{
+  "slug": "nanjing-stone-city",
+  "index": "01",
+  "title": {
+    "zh": "南京石头城遗址博物馆入口",
+    "en": "Nanjing Stone City Heritage Museum Entrance"
+  },
+  "summary": {
+    "zh": "入口设计竞赛方案，以新的公共路径回应遗址、地形与城市界面。",
+    "en": "An entrance competition proposal responding to heritage, terrain and the urban edge through a new public path."
+  },
+  "cover": "/src/assets/archive/architecture/nanjing-stone-city/entrance-render.png",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/nanjing-stone-city/entrance-render.png",
+      "alt": {
+        "zh": "南京石头城遗址博物馆入口设计效果图",
+        "en": "Architectural rendering of the Nanjing Stone City heritage museum entrance"
+      },
+      "index": "01",
+      "layout": "hero",
+      "tags": [
+        "nanjing-stone-city"
+      ],
+      "label": {
+        "zh": "南京石头城遗址博物馆入口",
+        "en": "Nanjing Stone City Heritage Museum Entrance"
+      },
+      "caption": {
+        "zh": "入口设计竞赛方案 / 效果图",
+        "en": "Entrance design competition / architectural rendering"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/nanjing-stone-city/exploded-axon.png",
+      "alt": {
+        "zh": "南京石头城遗址博物馆入口设计爆炸轴测图",
+        "en": "Exploded axonometric drawing of the Nanjing Stone City heritage museum entrance"
+      },
+      "index": "02",
+      "layout": "wide",
+      "tags": [
+        "nanjing-stone-city"
+      ],
+      "label": {
+        "zh": "体量与构造拆解",
+        "en": "Massing and assembly"
+      },
+      "caption": {
+        "zh": "入口设计竞赛方案 / 爆炸轴测图",
+        "en": "Entrance design competition / exploded axonometric"
+      }
+    }
+  ]
+}

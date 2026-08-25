@@ -1,291 +1,181 @@
-import {
-  existsSync,
-  readFileSync,
-  readdirSync,
-  writeFileSync,
-} from 'node:fs'
-import { dirname, extname, join, resolve } from 'node:path'
+import { createHash } from 'node:crypto'
+import { existsSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from 'node:fs'
+import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { parse } from 'yaml'
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const contentRoot = join(repoRoot, 'content', 'blog')
-const mediaRoot = join(repoRoot, 'public', 'uploads', 'blog')
-const imageExtensions = new Set(['.avif', '.jpeg', '.jpg', '.png', '.webp'])
+const contentRoot = resolve(process.env.BLOG_CONTENT_ROOT || join(repoRoot, 'content', 'blog'))
+const legacyFiles = ['标题.txt', '摘要.txt', '分类.txt', '链接.txt']
+const allowedLinkLabels = new Set(['wechat', 'x', 'original'])
 
-const readText = (directory, filename, { allowEmpty = false } = {}) => {
+const readUtf8 = (path) => readFileSync(path, 'utf8').replace(/^\uFEFF/, '')
+const readLegacyText = (directory, filename, { allowEmpty = false } = {}) => {
   const path = join(directory, filename)
-  if (!existsSync(path)) throw new Error(`缺少文件：${path}`)
-  const value = readFileSync(path, 'utf8').replace(/^\uFEFF/, '').trim()
-  if (!value && !allowEmpty) throw new Error(`文件为空：${path}`)
+  if (!existsSync(path)) return null
+  const value = readUtf8(path).trim()
+  if (!value && !allowEmpty) throw new Error(`旧内容文件为空：${path}`)
   return value
 }
 
-const labelForUrl = (url) => {
-  if (url.includes('mp.weixin.qq.com')) return 'wechat'
-  if (url.includes('x.com/')) return 'x'
-  return 'original'
-}
-
-const yamlString = (value) => JSON.stringify(value)
-
-const readFrontmatterField = (markdown, field) => {
-  const match = markdown.match(new RegExp(`^${field}:\\s*["']?([^\\r\\n"']+)["']?\\s*$`, 'm'))
-  return match?.[1]?.trim() ?? ''
-}
-
-const readFrontmatterBoolean = (markdown, field, fallback = false) => {
-  const value = readFrontmatterField(markdown, field)
-  if (!value) return fallback
-  if (value === 'true') return true
-  if (value === 'false') return false
-  throw new Error(`Invalid ${field} in blog frontmatter: ${value}`)
-}
-
-const isCoverAltPlaceholder = (value) => /(?:文章封面|article cover)$/i.test(value.trim())
-
-const getMarkdownBody = (markdown) => {
-  const frontmatterEnd = markdown.indexOf('\n---', 4)
-  if (frontmatterEnd === -1) return ''
-  return markdown
-    .slice(frontmatterEnd + 4)
-    .replace(/<!--[\s\S]*?-->/g, '')
-    .trim()
-}
-
-const validateContentStatus = (post, markdown) => {
-  const contentStatus = readFrontmatterField(markdown, 'contentStatus')
-  const draft = readFrontmatterBoolean(markdown, 'draft')
-  if (!['index-only', 'full'].includes(contentStatus)) {
-    throw new Error(`Invalid contentStatus in ${post.directory}: ${contentStatus || '(empty)'}`)
+const splitMarkdown = (source, path) => {
+  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)([\s\S]*)$/)
+  if (!match) throw new Error(`Markdown 缺少有效 frontmatter：${path}`)
+  let data
+  try {
+    data = parse(match[1])
+  } catch (error) {
+    throw new Error(`Markdown frontmatter 无法解析：${path}\n${error.message}`)
   }
-  if (contentStatus === 'index-only' && post.externalLinks.length === 0 && !draft) {
-    throw new Error(`Index-only article must keep at least one external link: ${post.directory}`)
-  }
-  if (contentStatus === 'full' && !getMarkdownBody(markdown)) {
-    throw new Error(`Full article has no body content: ${post.directory}`)
-  }
-  return { contentStatus, draft }
+  return { data, body: match[2], frontmatter: match[1] }
 }
 
-const validateLanguageMetadata = (post, markdown) => {
-  const contentLanguage = readFrontmatterField(markdown, 'contentLanguage') || 'zh-Hans'
-  if (!['zh-Hans', 'en'].includes(contentLanguage)) {
-    throw new Error(`Invalid contentLanguage in blog frontmatter: ${post.directory} -> ${contentLanguage}`)
-  }
-  if (contentLanguage !== 'en') return
-  for (const field of ['titleEn', 'descriptionEn', 'coverAltEn']) {
-    if (!readFrontmatterField(markdown, field)) {
-      throw new Error(`English article requires ${field}: ${post.directory}`)
-    }
-  }
-}
+const categorySourceFile = JSON.parse(readUtf8(join(contentRoot, 'categories.json')))
+const categorySource = categorySourceFile.items
+const categories = new Set(categorySource.map((category) => category.id))
+if (categories.size !== categorySource.length) throw new Error('Blog 分类 id 重复。')
 
-const categories = JSON.parse(readFileSync(join(contentRoot, 'categories.json'), 'utf8'))
-const categoryIds = new Set()
+const postDirectories = readdirSync(contentRoot, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .sort()
 
-for (const category of categories) {
-  for (const field of ['id', 'title', 'titleEn', 'description']) {
-    if (!category[field]) throw new Error(`分类缺少 ${field}：${JSON.stringify(category)}`)
-  }
-  if (categoryIds.has(category.id)) throw new Error(`分类 id 重复：${category.id}`)
-  categoryIds.add(category.id)
-}
-
-const findCover = (sourceDate) => {
-  const directory = join(mediaRoot, sourceDate)
-  if (!existsSync(directory)) throw new Error(`缺少封面目录：${directory}`)
-
-  const filename = readdirSync(directory)
-    .filter((entry) => imageExtensions.has(extname(entry).toLowerCase()))
-    .sort((a, b) => a.localeCompare(b))[0]
-
-  if (!filename) throw new Error(`缺少封面图片：${directory}`)
-  return `/uploads/blog/${sourceDate}/${filename}`
-}
-
-const posts = readdirSync(contentRoot, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(entry.name))
-  .map((entry) => {
-    const sourceDate = entry.name
-    const directory = join(contentRoot, sourceDate)
-    const category = readText(directory, '分类.txt')
-    if (!categoryIds.has(category)) throw new Error(`未知分类 ${category}：${sourceDate}`)
-
-    const externalLinks = readText(directory, '链接.txt', { allowEmpty: true })
-      .split(/\r?\n/)
-      .map((url) => url.trim())
-      .filter(Boolean)
-      .map((url) => {
-        const parsed = new URL(url)
-        if (!['http:', 'https:'].includes(parsed.protocol)) throw new Error(`链接协议无效：${url}`)
-        return { label: labelForUrl(url), url }
-      })
-
-    return {
-      category,
-      cover: findCover(sourceDate),
-      sourceDate,
-      directory,
-      externalLinks,
-      slug: `${category}-${sourceDate}`,
-      summary: readText(directory, '摘要.txt'),
-      title: readText(directory, '标题.txt'),
-    }
-  })
-  .sort((a, b) => b.sourceDate.localeCompare(a.sourceDate))
-
-const slugs = new Set()
-const links = new Map()
-const summaries = new Map()
-for (const post of posts) {
-  if (slugs.has(post.slug)) throw new Error(`文章 slug 重复：${post.slug}`)
-  slugs.add(post.slug)
-
-  const previousSummary = summaries.get(post.summary)
-  if (previousSummary && previousSummary !== post.title) {
-    throw new Error(`不同标题共用同一摘要：${previousSummary} / ${post.title}`)
-  }
-  summaries.set(post.summary, post.title)
-
-  const postLinkUrls = new Set()
-  for (const link of post.externalLinks) {
-    if (postLinkUrls.has(link.url)) {
-      throw new Error(`同一篇文章重复使用外链：${post.title}\n${link.url}`)
-    }
-    postLinkUrls.add(link.url)
-    const previousTitle = links.get(link.url)
-    if (previousTitle && previousTitle !== post.title) {
-      throw new Error(`不同文章共用同一外链：${previousTitle} / ${post.title}\n${link.url}`)
-    }
-    links.set(link.url, post.title)
-  }
-}
-
-// New index-only records use the source folder date until their verified
-// publication date is known. Existing index.md files keep their real pubDate.
-const renderIndex = (post, featured) => [
-  '---',
-  `title: ${yamlString(post.title)}`,
-  `description: ${yamlString(post.summary)}`,
-  `pubDate: ${post.sourceDate}`,
-  `slug: ${post.slug}`,
-  `category: ${post.category}`,
-  'tags: []',
-  `cover: ${yamlString(post.cover)}`,
-  `coverAlt: ${yamlString(`${post.title}的文章封面`)}`,
-  'contentStatus: index-only',
-  `featured: ${featured}`,
-  'draft: false',
-  'externalLinks:',
-  ...post.externalLinks.flatMap((link) => [
-    `  - label: ${yamlString(link.label)}`,
-    `    url: ${yamlString(link.url)}`,
-  ]),
-  '---',
-  '',
-  '<!-- 正文尚未迁移；contentStatus 改为 full 前不会生成本站文章页。 -->',
-  '',
-].join('\n')
-
-const managedFields = (post) => ({
-  title: yamlString(post.title),
-  description: yamlString(post.summary),
-  slug: post.slug,
-  category: post.category,
-  cover: yamlString(post.cover),
+const posts = postDirectories.map((directoryName) => {
+  const directory = join(contentRoot, directoryName)
+  const path = join(directory, 'index.md')
+  if (!existsSync(path)) throw new Error(`Blog 目录缺少 index.md：${path}`)
+  const source = readUtf8(path)
+  const parsed = splitMarkdown(source, path)
+  return { directory, directoryName, path, source, ...parsed }
 })
 
-const syncIndex = (post, markdown) => {
-  const frontmatterEnd = markdown.indexOf('\n---', 4)
-  if (frontmatterEnd === -1) throw new Error(`Markdown 缺少 frontmatter 结束标记：${post.directory}`)
+const requireText = (post, field) => {
+  const value = post.data[field]
+  if (typeof value !== 'string' || !value.trim()) throw new Error(`${post.path} 缺少 ${field}`)
+  return value.trim()
+}
 
-  let frontmatter = markdown.slice(0, frontmatterEnd)
-  const body = markdown.slice(frontmatterEnd)
-  for (const [field, value] of Object.entries(managedFields(post))) {
-    const pattern = new RegExp(`^${field}:.*$`, 'm')
-    const line = `${field}: ${value}`
-    frontmatter = pattern.test(frontmatter) ? frontmatter.replace(pattern, line) : `${frontmatter}\n${line}`
+const normalizedDate = (value) => {
+  if (value instanceof Date && !Number.isNaN(value.valueOf())) return value.toISOString().slice(0, 10)
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) return value
+  return ''
+}
+
+const validate = () => {
+  const slugs = new Set()
+  const links = new Map()
+  const counts = { full: 0, 'index-only': 0, drafts: 0 }
+
+  for (const post of posts) {
+    const title = requireText(post, 'title')
+    requireText(post, 'description')
+    const slug = requireText(post, 'slug')
+    const sourceId = requireText(post, 'sourceId')
+    const category = requireText(post, 'category')
+    requireText(post, 'cover')
+    const coverAlt = requireText(post, 'coverAlt')
+    if (!normalizedDate(post.data.pubDate)) throw new Error(`${post.path} 的 pubDate 必须是 YYYY-MM-DD。`)
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error(`${post.path} 的 slug 格式无效：${slug}`)
+    if (sourceId !== post.directoryName) throw new Error(`${post.path} 的 sourceId 必须与内容目录一致：${post.directoryName}`)
+    if (slugs.has(slug)) throw new Error(`Blog slug 重复：${slug}`)
+    slugs.add(slug)
+    if (!categories.has(category)) throw new Error(`${post.path} 使用未知分类：${category}`)
+    if (/(?:文章封面|article cover)$/i.test(coverAlt)) throw new Error(`${post.path} 的 coverAlt 仍是通用占位描述。`)
+    if (!['full', 'index-only'].includes(post.data.contentStatus)) throw new Error(`${post.path} 的 contentStatus 无效。`)
+    if (post.data.contentStatus === 'full' && !post.body.replace(/<!--[\s\S]*?-->/g, '').trim()) {
+      throw new Error(`${post.path} 标记为 full，但没有正文。`)
+    }
+    const externalLinks = post.data.externalLinks ?? []
+    if (!Array.isArray(externalLinks)) throw new Error(`${post.path} 的 externalLinks 必须是数组。`)
+    if (post.data.contentStatus === 'index-only' && externalLinks.length === 0 && post.data.draft !== true) {
+      throw new Error(`${post.path} 是已发布的 index-only 内容，但没有外链。`)
+    }
+    for (const link of externalLinks) {
+      if (!allowedLinkLabels.has(link?.label)) throw new Error(`${post.path} 的外链平台无效。`)
+      let url
+      try { url = new URL(link.url) } catch { throw new Error(`${post.path} 包含无效外链：${link?.url ?? ''}`) }
+      if (!['http:', 'https:'].includes(url.protocol)) throw new Error(`${post.path} 包含非 HTTP 外链：${link.url}`)
+      if (links.has(link.url)) throw new Error(`不同文章共用同一外链：${links.get(link.url)} / ${title}`)
+      links.set(link.url, title)
+    }
+    if (post.data.contentLanguage === 'en') {
+      for (const field of ['titleEn', 'descriptionEn', 'coverAltEn']) requireText(post, field)
+    }
+    if (/<\/?strong\b/i.test(post.body)) throw new Error(`${post.path} 仍包含旧 <strong> HTML；请先运行 npm run blog:migrate。`)
+    if (/<img\b/i.test(post.body)) throw new Error(`${post.path} 包含原始 <img> HTML；请改为 Markdown 图片语法。`)
+    counts[post.data.contentStatus] += 1
+    if (post.data.draft === true) counts.drafts += 1
   }
 
-  const links = post.externalLinks.length
-    ? ['externalLinks:', ...post.externalLinks.flatMap((link) => [
-      `  - label: ${yamlString(link.label)}`,
-      `    url: ${yamlString(link.url)}`,
-    ])].join('\n')
-    : 'externalLinks: []'
-  const frontmatterLines = frontmatter.split(/\r?\n/)
-  const linksStart = frontmatterLines.findIndex((line) => line.startsWith('externalLinks:'))
-  if (linksStart === -1) {
-    frontmatterLines.push(...links.split('\n'))
-  } else {
-    let linksEnd = linksStart + 1
-    while (linksEnd < frontmatterLines.length && (frontmatterLines[linksEnd].startsWith('  - label:') || frontmatterLines[linksEnd].startsWith('    url:'))) linksEnd += 1
-    frontmatterLines.splice(linksStart, linksEnd - linksStart, ...links.split('\n'))
+  const fingerprint = createHash('sha256').update(JSON.stringify(posts.map((post) => ({
+    title: post.data.title,
+    description: post.data.description,
+    pubDate: normalizedDate(post.data.pubDate),
+    slug: post.data.slug,
+    category: post.data.category,
+    contentStatus: post.data.contentStatus,
+    draft: post.data.draft === true,
+    externalLinks: post.data.externalLinks ?? [],
+    body: post.body.trim(),
+  })))).digest('hex').slice(0, 16)
+
+  console.log(`Blog content check passed: ${posts.length} posts, ${counts.full} full, ${counts['index-only']} index-only, ${counts.drafts} drafts, ${categories.size} categories, ${slugs.size} unique slugs. Fingerprint ${fingerprint}.`)
+}
+
+const legacyLabelForUrl = (url) => url.includes('mp.weixin.qq.com') ? 'wechat' : url.includes('x.com/') ? 'x' : 'original'
+const migrateSingleSource = () => {
+  let converted = 0
+  let removed = 0
+  for (const post of posts) {
+    const legacy = {
+      title: readLegacyText(post.directory, '标题.txt'),
+      description: readLegacyText(post.directory, '摘要.txt'),
+      category: readLegacyText(post.directory, '分类.txt'),
+      links: readLegacyText(post.directory, '链接.txt', { allowEmpty: true }),
+    }
+    const legacyPresent = Object.values(legacy).some((value) => value !== null)
+    if (legacyPresent && Object.values(legacy).some((value) => value === null)) {
+      throw new Error(`${post.directory} 的旧 txt 文件不完整，已停止迁移。`)
+    }
+    if (legacyPresent) {
+      const expectedLinks = legacy.links.split(/\r?\n/).map((value) => value.trim()).filter(Boolean)
+        .map((url) => ({ label: legacyLabelForUrl(url), url }))
+      const comparisons = [
+        ['title', legacy.title, post.data.title],
+        ['description', legacy.description, post.data.description],
+        ['category', legacy.category, post.data.category],
+        ['externalLinks', JSON.stringify(expectedLinks), JSON.stringify(post.data.externalLinks ?? [])],
+      ]
+      const mismatch = comparisons.find(([, left, right]) => left !== right)
+      if (mismatch) throw new Error(`${post.path} 与旧 ${mismatch[0]} 内容不一致，已停止迁移。`)
+    }
+
+    const sourceIdLine = `sourceId: "${post.directoryName}"`
+    const withSourceId = /^sourceId:/m.test(post.source)
+      ? post.source.replace(/^sourceId:.*$/m, sourceIdLine)
+      : post.source.replace(/^(pubDate:.*)$/m, `$1\n${sourceIdLine}`)
+    const migrated = withSourceId
+      .replace(/<strong>([\s\S]*?)<\/strong>/gi, '**$1**')
+      .replace(/\r\n/g, '\n')
+    if (migrated !== post.source) {
+      writeFileSync(post.path, migrated, 'utf8')
+      converted += 1
+    }
+    for (const filename of legacyFiles) {
+      const path = join(post.directory, filename)
+      if (existsSync(path)) {
+        unlinkSync(path)
+        removed += 1
+      }
+    }
   }
-  frontmatter = frontmatterLines.join('\n')
-  return `${frontmatter}${body}`
+  console.log(`Blog 单一内容源迁移完成：${posts.length} 篇，转换 ${converted} 篇 Markdown，删除 ${removed} 个旧 txt 文件。`)
 }
 
 const mode = process.argv[2]
-
-if (mode === '--write') {
-  let created = 0
-  let updated = 0
-  let unchanged = 0
-
-  posts.forEach((post, index) => {
-    const target = join(post.directory, 'index.md')
-    if (existsSync(target)) {
-      const before = readFileSync(target, 'utf8')
-      const after = syncIndex(post, before)
-      if (after !== before) {
-        writeFileSync(target, after, 'utf8')
-        updated += 1
-      } else {
-        unchanged += 1
-      }
-      return
-    }
-    if (post.externalLinks.length === 0) throw new Error(`Index-only article must keep at least one external link: ${post.directory}`)
-    writeFileSync(target, renderIndex(post, index === 0), { encoding: 'utf8', flag: 'wx' })
-    created += 1
-  })
-
-  console.log(`Blog 索引同步完成：新增 ${created} 篇，更新 ${updated} 篇，未变化 ${unchanged} 篇，共 ${posts.length} 篇。`)
-} else if (mode === '--check') {
-  const statusCounts = { full: 0, 'index-only': 0 }
-  let draftCount = 0
-  for (const post of posts) {
-    const target = join(post.directory, 'index.md')
-    if (!existsSync(target)) throw new Error(`缺少 Markdown 索引：${target}`)
-    const markdown = readFileSync(target, 'utf8')
-    validateLanguageMetadata(post, markdown)
-    const { contentStatus, draft } = validateContentStatus(post, markdown)
-    statusCounts[contentStatus] += 1
-    if (draft) draftCount += 1
-    const expectedFields = [
-      `title: ${yamlString(post.title)}`,
-      `description: ${yamlString(post.summary)}`,
-      `slug: ${post.slug}`,
-      `category: ${post.category}`,
-      `cover: ${yamlString(post.cover)}`,
-    ]
-    for (const field of expectedFields) {
-      if (!markdown.includes(field)) throw new Error(`Markdown 与现有索引不一致：${target}\n缺少：${field}`)
-    }
-    const coverAlt = readFrontmatterField(markdown, 'coverAlt')
-    if (!coverAlt) throw new Error(`Markdown 缺少非空 coverAlt：${target}`)
-    if (isCoverAltPlaceholder(coverAlt)) throw new Error(`Markdown 的 coverAlt 仍是通用占位描述：${target}`)
-
-    const markdownLinks = [...markdown.matchAll(/^\s+url:\s*["']([^"']+)["']\s*$/gm)].map((match) => match[1])
-    const sourceLinks = post.externalLinks.map((link) => link.url)
-    if (JSON.stringify(markdownLinks) !== JSON.stringify(sourceLinks)) {
-      throw new Error(`Markdown 与链接.txt 不一致：${target}`)
-    }
-  }
-
-  console.log(`Blog content check passed: ${posts.length} posts, ${statusCounts.full} full, ${statusCounts['index-only']} index-only, ${draftCount} drafts, ${categories.length} categories, ${slugs.size} unique slugs.`)
-} else {
-  console.error('用法：node scripts/prepare-blog-content.mjs --write | --check')
+if (mode === '--migrate-single-source') migrateSingleSource()
+else if (mode === '--check') validate()
+else {
+  console.error('用法：node scripts/prepare-blog-content.mjs --migrate-single-source | --check')
   process.exitCode = 1
 }

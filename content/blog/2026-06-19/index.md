@@ -2,6 +2,7 @@
 title: "提示词美学解码 × 包豪斯_艺术与工业"
 description: "真的不是红黄蓝的几个色块就叫包豪斯了... 更何况颜色也是要搭配的。"
 pubDate: 2026-06-26
+sourceId: "2026-06-19"
 slug: prompt-aesthetic-2026-06-19
 category: prompt-aesthetic
 tags: []
@@ -20,7 +21,7 @@ externalLinks:
     url: "https://x.com/Formulasearch/status/2070505255670775837?s=20"
 ---
 
-<strong>真的不是红黄蓝的几个色块就叫包豪斯了... 更何况颜色也是要搭配的。</strong>
+**真的不是红黄蓝的几个色块就叫包豪斯了... 更何况颜色也是要搭配的。**
 
 提示词写 Bauhaus style，模型就只能回收最表层的符号：红色方块、黄色圆形、蓝色三角形、巨大的无衬线字母和一点复古纸纹。
 
@@ -59,7 +60,7 @@ externalLinks:
 | 品牌基础系统、栏目封面、系列视觉 | 适合 | 有利于建立重复使用的视觉语法 |
 | 人物故事、疗愈内容、奢华叙事、运动动员 | 不优先 | 包豪斯的结构感强，不适合承担柔软情绪、华丽戏剧性或强动员气质 |
 
-<strong>使用边界只有一条：包豪斯可以跨媒介，但不要混写。</strong>
+**使用边界只有一条：包豪斯可以跨媒介，但不要混写。**
 
 海报写排版和几何；产品写材料、结构和功能；室内写家具、光线、动线和色彩；建筑写体块、立面、窗带和功能分区。
 
@@ -91,7 +92,7 @@ strict geometric composition, asymmetric grid, circles squares triangles and str
 
 Herbert Bayer 的 universal lettering 相关实验值得参考，原因不在某个具体字体，而在它把字母看成一套可简化、系统化、几何化的视觉工具。MoMA 2009 年的 Bauhaus 展览视觉文章也提到，设计团队参考 Bayer 的 universal lettering，把字母形式和网格、墙面、色彩边界一起处理。
 
-<strong>提示词里要写清楚：</strong>
+**提示词里要写清楚：**
 
 ```text
 oversized sans-serif headline integrated into the geometric layout, typography as composition, clear hierarchy between headline and small supporting labels
@@ -159,7 +160,7 @@ flat color blocks, clean print-like surface, no paper texture, no vintage noise,
 
 ![Bauhaus 设计方向检查板，按 medium、structure、material、function、mood、avoid 六栏整理示例与禁用效果](https://pbs.twimg.com/media/HLvmKURWIAAJOFV?format=jpg&name=large)
 
-<strong>到这一步，只需要做一个动作：先选媒介，再复制骨架。</strong>
+**到这一步，只需要做一个动作：先选媒介，再复制骨架。**
 
 提示词不要从 Bauhaus style 开始，因为这个词太大，模型会自动滑向最常见的表层符号。更稳的写法是先告诉它：这次要生成海报、产品、室内，还是建筑。
 
@@ -284,7 +285,7 @@ MOOD: transparent, rational, educational, light, industrial-modern.
 AVOID: primary-color facade stickers, luxury villa, brutalist fortress, skyscraper, ornate columns, cyberpunk lighting, random signage, furniture close-up, poster graphics pasted on walls.
 ```
 
-<strong>下次再写 Bauhaus style 之前，先问四个问题：</strong>
+**下次再写 Bauhaus style 之前，先问四个问题：**
 
 1. 这次生成的是海报、产品、室内，还是建筑？
 2. 几何形状是在装饰，还是在组织结构？
@@ -293,10 +294,10 @@ AVOID: primary-color facade stickers, luxury villa, brutalist fortress, skyscrap
 
 这四个问题答清楚，提示词才不会停在风格表面。
 
-<strong>非常感谢您能看到这里</strong><strong>👇</strong>
+**非常感谢您能看到这里****👇**
 
 除了上文中的多种固定提示词之外，这是更加灵活自由的skill版本： [FANzR-arch/image-prompt-skills](https://github.com/FANzR-arch/image-prompt-skills)
 
-<strong>我是阿哲Phil，"一个自由的提示词诗人"</strong>
+**我是阿哲Phil，"一个自由的提示词诗人"**
 
 欢迎关注我 [@Formulasearch](https://x.com/Formulasearch)，我会持续分享：用AI解码美学 × AI实践 × 增长心得
