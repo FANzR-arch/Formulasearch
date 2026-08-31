@@ -1,0 +1,156 @@
+{
+  "slug": "the-nomadic-home",
+  "index": "03",
+  "year": 2025,
+  "title": {
+    "zh": "游牧之家",
+    "en": "The Nomadic Home"
+  },
+  "summary": {
+    "zh": "以模块化单元、代谢式更新和生物模拟生命周期，提出面向混合办公时代的垂直自治体。",
+    "en": "A vertical autonomous organism for the hybrid working era, built from modular cells, metabolic change and a biomimetic life cycle."
+  },
+  "cover": "/src/assets/archive/architecture/the-nomadic-home/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/the-nomadic-home/page-01.webp",
+      "alt": {
+        "zh": "游牧之家总体概念与建筑效果",
+        "en": "The Nomadic Home concept and overall architectural view"
+      },
+      "index": "14",
+      "layout": "hero",
+      "tags": [
+        "the-nomadic-home"
+      ],
+      "label": {
+        "zh": "游牧之家总体概念与建筑效果",
+        "en": "The Nomadic Home concept and overall architectural view"
+      },
+      "caption": {
+        "zh": "游牧之家总体概念与建筑效果",
+        "en": "The Nomadic Home concept and overall architectural view"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-nomadic-home/page-02.webp",
+      "alt": {
+        "zh": "游牧之家游牧基因与空置办公楼场地研究",
+        "en": "Nomadic DNA and vacant office context study"
+      },
+      "index": "15",
+      "layout": "wide",
+      "tags": [
+        "the-nomadic-home"
+      ],
+      "label": {
+        "zh": "游牧之家游牧基因与空置办公楼场地研究",
+        "en": "Nomadic DNA and vacant office context study"
+      },
+      "caption": {
+        "zh": "游牧之家游牧基因与空置办公楼场地研究",
+        "en": "Nomadic DNA and vacant office context study"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-nomadic-home/page-03.webp",
+      "alt": {
+        "zh": "游牧之家代谢转化策略与轴测图",
+        "en": "Metabolic transformation strategy and axonometric"
+      },
+      "index": "16",
+      "layout": "wide",
+      "tags": [
+        "the-nomadic-home"
+      ],
+      "label": {
+        "zh": "游牧之家代谢转化策略与轴测图",
+        "en": "Metabolic transformation strategy and axonometric"
+      },
+      "caption": {
+        "zh": "游牧之家代谢转化策略与轴测图",
+        "en": "Metabolic transformation strategy and axonometric"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-nomadic-home/page-04.webp",
+      "alt": {
+        "zh": "游牧之家动态模块化单元系统",
+        "en": "Dynamic modular cellular system"
+      },
+      "index": "17",
+      "layout": "wide",
+      "tags": [
+        "the-nomadic-home"
+      ],
+      "label": {
+        "zh": "游牧之家动态模块化单元系统",
+        "en": "Dynamic modular cellular system"
+      },
+      "caption": {
+        "zh": "游牧之家动态模块化单元系统",
+        "en": "Dynamic modular cellular system"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-nomadic-home/page-05.webp",
+      "alt": {
+        "zh": "游牧之家生物模拟生命周期与环境系统",
+        "en": "Biomimetic life cycle and environmental system"
+      },
+      "index": "18",
+      "layout": "wide",
+      "tags": [
+        "the-nomadic-home"
+      ],
+      "label": {
+        "zh": "游牧之家生物模拟生命周期与环境系统",
+        "en": "Biomimetic life cycle and environmental system"
+      },
+      "caption": {
+        "zh": "游牧之家生物模拟生命周期与环境系统",
+        "en": "Biomimetic life cycle and environmental system"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-nomadic-home/page-06.webp",
+      "alt": {
+        "zh": "游牧之家城市界面、平面与室内空间",
+        "en": "Urban interface, plans and interior spaces"
+      },
+      "index": "19",
+      "layout": "wide",
+      "tags": [
+        "the-nomadic-home"
+      ],
+      "label": {
+        "zh": "游牧之家城市界面、平面与室内空间",
+        "en": "Urban interface, plans and interior spaces"
+      },
+      "caption": {
+        "zh": "游牧之家城市界面、平面与室内空间",
+        "en": "Urban interface, plans and interior spaces"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-nomadic-home/page-07.webp",
+      "alt": {
+        "zh": "游牧之家剖面与建筑空间表达",
+        "en": "Section and architectural expression"
+      },
+      "index": "20",
+      "layout": "wide",
+      "tags": [
+        "the-nomadic-home"
+      ],
+      "label": {
+        "zh": "游牧之家剖面与建筑空间表达",
+        "en": "Section and architectural expression"
+      },
+      "caption": {
+        "zh": "游牧之家剖面与建筑空间表达",
+        "en": "Section and architectural expression"
+      }
+    }
+  ]
+}

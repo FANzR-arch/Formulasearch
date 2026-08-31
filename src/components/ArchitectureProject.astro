@@ -19,6 +19,13 @@ const root = locale === 'en' ? '/en/architecture' : '/architecture'
 <article class="architecture-project" aria-labelledby="architecture-project-title">
   <a class="architecture-project__back" href={root}><LocalizedText {...architecturePage.backLabel} /></a>
   <PageHero id="architecture-project-title" title={project.title} description={project.summary} />
+  {project.links?.length ? (
+    <nav class="architecture-project__links" aria-label={locale === 'en' ? 'Project links' : '项目链接'}>
+      {project.links.map((link) => (
+        <a href={link.href} target="_blank" rel="noreferrer noopener"><LocalizedText {...link.label} /></a>
+      ))}
+    </nav>
+  ) : null}
   <div class="architecture-project__images">
     {project.items.map((item, index) => (
       <figure class="architecture-project-image" data-site-reveal data-site-reveal-delay={String((index % 3) * 60)}>

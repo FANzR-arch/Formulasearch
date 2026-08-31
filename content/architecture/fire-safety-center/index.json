@@ -1,0 +1,56 @@
+{
+  "slug": "fire-safety-center",
+  "index": "15",
+  "year": 2021,
+  "title": {
+    "zh": "消防安全中心",
+    "en": "Fire Safety Center"
+  },
+  "summary": {
+    "zh": "以红色交通核心、清晰分区和可见的应急路径，组织消防教育、训练与公共服务。",
+    "en": "A red circulation core, legible zoning and visible emergency routes organize fire-safety education, training and public services."
+  },
+  "cover": "/src/assets/archive/architecture/fire-safety-center/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/fire-safety-center/board-01.webp",
+      "alt": {
+        "zh": "消防安全中心总体设计与场地展板",
+        "en": "Fire Safety Center overview and site board"
+      },
+      "index": "88",
+      "layout": "hero",
+      "tags": [
+        "fire-safety-center"
+      ],
+      "label": {
+        "zh": "消防安全中心总体设计与场地展板",
+        "en": "Fire Safety Center overview and site board"
+      },
+      "caption": {
+        "zh": "消防安全中心总体设计与场地展板",
+        "en": "Fire Safety Center overview and site board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/fire-safety-center/board-02.webp",
+      "alt": {
+        "zh": "消防安全中心剖面、平面与空间展板",
+        "en": "Fire Safety Center sections, plans and spatial board"
+      },
+      "index": "89",
+      "layout": "wide",
+      "tags": [
+        "fire-safety-center"
+      ],
+      "label": {
+        "zh": "消防安全中心剖面、平面与空间展板",
+        "en": "Fire Safety Center sections, plans and spatial board"
+      },
+      "caption": {
+        "zh": "消防安全中心剖面、平面与空间展板",
+        "en": "Fire Safety Center sections, plans and spatial board"
+      }
+    }
+  ]
+}

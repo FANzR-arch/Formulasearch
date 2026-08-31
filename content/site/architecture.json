@@ -4,20 +4,20 @@
     "en": "Architecture"
   },
   "pageDescription": {
-    "zh": "南京石头城遗址博物馆入口与青岛山海博物馆设计作品集。",
-    "en": "Architecture portfolio featuring the Nanjing Stone City heritage museum entrance and Qingdao Hill & Ocean Museum."
+    "zh": "涵盖公共建筑、社区、文化空间与未来城市研究的建筑设计作品集。",
+    "en": "An architecture portfolio spanning public buildings, communities, cultural spaces and future-city studies."
   },
   "kicker": {
-    "zh": "建筑设计 / 02 个项目",
-    "en": "Architecture / 02 projects"
+    "zh": "建筑设计 / 17 个项目",
+    "en": "Architecture / 17 projects"
   },
   "title": {
     "zh": "建筑作品集",
     "en": "Architecture portfolio"
   },
   "description": {
-    "zh": "两组面向城市、遗址与自然界面的公共建筑设计。",
-    "en": "Two public architecture proposals shaped by the city, heritage and the natural landscape."
+    "zh": "从真实场地到未来命题，记录建筑如何回应城市、社区、遗址与自然环境。",
+    "en": "Projects ranging from real sites to speculative futures, exploring how architecture responds to cities, communities, heritage and nature."
   },
   "projectListLabel": {
     "zh": "建筑项目",
@@ -41,14 +41,89 @@
       "en": "All"
     },
     {
+      "id": "shiling-school-port-building",
+      "zh": "石岭中学港航楼",
+      "en": "Shiling School Port Building"
+    },
+    {
       "id": "nanjing-stone-city",
       "zh": "南京石头城",
       "en": "Nanjing Stone City"
     },
     {
+      "id": "the-nomadic-home",
+      "zh": "游牧之家",
+      "en": "The Nomadic Home"
+    },
+    {
       "id": "qingdao-hill-ocean",
       "zh": "青岛山海博物馆",
       "en": "Qingdao Hill & Ocean Museum"
+    },
+    {
+      "id": "delta-green-canyon",
+      "zh": "绿色峡谷",
+      "en": "Green Canyon"
+    },
+    {
+      "id": "the-flowing-nexus",
+      "zh": "流动节点",
+      "en": "The Flowing Nexus"
+    },
+    {
+      "id": "hunnan-city-library",
+      "zh": "浑南新区城市图书馆",
+      "en": "Hunnan City Library"
+    },
+    {
+      "id": "coastal-retirement-complex",
+      "zh": "滨海养老综合体",
+      "en": "Coastal Retirement Complex"
+    },
+    {
+      "id": "community-studio",
+      "zh": "社区工作室",
+      "en": "Community Studio"
+    },
+    {
+      "id": "tcp-art-museum",
+      "zh": "TCP 麦岛美术馆",
+      "en": "TCP Maidao Art Museum"
+    },
+    {
+      "id": "lili-in-sight",
+      "zh": "里里在目",
+      "en": "Lili in Sight"
+    },
+    {
+      "id": "fvd-community",
+      "zh": "幸福桥 FVD 社区",
+      "en": "Xingfu Bridge FVD Community"
+    },
+    {
+      "id": "evolo-hyperloop-tower",
+      "zh": "超级环塔",
+      "en": "Hyperloop Tower"
+    },
+    {
+      "id": "guangxingli-friendly-cafe",
+      "zh": "广兴里友好咖啡厅",
+      "en": "Guangxingli Friendly Cafe"
+    },
+    {
+      "id": "fire-safety-center",
+      "zh": "消防安全中心",
+      "en": "Fire Safety Center"
+    },
+    {
+      "id": "fire-shield",
+      "zh": "火盾",
+      "en": "Fire Shield"
+    },
+    {
+      "id": "the-woods",
+      "zh": "林间：立体社区",
+      "en": "The Woods"
     }
   ]
 }

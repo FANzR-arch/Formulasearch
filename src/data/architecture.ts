@@ -12,13 +12,20 @@ const architectureItemSchema = archiveItemBaseSchema.extend({
   label: localizedCopySchema,
 }).strict()
 
+const architectureLinkSchema = z.object({
+  label: localizedCopySchema,
+  href: z.url(),
+}).strict()
+
 const architectureProjectSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   index: z.string().regex(/^\d+$/),
+  year: z.number().int().min(1900).max(2100),
   title: localizedCopySchema,
   summary: localizedCopySchema,
   cover: architectureAssetPathSchema,
   images: z.array(architectureItemSchema).min(1),
+  links: z.array(architectureLinkSchema).optional(),
 }).strict()
 
 const architectureSchema = archivePageBaseSchema.extend({
@@ -55,7 +62,7 @@ const resolveImage = (source: string) => {
 
 export const architecturePage = result.data
 export const architectureProjects = projectResults
-  .sort((left, right) => left.index.localeCompare(right.index))
+  .sort((left, right) => right.year - left.year || left.index.localeCompare(right.index))
   .map((project) => ({
   ...project,
   cover: resolveImage(project.cover),
@@ -72,5 +79,5 @@ validateArchiveRelations({ itemIndexes, itemTags, filterIds, imageIds, name: 'Ar
 const projectSlugs = projectResults.map((project) => project.slug)
 if (new Set(projectSlugs).size !== projectSlugs.length) throw new Error('Architecture validation failed: duplicate project slugs.')
 for (const project of projectResults) {
-  if (!project.images.some((item) => item.image === project.cover)) throw new Error(`Architecture validation failed: project cover is not part of ${project.slug}.`)
+  if (!project.cover.includes(`/${project.slug}/`)) throw new Error(`Architecture validation failed: project cover does not match ${project.slug}.`)
 }

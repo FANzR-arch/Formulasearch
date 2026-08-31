@@ -1,0 +1,65 @@
+{
+  "slug": "the-woods",
+  "index": "17",
+  "year": 2020,
+  "title": {
+    "zh": "林间：立体社区",
+    "en": "The Woods: Stereoscopic Community"
+  },
+  "summary": {
+    "zh": "以可生长的框架、叠合公共平台和多层共享空间，探索高密度校园社区的立体组织方式。",
+    "en": "A growing frame, stacked public platforms and shared spaces explore a three-dimensional model for a dense campus community."
+  },
+  "cover": "/src/assets/archive/architecture/the-woods/cover.webp",
+  "links": [
+    {
+      "label": {
+        "zh": "观看项目视频",
+        "en": "Watch project video"
+      },
+      "href": "https://www.bilibili.com/video/BV1rC4y1a7Zq/"
+    }
+  ],
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/the-woods/board-01.webp",
+      "alt": {
+        "zh": "林间立体社区总体设计与环境分析展板",
+        "en": "The Woods stereoscopic community overview and environmental analysis board"
+      },
+      "index": "92",
+      "layout": "hero",
+      "tags": [
+        "the-woods"
+      ],
+      "label": {
+        "zh": "林间立体社区总体设计与环境分析展板",
+        "en": "The Woods stereoscopic community overview and environmental analysis board"
+      },
+      "caption": {
+        "zh": "林间立体社区总体设计与环境分析展板",
+        "en": "The Woods stereoscopic community overview and environmental analysis board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-woods/board-02.webp",
+      "alt": {
+        "zh": "林间立体社区构造分解与空间系统展板",
+        "en": "The Woods stereoscopic community exploded assembly and spatial system board"
+      },
+      "index": "93",
+      "layout": "wide",
+      "tags": [
+        "the-woods"
+      ],
+      "label": {
+        "zh": "林间立体社区构造分解与空间系统展板",
+        "en": "The Woods stereoscopic community exploded assembly and spatial system board"
+      },
+      "caption": {
+        "zh": "林间立体社区构造分解与空间系统展板",
+        "en": "The Woods stereoscopic community exploded assembly and spatial system board"
+      }
+    }
+  ]
+}

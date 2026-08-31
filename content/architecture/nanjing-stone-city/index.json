@@ -1,6 +1,7 @@
 {
   "slug": "nanjing-stone-city",
-  "index": "01",
+  "index": "02",
+  "year": 2024,
   "title": {
     "zh": "南京石头城遗址博物馆入口",
     "en": "Nanjing Stone City Heritage Museum Entrance"
@@ -9,7 +10,7 @@
     "zh": "入口设计竞赛方案，以新的公共路径回应遗址、地形与城市界面。",
     "en": "An entrance competition proposal responding to heritage, terrain and the urban edge through a new public path."
   },
-  "cover": "/src/assets/archive/architecture/nanjing-stone-city/entrance-render.png",
+  "cover": "/src/assets/archive/architecture/nanjing-stone-city/cover.webp",
   "images": [
     {
       "image": "/src/assets/archive/architecture/nanjing-stone-city/entrance-render.png",

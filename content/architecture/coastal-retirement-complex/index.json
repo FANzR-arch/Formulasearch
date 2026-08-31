@@ -1,0 +1,216 @@
+{
+  "slug": "coastal-retirement-complex",
+  "index": "08",
+  "year": 2024,
+  "title": {
+    "zh": "滨海养老综合体",
+    "en": "Coastal Retirement Complex"
+  },
+  "summary": {
+    "zh": "以面向海岸的环形公共庭院和连续坡道组织照护、社交与艺术空间，建立温和的滨水生活中心。",
+    "en": "A coastal courtyard and continuous ramps organize care, social and art spaces into a gentle waterfront living center."
+  },
+  "cover": "/src/assets/archive/architecture/coastal-retirement-complex/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/coastal-retirement-complex/aerial-view.webp",
+      "alt": {
+        "zh": "滨海养老综合体鸟瞰效果图",
+        "en": "Aerial view of the Coastal Retirement Complex"
+      },
+      "index": "44",
+      "layout": "hero",
+      "tags": [
+        "coastal-retirement-complex"
+      ],
+      "label": {
+        "zh": "滨海养老综合体鸟瞰效果图",
+        "en": "Aerial view of the Coastal Retirement Complex"
+      },
+      "caption": {
+        "zh": "滨海养老综合体鸟瞰效果图",
+        "en": "Aerial view of the Coastal Retirement Complex"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/coastal-retirement-complex/site-plan.webp",
+      "alt": {
+        "zh": "滨海养老综合体总平面图",
+        "en": "Site plan of the Coastal Retirement Complex"
+      },
+      "index": "45",
+      "layout": "wide",
+      "tags": [
+        "coastal-retirement-complex"
+      ],
+      "label": {
+        "zh": "滨海养老综合体总平面图",
+        "en": "Site plan of the Coastal Retirement Complex"
+      },
+      "caption": {
+        "zh": "滨海养老综合体总平面图",
+        "en": "Site plan of the Coastal Retirement Complex"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/coastal-retirement-complex/elevation.webp",
+      "alt": {
+        "zh": "滨海养老综合体沿海立面",
+        "en": "Coastal elevation of the retirement complex"
+      },
+      "index": "46",
+      "layout": "wide",
+      "tags": [
+        "coastal-retirement-complex"
+      ],
+      "label": {
+        "zh": "滨海养老综合体沿海立面",
+        "en": "Coastal elevation of the retirement complex"
+      },
+      "caption": {
+        "zh": "滨海养老综合体沿海立面",
+        "en": "Coastal elevation of the retirement complex"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/coastal-retirement-complex/site-analysis.webp",
+      "alt": {
+        "zh": "滨海养老综合体场地与视线分析",
+        "en": "Site and view analysis"
+      },
+      "index": "47",
+      "layout": "wide",
+      "tags": [
+        "coastal-retirement-complex"
+      ],
+      "label": {
+        "zh": "滨海养老综合体场地与视线分析",
+        "en": "Site and view analysis"
+      },
+      "caption": {
+        "zh": "滨海养老综合体场地与视线分析",
+        "en": "Site and view analysis"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/coastal-retirement-complex/massing-study.webp",
+      "alt": {
+        "zh": "滨海养老综合体形体生成分析",
+        "en": "Massing development study"
+      },
+      "index": "48",
+      "layout": "wide",
+      "tags": [
+        "coastal-retirement-complex"
+      ],
+      "label": {
+        "zh": "滨海养老综合体形体生成分析",
+        "en": "Massing development study"
+      },
+      "caption": {
+        "zh": "滨海养老综合体形体生成分析",
+        "en": "Massing development study"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/coastal-retirement-complex/axonometric.webp",
+      "alt": {
+        "zh": "滨海养老综合体功能轴测图",
+        "en": "Programmatic axonometric"
+      },
+      "index": "49",
+      "layout": "wide",
+      "tags": [
+        "coastal-retirement-complex"
+      ],
+      "label": {
+        "zh": "滨海养老综合体功能轴测图",
+        "en": "Programmatic axonometric"
+      },
+      "caption": {
+        "zh": "滨海养老综合体功能轴测图",
+        "en": "Programmatic axonometric"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/coastal-retirement-complex/interior-01.webp",
+      "alt": {
+        "zh": "滨海养老综合体艺术展廊",
+        "en": "Art gallery interior"
+      },
+      "index": "50",
+      "layout": "wide",
+      "tags": [
+        "coastal-retirement-complex"
+      ],
+      "label": {
+        "zh": "滨海养老综合体艺术展廊",
+        "en": "Art gallery interior"
+      },
+      "caption": {
+        "zh": "滨海养老综合体艺术展廊",
+        "en": "Art gallery interior"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/coastal-retirement-complex/interior-02.webp",
+      "alt": {
+        "zh": "滨海养老综合体公共大厅",
+        "en": "Public hall interior"
+      },
+      "index": "51",
+      "layout": "wide",
+      "tags": [
+        "coastal-retirement-complex"
+      ],
+      "label": {
+        "zh": "滨海养老综合体公共大厅",
+        "en": "Public hall interior"
+      },
+      "caption": {
+        "zh": "滨海养老综合体公共大厅",
+        "en": "Public hall interior"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/coastal-retirement-complex/interior-03.webp",
+      "alt": {
+        "zh": "滨海养老综合体中庭坡道",
+        "en": "Atrium ramp interior"
+      },
+      "index": "52",
+      "layout": "wide",
+      "tags": [
+        "coastal-retirement-complex"
+      ],
+      "label": {
+        "zh": "滨海养老综合体中庭坡道",
+        "en": "Atrium ramp interior"
+      },
+      "caption": {
+        "zh": "滨海养老综合体中庭坡道",
+        "en": "Atrium ramp interior"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/coastal-retirement-complex/interior-04.webp",
+      "alt": {
+        "zh": "滨海养老综合体通高中庭",
+        "en": "Double-height atrium interior"
+      },
+      "index": "53",
+      "layout": "wide",
+      "tags": [
+        "coastal-retirement-complex"
+      ],
+      "label": {
+        "zh": "滨海养老综合体通高中庭",
+        "en": "Double-height atrium interior"
+      },
+      "caption": {
+        "zh": "滨海养老综合体通高中庭",
+        "en": "Double-height atrium interior"
+      }
+    }
+  ]
+}

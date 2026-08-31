@@ -1,0 +1,76 @@
+{
+  "slug": "hunnan-city-library",
+  "index": "07",
+  "year": 2025,
+  "title": {
+    "zh": "浑南新区城市图书馆",
+    "en": "Hunnan New District City Library"
+  },
+  "summary": {
+    "zh": "以低矮横向体量、连续公共大厅与通透庭院，构建连接城市绿地的开放文化建筑。",
+    "en": "A low horizontal volume, continuous public hall and transparent courtyards create an open cultural building linked to the surrounding landscape."
+  },
+  "cover": "/src/assets/archive/architecture/hunnan-city-library/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/hunnan-city-library/board-01.webp",
+      "alt": {
+        "zh": "浑南新区城市图书馆总体效果与场地策略展板",
+        "en": "Hunnan City Library overview and site strategy board"
+      },
+      "index": "41",
+      "layout": "hero",
+      "tags": [
+        "hunnan-city-library"
+      ],
+      "label": {
+        "zh": "浑南新区城市图书馆总体效果与场地策略展板",
+        "en": "Hunnan City Library overview and site strategy board"
+      },
+      "caption": {
+        "zh": "浑南新区城市图书馆总体效果与场地策略展板",
+        "en": "Hunnan City Library overview and site strategy board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/hunnan-city-library/board-02.webp",
+      "alt": {
+        "zh": "浑南新区城市图书馆平面、剖面与空间组织展板",
+        "en": "Hunnan City Library plans, sections and spatial organization board"
+      },
+      "index": "42",
+      "layout": "wide",
+      "tags": [
+        "hunnan-city-library"
+      ],
+      "label": {
+        "zh": "浑南新区城市图书馆平面、剖面与空间组织展板",
+        "en": "Hunnan City Library plans, sections and spatial organization board"
+      },
+      "caption": {
+        "zh": "浑南新区城市图书馆平面、剖面与空间组织展板",
+        "en": "Hunnan City Library plans, sections and spatial organization board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/hunnan-city-library/board-03.webp",
+      "alt": {
+        "zh": "浑南新区城市图书馆技术图纸与室内外效果展板",
+        "en": "Hunnan City Library technical drawings and spatial views board"
+      },
+      "index": "43",
+      "layout": "wide",
+      "tags": [
+        "hunnan-city-library"
+      ],
+      "label": {
+        "zh": "浑南新区城市图书馆技术图纸与室内外效果展板",
+        "en": "Hunnan City Library technical drawings and spatial views board"
+      },
+      "caption": {
+        "zh": "浑南新区城市图书馆技术图纸与室内外效果展板",
+        "en": "Hunnan City Library technical drawings and spatial views board"
+      }
+    }
+  ]
+}

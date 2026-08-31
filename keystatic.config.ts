@@ -173,6 +173,7 @@ export default config({
       schema: {
         slug: fields.slug({ name: { label: '项目 slug' } }),
         index: requiredText('排序编号'),
+        year: fields.integer({ label: '项目年份', validation: { min: 1900, max: 2100, isRequired: true } }),
         title: localized('项目标题'),
         summary: localized('项目说明', true),
         cover: fields.image({
@@ -181,6 +182,10 @@ export default config({
           publicPath: '/src/assets/archive/architecture',
           validation: { isRequired: true },
         }),
+        links: fields.array(fields.object({
+          label: localized('链接名称'),
+          href: fields.url({ label: '链接', validation: { isRequired: true } }),
+        }, { label: '项目链接' }), { label: '项目链接', itemLabel: ({ fields: item }) => item.label.fields.zh.value || '新链接' }),
         images: fields.array(fields.object({
           image: fields.image({
             label: '图片',

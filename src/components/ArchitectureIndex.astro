@@ -25,7 +25,7 @@ const listLabel = getLocalizedValue(architecturePage.projectListLabel, locale)
             <Image src={project.cover} alt={getLocalizedValue(coverItem.alt, locale)} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} sizes="(max-width: 820px) 100vw, 50vw" />
           </figure>
           <div class="architecture-project-entry__meta">
-            <span>{project.index}</span>
+            <span>{project.year} · {project.index}</span>
             <div>
               <h2><LocalizedText {...project.title} /></h2>
               <p><LocalizedText {...project.summary} /></p>

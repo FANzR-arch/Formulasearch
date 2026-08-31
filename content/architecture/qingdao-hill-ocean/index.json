@@ -1,6 +1,7 @@
 {
   "slug": "qingdao-hill-ocean",
-  "index": "02",
+  "index": "04",
+  "year": 2025,
   "title": {
     "zh": "青岛山海博物馆",
     "en": "Qingdao Hill & Ocean Museum"
@@ -9,7 +10,7 @@
     "zh": "以抬升、折叠与连续步行系统，重新缝合高密度城市与崎岖海岸。",
     "en": "An elevated, folded and continuous walking system reconnecting the dense city with its rugged coast."
   },
-  "cover": "/src/assets/archive/architecture/qingdao-hill-ocean/hero.png",
+  "cover": "/src/assets/archive/architecture/qingdao-hill-ocean/cover.webp",
   "images": [
     {
       "image": "/src/assets/archive/architecture/qingdao-hill-ocean/hero.png",

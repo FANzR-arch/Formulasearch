@@ -1,0 +1,416 @@
+{
+  "slug": "community-studio",
+  "index": "09",
+  "year": 2024,
+  "title": {
+    "zh": "社区工作室",
+    "en": "Community Studio"
+  },
+  "summary": {
+    "zh": "两组面向城市街区的工作室方案，分别以公共平台和半透明生产中庭连接社区、创作与日常流线。",
+    "en": "Two neighborhood studio proposals connect community, making and daily movement through a public platform and a translucent production atrium."
+  },
+  "cover": "/src/assets/archive/architecture/community-studio/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-a-01.webp",
+      "alt": {
+        "zh": "社区工作室方案一街道透视",
+        "en": "Community Studio scheme A street perspective"
+      },
+      "index": "54",
+      "layout": "hero",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案一街道透视",
+        "en": "Community Studio scheme A street perspective"
+      },
+      "caption": {
+        "zh": "社区工作室方案一街道透视",
+        "en": "Community Studio scheme A street perspective"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-a-02.webp",
+      "alt": {
+        "zh": "社区工作室方案一概念与体量",
+        "en": "Scheme A concept and massing"
+      },
+      "index": "55",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案一概念与体量",
+        "en": "Scheme A concept and massing"
+      },
+      "caption": {
+        "zh": "社区工作室方案一概念与体量",
+        "en": "Scheme A concept and massing"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-a-05.webp",
+      "alt": {
+        "zh": "社区工作室方案一城市功能关系",
+        "en": "Scheme A urban program context"
+      },
+      "index": "56",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案一城市功能关系",
+        "en": "Scheme A urban program context"
+      },
+      "caption": {
+        "zh": "社区工作室方案一城市功能关系",
+        "en": "Scheme A urban program context"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-a-08.webp",
+      "alt": {
+        "zh": "社区工作室方案一生成过程",
+        "en": "Scheme A design development"
+      },
+      "index": "57",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案一生成过程",
+        "en": "Scheme A design development"
+      },
+      "caption": {
+        "zh": "社区工作室方案一生成过程",
+        "en": "Scheme A design development"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-a-09.webp",
+      "alt": {
+        "zh": "社区工作室方案一结构策略",
+        "en": "Scheme A structural strategy"
+      },
+      "index": "58",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案一结构策略",
+        "en": "Scheme A structural strategy"
+      },
+      "caption": {
+        "zh": "社区工作室方案一结构策略",
+        "en": "Scheme A structural strategy"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-a-17.webp",
+      "alt": {
+        "zh": "社区工作室方案一总平面",
+        "en": "Scheme A site plan"
+      },
+      "index": "59",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案一总平面",
+        "en": "Scheme A site plan"
+      },
+      "caption": {
+        "zh": "社区工作室方案一总平面",
+        "en": "Scheme A site plan"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-a-20.webp",
+      "alt": {
+        "zh": "社区工作室方案一鸟瞰效果",
+        "en": "Scheme A aerial perspective"
+      },
+      "index": "60",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案一鸟瞰效果",
+        "en": "Scheme A aerial perspective"
+      },
+      "caption": {
+        "zh": "社区工作室方案一鸟瞰效果",
+        "en": "Scheme A aerial perspective"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-a-21.webp",
+      "alt": {
+        "zh": "社区工作室方案一城市界面",
+        "en": "Scheme A urban interface"
+      },
+      "index": "61",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案一城市界面",
+        "en": "Scheme A urban interface"
+      },
+      "caption": {
+        "zh": "社区工作室方案一城市界面",
+        "en": "Scheme A urban interface"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-a-23.webp",
+      "alt": {
+        "zh": "社区工作室方案一公共平台",
+        "en": "Scheme A public platform"
+      },
+      "index": "62",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案一公共平台",
+        "en": "Scheme A public platform"
+      },
+      "caption": {
+        "zh": "社区工作室方案一公共平台",
+        "en": "Scheme A public platform"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-a-24.webp",
+      "alt": {
+        "zh": "社区工作室方案一入口空间",
+        "en": "Scheme A entrance space"
+      },
+      "index": "63",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案一入口空间",
+        "en": "Scheme A entrance space"
+      },
+      "caption": {
+        "zh": "社区工作室方案一入口空间",
+        "en": "Scheme A entrance space"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-b-01.webp",
+      "alt": {
+        "zh": "社区工作室方案二概念与剖面",
+        "en": "Community Studio scheme B concept and section"
+      },
+      "index": "64",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案二概念与剖面",
+        "en": "Community Studio scheme B concept and section"
+      },
+      "caption": {
+        "zh": "社区工作室方案二概念与剖面",
+        "en": "Community Studio scheme B concept and section"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-b-02.webp",
+      "alt": {
+        "zh": "社区工作室方案二鸟瞰效果",
+        "en": "Scheme B aerial perspective"
+      },
+      "index": "65",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案二鸟瞰效果",
+        "en": "Scheme B aerial perspective"
+      },
+      "caption": {
+        "zh": "社区工作室方案二鸟瞰效果",
+        "en": "Scheme B aerial perspective"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-b-05.webp",
+      "alt": {
+        "zh": "社区工作室方案二城市功能关系",
+        "en": "Scheme B urban program context"
+      },
+      "index": "66",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案二城市功能关系",
+        "en": "Scheme B urban program context"
+      },
+      "caption": {
+        "zh": "社区工作室方案二城市功能关系",
+        "en": "Scheme B urban program context"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-b-07.webp",
+      "alt": {
+        "zh": "社区工作室方案二功能整合",
+        "en": "Scheme B program integration"
+      },
+      "index": "67",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案二功能整合",
+        "en": "Scheme B program integration"
+      },
+      "caption": {
+        "zh": "社区工作室方案二功能整合",
+        "en": "Scheme B program integration"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-b-08.webp",
+      "alt": {
+        "zh": "社区工作室方案二连接策略",
+        "en": "Scheme B connection strategy"
+      },
+      "index": "68",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案二连接策略",
+        "en": "Scheme B connection strategy"
+      },
+      "caption": {
+        "zh": "社区工作室方案二连接策略",
+        "en": "Scheme B connection strategy"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-b-09.webp",
+      "alt": {
+        "zh": "社区工作室方案二生产中庭",
+        "en": "Scheme B production atrium"
+      },
+      "index": "69",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案二生产中庭",
+        "en": "Scheme B production atrium"
+      },
+      "caption": {
+        "zh": "社区工作室方案二生产中庭",
+        "en": "Scheme B production atrium"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-b-10.webp",
+      "alt": {
+        "zh": "社区工作室方案二首层平面",
+        "en": "Scheme B ground-floor plan"
+      },
+      "index": "70",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案二首层平面",
+        "en": "Scheme B ground-floor plan"
+      },
+      "caption": {
+        "zh": "社区工作室方案二首层平面",
+        "en": "Scheme B ground-floor plan"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-b-12.webp",
+      "alt": {
+        "zh": "社区工作室方案二剖面与立面",
+        "en": "Scheme B section and elevation"
+      },
+      "index": "71",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案二剖面与立面",
+        "en": "Scheme B section and elevation"
+      },
+      "caption": {
+        "zh": "社区工作室方案二剖面与立面",
+        "en": "Scheme B section and elevation"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-b-16.webp",
+      "alt": {
+        "zh": "社区工作室方案二自然通风分析",
+        "en": "Scheme B natural ventilation strategy"
+      },
+      "index": "72",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案二自然通风分析",
+        "en": "Scheme B natural ventilation strategy"
+      },
+      "caption": {
+        "zh": "社区工作室方案二自然通风分析",
+        "en": "Scheme B natural ventilation strategy"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/community-studio/scheme-b-20.webp",
+      "alt": {
+        "zh": "社区工作室方案二室内生产空间",
+        "en": "Scheme B interior production space"
+      },
+      "index": "73",
+      "layout": "wide",
+      "tags": [
+        "community-studio"
+      ],
+      "label": {
+        "zh": "社区工作室方案二室内生产空间",
+        "en": "Scheme B interior production space"
+      },
+      "caption": {
+        "zh": "社区工作室方案二室内生产空间",
+        "en": "Scheme B interior production space"
+      }
+    }
+  ]
+}
