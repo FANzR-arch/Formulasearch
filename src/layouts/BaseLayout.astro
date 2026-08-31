@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css'
 import { siteConfig } from '../data/site-config'
-import { getLocalizedRoute, localizedSiteRoutes, siteRoutes } from '../data/site-routes'
+import { getLocalizedRoute, isLocalizedSiteRoute, siteRoutes } from '../data/site-routes'
 import { uiCopy } from '../data/ui-copy'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
 import { serializeJsonLd } from '../lib/xml'
@@ -41,7 +41,7 @@ const initialDescription = getLocalizedValue({ zh: description, en: descriptionE
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
 const chinesePath = currentPath === '/en' ? '/' : currentPath.startsWith('/en/') ? currentPath.slice(3) : currentPath
 const isArchitectureProject = chinesePath.startsWith(`${siteRoutes.architecture}/`)
-const hasLocalizedRoute = localizedSiteRoutes.includes(chinesePath as (typeof localizedSiteRoutes)[number]) || isArchitectureProject
+const hasLocalizedRoute = isLocalizedSiteRoute(chinesePath) || isArchitectureProject
 const englishAlternate = hasLocalizedRoute ? new URL(isArchitectureProject ? `/en${chinesePath}` : getLocalizedRoute(chinesePath, 'en'), Astro.site) : undefined
 const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : undefined
 ---

@@ -73,10 +73,20 @@ export const getBlogPostRoute = (slug: string, contentLanguage: 'zh-Hans' | 'en'
 export const localizedRouteKeys = localizedRouteManifestKeys
 export const localizedSiteRoutes = localizedRouteValues
 
+const isLocalizedBlogCategoryRoute = (route: string) => {
+  const categoryPrefix = `${siteRoutes.blog}/category/`
+  const section = route.startsWith(categoryPrefix) ? route.slice(categoryPrefix.length) : ''
+  return Boolean(section) && !section.includes('/')
+}
+
+export const isLocalizedSiteRoute = (route: string) => {
+  return localizedSiteRoutes.includes(route as (typeof localizedSiteRoutes)[number]) || isLocalizedBlogCategoryRoute(route)
+}
+
 export const getLocalizedRoute = (route: string, locale: 'zh' | 'en') => {
   if (locale !== 'en' || route === '/en' || route.startsWith('/en/')) return route
   const [, pathname, suffix = ''] = route.match(/^([^?#]+)([?#].*)?$/) ?? []
-  if (!pathname || !localizedSiteRoutes.includes(pathname as (typeof localizedSiteRoutes)[number])) return route
+  if (!pathname || !isLocalizedSiteRoute(pathname)) return route
   return `${pathname === '/' ? '/en' : `/en${pathname}`}${suffix}`
 }
 

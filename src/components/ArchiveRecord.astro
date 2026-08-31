@@ -40,6 +40,7 @@ const localizedAlt = getLocalizedValue(item.alt, locale)
 const photoTitle = item.title ?? { zh: `照片 ${item.index}`, en: `Photograph ${item.index}` }
 const photoCaption = item.caption ?? item.alt
 const photoSource = typeof item.image === 'string' ? item.image : item.image.src
+const photoAspectRatio = active === 'photos' && item.width && item.height ? `${item.width} / ${item.height}` : undefined
 ---
 
 <figure
@@ -49,6 +50,7 @@ const photoSource = typeof item.image === 'string' ? item.image : item.image.src
   data-archive-initial-hidden={initialHidden ? 'true' : undefined}
   data-media-ready="false"
   hidden={initialHidden}
+  style={photoAspectRatio ? `--archive-photo-aspect-ratio: ${photoAspectRatio}` : undefined}
 >
   {active === 'photos' ? (
     <button

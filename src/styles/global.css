@@ -579,16 +579,12 @@ main { position: relative; z-index: 1; }
   grid-column: auto;
   margin: 0;
 }
-.visual-archive--photos .archive-record img {
-  min-height: 0;
-  aspect-ratio: auto;
-  object-fit: contain;
-}
+.visual-archive--photos .archive-record img { min-height: 0; height: 100%; aspect-ratio: auto; object-fit: contain; }
 .visual-archive--photos .archive-record { overflow: clip; border-radius: clamp(16px, 1.45vw, 22px); }
 .visual-archive--photos .archive-record img { border-radius: inherit; transform-origin: center; }
 .archive-record__open { display: block; width: 100%; padding: 0; border: 0; border-radius: inherit; background: var(--media-placeholder); cursor: zoom-in; }
+.visual-archive--photos .archive-record__open { aspect-ratio: var(--archive-photo-aspect-ratio, 1); overflow: hidden; }
 .archive-record__open:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
-.visual-archive--photos .archive-record[data-media-ready='false'] .archive-record__open { min-height: 220px; }
 .visual-archive--photos .archive-record[data-media-ready='false'] img { opacity: 0; }
 .visual-archive--photos .archive-record.is-archive-entering { animation: archive-record-enter 360ms var(--ease-out) both; }
 

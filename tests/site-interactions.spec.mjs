@@ -1,4 +1,14 @@
+import { get as getHttp } from 'node:http'
 import { expect, test } from '@playwright/test'
+
+const getRawStatus = (pathname) => new Promise((resolve, reject) => {
+  const baseUrl = new URL(process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:4321')
+  const request = getHttp({ hostname: baseUrl.hostname, port: baseUrl.port, path: pathname }, (response) => {
+    response.resume()
+    response.once('end', () => resolve(response.statusCode))
+  })
+  request.once('error', reject)
+})
 
 const installBackgroundUniformProbe = async (page) => {
   await page.addInitScript(() => {
@@ -495,13 +505,13 @@ test('English routes render server-localized metadata and reciprocal hreflang', 
   await expect(page.locator('.page-hero h1 .localized-text__zh')).toBeHidden()
   await expect(page.locator('.nav-link[href="/en/blog"]')).toBeVisible()
   await page.locator('.nav-disclosure').first().click()
-  await expect(page.locator('.nav-popover a').first()).toHaveAttribute('href', /\/en\/blog\/series#ai-tools$/)
+  await expect(page.locator('.nav-popover a').first()).toHaveAttribute('href', /\/en\/blog\/category\/ai-tools$/)
 
   await page.goto('/en/blog')
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await expect(page.locator('.blog-hero h1 .localized-text__en')).toBeVisible()
   await expect(page.locator('.cover-stage .localized-text__en').first()).toBeVisible()
-  await expect(page.locator('.blog-section-nav')).toHaveAttribute('aria-label', 'Blog sections')
+  await expect(page.locator('.blog-section-nav')).toHaveAttribute('aria-label', 'Blog categories')
   await expect(page.locator('.post-row__links').first()).toHaveAttribute('aria-label', 'Original publication')
   const cover = page.locator('.cover-stage img').first()
   await expect(cover).toHaveAttribute('alt', await cover.getAttribute('data-alt-en'))
@@ -740,7 +750,7 @@ test('architecture index exposes one entrance per project and details keep natur
   const entries = page.locator('.architecture-project-entry')
   await expect(entries).toHaveCount(17)
   await expect(entries.locator('img')).toHaveCount(17)
-  expect(await entries.evaluateAll((items) => items.map((item) => item.getAttribute('href')))).toEqual([
+  const chronologicalRoutes = [
     '/architecture/the-nomadic-home',
     '/architecture/qingdao-hill-ocean',
     '/architecture/delta-green-canyon',
@@ -758,9 +768,11 @@ test('architecture index exposes one entrance per project and details keep natur
     '/architecture/fire-safety-center',
     '/architecture/fire-shield',
     '/architecture/the-woods',
-  ])
-  await expect(entries.nth(5).locator('.architecture-project-entry__meta > span')).toHaveText('2024 · 02')
-  await expect(entries.nth(8).locator('.architecture-project-entry__meta > span')).toHaveText('2023 · 01')
+  ]
+  const routes = await entries.evaluateAll((items) => items.map((item) => item.getAttribute('href')))
+  expect([...routes].sort()).toEqual([...chronologicalRoutes].sort())
+  expect(routes).not.toEqual(chronologicalRoutes)
+  await expect(entries.locator('.architecture-project-entry__meta')).toHaveCount(0)
 
   await page.goto('/architecture/nanjing-stone-city')
   await expect(page.locator('.architecture-project-image')).toHaveCount(2)
@@ -940,16 +952,21 @@ test('llms exposes published pages and articles', async ({ request }) => {
   expect(body).not.toContain('/blog/ai-knowledge-2025-12-09')
 })
 
-test('static preview server rejects paths outside dist', async ({ request }) => {
-  const response = await request.get('/%2e%2e/%2e%2e/package.json')
-  expect(response.status()).toBe(404)
+test('static preview server rejects paths outside dist', async () => {
+  await expect(getRawStatus('/%2e%2e/%2e%2e/package.json')).resolves.toBe(404)
 })
 test('catalog pages omit index navigation and section numbers', async ({ page }) => {
-  for (const route of ['/projects', '/skills', '/lab']) {
+  const catalogPages = [
+    { route: '/projects', catalogSections: 0, projectGroups: 1 },
+    { route: '/skills', catalogSections: 3, projectGroups: 0 },
+    { route: '/lab', catalogSections: 3, projectGroups: 0 },
+  ]
+  for (const { route, catalogSections, projectGroups } of catalogPages) {
     await page.goto(route)
     await expect(page.locator('.catalog-index')).toHaveCount(0)
     await expect(page.locator('.catalog-section__number')).toHaveCount(0)
-    await expect(page.locator('.catalog-section')).toHaveCount(3)
+    await expect(page.locator('.catalog-section')).toHaveCount(catalogSections)
+    await expect(page.locator('.project-group')).toHaveCount(projectGroups)
   }
 })
 test('catalog and blog heroes share an extensible visible motion layer', async ({ page }) => {

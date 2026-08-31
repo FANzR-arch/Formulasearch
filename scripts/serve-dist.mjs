@@ -24,13 +24,18 @@ if (!existsSync(join(distRoot, 'index.html'))) {
 }
 
 const server = createServer((request, response) => {
-  const requestUrl = new URL(request.url || '/', `http://${request.headers.host || '127.0.0.1'}`)
+  const rawPathname = (request.url || '/').split(/[?#]/, 1)[0] || '/'
   let pathname
   try {
-    pathname = decodeURIComponent(requestUrl.pathname)
+    pathname = decodeURIComponent(rawPathname)
   } catch {
     response.writeHead(400)
     response.end('Bad request')
+    return
+  }
+  if (!pathname.startsWith('/') || pathname.split('/').some((segment) => segment === '.' || segment === '..')) {
+    response.writeHead(404)
+    response.end('Not found')
     return
   }
   const relativePath = pathname.endsWith('/') ? `${pathname}index.html` : pathname
