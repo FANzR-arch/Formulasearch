@@ -35,7 +35,7 @@ externalLinks:
 
 下面的分类和案例直接按这九个 skill 整理。
 
-![一、H3 适合的视频类型配图](https://pbs.twimg.com/media/HQ3YaNlaYAALNdV?format=jpg&name=large)
+![一、H3 适合的视频类型配图](/uploads/blog/2026-08-30/inline-HQ3YaNlaYAALNdV.jpg)
 
 ## 1\. 产品与品牌短片
 
@@ -43,15 +43,15 @@ externalLinks:
 
 本节放两个自制案例：I2VA 的便携露营灯，以及 T2VA 的 SYNATX 品牌动态海报。
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2093577487360098304/img/6XtLUbZDmVOb9FWb.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="MiniMax H3 视频示例 1" poster="/uploads/blog/2026-08-30/inline-6XtLUbZDmVOb9FWb.jpg"><source src="/uploads/blog/2026-08-30/video-01.mp4" type="video/mp4"></video>
 
-![1. 产品与品牌短片配图](https://pbs.twimg.com/amplify_video_thumb/2093577487360098304/img/6XtLUbZDmVOb9FWb.jpg?name=large)
+![1. 产品与品牌短片配图](/uploads/blog/2026-08-30/inline-6XtLUbZDmVOb9FWb.jpg)
 
 ①测试修长灯体、提手与双侧支杆的结构保持，以及暖光、岩石环境和克制运镜；
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2093571409587089409/img/2hWRjufRB8IcWVWD.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="MiniMax H3 视频示例 2" poster="/uploads/blog/2026-08-30/inline-2hWRjufRB8IcWVWD.jpg"><source src="/uploads/blog/2026-08-30/video-02.mp4" type="video/mp4"></video>
 
-![1. 产品与品牌短片配图](https://pbs.twimg.com/amplify_video_thumb/2093571409587089409/img/2hWRjufRB8IcWVWD.jpg?name=large)
+![1. 产品与品牌短片配图](/uploads/blog/2026-08-30/inline-2hWRjufRB8IcWVWD.jpg)
 
 ②“无序片段被规则组织成结构”的过程表达 syntax 的含义，同时测试唯一文字的进入、稳定可读和定格。
 
@@ -59,21 +59,21 @@ externalLinks:
 
 官方把纸艺拆成了两种不同任务。 [Paper Collage Explainer Skill](https://github.com/MiniMax-AI/MiniMax-H3/tree/main/skills/paper-collage-explainer-generator) 用半调照片剪影、大色块和逐片组装表达一个观点； [Papercraft Stop-motion Explainer Skill](https://github.com/MiniMax-AI/MiniMax-H3/tree/main/skills/papercraft-stop-motion-explainer) 更强调微缩纸雕布景、前中后景、拉片、滑轨、转盘、齿轮和纸偶关节。
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2093605791538548736/img/duIeR4ezIR7v6d1j.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="MiniMax H3 视频示例 3" poster="/uploads/blog/2026-08-30/inline-duIeR4ezIR7v6d1j.jpg"><source src="/uploads/blog/2026-08-30/video-03.mp4" type="video/mp4"></video>
 
-![2. 纸艺动画配图](https://pbs.twimg.com/amplify_video_thumb/2093605791538548736/img/duIeR4ezIR7v6d1j.jpg?name=large)
+![2. 纸艺动画配图](/uploads/blog/2026-08-30/inline-duIeR4ezIR7v6d1j.jpg)
 
 ① 高级编辑感纸拼贴动画（梳理复杂问题）
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2093571944126001152/img/Eni45M7iY5kJBOQZ.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="MiniMax H3 视频示例 4" poster="/uploads/blog/2026-08-30/inline-Eni45M7iY5kJBOQZ.jpg"><source src="/uploads/blog/2026-08-30/video-04.mp4" type="video/mp4"></video>
 
-![2. 纸艺动画配图](https://pbs.twimg.com/amplify_video_thumb/2093571944126001152/img/Eni45M7iY5kJBOQZ.jpg?name=large)
+![2. 纸艺动画配图](/uploads/blog/2026-08-30/inline-Eni45M7iY5kJBOQZ.jpg)
 
 ② 纸艺风动画 （海洋与鲸）
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2093613900596166656/img/84q7WKxaVqTGK8T2.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="MiniMax H3 视频示例 5" poster="/uploads/blog/2026-08-30/inline-84q7WKxaVqTGK8T2.jpg"><source src="/uploads/blog/2026-08-30/video-05.mp4" type="video/mp4"></video>
 
-![2. 纸艺动画配图](https://pbs.twimg.com/amplify_video_thumb/2093613900596166656/img/84q7WKxaVqTGK8T2.jpg?name=large)
+![2. 纸艺动画配图](/uploads/blog/2026-08-30/inline-84q7WKxaVqTGK8T2.jpg)
 
 ③ 纸艺机械动画 （地球为什么有晨昏变化）
 
@@ -83,11 +83,11 @@ externalLinks:
 
 本节放一个 Ref2VA 案例：原创歌手、原创排练室、原创文字包装与 5 秒原创音频共同生成 MOVE WITH THE LIGHT。它专门测试人物身份、单行歌词、嘴型和鼓点能否在同一时间线上成立。
 
-![3. MV制作配图](https://pbs.twimg.com/media/HQ4mufpacAAJ8kd?format=jpg&name=large)
+![3. MV制作配图](/uploads/blog/2026-08-30/inline-HQ4mufpacAAJ8kd.jpg)
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2093653406531600384/img/3Wcp-kKfpmAkjjGh.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="Move with the Light 视频示例" poster="/uploads/blog/2026-08-30/inline-3Wcp-kKfpmAkjjGh.jpg"><source src="/uploads/blog/2026-08-30/video-06.mp4" type="video/mp4"></video>
 
-![3. MV制作配图](https://pbs.twimg.com/amplify_video_thumb/2093653406531600384/img/3Wcp-kKfpmAkjjGh.jpg?name=large)
+![3. MV制作配图](/uploads/blog/2026-08-30/inline-3Wcp-kKfpmAkjjGh.jpg)
 
 还真挺好的，非常自然
 
@@ -95,15 +95,15 @@ externalLinks:
 
 [3D 动画短片 Skill](https://github.com/MiniMax-AI/MiniMax-H3/tree/main/skills/3d-animation-short-generator) 强调先锁角色卡和无人物场景卡，再按秒写动作、表情、镜头、空间、声音和交接；
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2093659562016641024/img/mC600sEev-w0xCfC.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="PIKO Star Lamp 视频示例" poster="/uploads/blog/2026-08-30/inline-mC600sEev-w0xCfC.jpg"><source src="/uploads/blog/2026-08-30/video-07.mp4" type="video/mp4"></video>
 
-![4. 风格化 3D & 手绘实拍融合配图](https://pbs.twimg.com/amplify_video_thumb/2093659562016641024/img/mC600sEev-w0xCfC.jpg?name=large)
+![4. 风格化 3D & 手绘实拍融合配图](/uploads/blog/2026-08-30/inline-mC600sEev-w0xCfC.jpg)
 
 [手绘实拍融合 Skill](https://github.com/MiniMax-AI/MiniMax-H3/tree/main/skills/handdrawn-live-video-generator) 则要求二维手绘实体先与真实手或物体接触，再作为同一个实体连续变形，由慢半拍的手机镜头追随。
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2093671117710110720/img/tgn3xBZoDxbV6kMX.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="Rain Line Fish Cloud 视频示例" poster="/uploads/blog/2026-08-30/inline-tgn3xBZoDxbV6kMX.jpg"><source src="/uploads/blog/2026-08-30/video-08.mp4" type="video/mp4"></video>
 
-![4. 风格化 3D & 手绘实拍融合配图](https://pbs.twimg.com/amplify_video_thumb/2093671117710110720/img/tgn3xBZoDxbV6kMX.jpg?name=large)
+![4. 风格化 3D & 手绘实拍融合配图](/uploads/blog/2026-08-30/inline-tgn3xBZoDxbV6kMX.jpg)
 
 ## 5\. 双人合作游戏开场与 UI 动效
 
@@ -111,9 +111,9 @@ externalLinks:
 
 本节放一个 I2VA 案例：原创双人菜单 TWIN SIGNAL。5 秒内只完成光标移动、按钮点击、两位角色的小幅反应和最终 CONTINUE 锁定，不进入第二个页面，也不增加新的 UI。
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2093711379090051072/img/xu9IiOg4MXDXHNYa.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="Twin Signal Menu 视频示例" poster="/uploads/blog/2026-08-30/inline-xu9IiOg4MXDXHNYa.jpg"><source src="/uploads/blog/2026-08-30/video-09.mp4" type="video/mp4"></video>
 
-![5. 双人合作游戏开场与 UI 动效配图](https://pbs.twimg.com/amplify_video_thumb/2093711379090051072/img/xu9IiOg4MXDXHNYa.jpg?name=large)
+![5. 双人合作游戏开场与 UI 动效配图](/uploads/blog/2026-08-30/inline-xu9IiOg4MXDXHNYa.jpg)
 
 **以下内容可以直接发给你的Agent**
 
@@ -174,7 +174,7 @@ Ref2VA 的关键不是可以塞多少素材，而是每份素材分别控制什�
 
 **可以先填一张分工表：**
 
-![2. 先给素材分工配图](https://pbs.twimg.com/media/HQ3iL-kaYAEE3qP?format=png&name=large)
+![2. 先给素材分工配图](/uploads/blog/2026-08-30/inline-HQ3iL-kaYAEE3qP.png)
 
 ## 3\. 再定全片的视觉系统
 
@@ -346,7 +346,7 @@ At 00:03.000, (S1) looks toward the camera and says: “现在开始。”
 
 这份模板是创作层。真正提交时仍使用官方结构：
 
-![9. 可复制的 H3 Prompt Spec配图](https://pbs.twimg.com/media/HQ3ifppbsAAPazT?format=png&name=large)
+![9. 可复制的 H3 Prompt Spec配图](/uploads/blog/2026-08-30/inline-HQ3ifppbsAAPazT.png)
 
 ## 三、如何低成本使用 H3产出高质量内容
 

@@ -24,8 +24,8 @@ if (dimensionsManifest?.version !== 1 || !dimensionsManifest?.images || typeof d
   throw new Error(`Invalid blog image dimensions manifest: ${dimensionsManifestPath}`)
 }
 for (const [source, value] of Object.entries(dimensionsManifest.images)) {
-  if (!/^https:\/\//i.test(source) || !Number.isInteger(value?.width) || !Number.isInteger(value?.height) || value.width <= 0 || value.height <= 0) {
-    throw new Error(`Invalid remote image dimensions: ${source}`)
+  if (!/^(?:https:\/\/|\/)/i.test(source) || !Number.isInteger(value?.width) || !Number.isInteger(value?.height) || value.width <= 0 || value.height <= 0) {
+    throw new Error(`Invalid blog image dimensions: ${source}`)
   }
 }
 const genericAlt = new Set(['', '图像', 'image', 'Image'])
@@ -140,7 +140,7 @@ const transform = (markdown) => {
 }
 
 const posts = readdirSync(contentRoot, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(entry.name))
+  .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}(?:-[a-z0-9-]+)?$/.test(entry.name))
   .map((entry) => join(contentRoot, entry.name, 'index.md'))
 
 const mode = process.argv[2]

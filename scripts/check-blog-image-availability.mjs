@@ -15,7 +15,7 @@ if (help) {
 
 const collectSources = () => {
   const files = readdirSync(contentRoot, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(entry.name))
+    .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}(?:-[a-z0-9-]+)?$/.test(entry.name))
     .map((entry) => join(contentRoot, entry.name, 'index.md'))
   const sources = new Map()
   const markdownImage = /!\[[^\]]*\]\((https?:\/\/[^)\s]+)(?:\s+"[^"]*")?\)/g

@@ -1,11 +1,12 @@
 import { createHash } from 'node:crypto'
 import { existsSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from 'node:fs'
-import { dirname, join, resolve } from 'node:path'
+import { dirname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parse } from 'yaml'
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const contentRoot = resolve(process.env.BLOG_CONTENT_ROOT || join(repoRoot, 'content', 'blog'))
+const publicRoot = join(repoRoot, 'public')
 const legacyFiles = ['标题.txt', '摘要.txt', '分类.txt', '链接.txt']
 const allowedLinkLabels = new Set(['wechat', 'x', 'original'])
 
@@ -61,6 +62,47 @@ const normalizedDate = (value) => {
   return ''
 }
 
+const validateLocalPublishedAsset = (post, source, mediaType) => {
+  if (/^https?:\/\//i.test(source)) {
+    throw new Error(`${post.path} 的已发布正文包含外部${mediaType}：${source}。请先下载到 public/uploads/blog。`)
+  }
+  if (!source.startsWith('/')) throw new Error(`${post.path} 的${mediaType}必须使用本站绝对路径：${source || 'missing'}`)
+  const pathname = decodeURIComponent(source.split(/[?#]/, 1)[0])
+  const target = resolve(publicRoot, `.${pathname}`)
+  if (target !== publicRoot && !target.startsWith(`${publicRoot}${sep}`)) {
+    throw new Error(`${post.path} 的${mediaType}路径越出 public：${source}`)
+  }
+  if (!existsSync(target)) throw new Error(`${post.path} 引用的本地${mediaType}不存在：${source}`)
+}
+
+const readAttribute = (attributes, name) => {
+  const match = attributes.match(new RegExp(`\\b${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, 'i'))
+  return (match?.[1] ?? match?.[2] ?? match?.[3] ?? '').trim()
+}
+
+const validatePublishedMedia = (post) => {
+  if (post.data.contentStatus !== 'full' || post.data.draft === true) return
+  const markdownImage = /!\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g
+  for (const match of post.body.matchAll(markdownImage)) {
+    validateLocalPublishedAsset(post, match[1].replace(/^<|>$/g, ''), '图片')
+  }
+  const videoTag = /<video(?=\s[^<>]*\b(?:controls|poster|preload|aria-label)\b)([^<>]*)>([\s\S]*?)<\/video>/gi
+  for (const match of post.body.matchAll(videoTag)) {
+    const attributes = match[1]
+    const contents = match[2]
+    const label = readAttribute(attributes, 'aria-label')
+    const poster = readAttribute(attributes, 'poster')
+    const source = contents.match(/<source\b[^>]*\bsrc\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/i)
+    const sourcePath = (source?.[1] ?? source?.[2] ?? source?.[3] ?? '').trim()
+    if (!/\bcontrols\b/i.test(attributes)) throw new Error(`${post.path} 的视频缺少 controls。`)
+    if (!label || label === '嵌入式视频') throw new Error(`${post.path} 的视频缺少具体 aria-label。`)
+    if (!poster) throw new Error(`${post.path} 的视频缺少本地 poster。`)
+    if (!sourcePath) throw new Error(`${post.path} 的视频缺少本地 source。`)
+    validateLocalPublishedAsset(post, poster, '视频 poster')
+    validateLocalPublishedAsset(post, sourcePath, '视频 source')
+  }
+}
+
 const validate = () => {
   const slugs = new Set()
   const links = new Map()
@@ -103,6 +145,7 @@ const validate = () => {
     }
     if (/<\/?strong\b/i.test(post.body)) throw new Error(`${post.path} 仍包含旧 <strong> HTML；请先运行 npm run blog:migrate。`)
     if (/<img\b/i.test(post.body)) throw new Error(`${post.path} 包含原始 <img> HTML；请改为 Markdown 图片语法。`)
+    validatePublishedMedia(post)
     counts[post.data.contentStatus] += 1
     if (post.data.draft === true) counts.drafts += 1
   }

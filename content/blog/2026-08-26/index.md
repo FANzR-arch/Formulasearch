@@ -18,7 +18,7 @@ externalLinks:
   - label: "x"
     url: "https://x.com/Formulasearch/status/2092513573230833756"
 ---
-![文章内容配图](https://pbs.twimg.com/media/HQoVSsAbMAAih3E?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-26/inline-HQoVSsAbMAAih3E.jpg)
 
 **ComfyUI 看起来像一块接满电线的电路板，新手非常劝退，但连连看大家应该都玩过，道理都是一样的。而对于官方的默认工作流，甚至不需要任何连节点的操作，直接用就行了。**
 
@@ -40,7 +40,7 @@ externalLinks:
 
 最简单的检查方法
 
-![一、先检查自己的电脑配图](https://pbs.twimg.com/media/HQobE8DawAAcnL2?format=png&name=large)
+![一、先检查自己的电脑配图](/uploads/blog/2026-08-26/inline-HQobE8DawAAcnL2.png)
 
 在 Windows 中按 Ctrl + Shift + Esc 打开任务管理器，进入：
 
@@ -79,7 +79,7 @@ Get-PSDrive -PSProvider FileSystem |
 
 ComfyUI 官方没有给 H3 写一个“低于多少显存绝对不能运行”的保证表。量化、内存卸载、分辨率和时长都会改变结果。下面是更实用的选择建议，不是官方最低配置：
 
-![一、先检查自己的电脑配图](https://pbs.twimg.com/media/HQoUcjwasAAvIC2?format=jpg&name=large)
+![一、先检查自己的电脑配图](/uploads/blog/2026-08-26/inline-HQoUcjwasAAvIC2.jpg)
 
 当前 H3 模型仓库中，一套常见的精简 T2V/I2V 组合，包括量化扩散模型、文本编码器、视频 VAE、音频 VAE 和 Turbo LoRA，合计大约 **45GB**。增加 R2V 参考生视频权重后，还要再准备约 **23GB**。实际下载内容以 ComfyUI 模板弹窗为准，建议至少留出 70–100GB 空间。
 
@@ -91,7 +91,7 @@ X 上也有人用 RTX 3060 12GB 跑通 864×480、10 秒的视频，但耗时约
 
 新手直接使用官方 **Comfy Desktop**。ComfyUI 官方仓库也把 Desktop 称为 Windows 和 macOS 上最容易的使用方式。
 
-![二、在 Windows 安装 ComfyUI配图](https://pbs.twimg.com/media/HQoZCrYbcAAbHZ2?format=jpg&name=large)
+![二、在 Windows 安装 ComfyUI配图](/uploads/blog/2026-08-26/inline-HQoZCrYbcAAbHZ2.jpg)
 
 ## 安装步骤
 
@@ -116,7 +116,7 @@ X 上也有人用 RTX 3060 12GB 跑通 864×480、10 秒的视频，但耗时约
 
 最简单的云端方案是官方 [Comfy Cloud](https://comfy.org/cloud)。它不需要本地安装，模型和常用节点已经准备好，操作界面与本地 ComfyUI 基本一致。
 
-![三、电脑不合适时，直接用云端 ComfyUI配图](https://pbs.twimg.com/media/HQoZXx_aUAAuXTo?format=jpg&name=large)
+![三、电脑不合适时，直接用云端 ComfyUI配图](/uploads/blog/2026-08-26/inline-HQoZXx_aUAAuXTo.jpg)
 
 **云端操作**
 
@@ -137,15 +137,15 @@ Comfy Cloud 是订阅服务，价格可能变化，使用前看[实时定价页]
 
 ## 四、用 H3 生成第一条视频
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2092509535932178434/img/-WapUNwreT8XrM5C.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="MiniMax H3 视频示例 1" poster="/uploads/blog/2026-08-26/inline-WapUNwreT8XrM5C.jpg"><source src="/uploads/blog/2026-08-26/video-01.mp4" type="video/mp4"></video>
 
-![四、用 H3 生成第一条视频配图](https://pbs.twimg.com/amplify_video_thumb/2092509535932178434/img/-WapUNwreT8XrM5C.jpg?name=large)
+![四、用 H3 生成第一条视频配图](/uploads/blog/2026-08-26/inline-WapUNwreT8XrM5C.jpg)
 
 **先用官方 T2V，也就是文生视频。**
 
 ## 第一步：打开官方模板
 
-![第一步：打开官方模板配图](https://pbs.twimg.com/media/HQoWuxtbsAA6nCx?format=jpg&name=large)
+![第一步：打开官方模板配图](/uploads/blog/2026-08-26/inline-HQoWuxtbsAA6nCx.jpg)
 
 确认 ComfyUI 版本不低于 **0.30.0**，新安装则直接保持最新版。
 
@@ -157,7 +157,7 @@ Comfy Cloud 是订阅服务，价格可能变化，使用前看[实时定价页]
 
 ## 第二步：只改四个地方
 
-![第二步：只改四个地方配图](https://pbs.twimg.com/media/HQoXRB_akAAbXTX?format=jpg&name=large)
+![第二步：只改四个地方配图](/uploads/blog/2026-08-26/inline-HQoXRB_akAAbXTX.jpg)
 
 第一次不要动其他节点，只改：
 
@@ -197,11 +197,11 @@ H3 的提示词最好同时说明场景、动作、镜头和声音。例如：
 
 ## 五、用一张图片生成视频
 
-![五、用一张图片生成视频配图](https://pbs.twimg.com/media/HQoXvR0bsAAwKu8?format=jpg&name=large)
+![五、用一张图片生成视频配图](/uploads/blog/2026-08-26/inline-HQoXvR0bsAAwKu8.jpg)
 
 打开官方 **Image to Video** 模板。
 
-![五、用一张图片生成视频配图](https://pbs.twimg.com/media/HQoX3BLa8AAveYD?format=jpg&name=large)
+![五、用一张图片生成视频配图](/uploads/blog/2026-08-26/inline-HQoX3BLa8AAveYD.jpg)
 
 1. 在 Load Image 节点上传图片。
 2. 把图片作为 first\_frame。
@@ -300,9 +300,9 @@ H3 开放权重的单次生成上限应按约 15 秒理解。更长的视频通�
 7. H3 Director，做分镜、二采和放大。
 8. Motion Context MultiRef，做长视频或音乐视频。
 
-<video preload="none" tabindex="-1" playsinline="" aria-label="嵌入式视频" poster="https://pbs.twimg.com/amplify_video_thumb/2092511814039035904/img/4V_v5wvsfgGnoZG1.jpg" style="width: 100%; height: 100%; position: absolute; background-color: black; top: 0%; left: 0%; transform: rotate(0deg) scale(1.005);"><source type="video/mp4"></video>
+<video controls preload="metadata" playsinline aria-label="MiniMax H3 视频示例 2" poster="/uploads/blog/2026-08-26/inline-4V_v5wvsfgGnoZG1.jpg"><source src="/uploads/blog/2026-08-26/video-02.mp4" type="video/mp4"></video>
 
-![八、一条最稳的学习路线配图](https://pbs.twimg.com/amplify_video_thumb/2092511814039035904/img/4V_v5wvsfgGnoZG1.jpg?name=large)
+![八、一条最稳的学习路线配图](/uploads/blog/2026-08-26/inline-4V_v5wvsfgGnoZG1.jpg)
 
 先生成一条能播放的 5 秒视频，再谈高级工作流。ComfyUI 最容易走偏的地方，就是基础链路还没跑通，文件夹里已经装了几十个节点。
 

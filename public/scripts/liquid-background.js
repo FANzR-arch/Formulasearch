@@ -328,6 +328,8 @@
   let height = 0
   let frame = 0
   let lastFrame = 0
+  const maxRenderPixels = 1600000
+  const frameInterval = 1000 / 40
   let contextLost = false
   let theme = document.documentElement.dataset.theme === 'dark' ? 1 : 0
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
@@ -405,9 +407,10 @@
   const resize = () => {
     width = window.innerWidth
     height = window.innerHeight
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.15)
-    const nextWidth = Math.max(1, Math.round(width * dpr))
-    const nextHeight = Math.max(1, Math.round(height * dpr))
+    const preferredScale = Math.min(window.devicePixelRatio || 1, 1.15)
+    const pixelScale = Math.min(preferredScale, Math.sqrt(maxRenderPixels / Math.max(width * height, 1)))
+    const nextWidth = Math.max(1, Math.floor(width * pixelScale))
+    const nextHeight = Math.max(1, Math.floor(height * pixelScale))
 
     if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
       canvas.width = nextWidth
@@ -456,7 +459,7 @@
       frame = 0
       return
     }
-    if (now - lastFrame >= 28) {
+    if (now - lastFrame >= frameInterval) {
       lastFrame = now
       draw(now)
     }

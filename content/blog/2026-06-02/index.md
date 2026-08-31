@@ -57,45 +57,45 @@ externalLinks:
 
 **深圳**
 
-![深圳城市明信片拼贴，包含平安金融中心、深圳湾大桥、城市地图和多座地标建筑，右侧竖排写着“南海潮头，一城拔地逐梦来”](https://pbs.twimg.com/media/HLHQtXeXQAATQlL?format=jpg&name=large)
+![深圳城市明信片拼贴，包含平安金融中心、深圳湾大桥、城市地图和多座地标建筑，右侧竖排写着“南海潮头，一城拔地逐梦来”](/uploads/blog/2026-06-02/inline-HLHQtXeXQAATQlL.jpg)
 
 **广州**
 
-![广州城市明信片拼贴，组合广州塔、陈家祠、沙面建筑、河涌、城市地图和邮票](https://pbs.twimg.com/media/HLHPdzxXAAA76-K?format=jpg&name=large)
+![广州城市明信片拼贴，组合广州塔、陈家祠、沙面建筑、河涌、城市地图和邮票](/uploads/blog/2026-06-02/inline-HLHPdzxXAAA76-K.jpg)
 
 **北京**
 
-![北京城市明信片拼贴，组合故宫红墙、长城、天坛、颐和园、城市地图和邮票](https://pbs.twimg.com/media/HLHSCS7X0AEdB5d?format=jpg&name=large)
+![北京城市明信片拼贴，组合故宫红墙、长城、天坛、颐和园、城市地图和邮票](/uploads/blog/2026-06-02/inline-HLHSCS7X0AEdB5d.jpg)
 
 **上海**
 
-![上海城市明信片拼贴，组合外滩钟楼、东方明珠、上海中心、豫园建筑、黄浦江和城市地图](https://pbs.twimg.com/media/HLHSEq9XAAABfTb?format=jpg&name=large)
+![上海城市明信片拼贴，组合外滩钟楼、东方明珠、上海中心、豫园建筑、黄浦江和城市地图](/uploads/blog/2026-06-02/inline-HLHSEq9XAAABfTb.jpg)
 
 **西安**
 
-![西安城市明信片拼贴，组合兵马俑、大雁塔、古城墙与钟楼、城市地图和邮票](https://pbs.twimg.com/media/HLHSITBXAAAq9Mw?format=jpg&name=large)
+![西安城市明信片拼贴，组合兵马俑、大雁塔、古城墙与钟楼、城市地图和邮票](/uploads/blog/2026-06-02/inline-HLHSITBXAAAq9Mw.jpg)
 
 **成都**
 
-![成都城市明信片拼贴，组合熊猫、宽窄巷子、武侯祠、茶馆桌椅、城市地图和邮票](https://pbs.twimg.com/media/HLHSTzCXoAAw52l?format=jpg&name=large)
+![成都城市明信片拼贴，组合熊猫、宽窄巷子、武侯祠、茶馆桌椅、城市地图和邮票](/uploads/blog/2026-06-02/inline-HLHSTzCXoAAw52l.jpg)
 
 **苏州**
 
-![苏州城市明信片拼贴，组合园林亭台、虎丘塔、江南水乡桥巷、寒山寺、城市地图和邮票](https://pbs.twimg.com/media/HLHSW_-WMAA5hgb?format=jpg&name=large)
+![苏州城市明信片拼贴，组合园林亭台、虎丘塔、江南水乡桥巷、寒山寺、城市地图和邮票](/uploads/blog/2026-06-02/inline-HLHSW_-WMAA5hgb.jpg)
 
 ## 端午专属(今天就用得上)
 
 **秭归(屈原故里)**
 
-![屈原故里端午明信片拼贴，组合屈原祠、屈原雕像、粽子、长江三峡大坝和龙舟竞渡](https://pbs.twimg.com/media/HLHSaupXEAARVKF?format=jpg&name=large)
+![屈原故里端午明信片拼贴，组合屈原祠、屈原雕像、粽子、长江三峡大坝和龙舟竞渡](/uploads/blog/2026-06-02/inline-HLHSaupXEAARVKF.jpg)
 
 **汨罗(龙舟竞渡发源)**
 
-![宜昌西陵峡端午明信片拼贴，组合屈原祠、江面龙舟、粽子、峡谷景色和城市地图](https://pbs.twimg.com/media/HLHSdBVXsAAY7yS?format=jpg&name=large)
+![宜昌西陵峡端午明信片拼贴，组合屈原祠、江面龙舟、粽子、峡谷景色和城市地图](/uploads/blog/2026-06-02/inline-HLHSdBVXsAAY7yS.jpg)
 
 **嘉兴(粽子之乡)**
 
-![嘉兴水乡端午明信片拼贴，组合月河老街、水乡石桥、龙舟竞渡、粽子和艾草](https://pbs.twimg.com/media/HLHSlxtW8AAo_fM?format=jpg&name=large)
+![嘉兴水乡端午明信片拼贴，组合月河老街、水乡石桥、龙舟竞渡、粽子和艾草](/uploads/blog/2026-06-02/inline-HLHSlxtW8AAo_fM.jpg)
 
 ## 模式二 · Skill 版: 更稳、更自由、效果更好
 

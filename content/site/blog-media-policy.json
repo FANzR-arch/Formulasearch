@@ -1,6 +1,4 @@
 {
-  "externalImageHosts": [
-    "pbs.twimg.com"
-  ],
+  "externalImageHosts": [],
   "maxExternalImagesWithoutDimensions": 0
 }

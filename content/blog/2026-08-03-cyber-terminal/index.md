@@ -28,21 +28,21 @@ externalLinks:
 
 **演示案例：**
 
-![文章内容配图](https://pbs.twimg.com/media/HOy1IrcWoAAWEi3?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-03-cyber-terminal/inline-HOy1IrcWoAAWEi3.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOy1NzqWsAAkkUH?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-03-cyber-terminal/inline-HOy1NzqWsAAkkUH.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOy1ZG1W0AAM5bo?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-03-cyber-terminal/inline-HOy1ZG1W0AAM5bo.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOy1eDxXQAAtdXZ?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-03-cyber-terminal/inline-HOy1eDxXQAAtdXZ.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOy1f6dWQAAVZ_p?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-03-cyber-terminal/inline-HOy1f6dWQAAVZ_p.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOy1jNXWUAAw6D4?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-03-cyber-terminal/inline-HOy1jNXWUAAw6D4.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOy1lGjWoAAf9sm?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-03-cyber-terminal/inline-HOy1lGjWoAAf9sm.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOy1m1vWcAAjt-X?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-03-cyber-terminal/inline-HOy1m1vWcAAjt-X.jpg)
 
 ## 简易版提示词（复制即用）
 
