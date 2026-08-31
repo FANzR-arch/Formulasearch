@@ -23,7 +23,7 @@ externalLinks:
 25 方联名，劝美国政府别过早限制开放权重模型。截至 7 月 25 日，这条帖子已有约 2600 万次浏览、12 万点赞。
 
 > 7月24日
-> 
+>
 > For my first post, I’m sharing a letter @NVIDIA signed on why open models matter. AI will transform every industry, power every company, and be built by every country. Open models strengthen safety and cybersecurity, accelerate innovation and diffusion, and enable sovereignty.
 
 帖子里被引用最多的一句是「世界需要开源模型」。

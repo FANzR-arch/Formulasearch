@@ -23,7 +23,7 @@ externalLinks:
 概念的起点是 7 月 18 日，OpenClaw 作者 Peter Steinberger 在 X 上问了一句：大家还在聊 Loop，还是已经转向 Graph 了？
 
 > 7月18日
-> 
+>
 > Are we still talking loops or did we shift to graphs yet?
 
 这条推文获得了近 300 万浏览、7000+ 赞和 2700+ 收藏。
