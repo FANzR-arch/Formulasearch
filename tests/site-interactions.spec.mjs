@@ -736,10 +736,29 @@ test('photo archive removes repetitive captions', async ({ page }) => {
 test('architecture index exposes one entrance per project and details keep natural images', async ({ page }) => {
   await page.goto('/architecture')
   const entries = page.locator('.architecture-project-entry')
-  await expect(entries).toHaveCount(2)
-  await expect(entries.nth(0)).toHaveAttribute('href', '/architecture/nanjing-stone-city')
-  await expect(entries.nth(1)).toHaveAttribute('href', '/architecture/qingdao-hill-ocean')
-  await expect(entries.locator('img')).toHaveCount(2)
+  await expect(entries).toHaveCount(17)
+  await expect(entries.locator('img')).toHaveCount(17)
+  expect(await entries.evaluateAll((items) => items.map((item) => item.getAttribute('href')))).toEqual([
+    '/architecture/the-nomadic-home',
+    '/architecture/qingdao-hill-ocean',
+    '/architecture/delta-green-canyon',
+    '/architecture/the-flowing-nexus',
+    '/architecture/hunnan-city-library',
+    '/architecture/nanjing-stone-city',
+    '/architecture/coastal-retirement-complex',
+    '/architecture/community-studio',
+    '/architecture/shiling-school-port-building',
+    '/architecture/tcp-art-museum',
+    '/architecture/lili-in-sight',
+    '/architecture/fvd-community',
+    '/architecture/evolo-hyperloop-tower',
+    '/architecture/guangxingli-friendly-cafe',
+    '/architecture/fire-safety-center',
+    '/architecture/fire-shield',
+    '/architecture/the-woods',
+  ])
+  await expect(entries.nth(5).locator('.architecture-project-entry__meta > span')).toHaveText('2024 · 02')
+  await expect(entries.nth(8).locator('.architecture-project-entry__meta > span')).toHaveText('2023 · 01')
 
   await page.goto('/architecture/nanjing-stone-city')
   await expect(page.locator('.architecture-project-image')).toHaveCount(2)

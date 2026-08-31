@@ -1,0 +1,116 @@
+{
+  "slug": "guangxingli-friendly-cafe",
+  "index": "14",
+  "year": 2021,
+  "title": {
+    "zh": "广兴里友好咖啡厅",
+    "en": "Guangxingli Friendly Cafe"
+  },
+  "summary": {
+    "zh": "在传统街巷与木构语境中植入轻量咖啡空间，以可识别的构件、菜单与细部建立亲切的社区界面。",
+    "en": "A lightweight cafe intervention uses recognizable components, menus and details to create a friendly community edge within a traditional lane."
+  },
+  "cover": "/src/assets/archive/architecture/guangxingli-friendly-cafe/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/guangxingli-friendly-cafe/board-01.webp",
+      "alt": {
+        "zh": "广兴里友好咖啡厅空间设计与平面展板",
+        "en": "Guangxingli Friendly Cafe design and plan board"
+      },
+      "index": "83",
+      "layout": "hero",
+      "tags": [
+        "guangxingli-friendly-cafe"
+      ],
+      "label": {
+        "zh": "广兴里友好咖啡厅空间设计与平面展板",
+        "en": "Guangxingli Friendly Cafe design and plan board"
+      },
+      "caption": {
+        "zh": "广兴里友好咖啡厅空间设计与平面展板",
+        "en": "Guangxingli Friendly Cafe design and plan board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/guangxingli-friendly-cafe/board-02.webp",
+      "alt": {
+        "zh": "广兴里友好咖啡厅材料、构件与空间展板",
+        "en": "Guangxingli Friendly Cafe materials, components and spatial board"
+      },
+      "index": "84",
+      "layout": "wide",
+      "tags": [
+        "guangxingli-friendly-cafe"
+      ],
+      "label": {
+        "zh": "广兴里友好咖啡厅材料、构件与空间展板",
+        "en": "Guangxingli Friendly Cafe materials, components and spatial board"
+      },
+      "caption": {
+        "zh": "广兴里友好咖啡厅材料、构件与空间展板",
+        "en": "Guangxingli Friendly Cafe materials, components and spatial board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/guangxingli-friendly-cafe/board-03.webp",
+      "alt": {
+        "zh": "广兴里友好咖啡厅室内效果与细部展板",
+        "en": "Guangxingli Friendly Cafe interior views and detail board"
+      },
+      "index": "85",
+      "layout": "wide",
+      "tags": [
+        "guangxingli-friendly-cafe"
+      ],
+      "label": {
+        "zh": "广兴里友好咖啡厅室内效果与细部展板",
+        "en": "Guangxingli Friendly Cafe interior views and detail board"
+      },
+      "caption": {
+        "zh": "广兴里友好咖啡厅室内效果与细部展板",
+        "en": "Guangxingli Friendly Cafe interior views and detail board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/guangxingli-friendly-cafe/menu-01.webp",
+      "alt": {
+        "zh": "广兴里友好咖啡厅菜单设计",
+        "en": "Guangxingli Friendly Cafe menu design"
+      },
+      "index": "86",
+      "layout": "wide",
+      "tags": [
+        "guangxingli-friendly-cafe"
+      ],
+      "label": {
+        "zh": "广兴里友好咖啡厅菜单设计",
+        "en": "Guangxingli Friendly Cafe menu design"
+      },
+      "caption": {
+        "zh": "广兴里友好咖啡厅菜单设计",
+        "en": "Guangxingli Friendly Cafe menu design"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/guangxingli-friendly-cafe/menu-02.webp",
+      "alt": {
+        "zh": "广兴里友好咖啡厅品牌封面设计",
+        "en": "Guangxingli Friendly Cafe brand cover"
+      },
+      "index": "87",
+      "layout": "wide",
+      "tags": [
+        "guangxingli-friendly-cafe"
+      ],
+      "label": {
+        "zh": "广兴里友好咖啡厅品牌封面设计",
+        "en": "Guangxingli Friendly Cafe brand cover"
+      },
+      "caption": {
+        "zh": "广兴里友好咖啡厅品牌封面设计",
+        "en": "Guangxingli Friendly Cafe brand cover"
+      }
+    }
+  ]
+}

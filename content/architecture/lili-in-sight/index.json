@@ -1,0 +1,76 @@
+{
+  "slug": "lili-in-sight",
+  "index": "11",
+  "year": 2022,
+  "title": {
+    "zh": "里里在目",
+    "en": "Lili in Sight"
+  },
+  "summary": {
+    "zh": "从历史街区肌理与立面构件出发，以渐进式更新重组院落、街巷和社区公共生活。",
+    "en": "A gradual renewal strategy reorganizes courtyards, lanes and community life through the historic fabric and facade components."
+  },
+  "cover": "/src/assets/archive/architecture/lili-in-sight/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/lili-in-sight/board-01.webp",
+      "alt": {
+        "zh": "里里在目历史街区总体更新策略展板",
+        "en": "Lili in Sight historic district renewal overview board"
+      },
+      "index": "77",
+      "layout": "hero",
+      "tags": [
+        "lili-in-sight"
+      ],
+      "label": {
+        "zh": "里里在目历史街区总体更新策略展板",
+        "en": "Lili in Sight historic district renewal overview board"
+      },
+      "caption": {
+        "zh": "里里在目历史街区总体更新策略展板",
+        "en": "Lili in Sight historic district renewal overview board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/lili-in-sight/board-02.webp",
+      "alt": {
+        "zh": "里里在目构件推演、立面与空间更新展板",
+        "en": "Lili in Sight component studies, facade and spatial renewal board"
+      },
+      "index": "78",
+      "layout": "wide",
+      "tags": [
+        "lili-in-sight"
+      ],
+      "label": {
+        "zh": "里里在目构件推演、立面与空间更新展板",
+        "en": "Lili in Sight component studies, facade and spatial renewal board"
+      },
+      "caption": {
+        "zh": "里里在目构件推演、立面与空间更新展板",
+        "en": "Lili in Sight component studies, facade and spatial renewal board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/lili-in-sight/board-03.webp",
+      "alt": {
+        "zh": "里里在目剖面、平面与构造系统展板",
+        "en": "Lili in Sight sections, plans and construction system board"
+      },
+      "index": "79",
+      "layout": "wide",
+      "tags": [
+        "lili-in-sight"
+      ],
+      "label": {
+        "zh": "里里在目剖面、平面与构造系统展板",
+        "en": "Lili in Sight sections, plans and construction system board"
+      },
+      "caption": {
+        "zh": "里里在目剖面、平面与构造系统展板",
+        "en": "Lili in Sight sections, plans and construction system board"
+      }
+    }
+  ]
+}

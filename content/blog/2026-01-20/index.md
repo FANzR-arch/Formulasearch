@@ -2,6 +2,7 @@
 title: "我用n8n和便宜AI，造了一台“批量平庸制造机”"
 description: "我在幻想着，如果这套Agent跑通了，就意味着我可以在睡觉时，让AI帮我自动通过“搬运+写文”来赚取流量收益，这不妥妥的“睡后收入”吗。"
 pubDate: 2026-01-20
+sourceId: "2026-01-20"
 slug: ai-practice-2026-01-20
 category: ai-practice
 tags: []

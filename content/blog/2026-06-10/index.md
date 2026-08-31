@@ -2,6 +2,7 @@
 title: "提示词美学解码 × 瑞士国际主义 _ 信息的秩序"
 description: "瑞士国际主义，也常被称为 International Typographic Style / Swiss Design，是二战后瑞士和德国设计师将现代主义平面设计进一步系统化形成的视觉传达方法。"
 pubDate: 2026-06-24
+sourceId: "2026-06-10"
 slug: prompt-aesthetic-2026-06-10
 category: prompt-aesthetic
 tags: []
@@ -22,9 +23,9 @@ externalLinks:
 
 很多文章封面的问题，并不在于设计元素不足，在于信息没有被有效组织。 标题很大，但阅读顺序不清，有配图，但功能不明确，缺少稳定关系。
 
-对于科技文章、商业分析、方法论、研究报告、AI 工具拆解，<strong>瑞士国际主义</strong>通常比复古插画、赛博风、复杂拼贴更合适，不强调装饰效果，重点是信息秩序。
+对于科技文章、商业分析、方法论、研究报告、AI 工具拆解，**瑞士国际主义**通常比复古插画、赛博风、复杂拼贴更合适，不强调装饰效果，重点是信息秩序。
 
-<strong>本文聚焦一个问题：</strong> 如何把瑞士国际主义拆成可执行的生图提示词，用在海报、文章封面和视觉主图里。
+**本文聚焦一个问题：** 如何把瑞士国际主义拆成可执行的生图提示词，用在海报、文章封面和视觉主图里。
 
 ## 1\. 何为"瑞士国际主义"
 
@@ -32,9 +33,9 @@ externalLinks:
 
 ![“System”瑞士风格版式研究图，米白底六栏网格配蓝黑方块、左侧原则清单和右侧比例图例](https://pbs.twimg.com/media/HLlYb4xX0AAbLwA?format=jpg&name=large)
 
-<strong>瑞士国际主义</strong>，也常被称为 International Typographic Style / Swiss Design，是二战后瑞士和德国设计师将现代主义平面设计进一步系统化形成的视觉传达方法。
+**瑞士国际主义**，也常被称为 International Typographic Style / Swiss Design，是二战后瑞士和德国设计师将现代主义平面设计进一步系统化形成的视觉传达方法。
 
-<strong>它强调中立、客观、理性规划、模块网格、无衬线字体、非对称版式、清晰信息层级和相对客观的图像使用</strong>。
+**它强调中立、客观、理性规划、模块网格、无衬线字体、非对称版式、清晰信息层级和相对客观的图像使用**。
 
 它适合海报和封面，因为这类画面经常要同时处理标题、图像、编号、时间、说明文字和机构信息。瑞士国际主义提供的不是单一版式，而是一套让多层信息形成稳定关系的视觉方法。
 
@@ -55,7 +56,7 @@ externalLinks:
 | 高奢、电影、夜生活、仪式感主题 | 边界使用 | 可以做高级理性版本，但不适合表现华丽、性感和戏剧性 |
 | 需要复杂故事场景的封面 | 不适合 | 瑞士国际主义更适合信息结构，不适合多人物叙事插画 |
 
-<strong>使用边界：</strong> 如果目标是可信、清楚、专业、可读，它的适配度高；如果目标是强情绪、强故事、强装饰，它不是第一选择。
+**使用边界：** 如果目标是可信、清楚、专业、可读，它的适配度高；如果目标是强情绪、强故事、强装饰，它不是第一选择。
 
 ## 3\. 核心视觉特征拆解
 
@@ -123,7 +124,7 @@ no vintage paper texture, no glossy 3D, no heavy shadows, no grunge noise
 
 冷静、客观、专业、可信、有编辑判断；它的情绪表达克制，适合传达清晰、理性和可读性。
 
-<strong>避免误用：</strong>
+**避免误用：**
 
 1. 把瑞士国际主义等同于白底黑字。
 2. 只写 Helvetica，但不写网格和层级。
@@ -158,7 +159,7 @@ no vintage paper texture, no glossy 3D, no heavy shadows, no grunge noise
 
 复制后替换 {}，每组选项只选一个方向，不要全部塞进去。下面这套骨架就是第 6 节五个案例共用的结构。
 
-骨架分两层：<strong>锁死的风格内核</strong>（每条必带）和<strong>自由变量</strong>（按画面需要选）。
+骨架分两层：**锁死的风格内核**（每条必带）和**自由变量**（按画面需要选）。
 
 ```text
 INPUT：
@@ -201,19 +202,19 @@ Sharp edges, precise grid alignment, flat offset-print feeling, clean hierarchy,
 
 ## 5\. 结构规范：
 
-<strong>一、锚定设计师而不是锚定名词：</strong> Swiss style 这个流派名模型见得太多、已经被平均化，会退回当代极简。第一行直接指名：in the manner of Josef Müller-Brockmann / Armin Hofmann / Emil Ruder / Max Bill，方向立刻收窄到具体的人和具体的海报机制。
+**一、锚定设计师而不是锚定名词：** Swiss style 这个流派名模型见得太多、已经被平均化，会退回当代极简。第一行直接指名：in the manner of Josef Müller-Brockmann / Armin Hofmann / Emil Ruder / Max Bill，方向立刻收窄到具体的人和具体的海报机制。
 
-<strong>二、成系统或成结构的几何：</strong> 写 a dense progressive system of dozens of arcs / squares / bands on mathematical progression，或 one or few boldly scaled forms with large structural negative space。两条路都成立；要避免的是孤立的卡通式图标，而不是元素少。
+**二、成系统或成结构的几何：** 写 a dense progressive system of dozens of arcs / squares / bands on mathematical progression，或 one or few boldly scaled forms with large structural negative space。两条路都成立；要避免的是孤立的卡通式图标，而不是元素少。
 
-<strong>三、文字信息秩序：</strong> 瑞士排印的节奏长在拉丁字母上，纯中文大字容易变成标语。更稳的做法是：大拉丁词当主视觉冲击（ORDER、FRICTION），一行小中文交代主题（「极简主义的秩序」），两者锁在同一套网格、同一个无衬线字体、不同字号。标题位置不必固定左上——顶部、底部、竖排、贴某一栏都行，只要对齐网格、与几何形成平衡。中文受众看懂意义，画面拿到瑞士纹理。
+**三、文字信息秩序：** 瑞士排印的节奏长在拉丁字母上，纯中文大字容易变成标语。更稳的做法是：大拉丁词当主视觉冲击（ORDER、FRICTION），一行小中文交代主题（「极简主义的秩序」），两者锁在同一套网格、同一个无衬线字体、不同字号。标题位置不必固定左上——顶部、底部、竖排、贴某一栏都行，只要对齐网格、与几何形成平衡。中文受众看懂意义，画面拿到瑞士纹理。
 
-<strong>四、留白要被网格定义：</strong> 写 negative space is structural, grid-defined and balanced。大留白本身不是问题，要避免的是没经营的死空——留白要被网格切分、和主体形成平衡。
+**四、留白要被网格定义：** 写 negative space is structural, grid-defined and balanced。大留白本身不是问题，要避免的是没经营的死空——留白要被网格切分、和主体形成平衡。
 
 字体补充：medium-weight grotesk, tight optical spacing，避免重美术黑体。把这四个动作叠进基础结构，画面就会从「干净」走到「有秩序的密度」。
 
 ## 6\. 案例演示（实测成图 + 复制即用提示词）
 
-<strong>案例一：GRID · 纯网格 / 黑白红（Müller-Brockmann der Film）</strong>
+**案例一：GRID · 纯网格 / 黑白红（Müller-Brockmann der Film）**
 
 ![GRID 案例海报，黑底米白字配六栏网格和红色方块递增序列，强调网格是结构而非装饰](https://pbs.twimg.com/media/HLlauZHXgAAoWxK?format=jpg&name=large)
 
@@ -242,7 +243,7 @@ AVOID — Bauhaus module matrix / pattern board; De Stijl primary-color blocks; 
 QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, flat color.
 ```
 
-<strong>案例二：SIGNAL · 图解过程 / 米白红（Anton Stankowski）</strong>
+**案例二：SIGNAL · 图解过程 / 米白红（Anton Stankowski）**
 
 ![SIGNAL 案例海报，以红色箭头、黑色屏障、点阵和圆点串联 source、transmission、reception、response 的通信流程](https://pbs.twimg.com/media/HLlazKdW4AAJpV8?format=jpg&name=large)
 
@@ -271,7 +272,7 @@ AVOID — Bauhaus module matrix / pattern board; De Stijl primary-color blocks; 
 QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, flat color.
 ```
 
-<strong>案例三：COLOR · 序列比例 / 黑白灰+单红（Richard Paul Lohse）</strong>
+**案例三：COLOR · 序列比例 / 黑白灰+单红（Richard Paul Lohse）**
 
 ![COLOR 案例海报，以六列灰度方格按明度递进，单个红色方块作为强调色，展示比例与层级](https://pbs.twimg.com/media/HLla4soW0AAv2TK?format=jpg&name=large)
 
@@ -300,7 +301,7 @@ AVOID — Bauhaus module matrix / pattern board; De Stijl primary-color blocks; 
 QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, flat color.
 ```
 
-<strong>案例四：STRUCTURE · 网格场域 / 米白黑蓝（Karl Gerstner）</strong>
+**案例四：STRUCTURE · 网格场域 / 米白黑蓝（Karl Gerstner）**
 
 ![STRUCTURE 案例海报，米白底六栏网格中排列黑白三角与蓝色几何模块，左下配结构标题](https://pbs.twimg.com/media/HLlbnEEXwAA2npG?format=jpg&name=large)
 
@@ -329,7 +330,7 @@ AVOID — Bauhaus module matrix / pattern board; De Stijl primary-color blocks; 
 QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, flat color.
 ```
 
-<strong>案例五：ORDER · 同心弧 / 红（Müller-Brockmann，强传播封面向）</strong>
+**案例五：ORDER · 同心弧 / 红（Müller-Brockmann，强传播封面向）**
 
 ![ORDER 案例海报，红色底上黑白同心弧线向右密集递进，形成信息秩序和节奏](https://pbs.twimg.com/media/HLlbp7dW4AEkv5p?format=jpg&name=large)
 
@@ -358,7 +359,7 @@ AVOID — Bauhaus module matrix / pattern board; De Stijl primary-color blocks; 
 QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, flat color.
 ```
 
-<strong>案例六：CRAFT · 功能性破格 / 米白橙（Wolfgang Weingart）</strong>
+**案例六：CRAFT · 功能性破格 / 米白橙（Wolfgang Weingart）**
 
 ![CRAFT 案例海报，米白底六栏网格中叠加一块略微倾斜的橙色矩形，配纵向 CRAFT 与“受控的破格”标题](https://pbs.twimg.com/media/HLlbtHJWQAEnQ_a?format=jpg&name=large)
 
@@ -387,7 +388,7 @@ AVOID — over-broken layout; Bauhaus module matrix / pattern board; De Stijl pr
 QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, flat color.
 ```
 
-<strong>非常感谢您能看到这里</strong><strong>👇</strong>
+**非常感谢您能看到这里****👇**
 
 除了上文中的多种固定提示词之外，这是更加灵活自由的skill版本： [FANzR-arch/image-prompt-skills](https://github.com/FANzR-arch/image-prompt-skills)
 
@@ -395,6 +396,6 @@ QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, 
 
 横板5：2，生成一张瑞士风格文章封面，标题是：信息的秩序。AI会识别分析你的意图，自动匹配生成更为合适的提示词，欢迎尝试，欢迎与我交流~
 
-<strong>我是阿哲Phil，"一个自由的提示词诗人"</strong>
+**我是阿哲Phil，"一个自由的提示词诗人"**
 
 欢迎关注我 [@Formulasearch](https://x.com/Formulasearch)，我会持续分享：用AI解码美学 × AI实践 × 增长心得

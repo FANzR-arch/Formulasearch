@@ -2,6 +2,7 @@
 title: "从「对话」到「系统」，装好CC的下一步应该做的是？"
 description: "装好 Claude Code 之后，下一步该怎么办？CC 本身是空白的：它知道怎么帮你，但它不知道你是谁、在做什么、你的工作有什么规律。从\"装好了\"到\"真正进入生产力\"，中间要做一件事："
 pubDate: 2026-03-11
+sourceId: "2026-03-11"
 slug: ai-practice-2026-03-11
 category: ai-practice
 tags: []

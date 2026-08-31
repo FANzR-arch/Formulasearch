@@ -1,0 +1,336 @@
+{
+  "slug": "the-flowing-nexus",
+  "index": "06",
+  "year": 2025,
+  "title": {
+    "zh": "流动节点",
+    "en": "The Flowing Nexus"
+  },
+  "summary": {
+    "zh": "将伦敦伊斯灵顿的边角地转化为连续可步行绿坡、社区庭院与微型生态基础设施。",
+    "en": "An overlooked Islington corner becomes a walkable green slope, community courtyard and piece of micro-ecological infrastructure."
+  },
+  "cover": "/src/assets/archive/architecture/the-flowing-nexus/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-01.webp",
+      "alt": {
+        "zh": "流动节点建筑封面与屋顶景观",
+        "en": "The Flowing Nexus cover and roof landscape"
+      },
+      "index": "25",
+      "layout": "hero",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点建筑封面与屋顶景观",
+        "en": "The Flowing Nexus cover and roof landscape"
+      },
+      "caption": {
+        "zh": "流动节点建筑封面与屋顶景观",
+        "en": "The Flowing Nexus cover and roof landscape"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-03.webp",
+      "alt": {
+        "zh": "流动节点项目陈述与场地位置",
+        "en": "Project statement and site location"
+      },
+      "index": "26",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点项目陈述与场地位置",
+        "en": "Project statement and site location"
+      },
+      "caption": {
+        "zh": "流动节点项目陈述与场地位置",
+        "en": "Project statement and site location"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-04.webp",
+      "alt": {
+        "zh": "流动节点社区交汇场地分析",
+        "en": "Community crossroads site analysis"
+      },
+      "index": "27",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点社区交汇场地分析",
+        "en": "Community crossroads site analysis"
+      },
+      "caption": {
+        "zh": "流动节点社区交汇场地分析",
+        "en": "Community crossroads site analysis"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-08.webp",
+      "alt": {
+        "zh": "流动节点形体方案迭代",
+        "en": "Massing design iterations"
+      },
+      "index": "28",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点形体方案迭代",
+        "en": "Massing design iterations"
+      },
+      "caption": {
+        "zh": "流动节点形体方案迭代",
+        "en": "Massing design iterations"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-09.webp",
+      "alt": {
+        "zh": "流动城市景观生成策略",
+        "en": "Flowing urban landscape design principles"
+      },
+      "index": "29",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动城市景观生成策略",
+        "en": "Flowing urban landscape design principles"
+      },
+      "caption": {
+        "zh": "流动城市景观生成策略",
+        "en": "Flowing urban landscape design principles"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-10.webp",
+      "alt": {
+        "zh": "流动节点总平面",
+        "en": "The Flowing Nexus site plan"
+      },
+      "index": "30",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点总平面",
+        "en": "The Flowing Nexus site plan"
+      },
+      "caption": {
+        "zh": "流动节点总平面",
+        "en": "The Flowing Nexus site plan"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-14.webp",
+      "alt": {
+        "zh": "流动节点场地关系剖面",
+        "en": "Contextual site section"
+      },
+      "index": "31",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点场地关系剖面",
+        "en": "Contextual site section"
+      },
+      "caption": {
+        "zh": "流动节点场地关系剖面",
+        "en": "Contextual site section"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-17.webp",
+      "alt": {
+        "zh": "流动节点屋顶与庭院透视",
+        "en": "Roof and courtyard perspective"
+      },
+      "index": "32",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点屋顶与庭院透视",
+        "en": "Roof and courtyard perspective"
+      },
+      "caption": {
+        "zh": "流动节点屋顶与庭院透视",
+        "en": "Roof and courtyard perspective"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-18.webp",
+      "alt": {
+        "zh": "流动节点室内空间透视组图",
+        "en": "Interior perspective studies"
+      },
+      "index": "33",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点室内空间透视组图",
+        "en": "Interior perspective studies"
+      },
+      "caption": {
+        "zh": "流动节点室内空间透视组图",
+        "en": "Interior perspective studies"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-19.webp",
+      "alt": {
+        "zh": "流动节点建筑外部透视组图",
+        "en": "Exterior perspective studies"
+      },
+      "index": "34",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点建筑外部透视组图",
+        "en": "Exterior perspective studies"
+      },
+      "caption": {
+        "zh": "流动节点建筑外部透视组图",
+        "en": "Exterior perspective studies"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-20.webp",
+      "alt": {
+        "zh": "流动节点空间组织分析",
+        "en": "Spatial organization diagram"
+      },
+      "index": "35",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点空间组织分析",
+        "en": "Spatial organization diagram"
+      },
+      "caption": {
+        "zh": "流动节点空间组织分析",
+        "en": "Spatial organization diagram"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-21.webp",
+      "alt": {
+        "zh": "流动节点环境系统总览",
+        "en": "Environmental systems summary"
+      },
+      "index": "36",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点环境系统总览",
+        "en": "Environmental systems summary"
+      },
+      "caption": {
+        "zh": "流动节点环境系统总览",
+        "en": "Environmental systems summary"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u8-22.webp",
+      "alt": {
+        "zh": "流动节点构造分解轴测",
+        "en": "Exploded tectonic axonometric"
+      },
+      "index": "37",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点构造分解轴测",
+        "en": "Exploded tectonic axonometric"
+      },
+      "caption": {
+        "zh": "流动节点构造分解轴测",
+        "en": "Exploded tectonic axonometric"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u9-13.webp",
+      "alt": {
+        "zh": "流动节点结构系统研究",
+        "en": "Structural system study"
+      },
+      "index": "38",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点结构系统研究",
+        "en": "Structural system study"
+      },
+      "caption": {
+        "zh": "流动节点结构系统研究",
+        "en": "Structural system study"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u9-15.webp",
+      "alt": {
+        "zh": "流动节点环境策略研究",
+        "en": "Environmental strategy study"
+      },
+      "index": "39",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点环境策略研究",
+        "en": "Environmental strategy study"
+      },
+      "caption": {
+        "zh": "流动节点环境策略研究",
+        "en": "Environmental strategy study"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/the-flowing-nexus/u9-22.webp",
+      "alt": {
+        "zh": "流动节点技术构造片段",
+        "en": "Technical construction fragment"
+      },
+      "index": "40",
+      "layout": "wide",
+      "tags": [
+        "the-flowing-nexus"
+      ],
+      "label": {
+        "zh": "流动节点技术构造片段",
+        "en": "Technical construction fragment"
+      },
+      "caption": {
+        "zh": "流动节点技术构造片段",
+        "en": "Technical construction fragment"
+      }
+    }
+  ]
+}

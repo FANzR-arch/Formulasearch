@@ -1,0 +1,96 @@
+{
+  "slug": "delta-green-canyon",
+  "index": "05",
+  "year": 2025,
+  "title": {
+    "zh": "绿色峡谷：台达杯绿建改造",
+    "en": "Green Canyon: Delta Cup Retrofit"
+  },
+  "summary": {
+    "zh": "以贯穿既有体量的绿色峡谷组织通风、采光与公共流线，重塑建筑的环境性能和共享界面。",
+    "en": "A green canyon cuts through the existing mass to organize ventilation, daylight and public circulation while renewing environmental performance."
+  },
+  "cover": "/src/assets/archive/architecture/delta-green-canyon/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/delta-green-canyon/board-01.webp",
+      "alt": {
+        "zh": "绿色峡谷改造概念与中庭效果展板",
+        "en": "Green Canyon retrofit concept and atrium board"
+      },
+      "index": "21",
+      "layout": "hero",
+      "tags": [
+        "delta-green-canyon"
+      ],
+      "label": {
+        "zh": "绿色峡谷改造概念与中庭效果展板",
+        "en": "Green Canyon retrofit concept and atrium board"
+      },
+      "caption": {
+        "zh": "绿色峡谷改造概念与中庭效果展板",
+        "en": "Green Canyon retrofit concept and atrium board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/delta-green-canyon/board-02.webp",
+      "alt": {
+        "zh": "绿色峡谷形体推演与环境剖面展板",
+        "en": "Green Canyon massing iterations and environmental section board"
+      },
+      "index": "22",
+      "layout": "wide",
+      "tags": [
+        "delta-green-canyon"
+      ],
+      "label": {
+        "zh": "绿色峡谷形体推演与环境剖面展板",
+        "en": "Green Canyon massing iterations and environmental section board"
+      },
+      "caption": {
+        "zh": "绿色峡谷形体推演与环境剖面展板",
+        "en": "Green Canyon massing iterations and environmental section board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/delta-green-canyon/board-03.webp",
+      "alt": {
+        "zh": "绿色峡谷场地、平面与空间策略展板",
+        "en": "Green Canyon site, plans and spatial strategy board"
+      },
+      "index": "23",
+      "layout": "wide",
+      "tags": [
+        "delta-green-canyon"
+      ],
+      "label": {
+        "zh": "绿色峡谷场地、平面与空间策略展板",
+        "en": "Green Canyon site, plans and spatial strategy board"
+      },
+      "caption": {
+        "zh": "绿色峡谷场地、平面与空间策略展板",
+        "en": "Green Canyon site, plans and spatial strategy board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/delta-green-canyon/board-04.webp",
+      "alt": {
+        "zh": "绿色峡谷立面推演与技术策略展板",
+        "en": "Green Canyon facade iterations and technical strategy board"
+      },
+      "index": "24",
+      "layout": "wide",
+      "tags": [
+        "delta-green-canyon"
+      ],
+      "label": {
+        "zh": "绿色峡谷立面推演与技术策略展板",
+        "en": "Green Canyon facade iterations and technical strategy board"
+      },
+      "caption": {
+        "zh": "绿色峡谷立面推演与技术策略展板",
+        "en": "Green Canyon facade iterations and technical strategy board"
+      }
+    }
+  ]
+}

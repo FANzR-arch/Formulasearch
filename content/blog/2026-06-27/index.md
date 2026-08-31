@@ -2,6 +2,7 @@
 title: "提示词美学解码 × Plakatstil：单物体视觉"
 description: "Plakatstil 风格值得拆解的地方就在这里，删掉复杂场景，删掉故事背景，删掉长文案，只保留一个被强烈简化的商品或物体，再配一个极短的名称。"
 pubDate: 2026-06-29
+sourceId: "2026-06-27"
 slug: prompt-aesthetic-2026-06-27
 category: prompt-aesthetic
 tags: []
@@ -22,15 +23,15 @@ externalLinks:
 
 很多 AI 封面图，有光、有质感、有构图，也有一堆看起来高级的风格词。但画面里没有一个能被记住的主语。读者滑过去以后，只剩下一种模糊印象：好像挺精致，但不知道讲什么。
 
-<strong>Plakatstil 风格值得拆解的地方就在这里</strong>
+**Plakatstil 风格值得拆解的地方就在这里**
 
 ## 一、先把主题变成一个物体
 
 ![复古 Plakatstil 海报，黑底上以金色大字、一件银色金属工具和横向彩色条纹组成单一物体主视觉](https://pbs.twimg.com/media/HL9ui1bWUAASJQP?format=jpg&name=large)
 
-<strong>Plakatstil （对象海报设计风格）</strong> 是 20 世纪初德国广告海报里的一种视觉方法，常和 Sachplakat，也就是「物体海报」一起讨论。它的画面逻辑很直接：删掉复杂场景，删掉故事背景，删掉长文案，只保留一个被强烈简化的商品或物体，再配一个极短的名称。
+**Plakatstil （对象海报设计风格）** 是 20 世纪初德国广告海报里的一种视觉方法，常和 Sachplakat，也就是「物体海报」一起讨论。它的画面逻辑很直接：删掉复杂场景，删掉故事背景，删掉长文案，只保留一个被强烈简化的商品或物体，再配一个极短的名称。
 
-<strong>最常被提到的案例，是 Lucian Bernhard 的 Priester 火柴海报。</strong>
+**最常被提到的案例，是 Lucian Bernhard 的 Priester 火柴海报。**
 
 画面里没有抽烟的人，没有商店，没有街景，也没有一堆广告语。只有两根火柴和一个产品名。
 
@@ -48,42 +49,42 @@ externalLinks:
 
 提示词可以比传统商品海报多保留一行小副标题，暗示读者这篇内容为什么值得点开或收藏。
 
-<strong>01｜AI 副业变现｜ 一叠钞票</strong>
+**01｜AI 副业变现｜ 一叠钞票**
 
-一篇讲 <strong>「AI 副业分享，然后包装成可卖的东西」</strong> 的文章，可以直接用一叠厚厚的纸币做主角。配两个中文大字 变现。读者先记住现金，再理解文章在教怎么把知识变成第一桶金。
+一篇讲 **「AI 副业分享，然后包装成可卖的东西」** 的文章，可以直接用一叠厚厚的纸币做主角。配两个中文大字 变现。读者先记住现金，再理解文章在教怎么把知识变成第一桶金。
 
 ![AI 副业变现海报，绿色背景与金色横条上写着“变现”，右侧是一叠侧面捆扎的旧纸币](https://pbs.twimg.com/media/HL9vRveWYAA_gOv?format=jpg&name=large)
 
 ![AI 副业变现海报，绿色背景与金色横条上写着“变现”，下方正面展示一叠捆扎的旧纸币](https://pbs.twimg.com/media/HL9vVhYXUAA9fN5?format=jpg&name=large)
 
-<strong>02｜AI Agent 自动化｜金属齿轮</strong>
+**02｜AI Agent 自动化｜金属齿轮**
 
-一篇讲 <strong>「普通人用 AI Agent 跑通自动化系统，实现半被动收入」</strong> 的文章，不需要画流程图。它可以变成一个巨大的金属齿轮，配中文短词 自动。齿轮代表持续运转的赚钱机器。
+一篇讲 **「普通人用 AI Agent 跑通自动化系统，实现半被动收入」** 的文章，不需要画流程图。它可以变成一个巨大的金属齿轮，配中文短词 自动。齿轮代表持续运转的赚钱机器。
 
 
 ![AI Agent 自动化海报，蓝色手写字和箭头指向一枚巨大的金属齿轮，底部标注“把流程交给系统”](https://pbs.twimg.com/media/HL9vYhxW0AAZwN6?format=jpg&name=large)
 
 ![AI Agent 自动化海报，黑色手写字和箭头叠在巨大的灰色齿轮上，蓝色与红色块强化“把流程交给系统”主题](https://pbs.twimg.com/media/HL9veBlWMAA-UMI?format=jpg&name=large)
 
-<strong>03｜AI 提示词和教程｜商品包装盒</strong>
+**03｜AI 提示词和教程｜商品包装盒**
 
-一篇讲 <strong>「AI分享教程、提示词模板、实操指南卖数字产品」</strong> 的文章，可以用一个商品包装盒做视觉主角。中文短词 售卖 直接印在包装标签上。盒子本身就是待售的产品。
+一篇讲 **「AI分享教程、提示词模板、实操指南卖数字产品」** 的文章，可以用一个商品包装盒做视觉主角。中文短词 售卖 直接印在包装标签上。盒子本身就是待售的产品。
 
 ![数字产品售卖海报，复古纸盒以绿色标签写着“售卖”，盒侧排列聊天、课程、计算器和下载图标](https://pbs.twimg.com/media/HL9vxcGXIAAMrh6?format=jpg&name=large)
 
 ![数字产品售卖海报，打开的复古纸盒正面写着“售卖”和“把经验打包出售”，下方配脑图、书本和文件夹图标](https://pbs.twimg.com/media/HL9vusaX0AAZLh_?format=jpg&name=large)
 
-<strong>04｜内容增长｜扩音器</strong>
+**04｜内容增长｜扩音器**
 
-一篇讲 <strong>「AI 批量生成内容 + 多平台分发矩阵变现」</strong> 的文章，可以用一个老式黄铜扩音器做主语。中文短词 触达 放在扩音器后方。暗示声音被放大，内容被更多人听到并付费。
+一篇讲 **「AI 批量生成内容 + 多平台分发矩阵变现」** 的文章，可以用一个老式黄铜扩音器做主语。中文短词 触达 放在扩音器后方。暗示声音被放大，内容被更多人听到并付费。
 
 ![内容触达海报，红橙背景和海浪纹样中，一只老式黄铜扩音器朝右，标题写着“触达”](https://pbs.twimg.com/media/HL9vnm6XcAAn2ZN?format=jpg&name=large)
 
 ![内容触达海报，深蓝与绿色背景中，一只金色黄铜扩音器向右扩散，配“触达”和“让内容被看见”字样](https://pbs.twimg.com/media/HL9vpquXwAA4poy?format=jpg&name=large)
 
-<strong>这些图的共同点是：每张图都先替文章选了一个能直接被记住的「主题相关」物体。</strong>
+**这些图的共同点是：每张图都先替文章选了一个能直接被记住的「主题相关」物体。**
 
-<strong>文生图｜复制即用：文章封面提示词</strong>
+**文生图｜复制即用：文章封面提示词**
 
 如果你只想直接生成封面，用下面这条就够了，复制后，把自己的文章主题和特殊要求填进去即可。 AI 会根据你的文章主题，完成主题理解、物体选择，然后生成图片。
 
@@ -135,7 +136,7 @@ clean vector icon, modern UI, search bar interface, infographic, flowchart, dash
 
 这里的重点不是给产品套一层复古滤镜，而是把它当成旧广告里的商品：只保留一个核心物体，让轮廓、标签、品牌字、色块和纸张质感共同完成识别。
 
-<strong>图生图｜复制即用：任意物品转宣传图提示词</strong>
+**图生图｜复制即用：任意物品转宣传图提示词**
 
 ```text
 上传图片：
@@ -185,7 +186,7 @@ photorealistic product render, modern launch poster, clean vector icon, sterile 
 
 ![复古人物形象海报，左右两幅阿哲 Phil 的半身肖像分别置于黑色和砖红色背景，配手写标题与关注提示](https://pbs.twimg.com/media/HL9v7rEXYAAEqjm?format=jpg&name=large)
 
-<strong>图生图｜复制即用：人物转绘提示词</strong>
+**图生图｜复制即用：人物转绘提示词**
 
 ```text
 根据我上传的图像进行重绘
@@ -228,7 +229,7 @@ Avoid:
 photorealistic portrait, modern influencer poster, cinematic lighting, anime style, comic book style, luxury fashion ad, clean vector portrait, sterile sans-serif typography, Swiss grid, Bauhaus geometry, excessive grunge, extra slogans, fake Chinese characters, wrong title text, random unreadable small text.
 ```
 
-<strong>其他尝试：个人网站的风格参考</strong>
+**其他尝试：个人网站的风格参考**
 
 如果只是借用配色、手绘字、纸张质感和广告感构图，个人网站也可以拿 Plakatstil 当视觉参考。但这已经是风格迁移，不属于严格的物体海报用法。
 
@@ -247,6 +248,6 @@ Skill 版更像是一个提示词编译器。你可以给它文章主题、完�
 3. 选择提示词模块：主体、字体、版式、背景、色彩、纸张和油墨质感。
 4. 组装完整提示词：输出一条已经决策好的、没有歧义的最终 prompt。
 
-<strong>🥳</strong><strong>感谢看到这里，我是阿哲Phil，"一个自由的提示词诗人"</strong>
+**🥳****感谢看到这里，我是阿哲Phil，"一个自由的提示词诗人"**
 
 欢迎关注我 [@Formulasearch](https://x.com/Formulasearch)，我会持续分享：用AI解码美学 × AI实践 × 增长心得，欢迎与我交流。

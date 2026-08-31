@@ -1,0 +1,56 @@
+{
+  "slug": "fvd-community",
+  "index": "12",
+  "year": 2021,
+  "title": {
+    "zh": "幸福桥 FVD 社区",
+    "en": "Xingfu Bridge FVD Community"
+  },
+  "summary": {
+    "zh": "以功能可变单元和立体公共系统回应复合居住需求，让社区空间可随家庭与活动持续调整。",
+    "en": "Function-variable units and a three-dimensional public system allow the community to adapt to changing households and activities."
+  },
+  "cover": "/src/assets/archive/architecture/fvd-community/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/fvd-community/board-01.webp",
+      "alt": {
+        "zh": "幸福桥 FVD 社区总体空间与功能策略展板",
+        "en": "Xingfu Bridge FVD Community spatial and program strategy board"
+      },
+      "index": "80",
+      "layout": "hero",
+      "tags": [
+        "fvd-community"
+      ],
+      "label": {
+        "zh": "幸福桥 FVD 社区总体空间与功能策略展板",
+        "en": "Xingfu Bridge FVD Community spatial and program strategy board"
+      },
+      "caption": {
+        "zh": "幸福桥 FVD 社区总体空间与功能策略展板",
+        "en": "Xingfu Bridge FVD Community spatial and program strategy board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/fvd-community/board-02.webp",
+      "alt": {
+        "zh": "幸福桥 FVD 社区可变单元与立体系统展板",
+        "en": "Xingfu Bridge FVD Community variable units and vertical system board"
+      },
+      "index": "81",
+      "layout": "wide",
+      "tags": [
+        "fvd-community"
+      ],
+      "label": {
+        "zh": "幸福桥 FVD 社区可变单元与立体系统展板",
+        "en": "Xingfu Bridge FVD Community variable units and vertical system board"
+      },
+      "caption": {
+        "zh": "幸福桥 FVD 社区可变单元与立体系统展板",
+        "en": "Xingfu Bridge FVD Community variable units and vertical system board"
+      }
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "slug": "tcp-art-museum",
+  "index": "10",
+  "year": 2022,
+  "title": {
+    "zh": "TCP 麦岛美术馆",
+    "en": "TCP Maidao Art Museum"
+  },
+  "summary": {
+    "zh": "以流动屋面、连续公共步道与下沉展览空间，把滨海景观转化为可穿行的艺术地形。",
+    "en": "A flowing roof, continuous public walk and sunken galleries turn the waterfront into a traversable landscape for art."
+  },
+  "cover": "/src/assets/archive/architecture/tcp-art-museum/cover.webp",
+  "links": [
+    {
+      "label": {
+        "zh": "观看项目视频",
+        "en": "Watch project video"
+      },
+      "href": "https://www.bilibili.com/video/BV1gB4y1X7bo/"
+    }
+  ],
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/tcp-art-museum/board-01.webp",
+      "alt": {
+        "zh": "TCP 麦岛美术馆总体设计与场地展板",
+        "en": "TCP Maidao Art Museum overview and site board"
+      },
+      "index": "74",
+      "layout": "hero",
+      "tags": [
+        "tcp-art-museum"
+      ],
+      "label": {
+        "zh": "TCP 麦岛美术馆总体设计与场地展板",
+        "en": "TCP Maidao Art Museum overview and site board"
+      },
+      "caption": {
+        "zh": "TCP 麦岛美术馆总体设计与场地展板",
+        "en": "TCP Maidao Art Museum overview and site board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/tcp-art-museum/board-02.webp",
+      "alt": {
+        "zh": "TCP 麦岛美术馆平面、剖面与流线展板",
+        "en": "TCP Maidao Art Museum plans, sections and circulation board"
+      },
+      "index": "75",
+      "layout": "wide",
+      "tags": [
+        "tcp-art-museum"
+      ],
+      "label": {
+        "zh": "TCP 麦岛美术馆平面、剖面与流线展板",
+        "en": "TCP Maidao Art Museum plans, sections and circulation board"
+      },
+      "caption": {
+        "zh": "TCP 麦岛美术馆平面、剖面与流线展板",
+        "en": "TCP Maidao Art Museum plans, sections and circulation board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/tcp-art-museum/board-03.webp",
+      "alt": {
+        "zh": "TCP 麦岛美术馆空间效果与构造策略展板",
+        "en": "TCP Maidao Art Museum spatial views and tectonic strategy board"
+      },
+      "index": "76",
+      "layout": "wide",
+      "tags": [
+        "tcp-art-museum"
+      ],
+      "label": {
+        "zh": "TCP 麦岛美术馆空间效果与构造策略展板",
+        "en": "TCP Maidao Art Museum spatial views and tectonic strategy board"
+      },
+      "caption": {
+        "zh": "TCP 麦岛美术馆空间效果与构造策略展板",
+        "en": "TCP Maidao Art Museum spatial views and tectonic strategy board"
+      }
+    }
+  ]
+}

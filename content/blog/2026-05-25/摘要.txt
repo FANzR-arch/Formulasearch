@@ -1,1 +1,0 @@
-Boris Cherny 说"我不再 prompt Claude 了。我让一堆循环跑着，由它们去提示 Claude、去琢磨该干什么。我的工作变成了写循环。"

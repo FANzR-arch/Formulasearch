@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "content:studio": "node scripts/start-content-studio.mjs",
+    "content:prepare": "node scripts/content-prepare.mjs",
+    "content:publish": "node scripts/content-publish.mjs",
     "build": "node scripts/build.mjs",
     "content:check": "node scripts/check-content.mjs",
     "preview": "astro preview",
     "check": "node scripts/check.mjs",
     "icons:gallery": "astro dev --root refs/icon-system --port 4331",
     "icons:gallery:check": "node scripts/check-icon-gallery.mjs",
-    "blog:migrate": "node scripts/prepare-blog-content.mjs --write",
+    "blog:migrate": "node scripts/prepare-blog-content.mjs --migrate-single-source",
     "blog:media:prepare": "node scripts/prepare-blog-media.mjs --write",
     "blog:media:check": "node scripts/prepare-blog-media.mjs --check",
     "blog:images:prepare": "node scripts/prepare-blog-image-alt.mjs --write",
@@ -23,6 +26,8 @@
     "blog:images:report": "node scripts/prepare-blog-image-alt.mjs --report",
     "blog:import": "node scripts/import-blog-bodies.mjs",
     "blog:check": "node scripts/prepare-blog-content.mjs --check",
+    "blog:test": "node scripts/test-blog-content.mjs",
+    "architecture:migrate": "node scripts/migrate-architecture-projects.mjs",
     "i18n:report": "node scripts/report-i18n.mjs",
     "i18n:check": "node scripts/report-i18n.mjs --strict",
     "contrast:check": "node scripts/check-color-contrast.mjs",
@@ -30,6 +35,7 @@
     "photos:previews": "node scripts/prepare-photo-previews.mjs",
     "photos:hashes:migrate": "node scripts/migrate-photo-archive-hashes.mjs",
     "photos:test": "node scripts/test-photo-archive.mjs",
+    "photos:studio:test": "node scripts/test-photo-studio.mjs",
     "photos:source:manifest:write": "node scripts/prepare-photo-source-manifest.mjs --write",
     "photos:source:manifest:check": "node scripts/prepare-photo-source-manifest.mjs --check",
     "photos:source:manifest:report": "node scripts/prepare-photo-source-manifest.mjs --report",
@@ -42,13 +48,21 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/markdown-remark": "^7.2.2",
     "@playwright/test": "^1.62.1",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.0.0",
     "astro": "^7.2.0",
+    "daisyui": "^5.7.22",
     "sharp": "^0.35.3",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@lucide/astro": "^1.31.0"
+    "@astrojs/react": "^6.0.4",
+    "@keystatic/astro": "^6.0.0",
+    "@keystatic/core": "^0.6.8",
+    "@lucide/astro": "^1.31.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "registries": {
     "@react-bits": "https://reactbits.dev/r/{name}.json"

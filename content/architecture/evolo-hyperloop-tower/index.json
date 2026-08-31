@@ -1,0 +1,36 @@
+{
+  "slug": "evolo-hyperloop-tower",
+  "index": "13",
+  "year": 2021,
+  "title": {
+    "zh": "超级环塔",
+    "en": "Hyperloop Tower"
+  },
+  "summary": {
+    "zh": "将超级环交通网络、超高层垂直流线与城市公共功能组合为未来复合基础设施。",
+    "en": "A speculative vertical infrastructure combining a hyperloop network, tower circulation and metropolitan public programs."
+  },
+  "cover": "/src/assets/archive/architecture/evolo-hyperloop-tower/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/evolo-hyperloop-tower/board-01.webp",
+      "alt": {
+        "zh": "超级环塔城市基础设施概念展板",
+        "en": "Hyperloop Tower urban infrastructure concept board"
+      },
+      "index": "82",
+      "layout": "hero",
+      "tags": [
+        "evolo-hyperloop-tower"
+      ],
+      "label": {
+        "zh": "超级环塔城市基础设施概念展板",
+        "en": "Hyperloop Tower urban infrastructure concept board"
+      },
+      "caption": {
+        "zh": "超级环塔城市基础设施概念展板",
+        "en": "Hyperloop Tower urban infrastructure concept board"
+      }
+    }
+  ]
+}

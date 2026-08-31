@@ -1,0 +1,56 @@
+{
+  "slug": "fire-shield",
+  "index": "16",
+  "year": 2021,
+  "title": {
+    "zh": "火盾",
+    "en": "Fire Shield"
+  },
+  "summary": {
+    "zh": "面向高风险山火地区的可部署防护系统，通过展开式构架、监测与灭火单元形成分布式安全网络。",
+    "en": "A deployable protection system for wildfire-prone regions, combining unfolding structures, monitoring and suppression units into a distributed safety network."
+  },
+  "cover": "/src/assets/archive/architecture/fire-shield/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/fire-shield/board-01.webp",
+      "alt": {
+        "zh": "火盾山火防护场景与系统概念展板",
+        "en": "Fire Shield wildfire protection scenario and system concept board"
+      },
+      "index": "90",
+      "layout": "hero",
+      "tags": [
+        "fire-shield"
+      ],
+      "label": {
+        "zh": "火盾山火防护场景与系统概念展板",
+        "en": "Fire Shield wildfire protection scenario and system concept board"
+      },
+      "caption": {
+        "zh": "火盾山火防护场景与系统概念展板",
+        "en": "Fire Shield wildfire protection scenario and system concept board"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/fire-shield/board-02.webp",
+      "alt": {
+        "zh": "火盾展开结构与防护单元技术展板",
+        "en": "Fire Shield deployable structure and protection unit board"
+      },
+      "index": "91",
+      "layout": "wide",
+      "tags": [
+        "fire-shield"
+      ],
+      "label": {
+        "zh": "火盾展开结构与防护单元技术展板",
+        "en": "Fire Shield deployable structure and protection unit board"
+      },
+      "caption": {
+        "zh": "火盾展开结构与防护单元技术展板",
+        "en": "Fire Shield deployable structure and protection unit board"
+      }
+    }
+  ]
+}

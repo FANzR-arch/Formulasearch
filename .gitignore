@@ -22,6 +22,9 @@ Thumbs.db
 .codex/
 .agents/
 output/
+.content-studio/
+.tmp/
+.tmp/
 
 # Local memory state accidentally created by tooling
 $HOME/

@@ -1,0 +1,76 @@
+{
+  "slug": "shiling-school-port-building",
+  "index": "01",
+  "year": 2023,
+  "title": {
+    "zh": "石岭中学港航楼",
+    "en": "Shiling Middle School Port Building"
+  },
+  "summary": {
+    "zh": "以开放首层、连续遮阳构件与清晰的水平体量，建立面向校园活动的综合教学空间。",
+    "en": "An academic building shaped by an open ground level, continuous sun-shading elements and a clear horizontal volume for campus life."
+  },
+  "cover": "/src/assets/archive/architecture/shiling-school-port-building/cover.webp",
+  "images": [
+    {
+      "image": "/src/assets/archive/architecture/shiling-school-port-building/view-01.webp",
+      "alt": {
+        "zh": "石岭中学港航楼鸟瞰效果图",
+        "en": "Aerial view of Shiling Middle School Port Building"
+      },
+      "index": "11",
+      "layout": "hero",
+      "tags": [
+        "shiling-school-port-building"
+      ],
+      "label": {
+        "zh": "石岭中学港航楼鸟瞰效果图",
+        "en": "Aerial view of Shiling Middle School Port Building"
+      },
+      "caption": {
+        "zh": "石岭中学港航楼鸟瞰效果图",
+        "en": "Aerial view of Shiling Middle School Port Building"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/shiling-school-port-building/view-02.webp",
+      "alt": {
+        "zh": "石岭中学港航楼正立面效果图",
+        "en": "Front elevation view of Shiling Middle School Port Building"
+      },
+      "index": "12",
+      "layout": "wide",
+      "tags": [
+        "shiling-school-port-building"
+      ],
+      "label": {
+        "zh": "石岭中学港航楼正立面效果图",
+        "en": "Front elevation view of Shiling Middle School Port Building"
+      },
+      "caption": {
+        "zh": "石岭中学港航楼正立面效果图",
+        "en": "Front elevation view of Shiling Middle School Port Building"
+      }
+    },
+    {
+      "image": "/src/assets/archive/architecture/shiling-school-port-building/view-03.webp",
+      "alt": {
+        "zh": "石岭中学港航楼背立面效果图",
+        "en": "Rear elevation view of Shiling Middle School Port Building"
+      },
+      "index": "13",
+      "layout": "wide",
+      "tags": [
+        "shiling-school-port-building"
+      ],
+      "label": {
+        "zh": "石岭中学港航楼背立面效果图",
+        "en": "Rear elevation view of Shiling Middle School Port Building"
+      },
+      "caption": {
+        "zh": "石岭中学港航楼背立面效果图",
+        "en": "Rear elevation view of Shiling Middle School Port Building"
+      }
+    }
+  ]
+}

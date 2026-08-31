@@ -1,0 +1,86 @@
+---
+import Icon from '../../components/icon-system/Icon.astro'
+import StudioShell from '../components/StudioShell.astro'
+---
+
+<StudioShell title="摄影档案" eyebrow="Import / describe / arrange">
+  <section class="mb-14 grid gap-4 lg:grid-cols-2" aria-label="照片导入">
+    <div class="card studio-panel rounded-box shadow-none">
+      <div class="card-body gap-4 p-6">
+        <div class="flex items-center gap-3"><span class="grid size-10 place-items-center bg-base-200"><Icon name="studio-image-add" role="control" /></span><div><span class="studio-kicker">Files</span><h2 class="card-title mt-1 font-serif text-2xl">逐张追加</h2></div></div>
+        <p class="studio-copy m-0 text-sm">支持 JPG、PNG、WebP、AVIF；自动生成 2560px WebP、960px 预览、尺寸和哈希。</p>
+        <form id="upload-form" class="mt-auto grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
+          <fieldset class="fieldset min-w-0"><legend class="fieldset-legend">选择一张或多张原图</legend><input id="photo-files" class="file-input file-input-bordered w-full" name="photos" type="file" accept="image/*" multiple /></fieldset>
+          <button class="btn btn-primary"><Icon name="studio-upload" role="control" />导入所选图片</button>
+        </form>
+      </div>
+    </div>
+    <div class="card studio-panel rounded-box shadow-none">
+      <div class="card-body gap-4 p-6">
+        <div class="flex items-center gap-3"><span class="grid size-10 place-items-center bg-base-200"><Icon name="studio-folder" role="control" /></span><div><span class="studio-kicker">Folder</span><h2 class="card-title mt-1 font-serif text-2xl">批量导入文件夹</h2></div></div>
+        <p class="studio-copy m-0 text-sm">填写这台电脑上的绝对文件夹路径；子文件夹会一并扫描，重复图片按生成哈希跳过。</p>
+        <form id="folder-form" class="mt-auto grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
+          <fieldset class="fieldset min-w-0"><legend class="fieldset-legend">本机绝对路径</legend><input id="folder-path" class="input input-bordered w-full" placeholder="D:\Photos\Select" /></fieldset>
+          <button class="btn btn-outline">扫描并导入</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <div class="mb-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><span id="count" class="badge badge-primary badge-outline">读取中</span><h2 class="mb-0 mt-3 text-3xl font-medium sm:text-4xl">排序与双语描述</h2></div><button id="save" class="btn btn-neutral"><Icon name="studio-save" role="control" />保存全部修改</button></div>
+  <p id="status" class="alert alert-info studio-status mb-5 text-sm" aria-live="polite">正在读取照片清单…</p>
+  <section id="photos" class="grid gap-3" aria-label="照片清单"></section>
+</StudioShell>
+
+<script is:inline>
+  const list = document.querySelector('#photos')
+  const status = document.querySelector('#status')
+  const count = document.querySelector('#count')
+  let items = []
+  const escapeHtml = (value) => String(value).replace(/[&<>"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[char])
+  const setStatus = (message, kind = '') => {
+    status.textContent = message; status.dataset.kind = kind
+    status.classList.remove('alert-info', 'alert-success', 'alert-error')
+    status.classList.add(kind === 'success' ? 'alert-success' : kind === 'error' ? 'alert-error' : 'alert-info')
+  }
+  const request = async (url, options) => {
+    const response = await fetch(url, options)
+    const data = await response.json()
+    if (!response.ok) throw new Error(data.error || '操作失败。')
+    return data
+  }
+  const readInputs = () => {
+    const rows = [...list.querySelectorAll('[data-hash]')]
+    return rows.map((row) => {
+      const original = items.find((item) => item.assetHash === row.dataset.hash)
+      return { ...original, alt: { zh: row.querySelector('[data-zh]').value, en: row.querySelector('[data-en]').value }, tags: row.querySelector('[data-tags]').value.split(',').map((value) => value.trim()).filter(Boolean) }
+    })
+  }
+  const render = () => {
+    count.textContent = `${items.length} 张照片`
+    list.innerHTML = items.map((item, index) => `
+      <article class="studio-panel grid gap-4 rounded-box p-4 sm:grid-cols-[3.5rem_10rem_1fr] lg:grid-cols-[4.5rem_11rem_minmax(18rem,1fr)_8rem] lg:items-start lg:gap-5" data-hash="${escapeHtml(item.assetHash)}">
+        <div class="order flex flex-wrap items-center gap-1 sm:block"><strong class="mr-auto font-serif text-2xl font-medium sm:mb-3 sm:block">${String(index + 1).padStart(2, '0')}</strong><button class="btn btn-square btn-ghost btn-xs move sm:mr-1" data-move="-1" ${index === 0 ? 'disabled' : ''} aria-label="上移">上</button><button class="btn btn-square btn-ghost btn-xs move" data-move="1" ${index === items.length - 1 ? 'disabled' : ''} aria-label="下移">下</button></div>
+        <img class="h-40 w-full rounded-box bg-base-200 object-cover sm:h-28" src="${escapeHtml(item.previewImage || item.image)}" alt="" loading="lazy" />
+        <div class="fields grid gap-3 sm:col-span-3 lg:col-span-1"><fieldset class="fieldset"><legend class="fieldset-legend">中文描述</legend><textarea class="textarea textarea-bordered w-full" data-zh rows="2">${escapeHtml(item.alt.zh)}</textarea></fieldset><fieldset class="fieldset"><legend class="fieldset-legend">English description</legend><textarea class="textarea textarea-bordered w-full" data-en rows="2">${escapeHtml(item.alt.en)}</textarea></fieldset><fieldset class="fieldset"><legend class="fieldset-legend">标签（逗号分隔）</legend><input class="input input-bordered w-full" data-tags value="${escapeHtml(item.tags.join(', '))}" /></fieldset></div>
+        <div class="meta flex flex-wrap items-center gap-2 sm:col-span-3 lg:col-span-1 lg:flex-col lg:items-start"><code class="badge badge-ghost badge-sm">${item.width} × ${item.height}</code><code class="badge badge-ghost badge-sm">${escapeHtml(item.assetHash.slice(0, 10))}</code><button class="btn btn-error btn-outline btn-sm mt-1" data-delete>直接删除</button></div>
+      </article>`).join('')
+  }
+  const load = async () => { const data = await request('/api/content-studio/photos'); items = data.items; render(); setStatus('所有修改只会写入本地文件。删除项会在发布中心单独列出。') }
+  list.addEventListener('click', async (event) => {
+    const button = event.target.closest('button')
+    if (!button) return
+    const row = button.closest('[data-hash]')
+    const index = items.findIndex((item) => item.assetHash === row.dataset.hash)
+    if (button.dataset.move) {
+      items = readInputs(); const target = index + Number(button.dataset.move); [items[index], items[target]] = [items[target], items[index]]; render()
+    }
+    if (button.hasAttribute('data-delete')) {
+      if (!confirm('这会立即删除本地生成图片和清单记录。发布前仍可通过 Git 恢复。继续吗？')) return
+      try { const result = await request('/api/content-studio/photos', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'delete', assetHash: row.dataset.hash }) }); setStatus(`已本地删除 ${result.deleted}`, 'success'); await load() } catch (error) { setStatus(error.message, 'error') }
+    }
+  })
+  document.querySelector('#save').addEventListener('click', async () => { try { items = readInputs(); await request('/api/content-studio/photos', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'update', items }) }); setStatus('排序、描述和标签已保存到本地清单。', 'success'); await load() } catch (error) { setStatus(error.message, 'error') } })
+  document.querySelector('#upload-form').addEventListener('submit', async (event) => { event.preventDefault(); try { setStatus('正在生成照片媒体…'); const result = await request('/api/content-studio/photos', { method: 'POST', body: new FormData(event.currentTarget) }); setStatus(`导入 ${result.imported} 张，跳过 ${result.duplicates} 张重复图片。请补齐双语描述。`, 'success'); event.currentTarget.reset(); await load() } catch (error) { setStatus(error.message, 'error') } })
+  document.querySelector('#folder-form').addEventListener('submit', async (event) => { event.preventDefault(); try { setStatus('正在扫描文件夹并生成媒体…'); const result = await request('/api/content-studio/photos', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'import-folder', path: document.querySelector('#folder-path').value }) }); setStatus(`导入 ${result.imported} 张，跳过 ${result.duplicates} 张重复图片。`, 'success'); await load() } catch (error) { setStatus(error.message, 'error') } })
+  load().catch((error) => setStatus(error.message, 'error'))
+</script>

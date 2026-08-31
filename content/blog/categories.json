@@ -1,38 +1,40 @@
-[
-  {
-    "id": "prompt-aesthetic",
-    "title": "提示词美学解码",
-    "titleEn": "Prompt Aesthetic Decode",
-    "description": "设计风格、视觉语言和图像提示词的拆解。"
-  },
-  {
-    "id": "less-is-more",
-    "title": "少即是多",
-    "titleEn": "Less Is More",
-    "description": "围绕“少即是多”的设计与提示词系列。"
-  },
-  {
-    "id": "prompt-sharing",
-    "title": "提示词分享",
-    "titleEn": "Prompt Sharing",
-    "description": "可直接复用或改写的提示词案例。"
-  },
-  {
-    "id": "ai-knowledge",
-    "title": "AI 知识分享",
-    "titleEn": "AI Knowledge",
-    "description": "AI 概念、术语和基础认知。"
-  },
-  {
-    "id": "ai-practice",
-    "title": "AI 实践分享",
-    "titleEn": "AI Practice",
-    "description": "工具、流程和真实使用经验。"
-  },
-  {
-    "id": "personal-thinking",
-    "title": "个人思考",
-    "titleEn": "Personal Notes",
-    "description": "和表达、职业、增长有关的个人判断。"
-  }
-]
+{
+  "items": [
+    {
+      "id": "prompt-aesthetic",
+      "title": "提示词美学解码",
+      "titleEn": "Prompt Aesthetic Decode",
+      "description": "设计风格、视觉语言和图像提示词的拆解。"
+    },
+    {
+      "id": "less-is-more",
+      "title": "少即是多",
+      "titleEn": "Less Is More",
+      "description": "围绕“少即是多”的设计与提示词系列。"
+    },
+    {
+      "id": "prompt-sharing",
+      "title": "提示词分享",
+      "titleEn": "Prompt Sharing",
+      "description": "可直接复用或改写的提示词案例。"
+    },
+    {
+      "id": "ai-knowledge",
+      "title": "AI 知识分享",
+      "titleEn": "AI Knowledge",
+      "description": "AI 概念、术语和基础认知。"
+    },
+    {
+      "id": "ai-practice",
+      "title": "AI 实践分享",
+      "titleEn": "AI Practice",
+      "description": "工具、流程和真实使用经验。"
+    },
+    {
+      "id": "personal-thinking",
+      "title": "个人思考",
+      "titleEn": "Personal Notes",
+      "description": "和表达、职业、增长有关的个人判断。"
+    }
+  ]
+}
