@@ -1,54 +1,67 @@
-# 00-Formulasearch · 个人总站（首版静态站）
+# Formulasearch
 
-阿哲 Phil / Fan Zheren 的新个人网站项目。目标：一个承载**全部**个人内容的总站（不再只是求职作品集）——建筑设计、AI 产品与实践、Skills、博客、课件子站、伙伴/交付网站入口。
+[rzcthink.top](https://rzcthink.top) 是阿哲 Phil / Fan Zheren 的个人网站与公开创作档案。它不是一份单一的求职作品集，而是把设计实践、AI 协作、写作、可复用 Skills 与日常观察放在同一个持续更新的入口。
 
-**当前阶段：首版静态站已可运行，正在进行发布前的性能、内容维护和国际化整理。**
+## 关于我
 
-## 从这里开始
+我是 Phil，一名独立构建者和设计师。我的探索起于建筑设计，延伸到 AIGC、交互设计、网站与产品实践。我喜欢和 AI 协作：把还不够清晰的概念梳理成可理解、可使用、可继续迭代的内容与工具。
 
-- [`docs/09_网站调研合集.md`](docs/09_网站调研合集.md) —— 当前总入口：对话结论、文件调研、参考案例、素材索引、冲突裁决与下一步
-- [`docs/10_个人网站演示参考.md`](docs/10_个人网站演示参考.md) —— 2026-08-07 第二轮实站调研：三条演示路线、八个新案例与对照标准
-- [`docs/11_多平台个人网站补充调研.md`](docs/11_多平台个人网站补充调研.md) —— Exa、X、Reddit、小红书和 B站补充证据；中文建筑案例与修订后的演示要求
-- [`docs/18_Blog页面基础结构与开发基线.md`](docs/18_Blog页面基础结构与开发基线.md) —— 现有 26 篇文章、封面、路由和旧站代码的复用清单；Blog 首页、文章页与 Astro 内容集合实施顺序
-- [`docs/19_网站工程与交互审计.md`](docs/19_网站工程与交互审计.md) —— 当前结构、交互、i18n、主题、内容维护和发布门禁的审计记录；后续修复以此为准
-- [`docs/01_内容清单.md`](docs/01_内容清单.md) —— 2026-08-06 内容资产盘点
-- [`docs/08_网站设计流程.md`](docs/08_网站设计流程.md) —— 下一阶段执行顺序
+Formulasearch 记录这些过程中的公开成果——一部分来自独立探索，一部分来自与伙伴共同完成的项目。
 
-## 目录说明
+## 网站内容
 
+| 板块 | 内容 |
+| --- | --- |
+| [博客](https://rzcthink.top/blog) | AI 与工具、美学系统、个人笔记；文章使用本地媒体、结构化元数据与 RSS 输出。 |
+| [项目](https://rzcthink.top/projects) | 产品与工具、网站与交互页面，以及可公开的合作项目。 |
+| [Skills](https://rzcthink.top/skills) | 设计技能、Agent 工作流、SOP 与可复用资产索引。 |
+| [实验](https://rzcthink.top/lab) | 动态视觉、原型、课程与正在测试的方向。 |
+| [建筑](https://rzcthink.top/architecture) | 建筑设计项目与过程材料，按时间归档。 |
+| [图像](https://rzcthink.top/photos) | 摄影、旅行与途中记录的图像片段。 |
+| [伙伴](https://rzcthink.top/partners) | 与合作伙伴相关的网站和交付入口。 |
+| [声音试听](https://rzcthink.top/sound-preview) | 网站交互声音的试听与来源说明。 |
+
+网站提供中英双语界面、明暗主题、响应式导航，并生成 `sitemap.xml`、`rss.xml` 和 `llms.txt` 等面向发现与分发的文件。
+
+## 项目结构
+
+```text
+├── content/
+│   ├── blog/                 # 博客文章与 frontmatter
+│   └── site/                 # 站点文案、导航、路由和内容清单
+├── public/
+│   ├── uploads/              # 已发布的原始图片与视频
+│   └── scripts/              # 客户端交互与渐进增强脚本
+├── src/
+│   ├── components/           # 页面组件、导航与交互组件
+│   ├── layouts/              # 公共页面骨架与 SEO 输出
+│   ├── pages/                # Astro 路由（含 /en 英文入口）
+│   └── styles/               # 全站与栏目样式
+├── scripts/                  # 内容、媒体、静态输出和质量门禁
+├── tests/                    # Playwright 交互回归测试
+└── docs/                     # 研究、内容盘点与设计决策记录
 ```
-00-Formulasearch/
-├── README.md              ← 本文件
-├── docs/
-│   ├── 00_网站规划.md      ← 主规划：定位、信息架构、阶段计划
-│   ├── 01_内容清单.md      ← 全部可上站资产的盘点映射
-│   ├── 02_参考记录.md      ← 参考登记表（看到好的就记一条）
-│   ├── 03–08_*.md          ← 方法调研、框架、视觉探索、案例扫描与流程
-│   ├── 09_网站调研合集.md  ← 当前总入口与阶段结论
-│   ├── 10_个人网站演示参考.md ← 第二轮实站调研与演示路线
-│   └── 11_多平台个人网站补充调研.md ← 多平台证据与方向修订
-└── refs/
-    ├── images/            ← 参考截图、构思草图、风格图（直接丢进来）
-    ├── sites/             ← 参考网站（存档 HTML / 链接笔记）
-    └── structures/        ← 参考的工程结构 / 信息架构（文件树、脑图等）
-```
 
-## 参考收集约定
-
-- 图片命名：`来源-一句话说明.png`，例如 `awwwards-首页大字排版.png`
-- 每收一批参考，在 `docs/02_参考记录.md` 里登记一行：来源 / 喜欢什么 / 想用在哪个板块
-- 不确定放哪就丢 `refs/images/`，之后一起整理
-
-## 相关
-
-- 视觉方向初稿（4 版对比，2026-07-22）：https://claude.ai/code/artifact/70fc14bf-2c64-4402-ab80-e11e727f7ce9
-- 旧站（内容迁移来源）：`D:\00_Formula\03_Coding\20260304_Personal-website`
-
-## 当前验证命令
+## 本地开发与验证
 
 ```bash
+npm install
+npm run dev
+
+# 发布前检查
 npm run content:check # 内容、i18n、媒体和归档门禁
-npm run check       # Astro 类型检查
-npm run build       # 内容、媒体、静态输出和站内链接门禁
-npm run test:smoke  # 本地预览下的交互回归
+npm run check         # Astro 类型检查
+npm run build         # 静态输出与站内链接检查
+npm run test:smoke    # 本地预览下的交互回归
 ```
+
+## 内容维护原则
+
+- 博客正文的图片和视频使用本站本地资源，保留可访问的替代文本、尺寸与播放控件。
+- `content/` 是可发布内容的事实来源；`public/uploads/` 存放对应的已发布媒体。
+- 更新内容后，以 `npm run build` 与 `npm run test:smoke` 作为最低验证标准。
+
+## 相关链接
+
+- 网站：[rzcthink.top](https://rzcthink.top)
+- GitHub：[FANzR-arch](https://github.com/FANzR-arch)
