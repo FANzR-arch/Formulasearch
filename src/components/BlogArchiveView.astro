@@ -20,7 +20,7 @@ const years = [...new Set(posts.map((post) => post.date.slice(0, 4)))]
   <h1><LocalizedText {...uiCopy.blog.archiveHeading} /></h1>
 </header>
 
-<BlogSectionNav active="archive" locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
+<BlogSectionNav locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
 
 <div class="archive-list">
   {years.map((year) => {

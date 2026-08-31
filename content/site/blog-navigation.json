@@ -1,8 +1,9 @@
 {
-  "ariaLabel": { "zh": "博客页面", "en": "Blog sections" },
+  "ariaLabel": { "zh": "博客分类", "en": "Blog categories" },
   "items": [
-    { "id": "latest", "href": "/blog", "label": { "zh": "最新", "en": "Latest" } },
-    { "id": "series", "href": "/blog/series", "label": { "zh": "主题", "en": "Topics" } },
-    { "id": "archive", "href": "/blog/archive", "label": { "zh": "归档", "en": "Archive" } }
+    { "id": "all", "href": "/blog", "label": { "zh": "全部", "en": "All" }, "categoryIds": [] },
+    { "id": "aesthetics", "href": "/blog/category/aesthetics", "label": { "zh": "美学拆解", "en": "Aesthetics" }, "categoryIds": ["prompt-aesthetic", "less-is-more", "prompt-sharing"] },
+    { "id": "ai-tools", "href": "/blog/category/ai-tools", "label": { "zh": "AI工具教程", "en": "AI Tutorials" }, "categoryIds": ["ai-knowledge", "ai-practice"] },
+    { "id": "personal-thinking", "href": "/blog/category/personal-thinking", "label": { "zh": "个人思考", "en": "Personal Notes" }, "categoryIds": ["personal-thinking"] }
   ]
 }

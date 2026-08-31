@@ -1,7 +1,7 @@
 import { z } from 'astro/zod'
 import navigationContent from '../../content/site/navigation.json'
 import { localizedCopySchema } from '../lib/i18n'
-import { blogSeries } from './blog-series'
+import { blogSectionNavigation } from './blog-navigation'
 import { labSections, projectSections, skillSections } from './catalog'
 import { siteRoutes } from './site-routes'
 
@@ -15,7 +15,7 @@ const primaryNavigationItemSchema = z.object({
   id: z.enum(['blog', 'projects', 'skills', 'lab']),
   href: z.string().startsWith('/'),
   label: localizedCopySchema,
-  menu: z.array(navigationItemSchema).min(1),
+  menu: z.array(navigationItemSchema),
 }).strict()
 
 const navigationSchema = z.object({ items: z.array(primaryNavigationItemSchema).length(4) }).strict()
@@ -40,7 +40,7 @@ for (const section of primaryNavigation) {
 }
 
 const expectedMenuHrefs: Record<PrimarySection, Set<string>> = {
-  blog: new Set(blogSeries.map((series) => `${siteRoutes.blogSeries}#${series.id}`)),
+  blog: new Set(blogSectionNavigation.items.filter((item) => item.id !== 'all').map((item) => item.href)),
   projects: new Set(projectSections.map((section) => `${siteRoutes.projects}#${section.id}`)),
   skills: new Set(skillSections.map((section) => `${siteRoutes.skills}#${section.id}`)),
   lab: new Set(labSections.map((section) => `${siteRoutes.lab}#${section.id}`)),

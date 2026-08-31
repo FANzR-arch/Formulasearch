@@ -24,7 +24,7 @@ const showSourceLanguageNotice = posts.some((post) => post.contentLanguage !== '
   <h1><LocalizedText {...uiCopy.blog.seriesHeading} /></h1>
 </header>
 
-<BlogSectionNav active="series" locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
+<BlogSectionNav locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
 
 <div class="series-list">
   {series.map((group, index) => (

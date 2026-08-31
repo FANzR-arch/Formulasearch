@@ -45,7 +45,7 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
 
   <nav id="site-navigation" class="site-nav" aria-label={localized(uiCopy.navigation.site)} data-aria-en={uiCopy.navigation.site.en} data-aria-zh={uiCopy.navigation.site.zh}>
     {primaryNavigation.map((section) => (
-      <div class="nav-menu">
+      section.menu.length > 0 ? <div class="nav-menu">
         <div class="nav-menu__trigger">
           <a class:list={['nav-link', { 'is-active': active === section.id }]} href={localizedRoute(section.href)} aria-current={active === section.id ? 'page' : undefined}><LocalizedText {...section.label} /></a>
           <button class="nav-disclosure" type="button" aria-haspopup="true" aria-expanded="false" aria-controls={`nav-panel-${section.id}`} aria-label={localized(interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }))} data-nav-open-zh={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).zh} data-nav-open-en={interpolateLocalizedCopy(uiCopy.navigation.openSection, { label: section.label }).en} data-nav-close-zh={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).zh} data-nav-close-en={interpolateLocalizedCopy(uiCopy.navigation.closeSection, { label: section.label }).en} data-sound="switch" data-sound-volume="0.16">
@@ -60,7 +60,7 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
             </a>
           ))}
         </div>
-      </div>
+      </div> : <a class:list={['nav-link', { 'is-active': active === section.id }]} href={localizedRoute(section.href)} aria-current={active === section.id ? 'page' : undefined}><LocalizedText {...section.label} /></a>
     ))}
     <div class="nav-utilities">
       <a class:list={['icon-link', 'icon-link--ui', 'icon-link--archive', { 'is-active': active === 'photos' }]} href={localizedRoute(siteRoutes.photos)} aria-current={active === 'photos' ? 'page' : undefined} aria-label={localized(uiCopy.navigation.photos)} data-aria-en={uiCopy.navigation.photos.en} data-aria-zh={uiCopy.navigation.photos.zh} title={localized(uiCopy.navigation.photos)} data-title-en={uiCopy.navigation.photos.en} data-title-zh={uiCopy.navigation.photos.zh}>

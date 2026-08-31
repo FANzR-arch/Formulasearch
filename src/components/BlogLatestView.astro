@@ -7,17 +7,21 @@ import HeroMotion from './HeroMotion.astro'
 import type { Locale } from '../lib/i18n'
 import { formatBlogDate, getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } from '../lib/blog-content'
 import { uiCopy } from '../data/ui-copy'
+import { blogSectionNavigation, type BlogSectionId } from '../data/blog-navigation'
 
 interface Props {
+  active?: BlogSectionId
   locale?: Locale
 }
 
-const { locale = 'zh' } = Astro.props
-const posts = await getBlogPosts()
-const stagePosts = [
-  ...posts.filter((post) => post.featured),
-  ...posts.filter((post) => !post.featured),
-].slice(0, 1)
+const { active = 'all', locale = 'zh' } = Astro.props
+const allPosts = await getBlogPosts()
+const activeSection = blogSectionNavigation.items.find((item) => item.id === active)
+if (!activeSection) throw new Error(`Unknown blog section "${active}".`)
+const posts = activeSection.categoryIds.length
+  ? allPosts.filter((post) => activeSection.categoryIds.includes(post.categoryId))
+  : allPosts
+const stagePosts = posts.slice(0, 1)
 const stageSlugs = new Set(stagePosts.map((post) => post.slug))
 const recentPosts = posts.filter((post) => !stageSlugs.has(post.slug))
 const showSourceLanguageNotice = posts.some((post) => post.contentLanguage !== 'en')
@@ -27,13 +31,13 @@ const primaryLink = (post: (typeof posts)[number]) => getPrimaryBlogLink(post)
 
 <header class="blog-hero blog-hero--journal" data-hero-motion="blog" data-reveal>
   <div class="blog-hero__heading">
-    <h1><span><LocalizedText {...uiCopy.blog.blog} /></span></h1>
+    <h1><LocalizedText {...uiCopy.blog.blog} /></h1>
   </div>
   <p class="blog-hero__intro"><LocalizedText {...uiCopy.blog.heroIntro} /></p>
   <HeroMotion variant="blog" />
 </header>
 
-<BlogSectionNav active="latest" locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
+<BlogSectionNav active={active} locale={locale} showSourceLanguageNotice={showSourceLanguageNotice} />
 
 {activePost && (
   <section class="cover-stage" data-cover-stage aria-labelledby="stage-title" data-reveal>

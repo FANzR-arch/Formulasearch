@@ -1,9 +1,9 @@
 ---
-import BlogSeriesView from '../../../components/BlogSeriesView.astro'
+import BlogLatestView from '../../../components/BlogLatestView.astro'
 import BlogLayout from '../../../layouts/BlogLayout.astro'
 import { pageMeta } from '../../../data/page-meta'
 ---
 
 <BlogLayout title={pageMeta.blogSeries.title.zh} titleEn={pageMeta.blogSeries.title.en} description={pageMeta.blogSeries.description.zh} descriptionEn={pageMeta.blogSeries.description.en} locale="en">
-  <BlogSeriesView locale="en" />
+  <BlogLatestView locale="en" />
 </BlogLayout>

@@ -313,7 +313,7 @@ for (const path of htmlFiles) {
 }
 
 const blogFiles = htmlFiles.filter((path) => path.includes(`${join('blog', '')}`) && !path.endsWith(`${join('blog', 'index.html')}`))
-const articlePaths = blogFiles.filter((path) => !['archive', 'series'].includes(basename(dirname(path))))
+const articlePaths = blogFiles.filter((path) => !['archive', 'series'].includes(basename(dirname(path))) && !path.includes(`${sep}blog${sep}category${sep}`))
 if (!articlePaths.length) failures.push('no article output found')
 for (const articlePath of articlePaths) {
   const relativePath = articlePath.slice(distRoot.length + 1)
@@ -351,7 +351,9 @@ for (const articlePath of articlePaths) {
 
 const blogIndex = await readUtf8('blog/index.html')
 const navPanelCount = (blogIndex.match(/class="nav-popover"/g) || []).length
-const expectedNavPanelCount = Array.isArray(navigationContent.items) ? navigationContent.items.length : 0
+const expectedNavPanelCount = Array.isArray(navigationContent.items)
+  ? navigationContent.items.filter((item) => Array.isArray(item.menu) && item.menu.length > 0).length
+  : 0
 if (navPanelCount !== expectedNavPanelCount) failures.push(`expected ${expectedNavPanelCount} primary navigation panels, found ${navPanelCount}`)
 
 const homeIndex = await readUtf8('index.html')

@@ -1,0 +1,16 @@
+---
+import BlogLatestView from '../../../../components/BlogLatestView.astro'
+import BlogLayout from '../../../../layouts/BlogLayout.astro'
+import { blogSectionNavigation, type BlogSectionId } from '../../../../data/blog-navigation'
+import { pageMeta } from '../../../../data/page-meta'
+
+export const getStaticPaths = () => blogSectionNavigation.items
+  .filter((item) => item.id !== 'all')
+  .map((item) => ({ params: { section: item.id }, props: { section: item.id } }))
+
+const { section } = Astro.props as { section: Exclude<BlogSectionId, 'all'> }
+---
+
+<BlogLayout locale="en" title={pageMeta.blog.title.en} titleEn={pageMeta.blog.title.en} description={pageMeta.blog.description.en} descriptionEn={pageMeta.blog.description.en}>
+  <BlogLatestView active={section} locale="en" />
+</BlogLayout>
