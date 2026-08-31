@@ -840,31 +840,46 @@ test('article copy failure stays inside the localized button feedback', async ({
 })
 
 test('article media is playable or represented by accessible poster content', async ({ page }) => {
-  await page.goto('/blog/ai-practice-2026-03-27')
+  await page.goto('/blog/minimax-h3-skills-examples')
   const media = await page.locator('.article-prose video, .article-prose audio').evaluateAll((elements) => elements.map((element) => ({
     controls: element.hasAttribute('controls'),
-    source: Boolean(element.getAttribute('src') || element.querySelector('source[src]')?.getAttribute('src') || element.getAttribute('poster')),
+    source: element.getAttribute('src') || element.querySelector('source[src]')?.getAttribute('src') || '',
+    poster: element.getAttribute('poster') || '',
   })))
+  expect(media).toHaveLength(9)
   for (const item of media) {
     expect(item.controls).toBeTruthy()
-    expect(item.source).toBeTruthy()
+    expect(item.source).toMatch(/^\/uploads\//)
+    if (item.poster) expect(item.poster).toMatch(/^\/uploads\//)
   }
 })
 
-test('remote article images reserve a temporary fallback ratio', async ({ page }) => {
-  await page.goto('/blog/ai-practice-2026-02-22')
-  const image = page.locator('.article-prose img[src^="http"]').first()
-  await expect(image).toBeVisible()
-  await expect.poll(() => image.evaluate((element) => getComputedStyle(element).aspectRatio)).toContain('16 / 9')
+test('homepage background keeps its render buffer within the performance budget', async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1080 })
+  await page.goto('/')
+
+  const buffer = await page.locator('#ambient-flow').evaluate((canvas) => ({
+    width: canvas.width,
+    height: canvas.height,
+  }))
+  expect(buffer.width * buffer.height).toBeLessThanOrEqual(1600000)
 })
 
-test('failed article images become accessible placeholders', async ({ page }) => {
+test('published article images use local sources with intrinsic dimensions', async ({ page }) => {
+  await page.goto('/blog/ai-practice-2026-02-22')
+  const image = page.locator('.article-prose img').first()
+  await expect(image).toBeVisible()
+  await expect(image).toHaveAttribute('src', /^\/uploads\/blog\/2026-02-22\/inline-/)
+  await expect(image).toHaveAttribute('width', /\d+/)
+  await expect(image).toHaveAttribute('height', /\d+/)
+  await expect.poll(() => image.evaluate((element) => element.naturalWidth)).toBeGreaterThan(0)
+})
+
+test('published article images do not depend on Twitter media or placeholders', async ({ page }) => {
   await page.route('https://pbs.twimg.com/**', (route) => route.abort())
   await page.goto('/blog/ai-practice-2026-02-22')
-  const fallback = page.locator('.article-media-fallback').first()
-  await expect(fallback).toBeVisible()
-  await expect(fallback).toHaveAttribute('role', 'img')
-  await expect(fallback).toHaveAttribute('aria-label', /.+/)
+  await expect(page.locator('.article-prose img[src^="http"]')).toHaveCount(0)
+  await expect(page.locator('.article-media-fallback')).toHaveCount(0)
 })
 
 test('failed media placeholders follow locale changes', async ({ page }) => {

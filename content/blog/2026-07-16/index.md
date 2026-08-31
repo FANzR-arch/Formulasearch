@@ -18,7 +18,7 @@ externalLinks:
   - label: "x"
     url: "https://x.com/Formulasearch/status/2077692182509555727"
 ---
-![文章内容配图](https://pbs.twimg.com/media/HNVwwnrXMAAcMWx?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-07-16/inline-HNVwwnrXMAAcMWx.jpg)
 
 把手机稍微转一下，或者歪一下头看这张图。文字和背景是不是好像分开了，标题像是浮在照片上面，有种3D的感觉。
 
@@ -99,9 +99,9 @@ B. 印刷底
 
 ## 摄影底
 
-![摄影底配图](https://pbs.twimg.com/media/HNVxZ32W8AA2QRz?format=jpg&name=large)
+![摄影底配图](/uploads/blog/2026-07-16/inline-HNVxZ32W8AA2QRz.jpg)
 
-![摄影底配图](https://pbs.twimg.com/media/HNVxdVnWwAAFgi7?format=jpg&name=large)
+![摄影底配图](/uploads/blog/2026-07-16/inline-HNVxdVnWwAAFgi7.jpg)
 
 摄影底会保留照片本来的色温和空间。最省事的做法，是找一张有纵深的夜间照片，把整体压暗，再用一种高饱和专色盖上标题，冷暖关系很容易出来。
 
@@ -109,9 +109,9 @@ B. 印刷底
 
 ## 印刷底
 
-![印刷底配图](https://pbs.twimg.com/media/HNVxiW7XYAAe7Vh?format=jpg&name=large)
+![印刷底配图](/uploads/blog/2026-07-16/inline-HNVxiW7XYAAe7Vh.jpg)
 
-![印刷底配图](https://pbs.twimg.com/media/HNVxk3jWIAAxt9w?format=jpg&name=large)
+![印刷底配图](/uploads/blog/2026-07-16/inline-HNVxk3jWIAAxt9w.jpg)
 
 印刷底更直接：先铺满一整片高饱和纯色，再把照片染成同色系，重度模糊、降对比、加颗粒，只留一点轮廓。前景换成冲突明显的专色，比如酸性绿配正红、荧光玫红配电光蓝、亮黄配深紫。颜色可以冲，层次不能乱。
 
@@ -119,25 +119,25 @@ B. 印刷底
 
 ## 标题字体的优化
 
-![标题字体的优化配图](https://pbs.twimg.com/media/HNVxnEgXoAA5LY_?format=jpg&name=large)
+![标题字体的优化配图](/uploads/blog/2026-07-16/inline-HNVxnEgXoAA5LY_.jpg)
 
 标题不一定非得用规整的粗黑体。断笔、切角、拉伸、压扁、倾斜、错位、喷漆毛边、丝网印刷缺口，挑两三种混着用就够了。全塞进去只会像字体特效大礼包。
 
-![标题字体的优化配图](https://pbs.twimg.com/media/HNVxpCrWQAA6iI0?format=jpg&name=large)
+![标题字体的优化配图](/uploads/blog/2026-07-16/inline-HNVxpCrWQAA6iI0.jpg)
 
 字形可以夸张，可读性得留住。标题先是信息，然后才是装饰
 
 ## 再看几张
 
-![再看几张配图](https://pbs.twimg.com/media/HNVwvNMXMAAk4X9?format=jpg&name=large)
+![再看几张配图](/uploads/blog/2026-07-16/inline-HNVwvNMXMAAk4X9.jpg)
 
 深蓝照片压在后面，荧光色标题顶到最前面。夜间空间还在，第一眼只会先看到标题。
 
-![再看几张配图](https://pbs.twimg.com/media/HNVxr6XXoAAuRCQ?format=jpg&name=large)
+![再看几张配图](/uploads/blog/2026-07-16/inline-HNVxr6XXoAAuRCQ.jpg)
 
 高饱和纯色铺底，人物和环境被压成模糊色块，标题和图形保持清楚。
 
-![再看几张配图](https://pbs.twimg.com/media/HNVxum-W4AAWFEk?format=jpg&name=large)
+![再看几张配图](/uploads/blog/2026-07-16/inline-HNVxum-W4AAWFEk.jpg)
 
 ## 完整 Skill 版本
 

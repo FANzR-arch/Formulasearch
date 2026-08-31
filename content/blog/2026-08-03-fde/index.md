@@ -30,7 +30,7 @@ externalLinks:
 
 ## 一、FDE 的三条入行路径
 
-![一、FDE 的三条入行路径配图](https://pbs.twimg.com/media/HOxpwA1WIAAmi8V?format=jpg&name=large)
+![一、FDE 的三条入行路径配图](/uploads/blog/2026-08-03-fde/inline-HOxpwA1WIAAmi8V.jpg)
 
 按推荐顺序：先看还能不能走 A，无论走不走 A，路径 C 都必须走
 
@@ -38,7 +38,7 @@ externalLinks:
 
 四个城市合计八个 FDE 实习岗位，日薪 120–350，大厂普遍给到 250-350。学历要求最宽松的写着「学历不限」，甚至有「高中」。上海还有专门的管培通道，7-15K。
 
-![路径 A：实习和应届入口，门槛最低，也最被低估配图](https://pbs.twimg.com/media/HOxpw42W4AAs6N4?format=jpg&name=large)
+![路径 A：实习和应届入口，门槛最低，也最被低估配图](/uploads/blog/2026-08-03-fde/inline-HOxpw42W4AAs6N4.jpg)
 
 有一份实习招聘的要求写得相当具体，几乎就是这条路径的入场标准：
 
@@ -79,7 +79,7 @@ externalLinks:
 
 **「诊断出真问题、最小闭环、有指标、能复用」这四样，就是 FDE 简历与普通实施简历的全部区别。**
 
-![路径 C：自己做出第一个真实交付（🔺主线）配图](https://pbs.twimg.com/media/HOxqNiGWkAAUTGs?format=jpg&name=large)
+![路径 C：自己做出第一个真实交付（🔺主线）配图](/uploads/blog/2026-08-03-fde/inline-HOxqNiGWkAAUTGs.jpg)
 
 ## 路径 B：政策通道，以上海为例
 
@@ -95,7 +95,7 @@ externalLinks:
 
 > 熟练使用至少两种 AI 编程工具，例如 Codex、Cursor、Claude Code、Kiro 等。
 
-![二、还有一条路：AI Coding 方向配图](https://pbs.twimg.com/media/HOxqQcBWAAAqPWH?format=png&name=large)
+![二、还有一条路：AI Coding 方向配图](/uploads/blog/2026-08-03-fde/inline-HOxqQcBWAAAqPWH.png)
 
 **如果你已经在用这些工具做事，这就是你的资历，只是还没有写进简历。**
 
@@ -105,7 +105,7 @@ externalLinks:
 
 ## 三、能力要求：按薪资分层
 
-![三、能力要求：按薪资分层配图](https://pbs.twimg.com/media/HOxpvdIWcAAtMli?format=jpg&name=large)
+![三、能力要求：按薪资分层配图](/uploads/blog/2026-08-03-fde/inline-HOxpvdIWcAAtMli.jpg)
 
 括号里的英文术语现在不必深究，但**搜索岗位和写简历的时候要用到它们**，招聘启事就是这么写的。
 
@@ -113,7 +113,7 @@ externalLinks:
 
 一个做了三年这件事的团队的判断是：最稀缺的能力不是编程，而是能扎进一门陌生生意并快速摸懂——他们团队里学法语的 00 后也能上手。**技术是入场券，业务理解力才是天花板。**
 
-![三、能力要求：按薪资分层配图](https://pbs.twimg.com/media/HOxqSq_WkAAAOZO?format=jpg&name=large)
+![三、能力要求：按薪资分层配图](/uploads/blog/2026-08-03-fde/inline-HOxqSq_WkAAAOZO.jpg)
 
 ## 四、面试面什么，招聘方会看什么
 
@@ -137,7 +137,7 @@ externalLinks:
 
 ## 1\. 给建筑师和艺术家提供技术支持，包括创作和官网搭建
 
-![1. 给建筑师和艺术家提供技术支持，包括创作和官网搭建配图](https://pbs.twimg.com/media/HOxqVIYXIAAkgP2?format=jpg&name=large)
+![1. 给建筑师和艺术家提供技术支持，包括创作和官网搭建配图](/uploads/blog/2026-08-03-fde/inline-HOxqVIYXIAAkgP2.jpg)
 
 这类客户几乎不会说出具体的专业名词，或者说出来的内容，只有你是从业者才听得懂。
 
@@ -149,7 +149,7 @@ externalLinks:
 
 做法和前面讲的完全一致：不问"你想要什么"，而问"你现在看到的哪个对、哪个不对、差在哪里"，用样本逼近，不用语言逼近。先做出一版能看的东西给他反应，比开三次需求会更有效。
 
-![1. 给建筑师和艺术家提供技术支持，包括创作和官网搭建配图](https://pbs.twimg.com/media/HOxqX2UWAAA7NXU?format=jpg&name=large)
+![1. 给建筑师和艺术家提供技术支持，包括创作和官网搭建配图](/uploads/blog/2026-08-03-fde/inline-HOxqX2UWAAA7NXU.jpg)
 
 **这件事教给我的一课是：客户描述不清需求，不是他的问题，是你没有找到对的提问方式。**
 
@@ -157,7 +157,7 @@ externalLinks:
 
 我自己搭了一套工作流，按时产出内容，定期复盘，持续优化。
 
-![2. 给企业做 SEO 内容优化配图](https://pbs.twimg.com/media/HOxqazCWkAABS6Y?format=jpg&name=large)
+![2. 给企业做 SEO 内容优化配图](/uploads/blog/2026-08-03-fde/inline-HOxqazCWkAABS6Y.jpg)
 
 这件事已经是一次完整的 FDE 交付：嵌进客户已有的节奏、使用真实数据、先打通「一篇内容从选题到发布到数据回收」这条最小链路、**复盘本身就是在衡量效果**、工作流是可以复用到下一个客户身上的资产、有数据支撑所以可以不按工时议价。
 
@@ -180,7 +180,7 @@ externalLinks:
 1. 如果觉得这个工作来钱很快，反而不建议入局，因为这样很难理解人性。
 2. 只希望稳定工作的人，也不必勉强，FDE 终究是一个过渡性的职位，FDE 的终点就是淘汰自己。
 
-![六、那么，FDE 不适合哪些人？配图](https://pbs.twimg.com/media/HOxqdc_XcAAUHfJ?format=jpg&name=large)
+![六、那么，FDE 不适合哪些人？配图](/uploads/blog/2026-08-03-fde/inline-HOxqdc_XcAAUHfJ.jpg)
 
 ## 投简历前的自检
 
@@ -208,13 +208,13 @@ externalLinks:
 
 还有一层更快的变化：今天最硬的那些技术门槛，恰恰会最先被工具消化掉。部署、调优、环境适配这些今天能筛掉一半候选人，但它们都有标准答案，而有标准答案的问题正是工具最先解决的。留下来的是理解业务和设计方案，那部分没有标准答案。
 
-![FDE只是个中间层岗位，以后大概率会消失，但原因未必是 AI 成熟落地配图](https://pbs.twimg.com/media/HOxqgRAWsAAbf7T?format=jpg&name=large)
+![FDE只是个中间层岗位，以后大概率会消失，但原因未必是 AI 成熟落地配图](/uploads/blog/2026-08-03-fde/inline-HOxqgRAWsAAbf7T.jpg)
 
 ## 做 FDE 到底能收获什么？
 
 一位从业者的表述，我认为是关于 FDE 最准确的一句：
 
-![做 FDE 到底能收获什么？配图](https://pbs.twimg.com/media/HOxqjWEXIAA4uZ3?format=jpg&name=large)
+![做 FDE 到底能收获什么？配图](/uploads/blog/2026-08-03-fde/inline-HOxqjWEXIAA4uZ3.jpg)
 
 > 它跟 To B 销售相似的地方，是整个流程你都要跑一遍；**不相似的地方在于你能做甲方。** 如果你理解不了"做甲方"是什么意思，那它就是个外包，只是换了个壳而已。
 
@@ -236,7 +236,7 @@ externalLinks:
 
 所以它更像一个温度计，量的是 AI 与现实之间还差多远。真到了 AI 能自己跨过那道缝的那天，这个岗位会安静地消失——不是以失败的方式，而是以成功的方式。
 
-![小结配图](https://pbs.twimg.com/media/HOxql6iXIAAMYnG?format=jpg&name=large)
+![小结配图](/uploads/blog/2026-08-03-fde/inline-HOxql6iXIAAMYnG.jpg)
 
 **目前热度很高。趁热度还高的时候进场，把行业现状，经验学习到手，变成自己的资产。**
 

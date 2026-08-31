@@ -38,7 +38,7 @@ externalLinks:
 
 ## 一、对话记录，不等于项目状态
 
-![一、对话记录，不等于项目状态配图](https://pbs.twimg.com/media/HNBzJ6lWAAAvECe?format=jpg&name=large)
+![一、对话记录，不等于项目状态配图](/uploads/blog/2026-07-12/inline-HNBzJ6lWAAAvECe.jpg)
 
 对话框最擅长保存的是：
 
@@ -61,17 +61,17 @@ Agent 可能记得全部过程，却无法稳定判断哪一部分代表"当前�
 
 ## 二、针对Agent协作的研究
 
-![二、针对Agent协作的研究配图](https://pbs.twimg.com/media/HNBzKvzWQAAiEoj?format=jpg&name=large)
+![二、针对Agent协作的研究配图](/uploads/blog/2026-07-12/inline-HNBzKvzWQAAiEoj.jpg)
 
 "线性聊天不适合复杂工作"，这一点有研究支撑。2023 年，来自加州大学圣地亚哥分校的研究者发布了一个名为 **Sensecape** 的实验系统，允许用户在 Canvas 和层级视图之间切换，与大语言模型共同完成研究、信息探索和复杂主题梳理。
 
-![二、针对Agent协作的研究配图](https://pbs.twimg.com/media/HNBzLisXoAAre2g?format=jpg&name=large)
+![二、针对Agent协作的研究配图](/uploads/blog/2026-07-12/inline-HNBzLisXoAAre2g.jpg)
 
 研究者指出，人们在处理复杂信息时，往往需要反复进行搜索、分类、比较、抽象和重组；但主流 LLM 界面仍然采用线性对话，无法很好地承载这种非线性的思考过程。在用户研究中，Sensecape 帮助参与者探索更多主题，并将信息组织为更加清晰的层级结构。研究同时发现，把所有内容塞进同一张画布也会造成视觉混乱，因此复杂任务需要不同层级的 Canvas，而不是一张无限膨胀的大图。
 
 到了 2026 年，另一项研究直接把这个问题指向了 AI 对话本身。研究者开发了一个叫 **CanvasConvo** 的系统，把传统聊天转化为可以分支、回溯和重新组织的空间画布。
 
-![二、针对Agent协作的研究配图](https://pbs.twimg.com/media/HNBzM8zWsAA6YWJ?format=jpg&name=large)
+![二、针对Agent协作的研究配图](/uploads/blog/2026-07-12/inline-HNBzM8zWsAA6YWJ.jpg)
 
 用户可以从任意一条消息创建新的对话分支，在不打断原有路线的情况下探索不同方案。研究团队让 24 名参与者实际使用这个系统五天，结果显示，传统聊天更多被用于快速提问和即时生成，而 Canvas 则被用于更长时间的整理、回顾和思考：研究中，Canvas 会话的平均持续时间为 34.1 分钟，普通聊天会话为 13 分钟。
 
@@ -83,7 +83,7 @@ Agent 可能记得全部过程，却无法稳定判断哪一部分代表"当前�
 
 ## 三、思考并非线性的，而是一张网
 
-![三、思考并非线性的，而是一张网配图](https://pbs.twimg.com/media/HNBzOPLWMAAGScc?format=jpg&name=large)
+![三、思考并非线性的，而是一张网配图](/uploads/blog/2026-07-12/inline-HNBzOPLWMAAGScc.jpg)
 
 一个真实项目通常同时包含很多东西：
 
@@ -97,7 +97,7 @@ Agent 可能记得全部过程，却无法稳定判断哪一部分代表"当前�
 
 ## 四、AI 产品也正在走出对话框
 
-![四、AI 产品也正在走出对话框配图](https://pbs.twimg.com/media/HNBzPnXXgAA92sf?format=jpg&name=large)
+![四、AI 产品也正在走出对话框配图](/uploads/blog/2026-07-12/inline-HNBzPnXXgAA92sf.jpg)
 
 这个方向已经从学术研究延伸到了产品。一些 AI 产品开始尝试把模型输出从聊天记录中拿出来，放进可以持续编辑的工作空间。
 
@@ -113,7 +113,7 @@ Agent 可能记得全部过程，却无法稳定判断哪一部分代表"当前�
 
 在 Cursor 的设计里，Canvas 也不是对话结束后导出的一张图片，而是和终端、浏览器、代码仓库并列存在的持久化工作对象。
 
-![四、AI 产品也正在走出对话框配图](https://pbs.twimg.com/media/HNBzQ6SXQAAOWAO?format=jpg&name=large)
+![四、AI 产品也正在走出对话框配图](/uploads/blog/2026-07-12/inline-HNBzQ6SXQAAOWAO.jpg)
 
 这些产品都指向同一个方向：
 
@@ -127,7 +127,7 @@ Agent 可能记得全部过程，却无法稳定判断哪一部分代表"当前�
 
 ## 五、Canvas 不是结果，而是工作台
 
-![五、Canvas 不是结果，而是工作台配图](https://pbs.twimg.com/media/HNBzSG3XUAAnmMm?format=jpg&name=large)
+![五、Canvas 不是结果，而是工作台配图](/uploads/blog/2026-07-12/inline-HNBzSG3XUAAnmMm.jpg)
 
 很多人使用 AI 和 Canvas 的方式，仍然是这样的：和 AI 聊天 → 让 AI 整理内容 → 生成一张思维导图或者流程图 → 导出图表 → 结束。此时的 Canvas 只是对话完成后的展示结果，这和一张普通图片没有本质区别。
 
@@ -186,7 +186,7 @@ Obsidian Canvas 使用开放的 JSON Canvas 格式，文件后缀是 .canvas。�
 
 [Canvas LLM - Obsidian Plugin](https://community.obsidian.md/plugins/canvas-llm)
 
-![七、Obsidian 生态里已经出现了早期原型配图](https://pbs.twimg.com/media/HNBzTsCXAAAhFQG?format=png&name=large)
+![七、Obsidian 生态里已经出现了早期原型配图](/uploads/blog/2026-07-12/inline-HNBzTsCXAAAhFQG.png)
 
 开发者将它定义为一种"在 Obsidian 中通过 Canvas 与 LLM 对话的界面"，并特别强调它对复杂研究和分支对话的价值。
 
@@ -194,7 +194,7 @@ Obsidian Canvas 使用开放的 JSON Canvas 格式，文件后缀是 .canvas。�
 
 [Cannoli - Obsidian Plugin](https://community.obsidian.md/plugins/cannoli)
 
-![七、Obsidian 生态里已经出现了早期原型配图](https://pbs.twimg.com/media/HNBzV5-WkAANtwA?format=jpg&name=large)
+![七、Obsidian 生态里已经出现了早期原型配图](/uploads/blog/2026-07-12/inline-HNBzV5-WkAANtwA.jpg)
 
 Cannoli 允许用户直接在 Obsidian Canvas 上，通过卡片和箭头定义变量、逻辑、循环和分支，再运行对应的 LLM 工作流。它可以读取和写入 Obsidian Vault，也可以执行预先定义的 HTTP 请求。换句话说，在 Cannoli 中，节点也可以是任务，连线也可以表示执行顺序和逻辑依赖。
 
@@ -211,7 +211,7 @@ Cannoli 允许用户直接在 Obsidian Canvas 上，通过卡片和箭头定义�
 
 ## 八、Canvas 表达关系，Markdown 承载细节
 
-![八、Canvas 表达关系，Markdown 承载细节配图](https://pbs.twimg.com/media/HNBz_oGWwAA5ty6?format=jpg&name=large)
+![八、Canvas 表达关系，Markdown 承载细节配图](/uploads/blog/2026-07-12/inline-HNBz_oGWwAA5ty6.jpg)
 
 Canvas 不应该塞进所有信息。如果每一个节点里都有几千字内容，画布很快就会变得无法阅读。更合理的分工是：
 
@@ -234,7 +234,7 @@ Canvas 不应该塞进所有信息。如果每一个节点里都有几千字内�
 
 ## 九、一个完整的协作过程
 
-![九、一个完整的协作过程配图](https://pbs.twimg.com/media/HNBzW5wXMAAgIej?format=jpg&name=large)
+![九、一个完整的协作过程配图](/uploads/blog/2026-07-12/inline-HNBzW5wXMAAgIej.jpg)
 
 假设你现在要和 Agent 一起梳理一个新产品，手上已经有一些零散材料：会议纪要、功能想法、用户反馈、竞品截图，以及几份并不完全一致的需求文档。传统方式是把这些材料都交给 AI，然后让它总结，它可能会输出一份很完整的文字。但你依然很难快速判断：哪些内容是事实，哪些内容是推断，哪些属于用户问题，哪些属于解决方案，哪些只是某次讨论中出现过、后来已经被放弃的想法。
 
@@ -291,17 +291,17 @@ Canvas 不应该塞进所有信息。如果每一个节点里都有几千字内�
 
 某个需求已经确定，就标记为绿色；某项任务正在进行，就移动到"进行中"；某个技术问题没有解决，就标记为红色；某个方案已经放弃，就移入归档区域。慢慢地，这张 Canvas 就从思维整理工具，变成了项目的当前状态。
 
-![第五步：把执行结果写回 Canvas配图](https://pbs.twimg.com/media/HNB09VYWgAAtYw4?format=jpg&name=large)
+![第五步：把执行结果写回 Canvas配图](/uploads/blog/2026-07-12/inline-HNB09VYWgAAtYw4.jpg)
 
 这是我受委托开发的一款库存统计类工具的全部流程图，完全通过与Agent协作搭建，在此基础上，可以清晰的产出原型图和代码
 
-![第五步：把执行结果写回 Canvas配图](https://pbs.twimg.com/media/HNB06r8WQAA1OYX?format=jpg&name=large)
+![第五步：把执行结果写回 Canvas配图](/uploads/blog/2026-07-12/inline-HNB06r8WQAA1OYX.jpg)
 
 这是一个SEO内容产出的流程工作流，同样通过canvas作为演示，与Agent可以直观的协作
 
 ## 十、直接"改图"，就是在修改 Agent 的理解
 
-![十、直接"改图"，就是在修改 Agent 的理解配图](https://pbs.twimg.com/media/HNBzX1CXMAArPyn?format=jpg&name=large)
+![十、直接"改图"，就是在修改 Agent 的理解配图](/uploads/blog/2026-07-12/inline-HNBzX1CXMAArPyn.jpg)
 
 这是 Canvas 最有意思的地方。在传统对话里，Agent 理解错误以后，你只能继续用语言纠正它：
 
@@ -323,7 +323,7 @@ Canvas 不应该塞进所有信息。如果每一个节点里都有几千字内�
 
 ## 十一、Canvas 需要一套协作协议
 
-![十一、Canvas 需要一套协作协议配图](https://pbs.twimg.com/media/HNBzYmLXYAAr5N0?format=jpg&name=large)
+![十一、Canvas 需要一套协作协议配图](/uploads/blog/2026-07-12/inline-HNBzYmLXYAAr5N0.jpg)
 
 当然，Canvas 也不是随便画就能用好。如果节点越来越多、颜色越来越乱、连线到处交叉，它很快就会变成一张意大利面图，人看不懂，Agent 也无法稳定解析。因此，最好建立一套简单规则。
 
@@ -365,7 +365,7 @@ Canvas 不应该塞进所有信息。如果每一个节点里都有几千字内�
 
 ## 十二、多 Agent 协作，更需要一张共享画布
 
-![十二、多 Agent 协作，更需要一张共享画布配图](https://pbs.twimg.com/media/HNBzdmFWEAAhNFh?format=jpg&name=large)
+![十二、多 Agent 协作，更需要一张共享画布配图](/uploads/blog/2026-07-12/inline-HNBzdmFWEAAhNFh.jpg)
 
 Canvas 的价值，在多 Agent 场景下会更加明显。比如你要完成五篇 SEO 内容，整个任务可能包含关键词研究、搜索意图分析、文章大纲、正文写作、配图生成、页面代码、SEO 检查和发布。不同环节可能由不同工具或者 Agent 完成：一个负责研究，一个负责写作，一个负责生图，一个负责代码，一个负责检查。
 

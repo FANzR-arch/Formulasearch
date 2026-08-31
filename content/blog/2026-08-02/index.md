@@ -24,7 +24,7 @@ externalLinks:
 
 比如上海，已经把它写进了官方的人才培养计划，甚至有大学从高考开始招「Pre-FDE 试点班」。
 
-![AI 落地越难，FDE 越吃香？配图](https://pbs.twimg.com/media/HOsIqWja8AArBAi?format=png&name=large)
+![AI 落地越难，FDE 越吃香？配图](/uploads/blog/2026-08-02/inline-HOsIqWja8AArBAi.png)
 
 薪资也确实给的不少，我查到的最高一个岗位，**50-80K**。看起来确实是一个很吃香的岗位，但真是如此吗？**本文我会结合我自己的亲身经验，调研结果和对于一些一线人员的经验交流，总结分析一个适用于小白的鉴别方法，以及对于有意向朋友的求职的参考。**
 
@@ -34,7 +34,7 @@ externalLinks:
 
 简单来讲，**FDE 就是被公司派驻到客户那里，辅助客户把AI真正用起来的那个角色。**
 
-![▲ FDE 到底是什么配图](https://pbs.twimg.com/media/HOsIrPnaUAAy3uP?format=jpg&name=large)
+![▲ FDE 到底是什么配图](/uploads/blog/2026-08-02/inline-HOsIrPnaUAAy3uP.jpg)
 
 它和销售不同，销售把产品卖出去就结束了；也和坐在自己公司写代码的工程师不同。FDE 坐到客户的工位旁边，先弄清楚对方每天如何工作，再把 AI 嵌进那个流程，让它真正运转起来，并且有人持续使用。**（是不是有点外派驻场，或者外包的感觉...）**
 
@@ -42,13 +42,13 @@ externalLinks:
 
 > **把 AI 从演示，变成业务现场可持续运行的系统。**
 
-![▲ FDE 到底是什么配图](https://pbs.twimg.com/media/HOsJn-_bsAAoUQN?format=jpg&name=large)
+![▲ FDE 到底是什么配图](/uploads/blog/2026-08-02/inline-HOsJn-_bsAAoUQN.jpg)
 
 为什么突然需要这样一个岗位？因为AI发展至今，所有人都撞上了同一堵墙：**AI 在会议室里演示得很好，一进入真实的企业就失效。**
 
 数据是杂乱的，流程没有标准化，老系统对接不上，员工不会用也不想用。这些问题模型自己解决不了，只能派人到现场逐个拆解。
 
-![▲ FDE 到底是什么配图](https://pbs.twimg.com/media/HOsJv0db0AA7X5z?format=jpg&name=large)
+![▲ FDE 到底是什么配图](/uploads/blog/2026-08-02/inline-HOsJv0db0AA7X5z.jpg)
 
 **SO，被派过去的这个人，就是 FDE。**
 
@@ -62,11 +62,11 @@ externalLinks:
 
 最低的岗位 **3-8K**，最高的 **50-80K**，相差十几倍。而且这个差距不是资历拉开的——好几个都写着「经验不限」，薪资却从 10-15K 到 20-40K 不等。
 
-![▲ 不是什么岗位都能叫 FDE 的配图](https://pbs.twimg.com/media/HOsJy7qa8AAi35N?format=jpg&name=large)
+![▲ 不是什么岗位都能叫 FDE 的配图](/uploads/blog/2026-08-02/inline-HOsJy7qa8AAi35N.jpg)
 
 搞笑的是，我搜到一个岗位叫「**手机功耗 FDE**」，8-10K，实际工作是手机功耗测试，与 AI 毫无关系。
 
-![▲ 不是什么岗位都能叫 FDE 的配图](https://pbs.twimg.com/media/HOsJ4nNaAAEhaaT?format=jpg&name=large)
+![▲ 不是什么岗位都能叫 FDE 的配图](/uploads/blog/2026-08-02/inline-HOsJ4nNaAAEhaaT.jpg)
 
 **一半的岗位在做真正的落地，另一半只是把「驻场实施」换了个名字**，甚至像那个功耗测试岗一样，只是拿这三个字母当招聘噱头。
 
@@ -95,15 +95,15 @@ externalLinks:
 
 **真正的 FDE 产出两份东西。一份给客户，是一套能用的系统；一份给自己公司，是一套可以复制到下一个客户身上的方法。**
 
-![2. 真假的分界线：交付之后有没有沉淀配图](https://pbs.twimg.com/media/HOsJ-R9bQAAYHlN?format=jpg&name=large)
+![2. 真假的分界线：交付之后有没有沉淀配图](/uploads/blog/2026-08-02/inline-HOsJ-R9bQAAYHlN.jpg)
 
 > 把有价值的客户现场经验，固化成产品优化建议
 
-![2. 真假的分界线：交付之后有没有沉淀配图](https://pbs.twimg.com/media/HOsKAt5bwAA05EB?format=jpg&name=large)
+![2. 真假的分界线：交付之后有没有沉淀配图](/uploads/blog/2026-08-02/inline-HOsKAt5bwAA05EB.jpg)
 
 > 每月产出至少 4 个别人可以直接复用的方案包
 
-![2. 真假的分界线：交付之后有没有沉淀配图](https://pbs.twimg.com/media/HOsKC48bYAAF8fB?format=jpg&name=large)
+![2. 真假的分界线：交付之后有没有沉淀配图](/uploads/blog/2026-08-02/inline-HOsKC48bYAAF8fB.jpg)
 
 **因此，要注意只为客户交付、交付完成即离场、没有留下任何沉淀的，这是纯粹的外包。**
 
@@ -117,7 +117,7 @@ externalLinks:
 
 **接到商机 → 做出演示版本 → 小规模试跑验证 → 客户现场正式交付 → 上线后持续维护**
 
-![3. FDE 完整的工作链条配图](https://pbs.twimg.com/media/HOsKNixboAANRaz?format=jpg&name=large)
+![3. FDE 完整的工作链条配图](/uploads/blog/2026-08-02/inline-HOsKNixboAANRaz.jpg)
 
 **「接到商机」在最前**，意味着需要与销售一同面对客户。不适应与人打交道的，在这一步就该止步。
 
@@ -131,17 +131,17 @@ externalLinks:
 
 以下是我逐个查阅 BOSS 直聘四个城市的结果，约 55 个在招岗位，**可以当作样本参考**。
 
-![4. FDE 薪资：求职网站实况配图](https://pbs.twimg.com/media/HOsIpl6aIAAiQ6F?format=jpg&name=large)
+![4. FDE 薪资：求职网站实况配图](/uploads/blog/2026-08-02/inline-HOsIpl6aIAAiQ6F.jpg)
 
 有一个细节值得注意：**同一家大厂的同一个 FDE 岗位，官网招聘页不写薪资，猎头渠道挂的是 50-80K，实习岗写的是 300-350 元/天。** 一家公司三个渠道三个价格，真实的价格区间只在猎头渠道可见。
 
-![4. FDE 薪资：求职网站实况配图](https://pbs.twimg.com/media/HOsKQkrbkAEn6tf?format=jpg&name=large)
+![4. FDE 薪资：求职网站实况配图](/uploads/blog/2026-08-02/inline-HOsKQkrbkAEn6tf.jpg)
 
 一些做了多年交付的老工程师在论坛上讨论过这个岗位：**需求不稳定、容易被优化掉、小公司根本不专门招而是让内部员工兼任、真正在招的多是大厂和国企。**
 
 也有一些真实感受的分享：
 
-![4. FDE 薪资：求职网站实况配图](https://pbs.twimg.com/media/HOsKS54bQAANgen?format=jpg&name=large)
+![4. FDE 薪资：求职网站实况配图](/uploads/blog/2026-08-02/inline-HOsKS54bQAANgen.jpg)
 
 **"钱少事多最先裁的岗位"和"少看虚假广告"。**// **好忙啊，有点焦虑，有点不自信，有点心累。**
 
@@ -179,7 +179,7 @@ externalLinks:
 
 **市场上的假货多到什么程度？多到真正在做这件事的公司必须在招聘启事第一段先自证。**
 
-![2. 三个通过JD来判断的信号配图](https://pbs.twimg.com/media/HOsKaRlacAAbo7Q?format=jpg&name=large)
+![2. 三个通过JD来判断的信号配图](/uploads/blog/2026-08-02/inline-HOsKaRlacAAbo7Q.jpg)
 
 **信号二：薪资和经验要求对不上的，点进去看职责。**
 
@@ -187,7 +187,7 @@ externalLinks:
 
 **这是实习岗位，却挂着正式岗位的薪资。** 其他公司的同类岗位写明是实习，200-300 元/天。
 
-![2. 三个通过JD来判断的信号配图](https://pbs.twimg.com/media/HOsKdKbaMAAftKy?format=jpg&name=large)
+![2. 三个通过JD来判断的信号配图](/uploads/blog/2026-08-02/inline-HOsKdKbaMAAftKy.jpg)
 
 规律很简单：职责里全部是「协助」「参与」「辅助」的，实为辅助性工作。
 
@@ -195,7 +195,7 @@ externalLinks:
 
 除了开头那个搞笑的「手机功耗FDE」，还有一个更典型的：「人工智能 XX 销售 ｜ FDE 商务」，7-12K，学历不限，岗位职责第一条是「销售转化，占 70%」，任职要求里还有「年化薪销比＞1:10」。这是彻底的销售岗位，FDE 只是它要卖的产品之一罢了。
 
-![2. 三个通过JD来判断的信号配图](https://pbs.twimg.com/media/HOsKtwva0AEBpJz?format=jpg&name=large)
+![2. 三个通过JD来判断的信号配图](/uploads/blog/2026-08-02/inline-HOsKtwva0AEBpJz.jpg)
 
 一个是纯人力，一个是纯销售。**这三个字母现在几乎可以承载任何内容。**
 

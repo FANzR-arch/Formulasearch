@@ -17,8 +17,8 @@ const normalizeImageUrl = (value) => {
   }
 }
 
-const remoteImageDimensions = new Map(Object.entries(blogImageDimensions.images).map(([source, dimensions]) => [normalizeImageUrl(source), dimensions]))
-const remoteImageDimensionsByPath = new Map(Object.entries(blogImageDimensions.images).map(([source, dimensions]) => {
+const articleImageDimensions = new Map(Object.entries(blogImageDimensions.images).map(([source, dimensions]) => [normalizeImageUrl(source), dimensions]))
+const articleImageDimensionsByPath = new Map(Object.entries(blogImageDimensions.images).map(([source, dimensions]) => {
   try { return [new URL(source).pathname, dimensions] } catch { return [source, dimensions] }
 }))
 
@@ -55,8 +55,8 @@ const addRenderedImageAttributes = () => (tree) => {
     if (node.type === 'element' && node.tagName === 'img') {
       const source = typeof node.properties?.src === 'string' ? node.properties.src : ''
       const normalizedUrl = normalizeImageUrl(source)
-      const dimensions = remoteImageDimensions.get(normalizedUrl) ?? (() => {
-        try { return remoteImageDimensionsByPath.get(new URL(source).pathname) } catch { return undefined }
+      const dimensions = articleImageDimensions.get(normalizedUrl) ?? (() => {
+        try { return articleImageDimensionsByPath.get(new URL(source).pathname) } catch { return undefined }
       })()
       node.properties = {
         ...node.properties,

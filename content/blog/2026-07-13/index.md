@@ -26,7 +26,7 @@ Codex 的宠物功能很有意思：你可以上传自己的头像、真人照�
 
 它会待机、走动、挥手，也会跟着 Codex 的工作状态做反应：任务跑起来它就开始忙，需要你确认就停下来等，任务失败还会露个沮丧的表情。
 
-![快速上手设计一款个人IP，做成你的Codex宠物（附提示词和链接）配图](https://pbs.twimg.com/media/HNFl-NDWsAA8jh3?format=jpg&name=large)
+![快速上手设计一款个人IP，做成你的Codex宠物（附提示词和链接）配图](/uploads/blog/2026-07-13/inline-HNFl-NDWsAA8jh3.jpg)
 
 这篇文章分享一下如何准备自己的形象、怎么让 Codex 自动生成，以及去哪里直接下载别人做好的桌宠。
 
@@ -38,15 +38,15 @@ Codex 的宠物功能很有意思：你可以上传自己的头像、真人照�
 
 - [Petdex](https://petdex.dev/)：社区画廊比较大，支持浏览、安装和投稿。
 
-![直接用：领养现成的宠物（比如一只鸡哥:D）配图](https://pbs.twimg.com/media/HNFmNPpXAAAkD8T?format=jpg&name=large)
+![直接用：领养现成的宠物（比如一只鸡哥:D）配图](/uploads/blog/2026-07-13/inline-HNFmNPpXAAAkD8T.jpg)
 
 - [Awesome Codex Pet](https://awesome-codex-pet.pages.dev/)：数量不算多，但有动漫角色、动物、原创角色、机器人等分类。
 
-![直接用：领养现成的宠物（比如一只鸡哥:D）配图](https://pbs.twimg.com/media/HNFmPwrXwAAu5yX?format=jpg&name=large)
+![直接用：领养现成的宠物（比如一只鸡哥:D）配图](/uploads/blog/2026-07-13/inline-HNFmPwrXwAAu5yX.jpg)
 
 - [CodexPets.net](https://codexpets.net/)：可以直接下载完整宠物包，再导入 Codex。
 
-![直接用：领养现成的宠物（比如一只鸡哥:D）配图](https://pbs.twimg.com/media/HNFmSRUXMAEjOC1?format=jpg&name=large)
+![直接用：领养现成的宠物（比如一只鸡哥:D）配图](/uploads/blog/2026-07-13/inline-HNFmSRUXMAEjOC1.jpg)
 
 例如在 Petdex 找到喜欢的宠物后，可以复制页面给出的安装命令：
 
@@ -104,7 +104,7 @@ Codex → Settings → Appearance → Pets
 避免套用普通卡通模板、模仿迪士尼等现有 IP 风格、改变主体身份、丢失标志性颜色，或让不同视图出现角色设定漂移。除此之外，请在构图、动作、表情和细节上自由发挥。
 ```
 
-![第二步：生成基础 IP 图像（附完整提示词）配图](https://pbs.twimg.com/media/HNFl_MWXYAAyor2?format=jpg&name=large)
+![第二步：生成基础 IP 图像（附完整提示词）配图](/uploads/blog/2026-07-13/inline-HNFl_MWXYAAyor2.jpg)
 
 生成满意后，把这张基础 IP 图像下载保存。桌宠最终显示得很小，细节堆得越多，缩小后越容易糊成一团。它更像做一个图标，而不是画一张海报。
 
@@ -116,7 +116,7 @@ Codex → Settings → Appearance → Pets
 设置 → 宠物 → 创建
 ```
 
-![第三步：上传给 Codex，自动生成桌宠配图](https://pbs.twimg.com/media/HNFl_5EXMAAX8Wi?format=jpg&name=large)
+![第三步：上传给 Codex，自动生成桌宠配图](/uploads/blog/2026-07-13/inline-HNFl_5EXMAAX8Wi.jpg)
 
 上传刚才下载的基础 IP 图像，Codex 就可以调用 Hatch Pet，继续生成待机、走动、挥手、失败和等待等整套动画。
 
@@ -128,15 +128,15 @@ Codex → Settings → Appearance → Pets
 
 主形象确认后，剩下的工作可以交给 Codex。
 
-![第三步：上传给 Codex，自动生成桌宠配图](https://pbs.twimg.com/media/HNFmAppXgAAtgQa?format=jpg&name=large)
+![第三步：上传给 Codex，自动生成桌宠配图](/uploads/blog/2026-07-13/inline-HNFmAppXgAAtgQa.jpg)
 
 Hatch Pet 会先生成主形象，再继续制作待机、左右移动、挥手、跳跃、失败、等待、运行中和检查结果等动画。图片裁切、对齐、去背景和文件打包，也会在同一条流程里完成。这个期间会自动调用很多个subagent去帮你生成素材。
 
-![第三步：上传给 Codex，自动生成桌宠配图](https://pbs.twimg.com/media/HNGbBd2XQAAW7qJ?format=jpg&name=large)
+![第三步：上传给 Codex，自动生成桌宠配图](/uploads/blog/2026-07-13/inline-HNGbBd2XQAAW7qJ.jpg)
 
 不需要自己把几十张图拼成动图，也不用手写配置文件。生成完成后，宠物通常会出现在：
 
-![第三步：上传给 Codex，自动生成桌宠配图](https://pbs.twimg.com/media/HNGbD3lWAAAgUVe?format=jpg&name=large)
+![第三步：上传给 Codex，自动生成桌宠配图](/uploads/blog/2026-07-13/inline-HNGbD3lWAAAgUVe.jpg)
 
 ```text
 ~/.codex/pets/你的宠物名称/
@@ -159,7 +159,7 @@ spritesheet.webp
 
 **但是注意，整个过程需要生成多组动画，通常会比普通对话慢，也会消耗更多额度，比如这一轮就用了一个半小时，消耗了接近一半的PLUS额度...**
 
-![第三步：上传给 Codex，自动生成桌宠配图](https://pbs.twimg.com/media/HNFl_V8XAAAZXx1?format=png&name=large)
+![第三步：上传给 Codex，自动生成桌宠配图](/uploads/blog/2026-07-13/inline-HNFl_V8XAAAZXx1.png)
 
 ## 做完以后，可以下载、备份，也可以分享
 

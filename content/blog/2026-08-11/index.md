@@ -26,7 +26,7 @@ externalLinks:
 
 ## 一、明明加了细节，为什么还是很假？
 
-![一、明明加了细节，为什么还是很假？配图](https://pbs.twimg.com/media/HPYCtsoWUAAVwvB?format=jpg&name=large)
+![一、明明加了细节，为什么还是很假？配图](/uploads/blog/2026-08-11/inline-HPYCtsoWUAAVwvB.jpg)
 
 “真实皮肤纹理”这类词当然有用。它们能避免人物像蜡像，也能让近景不至于太干净。但当所有人用同一批词修图，新的模板很快又出现了。标准脸型配上标准鼻梁，脸上再挂着统一的微笑，外面铺一层均匀的雀斑和颗粒。
 
@@ -36,7 +36,7 @@ externalLinks:
 
 观众不会逐条检查提示词。他们会看人物、产品和场景是否合理。
 
-![一、明明加了细节，为什么还是很假？配图](https://pbs.twimg.com/media/HPYCuccWAAA6lIf?format=jpg&name=large)
+![一、明明加了细节，为什么还是很假？配图](/uploads/blog/2026-08-11/inline-HPYCuccWAAA6lIf.jpg)
 
 ## 二、场景和人物要互相匹配
 
@@ -46,13 +46,13 @@ externalLinks:
 
 AI 广告在这里就容易出现人物与场景脱节。
 
-![二、场景和人物要互相匹配配图](https://pbs.twimg.com/media/HPYCv5nXkAA4lb5?format=jpg&name=large)
+![二、场景和人物要互相匹配配图](/uploads/blog/2026-08-11/inline-HPYCv5nXkAA4lb5.jpg)
 
 不少流程从角色设定开始，先定年龄、长相、身材和发型，再把同一个人送进卫生间、办公室、健身房或客厅。身份确实好维持，场景却已经向人物提出了要求。
 
 这件产品平常由谁使用，空间属于谁，镜头要让观众相信什么，人物要显得熟练还是只是负责好看。前面几步没想清楚，后面的角色再精致，也像一张被搬运的设定图。
 
-![二、场景和人物要互相匹配配图](https://pbs.twimg.com/media/HPYCv5yWwAACv0n?format=jpg&name=large)
+![二、场景和人物要互相匹配配图](/uploads/blog/2026-08-11/inline-HPYCv5yWwAACv0n.jpg)
 
 我更建议先做场景化选角。先把产品和使用情境定下来，再从情境里找人。角色身份依然可以提炼、扩展和复用，只是她得先在任务里成立。
 
@@ -66,7 +66,7 @@ AI 广告在这里就容易出现人物与场景脱节。
 
 清洁用品、家居和日用品更看重生活关系。人物不必长得像时尚封面，但她要让人相信自己知道怎么使用这个产品，动作和环境也符合清洁任务。专业软件、医疗或工业产品多了一层要求，人物的工作动作、着装和环境要能支撑专业身份。
 
-![三、不同产品，需要不同的可信度配图](https://pbs.twimg.com/media/HPYCwpAXcAAz2zL?format=jpg&name=large)
+![三、不同产品，需要不同的可信度配图](/uploads/blog/2026-08-11/inline-HPYCwpAXcAAz2zL.jpg)
 
 动手前，先问这张画面里观众会拿什么判断她是否可信。这个问题会直接决定你该把时间花在皮肤、体态，还是动作上。
 
@@ -80,17 +80,17 @@ AI 广告在这里就容易出现人物与场景脱节。
 
 这样做，人物的一致性也不只剩下“长得像同一个人”。同一个人物换到另一个画面，衣着、动作和角色身份仍然要和场景一致。
 
-![四、先定产品和场景，再做角色卡配图](https://pbs.twimg.com/media/HPYCxbXWsAAEaXf?format=jpg&name=large)
+![四、先定产品和场景，再做角色卡配图](/uploads/blog/2026-08-11/inline-HPYCxbXWsAAEaXf.jpg)
 
 ## 五、视频需要一整组人物状态
 
-![五、视频需要一整组人物状态配图](https://pbs.twimg.com/media/HPYCyJ_W8AAcoGz?format=jpg&name=large)
+![五、视频需要一整组人物状态配图](/uploads/blog/2026-08-11/inline-HPYCyJ_W8AAcoGz.jpg)
 
 单张图表现不出什么内容，到了视频里，人物得抬头、低头、看产品、回应镜头、说话、转身、走动。每多一个状态，角色资产就得面临一次考验。
 
 有些人物正面很好看，一转头鼻子变了，开口后脸型又变了。还有些人五官没崩，却从头到尾挂着同一种礼貌微笑。前一种情况是身份没稳住，后一种是状态没有变化。
 
-![五、视频需要一整组人物状态配图](https://pbs.twimg.com/media/HPYCy2UWgAAIi55?format=jpg&name=large)
+![五、视频需要一整组人物状态配图](/uploads/blog/2026-08-11/inline-HPYCy2UWgAAIi55.jpg)
 
 角色库别只收正脸、侧脸和全身照。把任务里会用到的状态也留下来，例如看产品时的视线、操作时手和产品的关系、等待时的放松表情、说话时嘴部和下巴的变化，还有站立与坐下时的重心。视频制作时，创作者需要的正是这些状态。
 
@@ -98,7 +98,7 @@ AI 广告在这里就容易出现人物与场景脱节。
 
 人物一开口，观众会同时接收脸部动作和声音，两者不是各看各的。 关于视听语音感知的研究表明，人会把声音与嘴部、面部动作放在一起处理，音画不一致会增加理解上的不确定性。[PNAS 的相关研究](https://pubmed.ncbi.nlm.nih.gov/33293422/)也指出，脸部动作与声道形态存在可测的联动关系。
 
-![六、数字人的“声音”非常重要配图](https://pbs.twimg.com/media/HPYFwzfX0AAYJqP?format=jpg&name=large)
+![六、数字人的“声音”非常重要配图](/uploads/blog/2026-08-11/inline-HPYFwzfX0AAYJqP.jpg)
 
 所以，声音的作用不只是“像不像这个人”。一段语音至少要和画面对齐四件事：说话人的音色与身份，句子的停顿和重音，情绪与正在发生的事，以及嘴部动作和发声时机。前两项做好，声音会更自然；后两项失配，视频的真实感会明显下降。语音合成研究在评估自然度时，也会把说话风格、可懂度、说话人一致性、韵律变化和自发行为分开看。[相关评测](https://aclanthology.org/2024.lrec-main.573/)说明，音色相似只是其中一项。
 
@@ -118,7 +118,7 @@ HeyGen 的 Instant Avatar / Digital Twin 支持使用自定义 Avatar，并可�
 
 ## 八、先定内容，再出人物
 
-![八、先定内容，再出人物配图](https://pbs.twimg.com/media/HPYCxgsXAAAbOF9?format=jpg&name=large)
+![八、先定内容，再出人物配图](/uploads/blog/2026-08-11/inline-HPYCxgsXAAAbOF9.jpg)
 
 写提示词前，先写一页人物简报，把六件事记下来。
 

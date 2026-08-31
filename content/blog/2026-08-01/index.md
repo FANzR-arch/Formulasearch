@@ -28,15 +28,15 @@ externalLinks:
 
 **演示案例：**
 
-![文章内容配图](https://pbs.twimg.com/media/HOnL9f_X0AA-2nU?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-01/inline-HOnL9f_X0AA-2nU.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOnKXN7XoAAFRQP?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-01/inline-HOnKXN7XoAAFRQP.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOnKV2zW8AA9GFe?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-01/inline-HOnKV2zW8AA9GFe.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOnLnWfXIAEPtM2?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-01/inline-HOnLnWfXIAEPtM2.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOnLpWUXsAASpms?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-08-01/inline-HOnLpWUXsAASpms.jpg)
 
 ## 简易版提示词（复制即用）
 
@@ -95,7 +95,7 @@ Signal 的浅调进 Support，剩下的进两个 Accent；凑不齐的角色留�
 
 复制链接给你的AI，并输入指令“直接安装这个Skill库”即可
 
-![Skill分享：配图](https://pbs.twimg.com/media/HOnMCSHWYAA_SJW?format=jpg&name=large)
+![Skill分享：配图](/uploads/blog/2026-08-01/inline-HOnMCSHWYAA_SJW.jpg)
 
 **🥳****感谢看到这里，我是阿哲, 前建筑师 → AIGC设计师&架构师**
 

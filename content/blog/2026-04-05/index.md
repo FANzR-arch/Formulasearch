@@ -33,7 +33,7 @@ externalLinks:
 
 ## 一、传统工作流，几分钟内完成
 
-![铅笔素描风格的临海玻璃住宅，字幕写着从构思到设计需要各种工具和专业知识](https://pbs.twimg.com/media/HJ57zIpW4AAnfTq?format=jpg&name=large)
+![铅笔素描风格的临海玻璃住宅，字幕写着从构思到设计需要各种工具和专业知识](/uploads/blog/2026-04-05/inline-HJ57zIpW4AAnfTq.jpg)
 
 先说一下那个Demo到底做了什么。
 
@@ -47,7 +47,7 @@ externalLinks:
 
 中间出了错，它自己发现，自己修正。
 
-![黑色背景上悬浮着多张建筑软件窗口，包括三维模型、场地渲染和材质设置界面，底部字幕提到本地 RTX Spark 代理](https://pbs.twimg.com/media/HJ57VdhWEAA8y2t?format=jpg&name=large)
+![黑色背景上悬浮着多张建筑软件窗口，包括三维模型、场地渲染和材质设置界面，底部字幕提到本地 RTX Spark 代理](/uploads/blog/2026-04-05/inline-HJ57VdhWEAA8y2t.jpg)
 
 我以前的工作流呢？
 
@@ -72,9 +72,9 @@ Blackwell RTX GPU，6144个CUDA Cores。1 Petaflop AI算力。20核Grace CPU，1
 
 一套**本地模型处理执行 + 云端模型处理推理**的混合架构。
 
-![黑色流程图展示 OpenShell 居中的 Context、Observe、Reason、Act 循环，左侧是 Prompt、参考图和文字简报，顶部连接 Rhino、Blender、ComfyUI，右侧是 Claude Sonnet](https://pbs.twimg.com/media/HJ57WO-W8AAYla_?format=jpg&name=large)
+![黑色流程图展示 OpenShell 居中的 Context、Observe、Reason、Act 循环，左侧是 Prompt、参考图和文字简报，顶部连接 Rhino、Blender、ComfyUI，右侧是 Claude Sonnet](/uploads/blog/2026-04-05/inline-HJ57WO-W8AAYla_.jpg)
 
-![黑色界面中左侧是 AI 对话窗口，右侧显示 Rhino 的白色建筑线框图，背景浮现 OpenShell、Hermes 和工具流程节点](https://pbs.twimg.com/media/HJ57XKDXgAAl0Xb?format=jpg&name=large)
+![黑色界面中左侧是 AI 对话窗口，右侧显示 Rhino 的白色建筑线框图，背景浮现 OpenShell、Hermes 和工具流程节点](/uploads/blog/2026-04-05/inline-HJ57XKDXgAAl0Xb.jpg)
 
 数据不出本地。设计意图被Agent自动拆解为跨软件的任务流。
 
@@ -100,13 +100,13 @@ vibe coding已经验证了这条逻辑。用codex写代码，不需要知道Reac
 
 Rhino不会消失。Blender不会消失。但它们会从"你每天花8小时操作的对象"变成"Agent在后台自动调用的API"。
 
-![Rhino 三维建模界面中的多层住宅体量，包含墙体、楼板、房间标签和黄色尺寸标注](https://pbs.twimg.com/media/HJ57YAOXwAAjbS6?format=jpg&name=large)
+![Rhino 三维建模界面中的多层住宅体量，包含墙体、楼板、房间标签和黄色尺寸标注](/uploads/blog/2026-04-05/inline-HJ57YAOXwAAjbS6.jpg)
 
-![Blender 与 ComfyUI 的并排对比画面，左侧是简化的木质住宅和泳池模型，右侧是经过图像生成的临海住宅渲染图](https://pbs.twimg.com/media/HJ57Y9eXgAAFZM8?format=jpg&name=large)
+![Blender 与 ComfyUI 的并排对比画面，左侧是简化的木质住宅和泳池模型，右侧是经过图像生成的临海住宅渲染图](/uploads/blog/2026-04-05/inline-HJ57Y9eXgAAFZM8.jpg)
 
-![昏暗工作室里的建筑师坐在模型旁，周围悬浮 Rhino、Blender、CAD、Grasshopper 和 AI Agent 任务面板，显示建模、渲染和分析进度](https://pbs.twimg.com/media/HJ57Z4aXEAAGCok?format=jpg&name=large)
+![昏暗工作室里的建筑师坐在模型旁，周围悬浮 Rhino、Blender、CAD、Grasshopper 和 AI Agent 任务面板，显示建模、渲染和分析进度](/uploads/blog/2026-04-05/inline-HJ57Z4aXEAAGCok.jpg)
 
-![黑色建筑自动化流程图，从手绘草图、平面图和体量线框逐步连接到 Rhino、Blender、日照、能耗和碳排放分析面板](https://pbs.twimg.com/media/HJ57aqpXcAAkhum?format=jpg&name=large)
+![黑色建筑自动化流程图，从手绘草图、平面图和体量线框逐步连接到 Rhino、Blender、日照、能耗和碳排放分析面板](/uploads/blog/2026-04-05/inline-HJ57aqpXcAAkhum.jpg)
 
 就像你今天用codex写代码，你不会关心npm install到底执行了什么。你只关心页面出来了没有。
 
@@ -126,7 +126,7 @@ Rhino不会消失。Blender不会消失。但它们会从"你每天花8小时操
 
 **这行业需要的是工具人而不是设计师，甚至这个行业从来不存在“设计”**
 
-![昏暗室内的建筑师向一群访客讲解空间方案，左侧墙面叠加 AI 建模、渲染、CAD 和任务管理界面](https://pbs.twimg.com/media/HJ57h-7XIAAUC1N?format=jpg&name=large)
+![昏暗室内的建筑师向一群访客讲解空间方案，左侧墙面叠加 AI 建模、渲染、CAD 和任务管理界面](/uploads/blog/2026-04-05/inline-HJ57h-7XIAAUC1N.jpg)
 
 我这种刚入行的建筑师，80%的时间在学软件、画图、改图、校核规范。设计？那是十年以后的事。但大部分人还没熬到"十年以后"，就已经被消耗完了。
 
@@ -168,7 +168,7 @@ CAD取代了手绘。参数化设计取代了重复建模。BIM取代了图纸�
 
 一台RTX Spark，1 Petaflop算力，本地跑。一个Agent，自己打开Rhino、Blender，自己完成从概念到出图的全流程。
 
-![未来建筑工作流示意图，手绘草图、平面图和三维体量经由 AI Agent 分流到 Rhino、Blender、日照、能耗与碳排放分析](https://pbs.twimg.com/media/HJ57ixbXIAAIzUl?format=jpg&name=large)
+![未来建筑工作流示意图，手绘草图、平面图和三维体量经由 AI Agent 分流到 Rhino、Blender、日照、能耗与碳排放分析](/uploads/blog/2026-04-05/inline-HJ57ixbXIAAIzUl.jpg)
 
 **这并不是未来的蓝图，已经实实在在落地实现在了老黄手里的电脑上。**
 
@@ -196,7 +196,7 @@ CAD取代了手绘。参数化设计取代了重复建模。BIM取代了图纸�
 
 是构建空间。是理解人在空间里的感受。是知道一堵墙放在那里，会让人想停下来，还是想快步走过。是站在甲方、施工方、使用者和城市之间，把所有人的需求翻译成一个能落地的方案。
 
-![暖色建筑室内里，建筑师站在模型和多块 AI 分析屏幕旁向家人或客户讲解方案，窗外是暮色](https://pbs.twimg.com/media/HJ57jq9XQAAxp0e?format=jpg&name=large)
+![暖色建筑室内里，建筑师站在模型和多块 AI 分析屏幕旁向家人或客户讲解方案，窗外是暮色](/uploads/blog/2026-04-05/inline-HJ57jq9XQAAxp0e.jpg)
 
 这些东西，过去被"会不会Rhino""会不会Revit""会不会做效果图"淹没了。
 
@@ -228,7 +228,7 @@ AI把这些执行层的事接过去之后，建筑师或许终于可以回到建
 
 ## 为人类建造新世界。
 
-![夕阳下的未来城市广场，古典柱廊与玻璃高楼、弧形空中连桥和绿色植被交织，行人分布在宽阔步道上](https://pbs.twimg.com/media/HJ58H85WIAAHAIL?format=jpg&name=large)
+![夕阳下的未来城市广场，古典柱廊与玻璃高楼、弧形空中连桥和绿色植被交织，行人分布在宽阔步道上](/uploads/blog/2026-04-05/inline-HJ58H85WIAAHAIL.jpg)
 
 🥳感谢看到这里，我是阿哲Phil，前建筑师 → AI
 

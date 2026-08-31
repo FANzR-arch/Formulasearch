@@ -38,7 +38,7 @@ externalLinks:
 
 > tl;dr:「GPU 消耗应该增加，而不是减少」——GPU 卖家
 
-![文章内容配图](https://pbs.twimg.com/media/HODGjsmXIAEUuzT?format=png&name=large)
+![文章内容配图](/uploads/blog/2026-07-25-open-models/inline-HODGjsmXIAEUuzT.png)
 
 ## 一、25 方签了名，OpenAI 和 Anthropic 没签
 
@@ -57,7 +57,7 @@ externalLinks:
 
 这份[名单](https://images.nvidia.com/pdf/Open-Weights-and-American-AI-Leadership.pdf)覆盖了硬件、云、企业软件、开放模型、应用和投资机构，却没有一家以自研闭源前沿模型的访问权为核心业务。分类说的是主要利益方向，不是唯一业务：Microsoft 同时卖闭源模型服务，Mistral 和 Black Forest Labs 也有闭源 API 档位。
 
-![一、25 方签了名，OpenAI 和 Anthropic 没签配图](https://pbs.twimg.com/media/HODGH56XIAAs0zm?format=jpg&name=large)
+![一、25 方签了名，OpenAI 和 Anthropic 没签配图](/uploads/blog/2026-07-25-open-models/inline-HODGH56XIAAs0zm.jpg)
 
 ## 二、黄仁勋的动机是公开的：免费 AI 利好芯片
 
@@ -65,7 +65,7 @@ externalLinks:
 
 谈到中国模型，他也不避讳："These Chinese models are excellent… Open-source models that are excellent should be used."——美国公司「absolutely」可以使用。
 
-![二、黄仁勋的动机是公开的：免费 AI 利好芯片配图](https://pbs.twimg.com/media/HODGIj-XsAAwZam?format=jpg&name=large)
+![二、黄仁勋的动机是公开的：免费 AI 利好芯片配图](/uploads/blog/2026-07-25-open-models/inline-HODGIj-XsAAwZam.jpg)
 
 ## 三、签名的 25 方，共同押注模型扩散
 
@@ -79,7 +79,7 @@ externalLinks:
 
 这就是「到底在卖什么」的第一层答案：**一个智能像电力一样铺开的世界。**
 
-![三、签名的 25 方，共同押注模型扩散配图](https://pbs.twimg.com/media/HODGzv4XIAAXlEY?format=jpg&name=large)
+![三、签名的 25 方，共同押注模型扩散配图](/uploads/blog/2026-07-25-open-models/inline-HODGzv4XIAAXlEY.jpg)
 
 ## 四、OpenAI 和 Anthropic 更依赖访问权溢价
 
@@ -100,7 +100,7 @@ Altman 的原话是希望美国「在开源和闭源都赢」；OpenAI 发言人
 
 安全担忧和商业利益可以同时成立。
 
-![四、OpenAI 和 Anthropic 更依赖访问权溢价配图](https://pbs.twimg.com/media/HODG7N6WQAAke0M?format=jpg&name=large)
+![四、OpenAI 和 Anthropic 更依赖访问权溢价配图](/uploads/blog/2026-07-25-open-models/inline-HODG7N6WQAAke0M.jpg)
 
 ## 五、为什么连闭源也支持：两层市场都要买算力
 
@@ -112,17 +112,17 @@ Altman 的原话是希望美国「在开源和闭源都赢」；OpenAI 发言人
 
 还有一句话，安全和商业两种论证都能拿去用："If everything just becomes one single model, one single point of attack, one single source of failure, I think the world is much, much more vulnerable."（如果一切归于一个模型、一个攻击点、一个故障源，世界会脆弱得多。）模型和供应来源越分散，对单一模型的依赖越低；部署点越多，算力需求越大。对英伟达来说，两种收益同向。
 
-![五、为什么连闭源也支持：两层市场都要买算力配图](https://pbs.twimg.com/media/HODG-p1WkAAp40g?format=jpg&name=large)
+![五、为什么连闭源也支持：两层市场都要买算力配图](/uploads/blog/2026-07-25-open-models/inline-HODG-p1WkAAp40g.jpg)
 
 ## 六、一张利益位置表
 
 这张表不做道德分组，只回答一个问题：开放权重扩散时，谁受益更直接，谁的现有优势承压更大。
 
-![六、一张利益位置表配图](https://pbs.twimg.com/media/HODGHNEWsAAyikS?format=jpg&name=large)
+![六、一张利益位置表配图](/uploads/blog/2026-07-25-open-models/inline-HODGHNEWsAAyikS.jpg)
 
 Google 没签字，也没出现在 Axios 那篇报道里。它的云业务受益于扩散，Gemini API 又靠闭源模型收钱，两侧都占，所以不放进任何一列。Microsoft 同样横跨两侧，区别是它签了字。
 
-![六、一张利益位置表配图](https://pbs.twimg.com/media/HODIeHVXkAApb0O?format=jpg&name=large)
+![六、一张利益位置表配图](/uploads/blog/2026-07-25-open-models/inline-HODIeHVXkAApb0O.jpg)
 
 ## 七、老黄到底在卖什么
 
@@ -130,7 +130,7 @@ Google 没签字，也没出现在 Axios 那篇报道里。它的云业务受益
 
 英伟达不需要某一家模型公司赢，它需要更多模型在更多地方运行。 闭源服务要算力，开放权重还会增加私有部署、主权云和边缘设备的需求。
 
-![七、老黄到底在卖什么配图](https://pbs.twimg.com/media/HODIhBIXEAAVJF3?format=jpg&name=large)
+![七、老黄到底在卖什么配图](/uploads/blog/2026-07-25-open-models/inline-HODIhBIXEAAVJF3.jpg)
 
 ## 八、结语：未来是开源的
 
@@ -148,6 +148,6 @@ Google 没签字，也没出现在 Axios 那篇报道里。它的云业务受益
 
 **老黄不是慈善家，他只是比大多数人更清醒，并且站在赢家的一侧。**
 
-![开放权重会赢得未来。配图](https://pbs.twimg.com/media/HODIjKdWoAA-T49?format=jpg&name=large)
+![开放权重会赢得未来。配图](/uploads/blog/2026-07-25-open-models/inline-HODIjKdWoAA-T49.jpg)
 
 🥳感谢看到这里，我是阿哲，欢迎关注我 [@Formulasearch](https://x.com/Formulasearch)，我会持续输出 AI 相关的实践和思考。

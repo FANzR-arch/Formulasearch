@@ -30,7 +30,7 @@ externalLinks:
 
 ## 一、Loop 与 Graph 的关系？
 
-![一、Loop 与 Graph 的关系？配图](https://pbs.twimg.com/media/HN9R_6FWMAAS64q?format=jpg&name=large)
+![一、Loop 与 Graph 的关系？配图](/uploads/blog/2026-07-24/inline-HN9R_6FWMAAS64q.jpg)
 
 Graph Engineering 可以归纳为三件事：**分工、交接和验收**。
 
@@ -52,9 +52,9 @@ Graph 的处理方式是：**把任务分配给多个 Agent。**
 
 ## 二、五个基本概念
 
-![二、五个基本概念配图](https://pbs.twimg.com/media/HN9SAvvWUAAc9fQ?format=jpg&name=large)
+![二、五个基本概念配图](/uploads/blog/2026-07-24/inline-HN9SAvvWUAAc9fQ.jpg)
 
-![二、五个基本概念配图](https://pbs.twimg.com/media/HN9R_K8XoAEueWI?format=jpg&name=large)
+![二、五个基本概念配图](/uploads/blog/2026-07-24/inline-HN9R_K8XoAEueWI.jpg)
 
 以资料检索为例。假设一个 Agent 找到十条信息，只返回一段总结，负责写作的 Agent 仍然需要重新判断：哪句话是结论，依据是什么，来源在哪里，还有哪些内容尚未确认。
 
@@ -90,7 +90,7 @@ Schema 和 Verifier 负责两件不同的事：**Schema 规定“交什么”，
 
 设计 Graph 时，首先应逐项检查流程中的依赖关系，移除没有必要的串行连接。原本的一条长队，往往可以拆成多个同时启动的分支。
 
-![三、可并行的任务不要串行处理配图](https://pbs.twimg.com/media/HN9TAsyXUAAo11X?format=jpg&name=large)
+![三、可并行的任务不要串行处理配图](/uploads/blog/2026-07-24/inline-HN9TAsyXUAAo11X.jpg)
 
 ## 四、最常用的 Graph 结构
 
@@ -106,7 +106,7 @@ Schema 和 Verifier 负责两件不同的事：**Schema 规定“交什么”，
 
 任务先分发，再汇总，构成了一个菱形结构。市场调研、代码审查和竞品分析都可以沿用这套骨架，只需调整各节点的具体任务。
 
-![四、最常用的 Graph 结构配图](https://pbs.twimg.com/media/HN9THCSWgAEKic1?format=jpg&name=large)
+![四、最常用的 Graph 结构配图](/uploads/blog/2026-07-24/inline-HN9THCSWgAEKic1.jpg)
 
 质检退回会形成循环：检索、检查、退回、再次检索。每个循环都必须设置停止条件，例如连续两轮没有发现新问题就结束。缺少停止条件时，Agent 可能持续重复检查并不断消耗 token。
 
@@ -237,7 +237,7 @@ Graph 设计合理时，可以用更短的时间完成复杂任务；设计不�
 
 先由一个 Agent 完成整个任务 → 找出最耗时或最容易出错的环节 → 拆出一个可以并行的分支 → 在需要独立检查的位置增加质检 Agent → 流程稳定后，再考虑框架和自动编排。
 
-![七、是否需要 Graph：多数任务暂时不需要配图](https://pbs.twimg.com/media/HN9TN3GXoAAGchj?format=jpg&name=large)
+![七、是否需要 Graph：多数任务暂时不需要配图](/uploads/blog/2026-07-24/inline-HN9TN3GXoAAGchj.jpg)
 
 ## 八、Graph 可以自动生成，但需人工审核
 
@@ -253,7 +253,7 @@ Graph 自动生成后，人的职责转向审核，重点检查三个问题：�
 
 我自己的内容流水线就是一张手工设计的小型 Graph：素材归档、写作和质检分别由不同环节负责，交接采用固定格式。它并不复杂，但每一步为何存在、删除后会产生什么影响，都有明确答案。即使 Graph 由 AI 生成，审核标准也没有改变。
 
-![八、Graph 可以自动生成，但需人工审核配图](https://pbs.twimg.com/media/HN9TTLlWYAAi3jk?format=png&name=large)
+![八、Graph 可以自动生成，但需人工审核配图](/uploads/blog/2026-07-24/inline-HN9TTLlWYAAi3jk.png)
 
 AI 可以生成流程，流程是否值得运行仍要由人判断。
 

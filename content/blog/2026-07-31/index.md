@@ -24,15 +24,15 @@ externalLinks:
 
 **以下是一些实践案例：**
 
-![文章内容配图](https://pbs.twimg.com/media/HOiOxZcWEAAN_sb?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-07-31/inline-HOiOxZcWEAAN_sb.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOiOvxlXsAE8Wic?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-07-31/inline-HOiOvxlXsAE8Wic.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOiO4B4WEAA_pFx?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-07-31/inline-HOiO4B4WEAA_pFx.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOiO62yWsAAOy21?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-07-31/inline-HOiO62yWsAAOy21.jpg)
 
-![文章内容配图](https://pbs.twimg.com/media/HOiO8wmXEAAgxWG?format=jpg&name=large)
+![文章内容配图](/uploads/blog/2026-07-31/inline-HOiO8wmXEAAgxWG.jpg)
 
 ## 复制即用提示词分享：
 
@@ -113,7 +113,7 @@ DO NOT
 
 提示词已经加入我的原创 AIGC Skill合集：[FANzR-arch/image-prompt-skills](https://github.com/FANzR-arch/image-prompt-skills)
 
-![Skill分享：配图](https://pbs.twimg.com/media/HOiPAs3WoAA23gh?format=png&name=large)
+![Skill分享：配图](/uploads/blog/2026-07-31/inline-HOiPAs3WoAA23gh.png)
 
 **🥳****感谢看到这里，我是阿哲,前建筑师 → AIGC设计师&架构师**
 

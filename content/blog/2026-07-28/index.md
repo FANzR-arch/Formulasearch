@@ -38,7 +38,7 @@ externalLinks:
 
 ## 一、现在还能处理，不代表没有客服成本
 
-![一、现在还能处理，不代表没有客服成本配图](https://pbs.twimg.com/media/HOS7EL7XoAAf_Uv?format=jpg&name=large)
+![一、现在还能处理，不代表没有客服成本配图](/uploads/blog/2026-07-28/inline-HOS7EL7XoAAf_Uv.jpg)
 
 “还能处理”通常只是指消息有人回复、暂时没人催。
 
@@ -56,7 +56,7 @@ externalLinks:
 
 ## 二、AI 会答错，但错误可以被控制
 
-![二、AI 会答错，但错误可以被控制配图](https://pbs.twimg.com/media/HOS7CGmW0AAlR6r?format=jpg&name=large)
+![二、AI 会答错，但错误可以被控制配图](/uploads/blog/2026-07-28/inline-HOS7CGmW0AAlR6r.jpg)
 
 AI 会出错，规则型机器人、自建 RAG，甚至人工客服也会出错。
 
@@ -79,7 +79,7 @@ AI 会出错，规则型机器人、自建 RAG，甚至人工客服也会出错�
 
 ## 三、客户体验的核心，是问题是否得到解决
 
-![三、客户体验的核心，是问题是否得到解决配图](https://pbs.twimg.com/media/HOS7UAQXwAAdElq?format=jpg&name=large)
+![三、客户体验的核心，是问题是否得到解决配图](/uploads/blog/2026-07-28/inline-HOS7UAQXwAAdElq.jpg)
 
 客户不在乎屏幕对面是人工还是 AI，他们真正关心的是：**问题能否被快速、准确地解决。**
 
@@ -95,7 +95,7 @@ AI 客服可以先完成基础信息收集、问题分类和规则说明，再�
 
 ## 四、客服接入和知识准备，都不必从零开始
 
-![四、客服接入和知识准备，都不必从零开始配图](https://pbs.twimg.com/media/HOS7R5TWoAAGsrW?format=jpg&name=large)
+![四、客服接入和知识准备，都不必从零开始配图](/uploads/blog/2026-07-28/inline-HOS7R5TWoAAGsrW.jpg)
 
 很多企业一听“接入 AI 客服”，就会想到迁移数据、重做流程，以及重新编写一整套知识库。
 
@@ -111,7 +111,7 @@ AI 客服可以先完成基础信息收集、问题分类和规则说明，再�
 
 ## 五、团队不必重学一套系统，但要明确协作规则
 
-![五、团队不必重学一套系统，但要明确协作规则配图](https://pbs.twimg.com/media/HOS7PplXcAAbpPn?format=jpg&name=large)
+![五、团队不必重学一套系统，但要明确协作规则配图](/uploads/blog/2026-07-28/inline-HOS7PplXcAAbpPn.jpg)
 
 **AI 客服不应该让团队多出一个需要全天盯守的后台。**
 
@@ -132,7 +132,7 @@ AI 客服可以先完成基础信息收集、问题分类和规则说明，再�
 
 ## 如何开始？
 
-![如何开始？配图](https://pbs.twimg.com/media/HOS7LX9XoAAcZKr?format=jpg&name=large)
+![如何开始？配图](/uploads/blog/2026-07-28/inline-HOS7LX9XoAAcZKr.jpg)
 
 **企业不必等到客服超负荷，才开始考虑 AI 客服，也不需要一开始就覆盖所有渠道和场景。**
 

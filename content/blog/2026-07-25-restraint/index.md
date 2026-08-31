@@ -30,7 +30,7 @@ externalLinks:
 
 ## 一、五个「不做」
 
-![一、五个「不做」配图](https://pbs.twimg.com/media/HODu7pZXMAA66m1?format=jpg&name=large)
+![一、五个「不做」配图](/uploads/blog/2026-07-25-restraint/inline-HODu7pZXMAA66m1.jpg)
 
 他在交流里给出的一连串「不做」，就是证据（事实层均据流传整理稿）：
 
@@ -54,7 +54,7 @@ externalLinks:
 
 ## 二、五个决策问题
 
-![二、五个决策问题配图](https://pbs.twimg.com/media/HODusyYXgAA8GEI?format=jpg&name=large)
+![二、五个决策问题配图](/uploads/blog/2026-07-25-restraint/inline-HODusyYXgAA8GEI.jpg)
 
 把这套判断从 DeepSeek 的语境里剥出来，遇到「看起来正确」的机会，依次过一遍：
 
@@ -84,7 +84,7 @@ AI 让「再多做一点」几乎没有成本，删掉念头反而需要一套�
 
 装好后，把这段话发给 Agent 就能跑第一次判断：
 
-![三、装进 Agent 的 Skill配图](https://pbs.twimg.com/media/HODvLkAXcAAOsj3?format=jpg&name=large)
+![三、装进 Agent 的 Skill配图](/uploads/blog/2026-07-25-restraint/inline-HODvLkAXcAAOsj3.jpg)
 
 clone 进 skills 目录即用，README 有 Claude Code / Codex 等三端安装命令： [https://github.com/FANzR-arch/liang-wenfeng-restraint](https://github.com/FANzR-arch/liang-wenfeng-restraint)
 

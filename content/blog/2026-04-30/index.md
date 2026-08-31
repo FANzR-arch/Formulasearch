@@ -29,7 +29,7 @@ externalLinks:
 
 你可能在生活中也见过这句话，但它不是"少买点东西就幸福了"那种鸡汤，也不是简单地告诉你“东西越少越高级”。
 
-![黑白建筑肖像，一位身穿西装的现代主义建筑师站在玻璃盒子建筑模型后方](https://pbs.twimg.com/media/HKYAIMYXwAA_gTP?format=png&name=large)
+![黑白建筑肖像，一位身穿西装的现代主义建筑师站在玻璃盒子建筑模型后方](/uploads/blog/2026-04-30/inline-HKYAIMYXwAA_gTP.png)
 
 它最早来自德国现代主义建筑大师密斯·凡·德·罗，是现代主义建筑中最重要的理念之一。近百年来，“少即是多”跨越建筑设计、平面设计、产品设计，直到融入人的日常生活——每个时代都有人质疑它，每个时代它又被重新验证。
 
@@ -47,11 +47,11 @@ externalLinks:
 
 密斯的原意是：主张**以简约精练代替繁复奢华**，去除不必要的装饰，通过最简洁的形式、结构和材料展现事物的本质功能与美感。
 
-![巴黎歌剧院正立面，成排科林斯柱、雕塑和金色装饰在蓝天下展开](https://pbs.twimg.com/media/HKYAGq-XwAA5aWH?format=png&name=large)
+![巴黎歌剧院正立面，成排科林斯柱、雕塑和金色装饰在蓝天下展开](/uploads/blog/2026-04-30/inline-HKYAGq-XwAA5aWH.png)
 
 巴黎歌剧院（折衷主义）：鎏金穹顶下的魅影回响
 
-![秋日树林中的范斯沃斯住宅，白色钢柱和玻璃墙构成抬高的现代主义玻璃盒子](https://pbs.twimg.com/media/HKYA6gXWwAApAz4?format=png&name=large)
+![秋日树林中的范斯沃斯住宅，白色钢柱和玻璃墙构成抬高的现代主义玻璃盒子](/uploads/blog/2026-04-30/inline-HKYA6gXWwAApAz4.png)
 
 范斯沃斯住宅(现代主义)：用简单纯粹的形式，呈现千变万化的自然
 
@@ -63,7 +63,7 @@ externalLinks:
 
 堆砌辞藻的提示词下，AI产出的图像是这样的：
 
-![乔布斯与苹果产品的黑色时间线拼贴，从 1955 年车库和 Apple I 延伸到 iPhone、iPad 与 2011 年的科技舞台](https://pbs.twimg.com/media/HKYBbnTWYAAzRxG?format=jpg&name=large)
+![乔布斯与苹果产品的黑色时间线拼贴，从 1955 年车库和 Apple I 延伸到 iPhone、iPad 与 2011 年的科技舞台](/uploads/blog/2026-04-30/inline-HKYBbnTWYAAzRxG.jpg)
 
 图里塞满了各个时期的人物，产品，和细节
 
@@ -93,7 +93,7 @@ externalLinks:
 
 如果繁复能够强化表达，它就是有效的；如果简洁只是空洞地减少元素，自然也谈不上高级。真正重要的不是画面多还是少，而是它有没有把最重要的信息传达出去。
 
-![巴黎歌剧院内部的金色大厅，壁画、雕花柱、镜面和多排水晶吊灯铺满纵深空间](https://pbs.twimg.com/media/HKYCMEqXYAA9O5G?format=jpg&name=large)
+![巴黎歌剧院内部的金色大厅，壁画、雕花柱、镜面和多排水晶吊灯铺满纵深空间](/uploads/blog/2026-04-30/inline-HKYCMEqXYAA9O5G.jpg)
 
 巴黎歌剧院室内，真华丽啊，好看
 
@@ -103,7 +103,7 @@ externalLinks:
 
 密斯·凡·德·罗设计的范斯沃斯住宅是最好懂的例子： 一个长方形玻璃盒子、八根工字钢柱、白色钢框架、没有装饰、没有隔墙。**结构本身就是装饰。**
 
-![草坪和树林中的范斯沃斯住宅，透明玻璃墙、白色钢框架和悬空平台形成极简长方体](https://pbs.twimg.com/media/HKYCO4zWwAAQGG8?format=jpg&name=large)
+![草坪和树林中的范斯沃斯住宅，透明玻璃墙、白色钢框架和悬空平台形成极简长方体](/uploads/blog/2026-04-30/inline-HKYCO4zWwAAQGG8.jpg)
 
 极简听起来简单，做起来难。
 
@@ -115,7 +115,7 @@ externalLinks:
 
 这就是少即是多，在摒弃一切冗余后，仍然能传达出建筑的本质：**空间**。 而这种极简，全无装饰的建筑，反而提供了更多的可能，你可以在房间内摆满各式各样的装饰，也可以维持简洁，而建筑本身完全不会抢镜，非常百搭~
 
-![白底黑线的范斯沃斯住宅轴测图，标出悬空平台、网格地面、内隔墙、家具和入口台阶](https://pbs.twimg.com/media/HKYDHgjWQAA39tk?format=png&name=large)
+![白底黑线的范斯沃斯住宅轴测图，标出悬空平台、网格地面、内隔墙、家具和入口台阶](/uploads/blog/2026-04-30/inline-HKYDHgjWQAA39tk.png)
 
 **到了安藤忠雄的《光之教堂》，把“留白”变成了空间的核心。**
 
@@ -123,7 +123,7 @@ externalLinks:
 
 光从那里进入，空间的情绪也从那里产生。
 
-![安藤忠雄光之教堂的清水混凝土礼拜堂，黑暗座椅朝向墙面上由十字形切缝透入的白光](https://pbs.twimg.com/media/HKYDKxcW8AA_F7m?format=jpg&name=large)
+![安藤忠雄光之教堂的清水混凝土礼拜堂，黑暗座椅朝向墙面上由十字形切缝透入的白光](/uploads/blog/2026-04-30/inline-HKYDKxcW8AA_F7m.jpg)
 
 神圣的光之十字
 
@@ -131,7 +131,7 @@ externalLinks:
 
 透过一个洞，看到另一边的景色。它不把景色一次性给满，而是只露出一部分，让观看者自己在脑中补全，这种“不全”，反而让空间显得更深远、更有层次。
 
-![从圆形漏窗望向中国园林，窗框勾勒出树木、池水和游人的局部景色](https://pbs.twimg.com/media/HKYDRoRWQAABkD-?format=jpg&name=large)
+![从圆形漏窗望向中国园林，窗框勾勒出树木、池水和游人的局部景色](/uploads/blog/2026-04-30/inline-HKYDRoRWQAABkD.jpg)
 
 扬州何园
 
@@ -149,13 +149,13 @@ externalLinks:
 
 **而留白的作用，就是把不重要的信息往后退，让最重要的内容自然浮出来。**
 
-![苹果官网的黑色 MacBook Pro 产品页面，中央是展开的银色笔记本，底部写着全员疾速派](https://pbs.twimg.com/media/HKYDVBlXwAAHfft?format=jpg&name=large)
+![苹果官网的黑色 MacBook Pro 产品页面，中央是展开的银色笔记本，底部写着全员疾速派](/uploads/blog/2026-04-30/inline-HKYDVBlXwAAHfft.jpg)
 
 苹果官网截图
 
 今天打开Apple官网、Google Material Design规范，仍然是同一套逻辑。半个世纪前的原则，放到今天照样成立。"少即是多"在平面设计中经久不衰，是因为**人类视觉系统的处理方式没变——注意力有限，信息越多，吸收越少。**
 
-![Google Design 官网的 Material 页面，中央展示由蓝、橙、紫、粉和青绿色几何色块组成的版式样例](https://pbs.twimg.com/media/HKYDXtrXEAAmJz_?format=jpg&name=large)
+![Google Design 官网的 Material 页面，中央展示由蓝、橙、紫、粉和青绿色几何色块组成的版式样例](/uploads/blog/2026-04-30/inline-HKYDXtrXEAAmJz_.jpg)
 
 Google Design 官网，鼠标放上去还有小细节~
 
@@ -163,7 +163,7 @@ Google Design 官网，鼠标放上去还有小细节~
 
 **色彩克制即力量。**高级品牌视觉的色谱通常只有三种： 一个主色、一个辅助色、一个中性色。 颜色有心理学重量，你同时用红黄蓝绿，观者的情绪没法稳定下来，反而记不住核心信息。
 
-![极简平面版式示例，白色页面中央放置黑色方块和珊瑚色矩形，周围保留大量留白与细线文字](https://pbs.twimg.com/media/HKYDaPWXQAAOrgx?format=jpg&name=large)
+![极简平面版式示例，白色页面中央放置黑色方块和珊瑚色矩形，周围保留大量留白与细线文字](/uploads/blog/2026-04-30/inline-HKYDaPWXQAAOrgx.jpg)
 
 从建筑到平面设计，"少即是多"的底层逻辑始终没变：**用最少的元素，让最重要的信息获得最大的表达力。**
 
@@ -171,7 +171,7 @@ Google Design 官网，鼠标放上去还有小细节~
 
 ## 📌 Less is More 视觉判断标准
 
-![Less is More 视觉判断卡，六栏分别说明视觉焦点、删除冗余、字体层级、克制配色、留白和单一核心信息](https://pbs.twimg.com/media/HKYDdRhWUAA4of-?format=jpg&name=large)
+![Less is More 视觉判断卡，六栏分别说明视觉焦点、删除冗余、字体层级、克制配色、留白和单一核心信息](/uploads/blog/2026-04-30/inline-HKYDdRhWUAA4of.jpg)
 
 > 下次做图、做 PPT、做封面前，先问自己这 6 个问题。
 
@@ -189,7 +189,7 @@ Google Design 官网，鼠标放上去还有小细节~
 
 **做完一张图，眯起眼睛看——你第一眼看到的是什么？如果不是你最想传达的信息，那就是画面内容的优先级有问题。**
 
-![黑白珊瑚色插画，一个戴眼镜的人用手框住视线，旁边的海报中央是醒目的眼睛图形](https://pbs.twimg.com/media/HKYDf74XcAAxTqK?format=jpg&name=large)
+![黑白珊瑚色插画，一个戴眼镜的人用手框住视线，旁边的海报中央是醒目的眼睛图形](/uploads/blog/2026-04-30/inline-HKYDf74XcAAxTqK.jpg)
 
 ## 穿越百年的线索
 
@@ -197,7 +197,7 @@ Google Design 官网，鼠标放上去还有小细节~
 
 **人的注意力有限，画面元素越多，核心信息越难被传达出来。**
 
-![横向时间线把 1920 年代建筑、1960 年代产品、1950 至 2000 年代平面设计和 2020 年代 AI 连接起来](https://pbs.twimg.com/media/HKYGC1pXkAA5Gvg?format=jpg&name=large)
+![横向时间线把 1920 年代建筑、1960 年代产品、1950 至 2000 年代平面设计和 2020 年代 AI 连接起来](/uploads/blog/2026-04-30/inline-HKYGC1pXkAA5Gvg.jpg)
 
 **把这篇文章直接扔给你的 AI，下次做图、做 PPT、做封面，产出提示词之前，先定好边界：**
 
