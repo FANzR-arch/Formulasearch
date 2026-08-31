@@ -574,6 +574,8 @@ test('blog index shows every article without archive controls or duplicate metad
 
   const recentRows = page.locator('.recent-stream .post-row')
   expect(await recentRows.count()).toBeGreaterThan(0)
+  const blogList = page.locator('.blog-list--contact-sheet')
+  await expect(blogList).not.toHaveAttribute('data-reveal')
   const metadata = await recentRows.evaluateAll((rows) => rows.map((row) => ({
     bodyTimes: row.querySelectorAll('.post-row__body time.post-row__meta').length,
     directTimes: Array.from(row.children).filter((child) => child.tagName === 'TIME').length,

@@ -77,7 +77,7 @@ const primaryLink = (post: (typeof posts)[number]) => getPrimaryBlogLink(post)
   </section>
 )}
 
-<div class="blog-list blog-list--contact-sheet" data-reveal>
+<div class="blog-list blog-list--contact-sheet">
   <div class="recent-stream">
     {recentPosts.map((post) => <BlogPostRow post={post} locale={locale} />)}
   </div>
