@@ -1,6 +1,6 @@
 # Formulasearch
 
-[rzcthink.top](https://rzcthink.top) 是阿哲 Phil / Fan Zheren 的个人网站与公开创作档案。它不是一份单一的求职作品集，而是把设计实践、AI 协作、写作、可复用 Skills 与日常观察放在同一个持续更新的入口。
+[rzcthink.top](https://rzcthink.top) 是阿哲 Phil 的个人网站与公开创作档案。
 
 ## 关于我
 
