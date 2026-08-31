@@ -12,26 +12,32 @@ interface Props {
 const { locale = 'zh' } = Astro.props
 const root = locale === 'en' ? '/en/architecture' : '/architecture'
 const listLabel = getLocalizedValue(architecturePage.projectListLabel, locale)
+const getStableGridOrder = (slug: string) => {
+  let value = 2166136261
+  for (const character of slug) value = Math.imul(value ^ character.charCodeAt(0), 16777619)
+  return value >>> 0
+}
+const gridProjects = [...architectureProjects].sort((left, right) => getStableGridOrder(left.slug) - getStableGridOrder(right.slug))
 ---
 
 <section class="architecture-index" aria-labelledby="architecture-title">
   <PageHero id="architecture-title" title={architecturePage.title} description={architecturePage.description} />
   <nav class="architecture-project-list" aria-label={listLabel} data-aria-en={architecturePage.projectListLabel.en} data-aria-zh={architecturePage.projectListLabel.zh}>
-    {architectureProjects.map((project, index) => {
+    {gridProjects.map((project, index) => {
       const coverItem = project.items.find((item) => item.image === project.cover) ?? project.items[0]
       return (
-        <a class="architecture-project-entry" href={`${root}/${project.slug}`} data-site-reveal data-site-reveal-delay={String(70 + index * 60)}>
+        <a
+          class="architecture-project-entry"
+          href={`${root}/${project.slug}`}
+          data-site-reveal
+          data-site-reveal-delay={String(70 + index * 60)}
+        >
           <figure>
-            <Image src={project.cover} alt={getLocalizedValue(coverItem.alt, locale)} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} sizes="(max-width: 820px) 100vw, 50vw" />
-          </figure>
-          <div class="architecture-project-entry__meta">
-            <span>{project.year} · {project.index}</span>
-            <div>
+            <Image src={project.cover} alt={getLocalizedValue(coverItem.alt, locale)} loading={index < 3 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} sizes="(max-width: 620px) 100vw, (max-width: 1020px) 50vw, 33vw" />
+            <figcaption>
               <h2><LocalizedText {...project.title} /></h2>
-              <p><LocalizedText {...project.summary} /></p>
-            </div>
-            <small><LocalizedText {...architecturePage.openProjectLabel} /></small>
-          </div>
+            </figcaption>
+          </figure>
         </a>
       )
     })}
