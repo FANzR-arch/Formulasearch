@@ -52,37 +52,9 @@
       },
       "menu": [
         {
-          "href": "/projects#products-tools",
-          "label": {
-            "zh": "产品与工具",
-            "en": "Products & Tools"
-          },
-          "note": {
-            "zh": "Seedo、RZFrame、UPet、X-studio",
-            "en": "Seedo, RZFrame, UPet, and X-studio"
-          }
-        },
-        {
-          "href": "/projects#websites",
-          "label": {
-            "zh": "网站",
-            "en": "Websites"
-          },
-          "note": {
-            "zh": "网站、交互页面与合作项目",
-            "en": "Sites, interactive work, and collaborations"
-          }
-        },
-        {
-          "href": "/projects#all-projects",
-          "label": {
-            "zh": "全部项目",
-            "en": "All Projects"
-          },
-          "note": {
-            "zh": "全部可公开的产出",
-            "en": "Everything available to share"
-          }
+          "href": "/projects#tools",
+          "label": { "zh": "工具", "en": "Tools" },
+          "note": { "zh": "独立产品、垂直工具与持续验证的方向", "en": "Independent products, focused tools, and ongoing experiments" }
         }
       ]
     },

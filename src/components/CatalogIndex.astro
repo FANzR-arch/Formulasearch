@@ -2,6 +2,7 @@
 import LocalizedText from './LocalizedText.astro'
 import Icon from './icon-system/Icon.astro'
 import PageHero from './PageHero.astro'
+import ProjectCard from './ProjectCard.astro'
 import type { CatalogPage, CatalogSection } from '../data/catalog'
 import type { Locale } from '../lib/i18n'
 
@@ -12,18 +13,30 @@ interface Props {
   locale?: Locale
 }
 
-const { motionVariant, page, sections } = Astro.props
+const { motionVariant, page, sections, locale = 'zh' } = Astro.props
+const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
 ---
 
 <PageHero title={page.heading} description={page.intro} motionVariant={motionVariant} />
-<div class="catalog-sections">
-  {sections.map((section, index) => <section id={section.id} class="catalog-section" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
-    <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
-    <ul>{section.items.map((item) => <li>{item.externalUrl ? (
-      <a class="catalog-section__external" href={item.externalUrl} target="_blank" rel="noopener noreferrer">
-        <LocalizedText zh={item.zh} en={item.en} />
-        <Icon name="catalog-external" role="meta" />
-      </a>
-    ) : <LocalizedText zh={item.zh} en={item.en} />}</li>)}</ul>
-  </section>)}
-</div>
+{sections.length > 0 && (
+  <div class="catalog-sections">
+    {sections.map((section, index) => section.presentation === 'projects' ? (
+      <section id={section.id} class="project-group" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
+        <header class="project-group__heading">
+          <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
+        </header>
+        <div class="project-card-grid">
+          {section.items.map((item, itemIndex) => <ProjectCard href={`${projectRoot}/${item.id}`} item={item} eager={index === 0 && itemIndex === 0} locale={locale} />)}
+        </div>
+      </section>
+    ) : <section id={section.id} class="catalog-section" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
+      <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
+      <ul>{section.items.map((item) => <li>{item.externalUrl ? (
+        <a class="catalog-section__external" href={item.externalUrl} target="_blank" rel="noopener noreferrer">
+          <LocalizedText zh={item.zh} en={item.en} />
+          <Icon name="catalog-external" role="meta" />
+        </a>
+      ) : <LocalizedText zh={item.zh} en={item.en} />}</li>)}</ul>
+    </section>)}
+  </div>
+)}

@@ -1,0 +1,30 @@
+---
+import LocalizedText from './LocalizedText.astro'
+import Icon from './icon-system/Icon.astro'
+import type { CatalogProjectItem } from '../data/catalog'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
+
+interface Props {
+  href: string
+  item: CatalogProjectItem
+  eager?: boolean
+  locale?: Locale
+}
+
+const { href, item, eager = false, locale = 'zh' } = Astro.props
+---
+
+<a class="project-card project-card--linked" href={href}>
+  <figure class="project-card__cover">
+    <img class="project-card__image project-card__image--light" src={item.cover.light} alt={getLocalizedValue(item.coverAlt, locale)} data-alt-zh={item.coverAlt.zh} data-alt-en={item.coverAlt.en} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" />
+    <img class="project-card__image project-card__image--dark" src={item.cover.dark} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+  </figure>
+  <div class="project-card__body">
+    <div class="project-card__meta"><span>{item.year}</span><span><LocalizedText {...item.role} /></span></div>
+    <div class="project-card__copy">
+      <h3><LocalizedText zh={item.zh} en={item.en} /></h3>
+      <p><LocalizedText {...item.description} /></p>
+    </div>
+    <span class="project-card__visit"><LocalizedText zh="查看详情" en="View details" /><Icon name="catalog-external" role="meta" /></span>
+  </div>
+</a>

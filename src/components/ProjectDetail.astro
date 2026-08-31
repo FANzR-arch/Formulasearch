@@ -1,0 +1,25 @@
+---
+import LocalizedText from './LocalizedText.astro'
+import PageHero from './PageHero.astro'
+import type { CatalogProjectItem } from '../data/catalog'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
+
+interface Props {
+  locale?: Locale
+  project: CatalogProjectItem
+}
+
+const { locale = 'zh', project } = Astro.props
+const backHref = locale === 'en' ? '/en/projects' : '/projects'
+const title = { zh: project.zh, en: project.en }
+---
+
+<article class="project-detail" aria-labelledby="project-detail-title">
+  <a class="project-detail__back" href={backHref}><LocalizedText zh="返回项目" en="Back to projects" /></a>
+  <PageHero id="project-detail-title" title={title} description={project.description} />
+  <div class="project-detail__meta"><span>{project.year}</span><span><LocalizedText {...project.role} /></span></div>
+  <figure class="project-detail__cover">
+    <img class="project-detail__image project-detail__image--light" src={project.cover.light} alt={getLocalizedValue(project.coverAlt, locale)} data-alt-zh={project.coverAlt.zh} data-alt-en={project.coverAlt.en} loading="eager" fetchpriority="high" decoding="async" />
+    <img class="project-detail__image project-detail__image--dark" src={project.cover.dark} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+  </figure>
+</article>

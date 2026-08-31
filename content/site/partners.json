@@ -11,8 +11,6 @@
     "en": "A small directory of independent sites that we recommend to each other and believe deserve a wider audience."
   },
   "listLabel": { "zh": "伙伴站点", "en": "Partner sites" },
-  "relationshipLabel": { "zh": "互相推荐", "en": "Mutual recommendation" },
-  "visitLabel": { "zh": "访问站点", "en": "Visit site" },
   "items": [
     {
       "name": { "zh": "水土营造", "en": "Shui Tu Atelier" },

@@ -1,46 +1,58 @@
 {
   "projects": [
     {
-      "id": "products-tools",
+      "id": "tools",
       "label": "01",
-      "title": { "zh": "产品与工具", "en": "Products & Tools" },
+      "title": { "zh": "工具", "en": "Tools" },
       "description": {
-        "zh": "可独立使用、下载或持续迭代的产品与工具。",
-        "en": "Products and tools that can be used, downloaded, or iterated independently."
+        "zh": "已经落地、可被独立使用，或仍在持续验证的工具与项目方向。",
+        "en": "Built tools and project directions that can be used independently or are still being tested."
       },
+      "presentation": "projects",
       "items": [
-        { "zh": "Seedo — 使用时长追踪与 AI 复盘", "en": "Seedo — screen-time tracking and AI reflection" },
-        { "zh": "RZFrame Pro — 照片 EXIF 展示图生成", "en": "RZFrame Pro — photo EXIF display cards" },
-        { "zh": "UPet — 精灵图桌宠", "en": "UPet — a pixel-art desktop pet" },
-        { "zh": "X-studio — X 内容工作台", "en": "X-studio — a workspace for X content" }
-      ]
-    },
-    {
-      "id": "websites",
-      "label": "02",
-      "title": { "zh": "网站", "en": "Websites" },
-      "description": {
-        "zh": "公开的网站、交互页面与合作项目；合作边界清晰后再补充完整案例。",
-        "en": "Public sites, interactive work, and collaborations. Full cases follow when their boundaries are clear."
-      },
-      "items": [
-        { "zh": "Formulasearch — 个人实践总站", "en": "Formulasearch — personal practice hub" },
-        { "zh": "ShuiTuAtelier — 伙伴网站", "en": "ShuiTuAtelier — partner site" },
-        { "zh": "WaterSystem — 伙伴网站", "en": "WaterSystem — partner site" }
-      ]
-    },
-    {
-      "id": "all-projects",
-      "label": "03",
-      "title": { "zh": "全部项目", "en": "All Projects" },
-      "description": {
-        "zh": "只收录已有明确产出，或能解释当前状态的项目。",
-        "en": "Only work with a clear outcome or an explainable current state is included."
-      },
-      "items": [
-        { "zh": "视觉系统与生成式实验", "en": "Visual systems and generative experiments" },
-        { "zh": "AI 工具与个人生产力", "en": "AI tools and personal productivity" },
-        { "zh": "网站与数字体验", "en": "Websites and digital experiences" }
+        {
+          "id": "seedo",
+          "zh": "种子时间",
+          "en": "Seedo",
+          "cover": { "light": "/uploads/projects/seedo/cover-light.jpg", "dark": "/uploads/projects/seedo/cover-dark.jpg" },
+          "coverAlt": { "zh": "Seedo 的桌面行为复盘界面", "en": "Seedo desktop behavior review interface" },
+          "description": { "zh": "在本地记录电脑使用行为，不只看应用时长，也尝试分辨用户是在写作、浏览、沟通还是分心。", "en": "Keeps desktop behavior data on the device and looks past app-time charts to show what the user was actually doing." },
+          "year": "2025",
+          "role": { "zh": "独立开发", "en": "Solo builder" },
+          "externalUrl": "https://seedo-bbq.pages.dev/"
+        },
+        {
+          "id": "rzframe",
+          "zh": "画外边框",
+          "en": "RZFrame",
+          "cover": { "light": "/uploads/projects/rzframe/cover-light.jpg", "dark": "/uploads/projects/rzframe/cover-dark.jpg" },
+          "coverAlt": { "zh": "RZFrame 的照片边框与参数编辑界面", "en": "RZFrame photo framing and metadata editing interface" },
+          "description": { "zh": "帮摄影用户在发布前快速加边框和参数信息，兼顾批量处理、画质和版式稳定。", "en": "Helps photographers add frames and EXIF details before publishing, with batch processing and stable layouts." },
+          "year": "2025",
+          "role": { "zh": "独立开发", "en": "Solo builder" },
+          "externalUrl": "https://rzframe.pages.dev/"
+        },
+        {
+          "id": "briank",
+          "zh": "枋程设计",
+          "en": "BrianK",
+          "cover": { "light": "/uploads/projects/briank/cover-light.jpg", "dark": "/uploads/projects/briank/cover-dark.jpg" },
+          "coverAlt": { "zh": "枋程设计的建筑概念辅助工具首页", "en": "BrianK architectural concept tool homepage" },
+          "description": { "zh": "先用多轮追问把场地、风格和限制条件问清楚，再把生成步骤放到可检查的流程里。", "en": "Clarifies site, style, and constraints before generation so concept work does not depend on one loose prompt." },
+          "year": "2025",
+          "role": { "zh": "独立开发", "en": "Solo builder" },
+          "externalUrl": "https://www.briank.top/"
+        },
+        {
+          "id": "lab",
+          "zh": "Lab & Concepts",
+          "en": "Lab & Concepts",
+          "cover": { "light": "/uploads/projects/lab/cover-light.png", "dark": "/uploads/projects/lab/cover-dark.png" },
+          "coverAlt": { "zh": "Lab & Concepts 的 AI 实验室插画", "en": "Lab & Concepts AI experiment studio illustration" },
+          "description": { "zh": "存放尚未长成完整产品的方向实验，用更低成本测试交互方式、信息结构和可行性。", "en": "A place for ideas that are not ready to become full products, but still deserve a small test." },
+          "year": "2025",
+          "role": { "zh": "设计 / 开发", "en": "Design / Development" }
+        }
       ]
     }
   ],
@@ -155,11 +167,11 @@
   "pages": {
     "projects": {
       "title": { "zh": "项目", "en": "Projects" },
-      "description": { "zh": "Phil 的产品、工具、网站与公开项目。", "en": "Phil's products, tools, websites, and public projects." },
-      "kicker": { "zh": "精选工作 / 有用的产出", "en": "Selected work / useful output" },
+      "description": { "zh": "Phil 的产品、工具与持续中的实验。", "en": "Phil's products, tools, and ongoing experiments." },
+      "kicker": { "zh": "项目", "en": "Projects" },
       "heading": { "zh": "项目", "en": "Projects" },
-      "intro": { "zh": "产品、工具、网站与持续迭代的数字体验。", "en": "Products, tools, websites, and digital experiences in progress." },
-      "indexLabel": { "zh": "项目分类", "en": "Project categories" }
+      "intro": { "zh": "把已经做出来、仍在被使用或值得继续推演的项目放在这里。", "en": "A collection of projects that are built, in use, or worth taking further." },
+      "indexLabel": { "zh": "项目", "en": "Projects" }
     },
     "skills": {
       "title": { "zh": "技能", "en": "Skills" },

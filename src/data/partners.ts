@@ -14,8 +14,6 @@ const partnersSchema = z.object({
   heading: localizedCopySchema,
   intro: localizedCopySchema,
   listLabel: localizedCopySchema,
-  relationshipLabel: localizedCopySchema,
-  visitLabel: localizedCopySchema,
   items: z.array(partnerItemSchema).min(1),
 }).strict()
 
