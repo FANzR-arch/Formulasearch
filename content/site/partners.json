@@ -15,6 +15,10 @@
     {
       "name": { "zh": "水土营造", "en": "Shui Tu Atelier" },
       "url": "https://shuitu.studio/index.html"
+    },
+    {
+      "name": { "zh": "Syntax Studio", "en": "Syntax Studio" },
+      "url": "https://www.syntaxstudio.work/"
     }
   ]
 }
