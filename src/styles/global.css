@@ -162,8 +162,8 @@ main { position: relative; z-index: 1; }
   stroke: var(--ink);
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 2;
-  vector-effect: none;
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation: logo-draw .96s var(--ease-out) forwards;

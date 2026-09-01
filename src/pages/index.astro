@@ -47,40 +47,17 @@ import { pageMeta } from '../data/page-meta'
     const overlay = document.querySelector('#intro-overlay')
     const page = document.querySelector('#site-page')
     const introMotion = document.querySelector('.intro-mark .intro-mark__motion')
-    const introLine = document.querySelector('.intro-mark__line')
     const storageKey = 'formulasearch-intro-seen'
     const enteredFromSite = document.documentElement.classList.contains('is-page-entering') || window.self !== window.top
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let syncAmbientTheme = () => {}
     let completed = false
-    let lineFrame = 0
-
-    const updateLineWeight = () => {
-      if (!introLine?.getScreenCTM) return
-      const matrix = introLine.getScreenCTM()
-      const scale = matrix ? Math.hypot(matrix.a, matrix.b) : 0
-      if (scale) introLine.style.strokeWidth = `${1.1 / scale}px`
-    }
-
-    const trackLineWeight = () => {
-      updateLineWeight()
-      lineFrame = window.requestAnimationFrame(trackLineWeight)
-    }
-
-    const stopTrackingLineWeight = () => {
-      if (lineFrame) window.cancelAnimationFrame(lineFrame)
-      lineFrame = 0
-      updateLineWeight()
-    }
-
-    updateLineWeight()
 
     const unveilPage = () => page?.classList.add('is-visible')
 
     const revealPage = () => {
       if (completed) return
       completed = true
-      stopTrackingLineWeight()
       try { sessionStorage.setItem(storageKey, 'true') } catch {}
       unveilPage()
       overlay?.classList.add('is-exiting')
@@ -106,7 +83,6 @@ import { pageMeta } from '../data/page-meta'
         if (event.target !== introMotion || event.animationName !== 'logo-zoom') return
         if (event.type === 'animationstart') {
           unveilPage()
-          trackLineWeight()
         }
         if (event.type === 'animationend') revealPage()
       }
