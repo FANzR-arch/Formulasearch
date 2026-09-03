@@ -1,0 +1,51 @@
+---
+import Icon from './icon-system/Icon.astro'
+import LocalizedText from './LocalizedText.astro'
+import type { CatalogProjectItem } from '../data/catalog'
+import { getLocalizedValue, type Locale } from '../lib/i18n'
+
+interface Props {
+  href: string
+  item: CatalogProjectItem
+  locale?: Locale
+}
+
+const { href, item, locale = 'zh' } = Astro.props
+const showcase = item.showcase ?? []
+---
+
+<div class="project-showcase" data-project-showcase>
+  <div class="project-showcase__toolbar">
+    <p class="project-showcase__count" aria-live="polite">
+      <span data-project-showcase-current>01</span>
+      <span aria-hidden="true">/</span>
+      <span>{String(showcase.length).padStart(2, '0')}</span>
+    </p>
+    <div class="project-showcase__controls">
+      <button type="button" data-project-showcase-previous aria-label={locale === 'en' ? 'Previous work' : '上一项作品'}>
+        <Icon name="project-gallery-previous" role="control" />
+      </button>
+      <button type="button" data-project-showcase-next aria-label={locale === 'en' ? 'Next work' : '下一项作品'}>
+        <Icon name="project-gallery-next" role="control" />
+      </button>
+    </div>
+  </div>
+
+  <div class="project-showcase__viewport" data-project-showcase-viewport tabindex="0" role="region" aria-roledescription={locale === 'en' ? 'carousel' : '轮播图'} aria-label={locale === 'en' ? `${item.en} showcase` : `${item.zh}作品集`}>
+    <div class="project-showcase__track">
+      {showcase.map((entry, index) => (
+        <a class="project-showcase__card" href={href} data-project-showcase-card aria-label={`${getLocalizedValue(entry.title, locale)} · ${locale === 'en' ? 'View project' : '查看项目'}`}>
+          <figure class="project-showcase__media">
+            <img src={entry.src} alt={getLocalizedValue(entry.alt, locale)} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} decoding="async" />
+            <span class="project-showcase__ordinal" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          </figure>
+          <div class="project-showcase__copy">
+            <p><LocalizedText {...entry.tag} /></p>
+            <h3><LocalizedText {...entry.title} /></h3>
+            <Icon name="catalog-external" role="meta" />
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</div>

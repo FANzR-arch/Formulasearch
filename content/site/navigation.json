@@ -55,6 +55,26 @@
           "href": "/projects#tools",
           "label": { "zh": "工具", "en": "Tools" },
           "note": { "zh": "独立产品、垂直工具与持续验证的方向", "en": "Independent products, focused tools, and ongoing experiments" }
+        },
+        {
+          "href": "/projects#digital-humans",
+          "label": { "zh": "数字人", "en": "Digital Humans" },
+          "note": { "zh": "角色、口播与批量内容生产", "en": "Characters, presenter videos, and repeatable production" }
+        },
+        {
+          "href": "/projects#ai-imagery",
+          "label": { "zh": "AI 影像", "en": "AI Imagery" },
+          "note": { "zh": "广告、产品影像与剧情内容", "en": "Advertising, product films, and narrative content" }
+        },
+        {
+          "href": "/projects#seo-geo",
+          "label": { "zh": "SEO & GEO", "en": "SEO & GEO" },
+          "note": { "zh": "搜索内容、技术检查与增长复盘", "en": "Search content, technical checks, and growth review" }
+        },
+        {
+          "href": "/projects#courses-sharing",
+          "label": { "zh": "课程与分享", "en": "Courses & Sharing" },
+          "note": { "zh": "交互课程、讲课与公开分享", "en": "Interactive courses, teaching, and public sharing" }
         }
       ]
     },
@@ -86,17 +106,6 @@
           "note": {
             "zh": "工作流、SOP 与 Agent 工具",
             "en": "Workflows, SOPs, and agent tools"
-          }
-        },
-        {
-          "href": "/skills#all-skills",
-          "label": {
-            "zh": "全部技能",
-            "en": "All Skills"
-          },
-          "note": {
-            "zh": "完整可复用资产索引",
-            "en": "A reusable index of the full set"
           }
         }
       ]

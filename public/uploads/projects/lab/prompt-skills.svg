@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Prompt Skills</title>
+  <desc id="desc">A reusable prompt workflow for writing, review, and product thinking.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#134E4A"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#ECFDF5" stop-opacity="0.92"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#020617" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="250" cy="150" r="180" fill="#22C55E" opacity="0.14"/>
+  <circle cx="980" cy="560" r="220" fill="#38BDF8" opacity="0.15"/>
+  <g opacity="0.16">
+    <path d="M102 126H1098M102 252H1098M102 378H1098M102 504H1098" stroke="#A7F3D0"/>
+    <path d="M180 82V590M340 82V590M500 82V590M660 82V590M820 82V590M980 82V590" stroke="#A7F3D0"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="112" y="108" width="976" height="458" rx="36" fill="url(#card)"/>
+    <rect x="160" y="158" width="256" height="72" rx="20" fill="#0F172A"/>
+    <text x="194" y="204" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="700">Prompt Skills</text>
+    <rect x="162" y="302" width="186" height="118" rx="26" fill="#DCFCE7" stroke="#86EFAC" stroke-width="2"/>
+    <rect x="408" y="302" width="186" height="118" rx="26" fill="#E0F2FE" stroke="#7DD3FC" stroke-width="2"/>
+    <rect x="654" y="302" width="186" height="118" rx="26" fill="#FEF9C3" stroke="#FDE047" stroke-width="2"/>
+    <rect x="900" y="302" width="138" height="118" rx="26" fill="#0F172A"/>
+    <path d="M348 361H408M594 361H654M840 361H900" stroke="#14B8A6" stroke-width="6" stroke-linecap="round"/>
+    <path d="M390 342L408 361L390 380M636 342L654 361L636 380M882 342L900 361L882 380" fill="none" stroke="#14B8A6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="205" y="350" fill="#166534" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Context</text>
+    <text x="207" y="382" fill="#166534" font-family="Inter, Arial, sans-serif" font-size="18">inputs</text>
+    <text x="454" y="350" fill="#075985" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Rules</text>
+    <text x="448" y="382" fill="#075985" font-family="Inter, Arial, sans-serif" font-size="18">criteria</text>
+    <text x="694" y="350" fill="#854D0E" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Review</text>
+    <text x="699" y="382" fill="#854D0E" font-family="Inter, Arial, sans-serif" font-size="18">loops</text>
+    <text x="934" y="350" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Skill</text>
+    <text x="930" y="382" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="18">reuse</text>
+  </g>
+</svg>

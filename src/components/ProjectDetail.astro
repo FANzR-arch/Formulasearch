@@ -1,4 +1,5 @@
 ---
+import Icon from './icon-system/Icon.astro'
 import LocalizedText from './LocalizedText.astro'
 import PageHero from './PageHero.astro'
 import type { CatalogProjectItem } from '../data/catalog'
@@ -12,14 +13,164 @@ interface Props {
 const { locale = 'zh', project } = Astro.props
 const backHref = locale === 'en' ? '/en/projects' : '/projects'
 const title = { zh: project.zh, en: project.en }
+const { detail } = project
+const hasMultipleImages = detail.gallery.length > 1
 ---
 
 <article class="project-detail" aria-labelledby="project-detail-title">
   <a class="project-detail__back" href={backHref}><LocalizedText zh="返回项目" en="Back to projects" /></a>
   <PageHero id="project-detail-title" title={title} description={project.description} />
-  <div class="project-detail__meta"><span>{project.year}</span><span><LocalizedText {...project.role} /></span></div>
-  <figure class="project-detail__cover">
-    <img class="project-detail__image project-detail__image--light" src={project.cover.light} alt={getLocalizedValue(project.coverAlt, locale)} data-alt-zh={project.coverAlt.zh} data-alt-en={project.coverAlt.en} loading="eager" fetchpriority="high" decoding="async" />
-    <img class="project-detail__image project-detail__image--dark" src={project.cover.dark} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+
+  <div class="project-detail__utility">
+    <div class="project-detail__meta">
+      <span>{project.year}</span>
+      <span class="project-detail__role"><Icon name="project-role" role="meta" /><LocalizedText {...project.role} /></span>
+      {detail.version && <span>{detail.version}</span>}
+    </div>
+    <ul class="project-detail__keywords" aria-label={locale === 'en' ? 'Project keywords' : '项目关键词'}>
+      {detail.keywords.map((keyword) => <li><LocalizedText {...keyword} /></li>)}
+    </ul>
+  </div>
+
+  <figure
+    class="project-detail__cover project-detail__carousel"
+    data-project-carousel={hasMultipleImages ? true : undefined}
+    data-active-index="0"
+    role="region"
+    aria-roledescription={hasMultipleImages ? 'carousel' : undefined}
+    aria-label={locale === 'en' ? 'Project gallery' : '项目图片'}
+    data-aria-en="Project gallery"
+    data-aria-zh="项目图片"
+    tabindex={hasMultipleImages ? '0' : undefined}
+  >
+    <div class="project-detail__carousel-track">
+      {detail.gallery.map((item, index) => (
+        <div class:list={['project-detail__slide', { 'is-active': index === 0 }]} data-project-slide={index} aria-hidden={index === 0 ? 'false' : 'true'}>
+          <img src={item.src} alt={getLocalizedValue(item.alt, locale)} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} decoding="async" />
+        </div>
+      ))}
+    </div>
+    {hasMultipleImages && (
+      <>
+        <button class="project-detail__carousel-button project-detail__carousel-button--previous" type="button" data-project-carousel-previous data-sound="select" aria-label={locale === 'en' ? 'Previous image' : '上一张图片'} data-aria-en="Previous image" data-aria-zh="上一张图片">
+          <Icon name="project-gallery-previous" role="control" />
+        </button>
+        <button class="project-detail__carousel-button project-detail__carousel-button--next" type="button" data-project-carousel-next data-sound="select" aria-label={locale === 'en' ? 'Next image' : '下一张图片'} data-aria-en="Next image" data-aria-zh="下一张图片">
+          <Icon name="project-gallery-next" role="control" />
+        </button>
+        <figcaption class="project-detail__carousel-count" aria-hidden="true"><span data-project-carousel-current>01</span><span>/</span><span>{String(detail.gallery.length).padStart(2, '0')}</span></figcaption>
+        <span class="visually-hidden" aria-live="polite" data-project-carousel-status><LocalizedText {...detail.gallery[0].alt} /></span>
+      </>
+    )}
   </figure>
+
+  <div class="project-detail__narrative">
+    <section class="project-detail__section project-detail__context" data-site-reveal>
+      <div class="project-detail__section-heading">
+        <Icon name="project-context" role="control" />
+        <h2><LocalizedText zh="背景与初衷" en="Context" /></h2>
+      </div>
+      <blockquote><LocalizedText {...detail.context} /></blockquote>
+    </section>
+
+    {project.externalUrl && (
+      <section class="project-detail__cta" data-site-reveal>
+        <div>
+          <h2><LocalizedText zh="打开项目" en="Open project" /></h2>
+          <p><LocalizedText zh="可通过下方链接查看当前可访问版本。" en="Open the current version through the link below." /></p>
+        </div>
+        <a href={project.externalUrl} target="_blank" rel="noopener noreferrer">
+          <LocalizedText zh="体验 Web 版本" en="Try web version" />
+          <Icon name="project-cta" role="control" />
+        </a>
+      </section>
+    )}
+
+    {detail.experiments && (
+      <section class="project-detail__section" data-site-reveal>
+        <div class="project-detail__section-heading">
+          <Icon name="project-experiments" role="control" />
+          <h2><LocalizedText zh="AI Skill 实验" en="AI skill experiments" /></h2>
+        </div>
+        <div class="project-detail__experiments">
+          {detail.experiments.map((experiment, index) => (
+            <article class="project-detail__experiment" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
+              {experiment.image && (
+                <div class="project-detail__experiment-media">
+                  <img src={experiment.image} alt={getLocalizedValue(experiment.title, locale)} data-alt-zh={experiment.title.zh} data-alt-en={experiment.title.en} loading="lazy" decoding="async" />
+                </div>
+              )}
+              <div class="project-detail__experiment-copy">
+                <div class="project-detail__experiment-heading">
+                  <div>
+                    <p class="project-detail__experiment-tag"><LocalizedText {...experiment.tag} /></p>
+                    <h3><LocalizedText {...experiment.title} /></h3>
+                  </div>
+                  <Icon name="project-experiment" role="control" />
+                </div>
+                <p><LocalizedText {...experiment.description} /></p>
+                {experiment.externalUrl && (
+                  <a href={experiment.externalUrl} target="_blank" rel="noopener noreferrer">
+                    <LocalizedText zh="查看仓库" en="View repository" />
+                    <Icon name="catalog-external" role="meta" />
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="project-detail__case-grid project-detail__section" data-site-reveal>
+      <article class="project-detail__status-card project-detail__status-card--risk">
+        <div class="project-detail__section-heading">
+          <Icon name="project-problem" role="control" />
+          <h2><LocalizedText zh="核心痛点" en="Problems" /></h2>
+        </div>
+        <p class="project-detail__problem-line"><LocalizedText {...detail.problemLine} /></p>
+        <ul>
+          {detail.problems.map((problem) => <li><LocalizedText {...problem} /></li>)}
+        </ul>
+      </article>
+
+      <article class="project-detail__status-card project-detail__status-card--success">
+        <div class="project-detail__section-heading">
+          <Icon name="project-solution" role="control" />
+          <h2><LocalizedText zh="处理方式" en="Approach" /></h2>
+        </div>
+        <p class="project-detail__solution-copy"><LocalizedText {...detail.solution} /></p>
+        <div class="project-detail__goal">
+          <p class="project-detail__eyebrow"><LocalizedText zh="目标" en="Goal" /></p>
+          <p><LocalizedText {...detail.goal} /></p>
+        </div>
+      </article>
+    </section>
+
+    <section class="project-detail__build-grid project-detail__section" data-site-reveal>
+      <article>
+        <div class="project-detail__section-heading">
+          <Icon name="project-design" role="control" />
+          <h2><LocalizedText zh="产品设计" en="Product design" /></h2>
+        </div>
+        <ul class="project-detail__decision-list">
+          {detail.design.map((decision) => <li><LocalizedText {...decision} /></li>)}
+        </ul>
+      </article>
+
+      <article>
+        <div class="project-detail__section-heading">
+          <Icon name="project-workflow" role="control" />
+          <h2><LocalizedText zh="技术与实现" en="Build notes" /></h2>
+        </div>
+        <div class="project-detail__workflow">
+          <Icon name="project-terminal" role="control" />
+          <p><LocalizedText {...detail.workflow} /></p>
+        </div>
+      </article>
+    </section>
+
+  </div>
 </article>
+
+<script is:inline src="/scripts/project-carousel.js"></script>

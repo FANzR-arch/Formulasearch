@@ -5,7 +5,7 @@
 - `home.en.json` 是英文首页内容。
 - `home.shared.json` 是首页共享设置，统一维护 `email`、`social`、`heroImage` 和图片宽高；`name` 可以按语言显示为对应称呼，但必须出现在 `site.json` 的作者名或别名中；`contactLabel`、`contactEmailPrefix` 和 `heroImageAlt` 分别填写对应语言的首页文案/替代文本。
 - `photo-archive.json` 是 `/photos` 的页面文案、筛选器和照片清单；可直接编辑标题、说明、标签和公开图片路径。图片必须使用单斜杠开头的站内绝对路径（例如 `/uploads/photos/...`），不能写 `//host/...`。
-- `catalog.json` 是 Projects、Skills、Lab 的目录内容；每个区块必须有中英文标题、说明和至少一条内容。
+- `catalog.json` 是 Projects、Skills、Lab 的目录内容；每个区块必须有中英文标题、说明和至少一条内容。Projects 条目的 `detail` 维护问题陈述、关键词、项目图片、背景、目标、方案、设计决策、工作流、优势与限制；竖向封面可用 `coverFocus: "top" | "center" | "bottom"` 调整卡片裁切焦点，Lab 可另外填写 `experiments`。详情图片统一放在 `public/uploads/projects/<id>/`，清单内使用 `/uploads/projects/<id>/...` 路径。
 - `architecture.json` 只维护 `/architecture` 的页面文案和筛选器；项目资料位于 `content/architecture/<slug>/index.json`，图片位于 `src/assets/archive/architecture/<slug>/`，由 Astro 动态收集并优化。
 - 两个档案 manifest 的第一个筛选器必须是 `all`，新增筛选器必须至少命中一个条目的 `tags`；构建会检查筛选器和实际图片资源是否同步。
 - `navigation.json` 是全站一级导航和下拉菜单内容；链接应使用站内绝对路径，构建时会校验四组主导航和双语字段。

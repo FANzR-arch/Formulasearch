@@ -3,6 +3,7 @@ import LocalizedText from './LocalizedText.astro'
 import Icon from './icon-system/Icon.astro'
 import PageHero from './PageHero.astro'
 import ProjectCard from './ProjectCard.astro'
+import ProjectShowcase from './ProjectShowcase.astro'
 import type { CatalogPage, CatalogSection } from '../data/catalog'
 import type { Locale } from '../lib/i18n'
 
@@ -23,20 +24,35 @@ const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
     {sections.map((section, index) => section.presentation === 'projects' ? (
       <section id={section.id} class="project-group" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
         <header class="project-group__heading">
-          <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
+          <h2><LocalizedText {...section.title} /></h2>
+          <p><LocalizedText {...section.description} /></p>
         </header>
-        <div class="project-card-grid">
-          {section.items.map((item, itemIndex) => <ProjectCard href={`${projectRoot}/${item.id}`} item={item} eager={index === 0 && itemIndex === 0} locale={locale} />)}
-        </div>
+        {section.items.length === 1 && section.items[0].showcase ? (
+          <ProjectShowcase href={`${projectRoot}/${section.items[0].id}`} item={section.items[0]} locale={locale} />
+        ) : (
+          <div class="project-card-grid">
+            {section.items.map((item, itemIndex) => <ProjectCard href={`${projectRoot}/${item.id}`} item={item} eager={index === 0 && itemIndex === 0} locale={locale} />)}
+          </div>
+        )}
       </section>
-    ) : <section id={section.id} class="catalog-section" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
-      <div><h2><LocalizedText {...section.title} /></h2><p><LocalizedText {...section.description} /></p></div>
-      <ul>{section.items.map((item) => <li>{item.externalUrl ? (
-        <a class="catalog-section__external" href={item.externalUrl} target="_blank" rel="noopener noreferrer">
-          <LocalizedText zh={item.zh} en={item.en} />
-          <Icon name="catalog-external" role="meta" />
-        </a>
-      ) : <LocalizedText zh={item.zh} en={item.en} />}</li>)}</ul>
+    ) : <section id={section.id} class:list={["catalog-section", { "catalog-section--media": section.image }]} data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
+      {section.image && section.imageAlt && (
+        <figure class="catalog-section__media">
+          <img src={section.image} alt={section.imageAlt[locale]} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+        </figure>
+      )}
+      <div class="catalog-section__content">
+        <h2><LocalizedText {...section.title} /></h2>
+        <p><LocalizedText {...section.description} /></p>
+        <ul>{section.items.map((item) => <li>{item.externalUrl ? (
+          <a class="catalog-section__external" href={item.externalUrl} target="_blank" rel="noopener noreferrer">
+            <LocalizedText zh={item.zh} en={item.en} />
+            <Icon name="catalog-external" role="meta" />
+          </a>
+        ) : <LocalizedText zh={item.zh} en={item.en} />}</li>)}</ul>
+      </div>
     </section>)}
   </div>
 )}
+
+<script is:inline src="/scripts/project-showcase.js"></script>

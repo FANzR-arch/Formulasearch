@@ -6,17 +6,58 @@ const catalogItemSchema = localizedCopySchema.extend({
   externalUrl: z.url().optional(),
 }).strict()
 
+const localizedListSchema = z.array(localizedCopySchema).min(1)
+
+const projectGalleryItemSchema = z.object({
+  src: z.string().startsWith('/'),
+  alt: localizedCopySchema,
+}).strict()
+
+const projectShowcaseItemSchema = z.object({
+  src: z.string().startsWith('/'),
+  alt: localizedCopySchema,
+  title: localizedCopySchema,
+  tag: localizedCopySchema,
+}).strict()
+
+const projectExperimentSchema = z.object({
+  title: localizedCopySchema,
+  tag: localizedCopySchema,
+  description: localizedCopySchema,
+  image: z.string().startsWith('/').optional(),
+  externalUrl: z.url().optional(),
+}).strict()
+
+const projectDetailSchema = z.object({
+  version: z.string().min(1).optional(),
+  problemLine: localizedCopySchema,
+  keywords: localizedListSchema,
+  gallery: z.array(projectGalleryItemSchema).min(1),
+  context: localizedCopySchema,
+  problems: localizedListSchema,
+  goal: localizedCopySchema,
+  solution: localizedCopySchema,
+  design: localizedListSchema,
+  workflow: localizedCopySchema,
+  strengths: localizedListSchema,
+  limitations: localizedListSchema,
+  experiments: z.array(projectExperimentSchema).min(1).optional(),
+}).strict()
+
 const catalogProjectItemSchema = localizedCopySchema.extend({
   id: z.string().regex(/^[a-z0-9-]+$/),
   cover: z.object({
     light: z.string().startsWith('/'),
     dark: z.string().startsWith('/'),
   }).strict(),
+  coverFocus: z.enum(['top', 'center', 'bottom']).optional(),
   coverAlt: localizedCopySchema,
   description: localizedCopySchema,
   year: z.string().min(1),
   role: localizedCopySchema,
   externalUrl: z.url().optional(),
+  showcase: z.array(projectShowcaseItemSchema).min(2).optional(),
+  detail: projectDetailSchema,
 }).strict()
 
 const catalogListSectionSchema = z.object({
@@ -24,6 +65,8 @@ const catalogListSectionSchema = z.object({
   label: z.string().min(1),
   title: localizedCopySchema,
   description: localizedCopySchema,
+  image: z.string().startsWith('/').optional(),
+  imageAlt: localizedCopySchema.optional(),
   items: z.array(catalogItemSchema).min(1),
   presentation: z.literal('list').default('list'),
 }).strict()

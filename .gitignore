@@ -33,6 +33,8 @@ $HOME/
 /playwright-report/
 /test-results/
 /blob-report/
+/.playwright-cli/
+/page.title())()
 
 # Local source photography; generated/public WebP files are tracked separately.
 # Keep the policy README visible while leaving original binaries out of Git.

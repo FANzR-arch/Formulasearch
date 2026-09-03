@@ -19,7 +19,48 @@
           "description": { "zh": "在本地记录电脑使用行为，不只看应用时长，也尝试分辨用户是在写作、浏览、沟通还是分心。", "en": "Keeps desktop behavior data on the device and looks past app-time charts to show what the user was actually doing." },
           "year": "2025",
           "role": { "zh": "独立开发", "en": "Solo builder" },
-          "externalUrl": "https://seedo-bbq.pages.dev/"
+          "externalUrl": "https://seedo-bbq.pages.dev/",
+          "detail": {
+            "version": "v4.3.4",
+            "problemLine": { "zh": "普通时间统计只知道应用开了多久，却不知道用户实际在做什么。", "en": "Typical time trackers know how long an app was open, but not what the user was actually doing." },
+            "keywords": [
+              { "zh": "本地优先", "en": "Local-first" },
+              { "zh": "Windows 桌面端", "en": "Windows desktop" },
+              { "zh": "行为分类", "en": "Behavior classification" },
+              { "zh": "AI 日复盘", "en": "Daily AI review" }
+            ],
+            "gallery": [
+              { "src": "/uploads/projects/seedo/01.jpg", "alt": { "zh": "Seedo 桌面端的概览仪表盘", "en": "Seedo desktop overview dashboard" } },
+              { "src": "/uploads/projects/seedo/02.jpg", "alt": { "zh": "Seedo 按应用和网站统计时间的界面", "en": "Seedo time statistics by app and website" } },
+              { "src": "/uploads/projects/seedo/03.jpg", "alt": { "zh": "Seedo 活动趋势与分类统计界面", "en": "Seedo activity trends and category analytics" } },
+              { "src": "/uploads/projects/seedo/04.jpg", "alt": { "zh": "Seedo 行为分类管理界面", "en": "Seedo behavior category management" } },
+              { "src": "/uploads/projects/seedo/05.jpg", "alt": { "zh": "Seedo 历史活动与每日复盘界面", "en": "Seedo activity history and daily review" } },
+              { "src": "/uploads/projects/seedo/06.jpg", "alt": { "zh": "Seedo 设置与本地数据管理界面", "en": "Seedo settings and local data management" } }
+            ],
+            "context": { "zh": "同一个浏览器里可能同时发生写作、学习、沟通和刷信息流。只统计应用名称与时长无法解释注意力去了哪里，而行为数据又足够敏感，需要尽量留在用户自己的电脑上。", "en": "Writing, learning, communication, and passive browsing can all happen inside the same browser. App duration alone cannot explain where attention went, while the underlying behavior data should remain on the user's computer." },
+            "problems": [
+              { "zh": "跨应用、窗口和网页的活动难以还原成连续记录。", "en": "Activity across apps, windows, and web pages is difficult to reconstruct as one continuous record." },
+              { "zh": "会议、午饭等离开电脑的时间容易在时间线上留下空白。", "en": "Meetings, lunch, and other time away from the computer leave gaps in the timeline." },
+              { "zh": "图表能展示数据，却不一定能帮助用户形成下一步行动。", "en": "Charts can show data without helping the user decide what to change." }
+            ],
+            "goal": { "zh": "做一个隐私优先的时间镜子，让用户进一步看到自己做了什么、注意力如何分配。", "en": "Build a privacy-first mirror that shows what happened and how attention was allocated." },
+            "solution": { "zh": "桌面端在后台采集应用和窗口活动，浏览器扩展通过本机接口补充网址与页面标题；分类规则、离线标签、统计与 AI 总结共同组成每日复盘。", "en": "The desktop app captures app and window activity, while a browser extension adds URLs and page titles through a local endpoint. Rules, offline tags, analytics, and AI summaries form the daily review." },
+            "design": [
+              { "zh": "按今天、本周、本月和本年查看应用、网站与分类分布。", "en": "Inspect app, website, and category distribution by day, week, month, or year." },
+              { "zh": "自定义分类、颜色、图标和关键词或进程规则。", "en": "Create categories with custom colors, icons, keywords, and process rules." },
+              { "zh": "通过 AFK 弹窗和离线活动页面补录离开电脑的时间。", "en": "Use the AFK prompt and offline activity view to record time away." },
+              { "zh": "结合每日意图、Focus Score、分类图和 BYOK AI 总结回看每一天。", "en": "Review each day with daily intent, a Focus Score, category charts, and a BYOK AI summary." }
+            ],
+            "workflow": { "zh": "Tauri 与 Rust 负责 Windows 桌面采集，React Web UI 展示数据；Chrome、Edge 或 Brave 扩展把网页上下文发送到 127.0.0.1:16123，主数据保存在本地 SQLite，AI 复盘使用用户自己的模型 API Key。", "en": "Tauri and Rust provide Windows desktop capture, while a React web UI presents the data. A Chrome, Edge, or Brave extension sends browser context to 127.0.0.1:16123, the primary dataset remains in local SQLite, and AI review uses the user's own provider key." },
+            "strengths": [
+              { "zh": "活动记录、分类规则、导出和数据库备份都围绕本地数据运行。", "en": "Activity logging, category rules, exports, and database backups all work around local data." },
+              { "zh": "网页上下文、离线补录和每日意图让时间线比单纯应用计时更完整。", "en": "Browser context, offline entries, and daily intent make the timeline more complete than a basic app timer." }
+            ],
+            "limitations": [
+              { "zh": "网页上下文依赖配套浏览器扩展。", "en": "Browser context requires the companion extension." },
+              { "zh": "v4.3.4 暂不支持历史批量导入、软件内自动更新和 Excel 导入导出。", "en": "Version 4.3.4 does not provide full history import, an in-app updater, or Excel import and export." }
+            ]
+          }
         },
         {
           "id": "rzframe",
@@ -30,7 +71,47 @@
           "description": { "zh": "帮摄影用户在发布前快速加边框和参数信息，兼顾批量处理、画质和版式稳定。", "en": "Helps photographers add frames and EXIF details before publishing, with batch processing and stable layouts." },
           "year": "2025",
           "role": { "zh": "独立开发", "en": "Solo builder" },
-          "externalUrl": "https://rzframe.pages.dev/"
+          "externalUrl": "https://rzframe.pages.dev/",
+          "detail": {
+            "version": "v2.7.3",
+            "problemLine": { "zh": "摄影作品发布前的参数排版耗时，移动端和云端工具又常带来画质与隐私顾虑。", "en": "Metadata layout is slow, while mobile and cloud tools can create quality and privacy concerns." },
+            "keywords": [
+              { "zh": "EXIFTool", "en": "EXIFTool" },
+              { "zh": "本地处理", "en": "Local processing" },
+              { "zh": "批量导出", "en": "Batch export" },
+              { "zh": "摄影模板", "en": "Photo templates" }
+            ],
+            "gallery": [
+              { "src": "/uploads/projects/rzframe/01.jpg", "alt": { "zh": "RZFrame 照片边框编辑工作台", "en": "RZFrame photo frame editing workstation" } },
+              { "src": "/uploads/projects/rzframe/02.jpg", "alt": { "zh": "RZFrame EXIF 参数和模板设置", "en": "RZFrame EXIF metadata and template settings" } },
+              { "src": "/uploads/projects/rzframe/03.webp", "alt": { "zh": "RZFrame 经典照片边框输出示例", "en": "RZFrame classic photo frame output" } },
+              { "src": "/uploads/projects/rzframe/04.webp", "alt": { "zh": "RZFrame 电影感边框输出示例", "en": "RZFrame cinematic frame output" } },
+              { "src": "/uploads/projects/rzframe/05.webp", "alt": { "zh": "RZFrame 摄影作品批量展示效果", "en": "RZFrame batch photo presentation" } }
+            ],
+            "context": { "zh": "摄影师完成拍摄和修图后，还要手动抄写参数、搭边框并逐张导出。手机应用可能压缩高分辨率照片，云端工具则需要上传原片，一组作品的统一发布因此变成重复劳动。", "en": "After shooting and editing, photographers still have to copy metadata, build a frame, and export each image. Mobile apps may compress high-resolution work, while cloud tools require original files to be uploaded." },
+            "problems": [
+              { "zh": "手工读取和排版 EXIF 参数耗时，且容易出现格式不一致。", "en": "Manual EXIF transcription and layout are slow and easy to make inconsistent." },
+              { "zh": "一组照片难以快速维持相同的边框、字体、颜色和参数格式。", "en": "A photo series needs one repeatable frame, font, color, and metadata treatment." },
+              { "zh": "原片上传与二次压缩会带来隐私和画质顾虑。", "en": "Uploading or recompressing originals creates privacy and image-quality concerns." }
+            ],
+            "goal": { "zh": "把摄影分享的最后一步缩短为拖拽、调整、导出，同时保留原片控制权与统一视觉。", "en": "Reduce the last step of photo publishing to import, adjust, and export while preserving control and visual consistency." },
+            "solution": { "zh": "用本地 EXIF 解析、Canvas 渲染和模板系统建立“导入—解析—预览—批量导出”的短路径。", "en": "Use local EXIF parsing, Canvas rendering, and templates to create a short import-to-export workflow with batch processing." },
+            "design": [
+              { "zh": "提供 Classic、Cinema 与 Float 模板及常用社交媒体画幅。", "en": "Provide Classic, Cinema, and Float templates plus common social-media aspect ratios." },
+              { "zh": "支持调整边框、圆角、字体、背景色、文字颜色与可编辑参数。", "en": "Adjust borders, corners, fonts, colors, and editable metadata." },
+              { "zh": "根据相机 Make 自动匹配品牌 Logo，也支持自定义 Logo。", "en": "Detect camera brands from EXIF Make and support custom logos." },
+              { "zh": "将当前配置同步到整组图片，统一完成批量导出。", "en": "Apply one configuration across a set and export the batch consistently." }
+            ],
+            "workflow": { "zh": "Electron 主进程负责本地文件与 ExifTool 子进程，preload 提供受控 IPC；渲染端使用原生 JavaScript 与 Canvas 处理预览和高分辨率输出。JPG、PNG 可直接处理，DNG 与常见 RAW 使用内嵌预览并保留原文件 EXIF。", "en": "The Electron main process handles local files and ExifTool, preload exposes controlled IPC, and vanilla JavaScript with Canvas handles previews and high-resolution output. JPG and PNG are processed directly; DNG and common RAW formats use embedded previews while retaining source EXIF." },
+            "strengths": [
+              { "zh": "纯本地、零上传同时回应了隐私、速度和原片控制需求。", "en": "Local, zero-upload processing addresses privacy, speed, and control together." },
+              { "zh": "参数解析、品牌识别、模板和批量输出组成一条清晰工作流。", "en": "Metadata parsing, brand recognition, templates, and batch output form one focused workflow." }
+            ],
+            "limitations": [
+              { "zh": "深度个性化仍受模板和既有布局规则限制。", "en": "Deep customization remains bounded by the available templates and layout rules." },
+              { "zh": "超大原图和大量并发任务仍需要谨慎控制内存。", "en": "Very large originals and high batch concurrency still require careful memory management." }
+            ]
+          }
         },
         {
           "id": "briank",
@@ -41,7 +122,47 @@
           "description": { "zh": "先用多轮追问把场地、风格和限制条件问清楚，再把生成步骤放到可检查的流程里。", "en": "Clarifies site, style, and constraints before generation so concept work does not depend on one loose prompt." },
           "year": "2025",
           "role": { "zh": "独立开发", "en": "Solo builder" },
-          "externalUrl": "https://www.briank.top/"
+          "externalUrl": "https://www.briank.top/",
+          "detail": {
+            "version": "v1.2.0",
+            "problemLine": { "zh": "输入零散、方案难收敛，最终表达还要在多套工具之间反复搬运。", "en": "Inputs are fragmented, concepts are hard to converge, and final presentation requires too much tool switching." },
+            "keywords": [
+              { "zh": "任务书分析", "en": "Brief analysis" },
+              { "zh": "概念收敛", "en": "Concept convergence" },
+              { "zh": "多模型路由", "en": "Multi-model routing" },
+              { "zh": "A3 / PDF 导出", "en": "A3 / PDF export" }
+            ],
+            "gallery": [
+              { "src": "/uploads/projects/briank/01.png", "alt": { "zh": "枋程设计的建筑任务输入与分析界面", "en": "BrianK architectural brief input and analysis interface" } },
+              { "src": "/uploads/projects/briank/02.jpg", "alt": { "zh": "枋程设计的候选概念与方向选择界面", "en": "BrianK candidate concepts and direction selection" } },
+              { "src": "/uploads/projects/briank/03.jpg", "alt": { "zh": "枋程设计的建筑风格图生成结果", "en": "BrianK architectural style generation result" } },
+              { "src": "/uploads/projects/briank/04.jpg", "alt": { "zh": "枋程设计的体块与分析图工作区", "en": "BrianK massing and analysis workspace" } },
+              { "src": "/uploads/projects/briank/05.png", "alt": { "zh": "枋程设计的展板排版与导出界面", "en": "BrianK presentation board layout and export" } }
+            ],
+            "context": { "zh": "建筑学生和设计师在概念阶段常同时面对模糊任务书、零散参考图与紧迫交付。通用生图工具能快速给图，却很难保留设计约束、解释方向选择并组织最终成果。", "en": "Architecture students and designers often begin with an ambiguous brief, scattered references, and a tight deadline. Generic image tools produce images quickly but rarely preserve constraints, explain direction choices, or organize the final presentation." },
+            "problems": [
+              { "zh": "场地、功能与风格约束难以从混合输入中一次整理清楚。", "en": "Site, program, and style constraints are difficult to extract from mixed inputs." },
+              { "zh": "大量生成结果缺少收敛路径，下一轮修改没有依据。", "en": "Large batches of generated images provide no clear path toward a decision." },
+              { "zh": "分析、出图与排版彼此割裂，截止前仍要重复搬运图文。", "en": "Analysis, generation, and layout remain disconnected, creating repeated work before delivery." }
+            ],
+            "goal": { "zh": "验证一条从需求理解到可讨论、可继续修改、可导出成果的建筑概念最小闭环。", "en": "Test a minimum viable workflow from requirement understanding to a concept that can be discussed, edited, and exported." },
+            "solution": { "zh": "用四阶段路径组织工作：分析任务书并给出候选概念、深化选定方向、生成风格图与体块分析、汇入可编辑展板并导出 PDF。", "en": "Use four stages: analyze the brief and propose concepts, develop the selected direction, generate style and massing visuals, then assemble an editable board and export a PDF." },
+            "design": [
+              { "zh": "接收文字、图片与 PDF，并整理目标、场景、硬约束和禁用项。", "en": "Accept text, images, and PDFs, then structure goals, context, hard constraints, and exclusions." },
+              { "zh": "先展示候选概念和批判意见，确认方向后再进入生成。", "en": "Show candidate concepts and critiques before generation so the user can select a direction." },
+              { "zh": "将鸟瞰、室内、体块与分析图放进共享上下文的生成工作台。", "en": "Keep aerial, interior, massing, and analysis generation inside one workspace with shared context." },
+              { "zh": "提供可替换图文的 A3 竖版与横版展板，并导出 PDF。", "en": "Provide editable A3 portrait and landscape boards with PDF export." }
+            ],
+            "workflow": { "zh": "前端使用 Next.js 14、Tailwind CSS 与 Zustand；文本分析优先走 DeepSeek，图像理解与生成按场景使用豆包或 Gemini；Supabase 提供账号与数据能力，展板通过 html2canvas 和 jsPDF 导出。", "en": "The product uses Next.js 14, Tailwind CSS, and Zustand. DeepSeek handles text-first analysis, Doubao or Gemini supports multimodal analysis and generation, Supabase provides account and data capabilities, and html2canvas plus jsPDF handles board export." },
+            "strengths": [
+              { "zh": "覆盖从模糊输入到可汇报成果的连续路径，而不是停在单次生图。", "en": "Covers the path from an ambiguous input to a presentation-ready artifact instead of stopping at image generation." },
+              { "zh": "方向确认与生成前置条件让模型调用更接近真实设计决策。", "en": "Direction confirmation and generation gates make model calls follow real design decisions." }
+            ],
+            "limitations": [
+              { "zh": "当前仍是测试期产品，缺少足够的真实线上业务指标。", "en": "The product remains in testing and does not yet have enough verified production metrics." },
+              { "zh": "大尺度场景细节、模型延迟与生成成本仍需要人工取舍。", "en": "Large-scene detail, model latency, and generation cost still require human trade-offs." }
+            ]
+          }
         },
         {
           "id": "lab",
@@ -51,7 +172,340 @@
           "coverAlt": { "zh": "Lab & Concepts 的 AI 实验室插画", "en": "Lab & Concepts AI experiment studio illustration" },
           "description": { "zh": "存放尚未长成完整产品的方向实验，用更低成本测试交互方式、信息结构和可行性。", "en": "A place for ideas that are not ready to become full products, but still deserve a small test." },
           "year": "2025",
-          "role": { "zh": "设计 / 开发", "en": "Design / Development" }
+          "role": { "zh": "设计 / 开发", "en": "Design / Development" },
+          "detail": {
+            "problemLine": { "zh": "新工具和交互方向需要先用小实验验证，再决定是否投入完整产品。", "en": "New tools and interaction ideas need a small test before they deserve full product investment." },
+            "keywords": [
+              { "zh": "工作流", "en": "Workflow" },
+              { "zh": "原型", "en": "Prototype" },
+              { "zh": "参数化设计", "en": "Parametric design" },
+              { "zh": "AI Skills", "en": "AI Skills" }
+            ],
+            "gallery": [
+              { "src": "/uploads/projects/lab/01.png", "alt": { "zh": "由多个节点组成的 ComfyUI 图像工作流", "en": "A multi-node ComfyUI image workflow" } },
+              { "src": "/uploads/projects/lab/02.png", "alt": { "zh": "建筑和景观视觉提示词的生成结果对照", "en": "Generated architecture and landscape prompt comparisons" } },
+              { "src": "/uploads/projects/lab/03.png", "alt": { "zh": "Grasshopper 参数化四合院模型与节点定义", "en": "Grasshopper parametric courtyard model and node definition" } },
+              { "src": "/uploads/projects/lab/04.png", "alt": { "zh": "个人 AI 的知识库意图路由工作流", "en": "Personal AI knowledge and intent routing workflow" } }
+            ],
+            "context": { "zh": "很多想法在最初阶段并不知道是否值得产品化。先做一条工作流、一个可运行原型或一套规则，比一开始就搭完整系统更容易看见真实问题。", "en": "At the beginning, many ideas do not yet justify a full product. A workflow, runnable prototype, or constrained ruleset reveals the real problem sooner than a complete system." },
+            "problems": [
+              { "zh": "AI 生成结果容易受提示词、模型和工作流节点变化影响。", "en": "AI outputs can change sharply with prompts, models, and workflow nodes." },
+              { "zh": "专业领域规则若只写在自然语言里，很难稳定复现和检查。", "en": "Domain rules written only in natural language are difficult to reproduce and audit." },
+              { "zh": "过早包装成完整产品会放大实现与维护成本。", "en": "Premature product packaging increases implementation and maintenance cost." }
+            ],
+            "goal": { "zh": "用小规模、可回看的实验判断一个方向是否值得继续。", "en": "Use small, reviewable experiments to decide whether a direction deserves further work." },
+            "solution": { "zh": "针对一个具体问题建立最小实验，记录输入、约束、处理步骤和输出，再根据可控性与复用价值决定是否继续。", "en": "Build the smallest experiment around one problem, record its input, constraints, steps, and output, then continue only when control or reuse value is clear." },
+            "design": [
+              { "zh": "让复杂流程以节点、参数或脚本形式可见。", "en": "Make complex processes visible as nodes, parameters, or scripts." },
+              { "zh": "把领域知识拆成规则、参考资料与可执行步骤。", "en": "Separate domain knowledge into rules, references, and executable steps." },
+              { "zh": "保留实验截图和公开仓库，让结果可以回看与复用。", "en": "Keep screenshots and public repositories so results can be reviewed and reused." }
+            ],
+            "workflow": { "zh": "实验按问题选用 ComfyUI、Grasshopper、Coze、脚本与 Agent Skills；共同方法是先固定输入和边界，再检查中间步骤与最终输出。", "en": "Experiments use ComfyUI, Grasshopper, Coze, scripts, and agent skills according to the problem. The shared method is to fix inputs and boundaries first, then inspect intermediate steps and final output." },
+            "strengths": [
+              { "zh": "小规模原型能快速暴露工作流中的真实摩擦。", "en": "Small prototypes expose real workflow friction quickly." },
+              { "zh": "已经沉淀出可复用的节点流程、参数定义和公开 Skills。", "en": "The lab has produced reusable node graphs, parametric definitions, and public skills." }
+            ],
+            "limitations": [
+              { "zh": "不同实验的成熟度不一致，部分仍只有方向验证。", "en": "The experiments are at different maturity levels, and some remain directional tests." },
+              { "zh": "实验结果尚未统一成可比较的长期使用指标。", "en": "Results have not yet been normalized into comparable long-term usage metrics." }
+            ],
+            "experiments": [
+              { "title": { "zh": "ComfyUI 工作流实验", "en": "ComfyUI workflow studies" }, "tag": { "zh": "节点式生成", "en": "Node-based generation" }, "description": { "zh": "把生成、修复、放大与自动化步骤整理成可见节点链路。", "en": "Organizes generation, restoration, upscaling, and automation as a visible node graph." }, "image": "/uploads/projects/lab/01.png" },
+              { "title": { "zh": "建筑视觉提示词实验", "en": "Architectural prompt studies" }, "tag": { "zh": "多模态生成", "en": "Multimodal generation" }, "description": { "zh": "对照提示词结构、参考图和候选结果，验证视觉方向的可控性。", "en": "Compares prompt structures, references, and results to test visual controllability." }, "image": "/uploads/projects/lab/02.png" },
+              { "title": { "zh": "参数化古建生成", "en": "Parametric heritage generator" }, "tag": { "zh": "Grasshopper", "en": "Grasshopper" }, "description": { "zh": "把四合院与传统木构规则写入参数定义，用数据驱动三维模型。", "en": "Encodes courtyard and timber construction rules in a data-driven 3D definition." }, "image": "/uploads/projects/lab/03.png" },
+              { "title": { "zh": "个人 AI 意图路由", "en": "Personal AI intent router" }, "tag": { "zh": "Coze 工作流", "en": "Coze workflow" }, "description": { "zh": "识别来访者意图，分流到产品知识、个人项目、联系方式或自我介绍。", "en": "Routes visitor intent to product knowledge, projects, contact details, or an introduction." }, "image": "/uploads/projects/lab/04.png" },
+              { "title": { "zh": "Numerologist Skills", "en": "Numerologist Skills" }, "tag": { "zh": "术数工程化", "en": "Auditable domain rules" }, "description": { "zh": "用固定脚本、规则集与参考资料约束奇门遁甲和紫微斗数的计算与解释。", "en": "Uses deterministic scripts, rulesets, and references to constrain calculation and interpretation." }, "image": "/uploads/projects/lab/numerologist-skills.svg", "externalUrl": "https://github.com/FANzR-arch/Numerologist_skills" },
+              { "title": { "zh": "Phil Design Skills", "en": "Phil Design Skills" }, "tag": { "zh": "视觉提示词系统", "en": "Visual prompt system" }, "description": { "zh": "19 套为 gpt-image-2 编写的视觉风格 Skills，可把文章、主题、产品或已有资产编译成完整提示词。", "en": "Nineteen visual-style skills for gpt-image-2 that compile articles, themes, products, or assets into complete prompts." }, "image": "/uploads/projects/lab/prompt-skills.svg", "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "digital-humans",
+      "label": "02",
+      "title": { "zh": "数字人", "en": "Digital Humans" },
+      "description": {
+        "zh": "围绕稳定角色、声音、口播脚本与批量交付建立的数字人内容生产。",
+        "en": "Digital-human content production built around stable characters, voices, scripts, and repeatable delivery."
+      },
+      "presentation": "projects",
+      "items": [
+        {
+          "id": "digital-human-production",
+          "zh": "数字人制作系统",
+          "en": "Digital Human Production System",
+          "cover": { "light": "/uploads/projects/digital-human-system/cover.webp", "dark": "/uploads/projects/digital-human-system/cover.webp" },
+          "coverAlt": { "zh": "数字人内容样片中的虚拟讲解角色", "en": "A virtual presenter from the digital-human content reel" },
+          "description": { "zh": "把角色校准、脚本、语音、生成、审核与交付整理为可重复运行的数字人口播生产流程。", "en": "Turns character calibration, scripts, voice, generation, review, and delivery into a repeatable presenter-video workflow." },
+          "year": "2026",
+          "role": { "zh": "产品与流程设计", "en": "Product & workflow design" },
+          "showcase": [
+            { "src": "/uploads/projects/digital-human-system/cover.webp", "alt": { "zh": "女性数字人口播视频封面", "en": "Female digital-presenter video cover" }, "title": { "zh": "批量口播", "en": "Presenter Series" }, "tag": { "zh": "角色与声音一致性", "en": "Character & voice consistency" } },
+            { "src": "/uploads/projects/digital-human-system/talking-head.webp", "alt": { "zh": "男性数字人进行镜头讲解", "en": "Male digital presenter explaining to camera" }, "title": { "zh": "产品讲解", "en": "Product Walkthrough" }, "tag": { "zh": "镜头表达", "en": "On-camera delivery" } },
+            { "src": "/uploads/projects/digital-human-system/live-commerce.webp", "alt": { "zh": "女性数字人展示便携榨汁杯", "en": "Female digital presenter showing a portable blender" }, "title": { "zh": "直播带货", "en": "Live Commerce" }, "tag": { "zh": "商品演示", "en": "Product demonstration" } },
+            { "src": "/uploads/projects/digital-human-system/mini-tutorial.webp", "alt": { "zh": "女性数字人讲解内容生产流程", "en": "Female digital presenter explaining a content workflow" }, "title": { "zh": "微型教程", "en": "Micro Tutorial" }, "tag": { "zh": "知识内容", "en": "Educational content" } }
+          ],
+          "detail": {
+            "problemLine": { "zh": "数字人口播能快速生成，但人物、声音、动作和审核标准不稳定时，批量生产只会放大返工。", "en": "Digital presenters can be generated quickly, but unstable characters, voices, motion, and review criteria multiply rework at scale." },
+            "keywords": [
+              { "zh": "角色校准", "en": "Character calibration" },
+              { "zh": "批量口播", "en": "Batch presenter video" },
+              { "zh": "人工审核", "en": "Human review" },
+              { "zh": "可审计交付", "en": "Auditable delivery" }
+            ],
+            "gallery": [
+              { "src": "/uploads/projects/digital-human-system/cover.webp", "alt": { "zh": "数字人内容系统的竖版讲解样片", "en": "Vertical presenter sample from the digital-human content system" } }
+            ],
+            "context": { "zh": "稳定的数字人内容不只是一张照片加一段台词。身份母图、声音、表现强度、画幅安全区、费用确认和成片验收都需要被固定下来，才能从单条试做进入持续生产。", "en": "Reliable presenter content requires more than a portrait and a script. Identity images, voice, performance, safe zones, cost confirmation, and final review all need explicit control before production can scale." },
+            "problems": [
+              { "zh": "角色、声音与动作参数分散，换批次后容易失去一致性。", "en": "Character, voice, and motion settings are fragmented and easy to lose between batches." },
+              { "zh": "生成任务可能因网络或供应商状态中断，重复提交会产生额外成本。", "en": "Network or provider interruptions can trigger duplicate submissions and unnecessary cost." },
+              { "zh": "只看缩略图无法判断口型、表情和节奏是否真正可交付。", "en": "Thumbnails cannot confirm whether lip sync, expression, and pacing are deliverable." }
+            ],
+            "goal": { "zh": "让固定数字人可以稳定承担口播、产品讲解与系列内容，并且每条成片都有明确状态和人工验收。", "en": "Enable stable presenters to handle recurring commentary, product explanations, and series content with explicit state and human acceptance." },
+            "solution": { "zh": "将高频标准口播与复杂制作分流：固定角色走批量快线，复杂广告、多角色或分段内容进入带 Manifest 的受控流程。", "en": "Route recurring presenter videos through a calibrated batch lane, while ads, multi-character work, and segmented productions use a governed manifest-based workflow." },
+            "design": [
+              { "zh": "为每个角色锁定身份母图、Voice ID、Avatar ID 与表现参数。", "en": "Lock the identity image, Voice ID, Avatar ID, and performance settings for every presenter." },
+              { "zh": "生成前先做 dry-run，确认角色、数量、时长和预计费用。", "en": "Run a dry check before generation to confirm characters, volume, duration, and estimated cost." },
+              { "zh": "失败任务复用已有音频整条重做，避免重复调用上游步骤。", "en": "Reuse accepted audio when regenerating a failed video to avoid repeated upstream work." },
+              { "zh": "交付目录只保留通过人工完整观看后的成片。", "en": "Keep only fully reviewed and accepted videos in the delivery directory." }
+            ],
+            "workflow": { "zh": "标准内容从角色库与批次清单进入 Rapid Mode；复杂制作按脚本、分段计划、预览、人工确认和交付门禁推进。语音、视频生成和渲染工具根据任务选择，正式成片始终经过完整观看。", "en": "Standard content enters Rapid Mode through the character library and batch manifest. Complex work moves through scripts, segment plans, previews, approval, and delivery gates, with tools selected per production and every final video watched in full." },
+            "strengths": [
+              { "zh": "角色资产、生产配置和客户交付物边界清楚。", "en": "Character assets, production settings, and client deliverables have clear boundaries." },
+              { "zh": "批量快线与复杂制作各用合适的控制强度。", "en": "Recurring batches and complex productions use different, appropriate levels of control." }
+            ],
+            "limitations": [
+              { "zh": "数字人质量仍受源图、声音和上游模型稳定性影响。", "en": "Quality still depends on source images, voice inputs, and upstream model stability." },
+              { "zh": "精确表演与复杂镜头需要进入成本更高的分段制作。", "en": "Precise performances and complex scenes require a more expensive segmented workflow." }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ai-imagery",
+      "label": "03",
+      "title": { "zh": "AI 影像", "en": "AI Imagery" },
+      "description": {
+        "zh": "用 AI 完成广告、产品 TVC、SaaS 演示与剧情短片等商业影像表达。",
+        "en": "AI-native commercial imagery for advertising, product films, SaaS demos, and narrative shorts."
+      },
+      "presentation": "projects",
+      "items": [
+        {
+          "id": "ai-native-commercial-imagery",
+          "zh": "AI 原生商业影像",
+          "en": "AI-native Commercial Imagery",
+          "cover": { "light": "/uploads/projects/ai-imagery/cover.webp", "dark": "/uploads/projects/ai-imagery/cover.webp" },
+          "coverAlt": { "zh": "AI 生成的香水产品广告镜头", "en": "AI-generated perfume product advertising shot" },
+          "description": { "zh": "围绕产品、受众和传播任务设计脚本与镜头，将生成画面组织为广告、演示或剧情内容。", "en": "Builds scripts and shots around the product, audience, and communication task, then shapes generated footage into ads, demos, or stories." },
+          "year": "2026",
+          "role": { "zh": "创意、脚本与制作", "en": "Creative, script & production" },
+          "showcase": [
+            { "src": "/uploads/projects/ai-imagery/cover.webp", "alt": { "zh": "琥珀色香水瓶产品广告镜头", "en": "Amber perfume bottle advertising frame" }, "title": { "zh": "产品广告", "en": "Product Film" }, "tag": { "zh": "产品 TVC", "en": "Product TVC" } },
+            { "src": "/uploads/projects/ai-imagery/product-hero.webp", "alt": { "zh": "蓝色精华瓶产品主视觉", "en": "Blue serum bottle product hero" }, "title": { "zh": "产品主视觉", "en": "Product Hero" }, "tag": { "zh": "电商视觉", "en": "Commerce visual" } },
+            { "src": "/uploads/projects/ai-imagery/product-benefit.webp", "alt": { "zh": "蓝色精华瓶材质与卖点镜头", "en": "Blue serum bottle benefit frame" }, "title": { "zh": "卖点镜头", "en": "Benefit Shot" }, "tag": { "zh": "材质与功效", "en": "Material & benefit" } },
+            { "src": "/uploads/projects/ai-imagery/ad-endframe.webp", "alt": { "zh": "蓝色精华瓶广告收束画面", "en": "Blue serum bottle campaign end frame" }, "title": { "zh": "广告收束", "en": "Campaign End Frame" }, "tag": { "zh": "品牌记忆点", "en": "Brand recall" } },
+            { "src": "/uploads/projects/ai-imagery/saas-motion.webp", "alt": { "zh": "AI 工作流产品动效封面", "en": "AI workflow product-motion cover" }, "title": { "zh": "SaaS 动效", "en": "SaaS Motion" }, "tag": { "zh": "产品演示", "en": "Product demo" } }
+          ],
+          "detail": {
+            "problemLine": { "zh": "单个漂亮镜头不等于一支有效影像，广告、产品演示和短剧都需要连续的表达逻辑。", "en": "A beautiful shot is not a complete film; ads, product demos, and narrative shorts all need a coherent line of expression." },
+            "keywords": [
+              { "zh": "电商广告", "en": "Commerce ads" },
+              { "zh": "产品 TVC", "en": "Product TVC" },
+              { "zh": "SaaS 演示", "en": "SaaS demos" },
+              { "zh": "剧情短片", "en": "Narrative shorts" }
+            ],
+            "gallery": [
+              { "src": "/uploads/projects/ai-imagery/cover.webp", "alt": { "zh": "AI 原生商业影像中的产品主视觉", "en": "Product hero frame from an AI-native commercial film" } }
+            ],
+            "context": { "zh": "AI 可以快速生成不同媒介与风格的画面，但商业内容仍要回答同一组问题：拍什么、为什么这样拍、镜头之间如何推进，以及最后要让观众记住什么。", "en": "AI can generate many styles quickly, but commercial work still has to decide what to show, why each shot exists, how the sequence develops, and what the audience should remember." },
+            "problems": [
+              { "zh": "生成结果容易成为风格拼盘，镜头之间缺少统一主题。", "en": "Generated footage easily becomes a style collage without one governing idea." },
+              { "zh": "人物、产品和空间在连续镜头中容易失去一致性。", "en": "Characters, products, and spaces can drift across consecutive shots." },
+              { "zh": "如果没有剪辑与声音设计，单次生成很难形成完整节奏。", "en": "Without editing and sound design, isolated generations rarely form a complete rhythm." }
+            ],
+            "goal": { "zh": "让 AI 生成服务于明确的商业命题，最终形成可观看、可理解、可交付的完整影像。", "en": "Make generation serve a clear commercial premise and result in a watchable, understandable, deliverable film." },
+            "solution": { "zh": "先锁定受众、产品卖点与故事动作，再把脚本拆成少量必要镜头；使用参考图、首尾帧和镜头约束维持一致性，最后通过剪辑、声音和版式完成表达。", "en": "Lock the audience, proposition, and story action first, then divide the script into a small set of necessary shots. References, boundary frames, and shot constraints preserve continuity before edit, sound, and typography complete the film." },
+            "design": [
+              { "zh": "一条视频只围绕一个主题或一个可复述的创意命题。", "en": "Give each film one theme or one repeatable creative premise." },
+              { "zh": "用产品 Hero、材质微距、动作和结果镜头建立视觉节奏。", "en": "Build rhythm from product heroes, material close-ups, actions, and result shots." },
+              { "zh": "根据广告、产品演示与剧情内容选择不同的镜头密度。", "en": "Vary shot density for advertising, product demonstration, and narrative work." },
+              { "zh": "准确文字、Logo 和界面信息在后期以可控方式加入。", "en": "Add exact copy, logos, and interface content through controlled post-production." }
+            ],
+            "workflow": { "zh": "从 Brief、研究和脚本开始，建立分镜与生成约束，再根据场景使用图像或视频模型。候选镜头通过人工筛选后进入剪辑、配音、声音设计与最终质检。", "en": "Start with the brief, research, and script, then establish storyboards and generation constraints. Select image or video models per scene, review candidates, and finish through editing, voice, sound design, and final QA." },
+            "strengths": [
+              { "zh": "可以在实拍成本较高的产品、空间和概念场景中快速验证方向。", "en": "Quickly tests product, spatial, and conceptual scenes that would be costly to shoot." },
+              { "zh": "同一套创意结构可适配横版、竖版和不同平台时长。", "en": "One creative structure can adapt to horizontal, vertical, and platform-specific durations." }
+            ],
+            "limitations": [
+              { "zh": "长镜头、精确物理动作和角色连续性仍需要更多迭代。", "en": "Long takes, precise physical action, and character continuity still require more iteration." },
+              { "zh": "生成素材不能替代对品牌事实、版权和最终文案的人工确认。", "en": "Generated media does not replace human confirmation of brand facts, rights, and final copy." }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "seo-geo",
+      "label": "04",
+      "title": { "zh": "SEO & GEO", "en": "SEO & GEO" },
+      "description": {
+        "zh": "把关键词、搜索意图、内容页面、技术检查与效果复盘连接成持续增长流程。",
+        "en": "Connects keywords, search intent, content pages, technical checks, and performance review into an ongoing growth process."
+      },
+      "presentation": "projects",
+      "items": [
+        {
+          "id": "seo-geo-growth",
+          "zh": "SEO × GEO 增长系统",
+          "en": "SEO × GEO Growth System",
+          "cover": { "light": "/uploads/projects/seo-geo-growth/cover.png", "dark": "/uploads/projects/seo-geo-growth/cover.png" },
+          "coverAlt": { "zh": "关键词、内容架构、技术检查与效果监测组成的搜索增长流程", "en": "Search growth workflow connecting keywords, content architecture, technical checks, and measurement" },
+          "description": { "zh": "从关键词与搜索意图出发，连接内容规划、页面生产、技术 SEO、发布检查和生成式搜索可见度监测。", "en": "Connects keywords and search intent with content planning, page delivery, technical SEO, release checks, and generative-search visibility monitoring." },
+          "year": "2026",
+          "role": { "zh": "SEO/GEO 策略与执行", "en": "SEO/GEO strategy & execution" },
+          "detail": {
+            "problemLine": { "zh": "增加内容数量不等于获得搜索增长；缺少意图判断、技术基础、页面边界和持续复盘时，生产越快越容易重复与失焦。", "en": "Publishing more content does not guarantee search growth; without intent, technical foundations, page boundaries, and review loops, faster production creates duplication and drift." },
+            "keywords": [
+              { "zh": "关键词与意图", "en": "Keywords & intent" },
+              { "zh": "内容架构", "en": "Content architecture" },
+              { "zh": "技术 SEO", "en": "Technical SEO" },
+              { "zh": "AI 引用可见度", "en": "AI citation visibility" }
+            ],
+            "gallery": [
+              { "src": "/uploads/projects/seo-geo-growth/cover.png", "alt": { "zh": "SEO 与 GEO 增长工作流视觉概览", "en": "Visual overview of an SEO and GEO growth workflow" } }
+            ],
+            "context": { "zh": "SEO 关注网页在传统搜索中的抓取、索引、理解与排名，GEO 关注内容能否被生成式搜索发现、理解和引用。两者都依赖清晰的信息架构、可验证的内容、稳定的技术基础和持续测量，但衡量口径与结果路径并不完全相同。", "en": "SEO addresses how pages are crawled, indexed, understood, and ranked in traditional search. GEO addresses whether generative systems can discover, understand, and cite content. Both depend on clear information architecture, verifiable content, sound technical foundations, and ongoing measurement, while their metrics and outcome paths differ." },
+            "problems": [
+              { "zh": "关键词研究、内容规划、开发和发布状态分散，难以判断每个页面承担的搜索意图。", "en": "Keyword research, content planning, development, and release status fragment, obscuring the intent each page should serve." },
+              { "zh": "相近主题容易产生内容蚕食，页面数量增加但站点结构和定位变得模糊。", "en": "Adjacent topics can cannibalize one another as page count grows and site structure loses clarity." },
+              { "zh": "排名、自然流量和 AI 引用来自不同系统，需要分别采样并持续复核。", "en": "Rankings, organic traffic, and AI citations come from different systems and require separate, ongoing measurement." }
+            ],
+            "goal": { "zh": "建立一条从需求研究到上线复盘都可追踪的搜索增长流程，让页面决策有依据、技术问题能被发现、效果变化能够解释。", "en": "Build a traceable search-growth process from demand research through post-release review, so page decisions have evidence, technical issues surface, and performance changes can be interpreted." },
+            "solution": { "zh": "以关键词与 SERP 研究确定需求和页面类型，用主题地图划分页面边界，再把内容生产、技术检查、结构化数据、内部链接、上线验收和效果监测连接起来。", "en": "Use keyword and SERP research to establish demand and page type, map topic boundaries, then connect content delivery, technical checks, structured data, internal links, release QA, and measurement." },
+            "design": [
+              { "zh": "根据真实搜索结果中的主导意图决定内容页、服务页、对比页或工具页。", "en": "Choose content, service, comparison, or tool pages from the dominant intent visible in real search results." },
+              { "zh": "通过主题地图、关键词归属和差异化提纲减少页面互相竞争。", "en": "Reduce page competition with topic maps, keyword ownership, and differentiated briefs." },
+              { "zh": "同时检查抓取、索引、规范链接、站点地图、结构化数据和内部链接。", "en": "Review crawling, indexing, canonicals, sitemaps, structured data, and internal links together." },
+              { "zh": "分别记录传统搜索表现和生成式搜索引用样本，不把单次结果当作稳定结论。", "en": "Track traditional search performance and generative-search citation samples separately without treating one observation as a stable conclusion." }
+            ],
+            "workflow": { "zh": "候选主题先经过关键词、SERP 与现有页面审计，再进入信息架构和内容制作。页面通过元数据、正文结构、链接、图片、结构化数据、可抓取性与构建检查后上线；随后结合搜索平台数据、站点分析和 AI 引用样本进行周期复盘。", "en": "Candidate topics pass keyword, SERP, and existing-page review before information architecture and content production. Pages clear metadata, structure, links, images, structured data, crawlability, and build checks before release, then enter periodic review using search-platform data, site analytics, and AI-citation samples." },
+            "strengths": [
+              { "zh": "研究、页面决策、技术验收与效果数据处于同一条可追踪链路。", "en": "Research, page decisions, technical QA, and performance data sit in one traceable chain." },
+              { "zh": "自动检查处理机械问题，人工负责意图、事实、差异化和表达判断。", "en": "Automation handles mechanical issues while people judge intent, facts, differentiation, and expression." }
+            ],
+            "limitations": [
+              { "zh": "搜索排名、自然流量和 AI 引用受竞争、平台变化与品牌基础影响，无法承诺固定结果。", "en": "Rankings, organic traffic, and AI citations depend on competition, platform changes, and brand foundations, so fixed outcomes cannot be promised." },
+              { "zh": "可靠判断依赖持续获得搜索平台、站点分析和引用样本等真实数据。", "en": "Reliable judgment depends on continued access to real search-platform, site-analytics, and citation-sample data." }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "courses-sharing",
+      "label": "05",
+      "title": { "zh": "课程与分享", "en": "Courses & Sharing" },
+      "description": {
+        "zh": "把复杂知识整理成初学者可进入、可操作、可回看的课程与公开分享。",
+        "en": "Turns complex knowledge into approachable, actionable, and reviewable courses and public learning material."
+      },
+      "presentation": "projects",
+      "items": [
+        {
+          "id": "seo-geo-course",
+          "zh": "SEO × GEO 入门课",
+          "en": "SEO × GEO Beginner Course",
+          "cover": { "light": "/uploads/projects/seo-geo-course/cover.png", "dark": "/uploads/projects/seo-geo-course/cover.png" },
+          "coverAlt": { "zh": "SEO × GEO 入门课首页与搜索结果交互练习", "en": "SEO × GEO course homepage with an interactive search-result exercise" },
+          "description": { "zh": "从搜索引擎如何工作讲到生成式搜索引用，用 24 节交互课程帮助完全新手边学边练。", "en": "A 24-lesson interactive course that takes complete beginners from search fundamentals to citation in generative search." },
+          "year": "2026",
+          "role": { "zh": "课程设计与开发", "en": "Course design & development" },
+          "externalUrl": "https://seo-learn-eight.vercel.app/",
+          "detail": {
+            "problemLine": { "zh": "SEO 和 GEO 术语很多，零散教程又常直接跳到技巧，新手很难建立完整的理解顺序。", "en": "SEO and GEO contain dense terminology, while scattered tutorials often jump to tactics before beginners have a usable mental model." },
+            "keywords": [
+              { "zh": "24 节课程", "en": "24 lessons" },
+              { "zh": "交互练习", "en": "Interactive exercises" },
+              { "zh": "SEO 基础", "en": "SEO foundations" },
+              { "zh": "GEO 入门", "en": "GEO foundations" }
+            ],
+            "gallery": [
+              { "src": "/uploads/projects/seo-geo-course/cover.png", "alt": { "zh": "SEO × GEO 入门课的课程首页", "en": "Homepage of the SEO × GEO beginner course" } }
+            ],
+            "context": { "zh": "搜索优化既涉及内容，也涉及抓取、索引、页面结构、站外信号和数据复盘。进入生成式搜索后，还要理解 AI 如何寻找与引用来源，并区分平台事实、行业经验与教学示意。", "en": "Search optimization spans content, crawling, indexing, page structure, external signals, and measurement. Generative search adds questions about how AI discovers and cites sources, and how to separate platform facts from practice and teaching simplifications." },
+            "problems": [
+              { "zh": "概念之间有依赖关系，按热门技巧零散学习容易断层。", "en": "Concepts depend on one another, so learning isolated popular tactics creates gaps." },
+              { "zh": "只读定义难以理解搜索结果、HTML 与爬虫之间的关系。", "en": "Definitions alone do not show how results, HTML, and crawlers relate." },
+              { "zh": "GEO 变化快，未经标注的结论容易被误当成平台规则。", "en": "GEO changes quickly, and unlabelled claims can be mistaken for platform rules." }
+            ],
+            "goal": { "zh": "让没有基础的学习者按照一条清楚路径理解 SEO 与 GEO，并能在真实网页上完成基础检查。", "en": "Give complete beginners a clear path through SEO and GEO and the ability to perform basic checks on real pages." },
+            "solution": { "zh": "把课程拆成六个阶段、24 节课，并用搜索结果预览、爬虫模拟、页面拆解、测验和清单把抽象概念变成可操作练习。", "en": "Organize 24 lessons into six stages and turn abstract concepts into practice through SERP previews, crawler simulations, page anatomy, quizzes, and checklists." },
+            "design": [
+              { "zh": "按搜索基础、关键词、页面优化、技术 SEO、站外信号和 GEO 排列学习顺序。", "en": "Sequence learning through search basics, keywords, on-page work, technical SEO, off-site signals, and GEO." },
+              { "zh": "每节只集中解决一个主题，并提供可以动手操作的交互组件。", "en": "Give each lesson one topic and an interactive element learners can operate." },
+              { "zh": "术语表支持搜索与分类，课程内可随时返回概念解释。", "en": "Provide a searchable, categorized glossary that lessons can reference." },
+              { "zh": "官方事实、研究结果与教学简化分别标注来源和边界。", "en": "Label platform facts, research findings, and teaching simplifications with their sources and limits." }
+            ],
+            "workflow": { "zh": "课程使用静态 HTML、CSS 与 JavaScript 构建，共享外壳负责导航、进度和主题，独立组件负责 SERP、爬虫、测验与检查清单。无需后端即可部署到静态托管。", "en": "The course uses static HTML, CSS, and JavaScript. A shared shell handles navigation, progress, and themes, while standalone widgets handle SERPs, crawlers, quizzes, and checklists. It deploys without a backend." },
+            "strengths": [
+              { "zh": "课程顺序和交互练习共同降低了新手的理解门槛。", "en": "The lesson sequence and exercises lower the entry barrier for beginners." },
+              { "zh": "零依赖静态架构便于长期维护和公开访问。", "en": "A dependency-free static architecture is easy to maintain and publish." }
+            ],
+            "limitations": [
+              { "zh": "搜索与生成式搜索持续变化，课程需要定期复核。", "en": "Search and generative search keep changing, so lessons need periodic review." },
+              { "zh": "课程示例用于教学，不代表任何站点的排名或引用结果。", "en": "Course examples are instructional and do not predict rank or citation outcomes." }
+            ]
+          }
+        },
+        {
+          "id": "price-action-course",
+          "zh": "价格行为交易入门课",
+          "en": "Price Action Beginner Course",
+          "cover": { "light": "/uploads/projects/price-action-course/cover-3x2.png", "dark": "/uploads/projects/price-action-course/cover-3x2.png" },
+          "coverAlt": { "zh": "价格行为交易入门课封面与上涨 K 线", "en": "Price action beginner course cover with a rising candlestick sequence" },
+          "description": { "zh": "用 24 节图文交互课程解释 K 线、趋势、区间、突破和风险，让新手从一根 K 线开始建立阅读方法。", "en": "A 24-lesson visual course on candles, trends, ranges, breakouts, and risk that starts with one bar at a time." },
+          "year": "2026",
+          "role": { "zh": "课程设计与开发", "en": "Course design & development" },
+          "externalUrl": "https://price-action-course.vercel.app/",
+          "detail": {
+            "problemLine": { "zh": "价格行为概念彼此关联，但新手常从零散形态和术语开始，难以形成稳定的读图顺序。", "en": "Price-action concepts are interconnected, but beginners often start with isolated patterns and jargon instead of a stable reading sequence." },
+            "keywords": [
+              { "zh": "K 线阅读", "en": "Candlestick reading" },
+              { "zh": "趋势与区间", "en": "Trends & ranges" },
+              { "zh": "交互图表", "en": "Interactive charts" },
+              { "zh": "风险意识", "en": "Risk awareness" }
+            ],
+            "gallery": [
+              { "src": "/uploads/projects/price-action-course/cover-3x2.png", "alt": { "zh": "价格行为交易入门课的完整课程封面", "en": "Full cover of the price action beginner course" } }
+            ],
+            "context": { "zh": "价格行为学习同时包含单根 K 线、连续走势、市场结构、交易位置与风险管理。直接记忆形态会忽略上下文，也容易把教学示例误认为确定信号。", "en": "Price action combines individual bars, sequences, market structure, trade location, and risk. Memorizing patterns alone ignores context and can make teaching examples look like certain signals." },
+            "problems": [
+              { "zh": "术语多、图形相似，新手缺少从局部到整体的观察顺序。", "en": "Dense terminology and similar patterns leave beginners without a local-to-global reading order." },
+              { "zh": "静态截图很难解释 K 线逐步形成时判断如何变化。", "en": "Static screenshots struggle to show how interpretation changes as bars form." },
+              { "zh": "课程内容必须持续强调不确定性、风险与教学边界。", "en": "The material must repeatedly reinforce uncertainty, risk, and its educational limits." }
+            ],
+            "goal": { "zh": "让完全新手先学会描述图表、识别上下文和控制风险，再讨论具体交易判断。", "en": "Teach complete beginners to describe charts, recognize context, and manage risk before making trade judgments." },
+            "solution": { "zh": "按照 K 线语言、趋势、区间、突破、入场管理与风险复盘六阶段组织 24 节课，并用可交互图表、回放和测验辅助理解。", "en": "Organize 24 lessons into bar language, trends, ranges, breakouts, trade management, and risk review, supported by interactive charts, replay, and quizzes." },
+            "design": [
+              { "zh": "从单根 K 线开始，逐步扩大到走势、结构和交易计划。", "en": "Start with one bar and gradually expand to movement, structure, and trade plans." },
+              { "zh": "用图表组件展示形态变化，而不是只给最终答案。", "en": "Use chart components to show pattern development instead of only final answers." },
+              { "zh": "术语表连接课程概念与常见市场黑话。", "en": "Connect lesson concepts with common market language through a glossary." },
+              { "zh": "每个示例都保留风险提示和适用边界。", "en": "Keep risk notes and applicability boundaries beside each example." }
+            ],
+            "workflow": { "zh": "课程使用纯静态网页和共享交互组件构建，课程目录由数据驱动，当前内容按统一外壳持续增加。页面可直接部署，深浅主题与键盘交互由全站脚本统一处理。", "en": "The course uses static pages and shared interactive components with a data-driven curriculum. Lessons expand inside one shell, deploy directly, and share theme and keyboard behavior." },
+            "strengths": [
+              { "zh": "图文与交互结合，比单纯背诵形态更接近真实读图过程。", "en": "Combining visuals and interaction better reflects chart reading than pattern memorization." },
+              { "zh": "课程结构、参考资料和免责声明都可独立检查。", "en": "The curriculum, references, and disclaimers can be reviewed independently." }
+            ],
+            "limitations": [
+              { "zh": "课程只用于知识学习，不构成投资建议或收益承诺。", "en": "The course is educational and provides no investment advice or return promise." },
+              { "zh": "教学图表无法覆盖滑点、手续费、流动性与真实执行差异。", "en": "Teaching charts cannot represent slippage, fees, liquidity, or live execution differences." }
+            ]
+          }
         }
       ]
     }
@@ -64,6 +518,11 @@
       "description": {
         "zh": "把视觉参考、版式与图像语言编译成可直接调用的 Skills。",
         "en": "Visual references, layouts, and image languages compiled into ready-to-use Skills."
+      },
+      "image": "/uploads/projects/lab/prompt-skills.svg",
+      "imageAlt": {
+        "zh": "视觉提示词从输入、风格选择到生成输出的工作流程示意图",
+        "en": "Workflow diagram showing visual prompts moving from input and style selection to generated output"
       },
       "items": [
         {
@@ -87,24 +546,15 @@
         "zh": "为重复判断和生产过程建立可复用的流程、约束与工具。",
         "en": "Reusable flows, constraints, and tools for repeated decisions and production."
       },
+      "image": "/uploads/projects/lab/numerologist-skills.svg",
+      "imageAlt": {
+        "zh": "把领域规则、工具与校验步骤连接成稳定工作流的示意图",
+        "en": "Diagram connecting domain rules, tools, and validation steps into a stable workflow"
+      },
       "items": [
         { "zh": "agent-worklog — 跨 Agent 工作记录", "en": "agent-worklog — cross-agent work records" },
         { "zh": "Numerologist Skills — 稳定推演流程", "en": "Numerologist Skills — a stable reasoning flow" },
         { "zh": "内容、SEO/GEO 与研究工作流", "en": "Content, SEO/GEO, and research workflows" }
-      ]
-    },
-    {
-      "id": "all-skills",
-      "label": "03",
-      "title": { "zh": "全部技能", "en": "All Skills" },
-      "description": {
-        "zh": "把可公开、可拿走的 Skill 与工作流放进一个持续整理的索引。",
-        "en": "A continually maintained index of public Skills and workflows you can take and use."
-      },
-      "items": [
-        { "zh": "设计与图像生成", "en": "Design and image generation" },
-        { "zh": "研究、记录与决策", "en": "Research, records, and decisions" },
-        { "zh": "内容生产与发布", "en": "Content production and publishing" }
       ]
     }
   ],

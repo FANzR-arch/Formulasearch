@@ -15,7 +15,7 @@ const { href, item, eager = false, locale = 'zh' } = Astro.props
 ---
 
 <a class="project-card project-card--linked" href={href}>
-  <figure class="project-card__cover">
+  <figure class="project-card__cover" data-cover-focus={item.coverFocus}>
     <img class="project-card__image project-card__image--light" src={item.cover.light} alt={getLocalizedValue(item.coverAlt, locale)} data-alt-zh={item.coverAlt.zh} data-alt-en={item.coverAlt.en} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" />
     <img class="project-card__image project-card__image--dark" src={item.cover.dark} alt="" aria-hidden="true" loading="lazy" decoding="async" />
   </figure>
