@@ -961,14 +961,14 @@ test('static preview server rejects paths outside dist', async () => {
 })
 test('catalog pages omit index navigation and section numbers', async ({ page }) => {
   const catalogPages = [
-    { route: '/projects', catalogSections: 0, projectGroups: 1 },
-    { route: '/skills', catalogSections: 3, projectGroups: 0 },
+    { route: '/projects', catalogSections: 0, projectGroups: 5 },
+    { route: '/skills', catalogSections: 2, projectGroups: 0 },
     { route: '/lab', catalogSections: 3, projectGroups: 0 },
   ]
   for (const { route, catalogSections, projectGroups } of catalogPages) {
     await page.goto(route)
     await expect(page.locator('.catalog-index')).toHaveCount(0)
-    await expect(page.locator('.catalog-section__number')).toHaveCount(0)
+    await expect(page.locator('.catalog-section__number, .catalog-section__index, .project-group__index')).toHaveCount(0)
     await expect(page.locator('.catalog-section')).toHaveCount(catalogSections)
     await expect(page.locator('.project-group')).toHaveCount(projectGroups)
   }
