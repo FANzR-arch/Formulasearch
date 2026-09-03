@@ -562,9 +562,29 @@
       "presentation": "skill-gallery"
     },
     {
-      "id": "agent-workflows",
+      "id": "numerologist-skills",
       "label": "02",
-      "title": { "zh": "其他 Skills 与工作流", "en": "Other Skills & Workflows" },
+      "title": { "zh": "Numerologist Skills", "en": "Numerologist Skills" },
+      "tag": { "zh": "术数工程化", "en": "Auditable domain rules" },
+      "description": {
+        "zh": "把奇门遁甲、紫微斗数与四柱八字从依赖经验的解读，转化为由固定脚本、规则集和参考资料约束的可审计工作流。",
+        "en": "Turns Qimen, Ziwei, and Four Pillars from experience-led readings into auditable workflows constrained by deterministic scripts, rulesets, and references."
+      },
+      "cover": {
+        "light": "/uploads/skills/numerologist-skills/cover-light.webp",
+        "dark": "/uploads/skills/numerologist-skills/cover-dark.webp"
+      },
+      "coverAlt": {
+        "zh": "Numerologist Skills 术数工程化项目封面",
+        "en": "Numerologist Skills engineering system cover"
+      },
+      "repositoryUrl": "https://github.com/FANzR-arch/Numerologist_skills",
+      "presentation": "skill-project"
+    },
+    {
+      "id": "agent-workflows",
+      "label": "03",
+      "title": { "zh": "其他Skill", "en": "Other Skills" },
       "description": {
         "zh": "把领域规则、工作记录与研究方法做成可复用入口。每一项都说明它解决什么问题，并连接到可继续查看或使用的页面。",
         "en": "Reusable entry points for domain rules, work records, and research methods. Each item states the problem it solves and links to the place where it can be explored or used."
@@ -576,13 +596,6 @@
           "tag": { "zh": "视觉方法", "en": "Visual methods" },
           "description": { "zh": "把构图、色彩、材质与动态效果拆成可观察、可组合的视觉实验。", "en": "Breaks composition, color, material, and motion into observable, composable visual studies." },
           "externalUrl": "https://fanzr-arch.github.io/Phil-aesthetic-formulas/"
-        },
-        {
-          "zh": "Numerologist Skills",
-          "en": "Numerologist Skills",
-          "tag": { "zh": "可审计领域规则", "en": "Auditable domain rules" },
-          "description": { "zh": "用固定脚本、规则集与参考资料约束奇门遁甲和紫微斗数的计算与解释。", "en": "Constrains Qimen and Ziwei calculations with deterministic scripts, rulesets, and references." },
-          "externalUrl": "https://github.com/FANzR-arch/Numerologist_skills"
         },
         {
           "zh": "agent-worklog",

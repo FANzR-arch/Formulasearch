@@ -98,10 +98,21 @@
           }
         },
         {
+          "href": "/skills#numerologist-skills",
+          "label": {
+            "zh": "术数技能",
+            "en": "Numerologist Skills"
+          },
+          "note": {
+            "zh": "可审计的术数工程化规则",
+            "en": "Auditable numerology workflows"
+          }
+        },
+        {
           "href": "/skills#agent-workflows",
           "label": {
-            "zh": "Agent 与工作流",
-            "en": "Agent & Workflows"
+            "zh": "其他Skill",
+            "en": "Other Skills"
           },
           "note": {
             "zh": "工作流、SOP 与 Agent 工具",

@@ -100,6 +100,22 @@ const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
           </div>
         </div>
       </section>
+    ) : section.presentation === 'skill-project' ? (
+      <section id={section.id} class="skill-project" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
+        <a class="skill-project__media" href={section.repositoryUrl} target="_blank" rel="noopener noreferrer" aria-label={locale === 'zh' ? `查看 ${section.title.zh} 仓库` : `Visit the ${section.title.en} repository`}>
+          <img class="skill-project__cover skill-project__cover--light" src={section.cover.light} alt={section.coverAlt[locale]} loading="lazy" decoding="async" />
+          <img class="skill-project__cover skill-project__cover--dark" src={section.cover.dark} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        </a>
+        <div class="skill-project__content">
+          <span class="skill-project__eyebrow"><LocalizedText {...section.tag} /></span>
+          <h2><LocalizedText {...section.title} /></h2>
+          <p><LocalizedText {...section.description} /></p>
+          <a class="skill-project__repository" href={section.repositoryUrl} target="_blank" rel="noopener noreferrer">
+            <span>{locale === 'zh' ? '查看项目与使用说明' : 'Project and usage guide'}</span>
+            <Icon name="catalog-external" role="meta" />
+          </a>
+        </div>
+      </section>
     ) : <section id={section.id} class:list={["catalog-section", { "catalog-section--media": section.image, "catalog-section--detailed": section.items.some((item) => item.description) }]} data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
       {section.image && section.imageAlt && (
         <figure class="catalog-section__media">

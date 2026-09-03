@@ -965,18 +965,29 @@ test('static preview server rejects paths outside dist', async () => {
 })
 test('catalog pages omit index navigation and section numbers', async ({ page }) => {
   const catalogPages = [
-    { route: '/projects', catalogSections: 0, skillFeatures: 0, projectGroups: 5 },
-    { route: '/skills', catalogSections: 1, skillFeatures: 1, projectGroups: 0 },
-    { route: '/lab', catalogSections: 3, skillFeatures: 0, projectGroups: 0 },
+    { route: '/projects', catalogSections: 0, skillFeatures: 0, skillProjects: 0, projectGroups: 5 },
+    { route: '/skills', catalogSections: 1, skillFeatures: 1, skillProjects: 1, projectGroups: 0 },
+    { route: '/lab', catalogSections: 3, skillFeatures: 0, skillProjects: 0, projectGroups: 0 },
   ]
-  for (const { route, catalogSections, skillFeatures, projectGroups } of catalogPages) {
+  for (const { route, catalogSections, skillFeatures, skillProjects, projectGroups } of catalogPages) {
     await page.goto(route)
     await expect(page.locator('.catalog-index')).toHaveCount(0)
     await expect(page.locator('.catalog-section__number, .catalog-section__index, .project-group__index')).toHaveCount(0)
     await expect(page.locator('.catalog-section')).toHaveCount(catalogSections)
     await expect(page.locator('.skill-feature')).toHaveCount(skillFeatures)
+    await expect(page.locator('.skill-project')).toHaveCount(skillProjects)
     await expect(page.locator('.project-group')).toHaveCount(projectGroups)
   }
+})
+test('skills promotes Numerologist as a theme-aware standalone project', async ({ page }) => {
+  await page.goto('/skills')
+  const project = page.locator('#numerologist-skills.skill-project')
+  await expect(project).toHaveCount(1)
+  await expect(project.locator('.skill-project__cover--light')).toHaveAttribute('src', '/uploads/skills/numerologist-skills/cover-light.webp')
+  await expect(project.locator('.skill-project__cover--dark')).toHaveAttribute('src', '/uploads/skills/numerologist-skills/cover-dark.webp')
+  await expect(project.locator('a').first()).toHaveAttribute('href', 'https://github.com/FANzR-arch/Numerologist_skills')
+  await expect(page.locator('#agent-workflows h2')).toContainText('其他Skill')
+  await expect(page.locator('#agent-workflows')).not.toContainText('Numerologist Skills')
 })
 test('catalog and blog heroes share an extensible visible motion layer', async ({ page }) => {
   for (const [route, variant] of [['/projects', 'projects'], ['/skills', 'skills'], ['/lab', 'lab'], ['/blog', 'blog']]) {
