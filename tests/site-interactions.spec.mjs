@@ -215,7 +215,7 @@ test('key routes do not overflow a narrow viewport', async ({ page }) => {
 test('partners page exposes its mutual site as a safe external link', async ({ page }) => {
   await page.goto('/partners')
   const partner = page.locator('.partner-entry')
-  await expect(partner).toHaveCount(2)
+  await expect(partner).toHaveCount(3)
   await expect(partner.nth(0)).toHaveAttribute('href', 'https://shuitu.studio/index.html')
   await expect(partner.nth(0)).toHaveAttribute('target', '_blank')
   await expect(partner.nth(0)).toHaveAttribute('rel', 'noopener noreferrer')
@@ -224,6 +224,10 @@ test('partners page exposes its mutual site as a safe external link', async ({ p
   await expect(partner.nth(1)).toHaveAttribute('target', '_blank')
   await expect(partner.nth(1)).toHaveAttribute('rel', 'noopener noreferrer')
   await expect(partner.nth(1).locator('strong')).toContainText('Syntax Studio')
+  await expect(partner.nth(2)).toHaveAttribute('href', 'https://www.wangshengliang.cn')
+  await expect(partner.nth(2)).toHaveAttribute('target', '_blank')
+  await expect(partner.nth(2)).toHaveAttribute('rel', 'noopener noreferrer')
+  await expect(partner.nth(2).locator('strong')).toContainText('Joruno')
   await expect(page.locator('a[aria-current="page"]')).toHaveAttribute('href', '/partners')
 })
 

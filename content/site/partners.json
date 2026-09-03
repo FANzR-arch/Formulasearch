@@ -19,6 +19,10 @@
     {
       "name": { "zh": "Syntax Studio", "en": "Syntax Studio" },
       "url": "https://www.syntaxstudio.work/"
+    },
+    {
+      "name": { "zh": "Joruno", "en": "Joruno" },
+      "url": "https://www.wangshengliang.cn"
     }
   ]
 }
