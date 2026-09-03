@@ -35,7 +35,72 @@ const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
           </div>
         )}
       </section>
-    ) : <section id={section.id} class:list={["catalog-section", { "catalog-section--media": section.image }]} data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
+    ) : section.presentation === 'skill-gallery' ? (
+      <section id={section.id} class="skill-feature" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
+        <header class="skill-feature__header">
+          <div class="skill-feature__title">
+            <span class="skill-feature__eyebrow">Featured collection · {section.label}</span>
+            <h2><LocalizedText {...section.title} /></h2>
+            <p><LocalizedText {...section.description} /></p>
+          </div>
+          <div class="skill-feature__summary">
+            <p><LocalizedText {...section.summary} /></p>
+            <a class="skill-feature__repository" href={section.repositoryUrl} target="_blank" rel="noopener noreferrer">
+              <span>{locale === 'zh' ? '查看完整仓库与安装说明' : 'Repository and installation'}</span>
+              <Icon name="catalog-external" role="meta" />
+            </a>
+          </div>
+        </header>
+        <dl class="skill-feature__facts">
+          {section.facts.map((fact) => (
+            <div>
+              <dt><LocalizedText {...fact.label} /></dt>
+              <dd><LocalizedText {...fact.value} /></dd>
+            </div>
+          ))}
+        </dl>
+        <div class="skill-gallery__stage">
+          <ul id={`skill-gallery-${section.id}`} class="skill-gallery" data-skill-gallery aria-roledescription={locale === 'zh' ? '卡片组' : 'card stack'} aria-label={locale === 'zh' ? 'Phil Design Skills 风格样例' : 'Phil Design Skills style previews'}>
+            {section.gallery.map((item, itemIndex) => (
+              <li data-skill-card data-skill-title={item.title[locale]}>
+                <figure class="skill-gallery__item">
+                  <div
+                    class="skill-gallery__drag"
+                    data-skill-drag
+                    role="button"
+                    tabindex="0"
+                    aria-label={locale === 'zh' ? `拖动或轻点切换：${item.title.zh}` : `Drag or tap to cycle: ${item.title.en}`}
+                  >
+                    <img src={item.image} alt={item.imageAlt[locale]} loading={itemIndex < 3 ? 'eager' : 'lazy'} decoding="async" />
+                  </div>
+                  <figcaption>
+                    <a class="skill-gallery__open" data-skill-open href={item.externalUrl} target="_blank" rel="noopener noreferrer">
+                      <span><LocalizedText {...item.title} /></span>
+                      <Icon name="catalog-external" role="meta" />
+                    </a>
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+          <div class="skill-gallery__toolbar">
+            <button
+              class="skill-gallery__shuffle"
+              type="button"
+              aria-controls={`skill-gallery-${section.id}`}
+              aria-label={locale === 'zh' ? '洗牌' : 'Shuffle'}
+              title={locale === 'zh' ? '洗牌' : 'Shuffle'}
+              data-skill-shuffle
+              data-status-zh="已完成第 {count} 次洗牌"
+              data-status-en="Shuffle {count} complete"
+            >
+              <Icon name="skills-shuffle" role="control" />
+            </button>
+            <p class="visually-hidden" role="status" aria-live="polite" data-skill-shuffle-status></p>
+          </div>
+        </div>
+      </section>
+    ) : <section id={section.id} class:list={["catalog-section", { "catalog-section--media": section.image, "catalog-section--detailed": section.items.some((item) => item.description) }]} data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
       {section.image && section.imageAlt && (
         <figure class="catalog-section__media">
           <img src={section.image} alt={section.imageAlt[locale]} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
@@ -46,13 +111,22 @@ const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
         <p><LocalizedText {...section.description} /></p>
         <ul>{section.items.map((item) => <li>{item.externalUrl ? (
           <a class="catalog-section__external" href={item.externalUrl} target="_blank" rel="noopener noreferrer">
-            <LocalizedText zh={item.zh} en={item.en} />
+            <span class="catalog-section__item-copy">
+              {item.tag && <small><LocalizedText {...item.tag} /></small>}
+              <strong><LocalizedText zh={item.zh} en={item.en} /></strong>
+              {item.description && <span><LocalizedText {...item.description} /></span>}
+            </span>
             <Icon name="catalog-external" role="meta" />
           </a>
-        ) : <LocalizedText zh={item.zh} en={item.en} />}</li>)}</ul>
+        ) : <span class="catalog-section__item-copy">
+          {item.tag && <small><LocalizedText {...item.tag} /></small>}
+          <strong><LocalizedText zh={item.zh} en={item.en} /></strong>
+          {item.description && <span><LocalizedText {...item.description} /></span>}
+        </span>}</li>)}</ul>
       </div>
     </section>)}
   </div>
 )}
 
 <script is:inline src="/scripts/project-showcase.js"></script>
+<script is:inline src="/scripts/skill-gallery.js"></script>

@@ -3,6 +3,8 @@ import catalogContent from '../../content/site/catalog.json'
 import { localizedCopySchema } from '../lib/i18n'
 
 const catalogItemSchema = localizedCopySchema.extend({
+  tag: localizedCopySchema.optional(),
+  description: localizedCopySchema.optional(),
   externalUrl: z.url().optional(),
 }).strict()
 
@@ -80,7 +82,30 @@ const catalogProjectSectionSchema = z.object({
   presentation: z.literal('projects'),
 }).strict()
 
-const catalogSectionSchema = z.union([catalogListSectionSchema, catalogProjectSectionSchema])
+const skillGalleryItemSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  title: localizedCopySchema,
+  image: z.string().startsWith('/'),
+  imageAlt: localizedCopySchema,
+  externalUrl: z.url(),
+}).strict()
+
+const skillGallerySectionSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  label: z.string().min(1),
+  title: localizedCopySchema,
+  description: localizedCopySchema,
+  summary: localizedCopySchema,
+  repositoryUrl: z.url(),
+  facts: z.array(z.object({
+    label: localizedCopySchema,
+    value: localizedCopySchema,
+  }).strict()).min(1),
+  gallery: z.array(skillGalleryItemSchema).min(1),
+  presentation: z.literal('skill-gallery'),
+}).strict()
+
+const catalogSectionSchema = z.union([catalogListSectionSchema, catalogProjectSectionSchema, skillGallerySectionSchema])
 
 const catalogPageSchema = z.object({
   title: localizedCopySchema,

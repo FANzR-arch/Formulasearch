@@ -514,47 +514,90 @@
     {
       "id": "design-skills",
       "label": "01",
-      "title": { "zh": "设计技能", "en": "Design Skills" },
+      "title": { "zh": "Phil Design Skills", "en": "Phil Design Skills" },
       "description": {
-        "zh": "把视觉参考、版式与图像语言编译成可直接调用的 Skills。",
-        "en": "Visual references, layouts, and image languages compiled into ready-to-use Skills."
+        "zh": "一套给 AI Agent 使用的视觉生成 Skills：不是收集风格关键词，而是把主题、文章、产品或现有视觉资产编译成可直接生图的完整提示词。",
+        "en": "A visual-generation toolkit for AI agents. It compiles themes, articles, products, or existing visual assets into complete image prompts instead of merely collecting style keywords."
       },
-      "image": "/uploads/projects/lab/prompt-skills.svg",
-      "imageAlt": {
-        "zh": "视觉提示词从输入、风格选择到生成输出的工作流程示意图",
-        "en": "Workflow diagram showing visual prompts moving from input and style selection to generated output"
+      "summary": {
+        "zh": "19 套从主题出发的风格编译器，加上 1 套从 Logo、头像、角色或产品图出发的视觉身份延展工具。每套包含 Skill 指令、参考模块与可检查的输出约束；全部提示词按 gpt-image-2 编写。",
+        "en": "Nineteen style compilers that start from a theme, plus one identity-expansion tool for logos, portraits, characters, or product imagery. Each combines agent instructions, reference modules, and reviewable output constraints; all prompts are written for gpt-image-2."
       },
-      "items": [
+      "repositoryUrl": "https://github.com/FANzR-arch/Phil-design-skills",
+      "facts": [
         {
-          "zh": "Phil Design Skills — 视觉提示词与图像方向",
-          "en": "Phil Design Skills — visual prompts and image direction",
-          "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills"
+          "label": { "zh": "风格 Skills", "en": "Style skills" },
+          "value": { "zh": "19 套真实样例", "en": "19 documented styles" }
         },
         {
-          "zh": "Aesthetic formulas — 视觉方法与样式实验",
-          "en": "Aesthetic formulas — visual methods and style experiments",
-          "externalUrl": "https://fanzr-arch.github.io/Phil-aesthetic-formulas/"
+          "label": { "zh": "额外工具", "en": "Additional tool" },
+          "value": { "zh": "视觉身份延展", "en": "Identity expansion" }
         },
-        { "zh": "中文排版与视觉身份扩展", "en": "Chinese typography and visual identity expansion" }
-      ]
+        {
+          "label": { "zh": "目标模型", "en": "Target model" },
+          "value": { "zh": "gpt-image-2", "en": "gpt-image-2" }
+        }
+      ],
+      "gallery": [
+        { "id": "travel-collage-postcard", "title": { "zh": "旅行拼贴明信片", "en": "Travel collage postcard" }, "image": "/uploads/skills/phil-design-skills/travel-collage-postcard.webp", "imageAlt": { "zh": "旅行拼贴明信片风格样例", "en": "Travel collage postcard style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/travel-collage-postcard" },
+        { "id": "swiss-typographic-poster", "title": { "zh": "瑞士国际主义海报", "en": "Swiss typographic poster" }, "image": "/uploads/skills/phil-design-skills/swiss-typographic-poster.webp", "imageAlt": { "zh": "瑞士国际主义海报风格样例", "en": "Swiss typographic poster style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/swiss-typographic-poster" },
+        { "id": "bauhaus-visual", "title": { "zh": "包豪斯视觉", "en": "Bauhaus visual" }, "image": "/uploads/skills/phil-design-skills/bauhaus-visual.webp", "imageAlt": { "zh": "包豪斯视觉风格样例", "en": "Bauhaus visual style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/bauhaus-visual" },
+        { "id": "plakatstil-object-poster", "title": { "zh": "Plakatstil 实物海报", "en": "Plakatstil object poster" }, "image": "/uploads/skills/phil-design-skills/plakatstil-object-poster.webp", "imageAlt": { "zh": "Plakatstil 实物海报风格样例", "en": "Plakatstil object poster style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/plakatstil-object-poster" },
+        { "id": "neo-brutalist-poster", "title": { "zh": "新粗野主义海报", "en": "Neo-brutalist poster" }, "image": "/uploads/skills/phil-design-skills/neo-brutalist-poster.webp", "imageAlt": { "zh": "新粗野主义海报风格样例", "en": "Neo-brutalist poster style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/neo-brutalist-poster" },
+        { "id": "acid-depth-poster", "title": { "zh": "前进色 × 后退色", "en": "Acid depth poster" }, "image": "/uploads/skills/phil-design-skills/acid-depth-poster.webp", "imageAlt": { "zh": "前进色与后退色实验海报样例", "en": "Acid depth poster style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/acid-depth-poster" },
+        { "id": "craft-diorama-still-life", "title": { "zh": "手作拟物静物", "en": "Craft diorama still life" }, "image": "/uploads/skills/phil-design-skills/craft-diorama-still-life.webp", "imageAlt": { "zh": "手作拟物静物风格样例", "en": "Craft diorama still life style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/craft-diorama-still-life" },
+        { "id": "cyber-terminal-schematic", "title": { "zh": "赛博终端示意图", "en": "Cyber terminal schematic" }, "image": "/uploads/skills/phil-design-skills/cyber-terminal-schematic.webp", "imageAlt": { "zh": "赛博终端示意图风格样例", "en": "Cyber terminal schematic style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/cyber-terminal-schematic" },
+        { "id": "grainy-plane-style", "title": { "zh": "颗粒棱面风格", "en": "Grainy plane style" }, "image": "/uploads/skills/phil-design-skills/grainy-plane-style.webp", "imageAlt": { "zh": "颗粒棱面插画风格样例", "en": "Grainy plane illustration style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/grainy-plane-style" },
+        { "id": "quiet-paper-specimen", "title": { "zh": "安静纸面标本", "en": "Quiet paper specimen" }, "image": "/uploads/skills/phil-design-skills/quiet-paper-specimen.webp", "imageAlt": { "zh": "安静纸面标本风格样例", "en": "Quiet paper specimen style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/quiet-paper-specimen" },
+        { "id": "paper-workflow-hero", "title": { "zh": "暖纸流程主视觉", "en": "Paper workflow hero" }, "image": "/uploads/skills/phil-design-skills/paper-workflow-hero.webp", "imageAlt": { "zh": "暖纸流程主视觉风格样例", "en": "Paper workflow hero style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/paper-workflow-hero" },
+        { "id": "mono-editorial-banner", "title": { "zh": "黑白编辑横幅", "en": "Mono editorial banner" }, "image": "/uploads/skills/phil-design-skills/mono-editorial-banner.webp", "imageAlt": { "zh": "黑白编辑横幅风格样例", "en": "Mono editorial banner style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/mono-editorial-banner" },
+        { "id": "halftone-ui-collage", "title": { "zh": "网点 UI 拼贴", "en": "Halftone UI collage" }, "image": "/uploads/skills/phil-design-skills/halftone-ui-collage.webp", "imageAlt": { "zh": "网点 UI 拼贴风格样例", "en": "Halftone UI collage style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/halftone-ui-collage" },
+        { "id": "flat-field-cover-poster", "title": { "zh": "平涂色场封面", "en": "Flat field cover poster" }, "image": "/uploads/skills/phil-design-skills/flat-field-cover-poster.webp", "imageAlt": { "zh": "平涂色场封面海报风格样例", "en": "Flat field cover poster style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/flat-field-cover-poster" },
+        { "id": "brand-icon-banner", "title": { "zh": "立体品牌图标横幅", "en": "Brand icon banner" }, "image": "/uploads/skills/phil-design-skills/brand-icon-banner.webp", "imageAlt": { "zh": "立体品牌图标横幅风格样例", "en": "Brand icon banner style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/brand-icon-banner" },
+        { "id": "engineering-blueprint-sheet", "title": { "zh": "工程图纸", "en": "Engineering blueprint" }, "image": "/uploads/skills/phil-design-skills/engineering-blueprint-sheet.webp", "imageAlt": { "zh": "工程图纸风格样例", "en": "Engineering blueprint style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/engineering-blueprint-sheet" },
+        { "id": "duotone-press-collage", "title": { "zh": "双色套印拼贴", "en": "Duotone press collage" }, "image": "/uploads/skills/phil-design-skills/duotone-press-collage.webp", "imageAlt": { "zh": "双色套印拼贴风格样例", "en": "Duotone press collage style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/duotone-press-collage" },
+        { "id": "outline-figure-explainer", "title": { "zh": "简笔人说明插图", "en": "Outline figure explainer" }, "image": "/uploads/skills/phil-design-skills/outline-figure-explainer.webp", "imageAlt": { "zh": "简笔人说明插图风格样例", "en": "Outline figure explainer style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/outline-figure-explainer" },
+        { "id": "ink-satire-figures", "title": { "zh": "黑白讽刺画", "en": "Ink satire figures" }, "image": "/uploads/skills/phil-design-skills/ink-satire-figures.webp", "imageAlt": { "zh": "黑白讽刺画风格样例", "en": "Ink satire figures style preview" }, "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills/tree/main/ink-satire-figures" }
+      ],
+      "presentation": "skill-gallery"
     },
     {
       "id": "agent-workflows",
       "label": "02",
-      "title": { "zh": "Agent 与工作流", "en": "Agent & Workflows" },
+      "title": { "zh": "其他 Skills 与工作流", "en": "Other Skills & Workflows" },
       "description": {
-        "zh": "为重复判断和生产过程建立可复用的流程、约束与工具。",
-        "en": "Reusable flows, constraints, and tools for repeated decisions and production."
-      },
-      "image": "/uploads/projects/lab/numerologist-skills.svg",
-      "imageAlt": {
-        "zh": "把领域规则、工具与校验步骤连接成稳定工作流的示意图",
-        "en": "Diagram connecting domain rules, tools, and validation steps into a stable workflow"
+        "zh": "把领域规则、工作记录与研究方法做成可复用入口。每一项都说明它解决什么问题，并连接到可继续查看或使用的页面。",
+        "en": "Reusable entry points for domain rules, work records, and research methods. Each item states the problem it solves and links to the place where it can be explored or used."
       },
       "items": [
-        { "zh": "agent-worklog — 跨 Agent 工作记录", "en": "agent-worklog — cross-agent work records" },
-        { "zh": "Numerologist Skills — 稳定推演流程", "en": "Numerologist Skills — a stable reasoning flow" },
-        { "zh": "内容、SEO/GEO 与研究工作流", "en": "Content, SEO/GEO, and research workflows" }
+        {
+          "zh": "Aesthetic Formulas",
+          "en": "Aesthetic Formulas",
+          "tag": { "zh": "视觉方法", "en": "Visual methods" },
+          "description": { "zh": "把构图、色彩、材质与动态效果拆成可观察、可组合的视觉实验。", "en": "Breaks composition, color, material, and motion into observable, composable visual studies." },
+          "externalUrl": "https://fanzr-arch.github.io/Phil-aesthetic-formulas/"
+        },
+        {
+          "zh": "Numerologist Skills",
+          "en": "Numerologist Skills",
+          "tag": { "zh": "可审计领域规则", "en": "Auditable domain rules" },
+          "description": { "zh": "用固定脚本、规则集与参考资料约束奇门遁甲和紫微斗数的计算与解释。", "en": "Constrains Qimen and Ziwei calculations with deterministic scripts, rulesets, and references." },
+          "externalUrl": "https://github.com/FANzR-arch/Numerologist_skills"
+        },
+        {
+          "zh": "agent-worklog",
+          "en": "agent-worklog",
+          "tag": { "zh": "跨 Agent 记录", "en": "Cross-agent records" },
+          "description": { "zh": "汇总不同 Agent 的本地工作记录，生成可回看的日、周与月度台账。", "en": "Collects local records from multiple agents into reviewable daily, weekly, and monthly logs." },
+          "externalUrl": "https://github.com/FANzR-arch/agent-worklog"
+        },
+        {
+          "zh": "SEO × GEO 入门课",
+          "en": "SEO × GEO Foundations",
+          "tag": { "zh": "研究与增长工作流", "en": "Research and growth workflow" },
+          "description": { "zh": "从搜索基础、页面优化和技术 SEO 走到生成式搜索中的发现、理解与引用。", "en": "A guided path from search fundamentals and technical SEO to discovery and citation in generative search." },
+          "externalUrl": "https://seo-learn-eight.vercel.app/"
+        }
       ]
     }
   ],

@@ -16,6 +16,8 @@ The local background comparison lab also includes reduced, single-canvas adaptat
 
 React Bits is distributed under the [MIT + Commons Clause License Condition v1.0](https://github.com/DavidHDev/react-bits/blob/main/LICENSE.md). These adaptations are used only as part of this website and are not redistributed as standalone components. The original React, Three.js, postprocessing and OGL wrappers were not copied into the production bundle; both effects run through the website's existing lightweight WebGL canvas.
 
+The Skills image deck also adapts the overlapping-card composition from [React Bits Bounce Cards](https://reactbits.dev/components/bounce-cards). The site implementation uses deterministic layouts, the Web Animations/CSS platform, and the existing Astro markup instead of copying the React and GSAP component.
+
 ## Icons
 
 - [Lucide](https://lucide.dev/) is used for interface icons under the [ISC License](https://github.com/lucide-icons/lucide/blob/main/LICENSE).
