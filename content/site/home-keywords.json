@@ -1,0 +1,32 @@
+{
+  "zh": {
+    "构建者": "我擅长从模糊的想法出发，边拆解、边尝试、边验证，直至完成",
+    "设计师": "我习惯把复杂的问题重新组织，在信息、技术、空间、美学与人之间寻找更合适的关系",
+    "建筑设计": "在那里，我开始把空间、结构、规则与人的行为放在一起考虑，也慢慢形成了从关系和系统出发理解问题的习惯",
+    "AIGC": "从好奇 AI 能生成什么，到更关注它会怎样改变创作、表达与工作的方式",
+    "交互设计": "也让我把注意力从“一个东西长什么样”，逐渐转向“人在使用它时会经历什么”",
+    "互联网": "我开始做账号、研究内容和增长，也持续接触 Web3，积极投身于日新月异的网络世界",
+    "AI 协作": "一起搜索、拆解问题、尝试不同的路径，再在过程中不断判断、筛选和修正",
+    "变成现实": "可能是一段代码、一个网站、一套工作流、一支影像，也可能只是一个足够验证想法的小原型",
+    "项目、博客、Skills 与工具": "我的工具，项目和方法论，都收集在这里；有些已经成型，有些还在探索中",
+    "独立探索": "没有客户，也没有预先写好的任务书，很多时候只是因为一个问题让我足够好奇，想亲自试一试",
+    "共同完成": "不同的经验和视角碰在一起，也常常会让一个原本简单的想法长出新的可能",
+    "vibe coding": "从“我想实现什么”出发，用自然语言和 AI 一起拆问题、搭结构、改代码，再通过实际运行和反复验证，让想法逐渐成形",
+    "摄影和旅行": "离开屏幕，去看城市、建筑、人和自然，也重新注意光线、声音和日常里那些很容易被忽略的细节"
+  },
+  "en": {
+    "builder": "I am good at starting with a fuzzy idea, breaking it down, experimenting, and testing until it is complete",
+    "designer": "I tend to reorganize complex problems, looking for better relationships between information, technology, space, aesthetics, and people",
+    "architectural design": "That is where I began considering space, structure, rules, and human behavior together, gradually developing the habit of understanding problems through relationships and systems",
+    "AIGC": "My curiosity about what AI can generate has grown into a deeper interest in how it will change the way we create, express ourselves, and work",
+    "interaction design": "It has also shifted my attention from what something looks like to what people experience when they use it",
+    "the internet": "I started building accounts and studying content and growth, while continuing to explore Web3 and actively take part in the ever-changing online world",
+    "working with AI": "Searching together, breaking down problems, trying different paths, and continually evaluating, selecting, and refining along the way",
+    "bring them to life": "It might be a piece of code, a website, a workflow, a film, or simply a small prototype that is enough to test an idea",
+    "projects, blog posts, Skills, and tools": "My tools, projects, and methods are collected here; some have taken shape, while others are still being explored",
+    "independent exploration": "No client and no ready-made brief; often, a question simply makes me curious enough to want to try it firsthand",
+    "made with collaborators": "When different experiences and perspectives meet, even a simple idea can develop new possibilities",
+    "vibe coding": "Starting with what I want to make, I use natural language to work with AI on problems, structure, and code, then let the idea take shape through actual runs and repeated testing",
+    "photography and travel": "Stepping away from the screen to see cities, architecture, people, and nature, and paying fresh attention to light, sound, and the everyday details that are so easy to overlook"
+  }
+}

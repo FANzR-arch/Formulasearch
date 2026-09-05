@@ -1,10 +1,12 @@
 ---
 import LocalizedText from './LocalizedText.astro'
 import HomeAvatar from './HomeAvatar.astro'
+import HomeContact from './HomeContact.astro'
 import HomeHighlightPill from './HomeHighlightPill.astro'
 import HomeHighlightedText from './HomeHighlightedText.astro'
 import SiteFooter from './SiteFooter.astro'
 import { homeContent } from '../lib/home-content'
+import homeKeywords from '../../content/site/home-keywords.json'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
 
 interface Props {
@@ -14,16 +16,8 @@ interface Props {
 const { locale = 'zh' } = Astro.props
 const zh = homeContent.zh
 const en = homeContent.en
-const zhAboutHighlights = [
-  ['建筑设计', 'AIGC', '交互设计'],
-  ['AI 协作', '变成现实', 'Formulasearch', '独立探索'],
-]
-const enAboutHighlights = [
-  ['architectural design', 'AIGC', 'interaction design'],
-  ['working with AI', 'useful things', 'Formulasearch', 'independent exploration'],
-]
-const zhInterestHighlights = ['vibe coding', '摄影和旅行', '图像与片段']
-const enInterestHighlights = ['vibe coding', 'photography and travel', 'images and fragments']
+const zhDetails: Record<string, string> = homeKeywords.zh
+const enDetails: Record<string, string> = homeKeywords.en
 const heroImageAlt = getLocalizedValue({ zh: zh.heroImageAlt, en: en.heroImageAlt }, locale)
 const zhLead = zh.intro.join(' ')
 const enLead = en.intro.join(' ')
@@ -70,27 +64,21 @@ const enIdentity = splitLeadIdentity(enLead, 'Phil', ' —', 'builder', 'designe
     <p class="lead" data-site-reveal data-site-reveal-delay="70">
       <span class="localized-text">
         <span class="localized-text__zh" lang="zh-Hans">
-          {zhIdentity.marker ? <><span class="home-lead__identity">{zhIdentity.before}{zhIdentity.marker}<HomeAvatar locale={locale} />{zhIdentity.after}{zhIdentity.roleOne ? <>{zhIdentity.beforeRole}<HomeHighlightPill className="home-lead__role" label={zhIdentity.roleOne} />{zhIdentity.connector}<HomeHighlightPill className="home-lead__role" label={zhIdentity.roleTwo} />{zhIdentity.trailing}</> : zhIdentity.rest}</span></> : zhLead}
+          {zhIdentity.marker ? <><span class="home-lead__identity">{zhIdentity.before}{zhIdentity.marker}<HomeAvatar locale={locale} />{zhIdentity.after}{zhIdentity.roleOne ? <>{zhIdentity.beforeRole}<HomeHighlightPill className="home-lead__role" label={zhIdentity.roleOne} detail={zhDetails[zhIdentity.roleOne]} locale="zh" />{zhIdentity.connector}<HomeHighlightPill className="home-lead__role" label={zhIdentity.roleTwo} detail={zhDetails[zhIdentity.roleTwo]} locale="zh" />{zhIdentity.trailing}</> : zhIdentity.rest}</span></> : zhLead}
         </span>
         <span class="localized-text__en" lang="en">
-          {enIdentity.marker ? <><span class="home-lead__identity">{enIdentity.before}{enIdentity.marker}<HomeAvatar locale={locale} />{enIdentity.after}{enIdentity.roleOne ? <>{enIdentity.beforeRole}<HomeHighlightPill className="home-lead__role" label={enIdentity.roleOne} />{enIdentity.connector}<HomeHighlightPill className="home-lead__role" label={enIdentity.roleTwo} />{enIdentity.trailing}</> : enIdentity.rest}</span></> : enLead}
+          {enIdentity.marker ? <><span class="home-lead__identity">{enIdentity.before}{enIdentity.marker}<HomeAvatar locale={locale} />{enIdentity.after}{enIdentity.roleOne ? <>{enIdentity.beforeRole}<HomeHighlightPill className="home-lead__role" label={enIdentity.roleOne} detail={enDetails[enIdentity.roleOne]} locale="en" />{enIdentity.connector}<HomeHighlightPill className="home-lead__role" label={enIdentity.roleTwo} detail={enDetails[enIdentity.roleTwo]} locale="en" />{enIdentity.trailing}</> : enIdentity.rest}</span></> : enLead}
         </span>
       </span>
     </p>
     <div class="home-copy" data-site-reveal data-site-reveal-delay="140">
-      {zh.about.map((paragraph, index) => <p><HomeHighlightedText zh={paragraph} en={en.about[index]} zhHighlights={zhAboutHighlights[index]} enHighlights={enAboutHighlights[index]} /></p>)}
-      {zh.interest.map((paragraph, index) => <p><HomeHighlightedText zh={paragraph} en={en.interest[index]} zhHighlights={zhInterestHighlights} enHighlights={enInterestHighlights} /></p>)}
+      {zh.about.map((paragraph, index) => <p><HomeHighlightedText zh={paragraph} en={en.about[index]} zhDetails={zhDetails} enDetails={enDetails} /></p>)}
+      {zh.interest.map((paragraph, index) => <p><HomeHighlightedText zh={paragraph} en={en.interest[index]} zhDetails={zhDetails} enDetails={enDetails} /></p>)}
       <hr />
       <div class="home-contact">
         <p class="home-copy__label"><LocalizedText zh={zh.contactLabel} en={en.contactLabel} /></p>
-        <p>
-          <a class="text-link" href={zh.social.url} target="_blank" rel="noopener noreferrer">{zh.social.label}</a>
-          <br />
-          <LocalizedText zh={zh.contactEmailPrefix} en={en.contactEmailPrefix} /><strong><a class="text-link" href={`mailto:${zh.email}`}>{zh.email}</a></strong>
-        </p>
+        <HomeContact locale={locale} socialUrl={zh.social.url} email={zh.email} />
       </div>
-      <hr />
-      <p><LocalizedText zh={zh.sponsor} en={en.sponsor} /></p>
     </div>
     {zh.heroImage && <img class="hero-image" src={zh.heroImage} alt={heroImageAlt} data-alt-zh={zh.heroImageAlt} data-alt-en={en.heroImageAlt} width={zh.heroImageWidth} height={zh.heroImageHeight} loading="eager" data-site-reveal data-site-reveal-delay="180" />}
   </section>
@@ -111,3 +99,7 @@ const enIdentity = splitLeadIdentity(enLead, 'Phil', ' —', 'builder', 'designe
 
   document.addEventListener('pointerover', updateHighlightOrigin, true)
 </script>
+
+<style>
+  .lead, .home-lead__identity { white-space: normal; }
+</style>
