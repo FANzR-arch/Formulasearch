@@ -1,0 +1,88 @@
+---
+import Icon from './icon-system/Icon.astro'
+import type { Locale } from '../lib/i18n'
+
+interface Props {
+  locale: Locale
+  socialUrl: string
+  email: string
+}
+
+const { locale, socialUrl, email } = Astro.props
+const localized = (zh: string, en: string) => locale === 'en' ? en : zh
+const socialHandle = `@${new URL(socialUrl).pathname.split('/').filter(Boolean)[0] || 'Formulasearch'}`
+---
+
+<div class="contact-icons">
+  <a class="contact-icon" href={socialUrl} target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" aria-describedby="contact-x-tooltip">
+    <img class="contact-brand contact-brand--x" src="/brand/x-logo.svg" width="18" height="18" alt="" aria-hidden="true" />
+    <span class="contact-tooltip" id="contact-x-tooltip" role="tooltip">{socialHandle}</span>
+  </a>
+  <a class="contact-icon" href={`mailto:${email}`} aria-label={localized('发送邮件', 'Send email')} data-aria-zh="发送邮件" data-aria-en="Send email" aria-describedby="contact-email-tooltip">
+    <Icon name="contact-email" role="control" />
+    <span class="contact-tooltip" id="contact-email-tooltip" role="tooltip">{email}</span>
+  </a>
+  <button class="contact-icon" type="button" data-wechat-open aria-haspopup="dialog" aria-controls="wechat-contact-dialog" aria-label={localized('打开微信二维码', 'Open WeChat QR code')} data-aria-zh="打开微信二维码" data-aria-en="Open WeChat QR code" aria-describedby="contact-wechat-tooltip">
+    <img class="contact-brand contact-brand--wechat" src="/brand/wechat-logo.svg" width="22" height="18" alt="" aria-hidden="true" />
+    <span class="contact-tooltip" id="contact-wechat-tooltip" role="tooltip">wechat</span>
+  </button>
+</div>
+
+<dialog id="wechat-contact-dialog" class="wechat-dialog" aria-label={localized('微信二维码', 'WeChat QR code')} data-aria-zh="微信二维码" data-aria-en="WeChat QR code">
+  <img class="wechat-qr" src="/uploads/home/wechat-qr.jpg" width="820" height="820" loading="lazy" alt={localized('阿哲的微信二维码', "Phil's WeChat QR code")} data-alt-zh="阿哲的微信二维码" data-alt-en="Phil's WeChat QR code" />
+</dialog>
+
+<style>
+  .contact-icons { display: flex; align-items: center; gap: 8px; margin-left: -12px; }
+  .contact-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; color: var(--muted); background: transparent; cursor: pointer; text-decoration: none; transition: color 180ms ease, transform 180ms cubic-bezier(.22, 1, .36, 1); }
+  .contact-icon:hover { color: var(--ink); transform: translateY(-2px); }
+  .contact-icon:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .contact-icon { position: relative; }
+  .contact-tooltip { position: absolute; z-index: 5; top: calc(100% + 4px); left: 8px; width: max-content; padding: 7px 10px; border: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); border-radius: 6px; background: var(--paper); color: var(--ink); box-shadow: 0 4px 14px rgb(0 0 0 / .06); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 400; line-height: 1.4; letter-spacing: 0; white-space: nowrap; opacity: 0; visibility: hidden; transform: translateY(-3px); pointer-events: none; transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
+  .contact-icon:focus-visible .contact-tooltip { opacity: 1; visibility: visible; transform: translateY(0); }
+  @media (hover: hover) and (pointer: fine) {
+    .contact-icon:hover .contact-tooltip { opacity: 1; visibility: visible; transform: translateY(0); }
+  }
+  .contact-brand { display: block; object-fit: contain; filter: brightness(0); opacity: .66; transition: opacity 180ms ease; }
+  .contact-icon:hover .contact-brand, .contact-icon:focus-visible .contact-brand { opacity: 1; }
+  :global(:root[data-theme='dark']) .contact-brand { filter: none; }
+  .wechat-dialog { position: fixed; inset: 0; width: min(360px, calc(100vw - 40px), calc(100dvh - 80px)); max-width: none; max-height: none; margin: auto; padding: 0; overflow: visible; border: 0; border-radius: 8px; color: var(--ink); background: transparent; box-shadow: 0 18px 70px rgb(0 0 0 / .16); }
+  .wechat-dialog[open] { animation: wechat-appear 180ms ease-out; }
+  .wechat-dialog::backdrop { background: rgb(0 0 0 / .3); backdrop-filter: blur(5px); }
+  .wechat-qr { display: block; width: 100%; height: auto; border-radius: 8px; background: white; }
+  :global(html:has(.wechat-dialog[open])) { overflow: hidden; }
+  @keyframes wechat-appear { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .contact-icon, .contact-brand, .contact-tooltip { transition: none; }
+    .wechat-dialog[open] { animation: none; }
+  }
+</style>
+
+<script>
+  const opener = document.querySelector<HTMLButtonElement>('[data-wechat-open]')
+  const dialog = document.querySelector<HTMLDialogElement>('#wechat-contact-dialog')
+  if (opener && dialog) {
+    // Keep the existing custom cursor visible above the native dialog's top layer.
+    const cursor = document.querySelector<HTMLElement>('.site-cursor')
+    let cursorHost: ParentNode | null = null
+    opener.addEventListener('click', () => {
+      if (dialog.open) return
+      if (cursor) { cursorHost = cursor.parentNode; dialog.append(cursor) }
+      dialog.showModal()
+    })
+    let pressedOutside = false
+    const outside = (event: PointerEvent | MouseEvent) => {
+      const bounds = dialog.getBoundingClientRect()
+      return event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom
+    }
+    dialog.addEventListener('pointerdown', (event) => { pressedOutside = outside(event) })
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog && pressedOutside && outside(event)) dialog.close()
+      pressedOutside = false
+    })
+    dialog.addEventListener('close', () => {
+      if (cursor && cursorHost) cursorHost.appendChild(cursor)
+      opener.focus({ preventScroll: true })
+    })
+  }
+</script>
