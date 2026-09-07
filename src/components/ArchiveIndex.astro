@@ -46,6 +46,14 @@ const { active, autoLoadBatchSize, description, eagerImageCount, filters, initia
 const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, locale)
 const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.min(initialVisibleCount, items.length)
 const photoColumns = Array.from({ length: 3 }, () => ({ items: [] as Array<{ item: ArchiveItem; index: number }>, height: 0 }))
+// Featured order is independent of the full photo archive below.
+const featuredPhotoFiles = ['020', '021', '029', '038', '044', '030']
+const featuredPhotos = active === 'photos' ? featuredPhotoFiles.map((number) => {
+  const image = `/uploads/photos/select/photo-${number}.webp`
+  const item = items.find((item) => item.image === image)
+  if (!item) throw new Error(`Featured photo is missing from the archive: ${image}`)
+  return item
+}) : []
 
 if (active === 'photos') {
   items.forEach((item, index) => {
@@ -59,7 +67,7 @@ if (active === 'photos') {
 <section class:list={['visual-archive', { 'visual-archive--photos': active === 'photos' }]} aria-labelledby="archive-title" data-archive-batch-size={autoLoadBatchSize}>
   <PageHero id="archive-title" title={title} description={description} />
 
-  {active === 'photos' && <PhotoAccordionGallery items={items.slice(0, 5)} locale={locale} />}
+  {active === 'photos' && <PhotoAccordionGallery items={featuredPhotos} locale={locale} />}
 
   {filters.length > 1 && (
     <div class="visual-archive__utility" data-site-reveal data-site-reveal-delay="80">

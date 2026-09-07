@@ -16,6 +16,7 @@
     }
     const before = prefersReducedMotion.matches ? [] : panels.map((panel) => panel.getBoundingClientRect())
     accordion.dataset.activeIndex = String(nextIndex)
+    accordion.style.setProperty('--active-ratio', panels[nextIndex].dataset.photoRatio || '1')
     panels.forEach((panel, panelIndex) => {
       const active = panelIndex === nextIndex
       panel.classList.toggle('is-active', active)

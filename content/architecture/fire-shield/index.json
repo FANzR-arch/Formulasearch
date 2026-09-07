@@ -10,7 +10,7 @@
     "zh": "面向高风险山火地区的可部署防护系统，通过展开式构架、监测与灭火单元形成分布式安全网络。",
     "en": "A deployable protection system for wildfire-prone regions, combining unfolding structures, monitoring and suppression units into a distributed safety network."
   },
-  "cover": "/src/assets/archive/architecture/fire-shield/cover.webp",
+  "cover": "/src/assets/archive/architecture/fire-shield/cover-v2.webp",
   "images": [
     {
       "image": "/src/assets/archive/architecture/fire-shield/board-01.webp",
