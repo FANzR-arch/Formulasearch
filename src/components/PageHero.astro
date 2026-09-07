@@ -15,5 +15,5 @@ const { description, id, motionVariant, title } = Astro.props
 <header class:list={['page-hero', { 'page-hero--motion': motionVariant }]} data-hero-motion={motionVariant} data-site-reveal>
   {motionVariant && <HeroMotion variant={motionVariant} />}
   <h1 id={id}><LocalizedText {...title} /></h1>
-  <p class="page-hero__description"><LocalizedText {...description} /></p>
+  <slot name="description"><p class="page-hero__description"><LocalizedText {...description} /></p></slot>
 </header>

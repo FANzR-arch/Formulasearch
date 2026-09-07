@@ -12,6 +12,8 @@ interface Props {
 const { locale = 'zh' } = Astro.props
 const root = locale === 'en' ? '/en/architecture' : '/architecture'
 const listLabel = getLocalizedValue(architecturePage.projectListLabel, locale)
+const [quoteZh, authorZh] = architecturePage.description.zh.split('\n')
+const [quoteEn, authorEn] = architecturePage.description.en.split('\n')
 const getStableGridOrder = (slug: string) => {
   let value = 2166136261
   for (const character of slug) value = Math.imul(value ^ character.charCodeAt(0), 16777619)
@@ -21,7 +23,12 @@ const gridProjects = [...architectureProjects].sort((left, right) => getStableGr
 ---
 
 <section class="architecture-index" aria-labelledby="architecture-title">
-  <PageHero id="architecture-title" title={architecturePage.title} description={architecturePage.description} />
+  <PageHero id="architecture-title" title={architecturePage.title} description={architecturePage.description}>
+    <figure slot="description" class="architecture-quote">
+      <blockquote><LocalizedText zh={quoteZh} en={quoteEn} /></blockquote>
+      <figcaption><LocalizedText zh={authorZh} en={authorEn} /></figcaption>
+    </figure>
+  </PageHero>
   <nav class="architecture-project-list" aria-label={listLabel} data-aria-en={architecturePage.projectListLabel.en} data-aria-zh={architecturePage.projectListLabel.zh}>
     {gridProjects.map((project, index) => {
       return (
