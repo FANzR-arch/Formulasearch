@@ -25,12 +25,55 @@ try {
   assert.equal(archive.items[0].previewWidth, 960)
   archive.items[0].alt = { zh: '暖棕色测试画面', en: 'A warm brown test frame' }
   archive.items[0].tags = ['test']
-  await manager.updatePhotoItems(archive.items)
+  await manager.updatePhotoItems(archive.items, archive.revision)
   archive = await manager.readPhotoArchive()
   assert.equal(archive.items[0].alt.en, 'A warm brown test frame')
+  const stale = structuredClone(archive)
+  archive.items[0].alt.en = 'Updated in the first tab'
+  await manager.updatePhotoItems(archive.items, archive.revision)
+  await assert.rejects(manager.updatePhotoItems(stale.items, stale.revision), manager.PhotoConflictError)
+  assert.equal((await manager.readPhotoArchive()).items[0].alt.en, 'Updated in the first tab')
+
+  const secondInput = path.join(root, 'second.png')
+  const thirdInput = path.join(root, 'third.png')
+  await sharp({ create: { width: 400, height: 500, channels: 3, background: '#46724a' } }).png().toFile(secondInput)
+  await sharp({ create: { width: 500, height: 400, channels: 3, background: '#3254ad' } }).png().toFile(thirdInput)
+  const parallel = await Promise.all([
+    manager.importPhotoFiles([secondInput]), manager.importPhotoFiles([thirdInput]), manager.importPhotoFiles([secondInput]),
+  ])
+  assert.equal(parallel.reduce((sum, result) => sum + result.imported, 0), 2)
+  assert.equal(parallel.reduce((sum, result) => sum + result.duplicates, 0), 1)
+  archive = await manager.readPhotoArchive()
+  assert.equal(archive.items.length, 3)
+  assert.equal(new Set(archive.items.map((item) => item.image)).size, 3)
+  for (const item of archive.items) assert.equal((await sharp(await fs.readFile(path.join(output, path.basename(item.image)))).metadata()).width, item.width)
+
+  const edits = structuredClone(archive.items)
+  edits[0].alt.en = 'Winner of concurrent saves'
+  const concurrentSaves = await Promise.allSettled([
+    manager.updatePhotoItems(edits, archive.revision), manager.updatePhotoItems(archive.items, archive.revision),
+  ])
+  assert.deepEqual(concurrentSaves.map((result) => result.status), ['fulfilled', 'rejected'])
+  assert(concurrentSaves[1].reason instanceof manager.PhotoConflictError)
+
+  const broken = path.join(root, 'broken.png')
+  const rollbackInput = path.join(root, 'rollback.png')
+  await fs.writeFile(broken, 'not an image')
+  await sharp({ create: { width: 300, height: 200, channels: 3, background: '#ccb832' } }).png().toFile(rollbackInput)
+  const beforeFailure = await fs.readFile(manifest, 'utf8')
+  const filesBeforeFailure = (await fs.readdir(output)).sort()
+  await assert.rejects(manager.importPhotoFiles([rollbackInput, broken]))
+  assert.equal(await fs.readFile(manifest, 'utf8'), beforeFailure)
+  assert.deepEqual((await fs.readdir(output)).sort(), filesBeforeFailure)
+  assert.equal((await manager.importPhotoFiles([rollbackInput])).imported, 1)
+  assert.equal(Object.hasOwn(JSON.parse(await fs.readFile(manifest, 'utf8')), 'revision'), false)
+
+  archive = await manager.readPhotoArchive()
   const removed = await manager.deletePhoto(archive.items[0].assetHash)
-  assert.equal(removed.total, 0)
-  console.log('Photo Studio test passed: append, duplicate detection, metadata update, preview generation and direct deletion.')
+  assert.equal(removed.total, 3)
+  await assert.rejects(manager.updatePhotoItems(archive.items, archive.revision), manager.PhotoConflictError)
+  assert.equal((await fs.readdir(root)).some((name) => name.endsWith('.tmp')), false)
+  console.log('Photo Studio test passed: import, deduplication, preview, concurrent imports/saves, stale-edit rejection, failed-import rollback, queue recovery and deletion.')
 } finally {
   await fs.rm(root, { recursive: true, force: true })
 }

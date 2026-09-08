@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import sharp from 'sharp'
@@ -9,8 +9,27 @@ const outputRoot = path.resolve(process.env.PHOTO_STUDIO_OUTPUT || path.join(pro
 const supportedImage = /\.(?:avif|jpe?g|png|webp)$/i
 const hash = (buffer) => createHash('sha256').update(buffer).digest('hex')
 
-export const readPhotoArchive = async () => JSON.parse(await fs.readFile(manifestPath, 'utf8'))
-const writePhotoArchive = async (archive) => fs.writeFile(manifestPath, `${JSON.stringify(archive, null, 2)}\n`, 'utf8')
+export class PhotoConflictError extends Error {}
+
+// All mutations in the local Studio process read the latest manifest in order.
+// Revisions additionally prevent a second browser tab from saving an outdated edit.
+let pendingMutation = Promise.resolve()
+const mutate = (operation) => {
+  const result = pendingMutation.then(operation)
+  pendingMutation = result.catch(() => {})
+  return result
+}
+export const readPhotoArchive = async () => {
+  const source = await fs.readFile(manifestPath, 'utf8')
+  return { ...JSON.parse(source.replace(/^\uFEFF/, '')), revision: hash(source) }
+}
+const writePhotoArchive = async ({ revision, ...archive }) => {
+  const temporary = `${manifestPath}.${randomUUID()}.tmp`
+  try {
+    await fs.writeFile(temporary, `${JSON.stringify(archive, null, 2)}\n`, { encoding: 'utf8', flag: 'wx' })
+    await fs.rename(temporary, manifestPath)
+  } finally { await fs.rm(temporary, { force: true }) }
+}
 
 const collect = async (directory) => {
   const entries = await fs.readdir(directory, { withFileTypes: true })
@@ -31,47 +50,57 @@ const displayLayout = (index, width, height) => {
   return index % 5 === 0 ? 'wide' : 'landscape'
 }
 
-export const importPhotoFiles = async (sources) => {
+export const importPhotoFiles = (sources) => mutate(async () => {
   const archive = await readPhotoArchive()
   const existingHashes = new Set(archive.items.map((item) => item.assetHash))
   await fs.mkdir(outputRoot, { recursive: true })
   let number = nextNumber(archive.items)
   let imported = 0
   let duplicates = 0
-  for (const source of sources) {
-    const pipeline = sharp(source).rotate().resize({ width: 2560, height: 2560, fit: 'inside', withoutEnlargement: true })
-    const main = await pipeline.clone().webp({ quality: 84, effort: 5, smartSubsample: true }).toBuffer()
-    const assetHash = hash(main)
-    if (existingHashes.has(assetHash)) { duplicates += 1; continue }
-    const preview = await pipeline.clone().resize({ width: 960, withoutEnlargement: true }).webp({ quality: 80, effort: 5, smartSubsample: true }).toBuffer()
-    const mainMeta = await sharp(main).metadata()
-    const previewMeta = await sharp(preview).metadata()
-    if (!mainMeta.width || !mainMeta.height || !previewMeta.width) throw new Error(`无法读取图片尺寸：${source}`)
-    const padded = String(number).padStart(3, '0')
-    const image = `/uploads/photos/select/photo-${padded}.webp`
-    const previewImage = `/uploads/photos/select/photo-${padded}-960.webp`
-    await fs.writeFile(path.join(outputRoot, `photo-${padded}.webp`), main)
-    await fs.writeFile(path.join(outputRoot, `photo-${padded}-960.webp`), preview)
-    const order = archive.items.length
-    archive.items.push({
-      alt: { zh: `待补充摄影描述 ${padded}`, en: `Photography record ${padded} awaiting description` },
-      height: mainMeta.height,
-      image,
-      index: String(order + 1).padStart(2, '0'),
-      layout: displayLayout(order, mainMeta.width, mainMeta.height),
-      tags: ['selected'],
-      width: mainMeta.width,
-      assetHash,
-      previewImage,
-      previewWidth: previewMeta.width,
-    })
-    existingHashes.add(assetHash)
-    number += 1
-    imported += 1
+  const created = []
+  try {
+    for (const source of sources) {
+      const pipeline = sharp(source).rotate().resize({ width: 2560, height: 2560, fit: 'inside', withoutEnlargement: true })
+      const main = await pipeline.clone().webp({ quality: 84, effort: 5, smartSubsample: true }).toBuffer()
+      const assetHash = hash(main)
+      if (existingHashes.has(assetHash)) { duplicates += 1; continue }
+      const preview = await pipeline.clone().resize({ width: 960, withoutEnlargement: true }).webp({ quality: 80, effort: 5, smartSubsample: true }).toBuffer()
+      const mainMeta = await sharp(main).metadata()
+      const previewMeta = await sharp(preview).metadata()
+      if (!mainMeta.width || !mainMeta.height || !previewMeta.width) throw new Error(`无法读取图片尺寸：${source}`)
+      const padded = String(number).padStart(3, '0')
+      const image = `/uploads/photos/select/photo-${padded}.webp`
+      const previewImage = `/uploads/photos/select/photo-${padded}-960.webp`
+      const mainPath = path.join(outputRoot, `photo-${padded}.webp`)
+      const previewPath = path.join(outputRoot, `photo-${padded}-960.webp`)
+      await fs.writeFile(mainPath, main, { flag: 'wx' })
+      created.push(mainPath)
+      await fs.writeFile(previewPath, preview, { flag: 'wx' })
+      created.push(previewPath)
+      const order = archive.items.length
+      archive.items.push({
+        alt: { zh: `待补充摄影描述 ${padded}`, en: `Photography record ${padded} awaiting description` },
+        height: mainMeta.height,
+        image,
+        index: String(order + 1).padStart(2, '0'),
+        layout: displayLayout(order, mainMeta.width, mainMeta.height),
+        tags: ['selected'],
+        width: mainMeta.width,
+        assetHash,
+        previewImage,
+        previewWidth: previewMeta.width,
+      })
+      existingHashes.add(assetHash)
+      number += 1
+      imported += 1
+    }
+    await writePhotoArchive(archive)
+    return { imported, duplicates, total: archive.items.length }
+  } catch (error) {
+    await Promise.all(created.map((target) => fs.rm(target, { force: true })))
+    throw error
   }
-  await writePhotoArchive(archive)
-  return { imported, duplicates, total: archive.items.length }
-}
+})
 
 export const importPhotoFolder = async (directory) => {
   const absolute = path.resolve(directory)
@@ -89,19 +118,21 @@ const resolveOutput = (source) => {
   return target
 }
 
-export const deletePhoto = async (assetHash) => {
+export const deletePhoto = (assetHash) => mutate(async () => {
   const archive = await readPhotoArchive()
   const index = archive.items.findIndex((item) => item.assetHash === assetHash)
   if (index < 0) throw new Error('找不到要删除的照片。')
   const [item] = archive.items.splice(index, 1)
-  await Promise.all([item.image, item.previewImage].filter(Boolean).map((source) => fs.rm(resolveOutput(source), { force: true })))
+  const targets = [item.image, item.previewImage].filter(Boolean).map(resolveOutput)
   archive.items.forEach((entry, order) => { entry.index = String(order + 1).padStart(2, '0') })
   await writePhotoArchive(archive)
+  await Promise.all(targets.map((target) => fs.rm(target, { force: true })))
   return { deleted: item.image, total: archive.items.length }
-}
+})
 
-export const updatePhotoItems = async (updates) => {
+export const updatePhotoItems = (updates, revision) => mutate(async () => {
   const archive = await readPhotoArchive()
+  if (!revision || revision !== archive.revision) throw new PhotoConflictError('照片清单已被其他操作更新。当前编辑尚未覆盖磁盘，请保留编辑内容并重新载入后再保存。')
   const existing = new Map(archive.items.map((item) => [item.assetHash, item]))
   if (!Array.isArray(updates) || updates.length !== archive.items.length) throw new Error('照片更新数量与当前清单不一致。')
   const seen = new Set()
@@ -118,4 +149,4 @@ export const updatePhotoItems = async (updates) => {
   })
   await writePhotoArchive(archive)
   return { updated: archive.items.length }
-}
+})
