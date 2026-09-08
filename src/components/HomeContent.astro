@@ -1,6 +1,7 @@
 ---
 import LocalizedText from './LocalizedText.astro'
 import HomeAvatar from './HomeAvatar.astro'
+import HomeArcName from './HomeArcName.astro'
 import HomeContact from './HomeContact.astro'
 import HomeHighlightPill from './HomeHighlightPill.astro'
 import HomeHighlightedText from './HomeHighlightedText.astro'
@@ -61,14 +62,14 @@ const enIdentity = splitLeadIdentity(enLead, 'Phil', ' —', 'builder', 'designe
 
 <main id="main-content">
   <section class="intro" aria-labelledby="intro-title">
-    <h1 id="intro-title" data-site-reveal><LocalizedText zh={zh.name} en={en.name} /></h1>
+    <h1 id="intro-title" data-site-reveal><HomeArcName zh={zh.name} en={en.name} /></h1>
     <p class="lead" data-site-reveal data-site-reveal-delay="70">
       <span class="localized-text">
         <span class="localized-text__zh" lang="zh-Hans">
-          {zhIdentity.marker ? <><span class="home-lead__identity">{zhIdentity.before}{zhIdentity.marker}<HomeAvatar locale={locale} />{zhIdentity.after}{zhIdentity.roleOne ? <>{zhIdentity.beforeRole}<HomeHighlightPill className="home-lead__role" label={zhIdentity.roleOne} detail={zhDetails[zhIdentity.roleOne]} locale="zh" />{zhIdentity.connector}<HomeHighlightPill className="home-lead__role" label={zhIdentity.roleTwo} detail={zhDetails[zhIdentity.roleTwo]} locale="zh" />{zhIdentity.trailing}</> : zhIdentity.rest}</span></> : zhLead}
+          {zhIdentity.marker ? <><span class="home-lead__identity"><span class="home-lead__side home-lead__side--before">{zhIdentity.before}{zhIdentity.marker}</span><HomeAvatar locale={locale} /><span class="home-lead__side home-lead__side--after">{zhIdentity.after}{zhIdentity.roleOne ? <>{zhIdentity.beforeRole}<HomeHighlightPill className="home-lead__role" label={zhIdentity.roleOne} detail={zhDetails[zhIdentity.roleOne]} locale="zh" />{zhIdentity.connector}<HomeHighlightPill className="home-lead__role" label={zhIdentity.roleTwo} detail={zhDetails[zhIdentity.roleTwo]} locale="zh" />{zhIdentity.trailing}</> : zhIdentity.rest}</span></span></> : zhLead}
         </span>
         <span class="localized-text__en" lang="en">
-          {enIdentity.marker ? <><span class="home-lead__identity">{enIdentity.before}{enIdentity.marker}<HomeAvatar locale={locale} />{enIdentity.after}{enIdentity.roleOne ? <>{enIdentity.beforeRole}<HomeHighlightPill className="home-lead__role" label={enIdentity.roleOne} detail={enDetails[enIdentity.roleOne]} locale="en" />{enIdentity.connector}<HomeHighlightPill className="home-lead__role" label={enIdentity.roleTwo} detail={enDetails[enIdentity.roleTwo]} locale="en" />{enIdentity.trailing}</> : enIdentity.rest}</span></> : enLead}
+          {enIdentity.marker ? <><span class="home-lead__identity"><span class="home-lead__side home-lead__side--before">{enIdentity.before}{enIdentity.marker}</span><HomeAvatar locale={locale} /><span class="home-lead__side home-lead__side--after">{enIdentity.after}{enIdentity.roleOne ? <>{enIdentity.beforeRole}<HomeHighlightPill className="home-lead__role" label={enIdentity.roleOne} detail={enDetails[enIdentity.roleOne]} locale="en" />{enIdentity.connector}<HomeHighlightPill className="home-lead__role" label={enIdentity.roleTwo} detail={enDetails[enIdentity.roleTwo]} locale="en" />{enIdentity.trailing}</> : enIdentity.rest}</span></span></> : enLead}
         </span>
       </span>
     </p>

@@ -1,0 +1,75 @@
+---
+interface Props { zh: string; en: string }
+const { zh, en } = Astro.props
+---
+
+<span class="localized-text">
+  {[{ name: zh, locale: 'zh', lang: 'zh-Hans' }, { name: en, locale: 'en', lang: 'en' }].map(({ name, locale, lang }) => (
+    <span class={`localized-text__${locale}`} lang={lang}>
+      <span class="home-arc-name" data-arc-name>
+        <span class="home-arc-name__source">{name}</span>
+        <span class="home-arc-name__letters" aria-hidden="true"></span>
+      </span>
+    </span>
+  ))}
+</span>
+
+<style>
+  .home-arc-name { position: relative; display: inline-block; white-space: pre; }
+  .home-arc-name__source { display: inline-block; }
+  .home-arc-name[data-ready] .home-arc-name__source { opacity: 0; }
+  .home-arc-name__letters { position: absolute; inset: 0; pointer-events: none; }
+  .home-arc-name__letters :global(.home-arc-letter) { position: absolute; top: 0; white-space: pre; transform-origin: 50% 85%; transition: transform 380ms cubic-bezier(.22, 1, .36, 1); }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    :global(.intro:has(.home-avatar:hover)) .home-arc-name__letters :global(.home-arc-letter) { transform: translateY(var(--arc-y)) rotate(var(--arc-angle)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .home-arc-name__letters :global(.home-arc-letter) { transition: none; }
+  }
+</style>
+
+<script>
+  // Measure the original typeset text so the resting title retains its kerning.
+  const names = [...document.querySelectorAll<HTMLElement>('[data-arc-name]')]
+  const measure = () => {
+    for (const name of names) {
+      const source = name.querySelector<HTMLElement>('.home-arc-name__source')!
+      const layer = name.querySelector<HTMLElement>('.home-arc-name__letters')!
+      const bounds = source.getBoundingClientRect()
+      if (!bounds.width || !source.firstChild) continue
+      const size = parseFloat(getComputedStyle(source).fontSize)
+      const depth = size * .24
+      const range = document.createRange()
+      let offset = 0
+      const letters = Array.from(source.textContent || '').map((character) => {
+        range.setStart(source.firstChild!, offset)
+        offset += character.length
+        range.setEnd(source.firstChild!, offset)
+        const box = range.getBoundingClientRect()
+        const x = box.left - bounds.left
+        const position = ((x + box.width / 2) / bounds.width - .5) * 2
+        const letter = document.createElement('span')
+        letter.className = 'home-arc-letter'
+        letter.textContent = character
+        letter.style.left = `${x}px`
+        letter.style.width = `${box.width}px`
+        letter.style.setProperty('--arc-y', `${-size * .63 - depth * (1 - position * position)}px`)
+        letter.style.setProperty('--arc-angle', `${Math.atan(4 * depth * position / bounds.width) * 180 / Math.PI}deg`)
+        return letter
+      })
+      layer.replaceChildren(...letters)
+      name.dataset.ready = ''
+    }
+  }
+  let frame = 0
+  const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(measure) }
+  const observer = new ResizeObserver(schedule)
+  names.forEach((name) => observer.observe(name))
+  document.fonts.ready.then(schedule)
+  window.addEventListener('formulasearch:locale', schedule)
+  document.addEventListener('astro:before-swap', () => {
+    observer.disconnect()
+    cancelAnimationFrame(frame)
+    window.removeEventListener('formulasearch:locale', schedule)
+  }, { once: true })
+</script>
