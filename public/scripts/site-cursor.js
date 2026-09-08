@@ -11,7 +11,11 @@
   const capabilityQuery = window.matchMedia('(any-hover: hover) and (any-pointer: fine)')
   let active = false
 
-  const setVisible = (nextVisible) => cursor.classList.toggle('is-visible', nextVisible)
+  const setVisible = (nextVisible) => {
+    cursor.classList.toggle('is-visible', nextVisible)
+    if (nextVisible) root.dataset.cursorMode = 'custom'
+    else delete root.dataset.cursorMode
+  }
 
   const setState = (state, text = '') => {
     if (cursor.dataset.state !== state) cursor.dataset.state = state
@@ -24,7 +28,6 @@
   const activate = () => {
     active = true
     root.dataset.cursorCapability = 'fine'
-    root.dataset.cursorMode = 'custom'
     setState('default')
   }
 
@@ -59,7 +62,7 @@
 
   const handlePointer = (event) => {
     if (event.pointerType && event.pointerType !== 'mouse') {
-      setVisible(false)
+      deactivate()
       return
     }
     if (!active) activate()
@@ -70,21 +73,27 @@
   document.addEventListener('pointermove', handlePointer, { passive: true })
   document.addEventListener('pointerover', (event) => {
     if (event.pointerType && event.pointerType !== 'mouse') return
-    if (!active) activate()
+    handlePointer(event)
     const target = getCursorTarget(event.target)
     const next = getState(target)
     setState(next.state, next.text)
   }, { passive: true })
   document.addEventListener('pointerdown', (event) => {
-    if (event.pointerType && event.pointerType !== 'mouse') return
-    if (!active) activate()
+    if (event.pointerType && event.pointerType !== 'mouse') {
+      deactivate()
+      return
+    }
+    handlePointer(event)
     body.classList.add('is-pressed')
   }, { passive: true })
   document.addEventListener('pointerup', () => body.classList.remove('is-pressed'), { passive: true })
   document.addEventListener('pointerout', (event) => {
-    if (!event.relatedTarget) setVisible(false)
+    if (!event.relatedTarget) deactivate()
   }, { passive: true })
-  window.addEventListener('blur', () => setVisible(false), { passive: true })
+  window.addEventListener('blur', deactivate, { passive: true })
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) deactivate()
+  })
   capabilityQuery.addEventListener?.('change', ({ matches }) => {
     if (matches) activate()
     else deactivate()

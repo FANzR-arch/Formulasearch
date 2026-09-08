@@ -30,19 +30,7 @@ html *::-webkit-scrollbar {
   height: 0;
 }
 
-/* The `any-*` query covers a mouse attached to a touch-first laptop. The
-   data attribute is set by the early capability bootstrap and updated by the
-   cursor controller when hardware changes without a reload. */
-@media (any-hover: hover) and (any-pointer: fine) {
-  html,
-  html * { cursor: none !important; }
-}
-
-html[data-cursor-capability='fine'],
-html[data-cursor-capability='fine'] * {
-  cursor: none !important;
-}
-
+/* Hide the native pointer only after the controller has positioned its visible replacement. */
 html[data-cursor-mode='custom'],
 html[data-cursor-mode='custom'] * {
   cursor: none !important;

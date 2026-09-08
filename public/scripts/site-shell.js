@@ -119,6 +119,11 @@
   const applyTheme = (theme) => {
     const nextTheme = theme === 'dark' ? 'dark' : 'light'
     root.dataset.theme = nextTheme
+    document.querySelectorAll('img[data-theme-image]').forEach((image) => {
+      const suffix = nextTheme === 'dark' ? 'Dark' : 'Light'
+      image.srcset = image.dataset[`srcset${suffix}`]
+      image.src = image.dataset[`src${suffix}`]
+    })
     const themeToggle = document.querySelector('#theme-toggle')
     const themeColor = document.querySelector('meta[name="theme-color"]')
     themeToggle?.setAttribute('aria-pressed', String(nextTheme === 'dark'))

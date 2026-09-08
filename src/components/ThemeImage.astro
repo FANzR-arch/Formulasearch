@@ -1,0 +1,46 @@
+---
+import { getImage } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+  light: ImageMetadata
+  dark: ImageMetadata
+  widths: number[]
+  sizes: string
+  class: string
+  alt: string
+  altZh?: string
+  altEn?: string
+  eager?: boolean
+}
+
+const { light, dark, widths, sizes, class: className, alt, altZh, altEn, eager = false } = Astro.props
+const optimize = async (src: ImageMetadata) => {
+  const variants = await Promise.all(widths.map((width) => getImage({ src, width, format: 'webp', quality: 82 })))
+  return { src: variants[0].src, srcset: variants.map((image, index) => `${image.src} ${widths[index]}w`).join(', ') }
+}
+const [lightImage, darkImage] = await Promise.all([optimize(light), optimize(dark)])
+const attributes = {
+  class: className, alt, 'data-alt-zh': altZh, 'data-alt-en': altEn,
+  width: light.width, height: light.height, sizes,
+  loading: eager ? 'eager' as const : 'lazy' as const,
+  fetchpriority: eager ? 'high' as const : undefined,
+  decoding: 'async' as const,
+}
+---
+
+<!-- Keep both sources inert until the saved theme is known, avoiding speculative downloads of the hidden theme. -->
+<template data-theme-image-template>
+  <img {...attributes} data-theme-image data-src-light={lightImage.src} data-src-dark={darkImage.src} data-srcset-light={lightImage.srcset} data-srcset-dark={darkImage.srcset} />
+</template>
+<script is:inline>
+  (() => {
+    const template = document.currentScript.previousElementSibling
+    const image = template.content.querySelector('img')
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'Dark' : 'Light'
+    image.srcset = image.dataset[`srcset${theme}`]
+    image.src = image.dataset[`src${theme}`]
+    template.replaceWith(image)
+  })()
+</script>
+<noscript><img {...attributes} src={lightImage.src} srcset={lightImage.srcset} /></noscript>
