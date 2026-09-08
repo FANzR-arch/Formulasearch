@@ -20,6 +20,7 @@ const { zh, en } = Astro.props
   .home-arc-name[data-ready] .home-arc-name__source { opacity: 0; }
   .home-arc-name__letters { position: absolute; inset: 0; pointer-events: none; }
   .home-arc-name__letters :global(.home-arc-letter) { position: absolute; top: 0; white-space: pre; transform-origin: 50% 85%; transition: transform 380ms cubic-bezier(.22, 1, .36, 1); }
+  .home-arc-name__letters :global(.home-arc-letter)::before { content: attr(data-character); }
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     :global(.intro:has(.home-avatar:hover)) .home-arc-name__letters :global(.home-arc-letter) { transform: translateY(var(--arc-y)) rotate(var(--arc-angle)); }
   }
@@ -31,7 +32,9 @@ const { zh, en } = Astro.props
 <script>
   // Measure the original typeset text so the resting title retains its kerning.
   const names = [...document.querySelectorAll<HTMLElement>('[data-arc-name]')]
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const measure = () => {
+    if (reducedMotion.matches) return
     for (const name of names) {
       const source = name.querySelector<HTMLElement>('.home-arc-name__source')!
       const layer = name.querySelector<HTMLElement>('.home-arc-name__letters')!
@@ -50,7 +53,7 @@ const { zh, en } = Astro.props
         const position = ((x + box.width / 2) / bounds.width - .5) * 2
         const letter = document.createElement('span')
         letter.className = 'home-arc-letter'
-        letter.textContent = character
+        letter.dataset.character = character
         letter.style.left = `${x}px`
         letter.style.width = `${box.width}px`
         letter.style.setProperty('--arc-y', `${-size * .63 - depth * (1 - position * position)}px`)
@@ -62,14 +65,26 @@ const { zh, en } = Astro.props
     }
   }
   let frame = 0
-  const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(measure) }
+  const schedule = () => {
+    cancelAnimationFrame(frame)
+    if (reducedMotion.matches) {
+      names.forEach((name) => {
+        delete name.dataset.ready
+        name.querySelector('.home-arc-name__letters')?.replaceChildren()
+      })
+      return
+    }
+    frame = requestAnimationFrame(measure)
+  }
   const observer = new ResizeObserver(schedule)
   names.forEach((name) => observer.observe(name))
   document.fonts.ready.then(schedule)
   window.addEventListener('formulasearch:locale', schedule)
+  reducedMotion.addEventListener('change', schedule)
   document.addEventListener('astro:before-swap', () => {
     observer.disconnect()
     cancelAnimationFrame(frame)
     window.removeEventListener('formulasearch:locale', schedule)
+    reducedMotion.removeEventListener('change', schedule)
   }, { once: true })
 </script>
