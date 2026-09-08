@@ -1,0 +1,36 @@
+---
+import { siteRoutes } from '../data/site-routes'
+
+// Shared destinations for the Chinese and English keyword labels.
+const groups = [
+  { labels: ['构建者', 'builder'], primary: ['projects', 'lab'], secondary: ['blog', 'skills'] },
+  { labels: ['设计师', 'designer'], primary: ['architecture', 'projects'], secondary: ['blog', 'skills', 'lab', 'photos'] },
+  { labels: ['建筑设计', 'architectural design'], primary: ['architecture'], secondary: ['projects', 'photos'] },
+  { labels: ['AIGC'], primary: ['projects', 'lab'], secondary: ['skills', 'blog'] },
+  { labels: ['交互设计', 'interaction design'], primary: ['projects'], secondary: ['lab', 'skills'] },
+  { labels: ['互联网', 'the internet'], primary: ['blog', 'lab'], secondary: ['projects'] },
+  { labels: ['AI 协作', 'working with AI'], primary: ['projects', 'skills'], secondary: ['lab', 'blog'] },
+  { labels: ['生活、思考、项目与实践', 'life, thoughts, projects, and practice'], primary: ['blog', 'projects', 'photos'], secondary: ['architecture', 'lab'] },
+  { labels: ['独立探索', 'independent exploration'], primary: ['lab', 'projects'], secondary: ['blog', 'skills'] },
+  { labels: ['协作完成', 'made with collaborators'], primary: ['partners'], secondary: ['projects'] },
+  { labels: ['旅行和摄影', 'travel and photography'], primary: ['photos'], secondary: ['blog', 'architecture'] },
+]
+const connections = Object.fromEntries(groups.flatMap(({ labels, primary, secondary }) =>
+  labels.map((label) => [label, [
+    ...primary.map((route) => ({ route: siteRoutes[route as keyof typeof siteRoutes], weight: 'primary' })),
+    ...secondary.map((route) => ({ route: siteRoutes[route as keyof typeof siteRoutes], weight: 'secondary' })),
+  ]])
+))
+for (const label of ['与更多人建联', 'connect with more people']) {
+  connections[label] = ['twitter', 'email', 'wechat'].map((contact) => ({ route: `contact:${contact}`, weight: 'primary' }))
+}
+---
+
+<svg class="home-connections" data-home-connections={JSON.stringify(connections)} aria-hidden="true" focusable="false"></svg>
+<script is:inline src="/scripts/home-keyword-connections.js"></script>
+
+<style is:global>
+  .home-connections { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: hidden; color: var(--ink); }
+  .home-connections path { fill: none; stroke: currentColor; stroke-width: 1; stroke-linecap: round; opacity: .23; }
+  @media (max-width: 760px), (hover: none), (pointer: coarse) { .home-connections { display: none; } }
+</style>

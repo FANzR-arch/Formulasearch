@@ -14,15 +14,15 @@ const socialHandle = `@${new URL(socialUrl).pathname.split('/').filter(Boolean)[
 ---
 
 <div class="contact-icons">
-  <a class="contact-icon" href={socialUrl} target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" aria-describedby="contact-x-tooltip">
+  <a class="contact-icon" data-connection-contact="twitter" href={socialUrl} target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" aria-describedby="contact-x-tooltip">
     <img class="contact-brand contact-brand--x" src="/brand/x-logo.svg" width="18" height="18" alt="" aria-hidden="true" />
     <span class="contact-tooltip" id="contact-x-tooltip" role="tooltip">{socialHandle}</span>
   </a>
-  <a class="contact-icon" href={`mailto:${email}`} aria-label={localized('发送邮件', 'Send email')} data-aria-zh="发送邮件" data-aria-en="Send email" aria-describedby="contact-email-tooltip">
+  <a class="contact-icon" data-connection-contact="email" href={`mailto:${email}`} aria-label={localized('发送邮件', 'Send email')} data-aria-zh="发送邮件" data-aria-en="Send email" aria-describedby="contact-email-tooltip">
     <Icon name="contact-email" role="control" />
     <span class="contact-tooltip" id="contact-email-tooltip" role="tooltip">{email}</span>
   </a>
-  <button class="contact-icon" type="button" data-wechat-open aria-haspopup="dialog" aria-controls="wechat-contact-dialog" aria-label={localized('打开微信二维码', 'Open WeChat QR code')} data-aria-zh="打开微信二维码" data-aria-en="Open WeChat QR code" aria-describedby="contact-wechat-tooltip">
+  <button class="contact-icon" data-connection-contact="wechat" type="button" data-wechat-open aria-haspopup="dialog" aria-controls="wechat-contact-dialog" aria-label={localized('打开微信二维码', 'Open WeChat QR code')} data-aria-zh="打开微信二维码" data-aria-en="Open WeChat QR code" aria-describedby="contact-wechat-tooltip">
     <img class="contact-brand contact-brand--wechat" src="/brand/wechat-logo.svg" width="22" height="18" alt="" aria-hidden="true" />
     <span class="contact-tooltip" id="contact-wechat-tooltip" role="tooltip">wechat</span>
   </button>
@@ -35,7 +35,7 @@ const socialHandle = `@${new URL(socialUrl).pathname.split('/').filter(Boolean)[
 <style>
   .contact-icons { display: flex; align-items: center; gap: 8px; margin-left: -12px; }
   .contact-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; color: var(--muted); background: transparent; cursor: pointer; text-decoration: none; transition: color 180ms ease, transform 180ms cubic-bezier(.22, 1, .36, 1); }
-  .contact-icon:hover { color: var(--ink); transform: translateY(-2px); }
+  .contact-icon:hover, .contact-icon.is-keyword-destination { color: var(--ink); transform: translateY(-2px); }
   .contact-icon:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
   .contact-icon { position: relative; }
   .contact-tooltip { position: absolute; z-index: 5; top: calc(100% + 4px); left: 8px; width: max-content; padding: 7px 10px; border: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); border-radius: 6px; background: var(--paper); color: var(--ink); box-shadow: 0 4px 14px rgb(0 0 0 / .06); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 400; line-height: 1.4; letter-spacing: 0; white-space: nowrap; opacity: 0; visibility: hidden; transform: translateY(-3px); pointer-events: none; transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }

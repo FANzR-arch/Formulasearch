@@ -41,9 +41,9 @@ const splitHighlights = (text: string, terms: string[]): Segment[] => {
 
 <span class="localized-text">
   <span class="localized-text__zh" lang="zh-Hans">
-    {splitHighlights(zh, Object.keys(zhDetails)).map((segment) => segment.highlight ? <HomeHighlightPill label={segment.text} detail={zhDetails[segment.text]} locale="zh" terminal={segment.text === '项目、博客、Skills 与工具'} /> : segment.text)}
+    {splitHighlights(zh, Object.keys(zhDetails)).map((segment) => segment.highlight ? <HomeHighlightPill label={segment.text} detail={zhDetails[segment.text]} locale="zh" terminal={segment.text === '生活、思考、项目与实践'} /> : segment.text)}
   </span>
   <span class="localized-text__en" lang="en">
-    {splitHighlights(en, Object.keys(enDetails)).map((segment) => segment.highlight ? <HomeHighlightPill label={segment.text} detail={enDetails[segment.text]} locale="en" terminal={segment.text === 'projects, blog posts, Skills, and tools'} /> : segment.text)}
+    {splitHighlights(en, Object.keys(enDetails)).map((segment) => segment.highlight ? <HomeHighlightPill label={segment.text} detail={enDetails[segment.text]} locale="en" terminal={segment.text === 'life, thoughts, projects, and practice'} /> : segment.text)}
   </span>
 </span>

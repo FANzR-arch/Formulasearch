@@ -12,6 +12,7 @@ interface Props {
 const { label, className = 'home-copy__highlight', detail, locale = 'zh', terminal = false } = Astro.props
 const detailId = `home-note-${locale}-${encodeURIComponent(label)}`
 const Tag = detail ? 'button' : 'span'
+const noteText = detail ? (locale === 'zh' ? `（${detail}）` : `(${detail})`) : ''
 ---
 
 <Tag class:list={[className, { 'home-keyword--terminal': terminal }]} type={detail ? 'button' : undefined} data-highlight-label={label} data-cursor-state="capsule" data-home-keyword={detail ? '' : undefined} aria-expanded={detail ? 'false' : undefined} aria-controls={detail ? detailId : undefined}>
@@ -19,7 +20,7 @@ const Tag = detail ? 'button' : 'span'
     <span class="home-highlight-pill__text">{label}</span>
     <span class="home-highlight-pill__text home-highlight-pill__text--clone" aria-hidden="true">{label}</span>
   </span>}
-</Tag>{detail && <span id={detailId} class="home-keyword-note" hidden><span class="home-keyword-note__accessible">{detail}</span><span data-home-note-text aria-hidden="true"></span></span>}
+</Tag>{detail && <span id={detailId} class="home-keyword-note" hidden><span class="home-keyword-note__accessible">{noteText}</span><span data-home-note-text aria-hidden="true"></span></span>}
 
 <style>
   button[data-home-keyword] { font: inherit; color: inherit; letter-spacing: inherit; line-height: 1.25; vertical-align: baseline; }
@@ -30,14 +31,16 @@ const Tag = detail ? 'button' : 'span'
   }
   button[data-home-keyword]:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
   button.home-keyword--terminal,
-  button.home-keyword--terminal:is(:hover, [aria-expanded='true']) { display: inline-flex; align-items: baseline; gap: .25em; max-width: 100%; margin-inline: .12em; padding: .22em .5em .25em .35em; border: 1px solid var(--hairline); border-radius: 5px; background: var(--code-paper); color: var(--code-ink); font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace; font-size: .84em; letter-spacing: -.025em; line-height: 1.4; text-align: start; text-decoration: none; }
+  button.home-keyword--terminal:is(:hover, [aria-expanded='true']) { display: inline-flex; align-items: baseline; justify-content: center; gap: .25em; max-width: 100%; margin-inline: 3.84px; padding: .22em .5em .25em .35em; border: 2.666667px solid var(--hairline); border-radius: 10px; background: #000; color: #f5f5f5; font-family: Arial, sans-serif; font-size: .84em; letter-spacing: -.025em; line-height: 1.4; text-align: start; text-decoration: none; }
   button.home-keyword--terminal::before { content: none; }
+  :global(:root:not([data-theme='dark'])) button.home-keyword--terminal,
+  :global(:root:not([data-theme='dark'])) button.home-keyword--terminal:is(:hover, [aria-expanded='true']) { background: #f2f2f2; color: var(--ink); }
   .home-terminal__prompt { display: inline-flex; flex: 0 0 auto; align-self: center; opacity: .5; }
   .home-terminal__label { display: grid; min-width: 0; white-space: normal; }
   .home-terminal__reserve, .home-terminal__visual { grid-area: 1 / 1; }
   .home-terminal__reserve { opacity: 0; }
-  .home-terminal__caret { display: inline-block; height: .95em; margin-left: .18em; border-right: 1px solid currentColor; vertical-align: -.12em; opacity: .65; }
-  .home-keyword--terminal:is(:hover, :focus-visible) .home-terminal__caret { animation: home-note-caret 800ms step-end infinite; }
+  .home-terminal__caret { display: inline-block; height: .95em; margin-left: .43em; border-right: 1px solid currentColor; vertical-align: -.12em; opacity: .65; }
+  .home-terminal__visual .home-terminal__caret { animation: home-note-caret 800ms step-end infinite; }
   .home-keyword-note { margin-inline: .35em; color: var(--muted); font-size: .9em; white-space: normal; overflow-wrap: anywhere; }
   .home-keyword-note[hidden] { display: none; }
   [data-home-note-text] { padding: .03em .18em; border-radius: .15em; background: color-mix(in oklab, var(--ink) 6%, transparent); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
@@ -47,7 +50,7 @@ const Tag = detail ? 'button' : 'span'
   @media (prefers-reduced-motion: reduce) {
     button[data-home-keyword], button[data-home-keyword]::before, .home-highlight-pill__track { transition: none; }
     .home-keyword-note[data-typing] [data-home-note-text]::after { display: none; }
-    .home-keyword--terminal:is(:hover, :focus-visible) .home-terminal__caret { animation: none; }
+    .home-terminal__visual .home-terminal__caret { animation: none; }
   }
 </style>
 

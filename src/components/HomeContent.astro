@@ -4,6 +4,7 @@ import HomeAvatar from './HomeAvatar.astro'
 import HomeContact from './HomeContact.astro'
 import HomeHighlightPill from './HomeHighlightPill.astro'
 import HomeHighlightedText from './HomeHighlightedText.astro'
+import HomeKeywordConnections from './HomeKeywordConnections.astro'
 import SiteFooter from './SiteFooter.astro'
 import { homeContent } from '../lib/home-content'
 import homeKeywords from '../../content/site/home-keywords.json'
@@ -84,6 +85,7 @@ const enIdentity = splitLeadIdentity(enLead, 'Phil', ' —', 'builder', 'designe
   </section>
 </main>
 <SiteFooter locale={locale} showHomeLink={false} />
+<HomeKeywordConnections />
 
 <script>
   const highlightSelector = '[data-highlight-label]'
