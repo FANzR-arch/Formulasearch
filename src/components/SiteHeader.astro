@@ -11,10 +11,9 @@ import LocalizedText from './LocalizedText.astro'
 interface Props {
   active?: PrimarySection | 'photos' | 'architecture' | 'partners'
   locale?: Locale
-  logoMode?: 'background' | 'home'
 }
 
-const { active, locale = 'zh', logoMode = 'home' } = Astro.props
+const { active, locale = 'zh' } = Astro.props
 const localizedRoute = (route: string) => getLocalizedRoute(route, locale)
 const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, locale)
 const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProfile, {
@@ -25,18 +24,9 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
 
 <header class="site-header" aria-label={localized(uiCopy.navigation.primary)} data-aria-en={uiCopy.navigation.primary.en} data-aria-zh={uiCopy.navigation.primary.zh} data-site-reveal>
   <GlassSurface id="site-nav" className="site-header__glass" width="100%" height="100%" borderRadius={999} borderWidth={0.08} brightness={58} opacity={0.86} blur={14} backgroundOpacity={0.16} saturation={1.28} displace={0} distortionScale={-14} redOffset={0} greenOffset={1} blueOffset={2} mixBlendMode="difference" useSvgFilter={false} ariaHidden />
-  {logoMode === 'background' ? (
-    <button id="background-cycle" class="monogram" type="button" aria-label={localized(uiCopy.navigation.backgroundEffect)} data-aria-en={uiCopy.navigation.backgroundEffect.en} data-aria-zh={uiCopy.navigation.backgroundEffect.zh} title={localized(uiCopy.navigation.backgroundEffect)} data-title-en={uiCopy.navigation.backgroundEffect.en} data-title-zh={uiCopy.navigation.backgroundEffect.zh}
-      data-sound="switch" data-sound-volume="0.22"
-      data-background-cycle-zh={uiCopy.navigation.backgroundCycle.zh} data-background-cycle-en={uiCopy.navigation.backgroundCycle.en}
-      data-background-names={encodeURIComponent(JSON.stringify(uiCopy.navigation.backgroundVariants))}>
-      <img src="/brand/logo.svg" alt="" aria-hidden="true" />
-    </button>
-  ) : (
     <a class="monogram" href={localizedRoute(siteRoutes.home)} aria-label={localized(uiCopy.common.returnHome)} data-aria-en={uiCopy.common.returnHome.en} data-aria-zh={uiCopy.common.returnHome.zh} title={localized(uiCopy.common.returnHome)} data-title-en={uiCopy.common.returnHome.en} data-title-zh={uiCopy.common.returnHome.zh}>
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </a>
-  )}
 
   <button id="mobile-navigation-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label={localized(uiCopy.navigation.openNavigation)} data-nav-open-zh={uiCopy.navigation.openNavigation.zh} data-nav-open-en={uiCopy.navigation.openNavigation.en} data-nav-close-zh={uiCopy.navigation.closeNavigation.zh} data-nav-close-en={uiCopy.navigation.closeNavigation.en} data-sound="switch" data-sound-volume="0.18">
     <Icon name="nav-menu" role="control" class="mobile-nav-toggle__menu" />

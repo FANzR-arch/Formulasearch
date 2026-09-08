@@ -382,20 +382,16 @@ test('coarse pointers, non-primary clicks, and reduced motion keep disturbances 
   expect(uniforms.uImpulseAge).toBe(-1)
 })
 
-test('interaction strength follows the active background variant', async ({ page }) => {
+test('homepages retain Molten across reloads with full interaction strength', async ({ page }) => {
   await installBackgroundUniformProbe(page)
-  await page.goto('/')
-
-  const strengths = []
-  const cycle = page.locator('#background-cycle')
-  for (let index = 0; index < 3; index += 1) {
-    await expect.poll(() => page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uInteractionStrength ?? 0)).toBeGreaterThan(0)
-    strengths.push(await page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uInteractionStrength ?? 0))
-    await cycle.click()
-    await page.waitForTimeout(190)
+  for (const route of ['/', '/en']) {
+    await page.goto(route)
+    await expect(page.locator('#ambient-flow')).toHaveAttribute('data-background', 'molten')
+    await expect(page.locator('#background-cycle')).toHaveCount(0)
+    await expect.poll(() => page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uInteractionStrength ?? 0)).toBe(1)
+    await page.reload()
+    await expect(page.locator('#ambient-flow')).toHaveAttribute('data-background', 'molten')
   }
-
-  expect(strengths.sort((a, b) => a - b)).toEqual([0.65, 0.8, 1])
 })
 
 test('Chinese and English homepages omit the redundant home link', async ({ page }) => {
@@ -620,24 +616,11 @@ test('theme preference survives a page reload', async ({ page }) => {
   await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', '切换到浅色主题')
 })
 
-test('locale updates the dynamic background control label', async ({ page }) => {
+test('locale updates the homepage logo label', async ({ page }) => {
   await page.goto('/')
+  await expect(page.locator('.site-header .monogram')).toHaveAttribute('aria-label', '返回首页')
   await page.locator('#language-toggle').click()
-  await expect(page.locator('#background-cycle')).toHaveAttribute('aria-label', /Current background/)
-})
-
-test('background cycle keeps localized copy when the variant changes', async ({ page }) => {
-  await page.goto('/')
-  const cycle = page.locator('#background-cycle')
-  const before = await cycle.getAttribute('aria-label')
-  await cycle.click()
-  await expect(cycle).toHaveAttribute('aria-label', /当前背景：/)
-  expect(await cycle.getAttribute('aria-label')).not.toBe(before)
-
-  await page.locator('#language-toggle').click()
-  await expect(cycle).toHaveAttribute('aria-label', /Current background:/)
-  await cycle.click()
-  await expect(cycle).toHaveAttribute('aria-label', /Click to switch to/)
+  await expect(page.locator('.site-header .monogram')).toHaveAttribute('aria-label', 'Return home')
 })
 
 test('locale updates archive image alt text', async ({ page }) => {

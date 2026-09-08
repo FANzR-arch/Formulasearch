@@ -9,13 +9,6 @@ const uiCopySchema = z.object({
   navigation: z.object({
     primary: localizedCopySchema,
     site: localizedCopySchema,
-    backgroundEffect: localizedCopySchema,
-    backgroundCycle: localizedCopySchema,
-    backgroundVariants: z.object({
-      dither: localizedCopySchema,
-      molten: localizedCopySchema,
-      contour: localizedCopySchema,
-    }),
     openNavigation: localizedCopySchema,
     closeNavigation: localizedCopySchema,
     skipToContent: localizedCopySchema,
