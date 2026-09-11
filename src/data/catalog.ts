@@ -70,7 +70,19 @@ const catalogListSectionSchema = z.object({
   image: z.string().startsWith('/').optional(),
   imageAlt: localizedCopySchema.optional(),
   items: z.array(catalogItemSchema).min(1),
+  projects: z.array(catalogProjectItemSchema).min(1).optional(),
   presentation: z.literal('list').default('list'),
+}).strict()
+
+const catalogVideoSchema = z.object({
+  src: z.string().startsWith('/'),
+  poster: z.string().startsWith('/'),
+  title: localizedCopySchema,
+  width: z.number().int().positive().default(1920),
+  height: z.number().int().positive().default(1080),
+  category: localizedCopySchema.optional(),
+  description: localizedCopySchema.optional(),
+  sourceUrl: z.url().optional(),
 }).strict()
 
 const catalogProjectSectionSchema = z.object({
@@ -78,7 +90,14 @@ const catalogProjectSectionSchema = z.object({
   label: z.string().min(1),
   title: localizedCopySchema,
   description: localizedCopySchema,
-  items: z.array(catalogProjectItemSchema).min(1),
+  items: z.array(catalogProjectItemSchema),
+  videoLayout: z.enum(['grid', 'rail']).default('grid'),
+  videos: z.array(catalogVideoSchema).min(1).optional(),
+  videoGroups: z.array(z.object({
+    id: z.string().regex(/^[a-z0-9-]+$/),
+    title: localizedCopySchema,
+    videos: z.array(catalogVideoSchema).min(1),
+  }).strict()).min(1).optional(),
   presentation: z.literal('projects'),
 }).strict()
 
@@ -158,7 +177,9 @@ export const projectSections = result.data.projects
 export const skillSections = result.data.skills
 export const labSections = result.data.lab
 export const catalogPages = result.data.pages
-export const projectItems = projectSections.flatMap((section) => section.presentation === 'projects' ? section.items : [])
+export const labProjectItems = labSections.flatMap((section) => section.presentation === 'projects' ? section.items : section.presentation === 'list' ? section.projects ?? [] : [])
+// Keep existing detail URLs available for cards moved into Explore.
+export const projectItems = [...projectSections.flatMap((section) => section.presentation === 'projects' ? section.items : []), ...labProjectItems]
 
 for (const [name, sections] of Object.entries({
   projects: projectSections,

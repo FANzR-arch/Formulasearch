@@ -32,6 +32,8 @@ import {
   Moon,
   MousePointer2,
   Plus,
+  Play,
+  Pause,
   RefreshCw,
   Rocket,
   Save,
@@ -48,6 +50,8 @@ import {
 import type { AstroComponent } from '@lucide/astro'
 
 export const iconRegistry = {
+  'video-play': Play,
+  'video-pause': Pause,
   'cursor-default': MousePointer2,
   'cursor-interactive': ArrowUpRight,
   'cursor-text': TextCursorInput,

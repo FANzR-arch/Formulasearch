@@ -4,6 +4,7 @@ import Icon from './icon-system/Icon.astro'
 import PageHero from './PageHero.astro'
 import ProjectCard from './ProjectCard.astro'
 import ProjectShowcase from './ProjectShowcase.astro'
+import ProjectVideos from './ProjectVideos.astro'
 import type { CatalogPage, CatalogSection } from '../data/catalog'
 import type { Locale } from '../lib/i18n'
 
@@ -22,18 +23,25 @@ const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
 {sections.length > 0 && (
   <div class="catalog-sections">
     {sections.map((section, index) => section.presentation === 'projects' ? (
-      <section id={section.id} class="project-group" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
+      <section id={section.id} class:list={['project-group', { 'project-group--intro': section.items.length === 0 && !section.videos?.length }]} data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
         <header class="project-group__heading">
           <h2><LocalizedText {...section.title} /></h2>
           <p><LocalizedText {...section.description} /></p>
         </header>
-        {section.items.length === 1 && section.items[0].showcase ? (
+        {section.videos && <ProjectVideos videos={section.videos} layout={section.videoLayout} locale={locale} />}
+        {section.videoGroups?.map((group) => (
+          <section id={group.id} class="project-video-group" aria-labelledby={`${group.id}-title`}>
+            <h3 id={`${group.id}-title`}><LocalizedText {...group.title} /></h3>
+            <ProjectVideos videos={group.videos} layout="filmstrip" locale={locale} />
+          </section>
+        ))}
+        {!section.videos && !section.videoGroups && (section.items.length === 1 && section.items[0].showcase ? (
           <ProjectShowcase href={`${projectRoot}/${section.items[0].id}`} item={section.items[0]} locale={locale} />
-        ) : (
+        ) : section.items.length > 0 && (
           <div class="project-card-grid">
             {section.items.map((item, itemIndex) => <ProjectCard href={`${projectRoot}/${item.id}`} item={item} eager={index === 0 && itemIndex === 0} locale={locale} />)}
           </div>
-        )}
+        ))}
       </section>
     ) : section.presentation === 'skill-gallery' ? (
       <section id={section.id} class="skill-feature" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
@@ -140,6 +148,9 @@ const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
           {item.description && <span><LocalizedText {...item.description} /></span>}
         </span>}</li>)}</ul>
       </div>
+      {section.projects && <div class="project-card-grid">
+        {section.projects.map((item) => <ProjectCard href={`${projectRoot}/${item.id}`} item={item} locale={locale} />)}
+      </div>}
     </section>)}
   </div>
 )}

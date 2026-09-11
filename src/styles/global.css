@@ -523,6 +523,9 @@ main { position: relative; z-index: 1; }
   scroll-margin-top: 28px;
 }
 .project-group:first-child { padding-top: 0; }
+.project-video-group + .project-video-group { margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--hairline); }
+.project-video-group > h3 { margin: 0 0 20px; font-size: 1.1rem; font-weight: 550; }
+.project-group--intro .project-group__heading { margin-bottom: 0; }
 .project-group__heading {
   display: grid;
   grid-template-columns: minmax(160px, .62fr) minmax(280px, .78fr);
@@ -533,7 +536,7 @@ main { position: relative; z-index: 1; }
 .project-group h2 { margin: 0; font-size: clamp(1.65rem, 3vw, 2.55rem); font-weight: 600; letter-spacing: -.055em; line-height: 1; }
 .project-group__heading > p { max-width: 48ch; margin: 0; color: var(--muted); font-family: var(--serif); font-size: .96rem; line-height: 1.7; }
 .project-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 3vw, 46px); }
-.project-card:first-child:nth-last-child(odd):not(:only-child) { grid-column: 1 / -1; }
+.catalog-section > .project-card-grid { grid-column: 1 / -1; }
 .project-card { display: grid; min-width: 0; color: var(--ink); }
 .project-card--linked { transition: color 180ms ease; }
 .project-card__cover {
@@ -1101,7 +1104,6 @@ h1 { margin-bottom: 26px; font-family: var(--serif); font-size: var(--text-home-
   .skill-gallery > li { width: calc(100% - 28px); }
   .skill-gallery__item figcaption { min-height: 44px; }
   .project-card-grid { grid-template-columns: 1fr; }
-  .project-card:first-child:nth-last-child(odd):not(:only-child) { grid-column: auto; }
   .project-card__body { gap: 14px; }
   .project-card__visit { grid-column: 1; justify-self: start; }
   .project-showcase__media { height: min(61.5vw, 240px); }
@@ -1221,6 +1223,19 @@ h1 { margin-bottom: 26px; font-family: var(--serif); font-size: var(--text-home-
   font-family: var(--serif);
   font-size: clamp(1rem, 1.3vw, 1.16rem);
   line-height: 1.7;
+}
+.page-hero[data-hero-motion='projects'] .page-hero__description {
+  width: min(100%, 70ch);
+  max-width: none;
+  margin: 0;
+  justify-self: end;
+  text-align: left;
+}
+@media (min-width: 821px) {
+  .page-hero[data-hero-motion='projects'] {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 4vw;
+  }
 }
 .visual-archive { padding-top: 0; }
 .visual-archive > .page-hero { margin-bottom: clamp(34px, 5vw, 66px); }

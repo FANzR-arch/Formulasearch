@@ -1,0 +1,89 @@
+---
+import Icon from './icon-system/Icon.astro'
+import LocalizedText from './LocalizedText.astro'
+import type { CatalogSection } from '../data/catalog'
+import type { Locale } from '../lib/i18n'
+
+interface Props {
+  videos: NonNullable<Extract<CatalogSection, { presentation: 'projects' }>['videos']>
+  locale?: Locale
+  layout?: 'grid' | 'rail' | 'filmstrip'
+}
+
+const { videos, locale = 'zh', layout = 'grid' } = Astro.props
+const isRail = layout !== 'grid'
+---
+
+<div class="project-videos__stage" data-video-rail={isRail ? '' : undefined}>
+<div class:list={['project-videos', { 'project-card-grid': !isRail, 'project-videos--rail': isRail }]} role={isRail ? 'region' : undefined} tabindex={isRail ? '0' : undefined} aria-label={isRail ? (locale === 'zh' ? '项目视频，左右滚动查看' : 'Project videos, scroll horizontally to browse') : undefined} data-aria-zh={isRail ? '项目视频，左右滚动查看' : undefined} data-aria-en={isRail ? 'Project videos, scroll horizontally to browse' : undefined}>
+  {videos.map((video) => (
+    <article class:list={['project-video', { 'project-video--filmstrip': layout === 'filmstrip' }]} style={`--video-ratio: ${video.width / video.height}`}>
+      <div class="project-video__player" data-video-player>
+      <video playsinline preload="none" poster={video.poster} width={video.width} height={video.height} style={`aspect-ratio: ${video.width} / ${video.height}`} aria-label={video.title[locale]} data-aria-zh={video.title.zh} data-aria-en={video.title.en}>
+        <source src={video.src} type="video/mp4" />
+        {video.sourceUrl ? <a href={video.sourceUrl} target="_blank" rel="noopener noreferrer"><LocalizedText zh="在 X 查看视频" en="Watch on X" /></a> : <LocalizedText zh="当前浏览器不支持视频播放。" en="Your browser does not support video playback." />}
+      </video>
+      <button class="project-video__toggle" type="button" aria-label={locale === 'zh' ? '播放视频' : 'Play video'} data-video-toggle>
+        <span class="project-video__play"><Icon name="video-play" role="control" /></span>
+        <span class="project-video__pause"><Icon name="video-pause" role="control" /></span>
+      </button>
+      </div>
+      {(!isRail || video.sourceUrl) && <div class="project-video__copy">
+        {video.category && <p class="project-video__category"><LocalizedText {...video.category} /></p>}
+        {!isRail && <h3><LocalizedText {...video.title} /></h3>}
+        {video.description && <p class="project-video__description"><LocalizedText {...video.description} /></p>}
+        {video.sourceUrl && <a class="project-video__source" href={video.sourceUrl} target="_blank" rel="noopener noreferrer">
+          <LocalizedText zh="查看 X 原帖" en="View original post on X" />
+          <Icon name="catalog-external" role="meta" />
+        </a>}
+      </div>}
+    </article>
+  ))}
+</div>
+
+{isRail && <div class="project-videos__navigation" data-video-navigation hidden>
+  <button type="button" data-video-previous aria-label={locale === 'zh' ? '上一组视频' : 'Previous videos'} data-aria-zh="上一组视频" data-aria-en="Previous videos"><Icon name="project-gallery-previous" role="control" /></button>
+  <button type="button" data-video-next aria-label={locale === 'zh' ? '下一组视频' : 'Next videos'} data-aria-zh="下一组视频" data-aria-en="Next videos"><Icon name="project-gallery-next" role="control" /></button>
+</div>}
+</div>
+
+<script is:inline src="/scripts/project-videos.js"></script>
+
+<style>
+  .project-video { min-width: 0; }
+  .project-videos__stage { position: relative; min-width: 0; }
+  .project-videos__navigation { position: absolute; z-index: 3; left: 12px; right: 12px; top: var(--video-navigation-y, 50%); transform: translateY(-50%); display: flex; justify-content: space-between; pointer-events: none; opacity: 0; transition: opacity 240ms ease; }
+  .project-videos__stage:hover .project-videos__navigation,
+  .project-videos__stage:focus-within .project-videos__navigation { opacity: 1; }
+  .project-videos__navigation button { pointer-events: auto; }
+  @media (hover: none) { .project-videos__navigation { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .project-videos__navigation { transition: none; } }
+  .project-videos__navigation[hidden] { display: none; }
+  .project-videos__navigation button { display: grid; place-items: center; width: 42px; height: 42px; padding: 0; border: 1px solid color-mix(in oklab, var(--ink) 18%, transparent); border-radius: 50%; color: var(--ink); background: color-mix(in oklab, var(--paper) 84%, transparent); backdrop-filter: blur(16px); box-shadow: 0 3px 14px rgb(0 0 0 / .08); cursor: pointer; transition: background 160ms ease, opacity 160ms ease, transform 160ms ease; }
+  .project-videos__navigation button:hover:not(:disabled) { background: var(--paper); transform: scale(1.06); }
+  .project-videos__navigation button:disabled { opacity: .3; cursor: default; }
+  .project-videos__navigation button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .project-video__player { position: relative; }
+  .project-video__toggle { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; color: white; cursor: pointer; }
+  .project-video__toggle > span { display: grid; place-items: center; width: 52px; height: 52px; border: 1px solid rgb(255 255 255 / .5); border-radius: 50%; background: rgb(0 0 0 / .38); backdrop-filter: blur(10px); opacity: 0; transition: opacity 160ms ease; }
+  .project-video__toggle :global(.icon) { width: 24px; height: 24px; }
+  .project-video__player:hover .project-video__toggle > span,
+  .project-video__toggle:focus-visible > span { opacity: 1; }
+  .project-video__toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+  .project-video__toggle .project-video__pause,
+  .project-video__player[data-playing] .project-video__play { display: none; }
+  .project-video__player[data-playing] .project-video__pause { display: grid; }
+  .project-videos--rail:has(.project-video--filmstrip) { grid-auto-columns: max-content; }
+  .project-video--filmstrip { width: calc(clamp(180px, 23vw, 280px) * var(--video-ratio)); }
+  .project-videos--rail { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(180px, 20vw, 240px); gap: clamp(16px, 2vw, 24px); max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none; }
+  .project-videos--rail::-webkit-scrollbar { display: none; width: 0; height: 0; }
+  .project-videos--rail .project-video { scroll-snap-align: start; }
+  .project-videos--rail:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: var(--media-placeholder); border: 1px solid var(--hairline); }
+  .project-video__copy { padding-top: 20px; }
+  .project-video__category { margin: 0 0 8px; color: var(--muted); font-size: .72rem; }
+  h3 { margin: 0; font-size: clamp(1.1rem, 1.8vw, 1.4rem); font-weight: 550; line-height: 1.4; }
+  .project-video__description { margin: 12px 0 16px; color: var(--muted); font-size: .88rem; line-height: 1.7; }
+  .project-video__source { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; }
+  .project-video__source:hover { color: var(--accent); }
+</style>

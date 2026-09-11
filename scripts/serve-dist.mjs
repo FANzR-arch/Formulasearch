@@ -16,6 +16,7 @@ const contentTypes = {
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
   '.webp': 'image/webp',
+  '.mp4': 'video/mp4',
   '.woff2': 'font/woff2',
 }
 
@@ -51,11 +52,29 @@ const server = createServer((request, response) => {
     return
   }
 
-  response.writeHead(200, {
+  const size = statSync(filePath).size
+  const headers = {
     'Content-Type': contentTypes[extname(filePath)] || 'application/octet-stream',
     'Cache-Control': 'no-cache',
-  })
-  createReadStream(filePath).pipe(response)
+    'Accept-Ranges': 'bytes',
+  }
+  // Native video seeking requests byte ranges instead of downloading the full file.
+  const range = request.method === 'GET' && /^bytes=(\d*)-(\d*)$/.exec(request.headers.range || '')
+  if (range) {
+    const start = range[1] ? Number(range[1]) : Math.max(0, size - Number(range[2]))
+    const end = range[1] && range[2] ? Math.min(Number(range[2]), size - 1) : size - 1
+    if ((!range[1] && !range[2]) || !Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start > end || start >= size) {
+      response.writeHead(416, { ...headers, 'Content-Range': `bytes */${size}` })
+      response.end()
+      return
+    }
+    response.writeHead(206, { ...headers, 'Content-Length': end - start + 1, 'Content-Range': `bytes ${start}-${end}/${size}` })
+    createReadStream(filePath, { start, end }).pipe(response)
+    return
+  }
+  response.writeHead(200, { ...headers, 'Content-Length': size })
+  if (request.method === 'HEAD') response.end()
+  else createReadStream(filePath).pipe(response)
 })
 
 let shuttingDown = false
