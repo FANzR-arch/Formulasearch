@@ -1,0 +1,101 @@
+import { expect, test } from '@playwright/test'
+
+const article = '/blog/ai-practice-2026-02-22'
+const scrollY = (page) => page.evaluate(() => window.scrollY)
+
+test('desktop wheel glides through intermediate positions and reverses without a jump', async ({ page }, testInfo) => {
+  await page.goto(article)
+  await expect(page.locator('html')).toHaveClass(/lenis/)
+  await page.evaluate(() => document.fonts.ready)
+  await page.mouse.move(1100, 500)
+  await page.evaluate(() => {
+    window.scrollSamples = new Promise((resolve) => {
+      window.addEventListener('wheel', () => {
+        const started = performance.now()
+        const samples = []
+        const sample = () => {
+          samples.push({ ms: performance.now() - started, y: scrollY })
+          if (performance.now() - started < 850) requestAnimationFrame(sample)
+          else resolve(samples)
+        }
+        requestAnimationFrame(sample)
+      }, { once: true, capture: true })
+    })
+  })
+  await page.mouse.wheel(0, 600)
+  const samples = await page.evaluate(() => window.scrollSamples)
+  await testInfo.attach('wheel-scroll-positions', { body: JSON.stringify(samples), contentType: 'application/json' })
+  expect(new Set(samples.filter(({ y }) => y > 1 && y < 598).map(({ y }) => Math.round(y))).size).toBeGreaterThan(4)
+  await expect.poll(() => scrollY(page)).toBeGreaterThanOrEqual(598)
+  expect(await scrollY(page)).toBeLessThanOrEqual(602)
+  await page.mouse.wheel(0, -300)
+  await expect.poll(async () => Math.abs(await scrollY(page) - 300)).toBeLessThan(2)
+})
+
+test('keyboard and article anchors interrupt the wheel tail and preserve native navigation', async ({ page }) => {
+  await page.goto(article)
+  await expect(page.locator('html')).toHaveClass(/lenis/)
+  await page.mouse.move(1100, 500)
+  await page.mouse.wheel(0, 1200)
+  await expect.poll(() => scrollY(page), { intervals: [10, 20, 30] }).toBeGreaterThan(10)
+  await page.keyboard.press('Control+Home')
+  await expect.poll(() => scrollY(page)).toBe(0)
+  await page.waitForTimeout(350)
+  expect(await scrollY(page)).toBe(0)
+  const toc = page.locator('.article-toc a').first()
+  const href = await toc.getAttribute('href')
+  await toc.click()
+  await expect.poll(() => page.evaluate(() => decodeURIComponent(location.hash))).toBe(href)
+  const top = await page.evaluate((hash) => document.getElementById(decodeURIComponent(hash.slice(1))).getBoundingClientRect().top, href)
+  expect(top).toBeGreaterThanOrEqual(0)
+  expect(top).toBeLessThan(200)
+  await page.waitForTimeout(350)
+  expect(await page.evaluate((hash) => document.getElementById(decodeURIComponent(hash.slice(1))).getBoundingClientRect().top, href)).toBeCloseTo(top, 0)
+})
+
+test('reduced motion and mobile widths use native scrolling and desktop can resume', async ({ page }) => {
+  await page.goto(article)
+  await expect(page.locator('html')).toHaveClass(/lenis/)
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await expect(page.locator('html')).not.toHaveClass(/lenis/)
+  await page.mouse.move(1100, 500)
+  await page.mouse.wheel(0, 400)
+  await expect.poll(() => scrollY(page)).toBeGreaterThan(0)
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await expect(page.locator('html')).toHaveClass(/lenis/)
+  await page.setViewportSize({ width: 390, height: 844 })
+  await expect(page.locator('html')).not.toHaveClass(/lenis/)
+  await page.setViewportSize({ width: 1280, height: 800 })
+  await expect(page.locator('html')).toHaveClass(/lenis/)
+})
+
+test('photo viewer freezes the background and closing it restores wheel scrolling', async ({ page }) => {
+  await page.goto('/photos')
+  await expect(page.locator('html')).toHaveClass(/lenis/)
+  await page.locator('[data-photo-open]').first().click()
+  await expect(page.locator('html')).toHaveClass(/lenis-stopped/)
+  const position = await scrollY(page)
+  await page.mouse.move(1100, 500)
+  await page.mouse.wheel(0, 600)
+  await page.waitForTimeout(350)
+  expect(await scrollY(page)).toBe(position)
+  await page.keyboard.press('Escape')
+  await expect(page.locator('html')).not.toHaveClass(/lenis-stopped/)
+  await page.mouse.wheel(0, 300)
+  await expect.poll(() => scrollY(page)).toBeGreaterThan(position + 100)
+})
+
+test('history return restores scrolling without accumulating wheel handlers', async ({ page }) => {
+  await page.goto(article)
+  await expect(page.locator('html')).toHaveClass(/lenis/)
+  await page.mouse.move(1100, 500)
+  await page.mouse.wheel(0, 400)
+  await expect.poll(async () => Math.abs(await scrollY(page) - 400)).toBeLessThan(2)
+  await page.goto('/projects')
+  await page.goBack()
+  await expect(page.locator('html')).toHaveClass(/lenis/)
+  const position = await scrollY(page)
+  await page.mouse.move(1100, 500)
+  await page.mouse.wheel(0, 300)
+  await expect.poll(async () => Math.abs(await scrollY(page) - position - 300)).toBeLessThan(2)
+})

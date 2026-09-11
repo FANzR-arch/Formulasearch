@@ -110,5 +110,8 @@ const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : 
     <slot />
     <script is:inline src="/scripts/site-cursor.js"></script>
     <script is:inline src="/scripts/scroll-progress.js"></script>
+    <script>
+      import '../scripts/smooth-scroll'
+    </script>
   </body>
 </html>
