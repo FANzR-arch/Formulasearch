@@ -66,6 +66,17 @@
       return
     }
     if (!active) activate()
+    // Native scrollbar chrome does not inherit CSS cursor:none.
+    for (let el = event.target; el instanceof HTMLElement; el = el.parentElement) {
+      const rect = el.getBoundingClientRect()
+      const horizontal = el.offsetHeight - el.clientHeight > 2 && el.scrollWidth > el.clientWidth
+      const vertical = el.offsetWidth - el.clientWidth > 2 && el.scrollHeight > el.clientHeight
+      if ((horizontal && event.clientY >= rect.top + el.clientTop + el.clientHeight) ||
+          (vertical && event.clientX >= rect.left + el.clientLeft + el.clientWidth)) {
+        setVisible(false)
+        return
+      }
+    }
     cursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`
     setVisible(true)
   }

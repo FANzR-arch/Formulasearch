@@ -54,6 +54,7 @@ html[data-cursor-mode='custom'] * {
 
 html:not([data-cursor-capability='fine']) .site-cursor { display: none; }
 .site-cursor.is-visible { opacity: 1; }
+.site-cursor:not(.is-visible) { transition: none; }
 .site-cursor__inner,
 .site-cursor__body { position: relative; width: 1px; height: 1px; }
 .site-cursor__body { transform-origin: 0 0; transition: transform 120ms var(--ease-out); }
