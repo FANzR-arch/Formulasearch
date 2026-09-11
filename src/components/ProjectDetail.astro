@@ -2,7 +2,7 @@
 import Icon from './icon-system/Icon.astro'
 import LocalizedText from './LocalizedText.astro'
 import PageHero from './PageHero.astro'
-import type { CatalogProjectItem } from '../data/catalog'
+import { labSections, type CatalogProjectItem } from '../data/catalog'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
 
 interface Props {
@@ -11,14 +11,16 @@ interface Props {
 }
 
 const { locale = 'zh', project } = Astro.props
-const backHref = locale === 'en' ? '/en/projects' : '/projects'
+const labSection = labSections.find((section) => (section.presentation === 'projects' ? section.items : section.presentation === 'list' ? section.projects ?? [] : []).some((item) => item.id === project.id))
+const backHref = `${locale === 'en' ? '/en' : ''}${labSection ? `/lab#${labSection.id}` : '/projects'}`
+const backLabel = labSection?.id === 'courses' ? { zh: '返回课程', en: 'Back to courses' } : labSection ? { zh: '返回探索', en: 'Back to Explore' } : { zh: '返回项目', en: 'Back to projects' }
 const title = { zh: project.zh, en: project.en }
 const { detail } = project
 const hasMultipleImages = detail.gallery.length > 1
 ---
 
 <article class="project-detail" aria-labelledby="project-detail-title">
-  <a class="project-detail__back" href={backHref}><LocalizedText zh="返回项目" en="Back to projects" /></a>
+  <a class="project-detail__back" href={backHref}><LocalizedText {...backLabel} /></a>
   <PageHero id="project-detail-title" title={title} description={project.description} />
 
   <div class="project-detail__utility">

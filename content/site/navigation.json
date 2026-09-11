@@ -9,21 +9,10 @@
       },
       "menu": [
         {
-          "href": "/blog/category/ai-tools",
-          "label": {
-            "zh": "AI 与工具",
-            "en": "AI & Tools"
-          },
-          "note": {
-            "zh": "AI 教程、工具与实践",
-            "en": "Tutorials, tools, and practice"
-          }
-        },
-        {
           "href": "/blog/category/aesthetics",
           "label": {
-            "zh": "美学系统",
-            "en": "Aesthetic Systems"
+            "zh": "美学拆解",
+            "en": "Aesthetics"
           },
           "note": {
             "zh": "视觉拆解、提示词与方法",
@@ -31,10 +20,21 @@
           }
         },
         {
+          "href": "/blog/category/ai-tools",
+          "label": {
+            "zh": "AI工具教程",
+            "en": "AI Tutorials"
+          },
+          "note": {
+            "zh": "AI 教程、工具与实践",
+            "en": "Tutorials, tools, and practice"
+          }
+        },
+        {
           "href": "/blog/category/personal-thinking",
           "label": {
-            "zh": "笔记",
-            "en": "Notes"
+            "zh": "个人思考",
+            "en": "Personal Notes"
           },
           "note": {
             "zh": "个人观察与思考",
@@ -52,29 +52,81 @@
       },
       "menu": [
         {
-          "href": "/projects#tools",
-          "label": { "zh": "工具", "en": "Tools" },
-          "note": { "zh": "独立产品、垂直工具与持续验证的方向", "en": "Independent products, focused tools, and ongoing experiments" }
+          "href": "/projects#ai-imagery",
+          "label": {
+            "zh": "AI 商业与叙事影像",
+            "en": "AI Commercial & Narrative Films"
+          },
+          "note": {
+            "zh": "以 AI 创作品牌广告、产品影像、漫剧与短剧，从商业表达延伸到故事叙事。",
+            "en": "AI-created brand campaigns, product films, animated dramas, and short-form stories."
+          }
         },
         {
           "href": "/projects#digital-humans",
-          "label": { "zh": "数字人", "en": "Digital Humans" },
-          "note": { "zh": "角色、口播与批量内容生产", "en": "Characters, presenter videos, and repeatable production" }
+          "label": {
+            "zh": "数字人内容",
+            "en": "Digital Human Content"
+          },
+          "note": {
+            "zh": "围绕稳定角色与声音，制作口播、产品讲解、知识教程和系列内容。",
+            "en": "Presenter videos, product explanations, tutorials, and series built around consistent characters and voices."
+          }
         },
         {
-          "href": "/projects#ai-imagery",
-          "label": { "zh": "AI 影像", "en": "AI Imagery" },
-          "note": { "zh": "广告、产品影像与剧情内容", "en": "Advertising, product films, and narrative content" }
+          "href": "/projects#code-video",
+          "label": {
+              "zh": "程序化动效视频",
+              "en": "Motion Graphics"
+          },
+          "note": {
+            "zh": "用 Remotion 等代码工具制作 UI 动效、产品演示与品牌动画，让界面、信息与节奏准确配合。",
+            "en": "UI motion, product demos, and brand animation made with tools such as Remotion, with precise control over interfaces, information, and timing."
+          }
+        },
+        {
+          "href": "/projects#tools",
+          "label": {
+            "zh": "独立开发",
+            "en": "Independent Development"
+          },
+          "note": {
+            "zh": "围绕具体需求构建应用、小程序与交互产品，从原型验证到可独立使用的工具。",
+            "en": "Apps, mini programs, and interactive products built around specific needs, from early prototypes to usable tools."
+          }
+        },
+        {
+          "href": "/projects#web-design",
+          "label": {
+            "zh": "网站前端设计",
+            "en": "Website & Frontend Design"
+          },
+          "note": {
+            "zh": "从信息结构、视觉设计到前端实现，构建品牌官网、产品落地页与交互网站。",
+            "en": "Brand websites, product landing pages, and interactive sites, from information architecture and visual design to frontend implementation."
+          }
         },
         {
           "href": "/projects#seo-geo",
-          "label": { "zh": "SEO & GEO", "en": "SEO & GEO" },
-          "note": { "zh": "搜索内容、技术检查与增长复盘", "en": "Search content, technical checks, and growth review" }
+          "label": {
+            "zh": "SEO & GEO 优化",
+            "en": "SEO & GEO Optimization"
+          },
+          "note": {
+            "zh": "结合搜索意图、内容策略与技术优化，提升网站在搜索引擎和生成式搜索中的可见度。",
+            "en": "Search intent, content strategy, and technical optimization for visibility in search engines and generative search."
+          }
         },
         {
-          "href": "/projects#courses-sharing",
-          "label": { "zh": "课程与分享", "en": "Courses & Sharing" },
-          "note": { "zh": "交互课程、讲课与公开分享", "en": "Interactive courses, teaching, and public sharing" }
+          "href": "/projects#ai-subscriptions",
+          "label": {
+            "zh": "账号 / AI 订阅服务",
+            "en": "Accounts & AI Subscriptions"
+          },
+          "note": {
+            "zh": "围绕账号使用与 AI 工具订阅，提供选型建议、开通指引和使用支持。",
+            "en": "Guidance on account use and AI subscriptions, including tool selection, setup, and ongoing use."
+          }
         }
       ]
     },
@@ -89,8 +141,8 @@
         {
           "href": "/skills#design-skills",
           "label": {
-            "zh": "设计技能",
-            "en": "Design Skills"
+            "zh": "Phil Design Skills",
+            "en": "Phil Design Skills"
           },
           "note": {
             "zh": "Phil Design Skills",
@@ -100,7 +152,7 @@
         {
           "href": "/skills#numerologist-skills",
           "label": {
-            "zh": "术数技能",
+            "zh": "Numerologist Skills",
             "en": "Numerologist Skills"
           },
           "note": {
@@ -125,8 +177,8 @@
       "id": "lab",
       "href": "/lab",
       "label": {
-        "zh": "实验",
-        "en": "Lab"
+        "zh": "探索",
+        "en": "Explore"
       },
       "menu": [
         {

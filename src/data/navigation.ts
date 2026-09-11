@@ -39,21 +39,22 @@ for (const section of primaryNavigation) {
   if (section.href !== siteRoutes[section.id]) throw new Error(`Navigation content validation failed: ${section.id} href must match its canonical route.`)
 }
 
-const expectedMenuHrefs: Record<PrimarySection, Set<string>> = {
-  blog: new Set(blogSectionNavigation.items.filter((item) => item.id !== 'all').map((item) => item.href)),
-  projects: new Set(projectSections.map((section) => `${siteRoutes.projects}#${section.id}`)),
-  skills: new Set(skillSections.map((section) => `${siteRoutes.skills}#${section.id}`)),
-  lab: new Set(labSections.map((section) => `${siteRoutes.lab}#${section.id}`)),
+const expectedMenus: Record<PrimarySection, Pick<NavigationItem, 'href' | 'label'>[]> = {
+  blog: blogSectionNavigation.items.filter((item) => item.id !== 'all'),
+  projects: projectSections.map((section) => ({ href: `${siteRoutes.projects}#${section.id}`, label: section.title })),
+  skills: skillSections.map((section) => ({ href: `${siteRoutes.skills}#${section.id}`, label: section.title })),
+  lab: labSections.map((section) => ({ href: `${siteRoutes.lab}#${section.id}`, label: section.title })),
 }
 
 for (const section of primaryNavigation) {
-  const expected = expectedMenuHrefs[section.id]
-  for (const item of section.menu) {
-    if (!expected.has(item.href)) {
-      throw new Error(`Navigation content validation failed: ${section.id} menu href must match a known section: ${item.href}.`)
-    }
-  }
-  if (section.menu.length !== expected.size) {
+  const expected = expectedMenus[section.id]
+  if (section.menu.length !== expected.length) {
     throw new Error(`Navigation content validation failed: ${section.id} menu count does not match its content sections.`)
+  }
+  for (const [index, item] of section.menu.entries()) {
+    const category = expected[index]
+    if (item.href !== category.href || item.label.zh !== category.label.zh || item.label.en !== category.label.en) {
+      throw new Error(`Navigation content validation failed: ${section.id} menu item ${index + 1} must match its page category label, order, and href (${category.href}).`)
+    }
   }
 }

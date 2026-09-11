@@ -480,7 +480,7 @@ test('locale and theme controls update document metadata', async ({ page }) => {
   await page.locator('#language-toggle').click()
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await expect(page).toHaveTitle(/Projects/)
-  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Phil's products/)
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Phil's work in AI films/)
   await expect(page.locator('#language-toggle')).toHaveAttribute('aria-label', 'Switch to Chinese')
   await expect(page.locator('.nav-disclosure').nth(1)).toHaveAttribute('aria-label', 'Open Projects menu')
   await expect(page.locator('.icon-link--github')).toHaveAttribute('title', 'Phil on GitHub')
@@ -502,14 +502,14 @@ test('English routes render server-localized metadata and reciprocal hreflang', 
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await expect(page).toHaveTitle(/Projects/)
-  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Phil's products/)
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Phil's work in AI films/)
   await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', /\/en\/projects$/)
   await expect(page.locator('link[hreflang="zh-Hans"]')).toHaveAttribute('href', /\/projects$/)
   await expect(page.locator('.page-hero h1 .localized-text__en')).toBeVisible()
   await expect(page.locator('.page-hero h1 .localized-text__zh')).toBeHidden()
   await expect(page.locator('.nav-link[href="/en/blog"]')).toBeVisible()
   await page.locator('.nav-disclosure').first().click()
-  await expect(page.locator('.nav-popover a').first()).toHaveAttribute('href', /\/en\/blog\/category\/ai-tools$/)
+  await expect(page.locator('.nav-popover a').first()).toHaveAttribute('href', /\/en\/blog\/category\/aesthetics$/)
 
   await page.goto('/en/blog')
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
@@ -949,9 +949,9 @@ test('static preview server rejects paths outside dist', async () => {
 })
 test('catalog pages omit index navigation and section numbers', async ({ page }) => {
   const catalogPages = [
-    { route: '/projects', catalogSections: 0, skillFeatures: 0, skillProjects: 0, projectGroups: 5 },
+    { route: '/projects', catalogSections: 0, skillFeatures: 0, skillProjects: 0, projectGroups: 7 },
     { route: '/skills', catalogSections: 1, skillFeatures: 1, skillProjects: 1, projectGroups: 0 },
-    { route: '/lab', catalogSections: 3, skillFeatures: 0, skillProjects: 0, projectGroups: 0 },
+    { route: '/lab', catalogSections: 2, skillFeatures: 0, skillProjects: 0, projectGroups: 1 },
   ]
   for (const { route, catalogSections, skillFeatures, skillProjects, projectGroups } of catalogPages) {
     await page.goto(route)
@@ -963,6 +963,29 @@ test('catalog pages omit index navigation and section numbers', async ({ page })
     await expect(page.locator('.project-group')).toHaveCount(projectGroups)
   }
 })
+test('courses live in Explore while project cards keep equal widths', async ({ page }) => {
+  for (const prefix of ['', '/en']) {
+    await page.goto(`${prefix}/projects`)
+    for (const id of ['price-action-course', 'seo-geo-course', 'lab']) {
+      await expect(page.locator(`main a[href="${prefix}/projects/${id}"]`)).toHaveCount(0)
+    }
+    const widths = await page.locator('#tools .project-card').evaluateAll((cards) => cards.map((card) => card.getBoundingClientRect().width))
+    expect(widths).toHaveLength(4)
+    expect(Math.max(...widths) - Math.min(...widths)).toBeLessThan(1)
+    await page.goto(`${prefix}/lab`)
+    await page.locator(`#experiments a[href="${prefix}/projects/lab"]`).click()
+    await expect(page.locator('.project-detail__back')).toHaveAttribute('href', `${prefix}/lab#experiments`)
+    await page.locator('.project-detail__back').click()
+    await expect(page.locator('#courses .project-card')).toHaveCount(2)
+    for (const id of ['price-action-course', 'seo-geo-course']) {
+      await page.locator(`#courses a[href="${prefix}/projects/${id}"]`).click()
+      await expect(page.locator('.project-detail__back')).toHaveAttribute('href', `${prefix}/lab#courses`)
+      await page.locator('.project-detail__back').click()
+      await expect(page.locator('#courses .project-card')).toHaveCount(2)
+    }
+  }
+})
+
 test('skills promotes Numerologist as a theme-aware standalone project', async ({ page }) => {
   await page.goto('/skills')
   const project = page.locator('#numerologist-skills.skill-project')

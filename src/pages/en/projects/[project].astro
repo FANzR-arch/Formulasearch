@@ -1,7 +1,7 @@
 ---
 import ProjectDetail from '../../../components/ProjectDetail.astro'
 import CatalogLayout from '../../../layouts/CatalogLayout.astro'
-import { type CatalogProjectItem, projectItems } from '../../../data/catalog'
+import { type CatalogProjectItem, projectItems, labProjectItems } from '../../../data/catalog'
 
 export const getStaticPaths = () => projectItems.map((project) => ({ params: { project: project.id }, props: { project } }))
 
@@ -9,6 +9,6 @@ const { project } = Astro.props as { project: CatalogProjectItem }
 const title = { zh: project.zh, en: project.en }
 ---
 
-<CatalogLayout active="projects" locale="en" title={title} description={project.description}>
+<CatalogLayout active={labProjectItems.some((item) => item.id === project.id) ? 'lab' : 'projects'} locale="en" title={title} description={project.description}>
   <ProjectDetail locale="en" project={project} />
 </CatalogLayout>
