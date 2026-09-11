@@ -17,6 +17,7 @@
   let opener = null
   let openingRect = null
   let closingPromise = null
+  let viewVersion = 0
 
   const getOpeningRect = (button) => {
     const thumbnail = button.querySelector('img')
@@ -31,16 +32,19 @@
       const done = () => {
         image.removeEventListener('load', done)
         image.removeEventListener('error', done)
+        dialog.removeEventListener('close', done)
         resolve()
       }
       image.addEventListener('load', done, { once: true })
       image.addEventListener('error', done, { once: true })
+      dialog.addEventListener('close', done, { once: true })
     })
   }
 
-  const animateFromThumbnail = (originRect) => {
+  const animateFromThumbnail = (originRect, version) => {
     if (reducedMotion.matches || !(image instanceof HTMLImageElement) || !originRect) return
     requestAnimationFrame(() => {
+      if (version !== viewVersion || !dialog.open || closingPromise) return
       const finalRect = image.getBoundingClientRect()
       if (!finalRect.width || !finalRect.height) return
       const scaleX = originRect.width / finalRect.width
@@ -66,17 +70,21 @@
 
   const animateToThumbnail = (originRect) => {
     if (reducedMotion.matches || !(image instanceof HTMLImageElement) || !originRect) return Promise.resolve()
+    // Capture the visible pose before cancelling; derive both poses from the untransformed image.
+    const currentRect = image.getBoundingClientRect()
+    const currentOpacity = getComputedStyle(image).opacity
+    image.getAnimations().forEach((animation) => animation.cancel())
+    image.style.transformOrigin = 'top left'
     const finalRect = image.getBoundingClientRect()
     if (!finalRect.width || !finalRect.height) return Promise.resolve()
+    const fromTransform = `translate3d(${currentRect.left - finalRect.left}px, ${currentRect.top - finalRect.top}px, 0) scale(${currentRect.width / finalRect.width}, ${currentRect.height / finalRect.height})`
     const scaleX = originRect.width / finalRect.width
     const scaleY = originRect.height / finalRect.height
     const translateX = originRect.left - finalRect.left
     const translateY = originRect.top - finalRect.top
-    image.getAnimations().forEach((animation) => animation.cancel())
-    image.style.transformOrigin = 'top left'
     const animation = image.animate(
       [
-        { transform: 'translate3d(0, 0, 0) scale(1)', opacity: 1 },
+        { transform: fromTransform, opacity: currentOpacity },
         { transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scaleX}, ${scaleY})`, opacity: .86 },
       ],
       { duration: 480, easing: 'cubic-bezier(.23, 1, .32, 1)', fill: 'both' },
@@ -91,6 +99,7 @@
     if (!dialog.open || closingPromise) return
     window.formulasearchAudio?.play('close', { volume: 0.22 })
     const originRect = getOpeningRect(opener) || openingRect
+    viewVersion += 1
     dialog.classList.add('is-closing')
     closingPromise = animateToThumbnail(originRect).then(() => {
       if (dialog.open) dialog.close()
@@ -136,6 +145,7 @@
   document.querySelectorAll('[data-photo-open]').forEach((button) => {
     button.addEventListener('click', async () => {
       if (!(button instanceof HTMLElement)) return
+      const version = ++viewVersion
       const originRect = getOpeningRect(button)
       opener = button
       openingRect = originRect
@@ -143,7 +153,7 @@
       if (cursor instanceof HTMLElement && cursor.parentElement !== dialog) dialog.append(cursor)
       dialog.showModal()
       await waitForImage()
-      animateFromThumbnail(originRect)
+      if (version === viewVersion && dialog.open && !closingPromise) animateFromThumbnail(originRect, version)
     })
   })
 
@@ -160,7 +170,11 @@
   })
   dialog.addEventListener('close', () => {
     if (image instanceof HTMLImageElement) image.getAnimations().forEach((animation) => animation.cancel())
-    if (image instanceof HTMLImageElement) image.removeAttribute('src')
+    viewVersion += 1
+    if (image instanceof HTMLImageElement) {
+      image.removeAttribute('src')
+      image.style.removeProperty('transform-origin')
+    }
     if (cursor instanceof HTMLElement && cursor.parentElement !== cursorHost) cursorHost.append(cursor)
     opener?.focus({ preventScroll: true })
     dialog.classList.remove('is-closing')

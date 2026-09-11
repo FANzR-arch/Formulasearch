@@ -8,7 +8,7 @@
     const root = document.documentElement
     const range = Math.max(0, root.scrollHeight - root.clientHeight)
     const progress = range > 0 ? Math.min(1, Math.max(0, root.scrollTop / range)) : 0
-    root.style.setProperty('--scroll-progress', String(progress))
+    progressRail.style.setProperty('--scroll-progress', String(progress))
     progressRail.classList.toggle('is-visible', range > 0)
   }
   const schedule = () => {
