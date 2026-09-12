@@ -139,7 +139,14 @@ const skillProjectSectionSchema = z.object({
   presentation: z.literal('skill-project'),
 }).strict()
 
-const catalogSectionSchema = z.union([catalogListSectionSchema, catalogProjectSectionSchema, skillGallerySectionSchema, skillProjectSectionSchema])
+const skillTypeSectionSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  title: localizedCopySchema,
+  repositoryUrl: z.url(),
+  presentation: z.literal('skill-type'),
+}).strict()
+
+const catalogSectionSchema = z.union([catalogListSectionSchema, catalogProjectSectionSchema, skillGallerySectionSchema, skillProjectSectionSchema, skillTypeSectionSchema])
 
 const catalogPageSchema = z.object({
   title: localizedCopySchema,

@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "requestId": "phil-carlos-20260912-v1",
+  "settings": {
+    "text": "Phil Carlos",
+    "targets": [
+      {
+        "id": "g4",
+        "index": 5,
+        "character": "C"
+      },
+      {
+        "id": "g5",
+        "index": 6,
+        "character": "a"
+      },
+      {
+        "id": "g6",
+        "index": 7,
+        "character": "r"
+      },
+      {
+        "id": "g7",
+        "index": 8,
+        "character": "l"
+      },
+      {
+        "id": "g8",
+        "index": 9,
+        "character": "o"
+      },
+      {
+        "id": "g9",
+        "index": 10,
+        "character": "s"
+      }
+    ],
+    "count": 4,
+    "align": "center"
+  },
+  "characters": {
+    "g4": [
+      {
+        "id": "g4-v1",
+        "src": "/uploads/skills/generative-hover-type/g4-v1.webp",
+        "style": "iridescent chrome balloon",
+        "metrics": {
+          "widthRatio": 0.56640625,
+          "heightRatio": 0.662109375,
+          "centerX": 0.4990234375
+        }
+      },
+      {
+        "id": "g4-v2",
+        "src": "/uploads/skills/generative-hover-type/g4-v2.webp",
+        "style": "blue white floral ceramic",
+        "metrics": {
+          "widthRatio": 0.70703125,
+          "heightRatio": 0.802734375,
+          "centerX": 0.5068359375
+        }
+      },
+      {
+        "id": "g4-v3",
+        "src": "/uploads/skills/generative-hover-type/g4-v3.webp",
+        "style": "green leaves and yellow flowers",
+        "metrics": {
+          "widthRatio": 0.7265625,
+          "heightRatio": 0.796875,
+          "centerX": 0.4951171875
+        }
+      },
+      {
+        "id": "g4-v4",
+        "src": "/uploads/skills/generative-hover-type/g4-v4.webp",
+        "style": "red gummy candy",
+        "metrics": {
+          "widthRatio": 0.703125,
+          "heightRatio": 0.798828125,
+          "centerX": 0.4990234375
+        }
+      }
+    ],
+    "g5": [
+      {
+        "id": "g5-v1",
+        "src": "/uploads/skills/generative-hover-type/g5-v1.webp",
+        "style": "puffy stitched lavender quilted fabric",
+        "metrics": {
+          "widthRatio": 0.69140625,
+          "heightRatio": 0.71875,
+          "centerX": 0.5185546875
+        }
+      },
+      {
+        "id": "g5-v2",
+        "src": "/uploads/skills/generative-hover-type/g5-v2.webp",
+        "style": "amber honey glass with trapped bubbles",
+        "metrics": {
+          "widthRatio": 0.7109375,
+          "heightRatio": 0.685546875,
+          "centerX": 0.4970703125
+        }
+      },
+      {
+        "id": "g5-v3",
+        "src": "/uploads/skills/generative-hover-type/g5-v3.webp",
+        "style": "folded coral orange paper with crisp origami facets",
+        "metrics": {
+          "widthRatio": 0.689453125,
+          "heightRatio": 0.73828125,
+          "centerX": 0.5234375
+        }
+      },
+      {
+        "id": "g5-v4",
+        "src": "/uploads/skills/generative-hover-type/g5-v4.webp",
+        "style": "carved dark walnut wood with flowing visible grain",
+        "metrics": {
+          "widthRatio": 0.681640625,
+          "heightRatio": 0.7265625,
+          "centerX": 0.513671875
+        }
+      }
+    ],
+    "g6": [
+      {
+        "id": "g6-v1",
+        "src": "/uploads/skills/generative-hover-type/g6-v1.webp",
+        "style": "brushed copper industrial tubing with small precise joints",
+        "metrics": {
+          "widthRatio": 0.294921875,
+          "heightRatio": 0.576171875,
+          "centerX": 0.529296875
+        }
+      },
+      {
+        "id": "g6-v2",
+        "src": "/uploads/skills/generative-hover-type/g6-v2.webp",
+        "style": "dense soft hot pink faux fur",
+        "metrics": {
+          "widthRatio": 0.46484375,
+          "heightRatio": 0.73046875,
+          "centerX": 0.5244140625
+        }
+      },
+      {
+        "id": "g6-v3",
+        "src": "/uploads/skills/generative-hover-type/g6-v3.webp",
+        "style": "pale mint glazed porcelain with gold seam accents",
+        "metrics": {
+          "widthRatio": 0.59765625,
+          "heightRatio": 0.703125,
+          "centerX": 0.5263671875
+        }
+      },
+      {
+        "id": "g6-v4",
+        "src": "/uploads/skills/generative-hover-type/g6-v4.webp",
+        "style": "golden flaky laminated pastry",
+        "metrics": {
+          "widthRatio": 0.5703125,
+          "heightRatio": 0.73046875,
+          "centerX": 0.5419921875
+        }
+      }
+    ],
+    "g7": [
+      {
+        "id": "g7-v1",
+        "src": "/uploads/skills/generative-hover-type/g7-v1.webp",
+        "style": "twisted turquoise and cream woven rope",
+        "metrics": {
+          "widthRatio": 0.220703125,
+          "heightRatio": 0.8203125,
+          "centerX": 0.5546875
+        }
+      },
+      {
+        "id": "g7-v2",
+        "src": "/uploads/skills/generative-hover-type/g7-v2.webp",
+        "style": "inflated glossy lemon yellow vinyl",
+        "metrics": {
+          "widthRatio": 0.25,
+          "heightRatio": 0.818359375,
+          "centerX": 0.5263671875
+        }
+      },
+      {
+        "id": "g7-v3",
+        "src": "/uploads/skills/generative-hover-type/g7-v3.webp",
+        "style": "stacked translucent violet crystal facets",
+        "metrics": {
+          "widthRatio": 0.23046875,
+          "heightRatio": 0.873046875,
+          "centerX": 0.5224609375
+        }
+      },
+      {
+        "id": "g7-v4",
+        "src": "/uploads/skills/generative-hover-type/g7-v4.webp",
+        "style": "green botanical stem tightly wrapped in small leaves",
+        "metrics": {
+          "widthRatio": 0.189453125,
+          "heightRatio": 0.85546875,
+          "centerX": 0.525390625
+        }
+      }
+    ],
+    "g8": [
+      {
+        "id": "g8-v1",
+        "src": "/uploads/skills/generative-hover-type/g8-v1.webp",
+        "style": "clear icy blue glass with delicate frost",
+        "metrics": {
+          "widthRatio": 0.56640625,
+          "heightRatio": 0.552734375,
+          "centerX": 0.4990234375
+        }
+      },
+      {
+        "id": "g8-v2",
+        "src": "/uploads/skills/generative-hover-type/g8-v2.webp",
+        "style": "handwoven orange and magenta yarn",
+        "metrics": {
+          "widthRatio": 0.626953125,
+          "heightRatio": 0.630859375,
+          "centerX": 0.501953125
+        }
+      },
+      {
+        "id": "g8-v3",
+        "src": "/uploads/skills/generative-hover-type/g8-v3.webp",
+        "style": "pink frosted dough with multicolor sprinkles integrated on surface",
+        "metrics": {
+          "widthRatio": 0.60546875,
+          "heightRatio": 0.59765625,
+          "centerX": 0.4990234375
+        }
+      },
+      {
+        "id": "g8-v4",
+        "src": "/uploads/skills/generative-hover-type/g8-v4.webp",
+        "style": "polished dark green marble with white mineral veins",
+        "metrics": {
+          "widthRatio": 0.63671875,
+          "heightRatio": 0.61328125,
+          "centerX": 0.4990234375
+        }
+      }
+    ],
+    "g9": [
+      {
+        "id": "g9-v1",
+        "src": "/uploads/skills/generative-hover-type/g9-v1.webp",
+        "style": "liquid polished silver metal with flowing rounded contours",
+        "metrics": {
+          "widthRatio": 0.50390625,
+          "heightRatio": 0.640625,
+          "centerX": 0.5009765625
+        }
+      },
+      {
+        "id": "g9-v2",
+        "src": "/uploads/skills/generative-hover-type/g9-v2.webp",
+        "style": "bright red and cream striped hard candy",
+        "metrics": {
+          "widthRatio": 0.5234375,
+          "heightRatio": 0.703125,
+          "centerX": 0.5048828125
+        }
+      },
+      {
+        "id": "g9-v3",
+        "src": "/uploads/skills/generative-hover-type/g9-v3.webp",
+        "style": "layered ultramarine torn paper with visible edges",
+        "metrics": {
+          "widthRatio": 0.544921875,
+          "heightRatio": 0.736328125,
+          "centerX": 0.51171875
+        }
+      },
+      {
+        "id": "g9-v4",
+        "src": "/uploads/skills/generative-hover-type/g9-v4.webp",
+        "style": "soft peach velvet with stitched seams",
+        "metrics": {
+          "widthRatio": 0.58984375,
+          "heightRatio": 0.755859375,
+          "centerX": 0.4990234375
+        }
+      }
+    ]
+  }
+}

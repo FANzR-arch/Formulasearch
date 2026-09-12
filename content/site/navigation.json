@@ -150,6 +150,17 @@
           }
         },
         {
+          "href": "/skills#generative-hover-type",
+          "label": {
+            "zh": "Generative Hover Type skill",
+            "en": "Generative Hover Type skill"
+          },
+          "note": {
+            "zh": "生成式文字悬停互动",
+            "en": "Generative typography on hover"
+          }
+        },
+        {
           "href": "/skills#numerologist-skills",
           "label": {
             "zh": "Numerologist Skills",

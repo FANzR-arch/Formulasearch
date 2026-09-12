@@ -42,4 +42,8 @@ Blog 完整正文的路由由 frontmatter 的 `contentLanguage` 决定：`zh-Han
 
 目录清单由 `src/data/catalog.ts` 在构建时做结构校验。修改 `catalog.json` 后运行 `npm run build`，即可同时检查三组目录的结构和双语字段。
 
+文字卡片中的 Carlos 自动从左到右、从右到左交替变换，每轮 2 秒、轮间恢复原字并静止 2 秒。卡片至少四分之一进入视口且素材预载完成后开始计时；鼠标移入、键盘聚焦、页面隐藏或减少动态模式会暂停自动播放，恢复播放前等待 2 秒。
+
+Skills 的 `skill-type` 区块只需中英文标题与仓库链接，当前位于命理 Skill 之前。`GenerativeHoverType.astro` 渲染不含编辑器的文字互动；`src/data/hover-type.json` 按字母出现位置维护 24 个素材及可见边界，公开 WebP 位于 `public/uploads/skills/generative-hover-type/`，交互脚本为 `public/scripts/generative-hover-type.js`。悬停离开延迟 180 毫秒，聚焦支持键盘操作，减少动态模式不延迟；素材进入视口附近后才预载。原始 PNG 与独立编辑器保留在 `D:/00_Formula/00_webdesign/phil-carlos-hover-type/`，网站不依赖该本地目录。
+
 建筑档案由 `src/data/architecture.ts` 在构建时校验项目 slug、封面归属、图片唯一性、布局、标签和双语文案。通过 Keystatic 新增项目或图片后运行“准备预览”，即可同时验证 Astro 图片优化和项目路由。

@@ -5,6 +5,7 @@ import PageHero from './PageHero.astro'
 import ProjectCard from './ProjectCard.astro'
 import ProjectShowcase from './ProjectShowcase.astro'
 import ProjectVideos from './ProjectVideos.astro'
+import GenerativeHoverType from './GenerativeHoverType.astro'
 import type { CatalogPage, CatalogSection } from '../data/catalog'
 import type { Locale } from '../lib/i18n'
 
@@ -108,6 +109,8 @@ const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
           </div>
         </div>
       </section>
+    ) : section.presentation === 'skill-type' ? (
+      <GenerativeHoverType section={section} locale={locale} />
     ) : section.presentation === 'skill-project' ? (
       <section id={section.id} class="skill-project" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
         <a class="skill-project__media" href={section.repositoryUrl} target="_blank" rel="noopener noreferrer" aria-label={locale === 'zh' ? `查看 ${section.title.zh} 仓库` : `Visit the ${section.title.en} repository`}>

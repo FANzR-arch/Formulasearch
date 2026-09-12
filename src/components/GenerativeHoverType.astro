@@ -1,0 +1,51 @@
+---
+import Icon from './icon-system/Icon.astro'
+import LocalizedText from './LocalizedText.astro'
+import type { CatalogSection } from '../data/catalog'
+import type { Locale } from '../lib/i18n'
+import manifest from '../data/hover-type.json'
+
+interface Props {
+  section: Extract<CatalogSection, { presentation: 'skill-type' }>
+  locale: Locale
+}
+const { section, locale } = Astro.props
+---
+
+<section id={section.id} class="hover-type" aria-labelledby={`${section.id}-heading`}>
+  <header class="hover-type__heading">
+    <h2 id={`${section.id}-heading`}>
+      <a href={section.repositoryUrl} target="_blank" rel="noopener noreferrer">
+        <LocalizedText {...section.title} />
+        <Icon name="catalog-external" role="meta" />
+      </a>
+    </h2>
+  </header>
+  <div class="hover-type__stage" data-hover-type data-manifest={JSON.stringify(manifest)} data-locale={locale}>
+    <p class="hover-type__title" data-type-title role="group" aria-label="Phil Carlos">Phil Carlos</p>
+  </div>
+</section>
+
+<script is:inline src="/scripts/generative-hover-type.js"></script>
+
+<style is:global>
+  .hover-type { display: flex; flex-direction: column; align-items: center; min-height: 280px; gap: 16px; margin: 12px 0 30px; padding: 26px 32px 30px; border: 1px solid var(--hairline); border-radius: 24px; background: var(--paper); }
+  .hover-type__heading { width: 100%; }
+  .hover-type__heading h2 { margin: 0; font-size: 1rem; font-weight: 700; letter-spacing: -.015em; }
+  .hover-type__heading a { display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--ink); }
+  .hover-type__heading a:hover { color: var(--accent); }
+  .hover-type__heading a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+  .hover-type__heading .icon { flex: none; }
+  .hover-type__stage { display: grid; align-items: center; flex: 1; width: 100%; max-width: 900px; min-width: 0; container-type: inline-size; padding-block: 22px; }
+  .hover-type__title { margin: 0; text-align: center; font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif; font-size: clamp(32px, 7.4vw, 100px); font-size: clamp(24px, 12cqi, 100px); font-weight: 400; letter-spacing: -.035em; line-height: 1.1; white-space: nowrap; color: var(--ink); }
+  .hover-type .glyph { --shift-x: 0px; --shift-y: 0px; position: relative; display: inline-block; transform: translate3d(var(--shift-x), var(--shift-y), 0); transition: transform 240ms cubic-bezier(.77,0,.175,1); }
+  .hover-type .glyph__text { opacity: 1; transition: opacity 150ms var(--ease-out); }
+  .hover-type .glyph--active .glyph__text { opacity: 0; }
+  .hover-type .glyph--interactive { cursor: crosshair; outline: none; }
+  .hover-type .glyph--interactive:focus-visible { outline: 1px dotted var(--accent); outline-offset: 4px; }
+  .hover-type .glyph__image { --pointer-x: 0px; --pointer-y: 0px; --asset-tilt: 0deg; position: absolute; left: 50%; bottom: -.06em; width: auto; max-width: none; pointer-events: none; opacity: 0; transform: translate3d(calc(-50% + var(--asset-offset-x, 0px) + var(--pointer-x)),calc(7% + var(--pointer-y)),0) rotate(calc(var(--asset-tilt) * -.35)) scale(.9); transform-origin: 50% 78%; transition: opacity 160ms var(--ease-out), transform 230ms var(--ease-out); z-index: 2; }
+  .hover-type .glyph--active { z-index: 1; }
+  .hover-type .glyph--active .glyph__image { opacity: 1; transform: translate3d(calc(-50% + var(--asset-offset-x, 0px) + var(--pointer-x)),var(--pointer-y),0) rotate(var(--asset-tilt)) scale(1); }
+  @media (max-width: 700px) { .hover-type { min-height: 220px; gap: 16px; margin-block: 8px 24px; padding: 20px 18px 24px; } .hover-type__heading h2 { font-size: .9rem; } .hover-type__stage { padding-block: 22px; } }
+  @media (prefers-reduced-motion: reduce) { .hover-type .glyph,.hover-type .glyph__text,.hover-type .glyph__image { transition-duration: 80ms; } .hover-type .glyph { --shift-x: 0px !important; --shift-y: 0px !important; } .hover-type .glyph__image { --pointer-x: 0px !important; --pointer-y: 0px !important; --asset-tilt: 0deg !important; } }
+</style>

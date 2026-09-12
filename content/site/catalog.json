@@ -1805,6 +1805,15 @@
       "presentation": "skill-gallery"
     },
     {
+      "id": "generative-hover-type",
+      "title": {
+        "zh": "Generative Hover Type skill",
+        "en": "Generative Hover Type skill"
+      },
+      "repositoryUrl": "https://github.com/FANzR-arch/generative-hover-type",
+      "presentation": "skill-type"
+    },
+    {
       "id": "numerologist-skills",
       "label": "02",
       "title": {
