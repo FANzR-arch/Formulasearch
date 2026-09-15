@@ -1502,6 +1502,20 @@
       },
       "presentation": "projects",
       "items": []
+    },
+    {
+      "id": "consulting-training",
+      "label": "08",
+      "title": {
+        "zh": "AI 咨询与培训",
+        "en": "AI Consulting & Training"
+      },
+      "description": {
+        "zh": "围绕个人与团队的实际需求，提供 AI 工具选型、工作流梳理与实操培训，帮助将 AI 用到具体工作中。",
+        "en": "Practical guidance for individuals and teams on AI tool selection, workflow design, and hands-on training to bring AI into everyday work."
+      },
+      "presentation": "projects",
+      "items": []
     }
   ],
   "skills": [

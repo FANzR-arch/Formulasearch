@@ -949,7 +949,7 @@ test('static preview server rejects paths outside dist', async () => {
 })
 test('catalog pages omit index navigation and section numbers', async ({ page }) => {
   const catalogPages = [
-    { route: '/projects', catalogSections: 0, skillFeatures: 0, skillProjects: 0, projectGroups: 7 },
+    { route: '/projects', catalogSections: 0, skillFeatures: 0, skillProjects: 0, projectGroups: 8 },
     { route: '/skills', catalogSections: 1, skillFeatures: 1, skillProjects: 1, projectGroups: 0 },
     { route: '/lab', catalogSections: 2, skillFeatures: 0, skillProjects: 0, projectGroups: 1 },
   ]
