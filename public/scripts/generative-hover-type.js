@@ -64,9 +64,13 @@
   async function activate(glyph) {
     clearTimeout(glyph.leaveTimer);
     glyph.leaveTimer = null;
-    titleElement.querySelectorAll(".glyph--interactive").forEach((other) => {
-      if (other !== glyph && (other.activationRequest || other.leaveTimer || other.classList.contains("glyph--active"))) deactivate(other);
-    });
+    clearTimeout(glyph.exitTimer);
+    glyph.exitTimer = null;
+    if (glyph.classList.contains("glyph--exiting")) {
+      glyph.classList.remove("glyph--exiting");
+      glyph.classList.add("glyph--active");
+      return;
+    }
     if (glyph.classList.contains("glyph--active")) return;
     const request = Symbol();
     glyph.activationRequest = request;
@@ -109,36 +113,40 @@
   }
 
   function deactivate(glyph) {
+    clearTimeout(glyph.exitTimer);
+    glyph.exitTimer = null;
     clearTimeout(glyph.leaveTimer);
     glyph.leaveTimer = null;
     glyph.activationRequest = null;
-    glyph.classList.remove("glyph--active");
+    glyph.classList.remove("glyph--active", "glyph--exiting");
     const image = glyph.querySelector(".glyph__image");
     image?.style.setProperty("--pointer-x", "0px");
     image?.style.setProperty("--pointer-y", "0px");
     delete glyph.dataset.variant;
-    resetShifts();
+    if (!titleElement.querySelector('.glyph--active, .glyph--exiting')) resetShifts();
   }
 
   function scheduleDeactivate(glyph) {
-    // Cancel pending image decoding immediately; retain the visible variant briefly.
+    // Each letter recovers independently, so a moving pointer leaves a fading trail.
     glyph.activationRequest = null;
     clearTimeout(glyph.leaveTimer);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       deactivate(glyph);
       return;
     }
-    glyph.leaveTimer = setTimeout(() => {
-      glyph.leaveTimer = null;
-      if (glyph.isConnected) deactivate(glyph);
-    }, 180);
+    glyph.leaveTimer = null;
+    if (!glyph.isConnected || glyph.classList.contains('glyph--exiting')) return;
+    if (!glyph.classList.contains('glyph--active')) { deactivate(glyph); return; }
+    glyph.classList.remove('glyph--active');
+    glyph.classList.add('glyph--exiting');
+    glyph.exitTimer = setTimeout(() => deactivate(glyph), 450);
   }
 
   function followPointer(glyph, event) {
     if (!glyph.classList.contains("glyph--active")) return;
     const bounds = glyph.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / Math.max(bounds.width, 1) - .5;
-    const y = (event.clientY - bounds.top) / Math.max(bounds.height, 1) - .5;
+    const x = Math.max(-.5, Math.min(.5, (event.clientX - bounds.left) / Math.max(bounds.width, 1) - .5));
+    const y = Math.max(-.5, Math.min(.5, (event.clientY - bounds.top) / Math.max(bounds.height, 1) - .5));
     const image = glyph.querySelector(".glyph__image");
     image.style.setProperty("--pointer-x", `${x * 5}px`);
     image.style.setProperty("--pointer-y", `${y * 3}px`);
@@ -168,9 +176,6 @@
         image.className = "glyph__image";
         image.alt = "";
         glyph.append(image);
-        glyph.addEventListener("pointerenter", () => activate(glyph));
-        glyph.addEventListener("pointermove", (event) => followPointer(glyph, event));
-        glyph.addEventListener("pointerleave", () => scheduleDeactivate(glyph));
         glyph.addEventListener("focus", () => activate(glyph));
         glyph.addEventListener("blur", () => deactivate(glyph));
       }
@@ -182,6 +187,32 @@
       renderTitle();
       const card = host.closest('.hover-type');
       const glyphs = [...titleElement.querySelectorAll('.glyph--interactive')];
+      const allGlyphs = [...titleElement.querySelectorAll('.glyph')].filter(glyph => glyph.dataset.targetId);
+      let pointerGlyph = null;
+      function trackPointer(event) {
+        if (event.pointerType === 'touch') return;
+        // Hit-test the original layout, so animated avoidance never moves the target away.
+        let closest = null, distance = Infinity;
+        allGlyphs.forEach(glyph => {
+          const rect = glyph.getBoundingClientRect();
+          const transform = new DOMMatrixReadOnly(getComputedStyle(glyph).transform);
+          const left = rect.left - transform.m41, top = rect.top - transform.m42;
+          if (event.clientX < left - 18 || event.clientX > left + rect.width + 18 || event.clientY < top - 26 || event.clientY > top + rect.height + 26) return;
+          const nextDistance = Math.abs(event.clientX - left - rect.width / 2);
+          if (nextDistance < distance) { closest = glyph; distance = nextDistance; }
+        });
+        if (!closest?.classList.contains('glyph--interactive')) closest = null;
+        if (closest !== pointerGlyph) {
+          if (pointerGlyph) scheduleDeactivate(pointerGlyph);
+          pointerGlyph = closest;
+          if (pointerGlyph) activate(pointerGlyph);
+        }
+        if (pointerGlyph) followPointer(pointerGlyph, event);
+      }
+      function releasePointer() {
+        if (pointerGlyph) scheduleDeactivate(pointerGlyph);
+        pointerGlyph = null;
+      }
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let visible = false, ready = false, disposed = false, pointerInside = false;
       let timer = null, autoGlyph = null, direction = 1;
@@ -190,7 +221,7 @@
       function stopAuto() {
         clearTimeout(timer);
         timer = null;
-        if (autoGlyph) deactivate(autoGlyph);
+        if (autoGlyph) scheduleDeactivate(autoGlyph);
         autoGlyph = null;
         host.dataset.autoplay = 'paused';
       }
@@ -205,13 +236,14 @@
         function step() {
           if (!canPlay()) { stopAuto(); return; }
           if (index === order.length) {
-            if (autoGlyph) deactivate(autoGlyph);
+            if (autoGlyph) scheduleDeactivate(autoGlyph);
             autoGlyph = null;
             direction *= -1;
             host.dataset.autoplay = 'resting';
-            timer = setTimeout(playRound, 2000);
+            timer = setTimeout(playRound, 1000);
             return;
           }
+          if (autoGlyph) scheduleDeactivate(autoGlyph);
           autoGlyph = order[index++];
           activate(autoGlyph);
           // Fixed two-second traversal, independent of image decode and timer drift.
@@ -222,16 +254,17 @@
       function resumeAuto() {
         if (timer !== null || !canPlay()) return;
         host.dataset.autoplay = 'resting';
-        timer = setTimeout(playRound, 2000);
+        timer = setTimeout(playRound, 1000);
       }
       function syncPlayback() {
         if (canPlay()) resumeAuto();
         else stopAuto();
       }
       const enter = () => { pointerInside = true; stopAuto(); };
-      const leave = () => { pointerInside = false; resumeAuto(); };
+      const leave = () => { releasePointer(); pointerInside = false; resumeAuto(); };
       const focusOut = () => queueMicrotask(syncPlayback);
       card.addEventListener('pointerenter', enter);
+      card.addEventListener('pointermove', trackPointer);
       card.addEventListener('pointerleave', leave);
       card.addEventListener('focusin', stopAuto, true);
       card.addEventListener('focusout', focusOut);
@@ -250,7 +283,7 @@
         observer.disconnect();
       }, {rootMargin:'250px'});
       observer.observe(host);
-      const resize = () => { stopAuto(); reset(); resumeAuto(); };
+      const resize = () => { pointerGlyph = null; stopAuto(); reset(); resumeAuto(); };
       window.addEventListener('resize', resize);
       document.addEventListener('astro:before-swap', () => {
         disposed = true; stopAuto(); observer.disconnect(); visibilityObserver.disconnect(); reset();
@@ -258,6 +291,7 @@
         document.removeEventListener('visibilitychange', syncPlayback);
         reducedMotion.removeEventListener('change', syncPlayback);
         card.removeEventListener('pointerenter', enter);
+        card.removeEventListener('pointermove', trackPointer);
         card.removeEventListener('pointerleave', leave);
         card.removeEventListener('focusin', stopAuto, true);
         card.removeEventListener('focusout', focusOut);
