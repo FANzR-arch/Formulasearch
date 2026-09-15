@@ -2,6 +2,9 @@ import { expect, test } from '@playwright/test'
 
 test('closing a photo during expansion keeps its visible pose continuous', async ({ page }) => {
   await page.goto('/photos')
+  // Keep the thumbnail fixed while measuring the viewer's expansion/close poses.
+  await page.locator('[data-photo-open]').first().focus()
+  await expect(page.locator('[data-photo-drift]')).toHaveClass(/is-static/)
   await page.locator('[data-photo-open]').first().click()
   const image = page.locator('[data-photo-lightbox-image]')
   await expect.poll(() => image.evaluate(el => el.getAnimations().length)).toBeGreaterThan(0)

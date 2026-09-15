@@ -2,6 +2,7 @@
 import ArchiveRecord from './ArchiveRecord.astro'
 import LocalizedText from './LocalizedText.astro'
 import PhotoAccordionGallery from './PhotoAccordionGallery.astro'
+import PhotoDriftWall from './PhotoDriftWall.astro'
 import { uiCopy } from '../data/ui-copy'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
 import Icon from './icon-system/Icon.astro'
@@ -45,7 +46,6 @@ interface Props {
 const { active, autoLoadBatchSize, description, eagerImageCount, filters, initialVisibleCount, items, locale = 'zh', title } = Astro.props
 const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, locale)
 const initialVisibleItems = initialVisibleCount === 'all' ? items.length : Math.min(initialVisibleCount, items.length)
-const photoColumns = Array.from({ length: 3 }, () => ({ items: [] as Array<{ item: ArchiveItem; index: number }>, height: 0 }))
 // Featured order is independent of the full photo archive below.
 const featuredPhotoFiles = ['020', '021', '029', '038', '044', '030']
 const featuredPhotos = active === 'photos' ? featuredPhotoFiles.map((number) => {
@@ -55,13 +55,6 @@ const featuredPhotos = active === 'photos' ? featuredPhotoFiles.map((number) => 
   return item
 }) : []
 
-if (active === 'photos') {
-  items.forEach((item, index) => {
-    const shortestColumn = photoColumns.reduce((shortest, column) => column.height < shortest.height ? column : shortest)
-    shortestColumn.items.push({ item, index })
-    shortestColumn.height += (item.height ?? 1) / (item.width ?? 1)
-  })
-}
 ---
 
 <section class:list={['visual-archive', { 'visual-archive--photos': active === 'photos' }]} aria-labelledby="archive-title" data-archive-batch-size={autoLoadBatchSize}>
@@ -84,13 +77,7 @@ if (active === 'photos') {
 
   <div id="archive-grid" class:list={['visual-archive__grid', { 'visual-archive__grid--masonry': active === 'photos' }]} data-archive-grid>
     {active === 'photos' ? (
-      <div class="archive-masonry">
-        {photoColumns.map((column) => (
-          <div class="archive-masonry__column">
-            {column.items.map(({ item, index }) => <ArchiveRecord active={active} eager={index < eagerImageCount} item={item} index={index} initialHidden={index >= initialVisibleItems} locale={locale} />)}
-          </div>
-        ))}
-      </div>
+      <PhotoDriftWall items={items} locale={locale} />
     ) : items.map((item, index) => <ArchiveRecord active={active} eager={index < eagerImageCount} item={item} index={index} initialHidden={index >= initialVisibleItems} locale={locale} />)}
   </div>
 
@@ -121,7 +108,7 @@ if (active === 'photos') {
 
   <p class="visually-hidden" data-archive-status data-status-zh={uiCopy.archive.results.zh} data-status-en={uiCopy.archive.results.en} role="status" aria-live="polite"></p>
 
-  {items.length > initialVisibleItems && <div class="visual-archive__sentinel" data-archive-sentinel aria-hidden="true"></div>}
+  {active !== 'photos' && items.length > initialVisibleItems && <div class="visual-archive__sentinel" data-archive-sentinel aria-hidden="true"></div>}
 
   <footer class="visual-archive__note" data-site-reveal>
     <p><LocalizedText {...uiCopy.archive.note} /></p>

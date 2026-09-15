@@ -142,8 +142,8 @@
     if (locationRow instanceof HTMLElement) locationRow.hidden = !locationValue
   }
 
-  document.querySelectorAll('[data-photo-open]').forEach((button) => {
-    button.addEventListener('click', async () => {
+  document.addEventListener('click', async (event) => {
+      const button = event.target instanceof Element ? event.target.closest('[data-photo-open]') : null
       if (!(button instanceof HTMLElement)) return
       const version = ++viewVersion
       const originRect = getOpeningRect(button)
@@ -154,7 +154,6 @@
       dialog.showModal()
       await waitForImage()
       if (version === viewVersion && dialog.open && !closingPromise) animateFromThumbnail(originRect, version)
-    })
   })
 
   image?.addEventListener('load', updateOrientation)

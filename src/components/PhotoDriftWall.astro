@@ -1,0 +1,21 @@
+---
+import type { ComponentProps } from 'astro/types'
+import ArchiveRecord from './ArchiveRecord.astro'
+import type { Locale } from '../lib/i18n'
+import '../styles/photo-drift-wall.css'
+
+interface Props {
+  items: ComponentProps<typeof ArchiveRecord>['item'][]
+  locale: Locale
+}
+const { items, locale } = Astro.props
+---
+
+<section class="photo-drift" data-photo-drift aria-label={locale === 'en' ? 'Drifting photo wall' : '漂移照片墙'} data-aria-zh="漂移照片墙" data-aria-en="Drifting photo wall">
+  <div class="photo-drift__viewport">
+    <div class="photo-drift__plane">
+      {items.map((item, index) => <ArchiveRecord active="photos" eager={false} item={item} index={index} initialHidden={false} locale={locale} />)}
+    </div>
+  </div>
+</section>
+<script is:inline src="/scripts/photo-drift-wall.js"></script>

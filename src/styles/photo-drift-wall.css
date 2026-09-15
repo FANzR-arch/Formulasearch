@@ -1,0 +1,21 @@
+/* Three gently drifting columns. Preserve every photograph's ratio and color. */
+.photo-drift { --drift-columns: 3; --drift-gap: 18px; --drift-radius: 9px; }
+.photo-drift__plane { display: grid; grid-template-columns: repeat(var(--drift-columns), minmax(0, 1fr)); gap: 18px; }
+.photo-drift.is-running .photo-drift__viewport { padding-bottom: 48px; }
+.photo-drift.is-running .photo-drift__plane { display: flex; align-items: flex-start; gap: var(--drift-gap); }
+.photo-drift__column { width: calc((100% - (var(--drift-columns) - 1) * var(--drift-gap)) / var(--drift-columns)); flex: none; }
+.photo-drift__track { will-change: transform; }
+.photo-drift.is-running .archive-record { position: relative; width: 100%; padding: 0 0 var(--drift-gap); overflow: visible; border-radius: 0; }
+.photo-drift.is-running .archive-record__open { position: relative; width: 100%; aspect-ratio: var(--archive-photo-aspect-ratio, 1); border-radius: 9px; transform: translateZ(0); transition: transform .42s cubic-bezier(.22,1,.36,1), box-shadow .42s cubic-bezier(.22,1,.36,1); }
+.photo-drift .archive-record img { object-fit: contain; filter: none; transform: none; }
+.photo-drift.is-running .archive-record img { opacity: 1; }
+.photo-drift.is-running .archive-record[data-media-ready='false'] img { opacity: 1; }
+.photo-drift.is-running .archive-record:hover .archive-record__open { transform: translateZ(72px); box-shadow: 0 24px 60px -18px #000b; }
+.photo-drift .archive-record:hover img { filter: none; transform: none; }
+.photo-drift.is-static .photo-drift__column, .photo-drift.is-static .photo-drift__track { display: contents; }
+@media (max-width: 680px) {
+  .photo-drift { --drift-columns: 2; }
+}
+
+.visual-archive--photos .photo-accordion { margin-bottom: 0; }
+.visual-archive--photos .visual-archive__grid { position: relative; margin-top: clamp(38px, 4vw, 56px); padding-top: clamp(22px, 2.5vw, 32px); border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); }

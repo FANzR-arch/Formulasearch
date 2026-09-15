@@ -665,42 +665,90 @@ test('photo selection remains readable when reduced motion is requested', async 
   await expect(page.locator('html')).not.toHaveClass(/site-motion-pending/)
 })
 
-test('photo archive keeps a stable masonry layout while images lazy-load', async ({ page }) => {
+test('photo drift wall alternates motion and keeps all originals available in static mode', async ({ page }) => {
   await page.goto('/photos')
-
-  await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe('auto')
-  const records = page.locator('[data-archive-index]:not([hidden])')
-  const status = page.locator('[data-archive-status]')
-  const sentinel = page.locator('[data-archive-sentinel]')
-  await expect(sentinel).toHaveCount(1)
-  await expect(records).toHaveCount(8)
-  await expect(page.locator('.archive-masonry')).toBeVisible()
-  await expect(page.locator('.archive-masonry__column')).toHaveCount(3)
-  const firstArchiveImage = page.locator('#archive-grid img').first()
-  await expect(firstArchiveImage).toHaveAttribute('srcset', /-960\.webp/)
-  await expect.poll(() => firstArchiveImage.evaluate((image) => new URL(image.currentSrc).pathname)).toMatch(/-960\.webp$/)
-  const before = await records.evaluateAll((elements) => elements.map((element) => {
-    const rect = element.getBoundingClientRect()
-    return { index: element.getAttribute('data-archive-index'), left: rect.left, top: rect.top + window.scrollY }
-  }))
-  await sentinel.scrollIntoViewIfNeeded()
-  await expect.poll(() => records.count()).toBe(16)
-  const after = await page.locator('[data-archive-record]:not([hidden])').evaluateAll((elements, initial) => elements
-    .filter((element) => initial.some((entry) => entry.index === element.getAttribute('data-archive-index')))
-    .map((element) => {
-      const rect = element.getBoundingClientRect()
-      return { index: element.getAttribute('data-archive-index'), left: rect.left, top: rect.top + window.scrollY }
-    }), before)
-  expect(after.map((entry) => entry.index)).toEqual(before.map((entry) => entry.index))
-  after.forEach((entry, index) => {
-    expect(Math.abs(entry.left - before[index].left)).toBeLessThan(.5)
-    expect(Math.abs(entry.top - before[index].top)).toBeLessThan(.5)
+  const wall = page.locator('[data-photo-drift]')
+  await wall.scrollIntoViewIfNeeded()
+  await page.mouse.move(5, 5)
+  await expect(wall).toHaveClass(/is-running/)
+  await expect(wall.locator('.photo-drift__column')).toHaveCount(3)
+  await expect(wall.locator('[data-archive-record]')).toHaveCount(50)
+  const photo = wall.locator('[data-archive-record] img').first()
+  await expect(photo).toHaveCSS('filter', 'none')
+  await expect(photo).toHaveCSS('object-fit', 'contain')
+  const ratio = await photo.evaluate(image => {
+    const style = getComputedStyle(image)
+    return { displayed: parseFloat(style.width) / parseFloat(style.height), original: Number(image.getAttribute('width')) / Number(image.getAttribute('height')) }
   })
-
+  expect(Math.abs(ratio.displayed - ratio.original)).toBeLessThan(.01)
+  await expect(page.locator('[data-archive-sentinel]')).toHaveCount(0)
+  const tracks = wall.locator('.photo-drift__track')
+  const heights = await tracks.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().height))
+  expect(Math.max(...heights) - Math.min(...heights)).toBeLessThan(60)
+  const position = () => tracks.evaluateAll(elements => elements.map(el => new DOMMatrixReadOnly(getComputedStyle(el).transform).m42))
+  const before = await position()
+  await expect.poll(async () => (await position())[0]).toBeLessThan(before[0] - 1)
+  const after = await position()
+  expect(after[1]).toBeGreaterThan(before[1])
+  await expect(wall.locator('[data-drift-toggle]')).toHaveCount(0)
+  const geometry = await wall.evaluate(element => {
+    const columns = [...element.querySelectorAll('.photo-drift__column')]
+    const records = columns[0].querySelectorAll('.archive-record__open')
+    return {
+      horizontal: columns[1].getBoundingClientRect().left - columns[0].getBoundingClientRect().right,
+      vertical: records[1].getBoundingClientRect().top - records[0].getBoundingClientRect().bottom,
+      radius: getComputedStyle(records[0]).borderRadius,
+      height: element.querySelector('.photo-drift__viewport').clientHeight,
+      allInside: [...element.querySelectorAll('[data-photo-open]')].every(photo => {
+        const bounds = photo.getBoundingClientRect()
+        const area = element.getBoundingClientRect()
+        return bounds.top >= area.top && bounds.bottom <= area.bottom
+      }),
+    }
+  })
+  expect(Math.abs(geometry.horizontal - geometry.vertical)).toBeLessThan(.1)
+  expect(geometry.radius).toBe('9px')
+  expect(geometry.height).toBeGreaterThanOrEqual(1400)
+  expect(geometry.allInside).toBe(true)
+  await expect(wall.locator('[data-drift-copy]')).toHaveCount(0)
+  const bounds = await wall.boundingBox()
+  const viewportSize = page.viewportSize()
+  const pointerY = Math.max(100, bounds.y + 60)
+  await page.mouse.move(bounds.x + bounds.width * .85, Math.min(pointerY, viewportSize.height - 60))
+  const planeX = () => wall.locator('.photo-drift__plane').evaluate(element => new DOMMatrixReadOnly(getComputedStyle(element).transform).m41)
+  await expect.poll(planeX).toBeGreaterThan(4)
+  await page.mouse.move(5, 5)
+  await expect.poll(async () => Math.abs(await planeX())).toBeLessThan(.1)
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await expect(wall).toHaveClass(/is-static/)
+  await expect(wall.locator('[data-drift-copy]')).toHaveCount(0)
+  await expect(wall.locator('[data-photo-open]')).toHaveCount(50)
+  await wall.locator('[data-photo-open]').last().scrollIntoViewIfNeeded()
+  await expect(wall.locator('[data-photo-open]').last()).toBeInViewport()
+  await wall.locator('[data-photo-open]').last().press('Enter')
+  await expect(page.locator('[data-photo-lightbox-image]')).toHaveAttribute('src', /photo-050\.webp$/)
+  await page.keyboard.press('Escape')
+  await expect(page.locator('[data-photo-lightbox]')).not.toHaveAttribute('open')
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await expect(wall).toHaveClass(/is-running/)
   await page.locator('#language-toggle').click()
-  await expect(status).toContainText('Showing')
+  await expect(page.locator('[data-archive-status]')).toContainText('Showing')
 })
 
+test('photo drift wall adapts to mobile and reduced motion', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/photos')
+  const wall = page.locator('[data-photo-drift]')
+  await wall.scrollIntoViewIfNeeded()
+  await expect(wall.locator('.photo-drift__column')).toHaveCount(2)
+  const heights = await wall.locator('.photo-drift__track').evaluateAll(elements => elements.map(element => element.getBoundingClientRect().height))
+  expect(Math.max(...heights) - Math.min(...heights)).toBeLessThan(60)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await expect(wall).toHaveClass(/is-static/)
+  await expect(wall.locator('[data-photo-open]')).toHaveCount(50)
+  await expect(wall.locator('[data-drift-copy]')).toHaveCount(0)
+})
 test('photo archive reveals all records when IntersectionObserver is unavailable', async ({ page }) => {
   await page.addInitScript(() => {
     Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: undefined })
