@@ -55,9 +55,10 @@
 .blog-hero__intro {
   max-width: 25rem;
   padding-bottom: 5px;
-  color: var(--muted);
-  font-family: var(--serif);
-  font-size: clamp(1rem, 1.45vw, 1.18rem);
+  justify-self: end;
+  color: var(--copy-ink);
+  font-family: var(--body-font);
+  font-size: var(--text-description);
   line-height: 1.78;
 }
 

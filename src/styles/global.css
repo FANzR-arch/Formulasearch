@@ -19,6 +19,9 @@
   --text-page-title: clamp(1.5rem, 3vw, 2.75rem);
   --text-feature-title: clamp(2rem, 3.6vw, 3.4rem);
   --text-article-title: clamp(2rem, 3.2vw, 3rem);
+  --text-description: clamp(1.0625rem, 1.2vw, 1.1875rem);
+  --copy-ink: color-mix(in oklab, var(--ink) 82%, var(--paper));
+  --body-font: "Avenir Next", "Segoe UI", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   --serif: "Iowan Old Style", "Source Han Serif SC", "Songti SC", STSong, serif;
   --sans: "Avenir Next", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
@@ -534,7 +537,7 @@ main { position: relative; z-index: 1; }
   margin-bottom: clamp(28px, 4vw, 52px);
 }
 .project-group h2 { margin: 0; font-size: clamp(1.65rem, 3vw, 2.55rem); font-weight: 600; letter-spacing: -.055em; line-height: 1; }
-.project-group__heading > p { max-width: 48ch; margin: 0; color: var(--muted); font-family: var(--serif); font-size: .96rem; line-height: 1.7; }
+.project-group__heading > p { width: min(100%, 42ch); justify-self: end; margin: 0; color: var(--copy-ink); font-family: var(--body-font); font-size: var(--text-description); line-height: 1.75; }
 .project-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 3vw, 46px); }
 .catalog-section > .project-card-grid { grid-column: 1 / -1; }
 .project-card { display: grid; min-width: 0; color: var(--ink); }
@@ -562,6 +565,21 @@ main { position: relative; z-index: 1; }
 .project-card--linked:hover .project-card__visit { color: var(--accent); }
 .project-card__visit .icon { transition: transform 220ms var(--ease-out); }
 .project-card--linked:hover .project-card__visit .icon { transform: translate(3px, -3px); }
+/* A lone project uses the full row instead of leaving an empty grid cell. */
+@media (min-width: 821px) {
+  .project-group > .project-card-grid > .project-card:only-child {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(28px, 4vw, 64px);
+    align-items: center;
+  }
+  .project-group > .project-card-grid > .project-card:only-child .project-card__body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 0;
+  }
+  .project-group > .project-card-grid > .project-card:only-child .project-card__visit { justify-self: start; }
+}
 .project-showcase { min-width: 0; }
 .project-showcase__toolbar { display: flex; align-items: center; justify-content: flex-end; gap: 14px; margin-bottom: 14px; }
 .project-showcase__count { display: flex; gap: 6px; margin: 0 auto 0 0; color: var(--muted); font-size: .66rem; font-variant-numeric: tabular-nums; letter-spacing: .09em; }
@@ -932,9 +950,43 @@ h1 { margin-bottom: 26px; font-family: var(--serif); font-size: var(--text-home-
     transform: translateY(-.18em) rotateX(-3deg) rotateY(5deg) scale(2.3);
   }
 }
-.home-copy { display: grid; width: 100%; margin-top: 22px; gap: 12px; color: var(--muted); font-family: var(--serif); font-size: clamp(1.02rem, 1.35vw, 1.14rem); line-height: 1.9; text-wrap: pretty; }
+/* Shared readable copy across catalog introductions and project summaries. */
+.catalog-section div > p,
+.catalog-section__item-copy > span,
+.skill-feature__title > p,
+.skill-project__content > p,
+.project-card__copy p,
+.visual-archive__description {
+  color: var(--copy-ink);
+  font-family: var(--body-font);
+  font-size: var(--text-description);
+  line-height: 1.75;
+}
+.home-copy { display: grid; width: 100%; margin-top: 26px; gap: 14px; color: var(--copy-ink); font-family: Georgia, "Source Han Serif SC", "Songti SC", "Microsoft YaHei", serif; font-size: clamp(1.125rem, 1.3vw, 1.1875rem); line-height: 1.72; text-wrap: pretty; }
+/* Keep the home reading area quiet while retaining light around its edges. */
+body:has(.home-copy) {
+  background-image: radial-gradient(color-mix(in oklab, var(--ink) 8%, transparent) .6px, transparent .8px);
+}
+body:has(.home-copy) .ambient-flow {
+  mask-image: radial-gradient(ellipse 480px 480px at 50% 46%, rgb(0 0 0 / 18%) 30%, #000 100%);
+}
+.intro > .lead {
+  font-family: Georgia, "Source Han Serif SC", "Songti SC", "Microsoft YaHei", serif;
+  letter-spacing: -.015em;
+}
+:root:not([data-locale='en']) .intro > .lead {
+  font-family: var(--body-font);
+  letter-spacing: normal;
+}
+:root:not([data-locale='en']) .home-copy {
+  font-family: var(--body-font);
+  font-size: clamp(1.125rem, 1.4vw, 1.25rem);
+  line-height: 1.8;
+  margin-top: 22px;
+  gap: 18px;
+}
 .home-copy hr { width: 42px; margin: 16px 0; border: 0; border-top: 1px solid var(--hairline); }
-.home-contact { display: grid; gap: 4px; }
+.home-contact { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; }
 .home-copy__label { color: var(--ink); }
 .text-link { color: var(--ink); text-decoration: underline; text-decoration-color: var(--hairline); text-underline-offset: .22em; }
 .text-link:hover { text-decoration-color: currentColor; }
@@ -1073,7 +1125,8 @@ h1 { margin-bottom: 26px; font-family: var(--serif); font-size: var(--text-home-
   .skill-gallery > li { width: min(88%, 680px); }
   .skill-gallery { height: clamp(300px, 47vw, 370px); }
   .project-group__heading { grid-template-columns: 1fr; gap: 16px; }
-  .project-group__heading > p { grid-column: 1; }
+  .project-group__heading > p { grid-column: 1; justify-self: start; }
+  .project-group > .project-card-grid > .project-card:only-child { grid-column: 1 / -1; }
   .project-card-grid { gap: 32px 20px; }
   .partner-entry {
     grid-template-columns: 30px minmax(0, 1fr) auto;
@@ -1218,11 +1271,13 @@ h1 { margin-bottom: 26px; font-family: var(--serif); font-size: var(--text-home-
 }
 .page-hero__description {
   grid-column: 2;
-  max-width: 31ch;
-  color: var(--muted);
-  font-family: var(--serif);
-  font-size: clamp(1rem, 1.3vw, 1.16rem);
-  line-height: 1.7;
+  width: 100%;
+  max-width: 42ch;
+  justify-self: end;
+  color: var(--copy-ink);
+  font-family: var(--body-font);
+  font-size: var(--text-description);
+  line-height: 1.75;
 }
 .page-hero[data-hero-motion='projects'] .page-hero__description {
   width: min(100%, 70ch);
@@ -1312,7 +1367,7 @@ h1 { margin-bottom: 26px; font-family: var(--serif); font-size: var(--text-home-
 
 @media (max-width: 820px) {
   .page-hero { grid-template-columns: 1fr; gap: 20px; padding-top: 72px; }
-  .page-hero__description { grid-column: 1; max-width: 36ch; }
+  .page-hero__description { grid-column: 1; max-width: 42ch; justify-self: start; }
   .architecture-project-list { column-count: 2; }
 }
 @media (max-width: 560px) {

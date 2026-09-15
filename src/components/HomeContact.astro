@@ -33,12 +33,13 @@ const socialHandle = `@${new URL(socialUrl).pathname.split('/').filter(Boolean)[
 </dialog>
 
 <style>
-  .contact-icons { display: flex; align-items: center; gap: 8px; margin-left: -12px; }
+  .contact-icons { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-shrink: 0; }
   .contact-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; color: var(--muted); background: transparent; cursor: pointer; text-decoration: none; transition: color 180ms ease, transform 180ms cubic-bezier(.22, 1, .36, 1); }
   .contact-icon:hover, .contact-icon.is-keyword-destination { color: var(--ink); transform: translateY(-2px); }
   .contact-icon:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
   .contact-icon { position: relative; }
   .contact-tooltip { position: absolute; z-index: 5; top: calc(100% + 4px); left: 8px; width: max-content; padding: 7px 10px; border: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); border-radius: 6px; background: var(--paper); color: var(--ink); box-shadow: 0 4px 14px rgb(0 0 0 / .06); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 400; line-height: 1.4; letter-spacing: 0; white-space: nowrap; opacity: 0; visibility: hidden; transform: translateY(-3px); pointer-events: none; transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
+  .contact-tooltip { left: auto; right: 0; }
   .contact-icon:focus-visible .contact-tooltip { opacity: 1; visibility: visible; transform: translateY(0); }
   @media (hover: hover) and (pointer: fine) {
     .contact-icon:hover .contact-tooltip { opacity: 1; visibility: visible; transform: translateY(0); }
