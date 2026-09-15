@@ -39,6 +39,28 @@ test('autoplay traverses both directions with a fading trail and a one-second re
   await expect(host).toHaveAttribute('data-autoplay','paused');
 });
 
+test('pointer activates the visible letter when avoidance shifts it past its original midpoint', async ({ page }) => {
+  await page.goto('/skills')
+  const card = page.locator('#generative-hover-type')
+  await card.scrollIntoViewIfNeeded()
+  await card.locator('h2 a').hover()
+  const glyph = card.locator('[data-target-id="g6"]')
+  await glyph.evaluate(el => {
+    // Place the visible letter over its neighbor's original center to exercise
+    // the conflict between rendered and original hit targets deterministically.
+    const own = el.getBoundingClientRect()
+    const neighbor = el.previousElementSibling.getBoundingClientRect()
+    el.style.transition = 'none'
+    el.style.transform = `translateX(${neighbor.x + neighbor.width / 2 - own.x - own.width / 2}px)`
+    el.style.zIndex = '3'
+  })
+  await glyph.hover()
+  await expect(glyph).toHaveClass(/glyph--active/)
+  await expect(card.locator('[data-target-id="g5"]')).not.toHaveClass(/glyph--active/)
+  await page.mouse.move(0, 0)
+  await expect(glyph).not.toHaveClass(/glyph--active|glyph--exiting/)
+})
+
 test('hover type preserves position-specific variants and immediately starts a gradual exit', async ({ page }) => {
   await page.clock.install()
   await page.goto('/skills')

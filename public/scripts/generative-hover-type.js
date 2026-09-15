@@ -201,6 +201,10 @@
           const nextDistance = Math.abs(event.clientX - left - rect.width / 2);
           if (nextDistance < distance) { closest = glyph; distance = nextDistance; }
         });
+        // A narrow letter can visibly shift beyond its original hit-test midpoint.
+        // Honor a direct hit on the rendered letter before using the expanded bounds.
+        const directGlyph = event.target instanceof Element ? event.target.closest('.glyph') : null;
+        if (directGlyph && titleElement.contains(directGlyph)) closest = directGlyph;
         if (!closest?.classList.contains('glyph--interactive')) closest = null;
         if (closest !== pointerGlyph) {
           if (pointerGlyph) scheduleDeactivate(pointerGlyph);
