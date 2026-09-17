@@ -7,6 +7,7 @@ import { getLocalizedValue, interpolateLocalizedCopy, type Locale } from '../lib
 import GlassSurface from './GlassSurface.astro'
 import Icon from './icon-system/Icon.astro'
 import LocalizedText from './LocalizedText.astro'
+import { personalAiEndpoint } from '../lib/personal-ai-config'
 
 interface Props {
   active?: PrimarySection | 'photos' | 'architecture' | 'partners'
@@ -16,6 +17,7 @@ interface Props {
 const { active, locale = 'zh' } = Astro.props
 const localizedRoute = (route: string) => getLocalizedRoute(route, locale)
 const localized = (copy: { zh: string; en: string }) => getLocalizedValue(copy, locale)
+const aiHome = ['/', '/en', '/en/'].includes(Astro.url.pathname)
 const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProfile, {
   name: { zh: siteConfig.author.name, en: siteConfig.author.name },
 })
@@ -75,6 +77,5 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
       </button>
     </div>
   </nav>
+  {personalAiEndpoint && <button class="pai-nav-trigger" data-ai-open data-ai-home={aiHome ? '' : undefined} type="button" aria-label={locale === 'en' ? 'Talk to my AI' : '和我的 AI 聊聊'} data-aria-en="Talk to my AI" data-aria-zh="和我的 AI 聊聊" aria-controls={aiHome ? 'personal-ai-home' : 'personal-ai-dialog'} aria-expanded="false"><Icon name="chat" role="control" /></button>}
 </header>
-
-<script is:inline src="/scripts/site-header.js"></script>

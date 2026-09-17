@@ -4,6 +4,11 @@ const languageToggle = document.querySelector('#language-toggle')
 const navMenus = primaryNavigation ? Array.from(primaryNavigation.querySelectorAll('.nav-menu')) : []
 let navCloseTimer
 const navCloseDelay = 360
+// A stationary pointer must not reopen the arriving page's menu after navigation.
+let suppressHover = document.documentElement.dataset.siteEntry === 'internal'
+document.addEventListener('pointermove', (event) => {
+  if (event.movementX || event.movementY) suppressHover = false
+}, { passive: true })
 
 const getFocusableNavigationItems = () => [...(primaryNavigation?.querySelectorAll('a, button') ?? [])]
   .filter((element) => !element.hasAttribute('disabled') && !element.closest('[inert]') && element.getClientRects().length)
@@ -56,13 +61,23 @@ const openNavigationMenu = (menu) => {
 
 navMenus.forEach((menu) => {
   const button = menu.querySelector('.nav-disclosure')
-  button?.addEventListener('click', () => {
+  let openedByHover = false
+  button?.addEventListener('click', (event) => {
+    // pointerenter runs before click; the first click confirms that opening.
+    if (event.detail > 0 && openedByHover && menu.classList.contains('is-open')) {
+      openedByHover = false
+      return
+    }
+    openedByHover = false
     if (menu.classList.contains('is-open')) closeNavigationMenus()
     else openNavigationMenu(menu)
   })
 
   menu.addEventListener('pointerenter', (event) => {
-    if (event.pointerType === 'mouse' && !window.matchMedia('(max-width: 760px)').matches) openNavigationMenu(menu)
+    if (!suppressHover && event.pointerType === 'mouse' && !window.matchMedia('(max-width: 760px)').matches) {
+      openedByHover = !menu.classList.contains('is-open')
+      openNavigationMenu(menu)
+    }
   })
   menu.addEventListener('pointerleave', (event) => {
     if (event.pointerType !== 'mouse') return
@@ -74,9 +89,9 @@ navMenus.forEach((menu) => {
       closeNavigationMenus()
     }, navCloseDelay)
   })
-  menu.addEventListener('focusin', () => {
+  menu.addEventListener('focusin', (event) => {
     if (window.matchMedia('(max-width: 760px)').matches) return
-    openNavigationMenu(menu)
+    if (!menu.contains(event.relatedTarget) && event.target.matches(':focus-visible')) openNavigationMenu(menu)
   })
 })
 
@@ -121,7 +136,19 @@ mobileNavigationToggle?.addEventListener('click', () => {
 })
 
 primaryNavigation?.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', () => closeMobileNavigation())
+  link.addEventListener('click', (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target) return
+    const destination = new URL(link.href, location.href)
+    // Keep the departing navigation steady until the new document takes over.
+    if (destination.pathname === location.pathname && destination.search === location.search) closeMobileNavigation()
+  })
+})
+
+window.addEventListener('pageshow', (event) => {
+  if (!event.persisted) return
+  suppressHover = true
+  closeNavigationMenus()
+  closeMobileNavigation()
 })
 
 document.addEventListener('pointerdown', (event) => {

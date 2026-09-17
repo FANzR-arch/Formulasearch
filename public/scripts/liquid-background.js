@@ -204,8 +204,9 @@
   let height = 0
   let frame = 0
   let lastFrame = 0
-  const maxRenderPixels = 1600000
-  const frameInterval = 1000 / 40
+  // Keep roughly the same pixel budget per second at a stable 60 Hz cadence.
+  const maxRenderPixels = 1000000
+  const frameInterval = 1000 / 60
   let contextLost = false
   let theme = document.documentElement.dataset.theme === 'dark' ? 1 : 0
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
@@ -340,12 +341,13 @@
   }
 
   const animate = (now) => {
-    if (document.hidden || contextLost) {
+    if (document.hidden || contextLost || document.documentElement.dataset.aiState === 'chat' || document.documentElement.dataset.viewTransition === 'route') {
       frame = 0
       return
     }
-    if (now - lastFrame >= frameInterval) {
-      lastFrame = now
+    const elapsed = now - lastFrame
+    if (elapsed >= frameInterval - 0.5) {
+      lastFrame = now - (elapsed >= frameInterval ? elapsed % frameInterval : 0)
       draw(now)
     }
     frame = window.requestAnimationFrame(animate)
@@ -353,7 +355,8 @@
 
   const syncMotion = () => {
     stopAnimation()
-    if (contextLost) return
+    lastFrame = 0
+    if (contextLost || document.hidden || document.documentElement.dataset.aiState === 'chat' || document.documentElement.dataset.viewTransition === 'route') return
     draw()
     if (!reduceMotion.matches) frame = window.requestAnimationFrame(animate)
   }
@@ -382,6 +385,32 @@
       stopAnimation()
     }
     else syncMotion()
+  })
+  window.addEventListener('formulasearch:ai-state', syncMotion)
+  window.addEventListener('formulasearch:route-settled', syncMotion)
+
+  // Cross-document snapshots can lose a departing WebGL surface on some GPU
+  // backends. Capture one ordinary 2D frame while the context is still alive.
+  // The bitmap keeps the same mask, size and opacity as the live canvas.
+  let departureFrame
+  window.addEventListener('pageswap', (event) => {
+    if (!event.viewTransition || contextLost || departureFrame) return
+    const snapshot = canvas.cloneNode(false)
+    const context = snapshot.getContext('2d')
+    if (!context) return
+    try {
+      stopAnimation()
+      draw()
+      context.drawImage(canvas, 0, 0)
+      canvas.replaceWith(snapshot)
+      departureFrame = snapshot
+    } catch { syncMotion() }
+  })
+  window.addEventListener('pageshow', () => {
+    if (!departureFrame) return
+    departureFrame.replaceWith(canvas)
+    departureFrame = undefined
+    syncMotion()
   })
 
   window.addEventListener('formulasearch:theme', (event) => {

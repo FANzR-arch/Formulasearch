@@ -4,7 +4,7 @@ const revealItems = [
   ...document.querySelectorAll('.recent-stream .post-row'),
 ]
 
-if (reduceMotion || !('IntersectionObserver' in window)) {
+if (reduceMotion || document.documentElement.dataset.siteEntry === 'internal' || !('IntersectionObserver' in window)) {
   revealItems.forEach((item) => item.classList.add('is-visible'))
 } else {
   document.documentElement.classList.add('motion-ready')

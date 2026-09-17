@@ -4,6 +4,44 @@
   const themeStorageKey = 'formulasearch-theme'
   const routeTransitionStorageKey = 'formulasearch-route-transition'
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  let activeRouteTransition
+  let interruptedPointer
+
+  // Establish entry state in the head, before either page content or a snapshot paints.
+  try {
+    if (document.referrer && new URL(document.referrer).origin === location.origin) root.dataset.siteEntry = 'internal'
+    if (sessionStorage.getItem('formulasearch-intro-seen') === 'true') root.dataset.intro = 'skip'
+  } catch {}
+  if (root.dataset.siteEntry === 'internal' || prefersReducedMotion.matches || window.self !== window.top) root.dataset.intro = 'skip'
+
+  document.addEventListener('pointerdown', (event) => {
+    interruptedPointer = activeRouteTransition ? {
+      x: event.clientX, y: event.clientY, finished: activeRouteTransition.finished,
+    } : undefined
+    activeRouteTransition?.skipTransition()
+  }, { capture: true, passive: true })
+  document.addEventListener('pointercancel', () => { interruptedPointer = undefined }, { capture: true })
+  document.addEventListener('keydown', () => activeRouteTransition?.skipTransition(), { capture: true })
+
+  // Native document snapshots retarget pointer input to <html>. Finish the
+  // interrupted wipe, then deliver that one click to the actual control beneath.
+  document.addEventListener('click', (event) => {
+    if (!event.isTrusted || !interruptedPointer) return
+    const pointer = interruptedPointer
+    interruptedPointer = undefined
+    if (event.target !== root || event.button !== 0 || Math.hypot(event.clientX - pointer.x, event.clientY - pointer.y) > 5) return
+    event.preventDefault()
+    const click = { bubbles: true, cancelable: true, composed: true, view: window,
+      detail: event.detail, clientX: event.clientX, clientY: event.clientY,
+      button: event.button, ctrlKey: event.ctrlKey, metaKey: event.metaKey,
+      shiftKey: event.shiftKey, altKey: event.altKey }
+    pointer.finished.then(() => {
+      const target = document.elementFromPoint(click.clientX, click.clientY)
+      if (!target || target === root || target.closest('[inert], :disabled')) return
+      target.closest('a[href], button, input, select, textarea')?.focus({ preventScroll: true })
+      target.dispatchEvent(new MouseEvent('click', click))
+    }, () => {})
+  }, { capture: true })
 
   const clearViewTransitionType = (type) => {
     if (root.dataset.viewTransition === type) delete root.dataset.viewTransition
@@ -17,11 +55,15 @@
     const destination = new URL(link.href, window.location.href)
     if (destination.origin !== window.location.origin) return
     if (destination.pathname === window.location.pathname && destination.search === window.location.search) return
+    const bounds = link.getBoundingClientRect()
     try {
       sessionStorage.setItem(routeTransitionStorageKey, JSON.stringify({
-        x: event.clientX,
-        y: event.clientY,
+        x: bounds.left + bounds.width / 2,
+        y: bounds.top + bounds.height / 2,
+        viewportWidth: innerWidth,
+        viewportHeight: innerHeight,
         timestamp: Date.now(),
+        destination: destination.href,
       }))
     } catch {}
   }
@@ -30,6 +72,16 @@
 
   window.addEventListener('pagereveal', (event) => {
     if (!event.viewTransition) return
+    root.dataset.siteEntry = 'internal'
+    root.dataset.intro = 'skip'
+    activeRouteTransition = event.viewTransition
+    const finish = () => {
+      if (activeRouteTransition !== event.viewTransition) return
+      activeRouteTransition = undefined
+      clearViewTransitionType('route')
+      window.dispatchEvent(new Event('formulasearch:route-settled'))
+    }
+    event.viewTransition.finished.then(finish, finish)
     if (prefersReducedMotion.matches) {
       try { sessionStorage.removeItem(routeTransitionStorageKey) } catch {}
       event.viewTransition.skipTransition()
@@ -37,21 +89,24 @@
     }
     try {
       const record = JSON.parse(sessionStorage.getItem(routeTransitionStorageKey) || 'null')
-      if (!record || Date.now() - record.timestamp > 6_000) {
+      if (!record || Date.now() - record.timestamp > 6_000 || (record.destination && record.destination !== location.href)) {
         sessionStorage.removeItem(routeTransitionStorageKey)
         event.viewTransition.skipTransition()
         return
       }
-      const x = Number.isFinite(record.x) ? record.x : window.innerWidth / 2
-      const y = Number.isFinite(record.y) ? record.y : window.innerHeight / 2
-      const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
       root.dataset.viewTransition = 'route'
-      root.style.setProperty('--route-x', `${x}px`)
-      root.style.setProperty('--route-y', `${y}px`)
-      root.style.setProperty('--route-radius', `${radius}px`)
+      // Snapshot coordinates can be scaled by the browser's page zoom. Keep
+      // the origin and radius relative to the viewport, not raw CSS pixels.
+      const width = record.viewportWidth > 0 ? record.viewportWidth : innerWidth
+      const height = record.viewportHeight > 0 ? record.viewportHeight : innerHeight
+      const x = Number.isFinite(record.x) ? record.x / width : .5
+      const y = Number.isFinite(record.y) ? record.y / height : .5
+      const radius = Math.hypot(Math.max(x, 1 - x) * innerWidth, Math.max(y, 1 - y) * innerHeight)
+      root.style.setProperty('--route-x', `${x * 100}%`)
+      root.style.setProperty('--route-y', `${y * 100}%`)
+      root.style.setProperty('--route-radius', `${radius / Math.hypot(innerWidth, innerHeight) * Math.SQRT2 * 100}%`)
       event.viewTransition.ready.then(() => sessionStorage.removeItem(routeTransitionStorageKey), () => {})
-      event.viewTransition.finished.then(() => clearViewTransitionType('route'), () => clearViewTransitionType('route'))
-    } catch {}
+    } catch { event.viewTransition.skipTransition() }
   })
 
   const replaceFailedMedia = (event) => {

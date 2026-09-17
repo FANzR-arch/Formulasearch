@@ -7,6 +7,7 @@ import { getLocalizedValue, type Locale } from '../lib/i18n'
 import { serializeJsonLd } from '../lib/xml'
 import '../components/icon-system/icon-system.css'
 import SiteCursor from '../components/icon-system/SiteCursor.astro'
+import PersonalAI from '../components/PersonalAI.astro'
 
 interface Props {
   description: string
@@ -88,6 +89,8 @@ const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : 
     {socialImage && <meta name="twitter:image" content={socialImage} />}
     <title>{initialTitle}</title>
     <script is:inline src="/scripts/site-shell.js"></script>
+    <!-- Capture the new page only after its content and navigation exist. -->
+    <script is:inline src="/scripts/site-header.js" defer {...{ blocking: 'render' }}></script>
     <script is:inline src="/scripts/site-audio.js"></script>
     <script is:inline type="application/ld+json" set:html={serializeJsonLd({
       '@context': 'https://schema.org',
@@ -108,6 +111,7 @@ const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : 
       <span class="localized-text__en">{uiCopy.navigation.skipToContent.en}</span>
     </a>
     <slot />
+    <PersonalAI />
     <script is:inline src="/scripts/site-cursor.js"></script>
     <script is:inline src="/scripts/scroll-progress.js"></script>
     <script>

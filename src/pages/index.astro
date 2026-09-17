@@ -49,7 +49,7 @@ import { pageMeta } from '../data/page-meta'
     const introMotion = document.querySelector('.intro-mark .intro-mark__motion')
     const introLine = document.querySelector('.intro-mark__line')
     const storageKey = 'formulasearch-intro-seen'
-    const enteredFromSite = document.documentElement.classList.contains('is-page-entering') || window.self !== window.top
+    const skipIntro = document.documentElement.dataset.intro === 'skip'
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let syncAmbientTheme = () => {}
     let completed = false
@@ -73,7 +73,7 @@ import { pageMeta } from '../data/page-meta'
       updateLineWeight()
     }
 
-    updateLineWeight()
+    if (!skipIntro) updateLineWeight()
 
     const unveilPage = () => page?.classList.add('is-visible')
 
@@ -94,13 +94,14 @@ import { pageMeta } from '../data/page-meta'
     }))
     syncAmbientTheme()
 
-    if (enteredFromSite) overlay?.remove()
-
     let playedBefore = false
     try { playedBefore = sessionStorage.getItem(storageKey) === 'true' } catch {}
 
-    if (reduceMotion || playedBefore) {
-      window.setTimeout(revealPage, reduceMotion ? 180 : 0)
+    if (skipIntro || reduceMotion || playedBefore) {
+      completed = true
+      unveilPage()
+      overlay?.remove()
+      try { sessionStorage.setItem(storageKey, 'true') } catch {}
     } else {
       const followIntroAnimation = (event) => {
         if (event.target !== introMotion || event.animationName !== 'logo-zoom') return

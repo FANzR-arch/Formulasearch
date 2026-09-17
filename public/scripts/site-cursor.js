@@ -82,6 +82,16 @@
   }
 
   document.addEventListener('pointermove', handlePointer, { passive: true })
+  // The trusted chat bridge supplies iframe-relative pointer updates in host coordinates.
+  window.addEventListener('formulasearch:chat-pointer', ({ detail }) => {
+    if (!detail.visible) { deactivate(); return }
+    if (!capabilityQuery.matches) return
+    if (!active) activate()
+    cursor.style.transform = `translate3d(${detail.x}px, ${detail.y}px, 0)`
+    setState(detail.state)
+    body.classList.toggle('is-pressed', detail.pressed)
+    setVisible(true)
+  })
   document.addEventListener('pointerover', (event) => {
     if (event.pointerType && event.pointerType !== 'mouse') return
     handlePointer(event)

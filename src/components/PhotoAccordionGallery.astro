@@ -50,7 +50,7 @@ const photoLabel = (item: PhotoItem) => ({
             data-aria-zh={label.zh}
           >
             {typeof item.image === 'string' ? (
-              <img src={item.image} alt={locale === 'en' ? item.alt.en : item.alt.zh} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} width={item.width} height={item.height} loading={index === defaultIndex ? 'eager' : 'lazy'} fetchpriority={index === defaultIndex ? 'high' : undefined} decoding="async" />
+              <img src={item.image} srcset={item.previewImage && item.previewWidth ? `${item.previewImage} ${item.previewWidth}w, ${item.image} ${item.width ?? 2560}w` : undefined} sizes="(max-width: 680px) 70vw, 52vw" alt={locale === 'en' ? item.alt.en : item.alt.zh} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} width={item.width} height={item.height} loading={index === defaultIndex ? 'eager' : 'lazy'} fetchpriority={index === defaultIndex ? 'high' : undefined} decoding="async" />
             ) : (
               <Image src={item.image} alt={locale === 'en' ? item.alt.en : item.alt.zh} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={index === defaultIndex ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 70vw, 52vw" />
             )}

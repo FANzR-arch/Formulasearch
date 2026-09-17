@@ -26,6 +26,7 @@ import {
   House,
   Link,
   Mail,
+  MessageCircle,
   Maximize2,
   Menu,
   Minus,
@@ -50,6 +51,7 @@ import {
 import type { AstroComponent } from '@lucide/astro'
 
 export const iconRegistry = {
+  'chat': MessageCircle,
   'video-play': Play,
   'video-pause': Pause,
   'cursor-default': MousePointer2,

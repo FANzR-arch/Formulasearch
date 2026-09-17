@@ -258,7 +258,7 @@ test('mobile article sources stay in the reading flow with touch-sized links', a
   sourceLinks.forEach((height) => expect(height).toBeGreaterThanOrEqual(44))
 })
 
-test('internal pointer navigation records a circular route-transition origin', async ({ page }) => {
+test('internal pointer navigation records its origin and destination', async ({ page }) => {
   await page.goto('/projects')
   await expect.poll(() => page.evaluate(() => [...document.styleSheets].some((sheet) => {
     try {
@@ -273,7 +273,7 @@ test('internal pointer navigation records a circular route-transition origin', a
   })
   await page.locator('.site-nav .nav-link').first().click()
   const transition = await page.evaluate(() => JSON.parse(sessionStorage.getItem('formulasearch-route-transition') || 'null'))
-  expect(transition).toEqual(expect.objectContaining({ x: expect.any(Number), y: expect.any(Number), timestamp: expect.any(Number) }))
+  expect(transition).toEqual(expect.objectContaining({ x: expect.any(Number), y: expect.any(Number), timestamp: expect.any(Number), destination: expect.stringMatching(/\/blog$/) }))
 })
 
 test('supported cross-document navigation consumes the route-transition origin', async ({ page }) => {
