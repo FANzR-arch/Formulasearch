@@ -30,8 +30,8 @@ html[data-ai-state='entering'] .pai-home, html[data-ai-state='chat'] .pai-home, 
 html[data-ai-state='chat'] .pai-home[data-ready] iframe { opacity: 1; }
 html[data-ai-state='exiting'] .pai-home { opacity: 0; pointer-events: none; }
 .pai-background { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: var(--paper); opacity: 0; visibility: hidden; transition: opacity 900ms ease, visibility 900ms; }
-.pai-strands { position: absolute; inset: 0; opacity: .85; mask-image: linear-gradient(to bottom, black, #0009 35%, #0006 65%, black); }
-:root[data-theme='dark'] .pai-strands { opacity: .45; }
+.pai-strands { position: absolute; inset: 0; opacity: 1; filter: saturate(1.2) contrast(1.12); mask-image: linear-gradient(to bottom, black, #000d 35%, #000b 65%, black); }
+:root[data-theme='dark'] .pai-strands { opacity: .68; }
 .pai-strands canvas { width: 100%; height: 100%; display: block; }
 :root[data-theme='light'] .pai-strands { mix-blend-mode: multiply; }
 html[data-ai-state='entering'] .pai-background, html[data-ai-state='chat'] .pai-background { visibility: visible; opacity: 1; }

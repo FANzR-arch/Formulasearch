@@ -1,3 +1,4 @@
+import { mountPanelInteraction } from './personal-ai-panel'
 // Host state machine; chat content and persistence remain in the trusted child frame.
 const widget = document.querySelector<HTMLElement>('[data-personal-ai]')
 if (widget?.dataset.endpoint) {
@@ -5,6 +6,7 @@ if (widget?.dataset.endpoint) {
   const home = widget.dataset.home === 'true'
   const surface = widget.querySelector<HTMLElement>('.pai-surface')!
   const dialog = home ? undefined : surface as HTMLDialogElement
+  const panel = dialog ? mountPanelInteraction(dialog) : undefined
   const frame = surface.querySelector<HTMLIFrameElement>('iframe')!
   const closeButton = surface.querySelector<HTMLButtonElement>('.pai-close')!
   const retry = surface.querySelector<HTMLButtonElement>('.pai-retry')!
@@ -43,10 +45,11 @@ if (widget?.dataset.endpoint) {
     { path: en() ? '/en/blog' : '/blog', label: copy('文章与想法', 'Writing') },
   ]
   const sync = () => {
+    closeButton.setAttribute('aria-label',home ? copy('返回介绍','Back to introduction') : copy('关闭聊天','Close chat'))
     if (!ready) return
     post({ type: 'pai:cursor-enable', enabled: !!document.querySelector('[data-site-cursor]') && matchMedia('(any-hover: hover) and (any-pointer: fine)').matches })
     post({ type: 'pai:theme', theme: root.dataset.theme === 'dark' ? 'dark' : 'light' })
-    post({ type: 'pai:host-state', requestId: crypto.randomUUID(), active: state === 'chat',
+    post({ type: 'pai:host-state', requestId: crypto.randomUUID(), active: state === 'chat' || (!home && state === 'entering'),
       locale: en() ? 'en' : 'zh', reducedMotion: reduced.matches,
       recoveryWarning: read('pai-save-warning') === '1', links: links() })
   }
@@ -111,7 +114,11 @@ if (widget?.dataset.endpoint) {
       await delay(used ? 250 : 900)
       if (token !== version) return
     } else {
+      setState('entering')
       dialog!.show()
+      panel?.restore()
+      await panel?.transition(trigger)
+      if (token !== version) return
       closeButton.focus({ preventScroll: true })
     }
     used = true
@@ -123,7 +130,11 @@ if (widget?.dataset.endpoint) {
     setState('exiting')
     strands?.setActive(false)
     if (home) await delay(450)
-    else dialog!.close()
+    else {
+      await panel?.transition(returnFocus?.isConnected ? returnFocus : navTrigger ?? closeButton, true)
+      if (token !== version) return
+      dialog!.close()
+    }
     if (token !== version) return
     if (home) surface.inert = true
     intro?.removeAttribute('inert')
@@ -164,6 +175,7 @@ if (widget?.dataset.endpoint) {
         window.dispatchEvent(new CustomEvent('formulasearch:chat-pointer', { detail: { visible: false } }))
       } else if (message.visible === true && Number.isFinite(message.x) && Number.isFinite(message.y) && message.x >= 0 && message.y >= 0 && message.x <= frame.clientWidth && message.y <= frame.clientHeight && ['default', 'interactive', 'text'].includes(message.state)) {
         const rect = frame.getBoundingClientRect()
+        panel?.pointer(rect.left + message.x, rect.top + message.y)
         window.dispatchEvent(new CustomEvent('formulasearch:chat-pointer', { detail: { visible: true, x: rect.left + message.x, y: rect.top + message.y, state: message.state, pressed: message.pressed === true } }))
       }
       return
