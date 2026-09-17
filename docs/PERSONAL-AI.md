@@ -9,7 +9,9 @@
 - 手机：头像可见时约 5 秒后提示 2 秒，20 秒后最多再提示一次；点头像展开、点气泡进入，点空白收回。交互后停止提示，同一标签页访问记住提示次数。
 - 首次进入：正文分组消散，Strands 与原背景交叉淡化，约 900ms 后显示输入区域，随后逐字问候。无人物卡、无聊天外框。
 - 返回介绍或 Escape：保留会话、草稿和正在进行的生成，约 450ms 恢复介绍与焦点；重开约 250ms，不重播问候。
-- 内页：导航右侧始终显示聊天图标，桌面侧栏、手机全屏。首页首次隐藏导航入口，发现彩蛋后显示继续聊天入口。
+- 首页与内页：导航右侧始终显示聊天图标。首页进入沉浸对话，内页打开右下角浮窗；桌面最大 480 × 700px，手机按可用视口留边显示。
+- 基础操作常驻：顶部新对话、历史、联系 Phil；底部固定输入和发送/停止；回答下方显示复制、重试、赞同与纠错反馈。复制成功后显示“已复制”，嵌入窗口仅获剪贴板写入权限。
+- 消息区独立滚动，历史与留言弹窗适配窗口高度；演示回答及本地保存提示可见。联系入口仍为本地演示留言，不发送真实通知。
 - 聊天内推荐“作品档案”或“文章与想法”可跳转本站对应页面。这里是基于公开资料的模拟回答，不是真实上线 AI。
 
 手机验收为浏览器触摸模拟；尚未在实体手机及其软键盘上验证。
@@ -44,7 +46,7 @@ VITE_EMBED_ALLOWED_ORIGINS=http://127.0.0.1:4321,http://127.0.0.1:5175,https://r
 | 宿主状态机、外观 | `src/scripts/personal-ai.ts`、`src/styles/personal-ai.css` |
 | 滚动与原背景暂停 | `src/scripts/smooth-scroll.ts`、`public/scripts/liquid-background.js` |
 | Strands | `src/scripts/strands.mjs`、`docs/licenses/Strands-LICENSE.md` |
-| 图标、依赖、验收入口 | `src/components/icon-system/icons.ts`、`package.json`、`package-lock.json`、`scripts/test-personal-ai.mjs`、`scripts/test-personal-ai-navigation.mjs` |
+| 图标、依赖、验收入口 | `src/components/icon-system/icons.ts`、`package.json`、`package-lock.json`、`scripts/test-personal-ai.mjs`、`scripts/test-personal-ai-navigation.mjs`、`scripts/test-personal-ai-controls.mjs` |
 | PersonalAI 公开嵌入 | `src/lib/host-bridge.ts`、`src/components/host-greeting.tsx`、`src/host-embed.css` |
 | PersonalAI 现有聊天复用 | `src/pages/chat.tsx`、`src/components/chat-thread.tsx` |
 | 文档 | 本文、网站 `README.md`、PersonalAI `docs/SEPARATE-SITES.md` |
@@ -99,5 +101,9 @@ npm run test -- tests/separation.spec.ts
 补充验证：聊天时顶部导航可操作、菜单 Escape 优先关闭、保存确认丢失时超时放行并显示恢复提示。
 全站原有回归 97 项通过、3 项按原条件跳过；PersonalAI 独立站与普通嵌入回归 2 项通过。
 
-2026-09-17 提交前复核：网站最新构建通过，动效完整回归 110 项通过、3 项条件跳过；之后声音修复的 35 项相关回归通过，模拟聊天桥的 3 项导航回归通过。重新运行 `npm run test:personal-ai` 时，在 `scripts/test-personal-ai.mjs:128` 查找聊天窗口的“历史”按钮超时，当前完整聊天集成测试未通过；以上历史验证不代表本次已重新验证全部聊天流程。
+2026-09-17 基础控件修订：移除嵌入样式中隐藏基础操作的规则，修复复制权限。完整聊天集成脚本及其导航测试通过；新增控件脚本在 1440 × 900、390 × 844、320 × 568 下验证发送/停止/重试、实际剪贴板复制、反馈、演示留言、新建与历史恢复、双主题与英文布局通过。`npm run test:personal-ai` 现包含两套脚本。导航键盘测试改为显式 Enter 激活菜单，不再把指针操作后的程序化 focus 等同于键盘激活。
+
+本次网站构建通过（0 错误、0 警告，113 页）；PersonalAI 类型检查、公开聊天构建及 2 项独立站隔离测试通过。已人工检查本地 Edge 截图；未验证实体手机软键盘。此前动效与声音回归结果属于上一轮，本次未重跑全站动效套件。
+
+本次同时修改相邻 `D:\00_Formula\03_Coding\PersonalAI` 的 `src/host-embed.css` 与 `src/components/chat-thread.tsx`；该目录不属于 Formulasearch Git 仓库。修改前副本位于本站忽略目录 `output/chat-polish/before/`。
 截图位于 `output/playwright/personal-ai-*.png`，该目录不提交。

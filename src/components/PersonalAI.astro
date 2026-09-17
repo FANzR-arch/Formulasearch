@@ -9,11 +9,11 @@ const Surface = home ? 'section' : 'dialog'
   {home && <div class="pai-background" aria-hidden="true"><div class="pai-strands"></div></div>}
   <Surface id={home ? 'personal-ai-home' : 'personal-ai-dialog'} class:list={['pai-surface', home ? 'pai-home' : 'pai-dialog']} aria-label="Phil AI" role={home ? "main" : undefined} tabindex={home ? "-1" : undefined} data-lenis-prevent inert={home ? true : undefined}>
     <header class="pai-header">
-      {!home && <span class="pai-title">Phil AI</span>}
+      <span class="pai-title">Phil AI</span>
       <button type="button" class="pai-close"><Icon name={home ? 'blog-back' : 'nav-close'} role="control" /><span class="localized-text__zh">{home ? '返回介绍' : '关闭聊天'}</span><span class="localized-text__en">{home ? 'Back to introduction' : 'Close chat'}</span></button>
     </header>
     <div class="pai-status" role="status"><span class="pai-status-text"></span><button type="button" class="pai-retry" hidden><span class="localized-text__zh">重试连接</span><span class="localized-text__en">Retry</span></button></div>
-    <iframe title="Phil AI" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe>
+    <iframe title="Phil AI" allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe>
   </Surface>
 </div>}
 <script>

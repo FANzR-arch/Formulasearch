@@ -43,7 +43,7 @@
     "site:check": "node scripts/check-site-output.mjs",
     "pretest:smoke": "npm run build",
     "test:smoke": "node scripts/run-smoke.mjs",
-    "test:personal-ai": "node scripts/test-personal-ai.mjs"
+    "test:personal-ai": "node scripts/test-personal-ai.mjs && node scripts/test-personal-ai-controls.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

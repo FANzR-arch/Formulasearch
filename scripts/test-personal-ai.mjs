@@ -33,7 +33,7 @@ try {
     const avatar = page.locator('[data-ai-avatar]:visible')
     const portrait = avatar.locator('.home-avatar__frame')
     const bubble = avatar.locator('[data-ai-open]')
-    await expect(page.locator('.pai-nav-trigger')).toBeHidden()
+    await expect(page.locator('.pai-nav-trigger')).toBeVisible()
     if(mobile) {
       // A deterministic clock verifies the full two-hint lifecycle without a real 30s pause.
       await page.clock.install()

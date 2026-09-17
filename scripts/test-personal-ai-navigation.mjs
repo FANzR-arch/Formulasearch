@@ -14,7 +14,13 @@ for(const mobile of [false,true]){
  await expect(f.locator('.host-greeting p')).toContainText('聊聊你的想法');
  for(const theme of ['light','dark']){await p.evaluate(t=>document.documentElement.dataset.theme=t,theme);await expect(f.locator('html')).toHaveClass(theme==='dark'?'dark':'');await p.waitForTimeout(300);await p.screenshot({path:'output/playwright/personal-ai-final-'+(mobile?'mobile':'desktop')+'-'+theme+'.png'});}
  if(mobile)await p.locator('#mobile-navigation-toggle').click();
- else await p.locator('.nav-disclosure').first().focus();
+ else {
+   const disclosure=p.locator('.nav-disclosure').first();
+   await disclosure.focus();
+   // Programmatic focus after pointer input need not be :focus-visible.
+   // Explicit keyboard activation exercises the actual disclosure contract.
+   if(await disclosure.getAttribute('aria-expanded')!=='true') await disclosure.press('Enter');
+ }
  await expect(p.locator('.site-header .nav-popover:visible').first()).toBeVisible().catch(async()=>{await expect(p.locator('#site-navigation')).toBeVisible()});
  if(mobile) await expect(p.locator('.site-header')).toHaveClass(/is-nav-open/); else await expect(p.locator('.nav-menu').first()).toHaveClass(/is-open/);
  await p.keyboard.press('Escape');

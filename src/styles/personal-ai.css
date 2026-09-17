@@ -2,8 +2,6 @@
 .pai-nav-trigger, .pai-close, .pai-retry, .pai-avatar-trigger { font: 500 13px var(--sans); color: var(--ink); cursor: pointer; }
 .pai-nav-trigger { flex: 0 0 var(--control-size); width: var(--control-size); height: var(--control-size); display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; }
 .pai-nav-trigger:hover, .pai-close:hover { background: color-mix(in oklab, var(--ink) 6%, transparent); }
-.pai-nav-trigger[data-ai-home] { visibility: hidden; pointer-events: none; }
-html[data-ai-discovered] .pai-nav-trigger[data-ai-home] { visibility: visible; pointer-events: auto; }
 .pai-nav-trigger.is-arriving { animation: pai-arrive 650ms ease-out; }
 @keyframes pai-arrive { from { box-shadow: 0 0 0 8px color-mix(in oklab, var(--accent) 25%, transparent); } to { box-shadow: 0 0 0 0 transparent; } }
 .home-avatar__frame:is(button) { padding: 0; cursor: pointer; }
@@ -19,7 +17,7 @@ html[data-ai-discovered] .pai-nav-trigger[data-ai-home] { visibility: visible; p
 .pai-avatar-trigger:hover .pai-invitation-label, .pai-avatar-trigger:focus-visible .pai-invitation-label { max-width: 180px; margin-left: 8px; opacity: 1; }
 .pai-close:focus-visible, .pai-nav-trigger:focus-visible, .pai-avatar-trigger:focus-visible, .home-avatar__frame:focus-visible, .pai-retry:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .pai-surface { color: var(--ink); box-sizing: border-box; }
-.pai-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 16px; flex-shrink: 0; }
+.pai-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 24px; flex-shrink: 0; }
 .pai-close { display: flex; align-items: center; gap: 8px; min-height: 44px; border: 0; border-radius: 12px; padding: 0 10px; background: transparent; }
 .pai-demo { font: 11px var(--sans); color: var(--muted); }
 .pai-status { padding: 0 26px; font-size: 13px; color: var(--muted); }
@@ -45,14 +43,16 @@ html[data-ai-state='chat'] #ambient-flow { opacity: 0; }
 html[data-ai-state='entering'] #ambient-flow { opacity: 0; transition: opacity 900ms ease; }
 html[data-ai-state='exiting'] #ambient-flow { opacity: 1; transition: opacity 450ms ease; }
 html[data-ai-state]:not([data-ai-state='intro']), html[data-ai-state]:not([data-ai-state='intro']) body { overflow: hidden; overscroll-behavior: none; }
-.pai-dialog { position: fixed; inset: 16px 16px 16px auto; margin: 0; padding: 0; width: min(480px, calc(100vw - 32px)); height: calc(100dvh - 32px); max-width: none; max-height: none; overflow: hidden; border: 1px solid var(--hairline); border-radius: 18px; background: var(--paper); box-shadow: 0 20px 80px #0002; }
+.pai-dialog { position: fixed; inset: auto 24px 24px auto; margin: 0; padding: 0; width: min(480px, calc(100vw - 48px)); height: min(700px, calc(100dvh - 120px)); max-width: none; max-height: none; overflow: hidden; border: 1px solid var(--hairline); border-radius: 24px; background: var(--paper); box-shadow: 0 16px 60px color-mix(in oklab, var(--ink) 12%, transparent); }
 .pai-dialog[open] { display: flex; flex-direction: column; z-index: 50; }
-.pai-dialog::backdrop { background: #0003; }
+.pai-dialog .pai-header { padding-inline: 16px; }
+.pai-dialog::backdrop { background: color-mix(in oklab, var(--ink) 8%, transparent); }
 .pai-surface.is-departing { opacity: 0 !important; transition: opacity 250ms; pointer-events: none; }
 @media (max-width: 760px) {
   .pai-nav-trigger { margin-left: 4px; }
   .pai-home { top: 80px; }
-  .pai-dialog { inset: 0; width: 100%; height: 100dvh; border: 0; border-radius: 0; padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
+  .pai-dialog { inset: auto 12px max(12px, env(safe-area-inset-bottom)) 12px; width: calc(100% - 24px); height: min(720px, calc(100dvh - 108px)); border-radius: 22px; }
+  .pai-header { padding: 8px 16px; }
   [data-ai-avatar][data-inviting] .home-avatar__frame, [data-ai-avatar]:focus-within .home-avatar__frame { transform: translateY(-3px) scale(1.3); }
   .pai-invitation { bottom: calc(100% + 14px); left: 20%; padding-bottom: 22px; margin-bottom: -22px; }
   [data-ai-avatar][data-inviting] .pai-invitation-label { max-width: 180px; margin-left: 8px; opacity: 1; }
@@ -66,13 +66,5 @@ html[data-ai-reopening] .pai-exit-group { transition-duration: 200ms; transition
 html[data-ai-reopening] .pai-background { transition-duration: 250ms; }
 .pai-nav-trigger { position: relative; z-index: 1; }
 html[data-ai-state]:not([data-ai-state='intro']) .site-page { isolation: auto; }
-.pai-dialog { inset:auto 28px 28px auto; width:min(440px,calc(100vw - 56px)); height:min(560px,55dvh); min-height:min(360px,calc(100dvh - 56px)); border-radius:24px; background:var(--paper); box-shadow:0 16px 60px color-mix(in oklab,var(--ink) 12%,transparent); }
-.pai-dialog::backdrop { background:color-mix(in oklab,var(--ink) 8%,transparent); }
-.pai-dialog .pai-header { padding:14px 16px 8px 24px; gap:10px; }
-.pai-title { font:500 15px var(--sans); letter-spacing:-.02em; margin-right:auto; }
-.pai-dialog .pai-demo { margin-right:auto; order:1; font-size:10px; }
-.pai-dialog .pai-close { order:2; width:36px; min-height:36px; padding:0; justify-content:center; }
-.pai-dialog .pai-close > span { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
-@media(max-width:760px) {
-.pai-dialog { inset:auto 12px max(12px,env(safe-area-inset-bottom)) 12px; width:calc(100% - 24px); height:min(560px,72dvh); min-height:0; border:1px solid var(--hairline); border-radius:22px; padding:0; }
-}
+.pai-title { font: 500 18px var(--serif); letter-spacing: -.025em; margin-right: auto; }
+.pai-close { font-size: 12px; color: var(--copy-ink); }
