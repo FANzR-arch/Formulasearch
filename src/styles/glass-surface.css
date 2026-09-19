@@ -43,31 +43,44 @@
     0 8px 18px light-dark(rgb(88 74 58 / 5%), color-mix(in oklab, var(--paper) 18%, transparent));
 }
 
-/* The header keeps the React Bits refraction on a narrow rim only. Applying
-   the SVG filter to the full, extra-wide capsule makes Chromium sample too
-   much of the photo behind it. */
-.site-header__glass.glass-surface--svg {
+/* Apply sampling on the host itself: native dialog descendants cannot reliably
+   sample the document behind the dialog. Its child retains tint and highlights. */
+.site-header__glass.glass-surface--svg, .pai-glass.glass-surface--svg {
   background: light-dark(hsl(0 0% 100% / var(--glass-frost, 0)), hsl(0 0% 0% / var(--glass-frost, 0)));
-  -webkit-backdrop-filter: blur(14px) saturate(var(--glass-saturation, 1)) brightness(1.02);
-  backdrop-filter: blur(14px) saturate(var(--glass-saturation, 1)) brightness(1.02);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
+.site-header:has(.glass-surface--svg) { -webkit-backdrop-filter:url(#glass-filter-site-nav) blur(8px) saturate(1.28); backdrop-filter:url(#glass-filter-site-nav) blur(8px) saturate(1.28); }
+.pai-dialog:has(.glass-surface--svg) { -webkit-backdrop-filter:url(#glass-filter-personal-ai) blur(10px) saturate(1.2); backdrop-filter:url(#glass-filter-personal-ai) blur(10px) saturate(1.2); }
+.pai-dialog:has(.glass-surface--fallback) { -webkit-backdrop-filter:blur(16px) saturate(1.2); backdrop-filter:blur(16px) saturate(1.2); }
+.pai-glass.glass-surface--fallback { -webkit-backdrop-filter:none; backdrop-filter:none; }
 
-.site-header__glass.glass-surface--svg::before {
+.site-header__glass.glass-surface--svg::before, .pai-glass.glass-surface--svg::before {
   position: absolute;
   z-index: 0;
   inset: 0;
   box-sizing: border-box;
-  padding: 3px;
+  padding: 1px;
   border-radius: inherit;
   pointer-events: none;
   content: '';
-  -webkit-backdrop-filter: var(--filter-id) saturate(var(--glass-saturation, 1));
-  backdrop-filter: var(--filter-id) saturate(var(--glass-saturation, 1));
+  background:linear-gradient(125deg,#ffffff80,transparent 35% 70%,#ffffff30);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
 }
+
+/* Refraction stays on the bevel; text and controls live above the glass. */
+.pai-glass.glass-surface { position:absolute; z-index:-1; inset:0; pointer-events:none; border-radius:inherit !important; }
+.pai-glass.glass-surface--svg { background:color-mix(in srgb,var(--paper) 74%,transparent); }
+.glass-surface--svg::after {
+  content:''; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:radial-gradient(180px 100px at var(--glass-light-x) var(--glass-light-y),#ffffff30,transparent 70%);
+  box-shadow:inset 0 1px 0 #ffffff60,inset 0 -1px 0 #ffffff18;
+  opacity:.65;
+}
+:root[data-theme='dark'] .glass-surface--svg::after { opacity:.35; }
 
 .glass-surface--fallback {
   border: 1px solid color-mix(in oklab, white 76%, transparent);

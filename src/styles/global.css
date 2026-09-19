@@ -13,8 +13,8 @@
   --control-size: 40px;
   --ease-out: cubic-bezier(.23, 1, .32, 1);
   --ease-in-out: cubic-bezier(.77, 0, .175, 1);
-  --motion-page-reveal: 720ms;
-  --ease-page-reveal: linear;
+  --motion-page-reveal: 460ms;
+  --ease-page-reveal: cubic-bezier(.22, .68, .28, 1);
   --motion-reveal: 420ms;
   --text-home-title: clamp(3.25rem, 5.7vw, 5.5rem);
   --text-page-title: clamp(1.5rem, 3vw, 2.75rem);

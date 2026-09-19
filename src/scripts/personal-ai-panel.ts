@@ -8,7 +8,7 @@ export function mountPanelInteraction(card:HTMLDialogElement){
  const place=(x:number,y:number)=>{const r=card.getBoundingClientRect();card.style.left=clamp(x,innerWidth-r.width-8)+'px';card.style.top=clamp(y,innerHeight-r.height-8)+'px';card.style.right='auto';card.style.bottom='auto';};
  const save=()=>{const r=card.getBoundingClientRect();try{sessionStorage.setItem(key,JSON.stringify({x:r.left/Math.max(1,innerWidth-r.width),y:r.top/Math.max(1,innerHeight-r.height)}));}catch{}};
  const restore=()=>{try{const p=JSON.parse(sessionStorage.getItem(key)||'null');if(p&&Number.isFinite(p.x)&&Number.isFinite(p.y)){const r=card.getBoundingClientRect();place(p.x*(innerWidth-r.width),p.y*(innerHeight-r.height));}}catch{}};
- const pointer=(x:number,y:number)=>{if(!card.open||card.dataset.morphing)return;const r=card.getBoundingClientRect(),dx=x-r.left-r.width/2,dy=y-r.top-r.height/2;const edge=Math.min(1,Math.max(Math.abs(dx)/(r.width/2),Math.abs(dy)/(r.height/2)));card.style.setProperty('--edge-proximity',(edge*100).toFixed(3));card.style.setProperty('--cursor-angle',(Math.atan2(dy,dx)*180/Math.PI+90)+'deg');};
+ const pointer=(x:number,y:number)=>{if(!card.open||card.dataset.morphing)return;const r=card.getBoundingClientRect(),dx=x-r.left-r.width/2,dy=y-r.top-r.height/2;const edge=Math.min(1,Math.max(Math.abs(dx)/(r.width/2),Math.abs(dy)/(r.height/2)));const angle=Math.atan2(dy,dx)*180/Math.PI+90;card.style.setProperty('--edge-proximity',(edge*100).toFixed(3));card.style.setProperty('--cursor-angle',angle+'deg');card.style.setProperty('--glow-hue',String((angle+360)%360));const glass=card.querySelector<HTMLElement>('.pai-glass');glass?.style.setProperty('--glass-light-x',((x-r.left)/r.width*100)+'%');glass?.style.setProperty('--glass-light-y',((y-r.top)/r.height*100)+'%');};
  card.addEventListener('pointermove',e=>pointer(e.clientX,e.clientY),options);
  header.addEventListener('pointerdown',e=>{if(card.dataset.morphing||e.button!==0||(e.target as Element).closest('button,a,input'))return;const r=card.getBoundingClientRect();dragging={id:e.pointerId,dx:e.clientX-r.left,dy:e.clientY-r.top};header.setPointerCapture(e.pointerId);card.dataset.dragging='';header.focus({preventScroll:true});e.preventDefault();},options);
  header.addEventListener('pointermove',e=>{if(dragging?.id!==e.pointerId)return;place(e.clientX-dragging.dx,e.clientY-dragging.dy);},options);
@@ -26,7 +26,7 @@ export function mountPanelInteraction(card:HTMLDialogElement){
   }
   const r=card.getBoundingClientRect(),t=trigger.getBoundingClientRect(),style=getComputedStyle(card);
   const drop=document.createElement('div');drop.className='pai-flight-drop';drop.setAttribute('aria-hidden','true');
-  Object.assign(drop.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px',background:document.documentElement.dataset.theme==='dark'?'#222225':getComputedStyle(document.documentElement).getPropertyValue('--paper'),border:style.border,boxShadow:style.boxShadow,borderRadius:style.borderRadius});
+  Object.assign(drop.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px',background:getComputedStyle(document.documentElement).getPropertyValue('--paper'),border:style.border,boxShadow:style.boxShadow,borderRadius:style.borderRadius});
   document.body.append(drop);shell=drop;card.dataset.morphing='true';
   const dx=t.left+t.width/2-r.left-r.width/2,dy=t.top+t.height/2-r.top-r.height/2;
   // One continuously sampled curve: no segment ends that brake to zero mid-flight.
@@ -36,21 +36,21 @@ export function mountPanelInteraction(card:HTMLDialogElement){
   const pose=(x:number,y:number,sx:number,sy:number,angle=0)=>'translate('+x+'px,'+y+'px) rotate('+angle+'deg) scale('+sx+','+sy+')';
   const radius=parseFloat(style.borderRadius)||24;
   const opening:Keyframe[]=Array.from({length:73},(_,i)=>{
-   const u=i/72,travel=u*(2-u),grow=u*u*(3-2*u);
+   const u=i/72,travel=1-(1-u)**3,grow=1-(1-u)**3;
    const x=bezier(dx,dx+side,side*.22,0,travel);
    const y=bezier(dy,dy-lift,-r.height*.18,0,travel);
-   const stretch=.06*Math.sin(2*Math.PI*u)*(1-u);
-   const v=Math.max(0,(u-.68)/.32),settle=.012*Math.sin(2*Math.PI*v)*Math.sin(Math.PI*v)**2;
+   const stretch=.025*Math.sin(Math.PI*u)*(1-u);
+   const settle=0;
    const sx=(32/r.width+(1-32/r.width)*grow)*(1-stretch+settle);
    const sy=(32/r.height+(1-32/r.height)*grow)*(1+stretch-settle);
-   return {transform:pose(x,y,sx,sy,-6*Math.sign(side)*Math.sin(2*Math.PI*u)*(1-u)),borderRadius:(r.height*.5*(1-grow)+radius*grow)+'px',opacity:1,offset:u};
+   return {transform:pose(x,y,sx,sy,-3*Math.sign(side)*Math.sin(Math.PI*u)*(1-u)),borderRadius:(r.height*.5*(1-grow)+radius*grow)+'px',opacity:Math.min(1,u*8),offset:u};
   });
   const returning=opening.slice().reverse().map((frame,i)=>({...frame,offset:i/72,opacity:i===72?0:1}));
-  const a=drop.animate(closing?returning:opening,{duration:closing?380:880,easing:'linear',fill:'both'});motion=a;
+  const a=drop.animate(closing?returning:opening,{duration:closing?300:520,easing:'linear',fill:'both'});motion=a;
   await a.finished.catch(()=>{});if(motion!==a)return;
   if(!closing){
    delete card.dataset.morphing;
-   const fade=drop.animate([{opacity:1},{opacity:0}],{duration:80,fill:'both'});motion=fade;
+   const fade=drop.animate([{opacity:1},{opacity:0}],{duration:160,easing:'ease-out',fill:'both'});motion=fade;
    await fade.finished.catch(()=>{});if(motion!==fade)return;
   }
   // Keep the closing card hidden until its owner closes the native dialog.

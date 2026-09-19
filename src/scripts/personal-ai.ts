@@ -32,7 +32,8 @@ if (widget?.dataset.endpoint) {
   let navigationTarget = ''
   let returnFocus: HTMLElement | undefined
   let loadTimer: ReturnType<typeof setTimeout>
-  let strands: { setActive(value: boolean): void; destroy(): void } | undefined
+  let responding = false
+  let strands: { setActive(value: boolean): void; setResponding(value: boolean): void; destroy(): void } | undefined
   let loadingStrands: Promise<void> | undefined
   const pending = new Map<string, (ok: boolean) => void>()
   const read = (key: string) => { try { return sessionStorage.getItem(key) } catch { return null } }
@@ -49,12 +50,13 @@ if (widget?.dataset.endpoint) {
     if (!ready) return
     post({ type: 'pai:cursor-enable', enabled: !!document.querySelector('[data-site-cursor]') && matchMedia('(any-hover: hover) and (any-pointer: fine)').matches })
     post({ type: 'pai:theme', theme: root.dataset.theme === 'dark' ? 'dark' : 'light' })
-    post({ type: 'pai:host-state', requestId: crypto.randomUUID(), active: state === 'chat' || (!home && state === 'entering'),
+    post({ type: 'pai:host-state', requestId: crypto.randomUUID(), active: state === 'chat' || state === 'entering',
       locale: en() ? 'en' : 'zh', reducedMotion: reduced.matches,
       recoveryWarning: read('pai-save-warning') === '1', links: links() })
   }
   const setState = (next: typeof state) => {
     state = next
+    surface.toggleAttribute('data-responding', responding && next === 'chat')
     if (home) {
       root.dataset.aiState = next
       document.querySelector<HTMLAnchorElement>('.skip-link')?.setAttribute('href', next === 'intro' ? '#main-content' : '#personal-ai-home')
@@ -66,7 +68,7 @@ if (widget?.dataset.endpoint) {
   }
   groups.forEach((group, i) => {
     group.classList.add('pai-exit-group')
-    group.style.setProperty('--pai-stagger', String(Math.min(i * 60, 180)) + 'ms')
+    group.style.setProperty('--pai-stagger', String(Math.min(i * 25, 75)) + 'ms')
   })
   if (home) root.dataset.aiState = 'intro'
   if (read('pai-discovered')) root.dataset.aiDiscovered = ''
@@ -90,6 +92,7 @@ if (widget?.dataset.endpoint) {
     if (!home || loadingStrands) return
     loadingStrands = import('./strands.mjs').then(({ mountStrands }) => {
       strands = mountStrands(background!.querySelector<HTMLElement>('.pai-strands')!)
+      strands?.setResponding(responding)
       strands?.setActive(state === 'entering' || state === 'chat')
     }).catch(() => { widget.dataset.backgroundFallback = 'true' })
   }
@@ -111,7 +114,7 @@ if (widget?.dataset.endpoint) {
       setState('entering')
       closeButton.focus({ preventScroll: true })
       strands?.setActive(true)
-      await delay(used ? 250 : 900)
+      await delay(520)
       if (token !== version) return
     } else {
       setState('entering')
@@ -129,7 +132,7 @@ if (widget?.dataset.endpoint) {
     const token = ++version
     setState('exiting')
     strands?.setActive(false)
-    if (home) await delay(450)
+    if (home) await delay(360)
     else {
       await panel?.transition(returnFocus?.isConnected ? returnFocus : navTrigger ?? closeButton, true)
       if (token !== version) return
@@ -180,7 +183,11 @@ if (widget?.dataset.endpoint) {
       }
       return
     }
-    if (message.type === 'pai:ready') {
+    if (message.type === 'pai:activity' && typeof message.responding === 'boolean') {
+      responding = message.responding
+      surface.toggleAttribute('data-responding', responding && state === 'chat')
+      strands?.setResponding(responding)
+    } else if (message.type === 'pai:ready') {
       ready = true
       surface.dataset.ready = ''
       clearTimeout(loadTimer)

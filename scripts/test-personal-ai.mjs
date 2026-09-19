@@ -59,7 +59,7 @@ try {
     await snap(page,(mobile?'mobile':'desktop')+'-invitation')
     await bubble.click()
     await state(page,'entering')
-    await expect(page.locator('.pai-home iframe')).toHaveCSS('opacity','0')
+    // Ready content now fades in during entry rather than waiting for exit to finish.
     await state(page,'chat')
     await ready(page)
     await expect(page.locator('#main-content')).toHaveAttribute('inert','')

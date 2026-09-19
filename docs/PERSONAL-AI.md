@@ -7,8 +7,8 @@
 
 - 首页桌面：悬浮照片，等待气泡出现；点击照片只显示邀请，点击气泡进入。键盘聚焦头像也可发现气泡。
 - 手机：头像可见时约 5 秒后提示 2 秒，20 秒后最多再提示一次；点头像展开、点气泡进入，点空白收回。交互后停止提示，同一标签页访问记住提示次数。
-- 首次进入：正文分组消散，Strands 与原背景交叉淡化，约 900ms 后显示输入区域，随后逐字问候。无人物卡、无聊天外框。
-- 返回介绍或 Escape：保留会话、草稿和正在进行的生成，约 450ms 恢复介绍与焦点；重开约 250ms，不重播问候。
+- 进入：正文轻移淡出，Strands 与原背景交叉淡化，已连接的聊天内容同步淡入，约 520ms 完成；首次与重开使用一致节奏，不重播已展示问候。
+- 返回介绍或 Escape：保留会话、草稿和正在进行的生成，约 360ms 恢复介绍与焦点。
 - 首页与内页：导航右侧始终显示聊天图标。首页进入沉浸对话，内页打开右下角浮窗；桌面最大 480 × 700px，手机按可用视口留边显示。
 - 基础操作常驻：顶部新对话、历史、联系 Phil；底部固定输入和发送/停止；回答下方显示复制、重试、赞同与纠错反馈。复制成功后显示“已复制”，嵌入窗口仅获剪贴板写入权限。
 - 消息区独立滚动，历史与留言弹窗适配窗口高度；演示回答及本地保存提示可见。联系入口仍为本地演示留言，不发送真实通知。
@@ -54,7 +54,10 @@ VITE_EMBED_ALLOWED_ORIGINS=http://127.0.0.1:4321,http://127.0.0.1:5175,https://r
 Strands 来源：`https://reactbits.dev/r/Strands-JS-CSS.json`，2026-09-17 获取；上游为 David Haz 的 React Bits。
 保留官方 VERT/FRAG 着色器，使用 OGL 1.x；将 React 生命周期改为显式挂载、暂停和清理，不启用无关的玻璃透镜分支。
 许可证为 MIT + Commons Clause，完整文本随网站源码保留。作为网站的一部分使用，不单独销售/分发组件。
-首页聊天稳定后暂停原 Molten，关闭后暂停 Strands 并恢复 Molten；后台标签页停止循环。减少动态效果使用静帧，WebGL 不可用时回退到站点纯色背景。
+首页聊天稳定后暂停原 Molten；Strands 待机持续慢流，生成时平滑加速（约 7.8 倍），结束后回到慢流，不跳变相位。关闭后暂停 Strands 并恢复 Molten；后台标签页停止循环。减少动态效果使用静帧，WebGL 不可用时保留 CSS 淡彩背景。Border Glow 保留官方的边缘距离、角度光锥和多层溢光；浮窗沿用站点 paper/ink 色彩。
+
+液态玻璃采用经用户确认的 Glass Surface 适配版，并非 Fluid Glass 的 Three.js 原组件。后者只能折射其画布内的场景，不能直接采样当前 DOM 和跨域 iframe。复用 `GlassSurface.astro` 的位移贴图与色散滤镜，直接应用在导航与原生 dialog 背景，玻璃子层负责染色和鼠标高光；文字与交互不进入滤镜。Safari/Firefox 使用磨砂回退。官方参考源码保存在忽略目录 `output/FluidGlass-JS-CSS.json`、`output/BorderGlow-JS-CSS.json`、`output/Strands-JS-CSS.json`。
+导航保留轻微三通道色散；大尺寸聊天卡片使用 `chromatic={false}` 的单次折射，避免三通道采样降低帧率，彩色边缘交由 Border Glow。单次折射与普通磨砂都保留页面背景采样。
 
 ## 嵌入协议
 
@@ -67,7 +70,8 @@ Strands 来源：`https://reactbits.dev/r/Strands-JS-CSS.json`，2026-09-17 获�
 | --- | --- | --- |
 | `pai:ready` | 聊天 → 父站 | 新模式在运行时与保存处理器注册后发送；父站回复状态 |
 | `pai:theme` | 父站 → 聊天；`theme: light / dark` | 沿用主题同步 |
-| `pai:host-state` | 父站 → 聊天；`requestId, active, locale, reducedMotion, recoveryWarning, links` | 转场完成才 active；链接为已知项目/文章归档路径与标签 |
+| `pai:host-state` | 父站 → 聊天；`requestId, active, locale, reducedMotion, recoveryWarning, links` | 进入阶段即 active，以便内容交叠淡入；链接为已知项目/文章归档路径与标签 |
+| `pai:activity` | 聊天 → 父站；`responding: boolean` | 运行时生成状态变化时通知；驱动背景快慢过渡与边缘，结束或组件卸载回到慢流，不含聊天内容 |
 | `pai:close` | 聊天 → 父站 | 内部关闭或无嵌套弹窗时的 Escape，返回介绍/关闭侧栏 |
 | `pai:prepare-navigation` | 父站 → 聊天；`requestId` | 停止生成，保存部分回答和草稿，等待存储队列 |
 | `pai:saved` | 聊天 → 父站；`requestId, ok` | 仅接受当前等待中的请求标识；存储失败不报告成功 |
@@ -89,6 +93,9 @@ node scripts/run-smoke.mjs
 npm run test:personal-ai
 # 只需网站开发预览；使用模拟聊天桥，不依赖真实聊天服务：
 node scripts/test-personal-ai-navigation-regressions.mjs
+# 两个开发服务运行；拦截配置使用 mock，不调用模型：
+node scripts/test-ai-motion.mjs
+node scripts/test-glass-strands.mjs
 # PersonalAI 目录：
 npm run check
 npm run build:chat

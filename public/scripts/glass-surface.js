@@ -1,3 +1,5 @@
+// A page can mount both header and chat glass; initialize each surface only once.
+(() => {
 const glassSurfaces = document.querySelectorAll('[data-glass-surface]')
 
 const numberValue = (element, name, fallback) => {
@@ -16,6 +18,8 @@ const supportsSVGFilters = (filterId) => {
 }
 
 const initializeGlassSurface = (container) => {
+  if (container.dataset.glassInitialized) return
+  container.dataset.glassInitialized = 'true'
   const filterId = container.dataset.filterKey
   const redGradId = container.dataset.redGradKey
   const blueGradId = container.dataset.blueGradKey
@@ -73,6 +77,7 @@ const initializeGlassSurface = (container) => {
       { element: greenChannel, offset: greenOffset },
       { element: blueChannel, offset: blueOffset },
     ].forEach(({ element, offset }) => {
+      if (!element) return
       element.setAttribute('scale', String(distortionScale + offset))
       element.setAttribute('xChannelSelector', xChannel)
       element.setAttribute('yChannelSelector', yChannel)
@@ -109,3 +114,4 @@ const initializeGlassSurface = (container) => {
 }
 
 glassSurfaces.forEach(initializeGlassSurface)
+})()

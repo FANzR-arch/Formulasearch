@@ -103,7 +103,7 @@ void main() {
 
 // Same official Strands VERT/FRAG; React lifecycle replaced with an explicit Astro controller.
 export function mountStrands(container) {
-  let renderer, frame = 0, active = false, lost = false, last = 0, time = 0;
+  let renderer, frame = 0, active = false, lost = false, last = 0, time = 0, responding = false, energy = 0;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   try {
     renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true, dpr: 1 });
@@ -114,9 +114,9 @@ export function mountStrands(container) {
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     const geometry = new Triangle(gl);
     if (geometry.attributes.uv) delete geometry.attributes.uv;
-    const values = { uTime: 0, uResolution: [1, 1], uColors: [], uColorCount: 3, uStrandCount: 3,
-      uSpeed: .18, uAmplitude: 1.2, uWaviness: 1, uThickness: .55, uGlow: 2.6, uTaper: 3,
-      uSpread: 1, uHueShift: 0, uIntensity: .45, uOpacity: .7, uScale: 2.5, uSaturation: .65 };
+    const values = { uTime: 0, uResolution: [1, 1], uColors: [], uColorCount: 4, uStrandCount: 4,
+      uSpeed: .065, uAmplitude: 1, uWaviness: 1, uThickness: .55, uGlow: 1.35, uTaper: 3,
+      uSpread: 1, uHueShift: 0, uIntensity: .12, uOpacity: .65, uScale: 2.5, uSaturation: 1.25 };
     const uniforms = Object.fromEntries(Object.entries(values).map(([key,value]) => [key, { value }]));
     const program = new Program(gl, { vertex: VERT, fragment: FRAG, uniforms });
     const mesh = new Mesh(gl, { geometry, program });
@@ -124,15 +124,22 @@ export function mountStrands(container) {
     container.dataset.renderer = 'react-bits-strands';
     const palette = () => {
       const colors = document.documentElement.dataset.theme === 'dark'
-        ? ['#728CA5', '#9A8DB8', '#82A69A'] : ['#345C77', '#78658C', '#56776B'];
+        ? ['#DF9663', '#56B9AA', '#A08DDB', '#DB7895'] : ['#BE6538', '#21877C', '#8161B5', '#C85D7C'];
       program.uniforms.uColors.value = Array.from({length: MAX_COLORS}, (_,i) => new Color(colors[i % colors.length]));
     };
-    const draw = () => { if (lost) return; palette(); program.uniforms.uTime.value = time; renderer.render({ scene: mesh }); };
+    palette();
+    const draw = () => { if (lost) return; program.uniforms.uTime.value = time; renderer.render({ scene: mesh }); };
     const stop = () => { cancelAnimationFrame(frame); frame = 0; last = 0; container.dataset.running = 'false'; };
     const tick = now => {
       if (!active || document.hidden || reduced.matches || lost) { stop(); return; }
-      if (last) time += Math.min((now - last) / 1000, .05);
-      last = now; draw(); frame = requestAnimationFrame(tick);
+      const dt = last ? Math.min((now - last) / 1000, .05) : 1 / 60;
+      energy += ((responding ? 1 : 0) - energy) * (1 - Math.exp(-dt * 3));
+      // Integrate speed, not absolute time: changing state never jumps phase.
+      time += dt * (.18 + energy * 1.22);
+      program.uniforms.uIntensity.value = .12 + energy * .28;
+      program.uniforms.uAmplitude.value = 1 + energy * .4;
+      last = now; draw();
+      frame = requestAnimationFrame(tick);
     };
     const sync = () => { stop(); if (!active || document.hidden || lost) return; draw(); if (!reduced.matches) { container.dataset.running = 'true'; frame = requestAnimationFrame(tick); } };
     const resize = () => {
@@ -143,15 +150,15 @@ export function mountStrands(container) {
     const loss = event => { event.preventDefault(); lost = true; stop(); gl.canvas.style.display = 'none'; container.dataset.fallback = 'true'; };
     gl.canvas.addEventListener('webglcontextlost', loss);
     const observer = new ResizeObserver(resize); observer.observe(container);
-    const theme = new MutationObserver(() => { if (active) draw(); });
+    const theme = new MutationObserver(() => { palette(); if (active) draw(); });
     theme.observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
     reduced.addEventListener('change', sync);
     document.addEventListener('visibilitychange', sync);
     resize();
-    return { setActive(value) { active = value; sync(); }, destroy() { stop(); observer.disconnect(); theme.disconnect(); reduced.removeEventListener('change',sync); document.removeEventListener('visibilitychange',sync); gl.canvas.remove(); gl.getExtension('WEBGL_lose_context')?.loseContext(); } };
+    return { setActive(value) { active = value; sync(); }, setResponding(value) { if (responding === value) return; responding = value; sync(); }, destroy() { stop(); observer.disconnect(); theme.disconnect(); reduced.removeEventListener('change',sync); document.removeEventListener('visibilitychange',sync); gl.canvas.remove(); gl.getExtension('WEBGL_lose_context')?.loseContext(); } };
   } catch {
     container.dataset.fallback = 'true';
     renderer?.gl?.getExtension('WEBGL_lose_context')?.loseContext();
-    return { setActive() {}, destroy() {} };
+    return { setActive() {}, setResponding() {}, destroy() {} };
   }
 }

@@ -29,7 +29,7 @@ for (const mobile of [false, true]) {
 }
 
 for (const zoom of [1, 1.5]) {
-  test(`rendered circle stays centered and expands uniformly at zoom=${zoom}`, async ({ page }) => {
+  test(`rendered circle stays centered and follows its easing at zoom=${zoom}`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 })
     await page.addInitScript(zoom => {
       addEventListener('DOMContentLoaded', () => { document.documentElement.style.zoom = zoom })
@@ -50,10 +50,12 @@ for (const zoom of [1, 1.5]) {
     // Isolate the actual composited mask, rather than just checking stored coordinates.
     await page.addStyleTag({ content: '::view-transition-old(root) { filter: brightness(0); } ::view-transition-new(root) { filter: brightness(0) invert(1); }' })
     const radii = []
-    for (const progress of [.01, .02]) {
-      await page.evaluate(progress => {
+    const eased = []
+    for (const progress of [.004, .008]) {
+      eased.push(await page.evaluate(progress => {
         window.circleAnimation.currentTime = window.circleAnimation.effect.getTiming().duration * progress
-      }, progress)
+        return window.circleAnimation.effect.getComputedTiming().progress
+      }, progress))
       const { data, info } = await sharp(await page.screenshot({ scale: 'css' })).removeAlpha().raw().toBuffer({ resolveWithObject: true })
       const points = []
       for (let y = 0; y < info.height; y++) for (let x = 0; x < info.width; x++) {
@@ -67,7 +69,7 @@ for (const zoom of [1, 1.5]) {
       expect(Math.abs((top + bottom + 1) / 2 - (box.y + box.height / 2))).toBeLessThan(2)
       radii.push((right - left + 1) / 2)
     }
-    expect(Math.abs(radii[1] - radii[0] * 2)).toBeLessThan(2)
+    expect(Math.abs(radii[1] - radii[0] * eased[1] / eased[0])).toBeLessThan(2)
   })
 }
 

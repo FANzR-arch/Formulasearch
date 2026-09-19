@@ -166,23 +166,16 @@
 @media(max-width:760px){.pai-dialog.border-glow-card{--border-radius:22px;}.pai-dialog > iframe {border-radius:0 0 22px 22px;}}
 @media(prefers-reduced-motion:reduce){.pai-dialog.border-glow-card::before,.pai-dialog.border-glow-card::after,.pai-dialog.border-glow-card > .edge-light{transition:none;}}
 
-/* Persistent rim and neutral surface separate the panel from the warm site canvas. */
-.pai-dialog.border-glow-card { border-color:rgb(50 55 65 / 18%); box-shadow:0 18px 60px rgb(15 20 30 / 20%),0 3px 12px rgb(15 20 30 / 12%),inset 0 1px 0 rgb(255 255 255 / 70%); }
-:root[data-theme='dark'] .pai-dialog.border-glow-card { --card-bg:#222225; border-color:rgb(255 255 255 / 19%); box-shadow:0 24px 72px rgb(0 0 0 / 48%),0 4px 18px rgb(0 0 0 / 30%),inset 0 1px 0 rgb(255 255 255 / 9%); }
-/* Translucent glass, with an opaque fallback for browsers without backdrop filtering. */
-@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
-  .pai-dialog.border-glow-card {
-    --card-bg:color-mix(in srgb,var(--paper) 86%,transparent);
-    background:var(--card-bg);
-    -webkit-backdrop-filter:blur(16px) saturate(1.12);
-    backdrop-filter:blur(16px) saturate(1.12);
-  }
-  :root[data-theme='dark'] .pai-dialog.border-glow-card { --card-bg:color-mix(in srgb,#222225 88%,transparent); }
-}
+/* Site paper and ink remain the surface; color is concentrated on the rim. */
+.pai-dialog.border-glow-card { --card-bg:var(--paper); --pai-spectrum:linear-gradient(130deg,#d48142,#bd658a 30%,#8b73cc 54%,#299f98 78%,#d48142); background:var(--paper); border-color:color-mix(in oklab,var(--accent) 24%,var(--paper)); box-shadow:0 20px 64px color-mix(in oklab,var(--ink) 16%,transparent),0 3px 12px color-mix(in oklab,var(--ink) 7%,transparent); }
+:root[data-theme='dark'] .pai-dialog.border-glow-card { --pai-spectrum:linear-gradient(130deg,#e6ac71,#df85a9 30%,#ab94e6 54%,#61bfb0 78%,#e6ac71); box-shadow:0 24px 72px #0006,0 4px 18px #0003; }
+/* Dedicated GlassSurface samples the page; BorderGlow layers remain independent. */
+.pai-dialog.border-glow-card { background:transparent; }
+.pai-dialog > .pai-header, .pai-dialog > .pai-status, .pai-dialog > iframe { position:relative; z-index:1; }
 /* Keep the glow on the rim rather than repainting an opaque interior. */
 .pai-dialog.border-glow-card::before {
   padding:1px; border:0;
-  background:linear-gradient(130deg,#a6d9f1,#c9b5ed 45%,#ead5aa);
+  background:var(--pai-spectrum);
   mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   mask-composite:exclude;
 }
@@ -190,6 +183,26 @@
 /* Animate a separate shell so iframe and backdrop-filter never scale/re-rasterize. */
 .pai-flight-drop { position:fixed; z-index:80; pointer-events:none; box-sizing:border-box; transform-origin:center; will-change:transform,opacity,border-radius; }
 .pai-dialog[data-morphing] { visibility:hidden; pointer-events:none; }
-/* No animated color fill over the glass: retain the border and outer glow only. */
-.pai-dialog.border-glow-card::after { display:none; }
+/* React Bits' three layers: mesh rim, restrained inner spill, and outer cone. */
+.pai-dialog.border-glow-card::after { --fill-opacity:.16; z-index:0; }
 .pai-dialog.border-glow-card > .edge-light { mix-blend-mode:normal; }
+.pai-dialog.border-glow-card::before { opacity:clamp(0,calc((var(--edge-proximity) - 50) / 50),1); }
+.pai-dialog.border-glow-card:not(:hover):not(.sweep-active)::before { opacity:0; }
+.pai-dialog.border-glow-card > .edge-light {
+  /* The inherited conic mask follows --cursor-angle, including iframe pointers. */
+  opacity:clamp(0,calc((var(--edge-proximity) - 30) / 70),1);
+  transition:opacity 180ms ease-out;
+}
+.pai-dialog.border-glow-card:not(:hover):not(.sweep-active) > .edge-light { opacity:0; transition-duration:450ms; }
+.pai-dialog.border-glow-card {
+  --glow-color:hsl(var(--glow-hue, 38) 85% 68%);
+  --glow-color-60:color-mix(in srgb,var(--glow-color) 60%,transparent);
+  --glow-color-50:color-mix(in srgb,var(--glow-color) 50%,transparent);
+  --glow-color-40:color-mix(in srgb,var(--glow-color) 40%,transparent);
+  --glow-color-30:color-mix(in srgb,var(--glow-color) 30%,transparent);
+  --glow-color-20:color-mix(in srgb,var(--glow-color) 20%,transparent);
+  --glow-color-10:color-mix(in srgb,var(--glow-color) 10%,transparent);
+}
+.pai-dialog.border-glow-card[data-responding]:not(:hover) > .edge-light { mask:none; animation:pai-rim-breathe 3.8s ease-in-out infinite; }
+@keyframes pai-rim-breathe { 0%,100% { opacity:.45; } 50% { opacity:.95; } }
+@media(prefers-reduced-motion:reduce){.pai-dialog.border-glow-card[data-responding] > .edge-light{animation:none;opacity:.65;}}
