@@ -6,9 +6,21 @@ let navCloseTimer
 const navCloseDelay = 360
 // A stationary pointer must not reopen the arriving page's menu after navigation.
 let suppressHover = document.documentElement.dataset.siteEntry === 'internal'
+let lastHoverPointer
+let hoverResumeEvent
 document.addEventListener('pointermove', (event) => {
-  if (event.movementX || event.movementY) suppressHover = false
-}, { passive: true })
+  if (event.pointerType !== 'mouse') return
+  const moved = event.movementX || event.movementY || (lastHoverPointer &&
+    (event.clientX !== lastHoverPointer.x || event.clientY !== lastHoverPointer.y))
+  lastHoverPointer = { x: event.clientX, y: event.clientY }
+  if (!suppressHover || document.documentElement.dataset.viewTransition) return
+  // Some browsers report zero movement deltas across document navigation.
+  // Leaving the nav or changing absolute coordinates proves renewed intent.
+  if (moved || !primaryNavigation?.contains(event.target)) {
+    suppressHover = false
+    hoverResumeEvent = event
+  }
+}, { passive: true, capture: true })
 
 const getFocusableNavigationItems = () => [...(primaryNavigation?.querySelectorAll('a, button') ?? [])]
   .filter((element) => !element.hasAttribute('disabled') && !element.closest('[inert]') && element.getClientRects().length)
@@ -73,11 +85,16 @@ navMenus.forEach((menu) => {
     else openNavigationMenu(menu)
   })
 
-  menu.addEventListener('pointerenter', (event) => {
+  const hoverMenu = (event) => {
     if (!suppressHover && event.pointerType === 'mouse' && !window.matchMedia('(max-width: 760px)').matches) {
       openedByHover = !menu.classList.contains('is-open')
       openNavigationMenu(menu)
     }
+  }
+  menu.addEventListener('pointerenter', hoverMenu)
+  // pointerenter precedes pointermove; resume on the same physical move.
+  menu.addEventListener('pointermove', event => {
+    if (event === hoverResumeEvent) hoverMenu(event)
   })
   menu.addEventListener('pointerleave', (event) => {
     if (event.pointerType !== 'mouse') return
@@ -147,6 +164,8 @@ primaryNavigation?.querySelectorAll('a').forEach((link) => {
 window.addEventListener('pageshow', (event) => {
   if (!event.persisted) return
   suppressHover = true
+  lastHoverPointer = undefined
+  hoverResumeEvent = undefined
   closeNavigationMenus()
   closeMobileNavigation()
 })

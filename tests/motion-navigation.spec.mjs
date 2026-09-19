@@ -237,3 +237,18 @@ test('mobile navigation stays steady until the outgoing page is captured', async
   expect(await page.evaluate(() => sessionStorage.getItem('departing-nav-open'))).toBe('true')
   await expect(page.locator('.site-header')).not.toHaveClass(/is-nav-open/)
 })
+
+test('arrival hover resumes when the browser reports zero movement deltas', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(MouseEvent.prototype, 'movementX', { get: () => 0 })
+    Object.defineProperty(MouseEvent.prototype, 'movementY', { get: () => 0 })
+  })
+  await page.goto('/projects')
+  await page.locator('.nav-link[href="/blog"]').click()
+  await expect(page).toHaveURL(/\/blog$/)
+  await page.waitForFunction(() => !document.documentElement.dataset.viewTransition)
+  await expect(page.locator('.nav-menu').first()).not.toHaveClass(/is-open/)
+  await page.mouse.move(1100, 650)
+  await page.locator('.nav-link[href="/blog"]').hover()
+  await expect(page.locator('.nav-menu').first()).toHaveClass(/is-open/)
+})
