@@ -19,5 +19,5 @@ const Frame = personalAiEndpoint ? 'button' : 'span'
   <Frame class="home-avatar__frame" type={personalAiEndpoint ? 'button' : undefined} aria-label={personalAiEndpoint ? label : undefined} aria-expanded={personalAiEndpoint ? 'false' : undefined}>
     <ThemeImage class="home-avatar__image" {light} {dark} widths={[160, 400, 600]} sizes="(any-hover: hover) and (any-pointer: fine) 200px, 72px" alt="" eager />
   </Frame>
-  {personalAiEndpoint && <span class="pai-invitation"><button type="button" class="pai-avatar-trigger" data-ai-open aria-controls="personal-ai-home" aria-expanded="false" aria-label="和我的 AI 聊聊" data-aria-en="Talk to my AI" data-aria-zh="和我的 AI 聊聊"><Icon name="chat" role="control" /><span class="pai-invitation-label"><span class="localized-text__zh">和我的 AI 聊聊</span><span class="localized-text__en">Talk to my AI</span></span></button></span>}
+  {personalAiEndpoint && <span class="pai-invitation"><button type="button" class="pai-avatar-trigger" data-ai-open aria-controls="personal-ai-home" aria-expanded="false" aria-label={locale === 'en' ? 'Talk to my AI' : '和我的 AI 聊聊'} data-aria-en="Talk to my AI" data-aria-zh="和我的 AI 聊聊"><Icon name="chat" role="control" /><span class="pai-invitation-label"><span class="localized-text__zh">和我的 AI 聊聊</span><span class="localized-text__en">Talk to my AI</span></span></button></span>}
 </span>
