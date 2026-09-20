@@ -1,4 +1,12 @@
 (() => {
+  // Load visible clips' metadata so native volume/fullscreen controls are ready before play.
+  const metadataObserver = new IntersectionObserver(entries => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return
+      target.preload = 'metadata'
+      metadataObserver.unobserve(target)
+    })
+  })
   document.querySelectorAll('[data-video-rail]').forEach((stage) => {
     if (stage.dataset.railInitialized) return
     stage.dataset.railInitialized = 'true'
@@ -32,25 +40,26 @@
     if (player.dataset.initialized) return
     player.dataset.initialized = 'true'
     const video = player.querySelector('video')
-    const button = player.querySelector('[data-video-toggle]')
-    const sync = () => {
-      const playing = !video.paused && !video.ended
-      player.toggleAttribute('data-playing', playing)
-      const zh = document.documentElement.lang.startsWith('zh')
-      button.setAttribute('aria-label', playing ? (zh ? '暂停视频' : 'Pause video') : (zh ? '播放视频' : 'Play video'))
-    }
-    button.addEventListener('click', async () => {
-      if (video.paused || video.ended) {
-        try { await video.play() } catch { sync() }
-      } else video.pause()
+    video.addEventListener('play', () => {
+      document.querySelectorAll('video').forEach(other => {
+        if (other !== video && !other.paused) other.pause()
+      })
     })
-    button.addEventListener('keydown', (event) => {
-      if (['ArrowLeft', 'ArrowRight'].includes(event.key) && Number.isFinite(video.duration)) {
-        event.preventDefault()
-        video.currentTime = Math.max(0, Math.min(video.duration, video.currentTime + (event.key === 'ArrowRight' ? 5 : -5)))
+    const error = player.querySelector('[data-video-error]')
+    const retry = player.querySelector('[data-video-retry]')
+    const failed = () => { error.hidden = false }
+    const play = async () => {
+      try { await video.play() } catch (cause) {
+        if (cause.name !== 'AbortError' && cause.name !== 'NotAllowedError') failed()
       }
+    }
+    retry.addEventListener('click', () => {
+      error.hidden = true
+      video.load()
+      play()
     })
-    ;['play', 'pause', 'ended', 'error'].forEach(event => video.addEventListener(event, sync))
-    new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] })
+    video.addEventListener('error', failed)
+    video.querySelector('source')?.addEventListener('error', failed)
+    metadataObserver.observe(video)
   })
 })()

@@ -27,36 +27,61 @@ for (const width of [1280, 390]) {
   })
 }
 
-test('video chrome appears only on hover or focus and scrollbar uses one cursor', async ({ page }) => {
-  await page.goto('/projects')
-  await expect(page.locator('video[controls]')).toHaveCount(0)
-  const player = page.locator('[data-video-player]').first()
-  const button = player.locator('button')
-  const video = player.locator('video')
-  await player.scrollIntoViewIfNeeded()
-  await page.mouse.move(0, 0)
-  await expect(player.locator('.project-video__play')).toHaveCSS('opacity', '0')
-  await button.hover()
-  await expect(player.locator('.project-video__play')).toHaveCSS('opacity', '1')
-  await expect(page.locator('html')).toHaveAttribute('data-cursor-mode', 'custom')
-  await button.click()
-  await expect(video).toHaveJSProperty('paused', false)
-  await button.click()
-  await expect(video).toHaveJSProperty('paused', true)
-  await button.focus()
-  await button.press('Space')
-  await expect(video).toHaveJSProperty('paused', false)
-  await button.press('Space')
-  const rail = page.locator('#brand-concept .project-videos--rail')
-  const bar = await rail.evaluate(el => {
-    const rect = el.getBoundingClientRect()
-    return { x: rect.left + 50, y: rect.bottom - 2, size: el.offsetHeight - el.clientHeight }
-  })
-  if (bar.size > 2) {
-    await page.mouse.move(bar.x, bar.y)
+for (const width of [1280, 390]) {
+  test(`native video controls handle playback at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 })
+    await page.goto('/projects')
+    await expect(page.locator('[data-video-expand], [data-video-dialog], [data-video-toggle]')).toHaveCount(0)
+    const video = page.locator('[data-video-player] video').first()
+    await video.scrollIntoViewIfNeeded()
+    await expect(video).toHaveAttribute('controls', '')
+    await video.hover()
     await expect(page.locator('html')).not.toHaveAttribute('data-cursor-mode', 'custom')
-    await expect(page.locator('[data-site-cursor]')).toHaveCSS('opacity', '0')
-  }
+    await video.focus()
+    await video.press('Space')
+    await expect(video).toHaveJSProperty('paused', false)
+    await video.press('Space')
+    await expect(video).toHaveJSProperty('paused', true)
+    await page.screenshot({ path: `output/playwright/video-native-${width}.png` })
+    if (width === 1280) {
+      await video.evaluate(el => el.requestFullscreen())
+      await expect.poll(() => video.evaluate(el => document.fullscreenElement === el)).toBe(true)
+      await page.evaluate(() => document.exitFullscreen())
+    }
+  })
+}
+
+test('video loading errors offer a working retry', async ({ page }) => {
+  await page.route('**/brand-concept-01.mp4', route => route.abort())
+  await page.goto('/projects')
+  const player = page.locator('[data-video-player]').first()
+  await player.scrollIntoViewIfNeeded()
+  await expect(player.locator('[data-video-error]')).toBeVisible()
+  await page.unroute('**/brand-concept-01.mp4')
+  await player.locator('[data-video-retry]').click()
+  await expect(player.locator('[data-video-error]')).toBeHidden()
+  await expect(player.locator('video')).toHaveJSProperty('paused', false)
+})
+
+test('native mouse controls change mute and fullscreen, and a new video pauses the old one', async ({ page }) => {
+  await page.setViewportSize({ width: 1483, height: 1272 })
+  await page.goto('/projects')
+  const videos = page.locator('#brand-concept video')
+  const first = videos.nth(0)
+  const second = videos.nth(1)
+  await first.scrollIntoViewIfNeeded()
+  const box = await first.boundingBox()
+  await expect.poll(() => first.evaluate(el => el.readyState)).toBeGreaterThanOrEqual(2)
+  await page.mouse.click(box.x + box.width - 120, box.y + box.height - 50)
+  await expect(first).toHaveJSProperty('muted', true)
+  await page.mouse.click(box.x + box.width - 72, box.y + box.height - 50)
+  await expect.poll(() => first.evaluate(el => document.fullscreenElement === el)).toBe(true)
+  await page.evaluate(() => document.exitFullscreen())
+  await first.evaluate(async el => { if (el instanceof HTMLVideoElement) { el.currentTime = 0; await el.play() } })
+  const nextBox = await second.boundingBox()
+  await page.mouse.click(nextBox.x + 26, nextBox.y + nextBox.height - 50)
+  await expect(second).toHaveJSProperty('paused', false)
+  await expect(first).toHaveJSProperty('paused', true)
 })
 
 for (const width of [1280, 390]) {
@@ -72,7 +97,7 @@ for (const width of [1280, 390]) {
       const heights = await videos.evaluateAll((els) => els.map(el => el.getBoundingClientRect().height))
       expect(Math.max(...heights) - Math.min(...heights)).toBeLessThan(3)
       for (const video of await videos.all()) {
-        await expect(video).toHaveAttribute('preload', 'none')
+        await expect(video).toHaveAttribute('preload', /^(none|metadata)$/)
         await video.scrollIntoViewIfNeeded()
         await video.evaluate(async el => { el.muted = true; await el.play() })
         await expect.poll(() => video.evaluate(el => el.currentTime)).toBeGreaterThan(0)
@@ -110,7 +135,7 @@ for (const width of [1280, 390]) {
       const video = videos.nth(index)
       const number = String(clipNumbers[index]).padStart(2, '0')
       await expect(video.locator('source')).toHaveAttribute('src', `/uploads/projects/digital-human-videos/digital-human-${number}.mp4`)
-      await expect(video).toHaveAttribute('preload', 'none')
+      await expect(video).toHaveAttribute('preload', /^(none|metadata)$/)
       await expect(video).toHaveJSProperty('autoplay', false)
       await video.scrollIntoViewIfNeeded()
       await video.evaluate(async (element) => {
@@ -147,7 +172,7 @@ test('project motion videos load on demand, play, and link to their original pos
     const card = cards.nth(index)
     const video = card.locator('video')
     await expect(card.locator('.project-video__source')).toHaveAttribute('href', sourceUrl)
-    await expect(video).toHaveAttribute('preload', 'none')
+    await expect(video).toHaveAttribute('preload', /^(none|metadata)$/)
     await expect(video).toHaveJSProperty('autoplay', false)
     await video.scrollIntoViewIfNeeded()
     await video.evaluate(async (element) => { element.muted = true; await element.play() })

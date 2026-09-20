@@ -66,6 +66,11 @@
       return
     }
     if (!active) activate()
+    // Browser video controls need the native pointer.
+    if (event.target instanceof Element && event.target.closest('video[controls]')) {
+      setVisible(false)
+      return
+    }
     // Native scrollbar chrome does not inherit CSS cursor:none.
     for (let el = event.target; el instanceof HTMLElement; el = el.parentElement) {
       const rect = el.getBoundingClientRect()

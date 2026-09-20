@@ -19,22 +19,21 @@ const isRail = layout !== 'grid'
   {videos.map((video) => (
     <article class:list={['project-video', { 'project-video--filmstrip': layout === 'filmstrip' }]} style={`--video-ratio: ${video.width / video.height}`}>
       <div class="project-video__player" data-video-player>
-      <video playsinline preload="none" poster={video.poster} width={video.width} height={video.height} style={`aspect-ratio: ${video.width} / ${video.height}`} aria-label={video.title[locale]} data-aria-zh={video.title.zh} data-aria-en={video.title.en}>
+      <video controls playsinline preload="none" poster={video.poster} width={video.width} height={video.height} style={`aspect-ratio: ${video.width} / ${video.height}`} aria-label={video.title[locale]} data-aria-zh={video.title.zh} data-aria-en={video.title.en}>
         <source src={video.src} type="video/mp4" />
         {video.sourceUrl ? <a href={video.sourceUrl} target="_blank" rel="noopener noreferrer"><LocalizedText zh="在 X 查看视频" en="Watch on X" /></a> : <LocalizedText zh="当前浏览器不支持视频播放。" en="Your browser does not support video playback." />}
       </video>
-      <button class="project-video__toggle" type="button" aria-label={locale === 'zh' ? '播放视频' : 'Play video'} data-video-toggle>
-        <span class="project-video__play"><Icon name="video-play" role="control" /></span>
-        <span class="project-video__pause"><Icon name="video-pause" role="control" /></span>
-      </button>
+      <div class="project-video__error" data-video-error hidden role="status">
+        <LocalizedText zh="视频暂时无法加载，请检查网络后重试。" en="Video unavailable. Check your connection and try again." />
+        <button type="button" data-video-retry><LocalizedText zh="重新加载" en="Retry" /></button>
+      </div>
       </div>
       {(!isRail || video.sourceUrl) && <div class="project-video__copy">
         {video.category && <p class="project-video__category"><LocalizedText {...video.category} /></p>}
         {!isRail && <h3><LocalizedText {...video.title} /></h3>}
         {video.description && <p class="project-video__description"><LocalizedText {...video.description} /></p>}
-        {video.sourceUrl && <a class="project-video__source" href={video.sourceUrl} target="_blank" rel="noopener noreferrer">
-          <LocalizedText zh="查看 X 原帖" en="View original post on X" />
-          <Icon name="catalog-external" role="meta" />
+        {video.sourceUrl && <a class="project-video__source" href={video.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={locale === 'zh' ? '查看 X 原帖' : 'View original post on X'} data-aria-zh="查看 X 原帖" data-aria-en="View original post on X">
+          X
         </a>}
       </div>}
     </article>
@@ -64,15 +63,9 @@ const isRail = layout !== 'grid'
   .project-videos__navigation button:disabled { opacity: .3; cursor: default; }
   .project-videos__navigation button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .project-video__player { position: relative; }
-  .project-video__toggle { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; color: white; cursor: pointer; }
-  .project-video__toggle > span { display: grid; place-items: center; width: 52px; height: 52px; border: 1px solid rgb(255 255 255 / .5); border-radius: 50%; background: rgb(0 0 0 / .38); backdrop-filter: blur(10px); opacity: 0; transition: opacity 160ms ease; }
-  .project-video__toggle :global(.icon) { width: 24px; height: 24px; }
-  .project-video__player:hover .project-video__toggle > span,
-  .project-video__toggle:focus-visible > span { opacity: 1; }
-  .project-video__toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
-  .project-video__toggle .project-video__pause,
-  .project-video__player[data-playing] .project-video__play { display: none; }
-  .project-video__player[data-playing] .project-video__pause { display: grid; }
+  [hidden] { display: none !important; }
+  .project-video__error { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; padding: 16px; text-align: center; font-size: .85rem; background: var(--paper); color: var(--ink); }
+  .project-video__error button { padding: 8px 12px; border: 1px solid var(--hairline); border-radius: 6px; color: inherit; background: transparent; cursor: pointer; }
   .project-videos--rail:has(.project-video--filmstrip) { grid-auto-columns: max-content; }
   .project-video--filmstrip { width: calc(clamp(180px, 23vw, 280px) * var(--video-ratio)); }
   .project-videos--rail { display: grid; grid-auto-flow: column; grid-auto-columns: clamp(180px, 20vw, 240px); gap: clamp(16px, 2vw, 24px); max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none; }
