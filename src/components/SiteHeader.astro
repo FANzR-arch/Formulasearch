@@ -31,10 +31,16 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
     </a>
 
   <button id="mobile-navigation-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label={localized(uiCopy.navigation.openNavigation)} data-nav-open-zh={uiCopy.navigation.openNavigation.zh} data-nav-open-en={uiCopy.navigation.openNavigation.en} data-nav-close-zh={uiCopy.navigation.closeNavigation.zh} data-nav-close-en={uiCopy.navigation.closeNavigation.en} data-sound="switch" data-sound-volume="0.18">
+    <span class="mobile-nav-toggle__label"><LocalizedText zh="更多" en="More" /></span>
     <Icon name="nav-menu" role="control" class="mobile-nav-toggle__menu" />
     <Icon name="nav-close" role="control" class="mobile-nav-toggle__close" />
   </button>
 
+  <nav class="mobile-nav-shortcuts" aria-label={locale === 'en' ? 'Quick navigation' : '快捷导航'}>
+    {primaryNavigation.map((section) => (
+      <a class:list={['mobile-nav-shortcut', { 'is-active': active === section.id }]} href={localizedRoute(section.href)} aria-current={active === section.id ? 'page' : undefined}><LocalizedText {...section.label} /></a>
+    ))}
+  </nav>
   <nav id="site-navigation" class="site-nav" aria-label={localized(uiCopy.navigation.site)} data-aria-en={uiCopy.navigation.site.en} data-aria-zh={uiCopy.navigation.site.zh}>
     {primaryNavigation.map((section) => (
       section.menu.length > 0 ? <div class="nav-menu">
