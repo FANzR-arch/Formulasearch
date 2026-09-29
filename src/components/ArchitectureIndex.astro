@@ -39,7 +39,7 @@ const gridProjects = [...architectureProjects].sort((left, right) => getStableGr
           data-site-reveal-delay={String(70 + index * 60)}
         >
           <figure>
-            <Image src={project.cover} alt={getLocalizedValue(project.title, locale)} loading={index < 3 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} sizes="(max-width: 560px) 100vw, (max-width: 820px) 50vw, 33vw" />
+            <Image src={project.cover} widths={[400, 640, 960]} format="webp" quality={82} alt={getLocalizedValue(project.title, locale)} loading={index < 3 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} sizes={`${index < 3 ? '' : 'auto, '}(max-width: 560px) calc(100vw - 72px), (max-width: 820px) 44vw, 360px`} />
             <figcaption>
               <h2><LocalizedText {...project.title} /></h2>
             </figcaption>

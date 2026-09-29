@@ -8,6 +8,8 @@ import ProjectVideos from './ProjectVideos.astro'
 import GenerativeHoverType from './GenerativeHoverType.astro'
 import type { CatalogPage, CatalogSection } from '../data/catalog'
 import type { Locale } from '../lib/i18n'
+import type { ImageMetadata } from 'astro'
+import ThemeImage from './ThemeImage.astro'
 
 interface Props {
   page: CatalogPage
@@ -18,6 +20,7 @@ interface Props {
 
 const { motionVariant, page, sections, locale = 'zh' } = Astro.props
 const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
+const skillCovers = import.meta.glob<ImageMetadata>('/public/uploads/skills/**/cover*.{webp,png,jpg,jpeg}', { eager: true, import: 'default' })
 ---
 
 <PageHero title={page.heading} description={page.intro} motionVariant={motionVariant} />
@@ -114,8 +117,7 @@ const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
     ) : section.presentation === 'skill-project' ? (
       <section id={section.id} class="skill-project" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
         <a class="skill-project__media" href={section.repositoryUrl} target="_blank" rel="noopener noreferrer" aria-label={locale === 'zh' ? `查看 ${section.title.zh} 仓库` : `Visit the ${section.title.en} repository`}>
-          <img class="skill-project__cover skill-project__cover--light" src={section.cover.light} alt={section.coverAlt[locale]} loading="lazy" decoding="async" />
-          <img class="skill-project__cover skill-project__cover--dark" src={section.cover.dark} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+          <ThemeImage class="skill-project__cover" light={skillCovers[`/public${section.cover.light}`]} dark={skillCovers[`/public${section.cover.dark}`]} widths={[480, 800, 1200]} sizes="auto, (max-width: 820px) calc(100vw - 72px), 540px" alt={section.coverAlt[locale]} altZh={section.coverAlt.zh} altEn={section.coverAlt.en} />
         </a>
         <div class="skill-project__content">
           <span class="skill-project__eyebrow"><LocalizedText {...section.tag} /></span>

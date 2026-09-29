@@ -1,4 +1,5 @@
 import { z } from 'astro/zod'
+import type { ImageMetadata } from 'astro'
 import photoArchive from '../../content/site/photo-archive.json'
 import { localAssetPathSchema } from '../lib/validation'
 import { archiveItemBaseSchema, archivePageBaseSchema, validateArchiveRelations } from './archive-schema'
@@ -45,6 +46,16 @@ if (!result.success) {
 export type PhotoArchiveItem = z.infer<typeof photoArchiveItemSchema>
 export const photoArchivePage = result.data
 export const selectedPhotoArchive = result.data.items
+
+// Build responsive thumbnails from the published originals; lightboxes keep
+// using each item's original URL, and source-photo metadata stays untouched.
+const photoImages = import.meta.glob<ImageMetadata>('/public/uploads/photos/**/*.{webp,jpg,jpeg,png,avif}', { eager: true, import: 'default' })
+export const resolvePhotoImage = (source: ImageMetadata | string) => {
+  if (typeof source !== 'string') return source
+  const image = photoImages[`/public${source}`]
+  if (!image) throw new Error(`Photo image is missing: ${source}`)
+  return image
+}
 
 const itemIndexes = selectedPhotoArchive.map((item) => item.index)
 const itemImages = selectedPhotoArchive.map((item) => item.image)

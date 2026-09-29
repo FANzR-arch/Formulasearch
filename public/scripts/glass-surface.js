@@ -45,12 +45,14 @@ const initializeGlassSurface = (container) => {
   const mixBlendMode = container.dataset.mixBlendMode || 'difference'
 
   const generateDisplacementMap = () => {
-    const rect = container.getBoundingClientRect()
-    const actualWidth = rect.width || 400
-    const actualHeight = rect.height || 200
+    const actualWidth = container.clientWidth || 400
+    const actualHeight = container.clientHeight || 200
     const edgeSize = Math.min(actualWidth, actualHeight) * (borderWidth * 0.5)
+    // SVG clamps rx/ry separately. Match CSS's circular capsule corners instead
+    // of letting a 999px radius turn the displacement map into a long ellipse.
+    const radius = Math.min(borderRadius, actualWidth / 2, actualHeight / 2)
     const svgContent = `
-      <svg viewBox="0 0 ${actualWidth} ${actualHeight}" xmlns="http://www.w3.org/2000/svg">
+      <svg width="${actualWidth}" height="${actualHeight}" viewBox="0 0 ${actualWidth} ${actualHeight}" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="${redGradId}" x1="100%" y1="0%" x2="0%" y2="0%">
             <stop offset="0%" stop-color="#0000"/>
@@ -62,9 +64,9 @@ const initializeGlassSurface = (container) => {
           </linearGradient>
         </defs>
         <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" fill="black"></rect>
-        <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" rx="${borderRadius}" fill="url(#${redGradId})" />
-        <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" rx="${borderRadius}" fill="url(#${blueGradId})" style="mix-blend-mode: ${mixBlendMode}" />
-        <rect x="${edgeSize}" y="${edgeSize}" width="${actualWidth - edgeSize * 2}" height="${actualHeight - edgeSize * 2}" rx="${borderRadius}" fill="hsl(0 0% ${brightness}% / ${opacity})" style="filter:blur(${blur}px)" />
+        <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" rx="${radius}" fill="url(#${redGradId})" />
+        <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" rx="${radius}" fill="url(#${blueGradId})" style="mix-blend-mode: ${mixBlendMode}" />
+        <rect x="${edgeSize}" y="${edgeSize}" width="${actualWidth - edgeSize * 2}" height="${actualHeight - edgeSize * 2}" rx="${Math.max(0, radius - edgeSize)}" fill="hsl(0 0% ${brightness}% / ${opacity})" style="filter:blur(${blur}px)" />
       </svg>
     `
     return `data:image/svg+xml,${encodeURIComponent(svgContent)}`
@@ -97,19 +99,63 @@ const initializeGlassSurface = (container) => {
 
   const lightTarget = container.closest('.site-header') || container
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const softenLight = lightTarget !== container
+    const current = { x: 22, y: 0 }
+    const target = { ...current }
+    let lightFrame = 0
+    let lastFrameTime = 0
+    const paintLight = () => {
+      container.style.setProperty('--glass-light-x', `${current.x.toFixed(2)}%`)
+      container.style.setProperty('--glass-light-y', `${current.y.toFixed(2)}%`)
+    }
+    const followLight = (time) => {
+      lightFrame = 0
+      const elapsed = lastFrameTime ? Math.min(time - lastFrameTime, 64) : 16.7
+      lastFrameTime = time
+      const amount = 1 - Math.exp(-elapsed / 85)
+      current.x += (target.x - current.x) * amount
+      current.y += (target.y - current.y) * amount
+      if (Math.hypot(target.x - current.x, target.y - current.y) < .05) {
+        Object.assign(current, target)
+        lastFrameTime = 0
+      } else lightFrame = requestAnimationFrame(followLight)
+      paintLight()
+    }
+    const moveLight = (x, y) => {
+      Object.assign(target, { x, y })
+      if (!softenLight || reducedMotion.matches || document.hidden) {
+        cancelAnimationFrame(lightFrame)
+        lightFrame = lastFrameTime = 0
+        Object.assign(current, target)
+        paintLight()
+      } else if (!lightFrame) lightFrame = requestAnimationFrame(followLight)
+    }
     lightTarget.addEventListener('pointermove', (event) => {
+      if (event.pointerType !== 'mouse') return
       const rect = container.getBoundingClientRect()
       const x = Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100))
       const y = Math.max(0, Math.min(100, ((event.clientY - rect.top) / rect.height) * 100))
-      container.style.setProperty('--glass-light-x', `${x.toFixed(2)}%`)
-      container.style.setProperty('--glass-light-y', `${y.toFixed(2)}%`)
+      moveLight(x, y)
       container.classList.add('is-glass-active')
     })
     lightTarget.addEventListener('pointerleave', () => {
-      container.style.setProperty('--glass-light-x', '22%')
-      container.style.setProperty('--glass-light-y', '0%')
+      moveLight(22, 0)
       container.classList.remove('is-glass-active')
     })
+    if (softenLight) {
+      const resetLight = () => {
+        cancelAnimationFrame(lightFrame)
+        lightFrame = lastFrameTime = 0
+        Object.assign(current, { x: 22, y: 0 })
+        Object.assign(target, current)
+        paintLight()
+        container.classList.remove('is-glass-active')
+      }
+      document.addEventListener('visibilitychange', () => { if (document.hidden) resetLight() })
+      window.addEventListener('pagehide', resetLight)
+      reducedMotion.addEventListener('change', resetLight)
+    }
   }
 }
 

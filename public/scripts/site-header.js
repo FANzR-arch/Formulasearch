@@ -86,7 +86,7 @@ navMenus.forEach((menu) => {
   })
 
   const hoverMenu = (event) => {
-    if (!suppressHover && event.pointerType === 'mouse' && !window.matchMedia('(max-width: 760px)').matches) {
+    if (!suppressHover && event.pointerType === 'mouse' && !window.matchMedia('(max-width: 940px)').matches) {
       openedByHover = !menu.classList.contains('is-open')
       openNavigationMenu(menu)
     }
@@ -107,7 +107,7 @@ navMenus.forEach((menu) => {
     }, navCloseDelay)
   })
   menu.addEventListener('focusin', (event) => {
-    if (window.matchMedia('(max-width: 760px)').matches) return
+    if (window.matchMedia('(max-width: 940px)').matches) return
     if (!menu.contains(event.relatedTarget) && event.target.matches(':focus-visible')) openNavigationMenu(menu)
   })
 })

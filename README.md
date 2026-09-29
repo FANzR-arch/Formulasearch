@@ -69,6 +69,8 @@ npm run test:smoke    # 本地预览下的交互回归
 - `content/` 是可发布内容的事实来源；`public/uploads/` 存放对应的已发布媒体。
 - 更新内容后，以 `npm run build` 与 `npm run test:smoke` 作为最低验证标准。
 
+建筑列表、建筑详情与摄影缩略图由 Astro 在构建时生成多尺寸 WebP，浏览器按展示宽度选图；摄影灯箱仍打开原图。项目视频封面同样在构建时压缩，视频保留可见后读取元数据、点击播放与原生全屏控件；Skills 封面复用 `ThemeImage`，只请求当前主题的图片。
+
 ## 相关链接
 
 - 网站：[rzcthink.top](https://rzcthink.top)

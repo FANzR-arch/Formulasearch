@@ -3,6 +3,7 @@ import { Image } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
 import LocalizedText from './LocalizedText.astro'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
+import { resolvePhotoImage } from '../data/photo-archive'
 
 interface LocalizedCopy {
   en: string
@@ -73,11 +74,7 @@ const photoAspectRatio = active === 'photos' && item.width && item.height ? `${i
       data-photo-location-en={item.location?.en || undefined}
       aria-label={locale === 'en' ? `View photograph ${item.index}: ${photoTitle.en}` : `查看照片 ${item.index}：${photoTitle.zh}`}
     >
-      {typeof item.image === 'string' ? (
-        <img src={item.image} srcset={item.previewImage && item.previewWidth ? `${item.previewImage} ${item.previewWidth}w, ${item.image} ${item.width ?? 2560}w` : undefined} alt={localizedAlt} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} width={item.width} height={item.height} loading={eager ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
-      ) : (
-        <Image src={item.image} alt={localizedAlt} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={eager ? 'eager' : 'lazy'} decoding="async" sizes="(max-width: 680px) 100vw, (max-width: 1060px) 50vw, 33vw" />
-      )}
+      <Image src={resolvePhotoImage(item.image)} widths={[400, 640, 960]} format="webp" quality={82} alt={localizedAlt} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={eager ? 'eager' : 'lazy'} decoding="async" sizes={`${eager ? '' : 'auto, '}(max-width: 680px) calc((100vw - 90px) / 2), 360px`} />
     </button>
   ) : (
     <>

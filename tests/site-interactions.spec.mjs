@@ -106,10 +106,10 @@ test('header utility icons keep a consistent optical size', async ({ page }) => 
 
   expect(sizes.length).toBeGreaterThanOrEqual(4)
   for (const size of sizes) {
-    expect(size.width).toBeGreaterThanOrEqual(16)
-    expect(size.width).toBeLessThanOrEqual(18)
-    expect(size.height).toBeGreaterThanOrEqual(16)
-    expect(size.height).toBeLessThanOrEqual(18)
+    expect(size.width).toBeGreaterThanOrEqual(19.5)
+    expect(size.width).toBeLessThanOrEqual(20)
+    expect(size.height).toBeGreaterThanOrEqual(19.5)
+    expect(size.height).toBeLessThanOrEqual(20)
   }
 })
 
@@ -122,8 +122,8 @@ test('header utility controls keep fixed square hit areas', async ({ page }) => 
 
   expect(sizes.length).toBeGreaterThanOrEqual(5)
   for (const size of sizes) {
-    expect(size.width).toBe(40)
-    expect(size.height).toBe(40)
+    expect(size.width).toBe(44)
+    expect(size.height).toBe(44)
   }
 })
 
@@ -149,7 +149,7 @@ test('desktop navigation uses concise popovers and expanded trigger areas', asyn
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/')
   const trigger = page.locator('.nav-menu__trigger').first()
-  await expect(trigger).toHaveCSS('min-height', '46px')
+  await expect(trigger).toHaveCSS('min-height', '48px')
   await trigger.locator('.nav-disclosure').click()
   const popover = page.locator('.nav-popover').first()
   await expect(popover).toBeVisible()
@@ -215,7 +215,7 @@ test('key routes do not overflow a narrow viewport', async ({ page }) => {
 test('partners page exposes its mutual site as a safe external link', async ({ page }) => {
   await page.goto('/partners')
   const partner = page.locator('.partner-entry')
-  await expect(partner).toHaveCount(3)
+  await expect(partner).toHaveCount(5)
   await expect(partner.nth(0)).toHaveAttribute('href', 'https://shuitu.studio/index.html')
   await expect(partner.nth(0)).toHaveAttribute('target', '_blank')
   await expect(partner.nth(0)).toHaveAttribute('rel', 'noopener noreferrer')
@@ -224,10 +224,12 @@ test('partners page exposes its mutual site as a safe external link', async ({ p
   await expect(partner.nth(1)).toHaveAttribute('target', '_blank')
   await expect(partner.nth(1)).toHaveAttribute('rel', 'noopener noreferrer')
   await expect(partner.nth(1).locator('strong')).toContainText('Syntax Studio')
-  await expect(partner.nth(2)).toHaveAttribute('href', 'https://www.wangshengliang.cn')
+  await expect(partner.nth(2)).toHaveAttribute('href', 'https://jojo.best/')
   await expect(partner.nth(2)).toHaveAttribute('target', '_blank')
   await expect(partner.nth(2)).toHaveAttribute('rel', 'noopener noreferrer')
   await expect(partner.nth(2).locator('strong')).toContainText('Joruno')
+  await expect(partner.nth(3)).toHaveAttribute('href', 'https://huiyuan.uk/')
+  await expect(partner.nth(4)).toHaveAttribute('href', 'https://iamadrianpunk.com/')
   await expect(page.locator('a[aria-current="page"]')).toHaveAttribute('href', '/partners')
 })
 
@@ -645,7 +647,7 @@ test('photo selection accordion supports pointer and keyboard selection', async 
   await expect(page.locator('.photo-accordion__stage')).toHaveCSS('padding-top', '0px')
   await expect(panels).toHaveCount(6)
   await expect(panels.nth(2)).toHaveAttribute('aria-pressed', 'true')
-  await expect(panels.nth(2).locator('img')).toHaveAttribute('src', /photo-029\.webp$/)
+  await expect(panels.nth(2).locator('img')).toHaveAttribute('src', /\/_astro\/photo-029\..+\.webp$/)
   await expect(panels.nth(2).locator('img')).toHaveCSS('object-fit', 'contain')
   await panels.nth(3).click()
   await expect(panels.nth(3)).toHaveAttribute('aria-pressed', 'true')
@@ -1038,8 +1040,14 @@ test('skills promotes Numerologist as a theme-aware standalone project', async (
   await page.goto('/skills')
   const project = page.locator('#numerologist-skills.skill-project')
   await expect(project).toHaveCount(1)
-  await expect(project.locator('.skill-project__cover--light')).toHaveAttribute('src', '/uploads/skills/numerologist-skills/cover-light.webp')
-  await expect(project.locator('.skill-project__cover--dark')).toHaveAttribute('src', '/uploads/skills/numerologist-skills/cover-dark.webp')
+  const cover = project.locator('.skill-project__cover')
+  await expect(cover).toHaveCount(1)
+  await cover.scrollIntoViewIfNeeded()
+  await expect.poll(() => cover.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true)
+  const initial = await cover.getAttribute('src')
+  await page.locator('#theme-toggle').click()
+  await expect(cover).not.toHaveAttribute('src', initial)
+  await expect.poll(() => cover.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true)
   await expect(project.locator('a').first()).toHaveAttribute('href', 'https://github.com/FANzR-arch/Numerologist_skills')
   await expect(page.locator('#agent-workflows h2')).toContainText('其他Skill')
   await expect(page.locator('#agent-workflows')).not.toContainText('Numerologist Skills')

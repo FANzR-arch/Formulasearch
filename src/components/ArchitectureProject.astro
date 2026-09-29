@@ -31,6 +31,9 @@ const root = locale === 'en' ? '/en/architecture' : '/architecture'
       <figure class="architecture-project-image" data-site-reveal data-site-reveal-delay={String((index % 3) * 60)}>
         <Image
           src={item.image}
+          widths={[640, 1280, 1920]}
+          format="webp"
+          quality={85}
           alt={getLocalizedValue(item.alt, locale)}
           loading={index === 0 ? 'eager' : 'lazy'}
           fetchpriority={index === 0 ? 'high' : undefined}

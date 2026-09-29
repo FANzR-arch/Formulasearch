@@ -3,6 +3,8 @@ import Icon from './icon-system/Icon.astro'
 import LocalizedText from './LocalizedText.astro'
 import type { CatalogSection } from '../data/catalog'
 import type { Locale } from '../lib/i18n'
+import { getImage } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
 
 interface Props {
   videos: NonNullable<Extract<CatalogSection, { presentation: 'projects' }>['videos']>
@@ -12,11 +14,22 @@ interface Props {
 
 const { videos, locale = 'zh', layout = 'grid' } = Astro.props
 const isRail = layout !== 'grid'
+const posters = import.meta.glob<ImageMetadata>('/public/uploads/projects/**/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' })
+const preparedVideos = await Promise.all(videos.map(async (video) => {
+  const source = posters[`/public${video.poster}`]
+  if (!source) throw new Error(`Missing video poster: ${video.poster}`)
+  // Filmstrips are at most 280px tall; ordinary rails are at most 240px wide.
+  // Keep a 2x preview without shipping full-size JPEGs before playback.
+  const previewWidth = layout === 'filmstrip' ? Math.ceil(560 * video.width / video.height) : isRail ? 480 : 1200
+  const width = Math.min(source.width, previewWidth)
+  const poster = await getImage({ src: source, width, format: 'webp', quality: 80 })
+  return { ...video, poster: poster.src }
+}))
 ---
 
 <div class="project-videos__stage" data-video-rail={isRail ? '' : undefined}>
 <div class:list={['project-videos', { 'project-card-grid': !isRail, 'project-videos--rail': isRail }]} role={isRail ? 'region' : undefined} tabindex={isRail ? '0' : undefined} aria-label={isRail ? (locale === 'zh' ? '项目视频，左右滚动查看' : 'Project videos, scroll horizontally to browse') : undefined} data-aria-zh={isRail ? '项目视频，左右滚动查看' : undefined} data-aria-en={isRail ? 'Project videos, scroll horizontally to browse' : undefined}>
-  {videos.map((video) => (
+  {preparedVideos.map((video) => (
     <article class:list={['project-video', { 'project-video--filmstrip': layout === 'filmstrip' }]} style={`--video-ratio: ${video.width / video.height}`}>
       <div class="project-video__player" data-video-player>
       <video controls playsinline preload="none" poster={video.poster} width={video.width} height={video.height} style={`aspect-ratio: ${video.width} / ${video.height}`} aria-label={video.title[locale]} data-aria-zh={video.title.zh} data-aria-en={video.title.en}>
