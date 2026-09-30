@@ -193,18 +193,14 @@
       const storedTheme = localStorage.getItem(themeStorageKey)
       if (storedTheme === 'dark' || storedTheme === 'light') return storedTheme
     } catch {}
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    // Use the visitor's local clock before the first paint, including the intro.
+    const hour = new Date().getHours()
+    return hour >= 7 && hour < 19 ? 'light' : 'dark'
   }
 
   const routeLocale = root.dataset.routeLocale === 'en' ? 'en' : 'zh'
   try { applyLocale(localStorage.getItem(localeStorageKey) || routeLocale) } catch { applyLocale(routeLocale) }
   try { applyTheme(getInitialTheme()) } catch { applyTheme('light') }
-  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-  systemTheme.addEventListener?.('change', (event) => {
-    try {
-      if (!localStorage.getItem(themeStorageKey)) applyTheme(event.matches ? 'dark' : 'light')
-    } catch {}
-  })
   window.formulasearchSetLocale = (locale) => {
     applyLocale(locale)
     applyTheme(root.dataset.theme || 'light')

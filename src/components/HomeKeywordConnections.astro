@@ -32,5 +32,5 @@ for (const label of ['与更多人建联', 'connect with more people']) {
 <style is:global>
   .home-connections { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: hidden; color: var(--ink); }
   .home-connections path { fill: none; stroke: currentColor; stroke-width: 1; stroke-linecap: round; opacity: .23; }
-  @media (max-width: 760px), (hover: none), (pointer: coarse) { .home-connections { display: none; } }
+  @media (max-width: 760px), (any-hover: none) { .home-connections { display: none; } }
 </style>

@@ -259,9 +259,12 @@ if (widget?.dataset.endpoint) {
     })
     avatar.addEventListener('pointerleave', () => {
       clearTimeout(hoverTimer)
-      if (fine.matches && !avatar.contains(document.activeElement)) hide()
+      if (fine.matches && !avatar.querySelector(':focus-visible')) hide()
     })
-    avatar.addEventListener('focusin', () => { stopHints(); invite() })
+    avatar.addEventListener('focusin', event => {
+      if (!(event.target instanceof Element) || !event.target.matches(':focus-visible')) return
+      stopHints(); invite()
+    })
     avatar.addEventListener('focusout', event => { if (!avatar.contains(event.relatedTarget as Node | null) && !avatar.matches(':hover')) hide() })
     portrait.addEventListener('click', () => { stopHints(); invite() })
     avatar.addEventListener('click', stopHints)

@@ -3,13 +3,23 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import HomeContent from '../components/HomeContent.astro'
 import SiteHeader from '../components/SiteHeader.astro'
 import { pageMeta } from '../data/page-meta'
+
+const introLogoPath = 'M363.48 29.18c19.12-.5 42.12 8.18 57.95 24.01s24.51 38.84 24 57.96c.51 19.12-8.17 42.12-24 57.96-15.83 15.84-38.83 24.52-57.95 24.02l-156.58.03c-11.39-1.15-24.29 11.75-23.14 23.14v211.01c-1.15 11.39 11.75 24.29 23.14 23.14 11.39 1.15 24.29-11.75 23.14-23.14v-152.31c-.15-5.15 3.38-10.3 8.22-12.3 4.84-2 10.98-.86 14.51 2.89l180.66 180.66c2.56 2.63 6.48 4.26 10.15 4.21h8.41c4.35.44 9.29-4.49 8.85-8.85v-111.21c.43-4.23-4.36-9.02-8.59-8.59-4.23-.43-9.02 4.36-8.59 8.59v52.77c.15 5.15-3.38 10.3-8.22 12.3-4.84 2-10.98.86-14.51-2.89l-147.59-147.59c-3.75-3.53-4.89-9.67-2.89-14.51 2-4.84 7.15-8.37 12.3-8.22l80.73-.02c25.91.68 57.07-11.08 78.53-32.55 21.46-21.46 33.21-52.63 32.53-78.54.69-25.91-11.07-57.08-32.53-78.54C420.56 11.14 389.4-.62 363.49.06L32.49 0C24.09-.07 15.6 3.47 9.59 9.48 3.57 15.5.03 23.98.1 32.39v385.67c-1.62 15.94 16.45 34 32.38 32.38 15.94 1.62 34-16.45 32.38-32.38v-181.24c-.73-7.16 7.39-15.28 14.55-14.55h60.13c7.16.73 15.28-7.39 14.55-14.55.73-7.16-7.39-15.28-14.55-14.55H79.41c-7.16.73-15.28-7.39-14.55-14.55V43.66c-.03-3.78 1.56-7.59 4.26-10.29 2.7-2.7 6.52-4.29 10.29-4.26l284.06.06'
 ---
 
 <BaseLayout title={pageMeta.home.title.zh} titleEn={pageMeta.home.title.en} description={pageMeta.home.description.zh} descriptionEn={pageMeta.home.description.en}>
   <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
     <svg class="intro-screen" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="presentation">
       <defs>
-        <path id="intro-logo-shape" pathLength="1" d="M363.48 29.18c19.12-.5 42.12 8.18 57.95 24.01s24.51 38.84 24 57.96c.51 19.12-8.17 42.12-24 57.96-15.83 15.84-38.83 24.52-57.95 24.02l-156.58.03c-11.39-1.15-24.29 11.75-23.14 23.14v211.01c-1.15 11.39 11.75 24.29 23.14 23.14 11.39 1.15 24.29-11.75 23.14-23.14v-152.31c-.15-5.15 3.38-10.3 8.22-12.3 4.84-2 10.98-.86 14.51 2.89l180.66 180.66c2.56 2.63 6.48 4.26 10.15 4.21h8.41c4.35.44 9.29-4.49 8.85-8.85v-111.21c.43-4.23-4.36-9.02-8.59-8.59-4.23-.43-9.02 4.36-8.59 8.59v52.77c.15 5.15-3.38 10.3-8.22 12.3-4.84 2-10.98.86-14.51-2.89l-147.59-147.59c-3.75-3.53-4.89-9.67-2.89-14.51 2-4.84 7.15-8.37 12.3-8.22l80.73-.02c25.91.68 57.07-11.08 78.53-32.55 21.46-21.46 33.21-52.63 32.53-78.54.69-25.91-11.07-57.08-32.53-78.54C420.56 11.14 389.4-.62 363.49.06L32.49 0C24.09-.07 15.6 3.47 9.59 9.48 3.57 15.5.03 23.98.1 32.39v385.67c-1.62 15.94 16.45 34 32.38 32.38 15.94 1.62 34-16.45 32.38-32.38v-181.24c-.73-7.16 7.39-15.28 14.55-14.55h60.13c7.16.73 15.28-7.39 14.55-14.55.73-7.16-7.39-15.28-14.55-14.55H79.41c-7.16.73-15.28-7.39-14.55-14.55V43.66c-.03-3.78 1.56-7.59 4.26-10.29 2.7-2.7 6.52-4.29 10.29-4.26l284.06.06" />
+        <path id="intro-logo-shape" pathLength="1" d={introLogoPath} />
+        <path id="intro-logo-light-shape" pathLength="1" d={introLogoPath} />
+        <linearGradient id="intro-light-spectrum" gradientUnits="userSpaceOnUse" x1="0" y1="440" x2="477" y2="0">
+          <stop offset="0" stop-color="#59b9ac" />
+          <stop offset=".25" stop-color="#659fe4" />
+          <stop offset=".5" stop-color="#ad82dd" />
+          <stop offset=".75" stop-color="#df8faf" />
+          <stop offset="1" stop-color="#e4b876" />
+        </linearGradient>
         <pattern id="intro-grid" width="96" height="96" patternUnits="userSpaceOnUse">
           <path d="M0 0h96M0 0v96" fill="none" stroke="currentColor" stroke-width="1" />
         </pattern>
@@ -28,10 +38,17 @@ import { pageMeta } from '../data/page-meta'
       </g>
       <g class="intro-mark" transform="translate(829.5 416.1) scale(.55)">
         <g class="intro-mark__motion">
+          <use class="intro-mark__solid" href="#intro-logo-shape" />
           <use class="intro-mark__line" href="#intro-logo-shape" />
+          <g class="intro-mark__flow">
+            <use class="intro-mark__light intro-mark__light--halo" href="#intro-logo-light-shape" />
+            <use class="intro-mark__light intro-mark__light--trail" href="#intro-logo-light-shape" />
+            <use class="intro-mark__light intro-mark__light--tip" href="#intro-logo-light-shape" />
+          </g>
         </g>
       </g>
     </svg>
+    <p class="intro-loading"><span class="localized-text__zh">正在准备页面…</span><span class="localized-text__en">Preparing the page…</span></p>
   </div>
 
   <div id="site-page" class="site-page">
@@ -90,8 +107,29 @@ import { pageMeta } from '../data/page-meta'
 
       introMotion?.addEventListener('animationstart', followIntroAnimation)
       introMotion?.addEventListener('animationend', followIntroAnimation)
-      window.setTimeout(unveilPage, 1200)
-      window.setTimeout(revealPage, 3200)
+      const domReady = document.readyState === 'loading'
+        ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true }))
+        : Promise.resolve()
+      // Prepare only the visible first screen, not offscreen media or the AI frame.
+      const firstScreenReady = domReady.then(() => Promise.allSettled([
+        document.fonts.ready,
+        ...[...page.querySelectorAll('img')].filter(image => {
+          const bounds = image.getBoundingClientRect()
+          return bounds.width > 0 && bounds.height > 0 && bounds.top < innerHeight && bounds.bottom > 0
+        }).map(image => image.decode()),
+      ]))
+      let deadline
+      Promise.all([
+        new Promise(resolve => window.setTimeout(resolve, 1000)),
+        Promise.race([firstScreenReady, new Promise(resolve => { deadline = window.setTimeout(resolve, 3000) })]),
+      ]).then(() => {
+        clearTimeout(deadline)
+        if (completed) return
+        overlay?.classList.add('is-ready')
+        unveilPage()
+        // Broken assets or an interrupted animation must never trap the visitor.
+        window.setTimeout(revealPage, 2600)
+      })
     }
   </script>
 </BaseLayout>

@@ -1,8 +1,6 @@
 (() => {
   const root = document.documentElement
   const audioBase = '/audio/kenney-interface/'
-  const navigationSoundKey = 'formulasearch-navigation-sound'
-  let pendingNavigationSound
   const soundSources = {
     click: 'click3.wav',
     link: 'click3.wav',
@@ -26,8 +24,9 @@
 
   const resolveSource = (source) => {
     if (!source) return ''
+    source = soundSources[source] || source
     if (source.includes('/') || source.startsWith('.')) return new URL(source, window.location.href).href
-    return `${audioBase}${soundSources[source] || source}`
+    return `${audioBase}${source}`
   }
 
   const maxVoices = 3
@@ -112,27 +111,9 @@
     },
   }
 
-  // A document navigation stops its audio. Carry one fixed navigation cue to
-  // the arriving document instead of delaying or cancelling the anchor click.
-  getPool(resolveSource('link'))
-  const commitNavigationSound = (event) => {
-    if (!pendingNavigationSound) return
-    const sound = pendingNavigationSound
-    pendingNavigationSound = undefined
-    if (event.activation?.entry?.url && event.activation.entry.url !== sound.destination) return
-    try { sessionStorage.setItem(navigationSoundKey, JSON.stringify(sound)) } catch {}
-  }
-  window.addEventListener('pageswap', commitNavigationSound)
-  window.addEventListener('pagehide', commitNavigationSound)
-  window.addEventListener('pageshow', (event) => {
-    pendingNavigationSound = undefined
-    try {
-      const sound = JSON.parse(sessionStorage.getItem(navigationSoundKey) || 'null')
-      sessionStorage.removeItem(navigationSoundKey)
-      if (event.persisted || !sound || sound.destination !== location.href || Date.now() - sound.timestamp > 6_000) return
-      play('link', { volume: 0.22 })
-    } catch {}
-  })
+  // Warm the two common cues before interaction. Play in the originating
+  // document so feedback never waits for the destination's network or load event.
+  for (const source of ['click', 'switch']) getPool(resolveSource(source))
 
   const attach = () => {
     document.addEventListener('click', (event) => {
@@ -140,16 +121,7 @@
         ? event.target.closest('a[href], button, [role="button"], input[type="checkbox"], input[type="radio"]')
         : null
       if (!(target instanceof HTMLElement) || target.hasAttribute('disabled') || target.getAttribute('aria-disabled') === 'true') return
-      pendingNavigationSound = undefined
       if (target.hasAttribute('data-no-sound') || target.closest('[data-audio-preview]')) return
-      if (target.matches('.site-header a[href]') && !target.getAttribute('target') && !target.hasAttribute('download') &&
-          event.button === 0 && !event.ctrlKey && !event.metaKey && !event.altKey && !event.shiftKey) {
-        const destination = new URL(target.href, location.href)
-        if (destination.origin === location.origin && (destination.pathname !== location.pathname || destination.search !== location.search)) {
-          if (enabled) pendingNavigationSound = { destination: destination.href, timestamp: Date.now() }
-          return
-        }
-      }
       const source = target.dataset.sound || (target.matches('a[href]') ? 'link' : 'click')
       const requestedVolume = Number.parseFloat(target.dataset.soundVolume || '')
       const volume = Number.isFinite(requestedVolume) ? requestedVolume : 0.22

@@ -477,6 +477,7 @@ test('desktop navigation stays open while a menu item keeps keyboard focus', asy
 })
 
 test('locale and theme controls update document metadata', async ({ page }) => {
+  await page.clock.setFixedTime(new Date(2026, 8, 30, 12))
   await page.goto('/projects')
 
   await page.locator('#language-toggle').click()
@@ -610,6 +611,7 @@ test('blog index shows every article without archive controls or duplicate metad
 })
 
 test('theme preference survives a page reload', async ({ page }) => {
+  await page.clock.setFixedTime(new Date(2026, 8, 30, 12))
   await page.goto('/projects')
   await page.locator('#theme-toggle').click()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')

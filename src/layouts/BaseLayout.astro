@@ -91,7 +91,7 @@ const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : 
     <script is:inline src="/scripts/site-shell.js"></script>
     <!-- Capture the new page only after its content and navigation exist. -->
     <script is:inline src="/scripts/site-header.js" defer {...{ blocking: 'render' }}></script>
-    <script is:inline src="/scripts/site-audio.js"></script>
+    <script is:inline src="/scripts/site-audio.js" defer></script>
     <script is:inline type="application/ld+json" set:html={serializeJsonLd({
       '@context': 'https://schema.org',
       '@type': 'Person',

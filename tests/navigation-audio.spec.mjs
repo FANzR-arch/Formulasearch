@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test'
 const observeAudio = async (page, failure = '') => page.addInitScript(failure => {
   sessionStorage.setItem('formulasearch-intro-seen', 'true')
   const record = value => {
+    window.captureAudioObservation?.({ ...value, path: location.pathname })
     const log = JSON.parse(sessionStorage.getItem('audio-observations') || '[]')
     log.push({ ...value, path: location.pathname })
     sessionStorage.setItem('audio-observations', JSON.stringify(log))
@@ -18,21 +19,22 @@ const observeAudio = async (page, failure = '') => page.addInitScript(failure =>
   }
 }, failure)
 
-test('one navigation click reaches its page and plays one complete fixed cue there', async ({ page }) => {
+test('navigation plays one immediate cue at the source and never replays on arrival', async ({ page }) => {
   await observeAudio(page)
   await page.goto('/')
+  let sourcePath = '/'
   for (const path of ['/projects', '/blog', '/skills']) {
     await page.evaluate(() => sessionStorage.removeItem('audio-observations'))
     await page.locator(`.nav-link[href="${path}"]`).click()
     await expect(page).toHaveURL(new RegExp(`${path}$`))
-    await expect.poll(() => page.evaluate(() => JSON.parse(sessionStorage.getItem('audio-observations') || '[]'))).toEqual([
-      { event: 'play', src: '/audio/kenney-interface/click3.wav', path },
-      { event: 'ended', src: '/audio/kenney-interface/click3.wav', path },
+    await expect.poll(() => page.evaluate(() => JSON.parse(sessionStorage.getItem('audio-observations') || '[]').filter(entry => entry.event === 'play'))).toEqual([
+      { event: 'play', src: '/audio/kenney-interface/click3.wav', path: sourcePath },
     ])
+    sourcePath = path
     await page.waitForFunction(() => !document.documentElement.dataset.viewTransition)
   }
   await page.reload()
-  expect(await page.evaluate(() => JSON.parse(sessionStorage.getItem('audio-observations')).length)).toBe(2)
+  expect(await page.evaluate(() => JSON.parse(sessionStorage.getItem('audio-observations')).filter(entry => entry.event === 'play').length)).toBe(1)
 })
 
 for (const failure of ['throw', 'reject', 'pending']) {
@@ -44,7 +46,7 @@ for (const failure of ['throw', 'reject', 'pending']) {
     await page.locator('.nav-link[href="/blog"]').click()
     await expect(page).toHaveURL(/\/blog$/)
     await expect.poll(() => page.evaluate(() => JSON.parse(sessionStorage.getItem('audio-observations') || '[]'))).toEqual([
-      { event: 'play', src: '/audio/kenney-interface/click3.wav', path: '/blog' },
+      { event: 'play', src: '/audio/kenney-interface/click3.wav', path: '/projects' },
     ])
     expect(errors).toEqual([])
   })
@@ -72,7 +74,25 @@ test('home navigation keeps its hit targets on arrival and a second click goes t
   await page.mouse.click(before.x + before.width - 3, before.y + before.height / 2)
   await expect(page).toHaveURL(/\/skills$/)
   await expect.poll(() => page.evaluate(() => JSON.parse(sessionStorage.getItem('audio-observations') || '[]').filter(entry => entry.event === 'play'))).toEqual([
+    { event: 'play', src: '/audio/kenney-interface/click3.wav', path: '/' },
     { event: 'play', src: '/audio/kenney-interface/click3.wav', path: '/blog' },
-    { event: 'play', src: '/audio/kenney-interface/click3.wav', path: '/skills' },
   ])
+})
+
+test('navigation feedback is already played while the destination is still waiting', async ({ page }) => {
+  const observations = []
+  await page.exposeFunction('captureAudioObservation', entry => observations.push(entry))
+  await observeAudio(page)
+  await page.goto('/')
+  let release
+  const gate = new Promise(resolve => { release = resolve })
+  await page.route('**/projects', async route => { await gate; await route.continue() })
+  try {
+    await page.locator('.nav-link[href="/projects"]').click({ noWaitAfter: true })
+    await expect.poll(() => observations.filter(entry => entry.event === 'play')).toEqual([
+      { event: 'play', src: '/audio/kenney-interface/click3.wav', path: '/' },
+    ])
+    expect(new URL(page.url()).pathname).toBe('/')
+  } finally { release() }
+  await expect(page).toHaveURL(/\/projects$/)
 })

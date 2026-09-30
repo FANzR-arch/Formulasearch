@@ -3,7 +3,7 @@
   const svg = document.querySelector('[data-home-connections]')
   if (!svg) return
   const mappings = JSON.parse(svg.dataset.homeConnections)
-  const enabled = matchMedia('(min-width: 761px) and (hover: hover) and (pointer: fine)')
+  const enabled = matchMedia('(min-width: 761px) and (any-hover: hover) and (any-pointer: fine)')
   const reduced = matchMedia('(prefers-reduced-motion: reduce)')
   const abort = new AbortController()
   const options = { signal: abort.signal }
@@ -18,13 +18,14 @@
     cancelAnimationFrame(frame)
     clearTimeout(exitTimer)
     exitTimer = 0
+    svg.getAnimations().forEach((animation) => animation.cancel())
     targets.forEach(({ element }) => element.classList.remove('is-keyword-destination'))
     targets = []
     active = null
     svg.replaceChildren()
   }
   const hide = () => {
-    if (!active) return
+    if (!active || exitTimer) return
     targets.forEach(({ element }) => element.classList.remove('is-keyword-destination'))
     if (reduced.matches) { clear(); return }
     svg.getAnimations().forEach((animation) => animation.cancel())
@@ -90,17 +91,24 @@
     })
   }
   const keyword = (element) => element instanceof Element ? element.closest('button[data-home-keyword]') : null
-  document.addEventListener('pointerover', (event) => {
+  const followPointer = (event) => {
+    if (event.pointerType === 'touch') return
     const next = keyword(event.target)
-    if (next === hovered) return
+    if (next === hovered && (!next || (next === active && !exitTimer))) return
     hovered = next
     if (hovered || focused) show(hovered || focused)
     else hide()
-  }, options)
+  }
+  document.addEventListener('pointerover', followPointer, options)
+  // A reset (tab blur, locale change, layout shift) may happen while the pointer
+  // stays inside the same keyword, so pointerover alone cannot restore the lines.
+  document.addEventListener('pointermove', followPointer, { ...options, passive: true })
   document.addEventListener('pointerout', (event) => {
-    if (event.relatedTarget) return
-    hovered = null
-    if (focused) show(focused)
+    if (event.pointerType === 'touch') return
+    const next = keyword(event.relatedTarget)
+    if (next === hovered) return
+    hovered = next
+    if (hovered || focused) show(hovered || focused)
     else hide()
   }, options)
   document.addEventListener('focusin', (event) => { const button = keyword(event.target); focused = button?.matches(':focus-visible') ? button : null; if (focused) show(focused) }, options)

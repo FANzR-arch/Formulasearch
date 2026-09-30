@@ -5,8 +5,8 @@
 .pai-nav-trigger.is-arriving { animation: pai-arrive 650ms ease-out; }
 @keyframes pai-arrive { from { box-shadow: 0 0 0 8px color-mix(in oklab, var(--accent) 25%, transparent); } to { box-shadow: 0 0 0 0 transparent; } }
 .home-avatar__frame:is(button) { padding: 0; cursor: pointer; }
-[data-ai-avatar]:focus-within, [data-ai-avatar][data-inviting], [data-ai-avatar][data-hint] { z-index: 50; }
-[data-ai-avatar]:focus-within .home-avatar__frame, [data-ai-avatar][data-inviting] .home-avatar__frame { transform: translateY(-.18em) rotateX(-3deg) rotateY(5deg) scale(2.3); }
+[data-ai-avatar]:has(:focus-visible), [data-ai-avatar][data-inviting], [data-ai-avatar][data-hint] { z-index: 50; }
+[data-ai-avatar]:has(:focus-visible) .home-avatar__frame, [data-ai-avatar][data-inviting] .home-avatar__frame { transform: translateY(-.18em) rotateX(-3deg) rotateY(5deg) scale(2.3); }
 .pai-invitation { position: absolute; z-index: 2; bottom: calc(100% + 62px); left: 40%; padding: 0 20px 38px 0; margin-bottom: -38px; visibility: hidden; opacity: 0; transform: translateY(6px) scale(.92); transform-origin: bottom left; transition: opacity 180ms ease, transform 240ms var(--ease-out); }
 @media (min-width: 761px) {
   .pai-invitation { bottom: calc(100% + 30px); left: 160%; padding: 12px 20px 12px 12px; margin-bottom: -12px; transform-origin: left center; }
@@ -54,7 +54,7 @@ html[data-ai-state]:not([data-ai-state='intro']), html[data-ai-state]:not([data-
   .pai-home { top: 80px; }
   .pai-dialog { inset: auto 12px max(12px, env(safe-area-inset-bottom)) 12px; width: calc(100% - 24px); height: min(720px, calc(100dvh - 108px)); border-radius: 22px; }
   .pai-header { padding: 8px 16px; }
-  [data-ai-avatar][data-inviting] .home-avatar__frame, [data-ai-avatar]:focus-within .home-avatar__frame { transform: translateY(-3px) scale(1.3); }
+  [data-ai-avatar][data-inviting] .home-avatar__frame, [data-ai-avatar]:has(:focus-visible) .home-avatar__frame { transform: translateY(-3px) scale(1.3); }
   .pai-invitation { bottom: calc(100% + 14px); left: 20%; padding-bottom: 22px; margin-bottom: -22px; }
   [data-ai-avatar][data-inviting] .pai-invitation-label { max-width: 180px; margin-left: 8px; opacity: 1; }
 }
