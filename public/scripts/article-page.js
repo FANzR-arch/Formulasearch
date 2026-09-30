@@ -23,6 +23,19 @@ document.querySelectorAll('.article-copy').forEach((button) => {
   })
 })
 
+// The server renders the table of contents open for desktop and no-JS readers.
+// On narrow screens it sits above the body, so start collapsed to keep the text in reach.
+const toc = document.querySelector('.article-toc')
+const compactToc = window.matchMedia('(max-width: 820px)')
+const syncTocDisclosure = () => {
+  if (toc instanceof HTMLDetailsElement) toc.open = !compactToc.matches
+}
+syncTocDisclosure()
+compactToc.addEventListener('change', syncTocDisclosure)
+toc?.addEventListener('click', (event) => {
+  if (compactToc.matches && event.target instanceof Element && event.target.closest('nav a')) toc.open = false
+})
+
 const tocLinks = [...document.querySelectorAll('.article-toc a')]
 const articleHeadings = tocLinks
   .map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))))

@@ -110,7 +110,7 @@ const structuredData = {
 
       {toc.length > 1 && (
         <details class="article-toc" open data-site-reveal>
-          <summary><LocalizedText {...uiCopy.blog.onThisPage} /></summary>
+          <summary><LocalizedText {...uiCopy.blog.onThisPage} /><span class="article-toc__count" aria-hidden="true">{toc.length}</span><Icon name="blog-toc-toggle" role="meta" /></summary>
           <nav aria-label={getLocalizedValue(uiCopy.blog.articleContents, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleContents.en} data-aria-zh={uiCopy.blog.articleContents.zh}>
             {toc.map((heading) => <a class:list={{ 'is-subheading': heading.depth === 3 }} href={`#${heading.slug}`}>{heading.text}</a>)}
           </nav>

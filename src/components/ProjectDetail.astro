@@ -4,6 +4,7 @@ import LocalizedText from './LocalizedText.astro'
 import PageHero from './PageHero.astro'
 import { labSections, type CatalogProjectItem } from '../data/catalog'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
+import { getResponsiveProjectImage } from '../lib/project-images'
 
 interface Props {
   locale?: Locale
@@ -17,6 +18,9 @@ const backLabel = labSection?.id === 'courses' ? { zh: '返回课程', en: 'Back
 const title = { zh: project.zh, en: project.en }
 const { detail } = project
 const hasMultipleImages = detail.gallery.length > 1
+// The detail column is at most 760px wide; 1520px covers 2x screens.
+const galleryImages = await Promise.all(detail.gallery.map((item) => getResponsiveProjectImage(item.src, [480, 760, 1520])))
+const gallerySizes = '(max-width: 792px) calc(100vw - 32px), 760px'
 ---
 
 <article class="project-detail" aria-labelledby="project-detail-title">
@@ -28,6 +32,12 @@ const hasMultipleImages = detail.gallery.length > 1
       <span>{project.year}</span>
       <span class="project-detail__role"><Icon name="project-role" role="meta" /><LocalizedText {...project.role} /></span>
       {detail.version && <span>{detail.version}</span>}
+      {project.externalUrl && (
+        <a class="project-detail__try" href={project.externalUrl} target="_blank" rel="noopener noreferrer">
+          <LocalizedText zh="体验 Web 版本" en="Try web version" />
+          <Icon name="catalog-external" role="meta" />
+        </a>
+      )}
     </div>
     <ul class="project-detail__keywords" aria-label={locale === 'en' ? 'Project keywords' : '项目关键词'}>
       {detail.keywords.map((keyword) => <li><LocalizedText {...keyword} /></li>)}
@@ -48,7 +58,12 @@ const hasMultipleImages = detail.gallery.length > 1
     <div class="project-detail__carousel-track">
       {detail.gallery.map((item, index) => (
         <div class:list={['project-detail__slide', { 'is-active': index === 0 }]} data-project-slide={index} aria-hidden={index === 0 ? 'false' : 'true'}>
-          <img src={item.src} alt={getLocalizedValue(item.alt, locale)} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} decoding="async" />
+          {index === 0 ? (
+            <img src={galleryImages[0].src} srcset={galleryImages[0].srcset} sizes={gallerySizes} width={galleryImages[0].width} height={galleryImages[0].height} alt={getLocalizedValue(item.alt, locale)} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading="eager" fetchpriority="high" decoding="async" />
+          ) : (
+            /* Hidden slides still intersect the viewport, so native lazy loading would fetch them all; the carousel script loads them on demand. */
+            <img data-src={galleryImages[index].src} data-srcset={galleryImages[index].srcset} sizes={gallerySizes} width={galleryImages[index].width} height={galleryImages[index].height} alt={getLocalizedValue(item.alt, locale)} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} decoding="async" />
+          )}
         </div>
       ))}
     </div>

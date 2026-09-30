@@ -212,7 +212,7 @@
   opacity: 0;
   pointer-events: none;
   transform: scale(1.035) translateY(10px);
-  transition: opacity 360ms var(--ease-out), transform 720ms var(--ease-out);
+  transition: opacity var(--motion-emphasis) var(--ease-out), transform 480ms var(--ease-out);
 }
 
 .cover-stage__slide.is-active {
@@ -710,6 +710,9 @@
 
 .article-toc > summary::-webkit-details-marker { display: none; }
 
+.article-toc__count,
+.article-toc > summary > svg { display: none; }
+
 .article-toc nav {
   display: grid;
   gap: 13px;
@@ -1189,7 +1192,32 @@
     border-top: 1px solid var(--hairline);
   }
 
-  .article-toc > summary { margin-bottom: 16px; }
+  .article-toc { padding: 0; }
+
+  .article-toc > summary {
+    display: flex;
+    min-height: 52px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0;
+  }
+
+  .article-toc__count {
+    display: inline;
+    color: color-mix(in oklab, var(--muted) 70%, transparent);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+  }
+
+  .article-toc > summary > svg {
+    display: block;
+    margin-left: auto;
+    transition: transform var(--motion-fast, 150ms) ease;
+  }
+
+  .article-toc[open] > summary > svg { transform: rotate(180deg); }
+
+  .article-toc[open] nav { margin-bottom: 22px; }
 
   .article-toc nav {
     grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -44,6 +44,7 @@
       }
 
       const applyStack = ({ animate = true } = {}) => {
+        const hadCardFocus = gallery.contains(document.activeElement)
         gallery.classList.toggle('is-static', !animate || reduceMotion.matches)
         const desktopSpread = gallery.clientWidth >= 760
         const desktopLayout = [
@@ -91,6 +92,9 @@
             openLink.setAttribute('aria-hidden', active ? 'false' : 'true')
           }
         })
+
+        // Keyboard users cycled the stack from the old top card, which is now hidden; follow the new top.
+        if (hadCardFocus) order[0].querySelector('[data-skill-drag]')?.focus({ preventScroll: true })
 
         requestAnimationFrame(() => gallery.classList.remove('is-static'))
         announce()
@@ -208,7 +212,7 @@
 
         const template = document.documentElement.lang === 'en' ? button.dataset.statusEn : button.dataset.statusZh
         announce((template || '').replace('{count}', String(round)))
-        window.setTimeout(() => button.classList.remove('is-shuffling'), reduceMotion.matches ? 0 : 520)
+        window.setTimeout(() => button.classList.remove('is-shuffling'), reduceMotion.matches ? 0 : 360)
       })
 
       applyStack({ animate: false })

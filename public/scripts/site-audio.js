@@ -30,23 +30,39 @@
     return `${audioBase}${soundSources[source] || source}`
   }
 
+  const maxVoices = 3
+  const createVoice = (source) => {
+    const audio = new Audio(source)
+    audio.preload = 'auto'
+    return audio
+  }
+
+  // Start with one element per sound so the file is fetched once; extra voices are
+  // only created for overlapping rapid clicks, by which time the file is cached.
   const getPool = (source) => {
-    if (!pools.has(source)) pools.set(source, Array.from({ length: 3 }, () => {
-      const audio = new Audio(source)
-      audio.preload = 'auto'
-      return audio
-    }))
+    if (!pools.has(source)) pools.set(source, [createVoice(source)])
     return pools.get(source)
+  }
+
+  const nextVoice = (source) => {
+    const pool = getPool(source)
+    const idle = pool.find((audio) => audio.paused || audio.ended)
+    if (idle) return idle
+    if (pool.length < maxVoices) {
+      const voice = createVoice(source)
+      pool.push(voice)
+      return voice
+    }
+    const cursor = cursors.get(source) || 0
+    cursors.set(source, cursor + 1)
+    return pool[cursor % pool.length]
   }
 
   const play = (source = 'click', { force = false, volume = 0.22 } = {}) => {
     if (!force && !enabled) return Promise.resolve(false)
     const resolvedSource = resolveSource(source)
     if (!resolvedSource) return Promise.resolve(false)
-    const pool = getPool(resolvedSource)
-    const cursor = cursors.get(resolvedSource) || 0
-    const audio = pool[cursor % pool.length]
-    cursors.set(resolvedSource, cursor + 1)
+    const audio = nextVoice(resolvedSource)
     try {
       audio.currentTime = 0
       audio.volume = volume

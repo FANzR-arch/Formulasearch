@@ -18,8 +18,19 @@
       status.textContent = image.dataset[`alt${locale === 'en' ? 'En' : 'Zh'}`] || image.alt
     }
 
+    // Hidden slides ship without src; load the visible one and its neighbours on demand.
+    const load = (index) => {
+      const image = slides[(index + slides.length) % slides.length]?.querySelector('img[data-src]')
+      if (!(image instanceof HTMLImageElement)) return
+      if (image.dataset.srcset) image.srcset = image.dataset.srcset
+      image.src = image.dataset.src || ''
+      image.removeAttribute('data-src')
+      image.removeAttribute('data-srcset')
+    }
+
     const activate = (index) => {
       const nextIndex = (index + slides.length) % slides.length
+      ;[nextIndex, nextIndex + 1, nextIndex - 1].forEach(load)
       carousel.dataset.activeIndex = String(nextIndex)
       slides.forEach((slide, slideIndex) => {
         const active = slideIndex === nextIndex
@@ -34,6 +45,14 @@
       activate(Number(carousel.dataset.activeIndex || 0) + direction)
       window.formulasearchAudio?.play('select', { volume: 0.18 })
     }
+
+    // Warm the next slide only once the carousel is close to the viewport.
+    new IntersectionObserver((entries, observer) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return
+      load(1)
+      load(-1)
+      observer.disconnect()
+    }, { rootMargin: '200px' }).observe(carousel)
 
     previous.addEventListener('click', () => move(-1))
     next.addEventListener('click', () => move(1))

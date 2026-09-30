@@ -23,6 +23,7 @@ const noteText = detail ? (locale === 'zh' ? `（${detail}）` : `(${detail})`) 
 </Tag>{detail && <span id={detailId} class="home-keyword-note" hidden><span class="home-keyword-note__accessible">{noteText}</span><span data-home-note-text aria-hidden="true"></span></span>}
 
 <style>
+  span.home-copy__highlight, span.home-lead__role { cursor: text; }
   button[data-home-keyword] { font: inherit; color: inherit; letter-spacing: inherit; line-height: 1.25; vertical-align: baseline; }
   button[data-home-keyword][aria-expanded='true'] { color: var(--ink); border-color: color-mix(in oklab, var(--ink) 35%, transparent); background: color-mix(in oklab, var(--ink) 12%, transparent); }
   button[data-home-keyword][aria-expanded='true']::before { opacity: 0; }

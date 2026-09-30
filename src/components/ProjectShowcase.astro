@@ -3,6 +3,7 @@ import Icon from './icon-system/Icon.astro'
 import LocalizedText from './LocalizedText.astro'
 import type { CatalogProjectItem } from '../data/catalog'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
+import { getProjectImageSize, getResponsiveProjectImage } from '../lib/project-images'
 
 interface Props {
   href: string
@@ -12,6 +13,13 @@ interface Props {
 
 const { href, item, locale = 'zh' } = Astro.props
 const showcase = item.showcase ?? []
+// Cards are at most 315px tall with natural width, so size each variant from its aspect ratio.
+const showcaseImages = await Promise.all(showcase.map(async (entry) => {
+  const size = getProjectImageSize(entry.src)
+  const displayWidth = size ? Math.ceil(315 * size.width / size.height) : 560
+  const image = await getResponsiveProjectImage(entry.src, [displayWidth, displayWidth * 2])
+  return { ...image, sizes: `${displayWidth}px` }
+}))
 ---
 
 <div class="project-showcase" data-project-showcase>
@@ -36,7 +44,7 @@ const showcase = item.showcase ?? []
       {showcase.map((entry, index) => (
         <a class="project-showcase__card" href={href} data-project-showcase-card aria-label={`${getLocalizedValue(entry.title, locale)} · ${locale === 'en' ? 'View project' : '查看项目'}`}>
           <figure class="project-showcase__media">
-            <img src={entry.src} alt={getLocalizedValue(entry.alt, locale)} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} decoding="async" />
+            <img src={showcaseImages[index].src} srcset={showcaseImages[index].srcset} sizes={showcaseImages[index].sizes} width={showcaseImages[index].width} height={showcaseImages[index].height} alt={getLocalizedValue(entry.alt, locale)} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} decoding="async" />
             <span class="project-showcase__ordinal" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
           </figure>
           <div class="project-showcase__copy">

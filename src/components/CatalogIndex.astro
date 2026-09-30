@@ -95,6 +95,7 @@ const skillCovers = import.meta.glob<ImageMetadata>('/public/uploads/skills/**/c
               </li>
             ))}
           </ul>
+          <p class="skill-gallery__counter" aria-hidden="true"><span data-skill-current>01</span><span class="skill-gallery__counter-total">/ {String(section.gallery.length).padStart(2, '0')}</span></p>
           <div class="skill-gallery__toolbar">
             <button
               class="skill-gallery__shuffle"

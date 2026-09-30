@@ -99,6 +99,15 @@ const featuredPhotos = active === 'photos' ? featuredPhotoFiles.map((number) => 
             <div data-photo-lightbox-date-row hidden><dt><LocalizedText zh="时间" en="Date" /></dt><dd data-photo-lightbox-date></dd></div>
             <div data-photo-lightbox-location-row hidden><dt><LocalizedText zh="地点" en="Location" /></dt><dd data-photo-lightbox-location></dd></div>
           </dl>
+          <div class="photo-lightbox__nav">
+            <button class="photo-lightbox__step" type="button" data-photo-lightbox-step="-1" data-no-sound aria-label={locale === 'en' ? 'Previous photograph' : '上一张照片'} data-aria-en="Previous photograph" data-aria-zh="上一张照片">
+              <Icon name="photo-previous" role="control" />
+            </button>
+            <p class="photo-lightbox__position" data-photo-lightbox-position aria-hidden="true"></p>
+            <button class="photo-lightbox__step" type="button" data-photo-lightbox-step="1" data-no-sound aria-label={locale === 'en' ? 'Next photograph' : '下一张照片'} data-aria-en="Next photograph" data-aria-zh="下一张照片">
+              <Icon name="photo-next" role="control" />
+            </button>
+          </div>
         </section>
       </div>
     </dialog>
