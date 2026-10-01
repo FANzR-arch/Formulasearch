@@ -45,6 +45,9 @@ const isArchitectureProject = chinesePath.startsWith(`${siteRoutes.architecture}
 const hasLocalizedRoute = isLocalizedSiteRoute(chinesePath) || isArchitectureProject
 const englishAlternate = hasLocalizedRoute ? new URL(isArchitectureProject ? `/en${chinesePath}` : getLocalizedRoute(chinesePath, 'en'), Astro.site) : undefined
 const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : undefined
+// Public GA4 web-stream ID; an explicit empty environment override disables collection.
+const analyticsId = (import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? 'G-18WV54GK34').trim()
+const analyticsEnabled = import.meta.env.PROD && /^G-[A-Z0-9]+$/.test(analyticsId)
 ---
 
 <!doctype html>
@@ -112,6 +115,7 @@ const chineseAlternate = hasLocalizedRoute ? new URL(chinesePath, Astro.site) : 
     </a>
     <slot />
     <PersonalAI />
+    {analyticsEnabled && <script is:inline src="/scripts/site-analytics.js" data-measurement-id={analyticsId} data-site-host={new URL(siteConfig.siteUrl).hostname} defer></script>}
     <script is:inline src="/scripts/site-cursor.js"></script>
     <script is:inline src="/scripts/scroll-progress.js"></script>
     <script>
