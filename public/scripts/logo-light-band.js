@@ -28,6 +28,7 @@
     let cycle = 0
     let frame = 0
     let painted = -Infinity
+    let releaseStarted
     const render = elapsed => {
       const nextCycle = Math.floor(elapsed / duration)
       if (nextCycle !== cycle) {
@@ -49,7 +50,17 @@
       })
     }
     const tick = now => {
-      if (!svg.isConnected || svg.closest('.intro-overlay.is-ready')) return
+      if (!svg.isConnected) return
+      if (svg.closest('.intro-overlay.is-ready')) {
+        releaseStarted ??= now
+        // Keep the wave moving through its fade, then release the costly glow
+        // before the logo scales up. Never rasterize a screen-sized blur.
+        if (now - releaseStarted >= 900) {
+          halo.replaceChildren()
+          core.replaceChildren()
+          return
+        }
+      }
       if (now - painted >= 1000 / 30 && !document.hidden) {
         render(now - started)
         painted = now

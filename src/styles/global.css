@@ -187,7 +187,7 @@ main { position: relative; z-index: 1; }
 }
 
 /* Intensity travels in path order; nearby edges cannot illuminate one another. */
-.intro-mark__flow { opacity: 1; transition: opacity 220ms ease-out; pointer-events: none; }
+.intro-mark__flow { opacity: 1; transition: opacity 900ms ease-in-out; pointer-events: none; }
 .intro-mark__light {
   fill: none;
   stroke: url(#intro-light-spectrum);
@@ -203,12 +203,11 @@ main { position: relative; z-index: 1; }
 .intro-mark__wave-halo { stroke-width: 28px; filter: blur(8px); }
 .intro-mark__wave-core { stroke-width: 4px; filter: blur(.45px); }
 .intro-overlay.is-ready .intro-mark__flow { opacity: 0; }
-.intro-overlay.is-ready .intro-mark__light { animation-play-state: paused; }
-/* Reveal the live page through the stationary logo before expanding the hole. */
-.intro-overlay.is-ready ~ .site-page { transition: none; }
-.intro-overlay.is-ready .intro-mark__solid { animation: logo-dissolve 520ms ease-in-out forwards; }
+/* Paint the homepage behind the opaque logo screen before the reveal begins. */
+.intro-overlay ~ .site-page { opacity: 1; transition: none; }
+.intro-overlay.is-ready .intro-mark__solid { animation: logo-dissolve 900ms ease-in-out forwards; }
 .intro-overlay.is-ready .intro-mark__cutout { opacity: 1; }
-.intro-overlay.is-ready .intro-mark__motion { animation: logo-zoom 1.55s var(--ease-in-out) 680ms forwards; }
+.intro-overlay.is-ready .intro-mark__motion { animation: logo-zoom 1.8s cubic-bezier(.74, 0, .8, .24) 950ms forwards; }
 .intro-loading { position: absolute; top: calc(50% + 160px); width: 100%; text-align: center; color: var(--muted); font-size: .75rem; letter-spacing: .08em; }
 .intro-overlay.is-ready .intro-loading { visibility: hidden; }
 .intro-overlay.is-exiting { pointer-events: none; opacity: 0; }

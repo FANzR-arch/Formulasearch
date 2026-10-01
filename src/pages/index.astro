@@ -125,7 +125,8 @@ const introLogoPath = 'M363.48 29.18c19.12-.5 42.12 8.18 57.95 24.01s24.51 38.84
       ]))
       let deadline
       Promise.all([
-        new Promise(resolve => window.setTimeout(resolve, 1000)),
+        // Give the outline waves time to establish their rhythm before revealing the page.
+        new Promise(resolve => window.setTimeout(resolve, 3800)),
         Promise.race([firstScreenReady, new Promise(resolve => { deadline = window.setTimeout(resolve, 3000) })]),
       ]).then(() => {
         clearTimeout(deadline)
@@ -133,7 +134,7 @@ const introLogoPath = 'M363.48 29.18c19.12-.5 42.12 8.18 57.95 24.01s24.51 38.84
         overlay?.classList.add('is-ready')
         unveilPage()
         // Broken assets or an interrupted animation must never trap the visitor.
-        window.setTimeout(revealPage, 2600)
+        window.setTimeout(revealPage, 3200)
       })
     }
   </script>

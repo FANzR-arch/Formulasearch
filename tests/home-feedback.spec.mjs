@@ -63,6 +63,8 @@ test('intro waits for a delayed visible portrait before starting the logo zoom',
   const overlay = page.locator('#intro-overlay')
   try {
     await expect(overlay).toBeVisible()
+    // The opaque intro covers a painted homepage, so revealing it needs no first render.
+    await expect(page.locator('#site-page')).toHaveCSS('opacity', '1')
     // The logo stays solid while the visible first-screen image is pending.
     await page.clock.runFor(1100)
     await expect(overlay).not.toHaveClass(/is-ready/)
@@ -73,12 +75,14 @@ test('intro waits for a delayed visible portrait before starting the logo zoom',
       await page.locator('.intro-field').evaluate(el => getComputedStyle(el).fill))
     await expect(page.locator('.intro-mark__cutout')).toHaveCSS('opacity', '0')
   } finally { release() }
-  await expect(overlay).toHaveClass(/is-ready/)
   await expect(page.locator('.home-avatar__image:visible')).toHaveJSProperty('complete', true)
+  await expect(overlay).not.toHaveClass(/is-ready/)
+  await page.clock.runFor(2800)
+  await expect(overlay).toHaveClass(/is-ready/)
   const windowPhase = await page.evaluate(() => {
     const overlay = document.querySelector('#intro-overlay')
     const animations = overlay.getAnimations({ subtree: true })
-    animations.forEach(animation => { animation.pause(); animation.currentTime = 560 })
+    animations.forEach(animation => { animation.pause(); animation.currentTime = 920 })
     return {
       solid: getComputedStyle(overlay.querySelector('.intro-mark__solid')).opacity,
       cutout: getComputedStyle(overlay.querySelector('.intro-mark__cutout')).opacity,
@@ -90,11 +94,11 @@ test('intro waits for a delayed visible portrait before starting the logo zoom',
   expect(windowPhase).toEqual({ solid: '0', cutout: '1', outline: '0.25', scale: 'none', pageOpacity: '1' })
   await page.screenshot({ path: 'output/playwright/home-intro-window.png' })
   await page.evaluate(() => document.querySelector('#intro-overlay').getAnimations({ subtree: true }).forEach(animation => {
-    if (animation.animationName === 'logo-zoom') animation.currentTime = 1400
+    if (animation.animationName === 'logo-zoom') animation.currentTime = 1900
   }))
   await page.screenshot({ path: 'output/playwright/home-intro-expanding.png' })
   await page.evaluate(() => document.querySelector('#intro-overlay').getAnimations({ subtree: true }).forEach(animation => animation.play()))
-  await page.clock.runFor(3100)
+  await page.clock.runFor(3800)
   await expect(overlay).toHaveCount(0)
   await expect(page.locator('#site-page')).toHaveCSS('opacity', '1')
 })
@@ -109,7 +113,7 @@ test('intro cannot trap a visitor when a first-screen image never responds', asy
   await page.route(/profile-light.*\.(webp|png)|\/_image\?.*profile-light/, async route => { await gate; await route.abort() })
   try {
     await page.goto('/', { waitUntil: 'domcontentloaded' })
-    await page.clock.runFor(6100)
+    await page.clock.runFor(7600)
     await expect(page.locator('#intro-overlay')).toHaveCount(0, { timeout: 7000 })
     await expect(page.locator('#site-page')).toHaveCSS('opacity', '1')
   } finally { release() }

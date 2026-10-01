@@ -35,7 +35,7 @@ test('fallback documents warm during the intro without loading destination media
   await expect(page.locator('#intro-overlay')).toBeVisible()
   await expect.poll(() => prefetchedPaths(page)).toContain('/blog')
   await expect(page.locator('#intro-overlay')).toBeVisible()
-  await expect(page.locator('#intro-overlay')).toHaveCount(0, { timeout: 7000 })
+  await expect(page.locator('#intro-overlay')).toHaveCount(0, { timeout: 8500 })
   const media = []
   page.on('request', request => {
     if (['image', 'media'].includes(request.resourceType())) media.push(request.url())
