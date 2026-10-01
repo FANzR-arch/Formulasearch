@@ -56,10 +56,6 @@
   max-width: 25rem;
   padding-bottom: 5px;
   justify-self: end;
-  color: var(--copy-ink);
-  font-family: var(--body-font);
-  font-size: var(--text-description);
-  line-height: 1.78;
 }
 
 

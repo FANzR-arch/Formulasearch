@@ -1371,9 +1371,16 @@ body:has(.home-copy) .ambient-flow {
   width: 100%;
   max-width: 42ch;
   justify-self: end;
+}
+/* Keep the same introductory type across standard, blog and quotation heroes. */
+.page-hero__description,
+.blog-hero__intro,
+.architecture-quote blockquote {
   color: var(--copy-ink);
   font-family: var(--body-font);
   font-size: var(--text-description);
+  font-weight: 400;
+  letter-spacing: normal;
   line-height: 1.75;
 }
 .page-hero[data-hero-motion='projects'] .page-hero__description {
@@ -1413,14 +1420,11 @@ body:has(.home-copy) .ambient-flow {
 
 .architecture-index > .page-hero { grid-template-columns: minmax(0, 1fr) auto; gap: 20px 3vw; }
 .architecture-quote { position: relative; z-index: 1; grid-column: 2; width: max-content; max-width: 100%; margin: 0; align-self: center; }
-.architecture-quote blockquote { margin: 0; color: var(--muted); font-family: var(--serif); font-size: clamp(1.05rem, 1.35vw, 1.3rem); font-weight: 400; line-height: 1.65; text-wrap: pretty; }
-.architecture-quote blockquote { white-space: nowrap; }
+.architecture-quote blockquote { margin: 0; text-wrap: pretty; }
 .architecture-quote figcaption { margin-top: 14px; color: var(--muted); font-size: .75rem; line-height: 1.5; letter-spacing: .04em; }
 @media (max-width: 820px) {
   .architecture-index > .page-hero { grid-template-columns: minmax(0, 1fr); }
-  .architecture-quote { grid-column: 1; width: 100%; container-type: inline-size; }
-  .architecture-quote blockquote { font-size: min(1.05rem, 4.8cqw); }
-  :root[data-locale='en'] .architecture-quote blockquote { font-size: min(1.05rem, 2.15cqw); }
+  .architecture-quote { grid-column: 1; width: 100%; }
 }
 .architecture-project-list {
   /* Keep each cover's natural proportions; columns flow without fixed-height tiles. */
