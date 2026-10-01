@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-const prefetchedPaths = page => page.locator('link[rel="prefetch"]').evaluateAll(links => links.map(link => new URL(link.href).pathname))
+const prefetchedPaths = page => page.locator('link[rel="prefetch"]:not([data-navigation-resource])').evaluateAll(links => links.map(link => new URL(link.href).pathname))
 
 test('cacheable navigation reuses the prefetched document without transferring it again', async ({ page }) => {
   const response = await page.request.head('/projects')
@@ -39,6 +39,10 @@ test('navigation documents warm after the intro without loading destination medi
   const paths = await prefetchedPaths(page)
   expect(paths).toHaveLength(7)
   expect(new Set(paths).size).toBe(7)
+  await expect.poll(() => page.locator('link[data-navigation-resource]').count()).toBeGreaterThan(0)
+  const assets = await page.locator('link[data-navigation-resource]').evaluateAll(links => links.map(link => new URL(link.href).pathname))
+  expect(assets.every(path => path.startsWith('/_astro/') && /\.(css|js)$/.test(path))).toBe(true)
+  expect(new Set(assets).size).toBe(assets.length)
   expect(paths.some(path => path.includes('/category/'))).toBe(false)
   expect(media).toEqual([])
   await expect.poll(() => downloaded).toEqual(expect.arrayContaining(paths))

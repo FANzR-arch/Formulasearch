@@ -1,5 +1,6 @@
 ---
 import '../styles/glass-surface.css'
+import glassScript from '../../public/scripts/glass-surface.js?url'
 
 interface Props {
   ariaHidden?: boolean
@@ -137,4 +138,4 @@ const containerStyle = [
   <div class="glass-surface__content"><slot /></div>
 </div>
 
-<script is:inline src="/scripts/glass-surface.js"></script>
+<script is:inline src={glassScript}></script>

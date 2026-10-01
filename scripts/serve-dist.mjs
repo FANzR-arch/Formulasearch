@@ -56,7 +56,9 @@ const server = createServer((request, response) => {
   const headers = {
     'Content-Type': contentTypes[extname(filePath)] || 'application/octet-stream',
     // Optional production-like document caching for prefetch verification.
-    'Cache-Control': extname(filePath) === '.html' ? (process.env.HTML_CACHE_CONTROL || 'no-cache') : 'no-cache',
+    'Cache-Control': filePath.startsWith(join(distRoot, '_astro') + sep)
+      ? 'public, max-age=31536000, immutable'
+      : extname(filePath) === '.html' ? (process.env.HTML_CACHE_CONTROL || 'no-cache') : 'no-cache',
     'Accept-Ranges': 'bytes',
   }
   // Native video seeking requests byte ranges instead of downloading the full file.
