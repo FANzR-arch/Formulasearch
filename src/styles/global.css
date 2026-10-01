@@ -267,32 +267,47 @@ main { position: relative; z-index: 1; }
 .site-nav { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: .9rem; }
 .mobile-nav-toggle { display: none; }
 .mobile-nav-shortcuts { display: none; }
-.nav-menu { position: relative; margin: -3px -5px; padding: 3px 5px; }
-.nav-menu__trigger { display: inline-flex; min-height: 48px; align-items: center; margin: 0; padding: 2px 5px 2px 2px; border-radius: 999px; transition: background-color 220ms ease; }
+.nav-menu { position: relative; }
+.nav-menu__trigger {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--muted);
+  background: color-mix(in oklab, var(--paper) 18%, transparent);
+  box-shadow: inset 0 1px 2px color-mix(in oklab, white 12%, transparent);
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
 .nav-menu__trigger:hover,
-.nav-menu__trigger:has(.is-keyword-destination),
+.nav-menu__trigger:focus-visible,
+.nav-menu__trigger.is-keyword-destination,
 .nav-menu.is-open .nav-menu__trigger,
-.nav-menu__trigger:has(.nav-link.is-active) {
+.nav-menu__trigger.is-active {
+  color: var(--ink);
   background: color-mix(in oklab, var(--paper) 38%, transparent);
   box-shadow: inset 0 1px 3px color-mix(in oklab, white 24%, transparent), inset 0 -1px 3px color-mix(in oklab, var(--ink) 5%, transparent);
 }
-.nav-link { position: relative; display: inline-flex; height: 44px; align-items: center; padding: 0 9px 0 17px; white-space: nowrap; }
+.nav-link { position: relative; display: inline-flex; align-items: center; white-space: nowrap; }
 .nav-link.is-active { color: var(--ink); }
-.nav-disclosure {
-  display: grid;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: 0;
-  place-items: center;
-  color: var(--muted);
-  background: none;
-  cursor: pointer;
+.site-header a.is-navigation-pending {
+  color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 14%, transparent);
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 30%, transparent);
+  transition: none;
 }
-.nav-disclosure svg { transition: transform 180ms var(--ease-out); }
+.nav-disclosure svg { flex-shrink: 0; transition: transform 260ms var(--ease-out); }
 .nav-disclosure[aria-expanded='true'] { color: var(--ink); }
 .nav-disclosure[aria-expanded='true'] svg { transform: rotate(180deg); }
-.nav-menu::after { position: absolute; z-index: 3; top: calc(100% - 6px); right: -24px; left: -24px; height: 32px; content: ''; }
+.nav-menu::after { position: absolute; z-index: 3; top: 100%; right: 0; left: 0; height: 12px; content: ''; }
 .nav-popover {
   position: absolute;
   z-index: 4;
@@ -1146,9 +1161,8 @@ body:has(.home-copy) .ambient-flow {
   :root[data-theme='dark'] .site-nav { border-color: color-mix(in oklab, var(--ink) 13%, transparent); background: color-mix(in oklab, var(--paper) 91%, transparent); }
   .site-header.is-nav-open .site-nav { display: grid; }
   .nav-menu { margin: 0; padding: 0; }
-  .nav-menu__trigger { display: grid; grid-template-columns: minmax(0, 1fr) 48px; min-height: 52px; margin: 0; padding: 0; }
+  .nav-menu__trigger { display: flex; width: 100%; justify-content: space-between; min-height: 52px; margin: 0; padding: 0 13px; border-radius: 12px; }
   .nav-link { height: 52px; padding: 0 13px; }
-  .nav-disclosure { display: grid; width: 48px; height: 52px; }
   .nav-popover { position: static; display: none; width: auto; margin: 0 0 7px; padding: 5px; border: 0; border-radius: 16px; background: color-mix(in oklab, var(--ink) 4%, transparent); box-shadow: none; opacity: 1; pointer-events: auto; transform: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
   .nav-menu.is-open .nav-popover { display: grid; }
   .nav-menu::after { display: none; }

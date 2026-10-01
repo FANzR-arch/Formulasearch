@@ -1,0 +1,106 @@
+/* Navigation only: official Lucide shapes, one-shot feedback, and live localized hints. */
+.site-header [data-nav-icon] { position: relative; }
+.site-header .nav-icon-label { display: none; }
+.site-header [data-nav-icon]::after {
+  content: attr(aria-label);
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 10px);
+  left: 50%;
+  width: max-content;
+  max-width: min(260px, calc(100vw - 32px));
+  padding: 8px 11px;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 500 12px/1.4 var(--sans);
+  letter-spacing: 0;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -3px);
+  transition: opacity 140ms ease, transform 180ms var(--ease-out), visibility 140ms;
+}
+.site-header [data-nav-icon='home']::after { left: 0; transform: translateY(-3px); }
+.site-header [data-nav-icon='chat']::after { right: 0; left: auto; transform: translateY(-3px); }
+.site-header [data-nav-icon]:focus-visible::after { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+@media (hover: hover) {
+  .site-header [data-nav-icon]:hover::after { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+}
+.site-header [data-nav-icon='home']:is(:hover, :focus-visible)::after,
+.site-header [data-nav-icon='chat']:is(:hover, :focus-visible)::after { transform: translateY(0); }
+.site-header[data-nav-hints-dismissed] [data-nav-icon]::after { opacity: 0; visibility: hidden; }
+.site-header [data-nav-icon]:is(:hover, :focus-visible) { color: var(--ink); }
+.site-header [data-nav-icon]:active > :is(svg, img) { scale: .93; }
+.site-header [data-nav-icon] > :is(svg, img) { transition: scale 120ms var(--ease-out); }
+
+/* Show the theme the button will switch to, matching its accessible name. */
+.site-header .theme-toggle .theme-icon__sun { display: none; }
+.site-header .theme-toggle .theme-icon__moon { display: block; }
+:root[data-theme='dark'] .site-header .theme-toggle .theme-icon__sun { display: block; }
+:root[data-theme='dark'] .site-header .theme-toggle .theme-icon__moon { display: none; }
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .site-header [data-nav-icon='photos']:is(:hover, :focus-visible) svg > circle {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: nav-camera-focus 360ms var(--ease-out);
+  }
+  .site-header [data-nav-icon='architecture']:is(:hover, :focus-visible) svg > path:is(:nth-child(1), :nth-child(3), :nth-child(4), :nth-child(6)) {
+    animation: nav-column-light 280ms ease-out;
+  }
+  .site-header [data-nav-icon='architecture']:is(:hover, :focus-visible) svg > path:nth-child(1) { animation-delay: 45ms; }
+  .site-header [data-nav-icon='architecture']:is(:hover, :focus-visible) svg > path:nth-child(3) { animation-delay: 90ms; }
+  .site-header [data-nav-icon='architecture']:is(:hover, :focus-visible) svg > path:nth-child(4) { animation-delay: 135ms; }
+  .site-header [data-nav-icon='partners']:is(:hover, :focus-visible) svg > path {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: nav-link-nudge 380ms var(--ease-out);
+  }
+  .site-header [data-nav-icon='partners']:is(:hover, :focus-visible) svg > path:nth-child(2) { --link-offset: -1px; }
+  .site-header [data-nav-icon='language']:is(:hover, :focus-visible) svg { transform-origin: center; animation: nav-globe-turn 380ms var(--ease-out); }
+  .site-header [data-nav-icon='theme']:is(:hover, :focus-visible) svg { transform-origin: center; animation: nav-theme-turn 420ms var(--ease-out); }
+  .site-header [data-nav-icon='chat']:is(:hover, :focus-visible) svg > path:nth-child(n+2) { animation: nav-chat-dot 280ms ease-out; }
+  .site-header [data-nav-icon='chat']:is(:hover, :focus-visible) svg > path:nth-child(3) { animation-delay: 70ms; }
+  .site-header [data-nav-icon='chat']:is(:hover, :focus-visible) svg > path:nth-child(4) { animation-delay: 140ms; }
+  .site-header [data-nav-icon='home']:is(:hover, :focus-visible) img,
+  .site-header [data-nav-icon='github']:is(:hover, :focus-visible) img { animation: nav-brand-lift 360ms var(--ease-out); }
+  .site-header [data-nav-motion='menu']:is(:hover, :focus-visible) .mobile-nav-toggle__menu > path:nth-child(2) { animation: nav-menu-slide 360ms var(--ease-out); }
+  .site-header [data-nav-motion='menu']:is(:hover, :focus-visible) .mobile-nav-toggle__close { animation: nav-brand-lift 360ms var(--ease-out); }
+  .site-header [data-nav-motion='chevron']:is(:hover, :focus-visible) svg > path { animation: nav-chevron-dip 320ms var(--ease-out); }
+}
+@keyframes nav-camera-focus { 45% { transform: scale(.8); } }
+@keyframes nav-column-light { 40% { opacity: .35; } }
+@keyframes nav-link-nudge { 40% { transform: translateX(var(--link-offset, 1px)); } }
+@keyframes nav-globe-turn { 45% { transform: rotate(-12deg); } }
+@keyframes nav-theme-turn { 45% { transform: rotate(-18deg); } }
+@keyframes nav-chat-dot { 45% { transform: translateY(-1.5px); opacity: .4; } }
+@keyframes nav-brand-lift { 45% { transform: translateY(-1px) scale(1.06); } }
+@keyframes nav-menu-slide { 45% { transform: translateX(2px); } }
+@keyframes nav-chevron-dip { 45% { transform: translateY(2px); } }
+
+@media (max-width: 940px) {
+  .site-header .nav-utilities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+  .site-header .nav-utilities [data-nav-icon] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    min-width: 0;
+    height: 68px;
+    aspect-ratio: auto;
+    border-radius: 12px;
+  }
+  .site-header .nav-utilities .nav-icon-label { display: block; font: 500 11px/1.3 var(--sans); letter-spacing: 0; }
+  .site-header .nav-utilities [data-nav-icon]::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header [data-nav-icon],
+  .site-header [data-nav-icon]::after,
+  .site-header [data-nav-icon] > :is(svg, img),
+  .site-header [data-nav-motion] svg { transition: none; }
+  .site-header [data-nav-icon]:active > :is(svg, img) { scale: 1; }
+}

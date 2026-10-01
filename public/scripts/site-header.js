@@ -2,6 +2,16 @@ const primaryNavigation = document.querySelector('.site-nav')
 const mobileNavigationToggle = document.querySelector('#mobile-navigation-toggle')
 const languageToggle = document.querySelector('#language-toggle')
 const navMenus = primaryNavigation ? Array.from(primaryNavigation.querySelectorAll('.nav-menu')) : []
+// Hints use aria-label so language and theme changes never leave stale copy.
+const hintHeader = document.querySelector('.site-header')
+hintHeader?.querySelectorAll('[data-nav-icon]').forEach((control) => {
+  const showHints = () => hintHeader.removeAttribute('data-nav-hints-dismissed')
+  control.addEventListener('pointerenter', showHints)
+  control.addEventListener('focus', showHints)
+})
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') hintHeader?.setAttribute('data-nav-hints-dismissed', '')
+})
 let navCloseTimer
 const navCloseDelay = 360
 // A stationary pointer must not reopen the arriving page's menu after navigation.
@@ -38,9 +48,6 @@ const updateNavigationLabels = () => {
   }
 
   updateLabel(mobileNavigationToggle, document.querySelector('.site-header')?.classList.contains('is-nav-open'))
-  navMenus.forEach((menu) => {
-    updateLabel(menu.querySelector('.nav-disclosure'), menu.classList.contains('is-open'))
-  })
 }
 
 const closeNavigationMenus = (except) => {
@@ -72,22 +79,17 @@ const openNavigationMenu = (menu) => {
 }
 
 navMenus.forEach((menu) => {
-  const button = menu.querySelector('.nav-disclosure')
-  let openedByHover = false
-  button?.addEventListener('click', (event) => {
-    // pointerenter runs before click; the first click confirms that opening.
-    if (event.detail > 0 && openedByHover && menu.classList.contains('is-open')) {
-      openedByHover = false
-      return
-    }
-    openedByHover = false
-    if (menu.classList.contains('is-open')) closeNavigationMenus()
-    else openNavigationMenu(menu)
+  const trigger = menu.querySelector('.nav-disclosure')
+  trigger?.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return
+    event.preventDefault()
+    openNavigationMenu(menu)
+    const links = menu.querySelectorAll('.nav-popover a')
+    const target = event.key === 'ArrowDown' ? links[0] : links[links.length - 1]
+    target?.focus()
   })
-
   const hoverMenu = (event) => {
     if (!suppressHover && event.pointerType === 'mouse' && !window.matchMedia('(max-width: 940px)').matches) {
-      openedByHover = !menu.classList.contains('is-open')
       openNavigationMenu(menu)
     }
   }
@@ -181,7 +183,7 @@ const updateLanguageToggle = () => {
   languageToggle?.setAttribute('aria-pressed', String(isEnglish))
   const labelKey = isEnglish ? 'labelZhEn' : 'labelEnZh'
   languageToggle?.setAttribute('aria-label', languageToggle.dataset[labelKey] || '')
-  languageToggle?.setAttribute('title', languageToggle.dataset[labelKey] || '')
+  if (!languageToggle?.hasAttribute('data-nav-icon')) languageToggle?.setAttribute('title', languageToggle.dataset[labelKey] || '')
 }
 
 updateLanguageToggle()

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "headers": [
+    {
+      "source": "/",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=60" }]
+    },
+    {
+      "source": "/en",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=60" }]
+    },
+    {
+      "source": "/:section(blog|projects|skills|lab|photos|architecture|partners)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=60" }]
+    },
+    {
+      "source": "/en/:section(blog|projects|skills|lab|photos|architecture|partners)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=60" }]
+    },
+    {
+      "source": "/blog/category/:category",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=60" }]
+    },
+    {
+      "source": "/en/blog/category/:category",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=60" }]
+    }
+  ]
+}

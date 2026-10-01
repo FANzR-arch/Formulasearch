@@ -150,7 +150,7 @@ test('desktop navigation uses concise popovers and expanded trigger areas', asyn
   await page.goto('/')
   const trigger = page.locator('.nav-menu__trigger').first()
   await expect(trigger).toHaveCSS('min-height', '48px')
-  await trigger.locator('.nav-disclosure').click()
+  await trigger.hover()
   const popover = page.locator('.nav-popover').first()
   await expect(popover).toBeVisible()
   await expect(popover.locator('em')).toHaveCount(0)
@@ -270,17 +270,17 @@ test('internal pointer navigation records its origin and destination', async ({ 
     }
   }))).toBeTruthy()
 
-  await page.locator('.site-nav .nav-link').first().evaluate((link) => {
+  await page.locator('.nav-link[href="/blog"]').evaluate((link) => {
     link.addEventListener('click', (event) => event.preventDefault(), { once: true })
   })
-  await page.locator('.site-nav .nav-link').first().click()
+  await page.locator('.nav-link[href="/blog"]').click()
   const transition = await page.evaluate(() => JSON.parse(sessionStorage.getItem('formulasearch-route-transition') || 'null'))
   expect(transition).toEqual(expect.objectContaining({ x: expect.any(Number), y: expect.any(Number), timestamp: expect.any(Number), destination: expect.stringMatching(/\/blog$/) }))
 })
 
 test('supported cross-document navigation consumes the route-transition origin', async ({ page }) => {
   await page.goto('/projects')
-  await page.locator('.site-nav .nav-link').first().click()
+  await page.locator('.nav-link[href="/blog"]').click()
   await expect(page).toHaveURL(/\/blog$/)
   await expect.poll(() => page.evaluate(() => sessionStorage.getItem('formulasearch-route-transition'))).toBeNull()
 })
@@ -288,7 +288,7 @@ test('supported cross-document navigation consumes the route-transition origin',
 test('reduced-motion route navigation clears the stored origin without animation state', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/projects')
-  await page.locator('.site-nav .nav-link').first().click()
+  await page.locator('.nav-link[href="/blog"]').click()
   await expect(page).toHaveURL(/\/blog$/)
   await expect.poll(() => page.evaluate(() => sessionStorage.getItem('formulasearch-route-transition'))).toBeNull()
   await expect(page.locator('html')).not.toHaveAttribute('data-view-transition', 'route')
@@ -346,7 +346,7 @@ test('background clicks do not block existing controls or navigation', async ({ 
   await expect(page.locator('html')).not.toHaveAttribute('data-theme', initialTheme || '')
   await expect.poll(() => page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uImpulseAge ?? -1)).toBeGreaterThanOrEqual(0)
 
-  const navLink = page.locator('.site-nav .nav-link').first()
+  const navLink = page.locator('.nav-link[href="/blog"]')
   await navLink.evaluate((link) => link.addEventListener('click', (event) => event.preventDefault(), { once: true }))
   await navLink.click()
   await expect.poll(() => page.evaluate(() => window.__formulasearchBackgroundUniforms?.().uImpulseAge ?? -1)).toBeGreaterThanOrEqual(0)
@@ -439,18 +439,28 @@ test('reduced motion skips decorative animation loops', async ({ page }) => {
   await expect(page.locator('#intro-overlay')).toHaveCount(0)
 })
 
-test('navigation disclosure labels reflect open state and locale', async ({ page }) => {
+test('unified navigation links support hover, locale and keyboard menus', async ({ page }) => {
   await page.goto('/projects')
 
   const disclosure = page.locator('.nav-disclosure').first()
   await expect(disclosure).toHaveAttribute('aria-haspopup', 'true')
-  await disclosure.evaluate((element) => element.dispatchEvent(new MouseEvent('click', { bubbles: true })))
-  await expect(disclosure).toHaveAttribute('aria-label', /关闭博客分类/)
+  await expect(disclosure).toHaveAccessibleName('博客')
+  await expect(disclosure).toHaveAttribute('href', '/blog')
+  await disclosure.hover()
+  await expect(disclosure).toHaveAttribute('aria-expanded', 'true')
+  await expect(page).toHaveURL(/\/projects$/)
+  await expect(page.locator('.nav-popover a[href="/blog"]')).toHaveCount(0)
 
   await page.locator('#language-toggle').click()
-  await expect(disclosure).toHaveAttribute('aria-label', /Close Blog menu/)
-  await disclosure.evaluate((element) => element.dispatchEvent(new MouseEvent('click', { bubbles: true })))
-  await expect(disclosure).toHaveAttribute('aria-label', /Open Blog menu/)
+  await expect(disclosure).toHaveAccessibleName('Blog')
+  await disclosure.focus()
+  await disclosure.press('ArrowDown')
+  await expect(page.locator('.nav-popover a').first()).toBeFocused()
+  await page.keyboard.press('Escape')
+  await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
+  await expect(disclosure).toBeFocused()
+  await disclosure.press('ArrowUp')
+  await expect(page.locator('.nav-popover').first().locator('a').last()).toBeFocused()
 })
 
 test('desktop navigation closes when focus leaves the site navigation', async ({ page }) => {
@@ -485,19 +495,19 @@ test('locale and theme controls update document metadata', async ({ page }) => {
   await expect(page).toHaveTitle(/Projects/)
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Phil's work in AI films/)
   await expect(page.locator('#language-toggle')).toHaveAttribute('aria-label', 'Switch to Chinese')
-  await expect(page.locator('.nav-disclosure').nth(1)).toHaveAttribute('aria-label', 'Open Projects menu')
-  await expect(page.locator('.icon-link--github')).toHaveAttribute('title', 'Phil on GitHub')
-  await expect(page.locator('#theme-toggle')).toHaveAttribute('title', 'Switch to dark theme')
+  await expect(page.locator('.nav-disclosure').nth(1)).toHaveAccessibleName('Projects')
+  await expect(page.locator('.icon-link--github')).toHaveAttribute('aria-label', 'Phil on GitHub')
+  await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', 'Switch to dark theme')
 
   await page.locator('#theme-toggle').click()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', 'Switch to light theme')
-  await expect(page.locator('#theme-toggle')).toHaveAttribute('title', 'Switch to light theme')
+  await expect(page.locator('#theme-toggle')).not.toHaveAttribute('title')
 
   await page.locator('#language-toggle').click()
   await expect(page.locator('html')).toHaveAttribute('lang', 'zh-Hans')
-  await expect(page.locator('#theme-toggle')).toHaveAttribute('title', '切换到浅色主题')
+  await expect(page.locator('#theme-toggle')).toHaveAttribute('aria-label', '切换到浅色主题')
 })
 
 test('English routes render server-localized metadata and reciprocal hreflang', async ({ page }) => {
@@ -511,7 +521,7 @@ test('English routes render server-localized metadata and reciprocal hreflang', 
   await expect(page.locator('.page-hero h1 .localized-text__en')).toBeVisible()
   await expect(page.locator('.page-hero h1 .localized-text__zh')).toBeHidden()
   await expect(page.locator('.nav-link[href="/en/blog"]')).toBeVisible()
-  await page.locator('.nav-disclosure').first().click()
+  await page.locator('.nav-disclosure').first().hover()
   await expect(page.locator('.nav-popover a').first()).toHaveAttribute('href', /\/en\/blog\/category\/aesthetics$/)
 
   await page.goto('/en/blog')
@@ -543,15 +553,15 @@ test('English archive images expose English alt text in SSR HTML', async ({ page
   await expect(image).not.toHaveAttribute('alt', await image.getAttribute('data-alt-zh'))
 })
 
-test('locale-sensitive titles and alt text switch from the SSR value', async ({ page }) => {
+test('locale-sensitive labels and alt text switch from the SSR value', async ({ page }) => {
   await page.goto('/en/photos')
   const image = page.locator('.archive-record img').first()
   const archiveLink = page.locator('.icon-link--archive').first()
-  await expect(archiveLink).toHaveAttribute('title', await archiveLink.getAttribute('data-title-en'))
+  await expect(archiveLink).toHaveAttribute('aria-label', await archiveLink.getAttribute('data-aria-en'))
 
   await page.locator('#language-toggle').click()
   await expect(image).toHaveAttribute('alt', await image.getAttribute('data-alt-zh'))
-  await expect(archiveLink).toHaveAttribute('title', await archiveLink.getAttribute('data-title-zh'))
+  await expect(archiveLink).toHaveAttribute('aria-label', await archiveLink.getAttribute('data-aria-zh'))
 })
 
 test('locale switch preserves article source language semantics', async ({ page }) => {
@@ -761,10 +771,10 @@ test('photo archive reveals all records when IntersectionObserver is unavailable
   await expect(page.locator('#archive-grid [data-archive-record]:not([hidden])')).toHaveCount(50)
 })
 
-test('photo archive remains readable without JavaScript', async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false })
+test('photo archive remains readable without JavaScript', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, baseURL })
   const page = await context.newPage()
-  await page.goto('http://127.0.0.1:4321/photos')
+  await page.goto('/photos')
   const total = await page.locator('#archive-grid [data-archive-record]').count()
   const displayed = await page.locator('#archive-grid [data-archive-record]').evaluateAll((elements) => elements.filter((element) => getComputedStyle(element).display !== 'none').length)
   expect(displayed).toBe(total)

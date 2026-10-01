@@ -150,5 +150,5 @@ test('interface sounds are downloaded once per file', async ({ page }) => {
   page.on('request', (request) => { if (request.url().endsWith('.wav')) wavRequests.push(new URL(request.url()).pathname) })
   await page.goto('/')
   await page.waitForLoadState('networkidle')
-  expect(wavRequests).toEqual(['/audio/kenney-interface/click3.wav'])
+  expect(wavRequests.sort()).toEqual(['/audio/kenney-interface/click3.wav', '/audio/kenney-interface/switch5.wav'])
 })

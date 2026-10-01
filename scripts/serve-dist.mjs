@@ -55,7 +55,8 @@ const server = createServer((request, response) => {
   const size = statSync(filePath).size
   const headers = {
     'Content-Type': contentTypes[extname(filePath)] || 'application/octet-stream',
-    'Cache-Control': 'no-cache',
+    // Optional production-like document caching for prefetch verification.
+    'Cache-Control': extname(filePath) === '.html' ? (process.env.HTML_CACHE_CONTROL || 'no-cache') : 'no-cache',
     'Accept-Ranges': 'bytes',
   }
   // Native video seeking requests byte ranges instead of downloading the full file.

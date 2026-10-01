@@ -78,6 +78,7 @@ export default defineConfig({
   site: siteConfig.siteUrl,
   output: 'static',
   trailingSlash: 'never',
+  prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
   integrations: contentStudioEnabled ? [react(), keystatic(), contentStudio()] : [],
   vite: {
     plugins: [tailwindcss()],

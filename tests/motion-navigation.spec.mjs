@@ -20,7 +20,7 @@ for (const mobile of [false, true]) {
     if (mobile) await page.locator('#mobile-navigation-toggle').click()
     const link = page.locator('.nav-link[href="/blog"]')
     const bounds = await link.boundingBox()
-    await link.click({ position: { x: 3, y: 5 } })
+    await link.click({ position: { x: 3, y: bounds.height / 2 } })
     await expect.poll(() => page.evaluate(() => window.circleOrigin?.animation)).toBe(true)
     const origin = await page.evaluate(() => window.circleOrigin)
     expect(origin.x).toBeCloseTo(bounds.x + bounds.width / 2, 1)
@@ -45,7 +45,7 @@ for (const zoom of [1, 1.5]) {
     await page.goto('/projects')
     const link = page.locator('.nav-link[href="/blog"]')
     const box = await link.boundingBox()
-    await link.click({ position: { x: 3, y: 5 } })
+    await link.click({ position: { x: 3, y: box.height / 2 } })
     await page.waitForFunction(() => !!window.circleAnimation)
     // Isolate the actual composited mask, rather than just checking stored coordinates.
     await page.addStyleTag({ content: '::view-transition-old(root) { filter: brightness(0); } ::view-transition-new(root) { filter: brightness(0) invert(1); }' })
@@ -109,13 +109,15 @@ test('departing dark homepage keeps a complete background bitmap and restores it
   expect(white / (info.width * info.height)).toBeLessThan(.02)
 })
 
-test('a real disclosure click opens once and the next click closes it', async ({ page }) => {
+test('hover opens the unified menu and clicking its arrow navigates directly', async ({ page }) => {
   await page.goto('/projects')
   await page.mouse.move(1100, 650)
   const disclosure = page.locator('.nav-disclosure').first()
-  await disclosure.click()
+  await disclosure.hover()
   await expect(disclosure).toHaveAttribute('aria-expanded', 'true')
-  await disclosure.click()
+  await expect(page).toHaveURL(/\/projects$/)
+  await disclosure.locator('svg').click()
+  await expect(page).toHaveURL(/\/blog$/)
   await expect(disclosure).toHaveAttribute('aria-expanded', 'false')
 })
 

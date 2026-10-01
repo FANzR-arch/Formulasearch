@@ -1,0 +1,99 @@
+---
+// Local design comparison only. No production registry or navigation is modified.
+import { Camera, Image, Images, Building, Building2, Landmark, Link, Link2, UsersRound, Globe, Languages, Moon, Sun, SunMoon, MessageCircle, MessageCircleMore, MessageSquare, MessagesSquare, ChevronDown } from '@lucide/astro'
+import logo from '../../../../public/brand/logo.svg?url'
+import github from '../../../../public/brand/github-mark.svg?url'
+import '../styles/navigation-options.css'
+
+const sets = [
+  { id: 'A', title: '直观工具', summary: '轮廓明确，认起来最快。', note: '相机强调摄影；地球与相机不再撞形。楼宇和链接直接对应内容。', language: '地球', labels: ['相机', '楼宇', '链接', '地球', '月亮', '圆形气泡'], icons: [Camera, Building2, Link2, Globe, Moon, MessageCircle] },
+  { id: 'B', title: '安静简洁', summary: '减少细节，让语言入口更清楚。', note: '单张图片与简化楼宇更轻。EN 是可点击的语言文字，表示切换到英文。', language: 'EN 文字', labels: ['单张图片', '简化楼宇', '链接', 'EN 文字', '月亮', '方形气泡'], icons: [Image, Building, Link2, null, Moon, MessageSquare] },
+  { id: 'C', title: '人与作品', summary: '更有作品集气质，也更强调人与人的连接。', note: '柱廊建筑更有文化感，但可能被理解成博物馆；双人头像更亲切，也可能像团队入口。', language: '地球', labels: ['叠放照片', '柱廊建筑', '双人头像', '地球', '日月组合', '双气泡'], icons: [Images, Landmark, UsersRound, Globe, SunMoon, MessagesSquare] },
+  { id: 'NOW', title: '当前版本', summary: '保留作对照。', note: '语言符号在 18px 下笔画偏密。用这一行比较新方案是否更轻、更好认。', language: '语言符号', labels: ['叠放照片', '楼宇', '链接', '语言符号', '月亮', '带点气泡'], icons: [Images, Building2, Link, Languages, Moon, MessageCircleMore] },
+]
+const actions = ['照片', '建筑', '伙伴站点', '切换到英文', '切换到浅色主题', '和我的 AI 聊聊']
+const motion = ['photo', 'building', 'link', 'language', 'theme', 'chat']
+---
+<!doctype html>
+<html lang="zh-Hans" data-preview-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>导航图标搭配 · Formulasearch</title>
+  </head>
+  <body class="nav-options">
+    <main>
+      <header class="intro">
+        <p class="eyebrow">FORMULASEARCH / NAVIGATION STUDY</p>
+        <div class="intro-line"><h1>同一条导航，<br />几种不同的表情。</h1><p class="intro-copy">先看整体，再把鼠标移上图标。<br />重点比较语言入口的轮廓和整组的协调程度。</p></div>
+        <div class="toolbar" aria-label="预览设置">
+          <div class="segmented" role="group" aria-label="背景颜色">
+            <button type="button" data-preview-mode="dark" aria-pressed="true"><Moon size={14} stroke-width={1.75} />深色</button>
+            <button type="button" data-preview-mode="light" aria-pressed="false"><Sun size={14} stroke-width={1.75} />浅色</button>
+          </div>
+          <div class="segmented" role="group" aria-label="图标尺寸">
+            <button type="button" data-size="18" aria-pressed="true">18px · 当前尺寸</button>
+            <button type="button" data-size="22" aria-pressed="false">22px · 放大比较</button>
+          </div>
+          <span class="preview-note">独立比较页 · 尚未替换主站</span>
+        </div>
+      </header>
+
+      <section class="options" aria-label="四组导航图标搭配">
+        {sets.map((set) => <article class:list={['option', { baseline: set.id === 'NOW' }]} data-set={set.id}>
+          <div class="option-heading"><div class="option-name"><span class="index">{set.id}</span><h2>{set.title}</h2>{set.id === 'B' && <span class="suggestion">语言更明确</span>}</div><p>{set.summary}</p></div>
+          <div class="nav-stage">
+            <div class="sample-nav" aria-label={`${set.title}导航预览`}>
+              <span class="sample-logo"><img src={logo} alt="Formulasearch" /></span>
+              <div class="sample-sections" aria-hidden="true">{['博客','项目','技能','探索'].map(label => <span>{label}<ChevronDown size={14} stroke-width={1.75} /></span>)}</div>
+              <div class="sample-tools">
+                {set.icons.map((Glyph, i) => <>
+                  {i === 3 && <><span class="divider" aria-hidden="true"></span><button class="sample-control" type="button" data-motion="brand" aria-label="GitHub · 仅演示悬浮" data-hint="GitHub"><img src={github} alt="" /></button></>}
+                  <button class="sample-control" type="button" data-motion={motion[i]} data-slot={i} aria-label={`${actions[i]} · 仅演示`} data-hint={actions[i]}>
+                    {i === 4 && set.id !== 'C' ? <><Moon class="target-dark" size={18} stroke-width={1.75} aria-hidden="true" /><Sun class="target-light" size={18} stroke-width={1.75} aria-hidden="true" /></> : Glyph ? <Glyph size={18} stroke-width={1.75} aria-hidden="true" /> : <span class="language-text" aria-hidden="true">EN</span>}
+                  </button>
+                </>)}
+              </div>
+            </div>
+          </div>
+          <div class="option-footer"><p>{set.note}</p><span class="language-choice">语言入口：{set.language}</span></div>
+          <details class="detail"><summary>放大看单个图标<ChevronDown size={14} stroke-width={1.75} /></summary><div class="detail-grid">{set.icons.map((Glyph,i)=><div><span class="detail-icon">{Glyph ? <Glyph size={28} stroke-width={1.75} aria-hidden="true" /> : <span class="language-text">EN</span>}</span><strong>{actions[i].replace('切换到英文','语言').replace('切换到浅色主题','主题').replace('和我的 AI 聊聊','聊天')}</strong><small>{set.labels[i]}</small></div>)}</div></details>
+        </article>)}
+      </section>
+      <footer class="page-footer"><p>全部图形选自 Lucide，GitHub 使用官方标志；EN 是语言标签。</p><p>悬浮或键盘聚焦播放一次，点击语言按钮可体验 EN / 中的文字切换；主题按钮切换预览背景。其他按钮仅演示反馈。</p></footer>
+    </main>
+    <script>
+      const root = document.documentElement
+      const setTheme = (theme: string) => {
+        root.dataset.previewTheme = theme
+        document.querySelectorAll<HTMLButtonElement>('[data-preview-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.previewMode === theme)))
+        document.querySelectorAll<HTMLButtonElement>('[data-slot="4"]').forEach(button => {
+          const hint = theme === 'dark' ? '切换到浅色主题' : '切换到深色主题'
+          button.dataset.hint = hint
+          button.setAttribute('aria-label', hint + ' · 预览')
+        })
+      }
+      document.querySelectorAll<HTMLButtonElement>('[data-preview-mode]').forEach(button => button.addEventListener('click', () => setTheme(button.dataset.previewMode!)))
+      document.querySelectorAll<HTMLButtonElement>('[data-size]').forEach(button => button.addEventListener('click', () => {
+        root.style.setProperty('--preview-icon-size', button.dataset.size + 'px')
+        document.querySelectorAll<HTMLButtonElement>('[data-size]').forEach(item => item.setAttribute('aria-pressed', String(item === button)))
+      }))
+      document.querySelectorAll<HTMLButtonElement>('[data-slot="4"]').forEach(button => button.addEventListener('click', () => setTheme(root.dataset.previewTheme === 'dark' ? 'light' : 'dark')))
+      document.querySelectorAll<HTMLButtonElement>('[data-slot="3"]').forEach(button => button.addEventListener('click', () => {
+        const toChinese = button.dataset.hint === '切换到英文'
+        const text = button.querySelector('.language-text')
+        if (text) text.textContent = toChinese ? '中' : 'EN'
+        button.dataset.hint = toChinese ? '切换到中文' : '切换到英文'
+        button.setAttribute('aria-label', button.dataset.hint + ' · 仅演示')
+      }))
+      document.querySelectorAll<HTMLButtonElement>('.sample-control').forEach(button => {
+        button.addEventListener('pointerenter', () => button.removeAttribute('data-dismissed'))
+        button.addEventListener('focus', () => button.removeAttribute('data-dismissed'))
+      })
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') document.querySelectorAll('.sample-control').forEach(button => button.setAttribute('data-dismissed', ''))
+      })
+    </script>
+  </body>
+</html>
