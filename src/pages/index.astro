@@ -9,10 +9,14 @@ const introLogoPath = 'M363.48 29.18c19.12-.5 42.12 8.18 57.95 24.01s24.51 38.84
 
 <BaseLayout title={pageMeta.home.title.zh} titleEn={pageMeta.home.title.en} description={pageMeta.home.description.zh} descriptionEn={pageMeta.home.description.en}>
   <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
-    <svg class="intro-screen" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="presentation">
+    <svg class="intro-screen" data-logo-light-band viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="presentation">
       <defs>
         <path id="intro-logo-shape" pathLength="1" d={introLogoPath} />
         <path id="intro-logo-light-shape" pathLength="1" d={introLogoPath} />
+        <mask id="intro-light-exterior" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="-60" y="-60" width="600" height="580" style="mask-type: luminance">
+          <rect x="-60" y="-60" width="600" height="580" fill="white" />
+          <use href="#intro-logo-shape" fill="black" />
+        </mask>
         <linearGradient id="intro-light-spectrum" gradientUnits="userSpaceOnUse" x1="0" y1="440" x2="477" y2="0">
           <stop offset="0" stop-color="#59b9ac" />
           <stop offset=".25" stop-color="#659fe4" />
@@ -40,10 +44,10 @@ const introLogoPath = 'M363.48 29.18c19.12-.5 42.12 8.18 57.95 24.01s24.51 38.84
         <g class="intro-mark__motion">
           <use class="intro-mark__solid" href="#intro-logo-shape" />
           <use class="intro-mark__line" href="#intro-logo-shape" />
-          <g class="intro-mark__flow">
-            <use class="intro-mark__light intro-mark__light--halo" href="#intro-logo-light-shape" />
-            <use class="intro-mark__light intro-mark__light--trail" href="#intro-logo-light-shape" />
-            <use class="intro-mark__light intro-mark__light--tip" href="#intro-logo-light-shape" />
+          <g class="intro-mark__flow" mask="url(#intro-light-exterior)">
+            <use class="intro-mark__light intro-mark__light--base" href="#intro-logo-light-shape" />
+            <g class="intro-mark__light intro-mark__wave-halo" data-logo-light-halo />
+            <g class="intro-mark__light intro-mark__wave-core" data-logo-light-core />
           </g>
         </g>
       </g>
@@ -59,6 +63,7 @@ const introLogoPath = 'M363.48 29.18c19.12-.5 42.12 8.18 57.95 24.01s24.51 38.84
   </div>
 
   <noscript><style>#intro-overlay { display: none !important; } .site-page { opacity: 1 !important; transform: none !important; }</style></noscript>
+  <script is:inline src="/scripts/logo-light-band.js"></script>
   <script is:inline src="/scripts/liquid-background.js"></script>
   <script is:inline>
     const overlay = document.querySelector('#intro-overlay')

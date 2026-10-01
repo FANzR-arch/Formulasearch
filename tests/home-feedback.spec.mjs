@@ -52,6 +52,9 @@ test('keyword lines recover within the same keyword after blur, and repeated exi
 })
 
 test('intro waits for a delayed visible portrait before starting the logo zoom', async ({ page }) => {
+  const clockStart = new Date('2026-10-01T12:00:00Z')
+  await page.clock.install({ time: clockStart })
+  await page.clock.pauseAt(clockStart)
   await page.addInitScript(() => localStorage.setItem('formulasearch-theme', 'light'))
   let release
   const gate = new Promise(resolve => { release = resolve })
@@ -61,7 +64,7 @@ test('intro waits for a delayed visible portrait before starting the logo zoom',
   try {
     await expect(overlay).toBeVisible()
     // The logo stays solid while the visible first-screen image is pending.
-    await page.waitForTimeout(1100)
+    await page.clock.runFor(1100)
     await expect(overlay).not.toHaveClass(/is-ready/)
     await expect(page.locator('.intro-mark > .intro-mark__motion')).toHaveCSS('animation-name', 'none')
     await expect(page.locator('.intro-mark__solid')).toHaveCSS('opacity', '1')
@@ -84,24 +87,29 @@ test('intro waits for a delayed visible portrait before starting the logo zoom',
       pageOpacity: getComputedStyle(document.querySelector('#site-page')).opacity,
     }
   })
-  expect(windowPhase).toEqual({ solid: '0', cutout: '1', outline: '1', scale: 'none', pageOpacity: '1' })
+  expect(windowPhase).toEqual({ solid: '0', cutout: '1', outline: '0.25', scale: 'none', pageOpacity: '1' })
   await page.screenshot({ path: 'output/playwright/home-intro-window.png' })
   await page.evaluate(() => document.querySelector('#intro-overlay').getAnimations({ subtree: true }).forEach(animation => {
     if (animation.animationName === 'logo-zoom') animation.currentTime = 1400
   }))
   await page.screenshot({ path: 'output/playwright/home-intro-expanding.png' })
   await page.evaluate(() => document.querySelector('#intro-overlay').getAnimations({ subtree: true }).forEach(animation => animation.play()))
+  await page.clock.runFor(3100)
   await expect(overlay).toHaveCount(0)
   await expect(page.locator('#site-page')).toHaveCSS('opacity', '1')
 })
 
 test('intro cannot trap a visitor when a first-screen image never responds', async ({ page }) => {
+  const clockStart = new Date('2026-10-01T12:00:00Z')
+  await page.clock.install({ time: clockStart })
+  await page.clock.pauseAt(clockStart)
   await page.addInitScript(() => localStorage.setItem('formulasearch-theme', 'light'))
   let release
   const gate = new Promise(resolve => { release = resolve })
   await page.route(/profile-light.*\.(webp|png)|\/_image\?.*profile-light/, async route => { await gate; await route.abort() })
   try {
     await page.goto('/', { waitUntil: 'domcontentloaded' })
+    await page.clock.runFor(6100)
     await expect(page.locator('#intro-overlay')).toHaveCount(0, { timeout: 7000 })
     await expect(page.locator('#site-page')).toHaveCSS('opacity', '1')
   } finally { release() }

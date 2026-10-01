@@ -176,7 +176,8 @@ main { position: relative; z-index: 1; }
   stroke: var(--ink);
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.25px;
+  stroke-width: .6px;
+  opacity: .25;
   vector-effect: non-scaling-stroke;
 }
 
@@ -185,21 +186,22 @@ main { position: relative; z-index: 1; }
   opacity: 0;
 }
 
-/* One travelling highlight follows the original logo path; no extra geometry. */
+/* Intensity travels in path order; nearby edges cannot illuminate one another. */
 .intro-mark__flow { opacity: 1; transition: opacity 220ms ease-out; pointer-events: none; }
 .intro-mark__light {
   fill: none;
   stroke: url(#intro-light-spectrum);
-  stroke-linecap: round;
+  stroke-linecap: butt;
   stroke-linejoin: round;
-  --light-offset: 0px;
-  stroke-dasharray: .12 .88;
-  animation: logo-light-travel 6.8s linear infinite, logo-light-appear 500ms ease-out both;
+}
+.intro-mark__light {
+  stroke-dasharray: none;
+  animation: logo-light-appear 650ms ease-out both;
   animation-delay: .15s;
 }
-.intro-mark__light--halo { stroke-width: 12px; filter: blur(8px); opacity: .42; }
-.intro-mark__light--trail { stroke-width: 4px; opacity: .85; }
-.intro-mark__light--tip { --light-offset: -.096px; stroke-width: 5px; stroke-dasharray: .024 .976; }
+.intro-mark__light--base { stroke-width: 3px; opacity: .035; }
+.intro-mark__wave-halo { stroke-width: 28px; filter: blur(8px); }
+.intro-mark__wave-core { stroke-width: 4px; filter: blur(.45px); }
 .intro-overlay.is-ready .intro-mark__flow { opacity: 0; }
 .intro-overlay.is-ready .intro-mark__light { animation-play-state: paused; }
 /* Reveal the live page through the stationary logo before expanding the hole. */
@@ -1056,7 +1058,6 @@ body:has(.home-copy) .ambient-flow {
 .hero-image { display: block; width: min(100%, 610px); max-height: 520px; margin-top: 38px; object-fit: cover; border: 1px solid var(--hairline); filter: saturate(.78) contrast(.98); }
 
 @keyframes logo-dissolve { from { opacity: 1; } to { opacity: 0; } }
-@keyframes logo-light-travel { from { stroke-dashoffset: var(--light-offset); } to { stroke-dashoffset: calc(var(--light-offset) - 1px); } }
 @keyframes logo-light-appear { from { stroke-opacity: 0; } to { stroke-opacity: 1; } }
 @keyframes logo-zoom { to { transform: scale(120); } }
 @keyframes archive-record-enter { from { opacity: .01; transform: translateY(16px); } to { opacity: 1; transform: none; } }
