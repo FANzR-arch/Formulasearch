@@ -212,10 +212,13 @@ test('key routes do not overflow a narrow viewport', async ({ page }) => {
   }
 })
 
-test('partners page exposes its mutual site as a safe external link', async ({ page }) => {
+test('partners page groups collaborations and partners with safe external links', async ({ page }) => {
   await page.goto('/partners')
   const partner = page.locator('.partner-entry')
-  await expect(partner).toHaveCount(5)
+  await expect(partner).toHaveCount(7)
+  await expect(page.locator('h1')).toContainText('合作与伙伴')
+  await expect(page.locator('.partner-group').nth(0).locator('.partner-entry')).toHaveCount(4)
+  await expect(page.locator('.partner-group').nth(1).locator('.partner-entry')).toHaveCount(3)
   await expect(partner.nth(0)).toHaveAttribute('href', 'https://shuitu.studio/index.html')
   await expect(partner.nth(0)).toHaveAttribute('target', '_blank')
   await expect(partner.nth(0)).toHaveAttribute('rel', 'noopener noreferrer')
@@ -224,12 +227,14 @@ test('partners page exposes its mutual site as a safe external link', async ({ p
   await expect(partner.nth(1)).toHaveAttribute('target', '_blank')
   await expect(partner.nth(1)).toHaveAttribute('rel', 'noopener noreferrer')
   await expect(partner.nth(1).locator('strong')).toContainText('Syntax Studio')
-  await expect(partner.nth(2)).toHaveAttribute('href', 'https://jojo.best/')
+  await expect(partner.nth(2)).toHaveAttribute('href', 'https://knockin.info/')
   await expect(partner.nth(2)).toHaveAttribute('target', '_blank')
   await expect(partner.nth(2)).toHaveAttribute('rel', 'noopener noreferrer')
-  await expect(partner.nth(2).locator('strong')).toContainText('Joruno')
-  await expect(partner.nth(3)).toHaveAttribute('href', 'https://huiyuan.uk/')
-  await expect(partner.nth(4)).toHaveAttribute('href', 'https://iamadrianpunk.com/')
+  await expect(partner.nth(3)).toHaveAttribute('href', 'https://luciusai.com/')
+  await expect(partner.nth(4)).toHaveAttribute('href', 'https://jojo.best/')
+  await expect(partner.nth(4).locator('strong')).toContainText('Joruno')
+  await expect(partner.nth(5)).toHaveAttribute('href', 'https://huiyuan.uk/')
+  await expect(partner.nth(6)).toHaveAttribute('href', 'https://iamadrianpunk.com/')
   await expect(page.locator('a[aria-current="page"]')).toHaveAttribute('href', '/partners')
 })
 

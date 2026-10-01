@@ -4,7 +4,9 @@ import { localizedCopySchema } from '../lib/i18n'
 
 const partnerItemSchema = z.object({
   name: localizedCopySchema,
+  group: z.enum(['collaborations', 'partners']),
   url: z.url(),
+  avatar: z.string().startsWith('/images/partners/'),
 }).strict()
 
 const partnersSchema = z.object({
@@ -14,6 +16,7 @@ const partnersSchema = z.object({
   heading: localizedCopySchema,
   intro: localizedCopySchema,
   listLabel: localizedCopySchema,
+  groups: z.object({ collaborations: localizedCopySchema, partners: localizedCopySchema }).strict(),
   items: z.array(partnerItemSchema).min(1),
 }).strict()
 

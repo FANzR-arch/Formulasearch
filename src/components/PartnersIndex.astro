@@ -11,17 +11,23 @@ interface Props {
 
 const { locale = 'zh' } = Astro.props
 const listLabel = getLocalizedValue(partnersPage.listLabel, locale)
+const groups = ['collaborations', 'partners'] as const
 ---
 
+<div class="partners-page">
 <PageHero title={partnersPage.heading} description={partnersPage.intro} />
 
 <section class="partners-directory" aria-label={listLabel} data-aria-en={partnersPage.listLabel.en} data-aria-zh={partnersPage.listLabel.zh}>
-  {partnersPage.items.map((partner, index) => {
+  {groups.map((group) => (
+    <section class="partner-group" aria-labelledby={`partner-group-${group}`}>
+      <h2 id={`partner-group-${group}`}><LocalizedText {...partnersPage.groups[group]} /></h2>
+  {partnersPage.items.filter(partner => partner.group === group).map((partner, index) => {
     return (
       <a class="partner-entry" href={partner.url} target="_blank" rel="noopener noreferrer" data-site-reveal data-site-reveal-delay={String(80 + index * 60)}>
-        <span class="partner-entry__index">{String(index + 1).padStart(2, '0')}</span>
+        <img class="partner-entry__avatar" src={partner.avatar} alt="" width="56" height="56" decoding="async" />
         <span class="partner-entry__identity">
           <strong><LocalizedText {...partner.name} /></strong>
+          <span class="partner-entry__url">{new URL(partner.url).hostname.replace(/^www\./, '')}</span>
         </span>
         <span class="partner-entry__visit">
           <Icon name="catalog-external" role="meta" />
@@ -29,4 +35,20 @@ const listLabel = getLocalizedValue(partnersPage.listLabel, locale)
       </a>
     )
   })}
+    </section>
+  ))}
 </section>
+</div>
+
+<style>
+  .partners-page :global(.page-hero) { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); column-gap: 4vw; }
+  .partners-page :global(.page-hero__description) { max-width: 48ch; margin: 0; text-wrap: pretty; }
+  .partners-directory { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(40px, 6vw, 88px); width: 100%; }
+  .partner-group { min-width: 0; }
+  .partner-group h2 { margin: 0 0 22px; font-size: .85rem; font-weight: 600; color: var(--muted); letter-spacing: .06em; }
+  @media (max-width: 820px) {
+    .partners-page :global(.page-hero) { grid-template-columns: minmax(0, 1fr); }
+    .partners-page :global(.page-hero__description) { max-width: none; }
+    .partners-directory { grid-template-columns: minmax(0, 1fr); gap: 42px; }
+  }
+</style>

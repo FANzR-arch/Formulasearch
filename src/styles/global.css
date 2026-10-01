@@ -737,7 +737,7 @@ main { position: relative; z-index: 1; }
 .partners-directory { width: min(100%, 920px); margin: 0 auto; padding-top: clamp(34px, 5vw, 64px); }
 .partner-entry {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr) auto;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
   gap: clamp(16px, 2vw, 26px);
   min-height: 94px;
   align-items: center;
@@ -748,15 +748,16 @@ main { position: relative; z-index: 1; }
 }
 .partner-entry:last-child { border-bottom: 1px solid var(--ink); }
 .partner-entry:hover { color: var(--accent); background: color-mix(in oklab, var(--ink) 3.5%, transparent); }
-.partner-entry__index {
-  align-self: center;
-  color: var(--accent);
-  font-size: .62rem;
-  font-variant-numeric: tabular-nums;
-  font-weight: 650;
-  letter-spacing: .12em;
+.partner-entry__avatar {
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
 }
-.partner-entry__identity { min-width: 0; }
+.partner-entry__identity { display: grid; gap: 9px; min-width: 0; }
+.partner-entry__url { color: var(--muted); font-size: .75rem; line-height: 1.4; overflow-wrap: anywhere; }
 .partner-entry__identity strong {
   font-size: clamp(1.35rem, 2vw, 2rem);
   font-weight: 610;
@@ -1210,12 +1211,13 @@ body:has(.home-copy) .ambient-flow {
   .project-group > .project-card-grid > .project-card:only-child { grid-column: 1 / -1; }
   .project-card-grid { gap: 32px 20px; }
   .partner-entry {
-    grid-template-columns: 30px minmax(0, 1fr) auto;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
     min-height: 84px;
     align-items: center;
     gap: 12px;
     padding: 20px 2px;
   }
+  .partner-entry__avatar { width: 44px; height: 44px; }
   .partner-entry__identity { grid-column: 2; }
   .partner-entry__identity strong { font-size: clamp(1.25rem, 6vw, 1.75rem); }
   .partner-entry__visit { grid-column: 3; }
