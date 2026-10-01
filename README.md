@@ -31,7 +31,9 @@ Formulasearch 记录这些过程中的公开成果——一部分来自独立探
 
 导航链接点击时立即高亮并播放短音效；音频加载或播放失败不会取消、延迟导航。首页未展示的 AI 入口保留布局宽度，保持各页导航点击区域一致。对应回归为 `tests/navigation-audio.spec.mjs`。
 
-`src/scripts/navigation-loading.ts` 复用 Astro 的预加载能力：首页开场结束后，在空闲时分批准备主要导航页面，悬停或键盘选中导航链接时优先准备对应页面。页面 HTML 预取完成后，从浏览器缓存读取内容，再预取其中本站 `/_astro/` 下带内容指纹的样式和脚本；不执行目标页面代码，不提前下载图库或视频，相同资源去重。省流量和 2G 网络下由 Astro 跳过后台预取，隐藏标签页暂停任务。现有圆形切页动画保持不变。对应回归为 `tests/navigation-loading.spec.mjs`。
+`src/scripts/navigation-loading.ts` 在 Logo 开场期间就分批准备 7 个主要导航页面。Astro 的 `experimental.clientPrerender` 在支持 Speculation Rules 的浏览器中提前解析、初始化并渲染目标页面，点击时直接激活；悬停或键盘选中链接也会准备对应页面。隐藏的预渲染页面不会继续递归准备其他页面，GA4 只在真实激活后启动，主题和语言在激活时同步最新设置。浏览器拒绝预渲染或不支持时，仍提前缓存 HTML 和本站 `/_astro/` 样式、脚本，缓存回退不加载目标页媒体。预渲染中的图片由浏览器按首屏及原有懒加载策略准备。省流量和 2G 网络跳过后台准备，隐藏标签页暂停队列。现有圆形切页动画保持不变。
+
+回退回归为 `tests/navigation-loading.spec.mjs`。真实预渲染可在静态预览启动后运行 `PLAYWRIGHT_BASE_URL` 指向该预览的 `node scripts/test-navigation-prerender.mjs`；默认使用 Windows Edge，其他环境通过 `PLAYWRIGHT_BROWSER_PATH` 指定 Chromium 浏览器。普通 Playwright 的页面调试连接会关闭 Chromium 预渲染，该验证通过独立临时配置和支持预渲染的 tab 调试目标检查 7 个页面准备、实际激活、主题/语言同步及点击至转场时间。结果写入 `output/navigation-prerender-results.json`。浏览器内存/电量、调试连接及网络设置都可能让预渲染退回普通缓存导航；不能将规则下发等同于预渲染成功。
 
 全站首帧依赖的 shell、导航、音效和玻璃表面脚本通过 Vite `?url` 生成带内容指纹的 `/_astro/` 地址，复用平台长期缓存，避免每次切页重新验证静态脚本；代码更新会生成新地址。静态验证服务器对 `/_astro/` 使用同样的长期缓存策略，避免本地预览重复下载已打包资源而掩盖预加载效果。
 

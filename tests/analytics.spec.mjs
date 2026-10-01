@@ -150,6 +150,19 @@ test('local previews do not load Google or queue analytics', async ({ page, cont
   await expect(page.locator('script[src*="googletagmanager.com"]')).toHaveCount(0)
 })
 
+test('a prepared document sends its page view only after activation', async ({ page, context }) => {
+  const calls = await prepare(page, context)
+  await page.addInitScript(() => Object.defineProperty(document, 'prerendering', { value: true, configurable: true }))
+  await page.goto(`${origin}/partners`)
+  expect(calls).toEqual([])
+  await expect(page.locator('script[src*="googletagmanager.com"]')).toHaveCount(0)
+  await page.evaluate(() => {
+    Object.defineProperty(document, 'prerendering', { value: false })
+    document.dispatchEvent(new Event('prerenderingchange'))
+  })
+  await expect.poll(() => events(calls, 'page_view').length).toBe(1)
+})
+
 test('blocking Google does not block navigation or contact controls', async ({ page, context }) => {
   await prepare(page, context)
   await page.route('https://www.googletagmanager.com/**', route => route.abort())

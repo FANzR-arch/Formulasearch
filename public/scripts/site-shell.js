@@ -63,6 +63,7 @@
         viewportWidth: innerWidth,
         viewportHeight: innerHeight,
         timestamp: Date.now(),
+        clickTime: performance.timeOrigin + performance.now(),
         destination: destination.href,
       }))
     } catch {}
@@ -105,7 +106,17 @@
       root.style.setProperty('--route-x', `${x * 100}%`)
       root.style.setProperty('--route-y', `${y * 100}%`)
       root.style.setProperty('--route-radius', `${radius / Math.hypot(innerWidth, innerHeight) * Math.SQRT2 * 100}%`)
-      event.viewTransition.ready.then(() => sessionStorage.removeItem(routeTransitionStorageKey), () => {})
+      event.viewTransition.ready.then(() => {
+        // Normal navigation starts its time origin after the click; prerender
+        // starts it before. Measure across both document clocks without a
+        // negative User Timing start, and never let diagnostics affect routing.
+        try {
+          if (Number.isFinite(record.clickTime)) performance.measure('formulasearch:route-response', {
+            start: 0, duration: performance.timeOrigin + performance.now() - record.clickTime,
+          })
+        } catch {}
+        sessionStorage.removeItem(routeTransitionStorageKey)
+      }, () => {})
     } catch { event.viewTransition.skipTransition() }
   })
 
@@ -212,6 +223,15 @@
     try { localStorage.setItem(themeStorageKey, root.dataset.theme || 'light') } catch {}
     window.dispatchEvent(new CustomEvent('formulasearch:theme', { detail: { theme: root.dataset.theme } }))
   }
+
+  // A destination can have been prepared before the visitor changed these controls.
+  // Refresh them on activation, before the browser captures its incoming snapshot.
+  document.addEventListener('prerenderingchange', () => {
+    try { applyLocale(localStorage.getItem(localeStorageKey) || routeLocale) } catch {}
+    applyTheme(getInitialTheme())
+    window.dispatchEvent(new CustomEvent('formulasearch:locale', { detail: { locale: root.dataset.locale } }))
+    window.dispatchEvent(new CustomEvent('formulasearch:theme', { detail: { theme: root.dataset.theme } }))
+  }, { once: true })
 
   document.addEventListener('DOMContentLoaded', () => {
     applyLocale(root.dataset.locale || 'zh')

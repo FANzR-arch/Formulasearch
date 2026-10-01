@@ -2,6 +2,12 @@ import { expect, test } from '@playwright/test'
 
 const prefetchedPaths = page => page.locator('link[rel="prefetch"]:not([data-navigation-resource])').evaluateAll(links => links.map(link => new URL(link.href).pathname))
 
+// Ordinary Playwright attaches directly to a page target, which Chromium uses
+// to disable prerender. Exercise the unsupported-browser fallback here.
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => { HTMLScriptElement.supports = () => false })
+})
+
 test('cacheable navigation reuses the prefetched document without transferring it again', async ({ page }) => {
   const response = await page.request.head('/projects')
   test.skip(!/max-age=[1-9]/.test(response.headers()['cache-control'] || ''), 'Run the static server with HTML_CACHE_CONTROL=public, max-age=60')
@@ -18,7 +24,7 @@ test('cacheable navigation reuses the prefetched document without transferring i
   expect(navigation).toEqual({ transferSize: 0, deliveryType: 'cache' })
 })
 
-test('navigation documents warm after the intro without loading destination media', async ({ page }) => {
+test('fallback documents warm during the intro without loading destination media', async ({ page }) => {
   const downloaded = []
   page.on('requestfinished', request => {
     if (!request.isNavigationRequest() && ['/blog', '/projects', '/skills', '/lab', '/photos', '/architecture', '/partners'].includes(new URL(request.url()).pathname)) {
@@ -27,7 +33,8 @@ test('navigation documents warm after the intro without loading destination medi
   })
   await page.goto('/', { waitUntil: 'domcontentloaded' })
   await expect(page.locator('#intro-overlay')).toBeVisible()
-  expect(await prefetchedPaths(page)).toEqual([])
+  await expect.poll(() => prefetchedPaths(page)).toContain('/blog')
+  await expect(page.locator('#intro-overlay')).toBeVisible()
   await expect(page.locator('#intro-overlay')).toHaveCount(0, { timeout: 7000 })
   const media = []
   page.on('request', request => {

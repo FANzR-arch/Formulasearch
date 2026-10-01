@@ -1,4 +1,5 @@
-// Warm documents and their versioned styles/scripts; never execute destination code or fetch media.
+// Prepare navigation during the intro. Native prerender prepares a complete page;
+// browsers without it fall back to cached HTML and versioned styles/scripts.
 import { prefetch } from 'astro:prefetch'
 
 const header = document.querySelector('.site-header')
@@ -9,8 +10,10 @@ const queue = [...new Set(links.filter(link => !link.closest('.nav-popover')).ma
 const preparedDocuments = new Set<string>()
 const preparedAssets = new Set([...document.querySelectorAll<HTMLLinkElement | HTMLScriptElement>('link[href], script[src]')]
   .map(element => element instanceof HTMLLinkElement ? element.href : element.src))
+const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection
+const slowConnection = () => connection?.saveData || /2g/.test(connection?.effectiveType || '')
 const warmResources = async (url: string) => {
-  if (preparedDocuments.has(url) || document.hidden) return
+  if (preparedDocuments.has(url) || document.hidden || slowConnection()) return
   preparedDocuments.add(url)
   try {
     // The completed document prefetch supplies this read from the browser cache.
@@ -48,26 +51,23 @@ const warmNext = () => {
   const url = queue.shift()
   if (!url) { warming = false; return }
   prefetch(url)
-  window.setTimeout(scheduleIdle, 400)
+  // Speculation rules have no link load event. Warm critical files as well:
+  // prerender can be declined by the browser (memory, battery or DevTools).
+  if (HTMLScriptElement.supports?.('speculationrules')) void warmResources(url)
+  window.setTimeout(scheduleIdle, 180)
 }
 const scheduleIdle = () => {
-  if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(warmNext, { timeout: 1500 })
-  else window.setTimeout(warmNext, 200)
+  if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(warmNext, { timeout: 200 })
+  else window.setTimeout(warmNext, 0)
 }
 const startWarming = () => {
-  if (warming || document.hidden || !queue.length || document.querySelector('#intro-overlay')) return
+  if (warming || document.hidden || (document as Document & { prerendering?: boolean }).prerendering || !queue.length) return
   warming = true
-  scheduleIdle()
+  warmNext()
 }
-const intro = document.querySelector('#intro-overlay')
-if (intro?.parentElement) {
-  const observer = new MutationObserver(() => {
-    if (intro.isConnected) return
-    observer.disconnect()
-    startWarming()
-  })
-  observer.observe(intro.parentElement, { childList: true })
-} else startWarming()
+startWarming()
+// A prepared destination must not recursively prepare seven more documents.
+document.addEventListener('prerenderingchange', startWarming, { once: true })
 document.addEventListener('visibilitychange', startWarming)
 
 // A pending link responds immediately even when the destination is still loading.

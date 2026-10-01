@@ -79,6 +79,7 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'never',
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
+  experimental: { clientPrerender: true },
   integrations: contentStudioEnabled ? [react(), keystatic(), contentStudio()] : [],
   vite: {
     plugins: [tailwindcss()],
