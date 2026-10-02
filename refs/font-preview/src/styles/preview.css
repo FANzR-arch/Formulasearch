@@ -1,70 +1,71 @@
-/* Only the tool chrome and specimen placement are styled here.
-   Specimen typography comes from the two production stylesheets. */
-/* Keep the desktop controls sticky to the viewport; hidden creates a body
-   scrolling container that would trap sticky positioning. */
+/* Tool chrome and placement only. Specimens consume production typography roles. */
 body { overflow-x: clip; }
-.fp-frame { width: min(calc(100% - 32px), 1240px); margin: 0 auto; padding-block: 24px 80px; }
-.fp-title { margin: 0 0 20px; font-size: var(--text-xl); line-height: 1.25; }
+.fp-frame { width: min(calc(100% - 40px), 1440px); margin: 0 auto; padding-block: 24px 64px; }
+.fp-tool-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 20px; }
+.fp-title { margin: 0; font: 600 24px/1.3 var(--font-sans); letter-spacing: 0; }
+.fp-tool-heading p, .fp-note { margin: 0; font-size: var(--text-xs); color: var(--muted); }
 .fp-panel { position: sticky; top: 12px; z-index: 10; padding: 16px; border: 1px solid var(--hairline); border-radius: 12px; background: var(--paper); box-shadow: 0 6px 24px color-mix(in oklab, var(--ink) 8%, transparent); }
-.fp-toolbar { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: end; }
-.fp-toolbar label { display: grid; flex: 1 1 150px; gap: 6px; min-width: 0; font-size: var(--text-2xs); }
+.fp-toolbar { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: end; }
+.fp-toolbar label { display: grid; flex: 1 1 140px; gap: 6px; min-width: 0; font-size: var(--text-2xs); }
 .fp-toolbar select { width: 100%; min-width: 0; min-height: 44px; padding: 6px 10px; border: 1px solid var(--hairline); border-radius: 6px; color: var(--ink); background: var(--paper); font: inherit; font-size: var(--text-sm); }
 .fp-toolbar .fp-toggle { display: flex; flex: 0 1 auto; align-items: center; min-height: 44px; gap: 8px; }
 .fp-toggle input { accent-color: var(--accent); width: 18px; height: 18px; }
-.fp-font-info { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--hairline); }
-.fp-font-info p { margin: 0; font-size: var(--text-xs); color: var(--copy-ink); overflow-wrap: anywhere; }
-.fp-font-info a { text-decoration: underline; text-underline-offset: .2em; }
-.fp-font-info [data-font-status] { display: block; margin-top: 4px; color: var(--muted); }
-.fp-status { margin: 12px 0 0; font-size: var(--text-xs); color: var(--accent); }
-.fp-specimen { margin-top: 36px; padding-block: 20px 32px; border-bottom: 1px solid var(--hairline); min-width: 0; }
-.fp-specimen__label { margin: 0 0 24px; color: var(--muted); font-size: var(--text-2xs); font-weight: var(--weight-medium); }
-.fp-specimen .intro { margin-block: 0; }
+.fp-advanced { margin-top: 12px; font-size: var(--text-xs); color: var(--muted); }
+.fp-advanced summary, .fp-specification summary { min-height: 32px; cursor: pointer; }
+.fp-advanced .fp-toolbar { padding-top: 12px; }
+.fp-status { margin: 10px 0 0; font-size: var(--text-xs); color: var(--accent); }
+.fp-status[data-state='error'] { color: var(--ink); }
+.fp-live-preview { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--hairline); }
+.fp-live-preview h2 { margin: 0; font-family: var(--font-heading); font-size: var(--text-xl); }
+.fp-live-preview p { margin: 0; color: var(--copy-ink); font-size: var(--text-sm); }
+.fp-panes { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin-block: 24px; }
+.fp-panes[data-compare='true'] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.fp-pane { min-width: 0; padding: 24px; border: 1px solid var(--hairline); background: var(--paper); }
+.fp-panes[data-compare='false'] .fp-pane[data-pane='b'] { display: none; }
+.fp-panes[data-compare='true'] .fp-pane { height: 76vh; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+.fp-direction-heading h2 { margin: 0; font: 600 18px/1.4 var(--font-sans); letter-spacing: 0; }
+.fp-direction-heading p { margin: 8px 0 16px; color: var(--muted); font: 400 13px/1.6 var(--font-sans); }
+.fp-specification { font: 400 12px/1.6 var(--font-sans); color: var(--muted); padding-bottom: 16px; border-bottom: 1px solid var(--hairline); }
+.fp-specification summary { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.fp-specification table { border-collapse: collapse; width: 100%; table-layout: fixed; }
+.fp-specification th, .fp-specification td { text-align: left; vertical-align: top; padding: 4px 0; overflow-wrap: anywhere; border-bottom: 1px solid var(--hairline); }
+.fp-specification th { width: 30%; font-weight: 400; }
+.fp-specimen { margin-top: 32px; padding-block: 16px 28px; border-bottom: 1px solid var(--hairline); min-width: 0; }
+.fp-specimen__label { margin: 0 0 24px; color: var(--muted); font-size: var(--text-2xs); }
+.fp-specimen .intro { min-height: 0; margin-block: 0; padding: 0; }
 .fp-specimen .page-hero { padding-block: 20px 32px; }
+.fp-specimen .article-page { width: 100%; margin-inline: 0; }
 .fp-specimen .article-header, .fp-specimen .article-prose { position: static; grid-column: auto; grid-row: auto; }
 .fp-specimen .article-prose { padding-top: 28px; }
-.fp-specimen .article-header { padding: 24px 28px; }
+.fp-specimen .article-header { padding: 24px 0; }
 .fp-specimen .project-card-grid { margin-top: 28px; }
-.fp-specimen .article-prose.localized-text__en, .fp-specimen .article-header.localized-text__en { display: none; }
-:root[data-locale='en'] .fp-specimen :is(.article-prose, .article-header).localized-text__en { display: block; }
-.fp-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 32px; }
-.fp-comparison[hidden], .fp-example-set[hidden] { display: none; }
-.fp-comparison__card { min-width: 0; padding: 24px; border: 1px solid var(--hairline); background: var(--paper); }
-.fp-comparison__label { margin: 0 0 16px; color: var(--accent); font-size: var(--text-sm); }
-.fp-comparison .article-prose { grid-column: auto; grid-row: auto; padding: 0; border: 0; }
-.fp-comparison .article-header { grid-column: auto; grid-row: auto; padding: 0; border: 0; }
-.fp-comparison .article-header h1 { max-width: none; }
-.fp-comparison .article-prose p { margin-bottom: 0; }
-/* Recompose the site family variables where heading/body roles diverge.
-   Rebind inherited families here: changing a variable on a child cannot
-   recompute the font-family string already resolved on production's body. */
-:is(.fp-example-set, .fp-comparison__card) {
-  --font-cjk-sans: var(--fp-body-sans);
-  --font-cjk-serif: var(--fp-body-serif);
-  --font-sans: "Avenir Next", "Segoe UI Variable Text", "Segoe UI", var(--font-cjk-sans), sans-serif;
-  --font-serif: "Iowan Old Style", Georgia, var(--font-cjk-serif), serif;
-  font-family: var(--font-sans);
+.fp-specimen .article-prose.localized-text__en { display: none; }
+:root[data-locale='en'] .fp-specimen .article-prose.localized-text__en { display: block; }
+.fp-example-set, .fp-live-preview { font-family: var(--font-sans); font-weight: var(--weight-body); font-optical-sizing: auto; }
+.fp-example-set .intro h1, .fp-example-set .lead { white-space: normal; }
+.fp-specimen .site-nav { display: flex; position: static; flex-wrap: wrap; }
+.fp-post-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+.fp-specimen .post-row { grid-template-columns: minmax(0, 1fr); }
+.fp-mobile-tabs { display: none; }
+.fp-mobile-tabs button { min-height: 44px; flex: 1; color: var(--muted); border: 1px solid var(--hairline); background: var(--paper); font: inherit; font-size: var(--text-sm); }
+.fp-mobile-tabs button[aria-pressed='true'] { color: var(--ink); background: color-mix(in oklab, var(--ink) 8%, var(--paper)); }
+/* A narrow pane changes placement, never the direction's type scale. */
+.fp-panes[data-compare='true'] .page-hero, .fp-panes[data-compare='true'] .project-group__heading { grid-template-columns: 1fr; }
+.fp-panes[data-compare='true'] .page-hero__description { grid-column: 1; justify-self: start; margin-top: 16px; }
+.fp-panes[data-compare='true'] .project-card-grid { grid-template-columns: 1fr; }
+@media (max-width: 899px) {
+  .fp-panel { position: static; }
+  .fp-panes[data-compare='true'] { grid-template-columns: minmax(0, 1fr); }
+  .fp-panes[data-compare='true'] .fp-pane { height: auto; overflow: visible; }
+  .fp-panes[data-compare='true'][data-active-pane='a'] .fp-pane[data-pane='b'], .fp-panes[data-compare='true'][data-active-pane='b'] .fp-pane[data-pane='a'] { display: none; }
+  body:has(.fp-panes[data-compare='true']) .fp-mobile-tabs { display: flex; margin-top: 16px; }
+  .fp-live-preview { grid-template-columns: 1fr; gap: 10px; }
 }
-:is(.fp-example-set, .fp-comparison__card) :is(h1, h2, h3, h4) {
-  --font-cjk-sans: var(--fp-heading-sans);
-  --font-cjk-serif: var(--fp-heading-serif);
-  --font-sans: "Avenir Next", "Segoe UI Variable Text", "Segoe UI", var(--font-cjk-sans), sans-serif;
-  --font-serif: "Iowan Old Style", Georgia, var(--font-cjk-serif), serif;
-  --weight-regular: var(--fp-heading-weight);
-  --weight-medium: var(--fp-heading-weight);
-  --weight-semibold: var(--fp-heading-weight);
-  --weight-bold: var(--fp-heading-weight);
-}
-/* Production card headings inherit the body's sans family; bind that same
-   token locally so the preview's independent heading role can take effect. */
-:is(.fp-example-set, .fp-comparison__card) .project-card__copy h3 { font-family: var(--font-sans); }
 @media (max-width: 560px) {
   .fp-frame { width: calc(100% - 24px); padding-top: 16px; }
-  .fp-panel { position: static; padding: 12px; }
-  .fp-toolbar { gap: 12px; }
+  .fp-panel, .fp-pane { padding: 12px; }
   .fp-toolbar label { flex-basis: calc(50% - 12px); }
-  .fp-font-info, .fp-comparison { grid-template-columns: 1fr; }
   .fp-specimen { margin-top: 24px; }
-  .fp-specimen .page-hero { display: block; }
+  .fp-specimen .page-hero, .fp-specimen .project-group__heading { display: block; }
   .fp-specimen .page-hero__description { margin-top: 16px; }
-  .fp-comparison__card { padding: 20px; }
 }

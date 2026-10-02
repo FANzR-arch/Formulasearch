@@ -1,49 +1,33 @@
-# 中文字体预览
+# 排印方向对比
 
-只在开发时运行的字体对比工具。独立 Astro root 为 `refs/font-preview`；主站构建不导入预览代码或字体 CSS，候选字体仅在根项目 `devDependencies` 中安装，不复制到 `public/`。
-
-从仓库根目录启动：
+独立开发工具，复用主站 global.css、blog.css 和真实内容，生产仍使用系统字体。
 
 ```sh
-npm install
 npm run fonts:preview
 ```
 
-打开 <http://localhost:4332/>。标题与正文可以分别选中文字体，选择会即时保存到 URL，复制地址或刷新可恢复字体、字重、主题、语言和并排视图。400 / 500 / 600 / 700 中不受标题字体支持的档位会禁用。得意黑只出现在标题选项中；并排视图中它的正文保留系统字体。
+打开 <http://localhost:4332/>。推荐先看 [Geist 与编辑杂志的深色 A/B](http://localhost:4332/?direction=tech&directionB=editorial&compare=1&theme=dark&locale=zh)。方向会同时替换中西文字体搭配、字号阶梯、字重、字距、行高和标签角色；切换西文字体后，首页 Phil Carlos 也会变化。
 
-加载状态必须显示「已验证当前字体」才算切换完成；失败会显示错误。动态 CSS 导入后，工具逐个检查 `document.fonts.load()` 返回的 FontFace 确实为 `loaded`，同时检查 `document.fonts.check()`。系统字体没有可下载的 FontFace，沿用生产字体栈作为基准。
+- 方向 A/B 可独立选择。桌面两栏按各自全文的滚动比例同步；900px 以下用 A/B 按钮切换同一套样例。
+- 高级折叠区保留中文标题、正文和字重的独立覆盖，仅影响 A。随方向表示无覆盖；选择不支持的字重会自动回到随方向，不用合成粗体。
+- 控件底部始终显示中文即时样例；English 模式也能看出中文标题和正文的独立变化。
+- URL 保存 direction、directionB、compare、theme、locale、heading、body、weight、adjust、pane；刷新可恢复。
+- 规格表显示当前视口的实际字号、角色字体、实际支持的字重及 Resource Timing 字体下载统计。统计是当前页面累计；切换过方向后缓存仍计入。若浏览器未提供大小，显示不可用，不把零误报为无下载。
 
-## 与生产样式的关系
+大小协调开关使用原生 `font-size-adjust: cap-height 0.72`。它能直接覆盖整套字体栈并保留已有 unicode-range 切片和 Inter / Source Serif 4 的 optical sizing。另包 @font-face 的 size-adjust 需要复制每段来源与覆盖范围，容易漂移，本次未采用。cap-height 是比较实验而非通用的最佳值，正式采用前仍需逐家族视觉校准；不支持的浏览器明确报错。`font-synthesis: none` 避免给只有 Regular 的朱雀仿宋、文楷、得意黑伪造粗体。
 
-直接导入主站 `src/styles/global.css` 和 `src/styles/blog.css`，复用真实类名、Lucide Icon、ThemeImage 和真实内容。预览专用 ProjectCard 适配独立 Astro root 的相对图片 glob，markup 与生产卡片一致。首页内容来自 `home-content`；项目页和三张项目卡来自 catalog；博客选段来自包豪斯文章。`samples.ts` 记录文字来源，以及仅预览时为演示 h3 / inline code 作的语义标记。
+## 结构
 
-切换只覆盖第一阶段拆出的 CJK 角色变量和标题字重变量。标题与正文的 scope 分别重新组合 `--font-sans` / `--font-serif`，保留原有西文字体前缀。预览没有为样例另写字号、字距、行高或新的字体栈；`preview.css` 安排工具控制面板、样例摆放和变量作用域。原本继承生产 body 字体的样例容器与项目卡 h3，在预览里绑定同一个 `--font-sans` token：CSS 继承的是祖先已经计算完的字体字符串，单改后代变量不会重新计算这个继承值。
+- src/data/directions.ts：五个完整方向和变量值。
+- src/data/fonts.ts、src/scripts/font-loaders.ts：已核验字体与按需导入。
+- src/scripts/preview.ts：方向到主站变量的映射、字体验证、A/B、URL 和规格统计。
+- src/components/Specimens.astro、samples.ts、ProjectCard.astro：真实导航、首页、项目组、博客行与正文；实例前缀避免 A/B 重复锚点。
+- src/styles/preview.css：工具控件与样例摆放。字号和字体角色由主站样式消费，不复制一套页面排印规则。
+- fonts-sources.md：包、入口、字体轴、原字体许可与跳过依据。
+- direction-specifications.md：完整规格、验收和正式采用的体积估算。
 
-## 来源、授权和下载量
+方向容器显式重组 font-sans / font-serif / heading / display / label：根节点已计算的自定义变量不会因子容器改中文字体而自动重新计算。这是独立控制真正生效的必要绑定。
 
-实际包版本、CSS 入口、字体家族、可用字重、官方来源和许可链接见 [fonts-sources.md](./fonts-sources.md)。当前接入 Noto Serif SC、Noto Sans SC、朱雀仿宋、霞鹜文楷、得意黑，均为 OFL 1.1。MiSans 和 HarmonyOS Sans SC 的官方协议限制字体改编，未核实到第三方切片包的相应授权，本次跳过。
+## 生产边界
 
-字体信息栏以 Performance Resource Timing 统计本次页面累计实际加载的切片；切换后不会把已下载的字形清零。KiB 是字体文件 `encodedBodySize`，必要时回退到 `transferSize`，不计 CSS 和图片。并排对比会加载全部候选，下载量会增加。
-
-2026-10-02 冷缓存实测，本页真实样例全文的中英字符经过加载校验后，字体文件下载量如下。该样本同时覆盖标题与正文；它不是只含首页标题的最小子集，生产采用字体后需针对实际页面再测。
-
-| 字体 | 实际请求切片 | 字体文件大小 |
-| --- | ---: | ---: |
-| 系统字体 | 0 | 0 KiB |
-| Noto Serif SC | 17 | 1,215.8 KiB |
-| Noto Sans SC | 17 | 938.1 KiB |
-| 朱雀仿宋 | 32 | 1,174.3 KiB |
-| 霞鹜文楷 | 24 | 818.3 KiB |
-| 得意黑 | 17 | 472.1 KiB |
-
-本地验证报告为 `output/font-preview-validation.json`。截图位于 `output/playwright/font-preview-{system|serif-system|wenkai-body}-{light|dark}.png`，分别是系统基准、宋体标题与系统正文、文楷正文的亮暗两版；另有 375px 响应式证据。`output/` 不提交。
-
-## 文件
-
-- `src/data/fonts.ts`：实际字体来源、许可、角色和字重。
-- `src/scripts/font-loaders.ts`：独立应用的动态字体 CSS 入口。
-- `src/scripts/preview.ts`：变量切换、字体加载校验、URL 状态和下载量。
-- `src/components/Specimens.astro` / `samples.ts`：生产内容样例。
-- `src/pages/index.astro` / `src/styles/preview.css`：工具界面和样例容器。
-
-选定字体后，需要另行实施生产字体交付；本工具中的选择不会修改主站字体。
+全部字体仅为 devDependencies，导入仅存在 refs/font-preview。主站构建不包含本预览，也不复制 node_modules 字体。运行 npm run build 与 npm run site:check 后，检查 dist 无预览页面和 woff / woff2 / ttf / otf 文件。

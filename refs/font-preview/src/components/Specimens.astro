@@ -3,30 +3,46 @@
 import LocalizedText from '../../../../src/components/LocalizedText.astro'
 import ProjectCard from './ProjectCard.astro'
 import { homeContent } from '../../../../src/lib/home-content'
-import { catalogPages, projectItems } from '../../../../src/data/catalog'
+import { catalogPages, projectItems, projectSections } from '../../../../src/data/catalog'
+import { primaryNavigation } from '../../../../src/data/navigation'
 import { siteConfig } from '../../../../src/data/site-config'
+import { getLocalizedRoute } from '../../../../src/data/site-routes'
 import type { Locale } from '../../../../src/lib/i18n'
-import { articleHtml, articleMetadata, sources } from './samples'
+import { articleHtml, articleMetadata, blogRows, sources, withSampleIdPrefix } from './samples'
 
 interface Props {
   locale?: Locale
+  prefix?: string
 }
-const { locale = 'zh' } = Astro.props
+const { locale = 'zh', prefix = '' } = Astro.props
+const sampleId = (id: string) => prefix ? `${prefix}-${id}` : id
+const productionHref = (path: string) => new URL(path, siteConfig.siteUrl).toString()
 const projectsPage = catalogPages.projects
+const projectGroup = projectSections.find((section) => section.id === 'tools')
+if (!projectGroup || projectGroup.presentation !== 'projects') throw new Error('Font preview: Independent Development project group is missing.')
 const projectIds = ['seedo', 'rzframe', 'briank']
 const projects = projectIds.map((id) => {
   const item = projectItems.find((project) => project.id === id)
   if (!item) throw new Error(`Font preview: real project "${id}" is missing.`)
   return item
 })
-const projectHref = (id: string) => new URL(`${locale === 'en' ? '/en' : ''}/projects/${id}`, siteConfig.siteUrl).toString()
+const projectHref = (id: string) => productionHref(`${locale === 'en' ? '/en' : ''}/projects/${id}`)
 ---
 
-<div class="fp-specimens">
-  <section id="specimen-home" class="fp-specimen" aria-labelledby="specimen-home-label" data-specimen-source={sources.home.path}>
-    <h2 id="specimen-home-label" class="fp-specimen__label"><LocalizedText zh="首页" en="Homepage" /></h2>
-    <section class="intro" aria-labelledby="specimen-home-title">
-      <h1 id="specimen-home-title"><LocalizedText zh={homeContent.zh.name} en={homeContent.en.name} /></h1>
+<div class="fp-specimens" data-specimen-prefix={prefix}>
+  <section id={sampleId('specimen-navigation')} class="fp-specimen" aria-labelledby={sampleId('specimen-navigation-label')} data-specimen-kind="navigation" data-specimen-source={sources.navigation.path}>
+    <h2 id={sampleId('specimen-navigation-label')} class="fp-specimen__label"><LocalizedText zh="导航文字" en="Navigation text" /></h2>
+    <nav class="site-nav" aria-labelledby={sampleId('specimen-navigation-label')}>
+      {primaryNavigation.map((section) => (
+        <a class="nav-menu__trigger nav-link" href={productionHref(getLocalizedRoute(section.href, locale))}><LocalizedText {...section.label} /></a>
+      ))}
+    </nav>
+  </section>
+
+  <section id={sampleId('specimen-home')} class="fp-specimen" aria-labelledby={sampleId('specimen-home-label')} data-specimen-kind="home" data-specimen-source={sources.home.path}>
+    <h2 id={sampleId('specimen-home-label')} class="fp-specimen__label"><LocalizedText zh="首页" en="Homepage" /></h2>
+    <section class="intro" aria-labelledby={sampleId('specimen-home-title')}>
+      <h1 id={sampleId('specimen-home-title')} lang="en"><LocalizedText zh={homeContent.zh.name} en={homeContent.en.name} /></h1>
       <p class="lead"><LocalizedText zh={homeContent.zh.intro.join(' ')} en={homeContent.en.intro.join(' ')} /></p>
       <div class="home-copy">
         {homeContent.zh.about.map((text, index) => <p><LocalizedText zh={text} en={homeContent.en.about[index]} /></p>)}
@@ -35,28 +51,49 @@ const projectHref = (id: string) => new URL(`${locale === 'en' ? '/en' : ''}/pro
     </section>
   </section>
 
-  <section id="specimen-projects" class="fp-specimen" aria-labelledby="specimen-projects-label" data-specimen-source={sources.projects.path}>
-    <h2 id="specimen-projects-label" class="fp-specimen__label"><LocalizedText zh="项目页" en="Projects page" /></h2>
+  <section id={sampleId('specimen-projects')} class="fp-specimen" aria-labelledby={sampleId('specimen-projects-label')} data-specimen-kind="projects" data-specimen-source={sources.projects.path}>
+    <h2 id={sampleId('specimen-projects-label')} class="fp-specimen__label"><LocalizedText zh="项目页" en="Projects page" /></h2>
     <header class="page-hero">
       <h1><LocalizedText {...projectsPage.heading} /></h1>
       {projectsPage.intro && <p class="page-hero__description"><LocalizedText {...projectsPage.intro} /></p>}
     </header>
-    <div class="project-card-grid">
-      {projects.map((item, index) => <ProjectCard item={item} href={projectHref(item.id)} locale={locale} eager={index === 0} />)}
+    <section id={sampleId('specimen-projects-tools')} class="project-group" aria-labelledby={sampleId('specimen-projects-tools-title')}>
+      <header class="project-group__heading">
+        <h2 id={sampleId('specimen-projects-tools-title')}><LocalizedText {...projectGroup.title} /></h2>
+        {projectGroup.description && <p><LocalizedText {...projectGroup.description} /></p>}
+      </header>
+      <div class="project-card-grid">
+        {projects.map((item, index) => <ProjectCard item={item} href={projectHref(item.id)} locale={locale} eager={index === 0} />)}
+      </div>
+    </section>
+  </section>
+
+  <section id={sampleId('specimen-blog-list')} class="fp-specimen" aria-labelledby={sampleId('specimen-blog-list-label')} data-specimen-kind="blog-list" data-specimen-source={sources.blogIndex.path}>
+    <h2 id={sampleId('specimen-blog-list-label')} class="fp-specimen__label"><LocalizedText zh="博客列表" en="Blog index" /></h2>
+    <div class="blog-list">
+      {blogRows.map((post) => (
+        <article class="post-row">
+          <div class="post-row__body">
+            <div class="post-row__meta fp-post-meta"><time datetime={post.date}>{post.date.replaceAll('-', '.')}</time><span><LocalizedText {...post.category} /></span></div>
+            <h2><a href={productionHref(`/blog/${post.slug}`)}><LocalizedText {...post.title} /></a></h2>
+            <p class="post-row__summary"><LocalizedText {...post.summary} /></p>
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 
-  <section id="specimen-article" class="fp-specimen" aria-labelledby="specimen-article-label" data-specimen-source={sources.article.path}>
-    <h2 id="specimen-article-label" class="fp-specimen__label"><LocalizedText zh="博客正文" en="Blog article" /></h2>
+  <section id={sampleId('specimen-article')} class="fp-specimen" aria-labelledby={sampleId('specimen-article-label')} data-specimen-kind="article" data-specimen-source={sources.article.path}>
+    <h2 id={sampleId('specimen-article-label')} class="fp-specimen__label"><LocalizedText zh="博客正文" en="Blog article" /></h2>
     <article class="article-page">
       <header class="article-header">
-        <p class="article-meta"><time datetime={articleMetadata.date}>{articleMetadata.date.replaceAll('-', '.')}</time></p>
+        <p class="article-meta fp-post-meta"><time datetime={articleMetadata.date}>{articleMetadata.date.replaceAll('-', '.')}</time><span><LocalizedText {...articleMetadata.category} /></span></p>
         <h1><LocalizedText {...articleMetadata.title} /></h1>
         <p><LocalizedText {...articleMetadata.description} /></p>
       </header>
       <!-- Both excerpts are real source text. Preview-only Markdown roles are documented in samples.ts. -->
-      <div class="article-prose localized-text__zh" data-specimen-locale="zh" lang="zh-Hans" set:html={articleHtml.zh} />
-      <div class="article-prose localized-text__en" data-specimen-locale="en" lang="en" set:html={articleHtml.en} />
+      <div class="article-prose localized-text__zh" data-specimen-locale="zh" lang="zh-Hans" set:html={withSampleIdPrefix(articleHtml.zh, prefix)} />
+      <div class="article-prose localized-text__en" data-specimen-locale="en" lang="en" set:html={withSampleIdPrefix(articleHtml.en, prefix)} />
     </article>
   </section>
 </div>

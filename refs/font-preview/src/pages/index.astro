@@ -4,72 +4,52 @@ import '../../../../src/styles/blog.css'
 import '../../../../src/components/icon-system/icon-system.css'
 import '../styles/preview.css'
 import Icon from '../../../../src/components/icon-system/Icon.astro'
-import LocalizedText from '../../../../src/components/LocalizedText.astro'
 import Specimens from '../components/Specimens.astro'
 import { heading, paragraph } from '../components/samples'
 import { fontChoices } from '../data/fonts'
-
-const metadata = JSON.stringify(fontChoices).replaceAll('<', '\\u003c')
+import { directions } from '../data/directions'
+const json = (value: unknown) => JSON.stringify(value).replaceAll('<', '\\u003c')
+const cjkChoices = fontChoices.filter(font => !['geist', 'inter', 'source-serif', 'geist-mono'].includes(font.id))
 ---
-
 <!doctype html>
 <html lang="zh-Hans" data-locale="zh" data-theme="light">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>中文字体预览 · Formulasearch</title>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" /><title>排印方向对比 · Formulasearch</title>
   </head>
   <body>
     <main class="fp-frame">
-      <h1 class="fp-title">中文字体预览</h1>
-      <aside class="fp-panel" aria-label="字体预览控制面板" lang="zh-Hans">
+      <header class="fp-tool-heading"><h1 class="fp-title">排印方向对比</h1><p>真实内容，同一套主站变量。选好方向后，再决定正式采用。</p></header>
+      <aside class="fp-panel" aria-label="排印方向控制面板" lang="zh-Hans">
         <div class="fp-toolbar">
-          <label for="heading-font">中文标题字体
-            <select id="heading-font">
-              {fontChoices.filter(font => font.roles.includes('heading')).map(font => <option value={font.id} data-font-family={font.family} data-font-weights={font.weights.join(',')} data-font-package={font.packageName}>{font.label}</option>)}
-            </select>
-          </label>
-          <label for="body-font">中文正文字体
-            <select id="body-font">
-              {fontChoices.filter(font => font.roles.includes('body')).map(font => <option value={font.id} data-font-family={font.family} data-font-weights={font.weights.join(',')} data-font-package={font.packageName}>{font.label}</option>)}
-            </select>
-          </label>
-          <label for="heading-weight">标题字重
-            <select id="heading-weight">
-              {[400, 500, 600, 700].map(weight => <option value={weight} selected={weight === 600}>{weight}</option>)}
-            </select>
-          </label>
-          <label for="preview-theme"><span><Icon name="nav-light" role="meta" /> 主题</span>
-            <select id="preview-theme"><option value="light">浅色</option><option value="dark">深色</option></select>
-          </label>
-          <label for="preview-locale"><span><Icon name="nav-language" role="meta" /> 内容语言</span>
-            <select id="preview-locale"><option value="zh">中文</option><option value="en">English</option></select>
-          </label>
-          <label class="fp-toggle" for="comparison-view"><input id="comparison-view" type="checkbox" /> 并排对比</label>
+          <label for="preview-direction">方向 A<select id="preview-direction">{directions.map(d => <option value={d.id}>{d.label}</option>)}</select></label>
+          <label for="comparison-direction">方向 B<select id="comparison-direction">{directions.map(d => <option value={d.id} selected={d.id === 'editorial'}>{d.label}</option>)}</select></label>
+          <label for="preview-theme"><span><Icon name="nav-light" role="meta" /> 主题</span><select id="preview-theme"><option value="light">浅色</option><option value="dark">深色</option></select></label>
+          <label for="preview-locale"><span><Icon name="nav-language" role="meta" /> 内容语言</span><select id="preview-locale"><option value="zh">中文</option><option value="en">English</option></select></label>
+          <label class="fp-toggle" for="comparison-view"><input id="comparison-view" type="checkbox" /> A/B 对比</label>
+          <label class="fp-toggle" for="size-adjust"><input id="size-adjust" type="checkbox" /> 中西文大小协调</label>
         </div>
-        <div class="fp-font-info" aria-label="字体来源与下载量">
-          <p data-font-info="heading"></p>
-          <p data-font-info="body"></p>
-        </div>
+        <details class="fp-advanced"><summary>高级：覆盖单项（仅方向 A）</summary><div class="fp-toolbar">
+          <label for="heading-font">中文标题字体<select id="heading-font"><option value="auto">随方向</option>{cjkChoices.filter(f => f.roles.includes('heading')).map(f => <option value={f.id}>{f.label}</option>)}</select></label>
+          <label for="body-font">中文正文字体<select id="body-font"><option value="auto">随方向</option>{cjkChoices.filter(f => f.roles.includes('body')).map(f => <option value={f.id}>{f.label}</option>)}</select></label>
+          <label for="heading-weight">标题字重<select id="heading-weight"><option value="auto">随方向</option>{[400, 500, 600, 700].map(w => <option value={w}>{w}</option>)}</select></label>
+        </div></details>
+        <div class="fp-live-preview" id="font-live-preview" lang="zh-Hans" aria-label="方向 A 即时中文预览"><h2>{heading.zh}</h2><p>{paragraph.zh}</p></div>
         <p class="fp-status" id="font-loading-status" role="status" aria-live="polite">正在准备字体…</p>
       </aside>
-      <section class="fp-example-set" id="font-specimens" aria-label="真实站点内容">
-        <Specimens />
-      </section>
-      <section class="fp-comparison" id="font-comparison" aria-label="全部字体并排对比" hidden>
-        {fontChoices.map(font => <article class="fp-comparison__card" data-comparison-font={font.id}>
-          <p class="fp-comparison__label">{font.label}{!font.roles.includes('body') && ' · 仅标题'}</p>
-          <header class="article-header"><h1 data-font-role="heading"><LocalizedText {...heading} /></h1></header>
-          <div class="article-prose"><p data-font-role="body"><LocalizedText {...paragraph} /></p></div>
-          <p class="fp-status" data-comparison-status>尚未加载</p>
-        </article>)}
-      </section>
-      <noscript><p>请启用 JavaScript，切换字体并验证字体文件是否实际加载。</p></noscript>
+      <div class="fp-mobile-tabs" role="group" aria-label="窄屏对比方向"><button type="button" data-pane-target="a" aria-pressed="true">方向 A</button><button type="button" data-pane-target="b" aria-pressed="false">方向 B</button></div>
+      <div class="fp-panes" id="font-comparison" data-compare="false" data-active-pane="a">
+        {['a', 'b'].map(pane => <section class="fp-pane" data-pane={pane} aria-label={`方向 ${pane.toUpperCase()} 的规格与真实样例`}>
+          <header class="fp-direction-heading"><h2 data-direction-label></h2><p data-direction-description></p></header>
+          <details class="fp-specification" open><summary>排印规格 <span data-direction-download></span></summary><div data-direction-spec></div></details>
+          <div class="fp-example-set" data-specimens={pane}><Specimens prefix={pane} /></div>
+        </section>)}
+      </div>
+      <p class="fp-note">大小协调实验使用浏览器原生 font-size-adjust（cap-height 0.72）。它统一字形高度，不改变字号阶梯；请同时观察汉字、西文和数字。当前页下载量含已切换方向的缓存，刷新可测单个方向。</p>
+      <noscript><p>请启用 JavaScript，切换方向并验证实际字体加载。</p></noscript>
     </main>
-    <script is:inline type="application/json" id="font-choice-data" set:html={metadata}></script>
-    <script>
-      import '../scripts/preview'
-    </script>
+    <script is:inline type="application/json" id="font-choice-data" set:html={json(fontChoices)}></script>
+    <script is:inline type="application/json" id="direction-data" set:html={json(directions)}></script>
+    <script>import '../scripts/preview'</script>
   </body>
 </html>

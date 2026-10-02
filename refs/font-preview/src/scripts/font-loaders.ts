@@ -6,4 +6,20 @@ export const fontLoaders: Record<string, () => Promise<void>> = {
   zhuque: async () => { await import('@chinese-fonts/zqfs/dist/ZhuqueFangsong-Regular/result.css') },
   wenkai: async () => { await import('@chinese-fonts/lxgwwenkai/dist/LXGWWenKai-Regular/result.css') },
   smiley: async () => { await import('@chinese-fonts/dyh/dist/SmileySans-Oblique/result.css') },
+  geist: async () => {
+    await import('@fontsource-variable/geist/index.css')
+    await import('@fontsource-variable/geist/wght-italic.css')
+  },
+  inter: async () => {
+    await import('@fontsource-variable/inter/standard.css')
+    await import('@fontsource-variable/inter/standard-italic.css')
+  },
+  'source-serif': async () => {
+    await import('@fontsource-variable/source-serif-4/standard.css')
+    await import('@fontsource-variable/source-serif-4/standard-italic.css')
+  },
+  'geist-mono': async () => {
+    await import('@fontsource-variable/geist-mono/index.css')
+    await import('@fontsource-variable/geist-mono/wght-italic.css')
+  },
 }
