@@ -1,0 +1,36 @@
+---
+// Preview adapter: production card markup with cover imports resolved from the main site's public directory.
+import LocalizedText from '../../../../src/components/LocalizedText.astro'
+import Icon from '../../../../src/components/icon-system/Icon.astro'
+import ThemeImage from '../../../../src/components/ThemeImage.astro'
+import type { ImageMetadata } from 'astro'
+import type { CatalogProjectItem } from '../../../../src/data/catalog'
+import { getLocalizedValue, type Locale } from '../../../../src/lib/i18n'
+
+interface Props {
+  href: string
+  item: CatalogProjectItem
+  eager?: boolean
+  locale?: Locale
+}
+
+const { href, item, eager = false, locale = 'zh' } = Astro.props
+const covers = import.meta.glob<{ default: ImageMetadata }>('../../../../public/uploads/projects/**/cover*.{png,jpg,jpeg,webp,avif}', { eager: true })
+const light = covers[`../../../../public${item.cover.light}`]?.default
+const dark = covers[`../../../../public${item.cover.dark}`]?.default
+if (!light || !dark) throw new Error(`Missing project cover import: ${item.id}`)
+---
+
+<a class="project-card project-card--linked" href={href}>
+  <figure class="project-card__cover" data-cover-focus={item.coverFocus}>
+    <ThemeImage class="project-card__image" {light} {dark} widths={[480, 800, 1200]} sizes={`${eager ? '' : 'auto, '}(max-width: 560px) calc(100vw - 32px), (max-width: 820px) calc((100vw - 52px) / 2), 540px`} alt={getLocalizedValue(item.coverAlt, locale)} altZh={item.coverAlt.zh} altEn={item.coverAlt.en} {eager} />
+  </figure>
+  <div class="project-card__body">
+    <div class="project-card__meta"><span>{item.year}</span><span><LocalizedText {...item.role} /></span></div>
+    <div class="project-card__copy">
+      <h3><LocalizedText zh={item.zh} en={item.en} /></h3>
+      <p><LocalizedText {...item.description} /></p>
+    </div>
+    <span class="project-card__visit"><LocalizedText zh="查看详情" en="View details" /><Icon name="catalog-external" role="meta" /></span>
+  </div>
+</a>

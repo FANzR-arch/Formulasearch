@@ -1,0 +1,70 @@
+/* Only the tool chrome and specimen placement are styled here.
+   Specimen typography comes from the two production stylesheets. */
+/* Keep the desktop controls sticky to the viewport; hidden creates a body
+   scrolling container that would trap sticky positioning. */
+body { overflow-x: clip; }
+.fp-frame { width: min(calc(100% - 32px), 1240px); margin: 0 auto; padding-block: 24px 80px; }
+.fp-title { margin: 0 0 20px; font-size: var(--text-xl); line-height: 1.25; }
+.fp-panel { position: sticky; top: 12px; z-index: 10; padding: 16px; border: 1px solid var(--hairline); border-radius: 12px; background: var(--paper); box-shadow: 0 6px 24px color-mix(in oklab, var(--ink) 8%, transparent); }
+.fp-toolbar { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: end; }
+.fp-toolbar label { display: grid; flex: 1 1 150px; gap: 6px; min-width: 0; font-size: var(--text-2xs); }
+.fp-toolbar select { width: 100%; min-width: 0; min-height: 44px; padding: 6px 10px; border: 1px solid var(--hairline); border-radius: 6px; color: var(--ink); background: var(--paper); font: inherit; font-size: var(--text-sm); }
+.fp-toolbar .fp-toggle { display: flex; flex: 0 1 auto; align-items: center; min-height: 44px; gap: 8px; }
+.fp-toggle input { accent-color: var(--accent); width: 18px; height: 18px; }
+.fp-font-info { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--hairline); }
+.fp-font-info p { margin: 0; font-size: var(--text-xs); color: var(--copy-ink); overflow-wrap: anywhere; }
+.fp-font-info a { text-decoration: underline; text-underline-offset: .2em; }
+.fp-font-info [data-font-status] { display: block; margin-top: 4px; color: var(--muted); }
+.fp-status { margin: 12px 0 0; font-size: var(--text-xs); color: var(--accent); }
+.fp-specimen { margin-top: 36px; padding-block: 20px 32px; border-bottom: 1px solid var(--hairline); min-width: 0; }
+.fp-specimen__label { margin: 0 0 24px; color: var(--muted); font-size: var(--text-2xs); font-weight: var(--weight-medium); }
+.fp-specimen .intro { margin-block: 0; }
+.fp-specimen .page-hero { padding-block: 20px 32px; }
+.fp-specimen .article-header, .fp-specimen .article-prose { position: static; grid-column: auto; grid-row: auto; }
+.fp-specimen .article-prose { padding-top: 28px; }
+.fp-specimen .article-header { padding: 24px 28px; }
+.fp-specimen .project-card-grid { margin-top: 28px; }
+.fp-specimen .article-prose.localized-text__en, .fp-specimen .article-header.localized-text__en { display: none; }
+:root[data-locale='en'] .fp-specimen :is(.article-prose, .article-header).localized-text__en { display: block; }
+.fp-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 32px; }
+.fp-comparison[hidden], .fp-example-set[hidden] { display: none; }
+.fp-comparison__card { min-width: 0; padding: 24px; border: 1px solid var(--hairline); background: var(--paper); }
+.fp-comparison__label { margin: 0 0 16px; color: var(--accent); font-size: var(--text-sm); }
+.fp-comparison .article-prose { grid-column: auto; grid-row: auto; padding: 0; border: 0; }
+.fp-comparison .article-header { grid-column: auto; grid-row: auto; padding: 0; border: 0; }
+.fp-comparison .article-header h1 { max-width: none; }
+.fp-comparison .article-prose p { margin-bottom: 0; }
+/* Recompose the site family variables where heading/body roles diverge.
+   Rebind inherited families here: changing a variable on a child cannot
+   recompute the font-family string already resolved on production's body. */
+:is(.fp-example-set, .fp-comparison__card) {
+  --font-cjk-sans: var(--fp-body-sans);
+  --font-cjk-serif: var(--fp-body-serif);
+  --font-sans: "Avenir Next", "Segoe UI Variable Text", "Segoe UI", var(--font-cjk-sans), sans-serif;
+  --font-serif: "Iowan Old Style", Georgia, var(--font-cjk-serif), serif;
+  font-family: var(--font-sans);
+}
+:is(.fp-example-set, .fp-comparison__card) :is(h1, h2, h3, h4) {
+  --font-cjk-sans: var(--fp-heading-sans);
+  --font-cjk-serif: var(--fp-heading-serif);
+  --font-sans: "Avenir Next", "Segoe UI Variable Text", "Segoe UI", var(--font-cjk-sans), sans-serif;
+  --font-serif: "Iowan Old Style", Georgia, var(--font-cjk-serif), serif;
+  --weight-regular: var(--fp-heading-weight);
+  --weight-medium: var(--fp-heading-weight);
+  --weight-semibold: var(--fp-heading-weight);
+  --weight-bold: var(--fp-heading-weight);
+}
+/* Production card headings inherit the body's sans family; bind that same
+   token locally so the preview's independent heading role can take effect. */
+:is(.fp-example-set, .fp-comparison__card) .project-card__copy h3 { font-family: var(--font-sans); }
+@media (max-width: 560px) {
+  .fp-frame { width: calc(100% - 24px); padding-top: 16px; }
+  .fp-panel { position: static; padding: 12px; }
+  .fp-toolbar { gap: 12px; }
+  .fp-toolbar label { flex-basis: calc(50% - 12px); }
+  .fp-font-info, .fp-comparison { grid-template-columns: 1fr; }
+  .fp-specimen { margin-top: 24px; }
+  .fp-specimen .page-hero { display: block; }
+  .fp-specimen .page-hero__description { margin-top: 16px; }
+  .fp-comparison__card { padding: 20px; }
+}

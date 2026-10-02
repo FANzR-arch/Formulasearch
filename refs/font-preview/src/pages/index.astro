@@ -1,0 +1,75 @@
+---
+import '../../../../src/styles/global.css'
+import '../../../../src/styles/blog.css'
+import '../../../../src/components/icon-system/icon-system.css'
+import '../styles/preview.css'
+import Icon from '../../../../src/components/icon-system/Icon.astro'
+import LocalizedText from '../../../../src/components/LocalizedText.astro'
+import Specimens from '../components/Specimens.astro'
+import { heading, paragraph } from '../components/samples'
+import { fontChoices } from '../data/fonts'
+
+const metadata = JSON.stringify(fontChoices).replaceAll('<', '\\u003c')
+---
+
+<!doctype html>
+<html lang="zh-Hans" data-locale="zh" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>中文字体预览 · Formulasearch</title>
+  </head>
+  <body>
+    <main class="fp-frame">
+      <h1 class="fp-title">中文字体预览</h1>
+      <aside class="fp-panel" aria-label="字体预览控制面板" lang="zh-Hans">
+        <div class="fp-toolbar">
+          <label for="heading-font">中文标题字体
+            <select id="heading-font">
+              {fontChoices.filter(font => font.roles.includes('heading')).map(font => <option value={font.id} data-font-family={font.family} data-font-weights={font.weights.join(',')} data-font-package={font.packageName}>{font.label}</option>)}
+            </select>
+          </label>
+          <label for="body-font">中文正文字体
+            <select id="body-font">
+              {fontChoices.filter(font => font.roles.includes('body')).map(font => <option value={font.id} data-font-family={font.family} data-font-weights={font.weights.join(',')} data-font-package={font.packageName}>{font.label}</option>)}
+            </select>
+          </label>
+          <label for="heading-weight">标题字重
+            <select id="heading-weight">
+              {[400, 500, 600, 700].map(weight => <option value={weight} selected={weight === 600}>{weight}</option>)}
+            </select>
+          </label>
+          <label for="preview-theme"><span><Icon name="nav-light" role="meta" /> 主题</span>
+            <select id="preview-theme"><option value="light">浅色</option><option value="dark">深色</option></select>
+          </label>
+          <label for="preview-locale"><span><Icon name="nav-language" role="meta" /> 内容语言</span>
+            <select id="preview-locale"><option value="zh">中文</option><option value="en">English</option></select>
+          </label>
+          <label class="fp-toggle" for="comparison-view"><input id="comparison-view" type="checkbox" /> 并排对比</label>
+        </div>
+        <div class="fp-font-info" aria-label="字体来源与下载量">
+          <p data-font-info="heading"></p>
+          <p data-font-info="body"></p>
+        </div>
+        <p class="fp-status" id="font-loading-status" role="status" aria-live="polite">正在准备字体…</p>
+      </aside>
+      <section class="fp-example-set" id="font-specimens" aria-label="真实站点内容">
+        <Specimens />
+      </section>
+      <section class="fp-comparison" id="font-comparison" aria-label="全部字体并排对比" hidden>
+        {fontChoices.map(font => <article class="fp-comparison__card" data-comparison-font={font.id}>
+          <p class="fp-comparison__label">{font.label}{!font.roles.includes('body') && ' · 仅标题'}</p>
+          <header class="article-header"><h1 data-font-role="heading"><LocalizedText {...heading} /></h1></header>
+          <div class="article-prose"><p data-font-role="body"><LocalizedText {...paragraph} /></p></div>
+          <p class="fp-status" data-comparison-status>尚未加载</p>
+        </article>)}
+      </section>
+      <noscript><p>请启用 JavaScript，切换字体并验证字体文件是否实际加载。</p></noscript>
+    </main>
+    <script is:inline type="application/json" id="font-choice-data" set:html={metadata}></script>
+    <script>
+      import '../scripts/preview'
+    </script>
+  </body>
+</html>
