@@ -238,18 +238,40 @@ test('partners page groups collaborations and partners with safe external links'
   await expect(page.locator('a[aria-current="page"]')).toHaveAttribute('href', '/partners')
 })
 
-test('title scale remains subordinate to content on desktop and mobile', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 })
-  await page.goto('/projects')
-  expect(parseFloat(await page.locator('.page-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(44)
-  await page.goto('/blog')
-  expect(parseFloat(await page.locator('.blog-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(44)
-
-  await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/blog')
-  expect(parseFloat(await page.locator('.blog-hero h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(24)
-  await page.goto('/blog/prompt-aesthetic-2026-07-02')
-  expect(parseFloat(await page.locator('.article-header h1').evaluate((element) => getComputedStyle(element).fontSize))).toBeLessThanOrEqual(40)
+test('page, section and card titles preserve the Chinese hierarchy at every supported width', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  const headingStyle = element => {
+    const style = getComputedStyle(element)
+    return { size: parseFloat(style.fontSize), weight: style.fontWeight, tracking: style.letterSpacing, leading: parseFloat(style.lineHeight) / parseFloat(style.fontSize), features: style.fontFeatureSettings, wrap: style.textWrap }
+  }
+  for (const width of [375, 768, 1024, 1280, 1440, 1920]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/projects')
+    const title = await page.locator('.page-hero h1').evaluate(headingStyle)
+    const section = await page.locator('.project-group h2').first().evaluate(headingStyle)
+    const card = await page.locator('.project-card h3').first().evaluate(headingStyle)
+    expect(title.size / section.size).toBeGreaterThanOrEqual(1.249)
+    expect(section.size / card.size).toBeGreaterThanOrEqual(1.249)
+    for (const heading of [title, section, card]) {
+      expect(heading.weight).toBe('600')
+      expect(['normal', '0px']).toContain(heading.tracking)
+      expect(heading.features).toContain('palt')
+      expect(heading.wrap).toBe('balance')
+    }
+    expect(title.leading).toBeCloseTo(1.25, 2)
+    expect(section.leading).toBeCloseTo(1.25, 2)
+    expect(card.leading).toBeCloseTo(1.3, 2)
+    await page.goto('/blog')
+    const blogTitle = await page.locator('.blog-hero h1').evaluate(headingStyle)
+    const blogSection = await page.locator('.cover-stage__details h2').first().evaluate(headingStyle)
+    expect(blogTitle.size / blogSection.size).toBeGreaterThanOrEqual(1.249)
+    await page.goto('/blog/prompt-aesthetic-2026-07-02')
+    const articleTitle = await page.locator('.article-header h1').evaluate(headingStyle)
+    const articleSection = await page.locator('.article-prose h2').first().evaluate(headingStyle)
+    expect(articleTitle.size / articleSection.size).toBeGreaterThanOrEqual(1.249)
+    expect(articleTitle.weight).toBe('600')
+    expect(['normal', '0px']).toContain(articleTitle.tracking)
+  }
 })
 
 test('mobile article sources stay in the reading flow with touch-sized links', async ({ page }) => {
