@@ -77,7 +77,7 @@ const preparedVideos = await Promise.all(videos.map(async (video) => {
   .project-videos__navigation button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .project-video__player { position: relative; }
   [hidden] { display: none !important; }
-  .project-video__error { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; padding: 16px; text-align: center; font-size: .85rem; background: var(--paper); color: var(--ink); }
+  .project-video__error { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; padding: 16px; text-align: center; font-size: var(--text-sm); background: var(--paper); color: var(--ink); }
   .project-video__error button { padding: 8px 12px; border: 1px solid var(--hairline); border-radius: 6px; color: inherit; background: transparent; cursor: pointer; }
   .project-videos--rail:has(.project-video--filmstrip) { grid-auto-columns: max-content; }
   .project-video--filmstrip { width: calc(clamp(180px, 23vw, 280px) * var(--video-ratio)); }
@@ -87,9 +87,9 @@ const preparedVideos = await Promise.all(videos.map(async (video) => {
   .project-videos--rail:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: var(--media-placeholder); border: 1px solid var(--hairline); }
   .project-video__copy { padding-top: 20px; }
-  .project-video__category { margin: 0 0 8px; color: var(--muted); font-size: .72rem; }
-  h3 { margin: 0; font-size: clamp(1.1rem, 1.8vw, 1.4rem); font-weight: 550; line-height: 1.4; }
-  .project-video__description { margin: 12px 0 16px; color: var(--muted); font-size: .88rem; line-height: 1.7; }
-  .project-video__source { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; }
+  .project-video__category { margin: 0 0 8px; color: var(--muted); font-size: var(--text-2xs); }
+  h3 { margin: 0; font-size: var(--text-lg); font-weight: var(--weight-medium); line-height: 1.4; }
+  .project-video__description { margin: 12px 0 16px; color: var(--muted); font-size: var(--text-sm); line-height: 1.7; }
+  .project-video__source { display: inline-flex; align-items: center; gap: 8px; font-size: var(--text-xs); }
   .project-video__source:hover { color: var(--accent); }
 </style>

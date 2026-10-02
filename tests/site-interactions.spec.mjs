@@ -1087,6 +1087,8 @@ test('catalog and blog heroes share an extensible visible motion layer', async (
 })
 
 test('shared hero motion respects reduced-motion preference', async ({ page }) => {
+  // The opacity assertion describes the light theme; do not depend on local time.
+  await page.addInitScript(() => localStorage.setItem('formulasearch-theme', 'light'))
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/projects')
   const style = await page.locator('.hero-motion').evaluate((element) => {

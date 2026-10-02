@@ -31,13 +31,14 @@ const { section, locale } = Astro.props
 <style is:global>
   .hover-type { display: flex; flex-direction: column; align-items: center; min-height: 280px; gap: 16px; margin: 12px 0 30px; padding: 26px 32px 30px; border: 1px solid var(--hairline); border-radius: 24px; background: var(--paper); }
   .hover-type__heading { width: 100%; }
-  .hover-type__heading h2 { margin: 0; font-size: 1rem; font-weight: 700; letter-spacing: -.015em; }
+  .hover-type__heading h2 { margin: 0; font-size: var(--text-base); font-weight: var(--weight-bold); letter-spacing: var(--tracking-snug); }
   .hover-type__heading a { display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--ink); }
   .hover-type__heading a:hover { color: var(--accent); }
   .hover-type__heading a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
   .hover-type__heading .icon { flex: none; }
   .hover-type__stage { display: grid; align-items: center; flex: 1; width: 100%; max-width: 900px; min-width: 0; container-type: inline-size; padding-block: 22px; }
-  .hover-type__title { margin: 0; text-align: center; font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif; font-size: clamp(32px, 7.4vw, 100px); font-size: clamp(24px, 12cqi, 100px); font-weight: 400; letter-spacing: -.035em; line-height: 1.1; white-space: nowrap; color: var(--ink); }
+  /* This interactive specimen scales to its container so glyph images keep their display proportions. */
+  .hover-type__title { margin: 0; text-align: center; font-family: var(--font-serif); font-size: clamp(32px, 7.4vw, 100px); font-size: clamp(24px, 12cqi, 100px); font-weight: var(--weight-regular); letter-spacing: var(--tracking-tight); line-height: 1.1; white-space: nowrap; color: var(--ink); }
   .hover-type .glyph { --shift-x: 0px; --shift-y: 0px; position: relative; display: inline-block; transform: translate3d(var(--shift-x), var(--shift-y), 0); transition: transform 240ms cubic-bezier(.77,0,.175,1); }
   .hover-type .glyph__text { opacity: 1; }
   .hover-type .glyph--active .glyph__text { opacity: 0; transition: none; }
@@ -49,6 +50,6 @@ const { section, locale } = Astro.props
   .hover-type .glyph--exiting { z-index: 1; }
   .hover-type .glyph--exiting .glyph__image { opacity: 0; transform: translate3d(calc(-50% + var(--asset-offset-x, 0px)),0,0) rotate(0deg) scale(.68); transition: transform 450ms cubic-bezier(.4,0,.2,1), opacity 180ms ease 270ms; }
   .hover-type .glyph--active .glyph__image { opacity: 1; transform: translate3d(calc(-50% + var(--asset-offset-x, 0px) + var(--pointer-x)),var(--pointer-y),0) rotate(var(--asset-tilt)) scale(1); transition: opacity 160ms var(--ease-out), transform 230ms var(--ease-out); }
-  @media (max-width: 700px) { .hover-type { min-height: 220px; gap: 16px; margin-block: 8px 24px; padding: 20px 18px 24px; } .hover-type__heading h2 { font-size: .9rem; } .hover-type__stage { padding-block: 22px; } }
+  @media (max-width: 700px) { .hover-type { min-height: 220px; gap: 16px; margin-block: 8px 24px; padding: 20px 18px 24px; } .hover-type__heading h2 { font-size: var(--text-sm); } .hover-type__stage { padding-block: 22px; } }
   @media (prefers-reduced-motion: reduce) { .hover-type .glyph,.hover-type .glyph__text,.hover-type .glyph__image { transition-duration: 80ms; } .hover-type .glyph { --shift-x: 0px !important; --shift-y: 0px !important; } .hover-type .glyph__image { --pointer-x: 0px !important; --pointer-y: 0px !important; --asset-tilt: 0deg !important; } }
 </style>

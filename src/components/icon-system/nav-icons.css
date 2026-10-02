@@ -14,8 +14,8 @@
   border-radius: 8px;
   background: var(--paper);
   color: var(--ink);
-  font: 500 12px/1.4 var(--sans);
-  letter-spacing: 0;
+  font: var(--weight-medium) var(--text-2xs)/1.4 var(--font-sans);
+  letter-spacing: var(--tracking-normal);
   text-align: center;
   pointer-events: none;
   opacity: 0;
@@ -94,7 +94,7 @@
     aspect-ratio: auto;
     border-radius: 12px;
   }
-  .site-header .nav-utilities .nav-icon-label { display: block; font: 500 11px/1.3 var(--sans); letter-spacing: 0; }
+  .site-header .nav-utilities .nav-icon-label { display: block; font: var(--weight-medium) var(--text-2xs)/1.3 var(--font-sans); letter-spacing: var(--tracking-normal); }
   .site-header .nav-utilities [data-nav-icon]::after { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {

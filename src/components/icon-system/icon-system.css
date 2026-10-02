@@ -138,7 +138,7 @@ html[data-page='photos'] .site-cursor[data-state='highlight'] .site-cursor__shap
   padding: 3px 8px;
   border: 1px solid currentColor;
   border-radius: 999px;
-  font-size: 10px;
+  font-size: var(--text-2xs);
   line-height: 1.2;
   white-space: nowrap;
   opacity: 0;

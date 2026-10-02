@@ -1,5 +1,5 @@
 /* Host chrome only; message styles belong to PersonalAI. */
-.pai-nav-trigger, .pai-close, .pai-retry, .pai-avatar-trigger { font: 500 13px var(--sans); color: var(--ink); cursor: pointer; }
+.pai-nav-trigger, .pai-close, .pai-retry, .pai-avatar-trigger { font: var(--weight-medium) var(--text-xs) var(--font-sans); color: var(--ink); cursor: pointer; }
 .pai-nav-trigger { flex: 0 0 var(--control-size); width: var(--control-size); height: var(--control-size); display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; }
 .pai-nav-trigger:hover, .pai-close:hover { background: color-mix(in oklab, var(--ink) 6%, transparent); }
 .pai-nav-trigger.is-arriving { animation: pai-arrive 650ms ease-out; }
@@ -19,8 +19,8 @@
 .pai-surface { color: var(--ink); box-sizing: border-box; }
 .pai-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 24px; flex-shrink: 0; }
 .pai-close { display: flex; align-items: center; gap: 8px; min-height: 44px; border: 0; border-radius: 12px; padding: 0 10px; background: transparent; }
-.pai-demo { font: 11px var(--sans); color: var(--muted); }
-.pai-status { padding: 0 26px; font-size: 13px; color: var(--muted); }
+.pai-demo { font: var(--weight-regular) var(--text-2xs) var(--font-sans); color: var(--muted); }
+.pai-status { padding: 0 26px; font-size: var(--text-xs); color: var(--muted); }
 .pai-status[hidden], .pai-retry[hidden] { display: none; }
 .pai-retry { background: var(--paper); border: 1px solid var(--hairline); border-radius: 8px; margin: 12px; padding: 8px 12px; }
 .pai-surface iframe { display: block; flex: 1; min-height: 0; width: 100%; border: 0; background: transparent; }
@@ -65,5 +65,5 @@ html[data-ai-state]:not([data-ai-state='intro']), html[data-ai-state]:not([data-
 
 .pai-nav-trigger { position: relative; z-index: 1; }
 html[data-ai-state]:not([data-ai-state='intro']) .site-page { isolation: auto; }
-.pai-title { font: 500 18px var(--serif); letter-spacing: -.025em; margin-right: auto; }
-.pai-close { font-size: 12px; color: var(--copy-ink); }
+.pai-title { font: var(--weight-medium) var(--text-md) var(--font-serif); letter-spacing: var(--tracking-snug); margin-right: auto; }
+.pai-close { font-size: var(--text-2xs); color: var(--copy-ink); }

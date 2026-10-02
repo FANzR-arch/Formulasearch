@@ -41,7 +41,7 @@ const run = async () => {
     if (!(await isServerReady())) throw new Error(`静态服务器未能启动：${baseUrl}`)
   }
 
-  const result = spawnSync(playwrightCommand, [playwrightCli, 'test'], {
+  const result = spawnSync(playwrightCommand, [playwrightCli, 'test', ...process.argv.slice(2)], {
     cwd: process.cwd(),
     env: { ...process.env, PLAYWRIGHT_BASE_URL: baseUrl },
     stdio: 'inherit',
