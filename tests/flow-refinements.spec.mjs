@@ -38,7 +38,8 @@ test('long article TOC stays inside short desktop viewports and its final link i
 
 test('scroll indicator follows document progress without changing inherited page styles', async ({ page }) => {
   await page.goto('/blog/ai-practice-2026-02-22')
-  await page.mouse.move(1100, 500)
+  // Over the article text: the contents in the right margin scroll on their own.
+  await page.mouse.move(640, 500)
   await page.mouse.wheel(0, 600)
   const rail = page.locator('[data-scroll-progress]')
   await expect.poll(() => rail.evaluate(el => Number(getComputedStyle(el).getPropertyValue('--scroll-progress')))).toBeGreaterThan(0)

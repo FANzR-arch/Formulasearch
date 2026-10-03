@@ -113,7 +113,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   color: var(--ink);
   background: var(--paper);
   background-image: radial-gradient(color-mix(in oklab, var(--ink) 17%, transparent) .7px, transparent .8px);

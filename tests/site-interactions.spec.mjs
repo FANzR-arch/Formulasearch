@@ -615,7 +615,9 @@ test('blog featured stage is static, localized, and omits the article index', as
   await expect(page.locator('[data-stage-trigger]')).toHaveCount(0)
   await expect(slide).toHaveCount(1)
   await expect(slide.locator('img')).toHaveAttribute('alt', /.+/)
-  await expect(page.locator('[data-stage-count]')).toHaveText('01 / 01')
+  // The feature is marked by a label beside its date rather than a counter over the cover.
+  await expect(page.locator('[data-stage-count]')).toHaveCount(0)
+  await expect(page.locator('.cover-stage__label')).toContainText('最新发布')
 
   await page.locator('#language-toggle').click()
   await expect(stageTitle.locator('.localized-text__en')).toBeVisible()

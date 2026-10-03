@@ -91,6 +91,7 @@ export const iconRegistry = {
   'blog-link': Link,
   'blog-external': ArrowUpRight,
   'blog-toc-toggle': ChevronDown,
+  'blog-crumb': ChevronRight,
   'catalog-external': ArrowUpRight,
   'resources-icons': Blocks,
   'resources-motion': Play,

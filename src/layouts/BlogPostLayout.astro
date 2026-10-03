@@ -2,7 +2,6 @@
 import type { MarkdownHeading } from 'astro'
 import type { CollectionEntry } from 'astro:content'
 import LocalizedText from '../components/LocalizedText.astro'
-import BlogExternalLinks from '../components/BlogExternalLinks.astro'
 import RelatedPosts from '../components/RelatedPosts.astro'
 import BlogCover from '../components/BlogCover.astro'
 import BlogLayout from './BlogLayout.astro'
@@ -87,29 +86,28 @@ const structuredData = {
   structuredData={structuredData}
 >
     <article class="article-page" lang={post.data.contentLanguage}>
-    <nav class="article-context" aria-label={getLocalizedValue(uiCopy.blog.articleLocation, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleLocation.en} data-aria-zh={uiCopy.blog.articleLocation.zh} data-site-reveal>
-      <div class="article-context__inner">
-        <a href={localizedBlogRoute}><Icon name="blog-home" role="meta" /> <LocalizedText {...uiCopy.blog.blog} /></a>
-        <span class="article-context__pill"><LocalizedText zh={categoryLabel.title} en={categoryLabel.titleEn} /></span>
-      </div>
-    </nav>
-
     <div class="article-grid">
-      <header class="article-header" data-site-reveal data-site-reveal-delay="60">
-        <p class="article-meta"><time datetime={published}>{displayDate}</time></p>
-        <h1><LocalizedText zh={post.data.title} en={titleEn} enLang={titleEnLang} /></h1>
-        <div class="article-byline">
-          <p class="article-author"><span class="article-author__mark" aria-hidden="true">{authorMark}</span><strong>{authorName}</strong></p>
-        <p class="article-tools"><span><Icon name="blog-time" role="meta" /><LocalizedText {...readingTimeCopy} /></span><span class="article-copy-wrap"><button class="article-copy" type="button" data-copy-url={canonical} data-no-sound aria-live="polite"><Icon name="blog-link" role="meta" /><span class="article-copy__default"><LocalizedText {...uiCopy.blog.copyLink} /></span><span class="article-copy__feedback"><LocalizedText {...uiCopy.blog.copied} /></span><span class="article-copy__failure"><LocalizedText {...uiCopy.blog.copyFailed} /></span></button><input class="article-copy__failure-url" type="text" value={canonical} readonly hidden aria-label={getLocalizedValue(uiCopy.blog.copyFailed, contentLocale as Locale)} data-aria-en={uiCopy.blog.copyFailed.en} data-aria-zh={uiCopy.blog.copyFailed.zh} /></span></p>
+      <nav class="article-context" aria-label={getLocalizedValue(uiCopy.blog.articleLocation, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleLocation.en} data-aria-zh={uiCopy.blog.articleLocation.zh}>
+        <div class="article-context__inner">
+          <a href={localizedBlogRoute}><Icon name="blog-home" role="meta" /> <LocalizedText {...uiCopy.blog.blog} /></a>
+          <Icon name="blog-crumb" role="meta" />
+          <span class="article-context__pill"><LocalizedText zh={categoryLabel.title} en={categoryLabel.titleEn} /></span>
         </div>
+      </nav>
+
+      <header class="article-header" data-site-reveal>
+        <time class="article-meta" datetime={published}>{displayDate}</time>
+        <h1><LocalizedText zh={post.data.title} en={titleEn} enLang={titleEnLang} /></h1>
+        <p class="article-author"><span class="article-author__mark" aria-hidden="true">{authorMark}</span><strong>{authorName}</strong></p>
+        <p class="article-tools"><span><Icon name="blog-time" role="meta" /><LocalizedText {...readingTimeCopy} /></span><span class="article-copy-wrap"><button class="article-copy" type="button" data-copy-url={canonical} aria-live="polite"><Icon name="blog-link" role="meta" /><span class="article-copy__default"><LocalizedText {...uiCopy.blog.copyLink} /></span><span class="article-copy__feedback"><LocalizedText {...uiCopy.blog.copied} /></span><span class="article-copy__failure"><LocalizedText {...uiCopy.blog.copyFailed} /></span></button><input class="article-copy__failure-url" type="text" value={canonical} readonly hidden aria-label={getLocalizedValue(uiCopy.blog.copyFailed, contentLocale as Locale)} data-aria-en={uiCopy.blog.copyFailed.en} data-aria-zh={uiCopy.blog.copyFailed.zh} /></span></p>
       </header>
 
-      <figure class="article-cover" data-site-reveal data-site-reveal-delay="100">
-        <BlogCover src={post.data.cover} alt={post.data.coverAlt} altEn={post.data.coverAltEn} locale={contentLocale as Locale} fetchpriority="high" sizes="(max-width: 820px) 100vw, 880px" />
+      <figure class="article-cover" data-site-reveal data-site-reveal-delay="60">
+        <BlogCover src={post.data.cover} alt={post.data.coverAlt} altEn={post.data.coverAltEn} locale={contentLocale as Locale} fetchpriority="high" sizes="(max-width: 820px) 100vw, 720px" />
       </figure>
 
       {toc.length > 1 && (
-        <details class="article-toc" open data-site-reveal>
+        <details class="article-toc" open>
           <summary><LocalizedText {...uiCopy.blog.onThisPage} /><span class="article-toc__count" aria-hidden="true">{toc.length}</span><Icon name="blog-toc-toggle" role="meta" /></summary>
           <nav aria-label={getLocalizedValue(uiCopy.blog.articleContents, contentLocale as Locale)} data-aria-en={uiCopy.blog.articleContents.en} data-aria-zh={uiCopy.blog.articleContents.zh}>
             {toc.map((heading) => <a class:list={{ 'is-subheading': heading.depth === 3 }} href={`#${heading.slug}`}>{heading.text}</a>)}
@@ -119,19 +117,31 @@ const structuredData = {
 
       <div class="article-prose" data-site-reveal><slot /></div>
 
-      <footer class="article-footer" data-site-reveal>
+      {post.data.externalLinks.length > 0 && (
+        <aside class="article-sources">
+          <p><LocalizedText {...uiCopy.blog.originallyPublished} /></p>
+          <div class="article-sources__links" role="group" aria-label={getLocalizedValue(uiCopy.blog.originalPublication, contentLocale as Locale)} data-aria-en={uiCopy.blog.originalPublication.en} data-aria-zh={uiCopy.blog.originalPublication.zh}>
+            {post.data.externalLinks.map((link) => {
+              const name = uiCopy.platforms[link.label]
+              return (
+                <a class="article-sources__link" href={link.url} target="_blank" rel="noopener noreferrer" aria-label={getLocalizedValue(name, contentLocale as Locale)} data-aria-zh={name.zh} data-aria-en={name.en} title={getLocalizedValue(name, contentLocale as Locale)} data-title-zh={name.zh} data-title-en={name.en}>
+                  {link.label === 'x' && <img class="article-sources__brand" src="/brand/x-logo.svg" width="15" height="15" alt="" aria-hidden="true" />}
+                  {link.label === 'wechat' && <img class="article-sources__brand" src="/brand/wechat-logo.svg" width="19" height="16" alt="" aria-hidden="true" />}
+                  {link.label === 'original' && <Icon name="blog-external" role="meta" />}
+                  <span class="article-sources__name"><LocalizedText {...name} /></span>
+                </a>
+              )
+            })}
+          </div>
+        </aside>
+      )}
+
+      <footer class="article-footer">
         <a href={localizedBlogRoute}><Icon name="blog-back" role="meta" /> <LocalizedText {...uiCopy.blog.backToBlog} /></a>
         <a href={localizedArchiveRoute}><LocalizedText {...uiCopy.blog.allArticles} /> <Icon name="blog-forward" role="meta" /></a>
       </footer>
 
       <RelatedPosts posts={relatedPosts} />
-
-      {post.data.externalLinks.length > 0 && (
-        <aside class="article-sources">
-          <p><LocalizedText {...uiCopy.blog.originallyPublished} /></p>
-        <BlogExternalLinks links={post.data.externalLinks} locale={contentLocale as Locale} />
-        </aside>
-      )}
     </div>
   </article>
 

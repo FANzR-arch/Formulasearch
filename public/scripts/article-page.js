@@ -26,7 +26,7 @@ document.querySelectorAll('.article-copy').forEach((button) => {
 // The server renders the table of contents open for desktop and no-JS readers.
 // On narrow screens it sits above the body, so start collapsed to keep the text in reach.
 const toc = document.querySelector('.article-toc')
-const compactToc = window.matchMedia('(max-width: 820px)')
+const compactToc = window.matchMedia('(max-width: 1100px)')
 const syncTocDisclosure = () => {
   if (toc instanceof HTMLDetailsElement) toc.open = !compactToc.matches
 }
@@ -41,6 +41,14 @@ const articleHeadings = tocLinks
   .map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))))
   .filter(Boolean)
 
+// A contents list taller than the margin does not take the wheel: it keeps the current entry in view.
+const revealTocLink = (link) => {
+  const nav = link.closest('.article-toc')
+  if (!(nav instanceof HTMLElement) || compactToc.matches || nav.scrollHeight <= nav.clientHeight) return
+  const target = link.offsetTop - nav.clientHeight / 2 + link.offsetHeight / 2
+  nav.scrollTo({ top: Math.max(0, target), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+}
+
 const updateCurrentHeading = () => {
   if (!articleHeadings.length) return
   let current = articleHeadings[0]
@@ -51,7 +59,10 @@ const updateCurrentHeading = () => {
   tocLinks.forEach((link) => {
     const active = decodeURIComponent(link.hash.slice(1)) === current.id
     link.classList.toggle('is-current', active)
-    if (active) link.setAttribute('aria-current', 'location')
+    if (active) {
+      link.setAttribute('aria-current', 'location')
+      revealTocLink(link)
+    }
     else link.removeAttribute('aria-current')
   })
 }
