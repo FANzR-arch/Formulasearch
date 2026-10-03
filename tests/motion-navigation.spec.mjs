@@ -200,11 +200,13 @@ test('a modified click during the circle keeps the original tab and opens the de
   await page.keyboard.up('Control')
   const next = await opened
   expect(next).not.toBe(page)
-  // The page event fires before a new tab's navigation commits. Wait for its
-  // destination document, then check the URL and visible UI independently of media.
-  await next.waitForURL(/\/skills$/, { waitUntil: 'domcontentloaded' })
-  await expect(next).toHaveURL(new URL('/skills', page.url()).href)
-  await expect(next.locator('main h1')).toBeVisible()
+  // Read the opened document itself rather than cached new-tab navigation
+  // events. Navigation Timing confirms DOMContentLoaded actually completed.
+  await expect.poll(() => next.evaluate(() => ({
+    href: location.href,
+    domReady: performance.getEntriesByType('navigation')[0]?.domContentLoadedEventEnd > 0,
+  }))).toEqual({ href: new URL('/skills', page.url()).href, domReady: true })
+  await expect.poll(() => next.locator('main h1').isVisible()).toBe(true)
   await expect(page).toHaveURL(/\/blog$/)
 })
 
