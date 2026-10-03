@@ -46,10 +46,11 @@ for (const zoom of [1, 1.5]) {
         observer.observe(document, { childList: true })
       }
       addEventListener('pagereveal', event => {
-        event.viewTransition?.ready.then(() => {
+        event.viewTransition?.ready.then(async () => {
           const animation = document.getAnimations().find(a => a.animationName === 'route-reveal')
           if (!animation) return
           animation.pause()
+          await animation.ready
           window.circleZoom = Number(getComputedStyle(document.documentElement).zoom)
           window.circleAnimation = animation
         }).catch(() => {})
@@ -66,17 +67,28 @@ for (const zoom of [1, 1.5]) {
     const radii = []
     const eased = []
     for (const progress of [.004, .008]) {
-      eased.push(await page.evaluate(progress => {
+      const sample = await page.evaluate(async progress => {
         window.circleAnimation.currentTime = window.circleAnimation.effect.getTiming().duration * progress
-        return window.circleAnimation.effect.getComputedTiming().progress
-      }, progress))
+        // Seeking a paused animation updates JS before the compositor paints.
+        // Cross a paint boundary and flush the real mask style before capture.
+        await new Promise(requestAnimationFrame)
+        await new Promise(requestAnimationFrame)
+        return {
+          clipPath: getComputedStyle(document.documentElement, '::view-transition-new(root)').clipPath,
+          progress: window.circleAnimation.effect.getComputedTiming().progress,
+          playState: window.circleAnimation.playState,
+        }
+      }, progress)
+      expect(sample.clipPath).toMatch(/^circle\(/)
+      expect(sample.playState).toBe('paused')
+      eased.push(sample.progress)
       const { data, info } = await sharp(await page.screenshot({ scale: 'css' })).removeAlpha().raw().toBuffer({ resolveWithObject: true })
       const points = []
       for (let y = 0; y < info.height; y++) for (let x = 0; x < info.width; x++) {
         const i = (y * info.width + x) * info.channels
         if (data[i] > 245 && data[i + 1] > 245 && data[i + 2] > 245) points.push([x, y])
       }
-      expect(points.length).toBeGreaterThan(30)
+      expect(points.length, `Composited mask sample: ${JSON.stringify(sample)}`).toBeGreaterThan(30)
       const left = Math.min(...points.map(p => p[0])), right = Math.max(...points.map(p => p[0]))
       const top = Math.min(...points.map(p => p[1])), bottom = Math.max(...points.map(p => p[1]))
       expect(Math.abs((left + right + 1) / 2 - (box.x + box.width / 2))).toBeLessThan(2)
