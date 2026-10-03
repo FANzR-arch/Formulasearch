@@ -58,7 +58,7 @@ const featuredPhotos = active === 'photos' ? featuredPhotoFiles.map((number) => 
 ---
 
 <section class:list={['visual-archive', { 'visual-archive--photos': active === 'photos' }]} aria-labelledby="archive-title" data-archive-batch-size={autoLoadBatchSize}>
-  <PageHero id="archive-title" title={title} description={description} />
+  <PageHero id="archive-title" title={title} description={description} motionVariant={active === 'photos' ? 'photos' : 'architecture'} />
 
   {active === 'photos' && <PhotoAccordionGallery items={featuredPhotos} locale={locale} />}
 

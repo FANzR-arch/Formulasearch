@@ -1401,7 +1401,6 @@ body:has(.home-copy) .ambient-flow--fallback {
   .skill-gallery > li { width: calc(100% - 28px); }
   .skill-gallery__item figcaption { min-height: 44px; }
   .project-card-grid { grid-template-columns: 1fr; }
-  .catalog-main:has(.catalog-sections--resources) > .page-hero { padding-bottom: 32px; }
   .catalog-sections--resources { padding-top: 32px; }
   .catalog-sections--resources .project-group { padding-block: 24px; }
   .catalog-sections--resources .project-group:first-child { padding-top: 0; }
@@ -1521,14 +1520,18 @@ body:has(.home-copy) .ambient-flow--fallback {
   .photo-lightbox.is-closing::backdrop { animation: none; opacity: 0; }
   .visual-archive--photos .archive-record.is-archive-entering { animation: none; }
 }
+/* One title band for every section page (blog, catalog, archive, partners): same frame, same height,
+   title bottom-left, description in a fixed right column, the rule underneath. */
 .page-hero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(240px, .48fr);
-  gap: 20px 8vw;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px 6vw;
   align-items: end;
+  box-sizing: border-box;
+  min-height: clamp(280px, 24vw, 340px);
   padding: clamp(74px, 10vw, 142px) 0 clamp(44px, 6vw, 76px);
   border-bottom: 1px solid var(--ink);
 }
@@ -1546,9 +1549,25 @@ body:has(.home-copy) .ambient-flow--fallback {
 }
 .page-hero__description {
   grid-column: 2;
-  width: 100%;
-  max-width: 42ch;
+  /* Sized by its own text, never more than two balanced lines; every box shares the right edge. */
+  width: max-content;
+  max-width: min(34em, 46vw);
+  margin: 0;
   justify-self: end;
+  text-wrap: balance;
+}
+@media (min-width: 821px) and (max-width: 1100px) {
+  /* Side by side there is no longer room for two lines; stack, keeping one height for every page. */
+  .page-hero { grid-template-columns: minmax(0, 1fr); min-height: 340px; }
+  .page-hero__description { grid-column: 1; justify-self: start; max-width: min(34em, 100%); }
+}
+@media (min-width: 821px) {
+  .page-hero__description {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
 }
 /* Keep the same introductory type across standard, blog and quotation heroes. */
 .page-hero__description,
@@ -1561,23 +1580,8 @@ body:has(.home-copy) .ambient-flow--fallback {
   letter-spacing: var(--tracking-normal);
   line-height: 1.75;
 }
-.page-hero[data-hero-motion='projects'] .page-hero__description {
-  width: min(100%, 70ch);
-  max-width: none;
-  margin: 0;
-  justify-self: end;
-  text-align: left;
-}
-@media (min-width: 821px) {
-  .page-hero[data-hero-motion='projects'] {
-    grid-template-columns: auto minmax(0, 1fr);
-    column-gap: 4vw;
-  }
-}
 .visual-archive { padding-top: 0; }
 .visual-archive > .page-hero { margin-bottom: clamp(34px, 5vw, 66px); }
-.visual-archive--photos > .page-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 20px 4vw; }
-.visual-archive--photos .page-hero__description { max-width: none; text-wrap: pretty; }
 /* Reveal one complete entry per available slot, after reserving the logo and controls. */
 @container mobile-shortcuts (min-width: 72px) {
   .mobile-nav-shortcut:nth-child(1) { display: flex; }
@@ -1592,16 +1596,10 @@ body:has(.home-copy) .ambient-flow--fallback {
   .mobile-nav-shortcut:nth-child(4) { display: flex; }
 }
 
-@media (max-width: 820px) {
-  .visual-archive--photos > .page-hero { grid-template-columns: 1fr; }
-}
-
-.architecture-index > .page-hero { grid-template-columns: minmax(0, 1fr) auto; gap: 20px 3vw; }
-.architecture-quote { position: relative; z-index: 1; grid-column: 2; width: max-content; max-width: 100%; margin: 0; align-self: center; }
+.architecture-quote { position: relative; z-index: 1; grid-column: 2; width: max-content; max-width: 100%; margin: 0; justify-self: end; }
 .architecture-quote blockquote { margin: 0; text-wrap: pretty; }
 .architecture-quote figcaption { margin-top: 14px; color: var(--muted); font-size: var(--text-2xs); line-height: 1.5; letter-spacing: var(--tracking-label); }
 @media (max-width: 820px) {
-  .architecture-index > .page-hero { grid-template-columns: minmax(0, 1fr); }
   .architecture-quote { grid-column: 1; width: 100%; }
 }
 .architecture-project-list {
@@ -1659,8 +1657,8 @@ body:has(.home-copy) .ambient-flow--fallback {
 .architecture-project__images { display: grid; gap: 0; padding-top: clamp(46px, 7vw, 92px); }
 
 @media (max-width: 820px) {
-  .page-hero { grid-template-columns: 1fr; gap: 20px; padding-top: 72px; }
-  .page-hero__description { grid-column: 1; max-width: 42ch; justify-self: start; }
+  .page-hero { grid-template-columns: 1fr; gap: 20px; min-height: 280px; padding-top: 72px; }
+  .page-hero__description { grid-column: 1; width: auto; max-width: 42ch; justify-self: start; }
   .architecture-project-list { column-count: 2; }
 }
 @media (max-width: 560px) {

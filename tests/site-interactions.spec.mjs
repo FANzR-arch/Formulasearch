@@ -1455,32 +1455,52 @@ test('skills promotes Numerologist as a theme-aware standalone project', async (
   await expect(page.locator('#agent-workflows h2')).toContainText('其他Skill')
   await expect(page.locator('#agent-workflows')).not.toContainText('Numerologist Skills')
 })
-test('catalog and blog heroes share an extensible visible motion layer', async ({ page }) => {
-  for (const [route, variant] of [['/projects', 'projects'], ['/skills', 'skills'], ['/resources', 'resources'], ['/blog', 'blog']]) {
+test('every section title band carries its own motion figure', async ({ page }) => {
+  // Each section draws its own subject in the shared hairline language.
+  const figures = {
+    blog: '.hero-manuscript__line',
+    projects: '.hero-reel__frame',
+    skills: '.hero-circuit__node',
+    resources: '.hero-shelf__spine',
+    photos: '.hero-prints__print',
+    architecture: '.hero-elevation__outline',
+    partners: '.hero-orbits__node',
+  }
+  for (const [route, variant] of [['/blog', 'blog'], ['/projects', 'projects'], ['/skills', 'skills'], ['/resources', 'resources'], ['/photos', 'photos'], ['/architecture', 'architecture'], ['/partners', 'partners']]) {
     await page.goto(route)
     const host = page.locator(`[data-hero-motion="${variant}"]`)
-    const motion = host.locator('.hero-motion')
     await expect(host).toHaveCount(1)
-    await expect(motion.locator('.hero-motion__trail')).toHaveCount(4)
-    await expect(motion.locator('.hero-motion__node')).toHaveCount(3)
-    const style = await motion.evaluate((element) => {
-      const computed = getComputedStyle(element)
-      return { animationName: computed.animationName, opacity: Number(computed.opacity) }
-    })
-    expect(style.animationName).not.toBe('none')
-    expect(style.opacity).toBeGreaterThanOrEqual(0.2)
+    await expect(host).toHaveClass(/page-hero/)
+    const motion = host.locator('.hero-motion')
+    expect(await motion.locator(figures[variant]).count()).toBeGreaterThan(2)
+    expect(Number(await motion.evaluate((element) => getComputedStyle(element).opacity))).toBeGreaterThanOrEqual(0.2)
   }
 })
 
-test('shared hero motion respects reduced-motion preference', async ({ page }) => {
-  // The opacity assertion describes the light theme; do not depend on local time.
-  await page.addInitScript(() => localStorage.setItem('formulasearch-theme', 'light'))
+test('section title bands share one frame on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  const frames = []
+  for (const route of ['/blog', '/blog/archive', '/projects', '/skills', '/resources', '/photos', '/architecture', '/partners', '/en/photos', '/en/partners']) {
+    await page.goto(route)
+    frames.push(await page.locator('.page-hero').evaluate((hero) => {
+      const box = hero.getBoundingClientRect()
+      const title = hero.querySelector('h1').getBoundingClientRect()
+      const description = hero.querySelector('.page-hero__description')
+      const lines = description ? Math.round(description.scrollHeight / parseFloat(getComputedStyle(description).lineHeight)) : 0
+      return { left: Math.round(box.left), width: Math.round(box.width), height: Math.round(box.height), titleLeft: Math.round(title.left), titleBottom: Math.round(title.bottom - box.top), lines }
+    }))
+  }
+  for (const frame of frames) {
+    expect({ ...frame, lines: undefined }).toEqual({ ...frames[0], lines: undefined })
+    expect(frame.lines).toBeLessThanOrEqual(2)
+  }
+})
+
+test('title band figures hold still under reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/projects')
-  const style = await page.locator('.hero-motion').evaluate((element) => {
-    const computed = getComputedStyle(element)
-    return { animationName: computed.animationName, opacity: Number(computed.opacity) }
-  })
-  expect(style.animationName).toBe('none')
-  expect(style.opacity).toBeLessThanOrEqual(0.14)
+  for (const route of ['/resources', '/projects', '/architecture', '/partners']) {
+    await page.goto(route)
+    const animations = await page.locator('.hero-motion').evaluate((element) => [element, ...element.querySelectorAll('*')].map((node) => getComputedStyle(node).animationName))
+    expect(new Set(animations)).toEqual(new Set(['none']))
+  }
 })

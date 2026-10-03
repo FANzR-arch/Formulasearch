@@ -69,7 +69,7 @@ const defaultPage = {
   pageTitle: { zh: '摄影', en: 'Photography' },
   pageDescription: { zh: 'Phil 的摄影作品与影像档案。', en: "Phil's photography and visual archive." },
   kicker: { zh: '影像档案 / 01', en: 'Visual archive / 01' },
-  title: { zh: '记录自由', en: 'Photographic records' },
+  title: { zh: '记录自由', en: 'Photos' },
   description: { zh: '持续收集的摄影作品与日常影像，按时间与地点整理并归档。', en: 'An ongoing collection of photographs and everyday images, organised and archived by time and place.' },
   initialVisibleCount: 50,
   autoLoadBatchSize: 8,
