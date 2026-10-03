@@ -49,6 +49,10 @@ for (const zoom of [1, 1.5]) {
         event.viewTransition?.ready.then(async () => {
           const animation = document.getAnimations().find(a => a.animationName === 'route-reveal')
           if (!animation) return
+          // ready creates the native snapshot tree before its first composite.
+          // Let the transition paint once before freezing and seeking its mask.
+          await new Promise(requestAnimationFrame)
+          await new Promise(requestAnimationFrame)
           animation.pause()
           await animation.ready
           window.circleZoom = Number(getComputedStyle(document.documentElement).zoom)
