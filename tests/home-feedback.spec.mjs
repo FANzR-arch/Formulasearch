@@ -41,8 +41,13 @@ test('keyword lines recover within the same keyword after blur, and repeated exi
   }
   await keyword.hover()
   await expect(svg.locator('path')).toHaveCount(4)
-  await page.evaluate(() => window.dispatchEvent(new Event('blur')))
-  await expect(svg.locator('path')).toHaveCount(0)
+  const countAfterBlur = await page.evaluate(() => {
+    window.dispatchEvent(new Event('blur'))
+    // A synthetic blur leaves the real pointer in the window. Assert its reset
+    // before a browser-generated pointerover can legitimately restore the lines.
+    return document.querySelector('[data-home-connections]').querySelectorAll('path').length
+  })
+  expect(countAfterBlur).toBe(0)
   const rect = await keyword.boundingBox()
   await page.mouse.move(rect.x + rect.width / 2 + 2, rect.y + rect.height / 2)
   await expect(svg.locator('path')).toHaveCount(4)
@@ -66,7 +71,8 @@ test('intro waits for a delayed visible portrait before starting the logo zoom',
     // The opaque intro covers a painted homepage, so revealing it needs no first render.
     await expect(page.locator('#site-page')).toHaveCSS('opacity', '1')
     // The logo stays solid while the visible first-screen image is pending.
-    await page.clock.runFor(1100)
+    // Test the readiness deadlines without replaying every ambient WebGL/logo frame.
+    await page.clock.fastForward(1100)
     await expect(overlay).not.toHaveClass(/is-ready/)
     await expect(page.locator('.intro-mark > .intro-mark__motion')).toHaveCSS('animation-name', 'none')
     await expect(page.locator('.intro-mark__solid')).toHaveCSS('opacity', '1')
@@ -77,7 +83,7 @@ test('intro waits for a delayed visible portrait before starting the logo zoom',
   } finally { release() }
   await expect(page.locator('.home-avatar__image:visible')).toHaveJSProperty('complete', true)
   await expect(overlay).not.toHaveClass(/is-ready/)
-  await page.clock.runFor(2800)
+  await page.clock.fastForward(2800)
   await expect(overlay).toHaveClass(/is-ready/)
   const windowPhase = await page.evaluate(() => {
     const overlay = document.querySelector('#intro-overlay')
@@ -98,7 +104,10 @@ test('intro waits for a delayed visible portrait before starting the logo zoom',
   }))
   await page.screenshot({ path: 'output/playwright/home-intro-expanding.png' })
   await page.evaluate(() => document.querySelector('#intro-overlay').getAnimations({ subtree: true }).forEach(animation => animation.play()))
-  await page.clock.runFor(3800)
+  // Each jump reaches one chained timer; a single jump would start the next
+  // timeout at its destination and would not exercise the removal deadline.
+  await page.clock.fastForward(3200)
+  await page.clock.fastForward(450)
   await expect(overlay).toHaveCount(0)
   await expect(page.locator('#site-page')).toHaveCSS('opacity', '1')
 })
@@ -113,8 +122,15 @@ test('intro cannot trap a visitor when a first-screen image never responds', asy
   await page.route(/profile-light.*\.(webp|png)|\/_image\?.*profile-light/, async route => { await gate; await route.abort() })
   try {
     await page.goto('/', { waitUntil: 'domcontentloaded' })
-    await page.clock.runFor(7600)
-    await expect(page.locator('#intro-overlay')).toHaveCount(0, { timeout: 7000 })
+    const overlay = page.locator('#intro-overlay')
+    await page.clock.fastForward(3000)
+    await expect(overlay).not.toHaveClass(/is-ready/)
+    await page.clock.fastForward(800)
+    await expect(overlay).toHaveClass(/is-ready/)
+    await page.clock.fastForward(3200)
+    await expect(overlay).toHaveClass(/is-exiting/)
+    await page.clock.fastForward(450)
+    await expect(overlay).toHaveCount(0)
     await expect(page.locator('#site-page')).toHaveCSS('opacity', '1')
   } finally { release() }
 })

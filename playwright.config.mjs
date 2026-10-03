@@ -16,6 +16,8 @@ export default defineConfig({
     baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:4321',
     browserName: 'chromium',
     headless: true,
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
     ...(launchOptions ? { launchOptions } : {}),
   },
 })

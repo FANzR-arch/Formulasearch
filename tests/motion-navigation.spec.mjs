@@ -32,12 +32,25 @@ for (const zoom of [1, 1.5]) {
   test(`rendered circle stays centered and follows its easing at zoom=${zoom}`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 })
     await page.addInitScript(zoom => {
-      addEventListener('DOMContentLoaded', () => { document.documentElement.style.zoom = zoom })
+      // pagereveal can capture the incoming page before DOMContentLoaded. Set
+      // zoom as soon as <html> exists so both snapshots use the same scale.
+      const applyZoom = () => {
+        if (!document.documentElement) return false
+        document.documentElement.style.zoom = zoom
+        return true
+      }
+      if (!applyZoom()) {
+        const observer = new MutationObserver(() => {
+          if (applyZoom()) observer.disconnect()
+        })
+        observer.observe(document, { childList: true })
+      }
       addEventListener('pagereveal', event => {
         event.viewTransition?.ready.then(() => {
           const animation = document.getAnimations().find(a => a.animationName === 'route-reveal')
           if (!animation) return
           animation.pause()
+          window.circleZoom = Number(getComputedStyle(document.documentElement).zoom)
           window.circleAnimation = animation
         }).catch(() => {})
       })
@@ -47,6 +60,7 @@ for (const zoom of [1, 1.5]) {
     const box = await link.boundingBox()
     await link.click({ position: { x: 3, y: box.height / 2 } })
     await page.waitForFunction(() => !!window.circleAnimation)
+    expect(await page.evaluate(() => window.circleZoom)).toBe(zoom)
     // Isolate the actual composited mask, rather than just checking stored coordinates.
     await page.addStyleTag({ content: '::view-transition-old(root) { filter: brightness(0); } ::view-transition-new(root) { filter: brightness(0) invert(1); }' })
     const radii = []
@@ -185,7 +199,12 @@ test('a modified click during the circle keeps the original tab and opens the de
   await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2)
   await page.keyboard.up('Control')
   const next = await opened
-  await expect(next).toHaveURL(/\/skills$/)
+  expect(next).not.toBe(page)
+  // The page event fires before a new tab's navigation commits. Wait for its
+  // destination document, then check the URL and visible UI independently of media.
+  await next.waitForURL(/\/skills$/, { waitUntil: 'domcontentloaded' })
+  await expect(next).toHaveURL(new URL('/skills', page.url()).href)
+  await expect(next.locator('main h1')).toBeVisible()
   await expect(page).toHaveURL(/\/blog$/)
 })
 

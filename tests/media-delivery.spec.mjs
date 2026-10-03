@@ -239,12 +239,18 @@ for (const theme of ['light', 'dark']) {
 
 for (const width of [1280, 375]) {
   test(`resource Lucide cover loads responsive images on demand without original PNGs at ${width}px`, async ({ browser, baseURL }) => {
-    // Keep the first viewport short so the final tool card stays outside native lazy-loading's prefetch range.
-    const context = await browser.newContext({ baseURL, viewport: { width, height: 300 }, hasTouch: width === 375, reducedMotion: 'reduce' })
+    const context = await browser.newContext({ baseURL, viewport: { width, height: 844 }, hasTouch: width === 375, reducedMotion: 'reduce' })
     try {
       const page = await context.newPage()
       const requested = new Set()
       page.on('request', request => { if (request.resourceType() === 'image') requested.add(new URL(request.url()).pathname) })
+      // Native lazy loading prefetches beyond the viewport. Set the real card's distance
+      // before HTML parsing so this check does not depend on OS fonts or page length.
+      await page.route('**/resources', async route => {
+        const response = await route.fetch()
+        const html = await response.text()
+        await route.fulfill({ response, body: html.replace('</head>', '<style>#resource-lucide { margin-block-start: 12000px; }</style></head>') })
+      })
       await page.goto('/resources')
       const cover = page.locator('#resource-lucide .resource-card__primary img')
       await expect(cover).toHaveAttribute('loading', 'lazy')
@@ -253,6 +259,7 @@ for (const width of [1280, 375]) {
       expect(sources.length).toBeGreaterThan(1)
       expect(sources.every(source => Number.isFinite(source.width))).toBe(true)
       await page.waitForLoadState('networkidle')
+      expect(await cover.evaluate(element => element.getBoundingClientRect().top - innerHeight)).toBeGreaterThan(10_000)
       for (const source of sources) expect(requested.has(source.src)).toBe(false)
 
       await cover.scrollIntoViewIfNeeded()

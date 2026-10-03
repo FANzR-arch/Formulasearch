@@ -25,3 +25,13 @@ jobs:
       - run: npm run blog:media:check
       - run: npm run blog:images:check
       - run: npm run test:smoke
+      - name: Upload browser test failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-failure
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
