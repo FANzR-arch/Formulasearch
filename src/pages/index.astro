@@ -57,6 +57,8 @@ const introLogoPath = 'M363.48 29.18c19.12-.5 42.12 8.18 57.95 24.01s24.51 38.84
 
   <div id="site-page" class="site-page">
     <canvas id="ambient-flow" class="ambient-flow" aria-hidden="true"></canvas>
+    <canvas id="starfield" class="starfield" aria-hidden="true"></canvas>
+    <canvas id="blackhole" class="blackhole" aria-hidden="true"></canvas>
     <SiteHeader />
 
     <HomeContent />
@@ -65,6 +67,7 @@ const introLogoPath = 'M363.48 29.18c19.12-.5 42.12 8.18 57.95 24.01s24.51 38.84
   <noscript><style>#intro-overlay { display: none !important; } .site-page { opacity: 1 !important; transform: none !important; }</style></noscript>
   <script is:inline src="/scripts/logo-light-band.js"></script>
   <script is:inline src="/scripts/liquid-background.js"></script>
+  <script is:inline src="/scripts/starfield.js"></script>
   <script is:inline>
     const overlay = document.querySelector('#intro-overlay')
     const page = document.querySelector('#site-page')

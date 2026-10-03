@@ -151,3 +151,43 @@ test('reduced motion and mobile touch retain their expected behavior', async ({ 
     }
   } finally { await context.close() }
 })
+
+test('a long press bends the homepage with a growing gravitational lens and releases it', async ({ page }) => {
+  await skipIntro(page)
+  await page.goto('/')
+  await expect(page.locator('#starfield')).toBeVisible()
+  expect(await page.evaluate(() => window.__formulasearchLens ?? null)).toBeNull()
+  await page.mouse.move(900, 560)
+  await page.mouse.down()
+  await expect(page.locator('html')).toHaveAttribute('data-blackhole', 'active')
+  const radiusAt = () => page.evaluate(() => window.__formulasearchLens?.einstein ?? 0)
+  await expect.poll(radiusAt).toBeGreaterThan(0.005)
+  const early = await radiusAt()
+  await expect.poll(radiusAt).toBeGreaterThan(early * 1.5)
+  expect(await page.evaluate(() => window.__formulasearchLens.twist)).toBeGreaterThan(0)
+  // On a fine pointer the copy is drawn on a temporary canvas while the originals keep their layout.
+  await expect(page.locator('canvas.text-warp')).toBeAttached()
+  await expect(page.locator('html')).toHaveAttribute('data-text-warp', '')
+  await page.mouse.up()
+  await expect(page.locator('html')).not.toHaveAttribute('data-blackhole', /.*/)
+  await expect.poll(() => page.evaluate(() => window.__formulasearchLens ?? null)).toBeNull()
+  await expect(page.locator('.text-warp')).toHaveCount(0)
+  await expect(page.locator('html')).not.toHaveAttribute('data-text-warp', /.*/)
+  // Pulled pills, the portrait and icons are handed back untouched.
+  expect(await page.locator('#main-content [style*="transform"]').count()).toBe(0)
+})
+
+test('a short click or a press on a control never opens a black hole', async ({ page }) => {
+  await skipIntro(page)
+  await page.goto('/')
+  await page.mouse.click(900, 560)
+  await page.waitForTimeout(600)
+  await expect(page.locator('html')).not.toHaveAttribute('data-blackhole', /.*/)
+  const link = page.locator('.site-header a').first()
+  const box = await link.boundingBox()
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+  await page.mouse.down()
+  await page.waitForTimeout(600)
+  await expect(page.locator('html')).not.toHaveAttribute('data-blackhole', /.*/)
+  await page.mouse.up()
+})

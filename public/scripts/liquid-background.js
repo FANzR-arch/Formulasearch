@@ -48,6 +48,24 @@
     uniform vec2 uFlowMemory;
     uniform float uFlowPhase;
     uniform float uInteractionStrength;
+    uniform vec3 uLens;
+    uniform float uVeil;
+    uniform vec2 uCss;
+    uniform vec3 uReveal;
+    uniform float uLensTwist;
+
+    // Same point-mass lens as the star field (see starfield.js), so both layers bend together.
+    vec2 applyLens(vec2 point) {
+      if (uLens.z <= 0.0) return point;
+      vec2 d = point - uLens.xy;
+      float einstein = uLens.z;
+      float r2 = dot(d, d) + einstein * einstein * 0.09;
+      float angle = uLensTwist * pow(einstein * einstein / (r2 + einstein * einstein * 0.25), 1.25);
+      float c = cos(angle);
+      float s = sin(angle);
+      d = mat2(c, s, -s, c) * d;
+      return uLens.xy + d * (1.0 - einstein * einstein / r2);
+    }
 
     vec2 applyRipple(vec2 point) {
       if (uImpulseAge < 0.0 || uImpulseAge >= 1.1) return point;
@@ -138,8 +156,21 @@
       vec2 point = uv - 0.5;
       point.x *= uResolution.x / max(uResolution.y, 1.0);
       point = applyRipple(point);
+      point = applyLens(point);
 
       gl_FragColor = renderMolten(point);
+
+      // Home page veil, formerly a CSS mask: quiet behind the copy, opened up around the black hole.
+      // Computing it here avoids repainting a full-screen mask every frame while the hole moves.
+      if (uVeil > 0.5) {
+        vec2 css = vec2(gl_FragCoord.x / uResolution.x * uCss.x, (1.0 - gl_FragCoord.y / uResolution.y) * uCss.y);
+        float veil = 0.18 + 0.82 * clamp((length(css - vec2(0.5 * uCss.x, 0.46 * uCss.y)) / 480.0 - 0.3) / 0.7, 0.0, 1.0);
+        if (uReveal.z > 0.0) {
+          float reveal = 1.0 - clamp((length(css - uReveal.xy) - 0.45 * uReveal.z) / (0.55 * uReveal.z), 0.0, 1.0);
+          veil += reveal * (1.0 - veil);
+        }
+        gl_FragColor *= veil;
+      }
     }
   `
 
@@ -191,6 +222,11 @@
     flowMemory: gl.getUniformLocation(program, 'uFlowMemory'),
     flowPhase: gl.getUniformLocation(program, 'uFlowPhase'),
     interactionStrength: gl.getUniformLocation(program, 'uInteractionStrength'),
+    lens: gl.getUniformLocation(program, 'uLens'),
+    lensTwist: gl.getUniformLocation(program, 'uLensTwist'),
+    veil: gl.getUniformLocation(program, 'uVeil'),
+    css: gl.getUniformLocation(program, 'uCss'),
+    reveal: gl.getUniformLocation(program, 'uReveal'),
   }
 
   gl.useProgram(program)
@@ -219,6 +255,7 @@
   let flowPhaseTarget = 0
   let flowPhase = 0
   const start = performance.now()
+  const homeVeil = !!document.querySelector('.home-copy')
 
   const clamp = (value, minimum, maximum) => Math.min(Math.max(value, minimum), maximum)
   const interactionEnabled = () => finePointer.matches && !reduceMotion.matches
@@ -337,6 +374,12 @@
     gl.uniform2f(uniforms.flowMemory, flowMemory.x, flowMemory.y)
     gl.uniform1f(uniforms.flowPhase, flowPhase)
     gl.uniform1f(uniforms.interactionStrength, interactionEnabled() ? 1 : 0)
+    const lens = window.__formulasearchLens
+    gl.uniform3f(uniforms.lens, lens?.x ?? 0, lens?.y ?? 0, lens?.einstein ?? 0)
+    gl.uniform1f(uniforms.lensTwist, lens?.twist ?? 0)
+    gl.uniform1f(uniforms.veil, homeVeil ? 1 : 0)
+    gl.uniform2f(uniforms.css, width, height)
+    gl.uniform3f(uniforms.reveal, lens?.veil?.[0] ?? 0, lens?.veil?.[1] ?? 0, lens?.veil?.[2] ?? 0)
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
   }
 

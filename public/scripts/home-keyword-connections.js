@@ -115,6 +115,8 @@
   document.addEventListener('focusout', () => { focused = null; if (!hovered) hide() }, options)
   const reset = () => { hovered = null; focused = null; clear() }
   window.addEventListener('formulasearch:locale', reset, options)
+  // The black hole takes the copy over; any hover state from before would be stale when it hands back.
+  window.addEventListener('formulasearch:text-warp', reset, options)
   window.addEventListener('blur', reset, options)
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') reset() }, options)
   document.addEventListener('visibilitychange', () => { if (document.hidden) reset() }, options)

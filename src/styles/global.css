@@ -186,6 +186,40 @@ a:hover, .theme-toggle:hover { color: var(--accent); }
   transition: opacity 180ms var(--ease-out);
 }
 .ambient-flow.is-switching { opacity: .28; }
+.starfield,
+.blackhole {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.starfield { z-index: 0; }
+/* The singularity sits above the reading column but below the fixed header. */
+.blackhole { z-index: 5; }
+html[data-blackhole] { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+/* While the black hole is open, the copy is drawn by glyph copies (starfield.js) and the originals keep
+   their layout but no ink. Their own colour transitions are held off so the hand-over is instant. */
+html[data-text-warp] #main-content,
+html[data-text-warp] #main-content * { color: transparent !important; -webkit-text-fill-color: transparent !important; text-shadow: none !important; }
+/* Icons keep the colour pinned on their <svg> (starfield.js), so their shapes stay visible. */
+html[data-text-warp] #main-content svg * { color: inherit !important; }
+/* The originals are only placeholders while the canvas copy is showing: they must not answer the pointer,
+   or hovering where a swallowed pill used to be would still draw its keyword connections. */
+html[data-text-warp] #main-content { pointer-events: none; }
+html[data-text-warp] .home-connections { visibility: hidden; }
+/* Keyword pills are redrawn on the canvas as capsules that bend with their text. */
+html[data-text-warp] #main-content [data-highlight-label] { background: transparent !important; border-color: transparent !important; box-shadow: none !important; }
+html[data-text-warp] #main-content [data-highlight-label]::before,
+html[data-text-warp] #main-content [data-highlight-label] :is(.home-terminal__prompt, .home-terminal__caret) { opacity: 0 !important; }
+html:is([data-text-warp], [data-text-warp-settling]) #main-content,
+html:is([data-text-warp], [data-text-warp-settling]) #main-content * { transition: none !important; }
+.text-warp { position: fixed; z-index: 4; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+html[data-ai-state='chat'] .starfield,
+html[data-ai-state='chat'] .blackhole,
+html[data-ai-state='entering'] .starfield,
+html[data-ai-state='entering'] .blackhole { opacity: 0; transition: opacity 520ms ease; }
 .ambient-flow--fallback {
   background:
     radial-gradient(ellipse at 24% 32%, color-mix(in oklab, var(--ink) 8%, transparent), transparent 46%),
@@ -1150,7 +1184,8 @@ h1 { margin-bottom: 26px; font-family: var(--font-display); font-size: var(--tex
 body:has(.home-copy) {
   background-image: radial-gradient(color-mix(in oklab, var(--ink) 8%, transparent) .6px, transparent .8px);
 }
-body:has(.home-copy) .ambient-flow {
+/* The live molten canvas draws this veil itself (liquid-background.js); only the CSS fallback needs the mask. */
+body:has(.home-copy) .ambient-flow--fallback {
   mask-image: radial-gradient(ellipse 480px 480px at 50% 46%, rgb(0 0 0 / 18%) 30%, #000 100%);
 }
 .intro > .lead {
