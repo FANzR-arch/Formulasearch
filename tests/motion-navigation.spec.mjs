@@ -70,16 +70,27 @@ for (const zoom of [1, 1.5]) {
     await page.addStyleTag({ content: '::view-transition-old(root) { filter: brightness(0); } ::view-transition-new(root) { filter: brightness(0) invert(1); }' })
     const radii = []
     const eased = []
-    for (const progress of [.004, .008]) {
+    for (const progress of [.10, .13]) {
       const sample = await page.evaluate(async progress => {
         window.circleAnimation.currentTime = window.circleAnimation.effect.getTiming().duration * progress
         // Seeking a paused animation updates JS before the compositor paints.
         // Cross a paint boundary and flush the real mask style before capture.
         await new Promise(requestAnimationFrame)
         await new Promise(requestAnimationFrame)
+        // CSS animation easing lives on the keyframes, so the effect's own progress is linear time.
+        // Apply the declared page-reveal curve to know how far the radius should have grown.
+        const [x1, y1, x2, y2] = getComputedStyle(document.documentElement).getPropertyValue('--ease-page-reveal').match(/-?[\d.]+/g).map(Number)
+        const time = window.circleAnimation.effect.getComputedTiming().progress
+        const bezier = (a, b, s) => 3 * (1 - s) ** 2 * s * a + 3 * (1 - s) * s * s * b + s ** 3
+        let low = 0, high = 1
+        for (let step = 0; step < 50; step++) {
+          const middle = (low + high) / 2
+          if (bezier(x1, x2, middle) < time) low = middle
+          else high = middle
+        }
         return {
           clipPath: getComputedStyle(document.documentElement, '::view-transition-new(root)').clipPath,
-          progress: window.circleAnimation.effect.getComputedTiming().progress,
+          progress: bezier(y1, y2, (low + high) / 2),
           playState: window.circleAnimation.playState,
         }
       }, progress)
@@ -291,3 +302,47 @@ test('arrival hover resumes when the browser reports zero movement deltas', asyn
   await page.locator('.nav-link[href="/blog"]').hover()
   await expect(page.locator('.nav-menu').first()).toHaveClass(/is-open/)
 })
+
+for (const zoom of [1, 1.25]) {
+  test(`theme circle opens from the toggle centre at zoom=${zoom}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 })
+    await page.addInitScript(zoom => {
+      localStorage.setItem('formulasearch-theme', 'dark')
+      const applyZoom = () => {
+        if (!document.documentElement) return false
+        document.documentElement.style.zoom = zoom
+        return true
+      }
+      if (!applyZoom()) new MutationObserver((_, observer) => { if (applyZoom()) observer.disconnect() }).observe(document, { childList: true })
+    }, zoom)
+    await page.goto('/blog')
+    const toggle = page.locator('#theme-toggle')
+    const box = await toggle.boundingBox()
+    await page.evaluate(() => {
+      const freeze = async () => {
+        const animation = document.getAnimations().find(a => a.animationName === 'theme-reveal')
+        if (!animation) return requestAnimationFrame(freeze)
+        await new Promise(requestAnimationFrame)
+        animation.pause()
+        animation.currentTime = animation.effect.getTiming().duration * 0.12
+        window.themeCircleFrozen = true
+      }
+      freeze()
+    })
+    await toggle.click()
+    await page.waitForFunction(() => window.themeCircleFrozen === true)
+    await page.addStyleTag({ content: '::view-transition-old(root) { filter: brightness(0); } ::view-transition-new(root) { filter: brightness(0) invert(1); }' })
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))))
+    const { data, info } = await sharp(await page.screenshot({ scale: 'css' })).removeAlpha().raw().toBuffer({ resolveWithObject: true })
+    let left = Infinity, right = -1, top = Infinity, bottom = -1
+    for (let y = 0; y < info.height; y++) for (let x = 0; x < info.width; x++) {
+      const i = (y * info.width + x) * info.channels
+      if (data[i] > 245 && data[i + 1] > 245 && data[i + 2] > 245) {
+        left = Math.min(left, x); right = Math.max(right, x); top = Math.min(top, y); bottom = Math.max(bottom, y)
+      }
+    }
+    expect(right).toBeGreaterThan(left)
+    expect(Math.abs((left + right + 1) / 2 - (box.x + box.width / 2))).toBeLessThan(2)
+    expect(Math.abs((top + bottom + 1) / 2 - (box.y + box.height / 2))).toBeLessThan(2)
+  })
+}

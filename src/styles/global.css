@@ -18,8 +18,8 @@
   --motion-fast: 150ms;
   --motion-medium: 250ms;
   --motion-emphasis: 360ms;
-  --motion-page-reveal: 460ms;
-  --ease-page-reveal: cubic-bezier(.22, .68, .28, 1);
+  --motion-page-reveal: 760ms;
+  --ease-page-reveal: cubic-bezier(.5, 0, .2, 1);
   --motion-reveal: var(--motion-emphasis);
   --text-home-title: clamp(3.25rem, 5.7vw, 5.5rem);
   --text-page-title: clamp(2.75rem, 3.5vw, 3.5rem);

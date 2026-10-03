@@ -245,13 +245,15 @@
       const commitTheme = () => window.formulasearchSetTheme(nextTheme)
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !document.startViewTransition) return commitTheme()
 
+      // Like the route wipe, keep the origin and radius relative to the viewport: snapshot coordinates
+      // are scaled by page zoom, so raw CSS pixels would open the circle away from the button.
       const rect = themeToggle.getBoundingClientRect()
-      const x = rect.left + rect.width / 2
-      const y = rect.top + rect.height / 2
-      const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
-      root.style.setProperty('--theme-x', `${x}px`)
-      root.style.setProperty('--theme-y', `${y}px`)
-      root.style.setProperty('--theme-radius', `${radius}px`)
+      const x = (rect.left + rect.width / 2) / window.innerWidth
+      const y = (rect.top + rect.height / 2) / window.innerHeight
+      const radius = Math.hypot(Math.max(x, 1 - x) * window.innerWidth, Math.max(y, 1 - y) * window.innerHeight)
+      root.style.setProperty('--theme-x', `${x * 100}%`)
+      root.style.setProperty('--theme-y', `${y * 100}%`)
+      root.style.setProperty('--theme-radius', `${radius / Math.hypot(window.innerWidth, window.innerHeight) * Math.SQRT2 * 100}%`)
       root.dataset.viewTransition = 'theme'
       root.classList.add('is-theme-switching')
       themeChanging = true
