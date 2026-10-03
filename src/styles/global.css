@@ -950,7 +950,7 @@ main { position: relative; z-index: 1; }
   color: var(--muted);
   font-size: var(--text-2xs);
 }
-.site-footer--home { width: min(calc(100% - 48px), 660px); }
+.site-footer--home { position: relative; z-index: 1; width: min(calc(100% - 48px), 660px); }
 .visual-archive { padding-top: clamp(42px, 6vw, 92px); }
 .visual-archive__intro { display: grid; grid-template-columns: minmax(0, 1.16fr) minmax(230px, .48fr); gap: 18px 9vw; align-items: end; padding-bottom: clamp(38px, 5vw, 78px); }
 .visual-archive__kicker { grid-column: 1 / -1; margin: 0; color: var(--accent); font-size: var(--text-xs); font-weight: var(--weight-semibold); letter-spacing: var(--tracking-label); text-transform: uppercase; }

@@ -437,7 +437,7 @@ test('Chinese and English homepages omit the redundant home link', async ({ page
 
   for (const [route, homeRoute] of [['/blog', '/'], ['/en/blog', '/en']]) {
     await page.goto(route)
-    await expect(page.locator('.site-footer a')).toHaveAttribute('href', homeRoute)
+    await expect(page.locator('.site-footer-rich').first().locator(`a[href="${homeRoute}"]`)).toHaveCount(1)
   }
 })
 
