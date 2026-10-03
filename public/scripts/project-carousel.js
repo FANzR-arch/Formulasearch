@@ -43,7 +43,6 @@
 
     const move = (direction) => {
       activate(Number(carousel.dataset.activeIndex || 0) + direction)
-      window.formulasearchAudio?.play('select', { volume: 0.18 })
     }
 
     // Warm the next slide only once the carousel is close to the viewport.

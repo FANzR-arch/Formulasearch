@@ -31,7 +31,7 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
       <img src="/brand/logo.svg" alt="" aria-hidden="true" />
     </a>
 
-  <button id="mobile-navigation-toggle" data-nav-motion="menu" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label={localized(uiCopy.navigation.openNavigation)} data-nav-open-zh={uiCopy.navigation.openNavigation.zh} data-nav-open-en={uiCopy.navigation.openNavigation.en} data-nav-close-zh={uiCopy.navigation.closeNavigation.zh} data-nav-close-en={uiCopy.navigation.closeNavigation.en} data-sound="switch" data-sound-volume="0.18">
+  <button id="mobile-navigation-toggle" data-nav-motion="menu" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label={localized(uiCopy.navigation.openNavigation)} data-nav-open-zh={uiCopy.navigation.openNavigation.zh} data-nav-open-en={uiCopy.navigation.openNavigation.en} data-nav-close-zh={uiCopy.navigation.closeNavigation.zh} data-nav-close-en={uiCopy.navigation.closeNavigation.en}>
     <span class="mobile-nav-toggle__label"><LocalizedText zh="更多" en="More" /></span>
     <Icon name="nav-menu" role="control" class="mobile-nav-toggle__menu" />
     <Icon name="nav-close" role="control" class="mobile-nav-toggle__close" />
@@ -77,11 +77,11 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
         <img src="/brand/github-mark.svg" alt="" aria-hidden="true" />
         <span class="nav-icon-label" aria-hidden="true">GitHub</span>
       </a>
-      <button data-nav-icon="language" id="language-toggle" class="language-toggle" type="button" aria-label={localized(locale === 'en' ? uiCopy.navigation.switchToChinese : uiCopy.navigation.switchToEnglish)} data-label-en-zh={uiCopy.navigation.switchToEnglish.zh} data-label-en-en={uiCopy.navigation.switchToEnglish.en} data-label-zh-zh={uiCopy.navigation.switchToChinese.zh} data-label-zh-en={uiCopy.navigation.switchToChinese.en} aria-pressed={locale === 'en' ? 'true' : 'false'} data-sound="switch" data-sound-volume="0.2">
+      <button data-nav-icon="language" id="language-toggle" class="language-toggle" type="button" aria-label={localized(locale === 'en' ? uiCopy.navigation.switchToChinese : uiCopy.navigation.switchToEnglish)} data-label-en-zh={uiCopy.navigation.switchToEnglish.zh} data-label-en-en={uiCopy.navigation.switchToEnglish.en} data-label-zh-zh={uiCopy.navigation.switchToChinese.zh} data-label-zh-en={uiCopy.navigation.switchToChinese.en} aria-pressed={locale === 'en' ? 'true' : 'false'}>
         <Icon name="nav-language" role="control" />
         <span class="nav-icon-label" aria-hidden="true"><LocalizedText zh="切换语言" en="Language" /></span>
       </button>
-      <button data-nav-icon="theme" id="theme-toggle" class="theme-toggle" type="button" aria-label={localized(uiCopy.navigation.themeToDark)} data-aria-en={uiCopy.navigation.themeToDark.en} data-aria-zh={uiCopy.navigation.themeToDark.zh} aria-pressed="false" data-sound="switch" data-sound-volume="0.22">
+      <button data-nav-icon="theme" id="theme-toggle" class="theme-toggle" type="button" aria-label={localized(uiCopy.navigation.themeToDark)} data-aria-en={uiCopy.navigation.themeToDark.en} data-aria-zh={uiCopy.navigation.themeToDark.zh} aria-pressed="false">
         <Icon name="nav-light" role="control" class="theme-icon__sun" />
         <Icon name="nav-dark" role="control" class="theme-icon__moon" />
         <span class="nav-icon-label" aria-hidden="true"><LocalizedText zh="切换主题" en="Theme" /></span>

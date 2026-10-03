@@ -67,7 +67,7 @@ const featuredPhotos = active === 'photos' ? featuredPhotoFiles.map((number) => 
       <div class="visual-archive__filters" role="group" aria-label={localized(uiCopy.archive.filters)} data-aria-en={uiCopy.archive.filters.en} data-aria-zh={uiCopy.archive.filters.zh}>
         <span><LocalizedText {...uiCopy.archive.browse} /></span>
         {filters.map((filter, index) => (
-          <button class:list={{ 'is-active': index === 0 }} type="button" data-archive-filter={filter.id} aria-pressed={index === 0 ? 'true' : 'false'} data-sound="select" data-sound-volume="0.18">
+          <button class:list={{ 'is-active': index === 0 }} type="button" data-archive-filter={filter.id} aria-pressed={index === 0 ? 'true' : 'false'}>
             <LocalizedText zh={filter.zh} en={filter.en} />
           </button>
         ))}
@@ -84,7 +84,7 @@ const featuredPhotos = active === 'photos' ? featuredPhotoFiles.map((number) => 
   {active === 'photos' && (
     <dialog class="photo-lightbox" data-photo-lightbox aria-label={locale === 'en' ? 'Photograph viewer' : '照片查看器'} data-aria-zh="照片查看器" data-aria-en="Photograph viewer">
       <div class="photo-lightbox__frame">
-        <button class="photo-lightbox__close" type="button" data-photo-lightbox-close data-no-sound aria-label={locale === 'en' ? 'Close photo viewer' : '关闭照片查看器'} data-aria-en="Close photo viewer" data-aria-zh="关闭照片查看器">
+        <button class="photo-lightbox__close" type="button" data-photo-lightbox-close aria-label={locale === 'en' ? 'Close photo viewer' : '关闭照片查看器'} data-aria-en="Close photo viewer" data-aria-zh="关闭照片查看器">
           <Icon name="cursor-photo-close" role="control" />
           <span class="visually-hidden">{locale === 'en' ? 'Close' : '关闭'}</span>
         </button>
@@ -100,11 +100,11 @@ const featuredPhotos = active === 'photos' ? featuredPhotoFiles.map((number) => 
             <div data-photo-lightbox-location-row hidden><dt><LocalizedText zh="地点" en="Location" /></dt><dd data-photo-lightbox-location></dd></div>
           </dl>
           <div class="photo-lightbox__nav">
-            <button class="photo-lightbox__step" type="button" data-photo-lightbox-step="-1" data-no-sound aria-label={locale === 'en' ? 'Previous photograph' : '上一张照片'} data-aria-en="Previous photograph" data-aria-zh="上一张照片">
+            <button class="photo-lightbox__step" type="button" data-photo-lightbox-step="-1" aria-label={locale === 'en' ? 'Previous photograph' : '上一张照片'} data-aria-en="Previous photograph" data-aria-zh="上一张照片">
               <Icon name="photo-previous" role="control" />
             </button>
             <p class="photo-lightbox__position" data-photo-lightbox-position aria-hidden="true"></p>
-            <button class="photo-lightbox__step" type="button" data-photo-lightbox-step="1" data-no-sound aria-label={locale === 'en' ? 'Next photograph' : '下一张照片'} data-aria-en="Next photograph" data-aria-zh="下一张照片">
+            <button class="photo-lightbox__step" type="button" data-photo-lightbox-step="1" aria-label={locale === 'en' ? 'Next photograph' : '下一张照片'} data-aria-en="Next photograph" data-aria-zh="下一张照片">
               <Icon name="photo-next" role="control" />
             </button>
           </div>

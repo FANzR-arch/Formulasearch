@@ -132,24 +132,6 @@ test('header utility controls keep fixed square hit areas', async ({ page }) => 
   }
 })
 
-test('sound preview exposes local candidates and source guides', async ({ page }) => {
-  await page.goto('/sound-preview')
-  await expect(page).toHaveTitle(/声音试听/)
-  await expect(page.locator('[data-audio-preview]')).toHaveCount(90)
-  await expect(page.locator('[data-audio-preview]').first()).toHaveAttribute('data-audio-preview', /\/audio\/kenney-interface\/click1\.wav$/)
-  await expect(page.locator('.sound-preview-source')).toHaveCount(8)
-  await page.locator('[data-sound-filter="feedback"]').click()
-  await expect(page.locator('[data-sound-group]:not([hidden]) [data-audio-preview]')).toHaveCount(23)
-  await expect(page.locator('[data-sound-group="core"][hidden]')).toHaveCount(3)
-})
-
-test('sound toggle is removed while interaction audio remains enabled', async ({ page }) => {
-  await page.goto('/sound-preview')
-  await expect(page.locator('#sound-toggle')).toHaveCount(0)
-  await expect(page.locator('html')).toHaveAttribute('data-sound', 'on')
-  await expect(page.locator('[data-sound="switch"]').first()).toBeAttached()
-})
-
 test('desktop navigation uses concise popovers and expanded trigger areas', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/')
@@ -180,13 +162,6 @@ test('desktop navigation stays open while moving from a trigger into its popover
 test('navigation links do not render hover marker dots', async ({ page }) => {
   await page.goto('/')
   await expect.poll(() => page.locator('.nav-link').first().evaluate((element) => getComputedStyle(element, '::after').content)).toBe('none')
-})
-
-test('sound preview remains readable on a narrow viewport', async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 800 })
-  await page.goto('/sound-preview')
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)
-  expect(overflow).toBeFalsy()
 })
 
 test('desktop fine pointers always use custom cursor icons', async ({ page }) => {

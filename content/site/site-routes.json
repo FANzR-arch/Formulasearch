@@ -9,10 +9,9 @@
   "photos": "/photos",
   "architecture": "/architecture",
   "partners": "/partners",
-  "soundPreview": "/sound-preview",
   "rss": "/rss.xml",
   "sitemap": "/sitemap.xml",
   "llms": "/llms.txt",
-  "static": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "resources", "photos", "architecture", "partners", "soundPreview"],
-  "localized": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "resources", "photos", "architecture", "partners", "soundPreview"]
+  "static": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "resources", "photos", "architecture", "partners"],
+  "localized": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "resources", "photos", "architecture", "partners"]
 }

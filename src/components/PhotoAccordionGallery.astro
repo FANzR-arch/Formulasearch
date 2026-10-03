@@ -43,8 +43,6 @@ const photoLabel = (item: PhotoItem) => ({
             data-photo-panel={index}
             data-photo-ratio={photoRatio(item)}
             style={`--photo-ratio: ${photoRatio(item)}`}
-            data-sound="select"
-            data-sound-volume="0.18"
             aria-pressed={index === defaultIndex ? 'true' : 'false'}
             aria-label={locale === 'en' ? label.en : label.zh}
             data-aria-en={label.en}

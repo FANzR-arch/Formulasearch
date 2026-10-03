@@ -108,7 +108,6 @@
 
   const closeWithAnimation = () => {
     if (!dialog.open || closingPromise) return
-    window.formulasearchAudio?.play('close', { volume: 0.22 })
     // After browsing to another photo, bring its thumbnail back into view so the image returns to it.
     if (opener instanceof HTMLElement && !isInViewport(getOpeningRect(opener))) opener.scrollIntoView({ block: 'center', behavior: 'instant' })
     const currentRect = getOpeningRect(opener)
@@ -189,7 +188,6 @@
     if (image instanceof HTMLImageElement) image.getAnimations().forEach((animation) => animation.cancel())
     update()
     setLoading()
-    window.formulasearchAudio?.play('select', { volume: 0.16 })
   }
 
   document.addEventListener('click', async (event) => {

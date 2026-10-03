@@ -145,10 +145,3 @@ test('project detail defers hidden carousel slides and surfaces the live version
   expect(await tryLink.evaluate((el) => el.getBoundingClientRect().top)).toBeLessThan(await page.locator('.project-detail__cover').evaluate((el) => el.getBoundingClientRect().top))
 })
 
-test('interface sounds are downloaded once per file', async ({ page }) => {
-  const wavRequests = []
-  page.on('request', (request) => { if (request.url().endsWith('.wav')) wavRequests.push(new URL(request.url()).pathname) })
-  await page.goto('/')
-  await page.waitForLoadState('networkidle')
-  expect(wavRequests.sort()).toEqual(['/audio/kenney-interface/click3.wav', '/audio/kenney-interface/switch5.wav'])
-})

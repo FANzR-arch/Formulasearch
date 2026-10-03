@@ -26,12 +26,5 @@
       "zh": "按主题浏览 Phil 的文章：提示词美学解码、少即是多、提示词分享、AI 知识、AI 实践和个人思考，适合沿着一条线索连续阅读。",
       "en": "Browse Phil's writing by series: Prompt Aesthetic Decode, Less Is More, prompt sharing, AI knowledge, AI practice and personal notes, to read one thread end to end."
     }
-  },
-  "soundPreview": {
-    "title": { "zh": "声音试听", "en": "Sound Preview" },
-    "description": {
-      "zh": "试听网站交互音效，记录素材来源，并为未来的背景音乐保留接口。",
-      "en": "Preview interface sounds, document their sources, and leave room for future background music."
-    }
   }
 }

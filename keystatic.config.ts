@@ -285,7 +285,6 @@ export default config({
         blog: fields.object({ title: localized('标题'), description: localized('说明', true) }, { label: 'Blog' }),
         blogArchive: fields.object({ title: localized('标题'), description: localized('说明', true) }, { label: 'Blog 归档' }),
         blogSeries: fields.object({ title: localized('标题'), description: localized('说明', true) }, { label: 'Blog 主题' }),
-        soundPreview: fields.object({ title: localized('标题'), description: localized('说明', true) }, { label: '声音试听' }),
       },
     }),
     siteIdentity: singleton({

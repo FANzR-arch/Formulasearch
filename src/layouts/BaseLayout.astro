@@ -11,7 +11,6 @@ import SiteCursor from '../components/icon-system/SiteCursor.astro'
 import PersonalAI from '../components/PersonalAI.astro'
 import shellScript from '../../public/scripts/site-shell.js?url'
 import headerScript from '../../public/scripts/site-header.js?url'
-import audioScript from '../../public/scripts/site-audio.js?url'
 
 interface Props {
   description: string
@@ -103,7 +102,6 @@ const analyticsEnabled = import.meta.env.PROD && /^G-[A-Z0-9]+$/.test(analyticsI
     <script is:inline src={shellScript}></script>
     <!-- Capture the new page only after its content and navigation exist. -->
     <script is:inline src={headerScript} defer {...{ blocking: 'render' }}></script>
-    <script is:inline src={audioScript} defer></script>
     <script is:inline type="application/ld+json" set:html={serializeJsonLd({
       '@context': 'https://schema.org',
       '@type': 'Person',

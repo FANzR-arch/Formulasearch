@@ -12,7 +12,6 @@ const pageMetaSchema = z.object({
   blog: pageMetaEntrySchema,
   blogArchive: pageMetaEntrySchema,
   blogSeries: pageMetaEntrySchema,
-  soundPreview: pageMetaEntrySchema,
 }).strict()
 
 const result = pageMetaSchema.safeParse(pageMetaContent)
