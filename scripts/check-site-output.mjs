@@ -332,7 +332,9 @@ for (const path of htmlFiles) {
     const route = url.pathname === '/' ? '/' : url.pathname.replace(/\/$/, '')
     const targetPath = htmlByRoute.get(route)
     if (!targetPath) {
-      failures.push(`broken internal link: ${relativePath} -> ${href}`)
+      // Generated endpoints such as /rss.xml and /llms.txt are real files, not HTML routes.
+      const generatedFile = /\.(?:xml|txt)$/.test(route) ? await access(join(distRoot, ...route.split('/').filter(Boolean))).then(() => true, () => false) : false
+      if (!generatedFile) failures.push(`broken internal link: ${relativePath} -> ${href}`)
       continue
     }
     if (url.hash) {
