@@ -27,7 +27,7 @@ test('cacheable navigation reuses the prefetched document without transferring i
 test('fallback documents warm during the intro without loading destination media', async ({ page }) => {
   const downloaded = []
   page.on('requestfinished', request => {
-    if (!request.isNavigationRequest() && ['/blog', '/projects', '/skills', '/lab', '/photos', '/architecture', '/partners'].includes(new URL(request.url()).pathname)) {
+    if (!request.isNavigationRequest() && ['/blog', '/projects', '/skills', '/resources', '/photos', '/architecture', '/partners'].includes(new URL(request.url()).pathname)) {
       downloaded.push(new URL(request.url()).pathname)
     }
   })
@@ -41,7 +41,7 @@ test('fallback documents warm during the intro without loading destination media
     if (['image', 'media'].includes(request.resourceType())) media.push(request.url())
   })
   await expect.poll(() => prefetchedPaths(page), { timeout: 10000 }).toEqual(
-    expect.arrayContaining(['/blog', '/projects', '/skills', '/lab', '/photos', '/architecture', '/partners']),
+    expect.arrayContaining(['/blog', '/projects', '/skills', '/resources', '/photos', '/architecture', '/partners']),
   )
   const paths = await prefetchedPaths(page)
   expect(paths).toHaveLength(7)

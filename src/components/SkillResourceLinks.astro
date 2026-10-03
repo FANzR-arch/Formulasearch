@@ -1,0 +1,60 @@
+---
+import ResourceImage from './ResourceImage.astro'
+import { resourceSections } from '../data/catalog'
+import { getSkillResourceItems } from '../lib/resource-links'
+import { getBlogPosts } from '../lib/blog-content'
+import { getLocalizedRoute, siteRoutes } from '../data/site-routes'
+import type { Locale } from '../lib/i18n'
+
+interface Props {
+  sectionId: string
+  locale?: Locale
+}
+
+const { sectionId, locale = 'zh' } = Astro.props
+const resources = getSkillResourceItems(resourceSections, sectionId)
+const postsBySlug = new Map((resources.length > 0 ? await getBlogPosts() : []).map((post) => [post.slug, post]))
+const resourcePreviews = resources.map((item) => {
+  const post = item.related?.post ? postsBySlug.get(item.related.post) : undefined
+  if (item.related?.post && !post) throw new Error(`Resource "${item.id}" linked to Skill section "${sectionId}" references unknown or draft blog post "${item.related.post}".`)
+  return { item, post }
+})
+const visiblePreviews = resourcePreviews.slice(0, 6)
+const remainingCount = resourcePreviews.length - visiblePreviews.length
+const remainingItem = resourcePreviews[6]?.item
+const remainingSectionId = remainingItem && resourceSections.find((section) => section.presentation === 'resource-links'
+  && section.groups.some((group) => group.items.some((item) => item.id === remainingItem.id)))?.id
+const navigationLabel = { zh: '相关资源', en: 'Related resources' }
+const moreLabel = { zh: `查看另外 ${remainingCount} 项资源`, en: `View ${remainingCount} more resources` }
+---
+
+{resources.length > 0 && (
+  <nav class="skill-resources" aria-label={navigationLabel[locale]} data-aria-zh={navigationLabel.zh} data-aria-en={navigationLabel.en}>
+    {visiblePreviews.map(({ item, post }) => (
+      <a
+        class="skill-resources__item"
+        href={getLocalizedRoute(`${siteRoutes.resources}#resource-${item.id}`, locale)}
+        title={item[locale]}
+        aria-label={item[locale]}
+        data-title-zh={item.zh}
+        data-title-en={item.en}
+        data-aria-zh={item.zh}
+        data-aria-en={item.en}
+      >
+        <ResourceImage item={item} post={post} locale={locale} sizes="48px" widths={[64, 128]} />
+      </a>
+    ))}
+    {remainingCount > 0 && (
+      <a
+        class="skill-resources__more"
+        href={getLocalizedRoute(`${siteRoutes.resources}${remainingSectionId ? `#${remainingSectionId}` : ''}`, locale)}
+        title={moreLabel[locale]}
+        aria-label={moreLabel[locale]}
+        data-title-zh={moreLabel.zh}
+        data-title-en={moreLabel.en}
+        data-aria-zh={moreLabel.zh}
+        data-aria-en={moreLabel.en}
+      >+{remainingCount}</a>
+    )}
+  </nav>
+)}

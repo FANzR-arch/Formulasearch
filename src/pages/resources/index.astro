@@ -1,0 +1,10 @@
+---
+import CatalogLayout from '../../layouts/CatalogLayout.astro'
+import CatalogIndex from '../../components/CatalogIndex.astro'
+import { catalogPages, visibleResourceSections as sections } from '../../data/catalog'
+const page = catalogPages.resources
+---
+
+<CatalogLayout active="resources" title={page.title} description={page.description}>
+  <CatalogIndex page={page} sections={sections} motionVariant="resources" />
+</CatalogLayout>

@@ -1,0 +1,16 @@
+[
+  {
+    "itemId": "lucide",
+    "image": "/uploads/resources/lucide.webp",
+    "sourceUrl": "https://lucide.dev/og.png",
+    "pageUrl": "https://lucide.dev",
+    "method": "og-image",
+    "acquiredAt": "2026-10-02",
+    "width": 1200,
+    "height": 630,
+    "sourceWidth": 1200,
+    "sourceHeight": 630,
+    "bytes": 33094,
+    "sha256": "9c0da59c751257baed47da2e2959cbb20e0e8277ebe87e55518e83e478937008"
+  }
+]

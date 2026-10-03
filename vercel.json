@@ -1,5 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/lab", "destination": "/resources", "permanent": true },
+    { "source": "/en/lab", "destination": "/en/resources", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/",
@@ -10,11 +14,11 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=60" }]
     },
     {
-      "source": "/:section(blog|projects|skills|lab|photos|architecture|partners)",
+      "source": "/:section(blog|projects|skills|resources|photos|architecture|partners)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=60" }]
     },
     {
-      "source": "/en/:section(blog|projects|skills|lab|photos|architecture|partners)",
+      "source": "/en/:section(blog|projects|skills|resources|photos|architecture|partners)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=60" }]
     },
     {

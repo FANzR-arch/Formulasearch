@@ -1,0 +1,112 @@
+---
+import LocalizedText from './LocalizedText.astro'
+import Icon from './icon-system/Icon.astro'
+import BlogCover from './BlogCover.astro'
+import type { LearningPathSection } from '../data/catalog'
+import { getBlogMedia } from '../data/blog-media'
+import { getBlogPosts, getPrimaryBlogLink, isLocalBlogPost } from '../lib/blog-content'
+import { getLocalizedRoute } from '../data/site-routes'
+import type { Locale } from '../lib/i18n'
+
+interface Props {
+  section: LearningPathSection
+  index: number
+  locale?: Locale
+}
+
+const { section, index, locale = 'zh' } = Astro.props
+const postsBySlug = new Map((await getBlogPosts()).map((post) => [post.slug, post]))
+const paths = section.paths.map((path) => {
+  const coverSlug = path.cover ?? path.posts[0]
+  const coverPost = postsBySlug.get(coverSlug)
+  if (!coverPost) throw new Error(`Learning path "${path.id}" references unknown or draft cover blog post "${coverSlug}".`)
+  const coverMedia = getBlogMedia(coverPost.cover)
+  const posts = path.posts.map((slug) => {
+    const post = postsBySlug.get(slug)
+    if (!post) throw new Error(`Learning path "${path.id}" references unknown or draft blog post "${slug}".`)
+    return post
+  })
+  return { ...path, posts, coverPost, containCover: coverMedia.width / coverMedia.height < 2.2 }
+})
+---
+
+<section id={section.id} class="project-group learning-paths" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
+  <header class="project-group__heading">
+    <h2><LocalizedText {...section.title} /></h2>
+  </header>
+  <div class="learning-paths__grid">
+    {paths.map((path, pathIndex) => (
+      <article id={`path-${path.id}`} class="learning-path">
+        <div class:list={['learning-path__cover', { 'learning-path__cover--contain': path.containCover }]}>
+          <BlogCover
+            src={path.coverPost.cover}
+            alt={path.coverPost.coverAlt}
+            altEn={path.coverPost.coverAltEn}
+            locale={locale}
+            className="learning-path__cover-image"
+            loading="lazy"
+            decoding="async"
+            sizes="auto, (max-width: 560px) calc(100vw - 32px), (max-width: 1280px) calc((100vw - 96px) / 2), 560px"
+          />
+        </div>
+        <header class="learning-path__header">
+          <span class="learning-path__eyebrow">
+            {String(pathIndex + 1).padStart(2, '0')} · <LocalizedText zh={`${path.posts.length} 篇`} en={`${path.posts.length} posts`} />
+          </span>
+          <h3><LocalizedText {...path.title} /></h3>
+        </header>
+        <div class="learning-path__reading">
+          <ol class="learning-path__list learning-path__list--preview">
+            {path.posts.slice(0, 3).map((post) => {
+              const isLocal = isLocalBlogPost(post)
+              return (
+                <li>
+                  <a href={getLocalizedRoute(getPrimaryBlogLink(post), locale)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}>
+                    <span class="learning-path__title"><LocalizedText zh={post.title} en={post.titleEn ?? post.title} enLang={post.titleEn ? 'en' : 'zh-Hans'} /></span>
+                    {!isLocal && <Icon name="catalog-external" role="meta" />}
+                  </a>
+                </li>
+              )
+            })}
+          </ol>
+          {path.posts.length > 3 && (
+            <>
+              <ol class="learning-path__list learning-path__list--remaining learning-path__list--desktop" start={4}>
+                {path.posts.slice(3).map((post) => {
+                  const isLocal = isLocalBlogPost(post)
+                  return (
+                    <li>
+                      <a href={getLocalizedRoute(getPrimaryBlogLink(post), locale)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}>
+                        <span class="learning-path__title"><LocalizedText zh={post.title} en={post.titleEn ?? post.title} enLang={post.titleEn ? 'en' : 'zh-Hans'} /></span>
+                        {!isLocal && <Icon name="catalog-external" role="meta" />}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ol>
+              <details class="learning-path__details">
+                <summary class="learning-path__summary">
+                  <LocalizedText zh={`展开全部 ${path.posts.length} 篇`} en={`Show all ${path.posts.length}`} />
+                  <Icon name="nav-chevron" role="control" />
+                </summary>
+                <ol class="learning-path__list learning-path__list--remaining" start={4}>
+                  {path.posts.slice(3).map((post) => {
+                    const isLocal = isLocalBlogPost(post)
+                    return (
+                      <li>
+                        <a href={getLocalizedRoute(getPrimaryBlogLink(post), locale)} target={isLocal ? undefined : '_blank'} rel={isLocal ? undefined : 'noopener noreferrer'}>
+                          <span class="learning-path__title"><LocalizedText zh={post.title} en={post.titleEn ?? post.title} enLang={post.titleEn ? 'en' : 'zh-Hans'} /></span>
+                          {!isLocal && <Icon name="catalog-external" role="meta" />}
+                        </a>
+                      </li>
+                    )
+                  })}
+                </ol>
+              </details>
+            </>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

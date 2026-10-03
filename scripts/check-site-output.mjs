@@ -7,6 +7,8 @@ const distRoot = join(projectRoot, '..', 'dist')
 const publicRoot = join(projectRoot, '..', 'public')
 const siteConfig = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'site.json'), 'utf8'))
 const navigationContent = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'navigation.json'), 'utf8'))
+const vercelConfig = JSON.parse(await readFile(join(projectRoot, '..', 'vercel.json'), 'utf8'))
+const redirectRoutes = new Map((vercelConfig.redirects ?? []).map(({ source, destination }) => [source, destination]))
 const blogImageDimensions = JSON.parse(await readFile(join(projectRoot, '..', 'content', 'site', 'blog-image-dimensions.json'), 'utf8'))
 const siteOrigin = new URL(siteConfig.siteUrl).origin
 const failures = []
@@ -107,6 +109,11 @@ for (const route of englishStaticRoutes) {
 }
 
 const sitemap = await readFile(join(distRoot, routeEntries.sitemap.slice(1)), 'utf8')
+for (const [source, destination] of redirectRoutes) {
+  if (!htmlByRoute.has(source)) failures.push(`missing static redirect: ${source}`)
+  if (!htmlByRoute.has(destination)) failures.push(`missing redirect destination: ${source} -> ${destination}`)
+  if (sitemap.includes(`<loc>${siteConfig.siteUrl}${source}</loc>`)) failures.push(`redirect source in sitemap: ${source}`)
+}
 for (const route of staticRoutes) {
   if (!sitemap.includes(`<loc>${siteConfig.siteUrl}${route}</loc>`)) failures.push(`sitemap missing route: ${route}`)
 }
@@ -184,6 +191,17 @@ for (const path of htmlFiles) {
   const html = await readFile(path, 'utf8')
   const relativePath = path.slice(distRoot.length + 1)
   const currentRoute = [...htmlByRoute.entries()].find(([, htmlPath]) => htmlPath === path)?.[0] || '/'
+  // Astro emits minimal refresh documents for static redirects, without page landmarks.
+  const redirectDestination = redirectRoutes.get(currentRoute)
+  if (redirectDestination) {
+    const refreshDestination = html.match(/<meta\b[^>]*http-equiv="refresh"[^>]*content="0;url=([^"]+)"/i)?.[1]
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1]
+    if (refreshDestination !== redirectDestination) failures.push(`static redirect target mismatch: ${relativePath} -> ${refreshDestination}`)
+    if (canonical !== new URL(redirectDestination, siteConfig.siteUrl).toString()) failures.push(`redirect canonical mismatch: ${relativePath} -> ${canonical}`)
+    if (!html.includes('<meta name="robots" content="noindex">')) failures.push(`static redirect missing noindex: ${relativePath}`)
+    if (!html.includes(`<a href="${redirectDestination}">`)) failures.push(`static redirect missing fallback link: ${relativePath}`)
+    continue
+  }
   const idCounts = new Map()
   for (const [, id] of html.matchAll(/\bid="([^"]+)"/g)) idCounts.set(id, (idCounts.get(id) || 0) + 1)
   for (const [id, count] of idCounts) {

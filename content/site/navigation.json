@@ -76,8 +76,8 @@
         {
           "href": "/projects#code-video",
           "label": {
-              "zh": "程序化动效视频",
-              "en": "Motion Graphics"
+            "zh": "程序化动效视频",
+            "en": "Motion Graphics"
           },
           "note": {
             "zh": "用 Remotion 等代码工具制作 UI 动效、产品演示与品牌动画，让界面、信息与节奏准确配合。",
@@ -196,44 +196,44 @@
       ]
     },
     {
-      "id": "lab",
-      "href": "/lab",
+      "id": "resources",
+      "href": "/resources",
       "label": {
-        "zh": "探索",
-        "en": "Explore"
+        "zh": "资源",
+        "en": "Resources"
       },
       "menu": [
         {
-          "href": "/lab#experiments",
-          "label": {
-            "zh": "实验",
-            "en": "Experiments"
-          },
-          "note": {
-            "zh": "Aesthetic Formulas、动态视觉与原型",
-            "en": "Aesthetic formulas, motion, and prototypes"
-          }
-        },
-        {
-          "href": "/lab#courses",
+          "href": "/resources#courses",
           "label": {
             "zh": "课程",
             "en": "Courses"
           },
           "note": {
-            "zh": "SEO/GEO、Price Action 与学习产出",
-            "en": "SEO/GEO, price action, and study notes"
+            "zh": "SEO/GEO 与价格行为入门课",
+            "en": "SEO/GEO and price action courses"
           }
         },
         {
-          "href": "/lab#now",
+          "href": "/resources#paths",
           "label": {
-            "zh": "当下",
-            "en": "Now"
+            "zh": "学习路径",
+            "en": "Learning Paths"
           },
           "note": {
-            "zh": "正在学习、测试与推进的事",
-            "en": "What is being learned, tested, and built"
+            "zh": "按主题排好顺序，从第一篇读起",
+            "en": "Posts by topic, in reading order"
+          }
+        },
+        {
+          "href": "/resources#tools",
+          "label": {
+            "zh": "工具与网站",
+            "en": "Tools & Sites"
+          },
+          "note": {
+            "zh": "设计和内容创作常用的网站与小工具",
+            "en": "Websites and small tools for design and content"
           }
         }
       ]

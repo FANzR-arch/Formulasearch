@@ -1,5 +1,10 @@
 import { get as getHttp } from 'node:http'
+import { readFileSync } from 'node:fs'
+import { mkdir } from 'node:fs/promises'
 import { expect, test } from '@playwright/test'
+
+const catalog = JSON.parse(readFileSync(new URL('../content/site/catalog.json', import.meta.url), 'utf8'))
+const resourceLinkSections = catalog.resources.filter(section => section.presentation === 'resource-links')
 
 const getRawStatus = (pathname) => new Promise((resolve, reject) => {
   const baseUrl = new URL(process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:4321')
@@ -205,7 +210,7 @@ test('desktop fine pointers always use custom cursor icons', async ({ page }) =>
 
 test('key routes do not overflow a narrow viewport', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 800 })
-  for (const route of ['/', '/blog', '/blog/ai-practice-2026-02-22', '/photos', '/architecture', '/architecture/nanjing-stone-city', '/architecture/qingdao-hill-ocean', '/partners', '/projects', '/skills', '/lab']) {
+  for (const route of ['/', '/blog', '/blog/ai-practice-2026-02-22', '/photos', '/architecture', '/architecture/nanjing-stone-city', '/architecture/qingdao-hill-ocean', '/partners', '/projects', '/skills', '/resources']) {
     await page.goto(route)
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)
     expect(overflow, `${route} overflows at 320px`).toBeFalsy()
@@ -1028,6 +1033,8 @@ test('llms exposes published pages and articles', async ({ request }) => {
   const body = await response.text()
   expect(body).toContain('# Phil / Formula')
   expect(body).toContain('/projects')
+  expect(body).toContain('/resources')
+  expect(body).toContain('Courses, learning paths, and tools')
   expect(body).toContain('/blog/ai-practice-2026-02-22')
   expect(body).not.toContain('/blog/personal-thinking-2026-02-14')
   expect(body).not.toContain('/blog/ai-knowledge-2025-12-09')
@@ -1040,7 +1047,7 @@ test('catalog pages omit index navigation and section numbers', async ({ page })
   const catalogPages = [
     { route: '/projects', catalogSections: 0, skillFeatures: 0, skillProjects: 0, projectGroups: 8 },
     { route: '/skills', catalogSections: 1, skillFeatures: 1, skillProjects: 1, projectGroups: 0 },
-    { route: '/lab', catalogSections: 2, skillFeatures: 0, skillProjects: 0, projectGroups: 1 },
+    { route: '/resources', catalogSections: 0, skillFeatures: 0, skillProjects: 0, projectGroups: 3 },
   ]
   for (const { route, catalogSections, skillFeatures, skillProjects, projectGroups } of catalogPages) {
     await page.goto(route)
@@ -1052,28 +1059,385 @@ test('catalog pages omit index navigation and section numbers', async ({ page })
     await expect(page.locator('.project-group')).toHaveCount(projectGroups)
   }
 })
-test('courses live in Explore while project cards keep equal widths', async ({ page }) => {
+test('courses live in Resources while Lab lives in Projects and cards keep equal widths', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
   for (const prefix of ['', '/en']) {
     await page.goto(`${prefix}/projects`)
-    for (const id of ['price-action-course', 'seo-geo-course', 'lab']) {
+    for (const id of ['price-action-course', 'seo-geo-course']) {
       await expect(page.locator(`main a[href="${prefix}/projects/${id}"]`)).toHaveCount(0)
     }
     const widths = await page.locator('#tools .project-card').evaluateAll((cards) => cards.map((card) => card.getBoundingClientRect().width))
-    expect(widths).toHaveLength(4)
+    expect(widths).toHaveLength(5)
     expect(Math.max(...widths) - Math.min(...widths)).toBeLessThan(1)
-    await page.goto(`${prefix}/lab`)
-    await page.locator(`#experiments a[href="${prefix}/projects/lab"]`).click()
-    await expect(page.locator('.project-detail__back')).toHaveAttribute('href', `${prefix}/lab#experiments`)
+    await page.locator(`#tools a[href="${prefix}/projects/lab"]`).click()
+    await expect(page.locator('.project-detail__back')).toHaveAttribute('href', `${prefix}/projects`)
     await page.locator('.project-detail__back').click()
+    await expect(page).toHaveURL(`${prefix}/projects`)
+    await page.goto(`${prefix}/resources`)
     await expect(page.locator('#courses .project-card')).toHaveCount(2)
     for (const id of ['price-action-course', 'seo-geo-course']) {
       await page.locator(`#courses a[href="${prefix}/projects/${id}"]`).click()
-      await expect(page.locator('.project-detail__back')).toHaveAttribute('href', `${prefix}/lab#courses`)
+      await expect(page.locator('.project-detail__back')).toHaveAttribute('href', `${prefix}/resources#courses`)
       await page.locator('.project-detail__back').click()
+      await expect(page).toHaveURL(`${prefix}/resources#courses`)
       await expect(page.locator('#courses .project-card')).toHaveCount(2)
     }
   }
 })
+
+test('former Explore URLs redirect to Resources in both languages', async ({ page }) => {
+  for (const prefix of ['', '/en']) {
+    await page.goto(`${prefix}/lab`)
+    await expect(page).toHaveURL(`${prefix}/resources`)
+    await expect(page.locator('#courses .project-card')).toHaveCount(2)
+    await expect(page.locator('#paths .learning-path')).toHaveCount(4)
+  }
+})
+
+for (const prefix of ['', '/en']) {
+  test(`${prefix}/resources exposes four ordered paths with local and external article links`, async ({ page }) => {
+    await page.goto(`${prefix}/resources#paths`)
+    const paths = page.locator('#paths .learning-path')
+    await expect(paths).toHaveCount(4)
+    for (const path of await paths.all()) {
+      expect(await path.locator('ol.learning-path__list a').count()).toBeGreaterThanOrEqual(2)
+      await expect(path.locator('.learning-path__cover img')).toHaveCount(1)
+      await expect(path.locator('.learning-path__collage, .learning-path__thumbnail')).toHaveCount(0)
+    }
+    const local = page.locator('#paths a[href^="/blog/"], #paths a[href^="/en/blog/"]')
+    const external = page.locator('#paths a[href^="https://"]')
+    expect(await local.count()).toBeGreaterThan(0)
+    expect(await external.count()).toBeGreaterThan(0)
+    for (const link of await local.all()) {
+      await expect(link).toHaveAttribute('href', /^\/(?:en\/)?blog\/[a-z0-9-]+$/)
+      expect(await link.getAttribute('target')).toBeNull()
+      await expect(link.locator('.icon')).toHaveCount(0)
+    }
+    for (const link of await external.all()) {
+      await expect(link).toHaveAttribute('target', '_blank')
+      await expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+      await expect(link.locator('.icon')).toHaveCount(1)
+    }
+  })
+
+  for (const width of [1280, 375]) {
+    test(`${prefix}/resources learning paths ${width === 375 ? 'show three posts and expand the rest' : 'show every post without collapse controls'} without JavaScript`, async ({ browser, baseURL }) => {
+      const context = await browser.newContext({ baseURL, viewport: { width, height: 900 }, javaScriptEnabled: false, reducedMotion: 'reduce' })
+      try {
+        const page = await context.newPage()
+        await page.goto(`${prefix}/resources#paths`)
+        await expect(page.locator('.page-hero__description, .resource-links__count')).toHaveCount(0)
+        const pathData = catalog.resources.find(section => section.id === 'paths').paths
+        for (const path of pathData) {
+          const element = page.locator(`#path-${path.id}`)
+          const visibleLinks = element.locator('.learning-path__list a:visible')
+          await expect(visibleLinks).toHaveCount(width === 375 ? Math.min(3, path.posts.length) : path.posts.length)
+          const cover = element.locator('.learning-path__cover')
+          const ratio = await cover.evaluate(cover => { const rect = cover.getBoundingClientRect(); return rect.width / rect.height })
+          expect(ratio).toBeCloseTo(2.5, 2)
+          const details = element.locator('.learning-path__details')
+          await expect(details).toHaveCount(path.posts.length > 3 ? 1 : 0)
+          if (path.posts.length <= 3) continue
+          const summary = details.locator('.learning-path__summary')
+          for (const remaining of await element.locator('.learning-path__list--remaining').all()) {
+            await expect(remaining).toHaveAttribute('start', '4')
+          }
+          if (width === 1280) {
+            await expect(details).toBeHidden()
+            await expect(summary).toBeHidden()
+            await expect(element.locator('.learning-path__list--desktop a')).toHaveCount(path.posts.length - 3)
+          } else {
+            await expect(element.locator('.learning-path__list--desktop')).toBeHidden()
+            await expect(summary).toBeVisible()
+            await expect(summary).toContainText(new RegExp(prefix ? `Show all\\s*${path.posts.length}` : `展开全部\\s*${path.posts.length}\\s*篇`), { useInnerText: true })
+            await expect(summary.locator('.icon')).toHaveCount(1)
+            await expect(details).not.toHaveAttribute('open', '')
+            await summary.click()
+            await expect(details).toHaveAttribute('open', '')
+            await expect(visibleLinks).toHaveCount(path.posts.length)
+            await summary.click()
+            await expect(details).not.toHaveAttribute('open', '')
+            await expect(visibleLinks).toHaveCount(3)
+          }
+        }
+        expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0)
+      } finally {
+        await context.close()
+      }
+    })
+  }
+
+  test(`${prefix}/resources navigation offers three sections and reaches every anchor`, async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 })
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(`${prefix}/resources`)
+    const trigger = page.locator('[aria-controls="nav-panel-resources"]')
+    const menu = page.locator('#nav-panel-resources')
+    const labels = prefix ? ['Courses', 'Learning Paths', 'Tools & Sites'] : ['课程', '学习路径', '工具与网站']
+    await trigger.hover()
+    await expect(menu).toBeVisible()
+    await expect(menu.locator('a')).toHaveCount(3)
+    await expect(menu.locator('a > span')).toHaveText(labels, { useInnerText: true })
+    for (const id of ['courses', 'paths', 'tools']) {
+      await trigger.hover()
+      await menu.locator(`a[href="${prefix}/resources#${id}"]`).click()
+      await expect(page).toHaveURL(`${prefix}/resources#${id}`)
+      await expect.poll(() => page.locator(`#${id}`).evaluate(element => {
+        const offset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) + parseFloat(getComputedStyle(element).scrollMarginTop)
+        const absoluteTop = element.getBoundingClientRect().top + scrollY
+        const destination = Math.max(0, Math.min(absoluteTop - offset, document.documentElement.scrollHeight - innerHeight))
+        return Math.abs(scrollY - destination)
+      })).toBeLessThan(2)
+    }
+  })
+
+  test(`${prefix}/resources renders populated tool groups with safe external links`, async ({ page }) => {
+    await page.goto(`${prefix}/resources`)
+    await expect(page.locator('#tools.resource-links')).toHaveCount(1)
+    await expect(page.locator('#aigc')).toHaveCount(0)
+    await expect(page.locator('.page-hero__description, .resource-links__count')).toHaveCount(0)
+    expect(resourceLinkSections.map(section => section.id)).toEqual(['tools'])
+
+    for (const section of resourceLinkSections) {
+      const sectionElement = page.locator(`#${section.id}`)
+      await expect(sectionElement.locator('.resource-links__group')).toHaveCount(section.groups.filter(group => group.items.length).length)
+      for (const group of section.groups) {
+        const groupElement = sectionElement.locator(`[data-resource-group="${group.id}"]`)
+        await expect(groupElement).toHaveCount(group.items.length ? 1 : 0)
+        if (!group.items.length) continue
+        await expect(groupElement.locator('.resource-card')).toHaveCount(group.items.length)
+        for (const item of group.items) {
+          const card = groupElement.locator(`#resource-${item.id}`)
+          const primary = card.locator('a.resource-card__primary')
+          await expect(primary).toHaveCount(1)
+          await expect(primary.locator('h4.resource-card__title')).toContainText(prefix ? item.en : item.zh)
+          await expect(primary.locator('img')).toHaveCount(1)
+          await expect(card.locator('.resource-card__description')).toHaveCount(0)
+          // Blog articles keep their source language even on the English catalog page.
+          await expect(primary).toHaveAttribute('href', item.url || `/blog/${item.related.post}`)
+          if (item.url?.startsWith('https://')) {
+            await expect(primary).toHaveAttribute('target', '_blank')
+            await expect(primary).toHaveAttribute('rel', 'noopener noreferrer')
+            await expect(primary.locator('.icon')).toHaveCount(1)
+          } else {
+            expect(await primary.getAttribute('target')).toBeNull()
+          }
+          const related = card.locator('.resource-card__related')
+          await expect(related).toHaveCount(item.related && Object.keys(item.related).length ? 1 : 0)
+          if (item.related?.post) {
+            const link = related.locator(`a[href="/blog/${item.related.post}"]`)
+            await expect(link).toHaveAttribute('aria-label', prefix ? 'Related article' : '相关文章')
+            await expect(link).toHaveAttribute('title', prefix ? 'Related article' : '相关文章')
+          }
+          if (item.related?.skill) {
+            const link = related.locator(`a[href="${prefix}/skills#${item.related.skill}"]`)
+            await expect(link).toHaveAttribute('aria-label', prefix ? 'Companion Skill' : '配套 Skill')
+            await expect(link).toHaveAttribute('title', prefix ? 'Companion Skill' : '配套 Skill')
+          }
+          if (item.related?.project) {
+            const link = related.locator(`a[href="${prefix}/projects/${item.related.project}"]`)
+            await expect(link).toHaveAttribute('aria-label', prefix ? 'Project case' : '项目案例')
+            await expect(link).toHaveAttribute('title', prefix ? 'Project case' : '项目案例')
+          }
+          for (const link of await related.locator('a').all()) {
+            await expect(link.locator('.icon')).toHaveCount(1)
+            expect((await link.innerText()).trim()).toBe('')
+          }
+        }
+      }
+    }
+
+    const lucide = page.locator('#resource-lucide a.resource-card__primary')
+    await expect(lucide).toHaveAttribute('href', 'https://lucide.dev')
+    await expect(lucide).toHaveAttribute('target', '_blank')
+  })
+
+  test(`${prefix}/resources omits the duplicate AIGC section and its navigation`, async ({ page }) => {
+    await page.goto(`${prefix}/resources`)
+    await expect(page.locator('main #aigc')).toHaveCount(0)
+    await expect(page.locator('#nav-panel-resources a[href$="#aigc"]')).toHaveCount(0)
+    await expect(page.locator('main .resource-card')).toHaveCount(1)
+    await expect(page.locator('#resource-lucide')).toHaveCount(1)
+    await page.goto(`${prefix}/skills`)
+    await expect(page.locator('.skill-resources')).toHaveCount(0)
+    await expect(page.locator('main a[href*="/resources#resource-"], main a[href$="/resources#aigc"]')).toHaveCount(0)
+    await expect(page.locator('#design-skills [data-skill-card]')).toHaveCount(catalog.skills.find(section => section.id === 'design-skills').gallery.length)
+  })
+
+  test(`${prefix}/skills removes the duplicate course and stale resource backlinks`, async ({ page }) => {
+    test.setTimeout(60_000)
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(`${prefix}/skills`)
+    const removedCourse = catalog.resources.find(section => section.id === 'courses').items.find(item => item.id === 'seo-geo-course')
+    await expect(page.locator('main')).not.toContainText(removedCourse.zh)
+    await expect(page.locator('main')).not.toContainText(removedCourse.en)
+    await expect(page.locator('main a[href$="/projects/seo-geo-course"]')).toHaveCount(0)
+    const otherSkills = catalog.skills.find(section => section.id === 'agent-workflows')
+    await expect(page.locator('#agent-workflows .catalog-section__content > ul > li')).toHaveCount(otherSkills.items.length)
+  })
+}
+
+test('resource tools keep fixed three-column cells at 820px', async ({ page }) => {
+  await page.setViewportSize({ width: 820, height: 900 })
+  await page.goto('/resources')
+  for (const [id, columns, ratio] of [['tools', 3, 1.6]]) {
+    for (const grid of await page.locator(`#${id} .resource-links__grid`).all()) {
+      const geometry = await grid.evaluate(element => {
+        const tracks = getComputedStyle(element).gridTemplateColumns.split(/\s+/).map(parseFloat)
+        return {
+          tracks,
+          cards: [...element.querySelectorAll('.resource-card')].map(card => {
+            const rect = card.getBoundingClientRect()
+            const media = card.querySelector('.resource-card__media').getBoundingClientRect()
+            return { width: rect.width, ratio: media.width / media.height }
+          }),
+        }
+      })
+      expect(geometry.tracks).toHaveLength(columns)
+      for (const card of geometry.cards) {
+        expect(Math.abs(card.width - geometry.tracks[0])).toBeLessThan(1)
+        expect(card.ratio).toBeCloseTo(ratio, 2)
+      }
+    }
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0)
+})
+
+for (const width of [1280, 375]) {
+  for (const theme of ['light', 'dark']) {
+    for (const route of ['resources', 'skills']) {
+      test(`${route} visual cards align without overflow at ${width}px in ${theme} theme`, async ({ browser, baseURL }, testInfo) => {
+        test.setTimeout(60_000)
+        const context = await browser.newContext({ baseURL, viewport: { width, height: 900 }, colorScheme: theme, reducedMotion: 'reduce', hasTouch: width === 375 })
+        try {
+          const page = await context.newPage()
+          await page.addInitScript(value => localStorage.setItem('formulasearch-theme', value), theme)
+          await page.goto(`/${route}`)
+          await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
+          await page.evaluate(() => document.fonts.ready)
+          if (route === 'resources') {
+            const paths = page.locator('#paths .learning-path')
+            await expect(paths).toHaveCount(4)
+            const bounds = await paths.evaluateAll(elements => elements.map(element => {
+              const rect = element.getBoundingClientRect()
+              const cover = element.querySelector('.learning-path__cover').getBoundingClientRect()
+              return { left: rect.left, top: rect.top, listTop: element.querySelector('ol').getBoundingClientRect().top, coverRatio: cover.width / cover.height }
+            }))
+            if (width > 560) {
+              for (const index of [0, 2]) {
+                expect(Math.abs(bounds[index].top - bounds[index + 1].top)).toBeLessThan(1)
+                expect(Math.abs(bounds[index].listTop - bounds[index + 1].listTop)).toBeLessThan(1)
+                expect(bounds[index + 1].left).toBeGreaterThan(bounds[index].left)
+              }
+            } else {
+              for (let index = 1; index < bounds.length; index++) {
+                expect(bounds[index].top).toBeGreaterThan(bounds[index - 1].top)
+                expect(Math.abs(bounds[index].left - bounds[0].left)).toBeLessThan(1)
+              }
+            }
+            for (const bound of bounds) {
+              expect(bound.coverRatio).toBeCloseTo(2.5, 2)
+            }
+            await expect(page.locator('.learning-path__collage, .learning-path__thumbnail')).toHaveCount(0)
+            expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0)
+            const rows = await page.locator('.learning-path__list a:visible').evaluateAll(links => links.map(link => {
+              const row = link.getBoundingClientRect()
+              const title = link.querySelector('.learning-path__title').getBoundingClientRect()
+              const number = getComputedStyle(link, '::before')
+              const icon = link.querySelector('.icon')?.getBoundingClientRect()
+              return { height: row.height, numberGap: title.left - row.left - parseFloat(number.width), iconGap: icon ? icon.left - title.right : null }
+            }))
+            for (const row of rows) {
+              expect(row.height).toBeGreaterThanOrEqual(44)
+              expect(row.numberGap).toBeGreaterThanOrEqual(13.5)
+              if (row.iconGap !== null) expect(row.iconGap).toBeGreaterThanOrEqual(13.5)
+            }
+            for (const group of await page.locator('#tools .resource-links__group').all()) {
+              const tracks = await group.locator('.resource-links__grid').evaluate(element => getComputedStyle(element).gridTemplateColumns.split(/\s+/).map(parseFloat))
+              const cards = await group.locator('.resource-card').evaluateAll(elements => elements.map(element => {
+                const rect = element.getBoundingClientRect()
+                const title = element.querySelector('.resource-card__title').getBoundingClientRect()
+                const media = element.querySelector('.resource-card__media').getBoundingClientRect()
+                const related = element.querySelector('.resource-card__related')?.getBoundingClientRect()
+                return {
+                  left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom, width: rect.width,
+                  titleLeft: title.left, titleRight: title.right, titleTop: title.top,
+                  mediaLeft: media.left, mediaRight: media.right, mediaTop: media.top, mediaBottom: media.bottom, mediaRatio: media.width / media.height,
+                  relatedLeft: related?.left, relatedRight: related?.right, relatedTop: related?.top, relatedBottom: related?.bottom,
+                }
+              }))
+              expect(cards.length).toBeGreaterThan(0)
+              expect(Math.max(...cards.map(card => card.width)) - Math.min(...cards.map(card => card.width))).toBeLessThan(1)
+              const columns = width > 820 ? 4 : width > 560 ? 3 : 2
+              expect(tracks).toHaveLength(columns)
+              for (let index = 0; index < cards.length; index++) {
+                const card = cards[index]
+                expect(card.titleLeft).toBeGreaterThanOrEqual(card.left)
+                expect(card.titleRight).toBeLessThanOrEqual(card.right)
+                expect(card.titleTop).toBeGreaterThanOrEqual(card.mediaBottom)
+                expect(card.mediaRatio).toBeCloseTo(1.6, 2)
+                expect(Math.abs(card.width - tracks[index % columns])).toBeLessThan(1)
+                if (card.relatedTop !== undefined) {
+                  expect(card.relatedTop).toBeGreaterThanOrEqual(card.mediaTop)
+                  expect(card.relatedLeft).toBeGreaterThanOrEqual(card.mediaLeft)
+                  expect(card.relatedRight).toBeLessThanOrEqual(card.mediaRight)
+                  expect(card.relatedBottom).toBeLessThanOrEqual(card.mediaBottom)
+                }
+                const rowStart = Math.floor(index / columns) * columns
+                expect(Math.abs(card.top - cards[rowStart].top)).toBeLessThan(1)
+                if (index % columns) expect(card.left).toBeGreaterThan(cards[index - 1].right)
+                if (index >= columns) {
+                  expect(card.top).toBeGreaterThan(cards[index - columns].bottom)
+                  expect(Math.abs(card.left - cards[index - columns].left)).toBeLessThan(1)
+                }
+              }
+            }
+            const courseDescriptions = await page.locator('#courses .project-card__copy > p').evaluateAll(elements => elements.map(element => {
+              const style = getComputedStyle(element)
+              return { height: element.getBoundingClientRect().height, lineHeight: parseFloat(style.lineHeight), whiteSpace: style.whiteSpace }
+            }))
+            expect(courseDescriptions).toHaveLength(2)
+            for (const description of courseDescriptions) {
+              expect(description.height).toBeLessThanOrEqual(description.lineHeight + 1)
+              expect(description.whiteSpace).toBe('nowrap')
+            }
+          } else {
+            await expect(page.locator('.skill-resources')).toHaveCount(0)
+          }
+          expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0)
+          for (const image of await page.locator('.learning-path__cover img, .resource-card__primary img').all()) {
+            if (!await image.isVisible()) continue
+            await image.scrollIntoViewIfNeeded()
+            await expect.poll(() => image.evaluate(element => element.complete && element.naturalWidth > 0)).toBe(true)
+            await expect(image).toHaveAttribute('alt', /\S/)
+            await expect(image).toHaveAttribute('width', /^\d+$/)
+            await expect(image).toHaveAttribute('height', /^\d+$/)
+            await expect(image).toHaveAttribute('loading', 'lazy')
+            await expect(image).toHaveAttribute('decoding', 'async')
+            const expectedFit = await image.evaluate(element => {
+              if (element.closest('#tools')) return 'contain'
+              return Number(element.getAttribute('width')) / Number(element.getAttribute('height')) < 2.2 ? 'contain' : 'cover'
+            })
+            await expect(image).toHaveCSS('object-fit', expectedFit)
+          }
+          await page.evaluate(() => window.scrollTo(0, 0))
+          await page.mouse.move(0, 0)
+          await mkdir('output/playwright', { recursive: true })
+          const screenshot = `output/playwright/${route === 'resources' ? 'resources-final-after' : 'skills-visual-after'}-${width}-${theme}.png`
+          if (route === 'resources' && width === 375) {
+            const scrollHeight = await page.evaluate(() => document.documentElement.scrollHeight)
+            expect(scrollHeight).toBeLessThan(5224 * 0.95)
+            await testInfo.attach('Mobile resources height', { body: JSON.stringify({ width, theme, scrollHeight, previousScrollHeight: 5224, change: scrollHeight - 5224 }), contentType: 'application/json' })
+          }
+          await page.screenshot({ path: screenshot, fullPage: true })
+          await testInfo.attach(`${route} page`, { path: screenshot, contentType: 'image/png' })
+        } finally {
+          await context.close()
+        }
+      })
+    }
+  }
+}
 
 test('skills promotes Numerologist as a theme-aware standalone project', async ({ page }) => {
   await page.goto('/skills')
@@ -1092,7 +1456,7 @@ test('skills promotes Numerologist as a theme-aware standalone project', async (
   await expect(page.locator('#agent-workflows')).not.toContainText('Numerologist Skills')
 })
 test('catalog and blog heroes share an extensible visible motion layer', async ({ page }) => {
-  for (const [route, variant] of [['/projects', 'projects'], ['/skills', 'skills'], ['/lab', 'lab'], ['/blog', 'blog']]) {
+  for (const [route, variant] of [['/projects', 'projects'], ['/skills', 'skills'], ['/resources', 'resources'], ['/blog', 'blog']]) {
     await page.goto(route)
     const host = page.locator(`[data-hero-motion="${variant}"]`)
     const motion = host.locator('.hero-motion')

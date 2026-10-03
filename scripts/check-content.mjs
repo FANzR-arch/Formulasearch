@@ -15,6 +15,7 @@ const contentChecks = [
   ['Blog image alt', [node, ['scripts/prepare-blog-image-alt.mjs', '--check']]],
   ['Blog image dimensions', [node, ['scripts/prepare-blog-image-dimensions.mjs', '--check']]],
   ['Photo archive regression', [node, ['scripts/test-photo-archive.mjs']]],
+  ['Resource links regression', [node, ['scripts/test-resource-links.mjs']]],
 ]
 
 export function runContentChecks() {

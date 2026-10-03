@@ -2,7 +2,7 @@ import { z } from 'astro/zod'
 import navigationContent from '../../content/site/navigation.json'
 import { localizedCopySchema } from '../lib/i18n'
 import { blogSectionNavigation } from './blog-navigation'
-import { labSections, projectSections, skillSections } from './catalog'
+import { projectSections, resourceSections, visibleResourceSections, skillSections } from './catalog'
 import { siteRoutes } from './site-routes'
 
 const navigationItemSchema = z.object({
@@ -12,7 +12,7 @@ const navigationItemSchema = z.object({
 }).strict()
 
 const primaryNavigationItemSchema = z.object({
-  id: z.enum(['blog', 'projects', 'skills', 'lab']),
+  id: z.enum(['blog', 'projects', 'skills', 'resources']),
   href: z.string().startsWith('/'),
   label: localizedCopySchema,
   menu: z.array(navigationItemSchema),
@@ -31,7 +31,12 @@ export type PrimarySection = z.infer<typeof primaryNavigationItemSchema>['id']
 export type NavigationItem = z.infer<typeof navigationItemSchema>
 export type PrimaryNavigationItem = z.infer<typeof primaryNavigationItemSchema>
 
-export const primaryNavigation = result.data.items
+const hiddenResourceHrefs = new Set(resourceSections
+  .filter((section) => !visibleResourceSections.some((visible) => visible.id === section.id))
+  .map((section) => `${siteRoutes.resources}#${section.id}`))
+export const primaryNavigation = result.data.items.map((section) => section.id === 'resources'
+  ? { ...section, menu: section.menu.filter((item) => !hiddenResourceHrefs.has(item.href)) }
+  : section)
 
 const sectionIds = primaryNavigation.map((section) => section.id)
 if (new Set(sectionIds).size !== sectionIds.length) throw new Error('Navigation content validation failed: duplicate primary ids.')
@@ -43,7 +48,7 @@ const expectedMenus: Record<PrimarySection, Pick<NavigationItem, 'href' | 'label
   blog: blogSectionNavigation.items.filter((item) => item.id !== 'all'),
   projects: projectSections.map((section) => ({ href: `${siteRoutes.projects}#${section.id}`, label: section.title })),
   skills: skillSections.map((section) => ({ href: `${siteRoutes.skills}#${section.id}`, label: section.title })),
-  lab: labSections.map((section) => ({ href: `${siteRoutes.lab}#${section.id}`, label: section.title })),
+  resources: visibleResourceSections.map((section) => ({ href: `${siteRoutes.resources}#${section.id}`, label: section.title })),
 }
 
 for (const section of primaryNavigation) {

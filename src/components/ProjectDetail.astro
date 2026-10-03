@@ -2,7 +2,7 @@
 import Icon from './icon-system/Icon.astro'
 import LocalizedText from './LocalizedText.astro'
 import PageHero from './PageHero.astro'
-import { labSections, type CatalogProjectItem } from '../data/catalog'
+import { resourceSections, type CatalogProjectItem } from '../data/catalog'
 import { getLocalizedValue, type Locale } from '../lib/i18n'
 import { getResponsiveProjectImage } from '../lib/project-images'
 
@@ -12,9 +12,9 @@ interface Props {
 }
 
 const { locale = 'zh', project } = Astro.props
-const labSection = labSections.find((section) => (section.presentation === 'projects' ? section.items : section.presentation === 'list' ? section.projects ?? [] : []).some((item) => item.id === project.id))
-const backHref = `${locale === 'en' ? '/en' : ''}${labSection ? `/lab#${labSection.id}` : '/projects'}`
-const backLabel = labSection?.id === 'courses' ? { zh: '返回课程', en: 'Back to courses' } : labSection ? { zh: '返回探索', en: 'Back to Explore' } : { zh: '返回项目', en: 'Back to projects' }
+const resourceSection = resourceSections.find((section) => (section.presentation === 'projects' ? section.items : section.presentation === 'list' ? section.projects ?? [] : []).some((item) => item.id === project.id))
+const backHref = `${locale === 'en' ? '/en' : ''}${resourceSection ? `/resources#${resourceSection.id}` : '/projects'}`
+const backLabel = resourceSection?.id === 'courses' ? { zh: '返回课程', en: 'Back to courses' } : resourceSection ? { zh: '返回资源', en: 'Back to Resources' } : { zh: '返回项目', en: 'Back to projects' }
 const title = { zh: project.zh, en: project.en }
 const { detail } = project
 const hasMultipleImages = detail.gallery.length > 1

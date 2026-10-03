@@ -1334,6 +1334,240 @@
               }
             ]
           }
+        },
+        {
+          "id": "lab",
+          "zh": "Lab & Concepts",
+          "en": "Lab & Concepts",
+          "cover": {
+            "light": "/uploads/projects/lab/cover-light.png",
+            "dark": "/uploads/projects/lab/cover-dark.png"
+          },
+          "coverAlt": {
+            "zh": "Lab & Concepts 的 AI 实验室插画",
+            "en": "Lab & Concepts AI experiment studio illustration"
+          },
+          "description": {
+            "zh": "存放尚未长成完整产品的方向实验，用更低成本测试交互方式、信息结构和可行性。",
+            "en": "A place for ideas that are not ready to become full products, but still deserve a small test."
+          },
+          "year": "2025",
+          "role": {
+            "zh": "设计 / 开发",
+            "en": "Design / Development"
+          },
+          "detail": {
+            "problemLine": {
+              "zh": "新工具和交互方向需要先用小实验验证，再决定是否投入完整产品。",
+              "en": "New tools and interaction ideas need a small test before they deserve full product investment."
+            },
+            "keywords": [
+              {
+                "zh": "工作流",
+                "en": "Workflow"
+              },
+              {
+                "zh": "原型",
+                "en": "Prototype"
+              },
+              {
+                "zh": "参数化设计",
+                "en": "Parametric design"
+              },
+              {
+                "zh": "AI Skills",
+                "en": "AI Skills"
+              }
+            ],
+            "gallery": [
+              {
+                "src": "/uploads/projects/lab/01.png",
+                "alt": {
+                  "zh": "由多个节点组成的 ComfyUI 图像工作流",
+                  "en": "A multi-node ComfyUI image workflow"
+                }
+              },
+              {
+                "src": "/uploads/projects/lab/02.png",
+                "alt": {
+                  "zh": "建筑和景观视觉提示词的生成结果对照",
+                  "en": "Generated architecture and landscape prompt comparisons"
+                }
+              },
+              {
+                "src": "/uploads/projects/lab/03.png",
+                "alt": {
+                  "zh": "Grasshopper 参数化四合院模型与节点定义",
+                  "en": "Grasshopper parametric courtyard model and node definition"
+                }
+              },
+              {
+                "src": "/uploads/projects/lab/04.png",
+                "alt": {
+                  "zh": "个人 AI 的知识库意图路由工作流",
+                  "en": "Personal AI knowledge and intent routing workflow"
+                }
+              }
+            ],
+            "context": {
+              "zh": "很多想法在最初阶段并不知道是否值得产品化。先做一条工作流、一个可运行原型或一套规则，比一开始就搭完整系统更容易看见真实问题。",
+              "en": "At the beginning, many ideas do not yet justify a full product. A workflow, runnable prototype, or constrained ruleset reveals the real problem sooner than a complete system."
+            },
+            "problems": [
+              {
+                "zh": "AI 生成结果容易受提示词、模型和工作流节点变化影响。",
+                "en": "AI outputs can change sharply with prompts, models, and workflow nodes."
+              },
+              {
+                "zh": "专业领域规则若只写在自然语言里，很难稳定复现和检查。",
+                "en": "Domain rules written only in natural language are difficult to reproduce and audit."
+              },
+              {
+                "zh": "过早包装成完整产品会放大实现与维护成本。",
+                "en": "Premature product packaging increases implementation and maintenance cost."
+              }
+            ],
+            "goal": {
+              "zh": "用小规模、可回看的实验判断一个方向是否值得继续。",
+              "en": "Use small, reviewable experiments to decide whether a direction deserves further work."
+            },
+            "solution": {
+              "zh": "针对一个具体问题建立最小实验，记录输入、约束、处理步骤和输出，再根据可控性与复用价值决定是否继续。",
+              "en": "Build the smallest experiment around one problem, record its input, constraints, steps, and output, then continue only when control or reuse value is clear."
+            },
+            "design": [
+              {
+                "zh": "让复杂流程以节点、参数或脚本形式可见。",
+                "en": "Make complex processes visible as nodes, parameters, or scripts."
+              },
+              {
+                "zh": "把领域知识拆成规则、参考资料与可执行步骤。",
+                "en": "Separate domain knowledge into rules, references, and executable steps."
+              },
+              {
+                "zh": "保留实验截图和公开仓库，让结果可以回看与复用。",
+                "en": "Keep screenshots and public repositories so results can be reviewed and reused."
+              }
+            ],
+            "workflow": {
+              "zh": "实验按问题选用 ComfyUI、Grasshopper、Coze、脚本与 Agent Skills；共同方法是先固定输入和边界，再检查中间步骤与最终输出。",
+              "en": "Experiments use ComfyUI, Grasshopper, Coze, scripts, and agent skills according to the problem. The shared method is to fix inputs and boundaries first, then inspect intermediate steps and final output."
+            },
+            "strengths": [
+              {
+                "zh": "小规模原型能快速暴露工作流中的真实摩擦。",
+                "en": "Small prototypes expose real workflow friction quickly."
+              },
+              {
+                "zh": "已经沉淀出可复用的节点流程、参数定义和公开 Skills。",
+                "en": "The lab has produced reusable node graphs, parametric definitions, and public skills."
+              }
+            ],
+            "limitations": [
+              {
+                "zh": "不同实验的成熟度不一致，部分仍只有方向验证。",
+                "en": "The experiments are at different maturity levels, and some remain directional tests."
+              },
+              {
+                "zh": "实验结果尚未统一成可比较的长期使用指标。",
+                "en": "Results have not yet been normalized into comparable long-term usage metrics."
+              }
+            ],
+            "experiments": [
+              {
+                "title": {
+                  "zh": "ComfyUI 工作流实验",
+                  "en": "ComfyUI workflow studies"
+                },
+                "tag": {
+                  "zh": "节点式生成",
+                  "en": "Node-based generation"
+                },
+                "description": {
+                  "zh": "把生成、修复、放大与自动化步骤整理成可见节点链路。",
+                  "en": "Organizes generation, restoration, upscaling, and automation as a visible node graph."
+                },
+                "image": "/uploads/projects/lab/01.png"
+              },
+              {
+                "title": {
+                  "zh": "建筑视觉提示词实验",
+                  "en": "Architectural prompt studies"
+                },
+                "tag": {
+                  "zh": "多模态生成",
+                  "en": "Multimodal generation"
+                },
+                "description": {
+                  "zh": "对照提示词结构、参考图和候选结果，验证视觉方向的可控性。",
+                  "en": "Compares prompt structures, references, and results to test visual controllability."
+                },
+                "image": "/uploads/projects/lab/02.png"
+              },
+              {
+                "title": {
+                  "zh": "参数化古建生成",
+                  "en": "Parametric heritage generator"
+                },
+                "tag": {
+                  "zh": "Grasshopper",
+                  "en": "Grasshopper"
+                },
+                "description": {
+                  "zh": "把四合院与传统木构规则写入参数定义，用数据驱动三维模型。",
+                  "en": "Encodes courtyard and timber construction rules in a data-driven 3D definition."
+                },
+                "image": "/uploads/projects/lab/03.png"
+              },
+              {
+                "title": {
+                  "zh": "个人 AI 意图路由",
+                  "en": "Personal AI intent router"
+                },
+                "tag": {
+                  "zh": "Coze 工作流",
+                  "en": "Coze workflow"
+                },
+                "description": {
+                  "zh": "识别来访者意图，分流到产品知识、个人项目、联系方式或自我介绍。",
+                  "en": "Routes visitor intent to product knowledge, projects, contact details, or an introduction."
+                },
+                "image": "/uploads/projects/lab/04.png"
+              },
+              {
+                "title": {
+                  "zh": "Numerologist Skills",
+                  "en": "Numerologist Skills"
+                },
+                "tag": {
+                  "zh": "术数工程化",
+                  "en": "Auditable domain rules"
+                },
+                "description": {
+                  "zh": "用固定脚本、规则集与参考资料约束奇门遁甲和紫微斗数的计算与解释。",
+                  "en": "Uses deterministic scripts, rulesets, and references to constrain calculation and interpretation."
+                },
+                "image": "/uploads/projects/lab/numerologist-skills.svg",
+                "externalUrl": "https://github.com/FANzR-arch/Numerologist_skills"
+              },
+              {
+                "title": {
+                  "zh": "Phil Design Skills",
+                  "en": "Phil Design Skills"
+                },
+                "tag": {
+                  "zh": "视觉提示词系统",
+                  "en": "Visual prompt system"
+                },
+                "description": {
+                  "zh": "19 套为 gpt-image-2 编写的视觉风格 Skills，可把文章、主题、产品或已有资产编译成完整提示词。",
+                  "en": "Nineteen visual-style skills for gpt-image-2 that compile articles, themes, products, or assets into complete prompts."
+                },
+                "image": "/uploads/projects/lab/prompt-skills.svg",
+                "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills"
+              }
+            ]
+          }
         }
       ]
     },
@@ -1890,294 +2124,14 @@
             "en": "Collects local records from multiple agents into reviewable daily, weekly, and monthly logs."
           },
           "externalUrl": "https://github.com/FANzR-arch/agent-worklog"
-        },
-        {
-          "zh": "SEO × GEO 入门课",
-          "en": "SEO × GEO Foundations",
-          "tag": {
-            "zh": "研究与增长工作流",
-            "en": "Research and growth workflow"
-          },
-          "description": {
-            "zh": "从搜索基础、页面优化和技术 SEO 走到生成式搜索中的发现、理解与引用。",
-            "en": "A guided path from search fundamentals and technical SEO to discovery and citation in generative search."
-          },
-          "externalUrl": "https://seo-learn-eight.vercel.app/"
         }
       ]
     }
   ],
-  "lab": [
-    {
-      "id": "experiments",
-      "label": "01",
-      "title": {
-        "zh": "实验",
-        "en": "Experiments"
-      },
-      "description": {
-        "zh": "未必成熟，但已经值得被观看、试玩或继续推演的方向。",
-        "en": "Directions not yet finished, but already worth seeing, trying, or extending."
-      },
-      "items": [
-        {
-          "zh": "Aesthetic Formulas",
-          "en": "Aesthetic Formulas",
-          "externalUrl": "https://fanzr-arch.github.io/Phil-aesthetic-formulas/"
-        },
-        {
-          "zh": "动态背景与交互视觉",
-          "en": "Dynamic backgrounds and interactive visuals"
-        },
-        {
-          "zh": "原型、生成式图像与数字人测试",
-          "en": "Prototypes, generated images, and digital-human tests"
-        },
-        {
-          "zh": "AI 辅助设计与生产实验",
-          "en": "AI-assisted design and production experiments"
-        }
-      ],
-      "projects": [
-        {
-          "id": "lab",
-          "zh": "Lab & Concepts",
-          "en": "Lab & Concepts",
-          "cover": {
-            "light": "/uploads/projects/lab/cover-light.png",
-            "dark": "/uploads/projects/lab/cover-dark.png"
-          },
-          "coverAlt": {
-            "zh": "Lab & Concepts 的 AI 实验室插画",
-            "en": "Lab & Concepts AI experiment studio illustration"
-          },
-          "description": {
-            "zh": "存放尚未长成完整产品的方向实验，用更低成本测试交互方式、信息结构和可行性。",
-            "en": "A place for ideas that are not ready to become full products, but still deserve a small test."
-          },
-          "year": "2025",
-          "role": {
-            "zh": "设计 / 开发",
-            "en": "Design / Development"
-          },
-          "detail": {
-            "problemLine": {
-              "zh": "新工具和交互方向需要先用小实验验证，再决定是否投入完整产品。",
-              "en": "New tools and interaction ideas need a small test before they deserve full product investment."
-            },
-            "keywords": [
-              {
-                "zh": "工作流",
-                "en": "Workflow"
-              },
-              {
-                "zh": "原型",
-                "en": "Prototype"
-              },
-              {
-                "zh": "参数化设计",
-                "en": "Parametric design"
-              },
-              {
-                "zh": "AI Skills",
-                "en": "AI Skills"
-              }
-            ],
-            "gallery": [
-              {
-                "src": "/uploads/projects/lab/01.png",
-                "alt": {
-                  "zh": "由多个节点组成的 ComfyUI 图像工作流",
-                  "en": "A multi-node ComfyUI image workflow"
-                }
-              },
-              {
-                "src": "/uploads/projects/lab/02.png",
-                "alt": {
-                  "zh": "建筑和景观视觉提示词的生成结果对照",
-                  "en": "Generated architecture and landscape prompt comparisons"
-                }
-              },
-              {
-                "src": "/uploads/projects/lab/03.png",
-                "alt": {
-                  "zh": "Grasshopper 参数化四合院模型与节点定义",
-                  "en": "Grasshopper parametric courtyard model and node definition"
-                }
-              },
-              {
-                "src": "/uploads/projects/lab/04.png",
-                "alt": {
-                  "zh": "个人 AI 的知识库意图路由工作流",
-                  "en": "Personal AI knowledge and intent routing workflow"
-                }
-              }
-            ],
-            "context": {
-              "zh": "很多想法在最初阶段并不知道是否值得产品化。先做一条工作流、一个可运行原型或一套规则，比一开始就搭完整系统更容易看见真实问题。",
-              "en": "At the beginning, many ideas do not yet justify a full product. A workflow, runnable prototype, or constrained ruleset reveals the real problem sooner than a complete system."
-            },
-            "problems": [
-              {
-                "zh": "AI 生成结果容易受提示词、模型和工作流节点变化影响。",
-                "en": "AI outputs can change sharply with prompts, models, and workflow nodes."
-              },
-              {
-                "zh": "专业领域规则若只写在自然语言里，很难稳定复现和检查。",
-                "en": "Domain rules written only in natural language are difficult to reproduce and audit."
-              },
-              {
-                "zh": "过早包装成完整产品会放大实现与维护成本。",
-                "en": "Premature product packaging increases implementation and maintenance cost."
-              }
-            ],
-            "goal": {
-              "zh": "用小规模、可回看的实验判断一个方向是否值得继续。",
-              "en": "Use small, reviewable experiments to decide whether a direction deserves further work."
-            },
-            "solution": {
-              "zh": "针对一个具体问题建立最小实验，记录输入、约束、处理步骤和输出，再根据可控性与复用价值决定是否继续。",
-              "en": "Build the smallest experiment around one problem, record its input, constraints, steps, and output, then continue only when control or reuse value is clear."
-            },
-            "design": [
-              {
-                "zh": "让复杂流程以节点、参数或脚本形式可见。",
-                "en": "Make complex processes visible as nodes, parameters, or scripts."
-              },
-              {
-                "zh": "把领域知识拆成规则、参考资料与可执行步骤。",
-                "en": "Separate domain knowledge into rules, references, and executable steps."
-              },
-              {
-                "zh": "保留实验截图和公开仓库，让结果可以回看与复用。",
-                "en": "Keep screenshots and public repositories so results can be reviewed and reused."
-              }
-            ],
-            "workflow": {
-              "zh": "实验按问题选用 ComfyUI、Grasshopper、Coze、脚本与 Agent Skills；共同方法是先固定输入和边界，再检查中间步骤与最终输出。",
-              "en": "Experiments use ComfyUI, Grasshopper, Coze, scripts, and agent skills according to the problem. The shared method is to fix inputs and boundaries first, then inspect intermediate steps and final output."
-            },
-            "strengths": [
-              {
-                "zh": "小规模原型能快速暴露工作流中的真实摩擦。",
-                "en": "Small prototypes expose real workflow friction quickly."
-              },
-              {
-                "zh": "已经沉淀出可复用的节点流程、参数定义和公开 Skills。",
-                "en": "The lab has produced reusable node graphs, parametric definitions, and public skills."
-              }
-            ],
-            "limitations": [
-              {
-                "zh": "不同实验的成熟度不一致，部分仍只有方向验证。",
-                "en": "The experiments are at different maturity levels, and some remain directional tests."
-              },
-              {
-                "zh": "实验结果尚未统一成可比较的长期使用指标。",
-                "en": "Results have not yet been normalized into comparable long-term usage metrics."
-              }
-            ],
-            "experiments": [
-              {
-                "title": {
-                  "zh": "ComfyUI 工作流实验",
-                  "en": "ComfyUI workflow studies"
-                },
-                "tag": {
-                  "zh": "节点式生成",
-                  "en": "Node-based generation"
-                },
-                "description": {
-                  "zh": "把生成、修复、放大与自动化步骤整理成可见节点链路。",
-                  "en": "Organizes generation, restoration, upscaling, and automation as a visible node graph."
-                },
-                "image": "/uploads/projects/lab/01.png"
-              },
-              {
-                "title": {
-                  "zh": "建筑视觉提示词实验",
-                  "en": "Architectural prompt studies"
-                },
-                "tag": {
-                  "zh": "多模态生成",
-                  "en": "Multimodal generation"
-                },
-                "description": {
-                  "zh": "对照提示词结构、参考图和候选结果，验证视觉方向的可控性。",
-                  "en": "Compares prompt structures, references, and results to test visual controllability."
-                },
-                "image": "/uploads/projects/lab/02.png"
-              },
-              {
-                "title": {
-                  "zh": "参数化古建生成",
-                  "en": "Parametric heritage generator"
-                },
-                "tag": {
-                  "zh": "Grasshopper",
-                  "en": "Grasshopper"
-                },
-                "description": {
-                  "zh": "把四合院与传统木构规则写入参数定义，用数据驱动三维模型。",
-                  "en": "Encodes courtyard and timber construction rules in a data-driven 3D definition."
-                },
-                "image": "/uploads/projects/lab/03.png"
-              },
-              {
-                "title": {
-                  "zh": "个人 AI 意图路由",
-                  "en": "Personal AI intent router"
-                },
-                "tag": {
-                  "zh": "Coze 工作流",
-                  "en": "Coze workflow"
-                },
-                "description": {
-                  "zh": "识别来访者意图，分流到产品知识、个人项目、联系方式或自我介绍。",
-                  "en": "Routes visitor intent to product knowledge, projects, contact details, or an introduction."
-                },
-                "image": "/uploads/projects/lab/04.png"
-              },
-              {
-                "title": {
-                  "zh": "Numerologist Skills",
-                  "en": "Numerologist Skills"
-                },
-                "tag": {
-                  "zh": "术数工程化",
-                  "en": "Auditable domain rules"
-                },
-                "description": {
-                  "zh": "用固定脚本、规则集与参考资料约束奇门遁甲和紫微斗数的计算与解释。",
-                  "en": "Uses deterministic scripts, rulesets, and references to constrain calculation and interpretation."
-                },
-                "image": "/uploads/projects/lab/numerologist-skills.svg",
-                "externalUrl": "https://github.com/FANzR-arch/Numerologist_skills"
-              },
-              {
-                "title": {
-                  "zh": "Phil Design Skills",
-                  "en": "Phil Design Skills"
-                },
-                "tag": {
-                  "zh": "视觉提示词系统",
-                  "en": "Visual prompt system"
-                },
-                "description": {
-                  "zh": "19 套为 gpt-image-2 编写的视觉风格 Skills，可把文章、主题、产品或已有资产编译成完整提示词。",
-                  "en": "Nineteen visual-style skills for gpt-image-2 that compile articles, themes, products, or assets into complete prompts."
-                },
-                "image": "/uploads/projects/lab/prompt-skills.svg",
-                "externalUrl": "https://github.com/FANzR-arch/Phil-design-skills"
-              }
-            ]
-          }
-        }
-      ]
-    },
+  "resources": [
     {
       "id": "courses",
-      "label": "02",
+      "label": "01",
       "title": {
         "zh": "课程",
         "en": "Courses"
@@ -2439,28 +2393,161 @@
       "presentation": "projects"
     },
     {
-      "id": "now",
-      "label": "03",
+      "id": "paths",
+      "label": "02",
       "title": {
-        "zh": "当下",
-        "en": "Now"
+        "zh": "学习路径",
+        "en": "Learning Paths"
       },
       "description": {
-        "zh": "不是成就墙，而是对正在做什么保持一个可追踪的公开切面。",
-        "en": "Not a wall of achievements, but a public and traceable view of work in progress."
+        "zh": "不知道从哪篇读起？按主题排好了顺序，挑一条，从第一篇开始。",
+        "en": "Not sure where to start? Posts grouped by topic and put in reading order. Pick one and begin at the top."
       },
-      "items": [
+      "presentation": "paths",
+      "paths": [
         {
-          "zh": "把产品、网站、Skills 组织成长期系统",
-          "en": "Organising products, sites, and Skills into long-term systems"
+          "id": "ai-basics",
+          "title": {
+            "zh": "AI 入门：先搞懂再动手",
+            "en": "AI Basics: Understand Before You Build"
+          },
+          "description": {
+            "zh": "从概念、提示词到 Agent，先建立对 AI 的基本判断。",
+            "en": "From core concepts and prompts to agents: build a basic sense of how AI works."
+          },
+          "cover": "ai-knowledge-2025-12-09",
+          "posts": [
+            "ai-knowledge-2025-12-09",
+            "prompt-sharing-2025-12-17",
+            "ai-knowledge-2026-01-03",
+            "ai-knowledge-2026-02-05",
+            "ai-practice-2026-02-22"
+          ]
         },
         {
-          "zh": "继续探索 AI、设计与互联网的交叉处",
-          "en": "Exploring the intersection of AI, design, and the internet"
+          "id": "agent-workflows",
+          "title": {
+            "zh": "Agent 工作流：从对话到系统",
+            "en": "Agent Workflows: From Chat to System"
+          },
+          "description": {
+            "zh": "把 Claude Code、Codex 等 Agent 从聊天工具变成稳定的工作系统。",
+            "en": "Turn agents such as Claude Code and Codex from chat tools into a dependable working system."
+          },
+          "cover": "graph-engineering-multi-agent",
+          "posts": [
+            "ai-practice-2026-03-11",
+            "ai-practice-2026-05-25",
+            "obsidian-canvas-agent-collaboration",
+            "graph-engineering-multi-agent",
+            "ai-practice-2026-04-13"
+          ]
         },
         {
-          "zh": "摄影、旅行与途中记录",
-          "en": "Photography, travel, and field notes"
+          "id": "ai-visual-video",
+          "title": {
+            "zh": "AI 视觉与视频",
+            "en": "AI Visuals & Video"
+          },
+          "description": {
+            "zh": "从提示词的取舍，到图像、数字人与 ComfyUI 视频工作流。",
+            "en": "From restraint in prompting to images, digital humans, and ComfyUI video workflows."
+          },
+          "cover": "comfyui-minimax-h3-beginner-guide",
+          "posts": [
+            "less-is-more-2026-04-30",
+            "less-is-more-2026-05-08",
+            "less-is-more-2026-05-16",
+            "ai-practice-2026-03-27",
+            "realistic-ai-digital-human",
+            "comfyui-minimax-h3-beginner-guide",
+            "minimax-h3-skills-examples"
+          ]
+        },
+        {
+          "id": "fde",
+          "title": {
+            "zh": "FDE 与 AI 落地",
+            "en": "FDE & Real-World AI Adoption"
+          },
+          "description": {
+            "zh": "AI 怎样真正进入企业和社区：岗位、路径与常见顾虑。",
+            "en": "How AI actually lands in companies and communities: the role, the path, and common concerns."
+          },
+          "cover": "fde-beginner-roadmap",
+          "posts": [
+            "fde-outsourcing-or-ai-deployment",
+            "fde-beginner-roadmap",
+            "ai-customer-service-five-concerns"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "label": "03",
+      "title": {
+        "zh": "工具与网站",
+        "en": "Tools & Sites"
+      },
+      "description": {
+        "zh": "做设计和内容时常用的网站与小工具。",
+        "en": "Websites and small tools for design and content creation."
+      },
+      "presentation": "resource-links",
+      "groups": [
+        {
+          "id": "icons",
+          "title": {
+            "zh": "图标",
+            "en": "Icons"
+          },
+          "icon": "resources-icons",
+          "items": [
+            {
+              "id": "lucide",
+              "zh": "Lucide",
+              "en": "Lucide",
+              "image": "/uploads/resources/lucide.webp",
+              "imageAlt": {
+                "zh": "Lucide 开源图标库官方分享图",
+                "en": "Official sharing image for the Lucide open-source icon library"
+              },
+              "description": {
+                "zh": "本站使用的开源图标库，线性风格统一，可直接复制 SVG 或按框架引入。",
+                "en": "The open-source icon library used on this site, with a consistent outline style. Copy SVGs or use a framework package."
+              },
+              "url": "https://lucide.dev",
+              "source": "external"
+            }
+          ]
+        },
+        {
+          "id": "motion",
+          "title": {
+            "zh": "动效",
+            "en": "Motion"
+          },
+          "icon": "resources-motion",
+          "items": []
+        },
+        {
+          "id": "assets",
+          "title": {
+            "zh": "素材",
+            "en": "Assets"
+          },
+          "icon": "resources-assets",
+          "items": []
+        },
+        {
+          "id": "own-tools",
+          "title": {
+            "zh": "我做的小工具",
+            "en": "Tools I Built"
+          },
+          "icon": "resources-own-tools",
+          "items": []
         }
       ]
     }
@@ -2518,30 +2605,26 @@
         "en": "Skill categories"
       }
     },
-    "lab": {
+    "resources": {
       "title": {
-        "zh": "探索",
-        "en": "Explore"
+        "zh": "资源",
+        "en": "Resources"
       },
       "description": {
-        "zh": "Phil 正在测试、学习和推进的实验与课程。",
-        "en": "Experiments and courses Phil is testing, learning, and moving forward."
+        "zh": "Phil 整理的课程、学习路径与工具网站，用于 AI、设计和内容创作。",
+        "en": "Courses, learning paths, and tools curated by Phil for AI, design, and content creation."
       },
       "kicker": {
-        "zh": "进行中 / 仍在形成",
-        "en": "In progress / still becoming"
+        "zh": "从这里开始",
+        "en": "Start here"
       },
       "heading": {
-        "zh": "探索",
-        "en": "Explore"
-      },
-      "intro": {
-        "zh": "实验、课程，以及尚在形成中的兴趣与方法。",
-        "en": "Experiments, courses, and interests and methods still taking shape."
+        "zh": "资源",
+        "en": "Resources"
       },
       "indexLabel": {
-        "zh": "探索分类",
-        "en": "Explore categories"
+        "zh": "资源分类",
+        "en": "Resource categories"
       }
     }
   }

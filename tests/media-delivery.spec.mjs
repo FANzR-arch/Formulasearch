@@ -1,5 +1,14 @@
 import { expect, test } from '@playwright/test'
 
+const getResponsiveImageSources = (image) => image.evaluate(element => {
+  const picture = element.closest('picture')
+  const srcsets = [element.getAttribute('srcset'), ...[...(picture?.querySelectorAll('source[srcset]') || [])].map(source => source.getAttribute('srcset'))].filter(Boolean)
+  return srcsets.flatMap(srcset => srcset.split(',').map(candidate => {
+    const [src, width] = candidate.trim().split(/\s+/)
+    return { src: new URL(src, document.baseURI).pathname, width: parseInt(width, 10) }
+  }))
+})
+
 for (const width of [1280, 390]) {
   test(`video rail arrows replace scrollbars at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 })
@@ -192,7 +201,7 @@ test('project motion videos load on demand, play, and link to their original pos
 })
 
 for (const theme of ['light', 'dark']) {
-  for (const pathname of ['/', '/lab']) {
+  for (const pathname of ['/', '/projects']) {
     test(`${pathname} loads only the saved ${theme} image and switches themes`, async ({ page }) => {
       // A saved choice must win even when the operating system prefers the other theme.
       await page.emulateMedia({ colorScheme: theme === 'light' ? 'dark' : 'light', reducedMotion: 'reduce' })
@@ -220,7 +229,7 @@ for (const theme of ['light', 'dark']) {
       await image.scrollIntoViewIfNeeded()
       const nextTheme = theme === 'light' ? 'dark' : 'light'
       await expect.poll(() => image.evaluate((element, expected) => element.complete && element.naturalWidth > 0 && expected.includes(new URL(element.currentSrc).pathname), sources[nextTheme])).toBe(true)
-      if (pathname === '/lab') {
+      if (pathname === '/projects') {
         await page.locator('#language-toggle').click()
         await expect(image).toHaveAttribute('alt', await image.getAttribute('data-alt-en'))
       }
@@ -228,11 +237,47 @@ for (const theme of ['light', 'dark']) {
   }
 }
 
+for (const width of [1280, 375]) {
+  test(`resource Lucide cover loads responsive images on demand without original PNGs at ${width}px`, async ({ browser, baseURL }) => {
+    // Keep the first viewport short so the final tool card stays outside native lazy-loading's prefetch range.
+    const context = await browser.newContext({ baseURL, viewport: { width, height: 300 }, hasTouch: width === 375, reducedMotion: 'reduce' })
+    try {
+      const page = await context.newPage()
+      const requested = new Set()
+      page.on('request', request => { if (request.resourceType() === 'image') requested.add(new URL(request.url()).pathname) })
+      await page.goto('/resources')
+      const cover = page.locator('#resource-lucide .resource-card__primary img')
+      await expect(cover).toHaveAttribute('loading', 'lazy')
+      await expect(cover).toHaveAttribute('decoding', 'async')
+      const sources = await getResponsiveImageSources(cover)
+      expect(sources.length).toBeGreaterThan(1)
+      expect(sources.every(source => Number.isFinite(source.width))).toBe(true)
+      await page.waitForLoadState('networkidle')
+      for (const source of sources) expect(requested.has(source.src)).toBe(false)
+
+      await cover.scrollIntoViewIfNeeded()
+      await expect.poll(() => cover.evaluate(element => element.complete && element.naturalWidth > 0)).toBe(true)
+      const current = await cover.evaluate(element => new URL(element.currentSrc).pathname)
+      expect(sources.map(source => source.src)).toContain(current)
+      expect(requested.has(current)).toBe(true)
+      expect(current).toMatch(/\.(?:avif|webp)$/)
+      await expect(cover).toHaveAttribute('alt', /\S/)
+      await expect(cover).toHaveAttribute('width', /^\d+$/)
+      await expect(cover).toHaveAttribute('height', /^\d+$/)
+      await expect(cover).toHaveCSS('object-fit', 'contain')
+      const originals = [...requested].filter(source => /^\/uploads\/(?:blog|projects|resources)\/.*\.png$/i.test(source))
+      expect(originals).toEqual([])
+    } finally {
+      await context.close()
+    }
+  })
+}
+
 test('images and native pointer remain usable without JavaScript', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, baseURL })
   try {
     const page = await context.newPage()
-    for (const pathname of ['/', '/lab']) {
+    for (const pathname of ['/', '/projects']) {
       await page.goto(pathname)
       const image = page.locator(pathname === '/' ? '.home-avatar__image:visible' : '.project-card[href="/projects/lab"] img')
       await image.scrollIntoViewIfNeeded()

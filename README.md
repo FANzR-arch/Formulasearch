@@ -15,7 +15,7 @@ Formulasearch 记录这些过程中的公开成果——一部分来自独立探
 | [博客](https://rzcthink.top/blog) | AI 与工具、美学系统、个人笔记；文章使用本地媒体、结构化元数据与 RSS 输出。 |
 | [项目](https://rzcthink.top/projects) | 产品与工具、网站与交互页面，以及可公开的合作项目。 |
 | [Skills](https://rzcthink.top/skills) | 设计技能、Agent 工作流、SOP 与可复用资产索引。 |
-| [实验](https://rzcthink.top/lab) | 动态视觉、原型、课程与正在测试的方向。 |
+| [资源](https://rzcthink.top/resources) | 课程、按主题排序的学习路径、工具网站与 AIGC 提示词资源。 |
 | [建筑](https://rzcthink.top/architecture) | 建筑设计项目与过程材料，按时间归档。 |
 | [图像](https://rzcthink.top/photos) | 摄影、旅行与途中记录的图像片段。 |
 | [伙伴](https://rzcthink.top/partners) | 与合作伙伴相关的网站和交付入口。 |

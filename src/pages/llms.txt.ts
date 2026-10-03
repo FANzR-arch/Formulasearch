@@ -18,7 +18,7 @@ export const GET: APIRoute = async () => {
     [siteRoutes.home]: pageMeta.home.description.en,
     [siteRoutes.projects]: catalogPages.projects.description.en,
     [siteRoutes.skills]: catalogPages.skills.description.en,
-    [siteRoutes.lab]: catalogPages.lab.description.en,
+    [siteRoutes.resources]: catalogPages.resources.description.en,
     [siteRoutes.photos]: photoArchivePage.pageDescription.en,
     [siteRoutes.architecture]: architecturePage.pageDescription.en,
     [siteRoutes.partners]: partnersPage.description.en,

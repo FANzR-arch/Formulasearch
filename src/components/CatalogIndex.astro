@@ -6,6 +6,12 @@ import ProjectCard from './ProjectCard.astro'
 import ProjectShowcase from './ProjectShowcase.astro'
 import ProjectVideos from './ProjectVideos.astro'
 import GenerativeHoverType from './GenerativeHoverType.astro'
+import LearningPaths from './LearningPaths.astro'
+import ResourceLinks from './ResourceLinks.astro'
+import SkillResourceLinks from './SkillResourceLinks.astro'
+import { resourceSections, skillSections, projectItems } from '../data/catalog'
+import { getBlogPosts } from '../lib/blog-content'
+import { validateResourceReferences } from '../lib/resource-links'
 import type { CatalogPage, CatalogSection } from '../data/catalog'
 import type { Locale } from '../lib/i18n'
 import type { ImageMetadata } from 'astro'
@@ -13,7 +19,7 @@ import ThemeImage from './ThemeImage.astro'
 
 interface Props {
   page: CatalogPage
-  motionVariant: 'projects' | 'skills' | 'lab'
+  motionVariant: 'projects' | 'skills' | 'resources'
   sections: CatalogSection[]
   locale?: Locale
 }
@@ -21,16 +27,19 @@ interface Props {
 const { motionVariant, page, sections, locale = 'zh' } = Astro.props
 const projectRoot = locale === 'en' ? '/en/projects' : '/projects'
 const skillCovers = import.meta.glob<ImageMetadata>('/public/uploads/skills/**/cover*.{webp,png,jpg,jpeg}', { eager: true, import: 'default' })
+if (motionVariant === 'resources' || motionVariant === 'skills') {
+  validateResourceReferences(resourceSections, skillSections, projectItems, await getBlogPosts())
+}
 ---
 
 <PageHero title={page.heading} description={page.intro} motionVariant={motionVariant} />
 {sections.length > 0 && (
-  <div class="catalog-sections">
+  <div class:list={['catalog-sections', { 'catalog-sections--resources': motionVariant === 'resources' }]}>
     {sections.map((section, index) => section.presentation === 'projects' ? (
       <section id={section.id} class:list={['project-group', { 'project-group--intro': section.items.length === 0 && !section.videos?.length }]} data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
         <header class="project-group__heading">
           <h2><LocalizedText {...section.title} /></h2>
-          <p><LocalizedText {...section.description} /></p>
+          {motionVariant !== 'resources' && section.description && <p><LocalizedText {...section.description} /></p>}
         </header>
         {section.videos && <ProjectVideos videos={section.videos} layout={section.videoLayout} locale={locale} />}
         {section.videoGroups?.map((group) => (
@@ -112,9 +121,16 @@ const skillCovers = import.meta.glob<ImageMetadata>('/public/uploads/skills/**/c
             <p class="visually-hidden" role="status" aria-live="polite" data-skill-shuffle-status></p>
           </div>
         </div>
+        <SkillResourceLinks sectionId={section.id} locale={locale} />
       </section>
+    ) : section.presentation === 'paths' ? (
+      <LearningPaths section={section} index={index} locale={locale} />
+    ) : section.presentation === 'resource-links' ? (
+      <ResourceLinks section={section} index={index} locale={locale} />
     ) : section.presentation === 'skill-type' ? (
-      <GenerativeHoverType section={section} locale={locale} />
+      <GenerativeHoverType section={section} locale={locale}>
+        <SkillResourceLinks sectionId={section.id} locale={locale} />
+      </GenerativeHoverType>
     ) : section.presentation === 'skill-project' ? (
       <section id={section.id} class="skill-project" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
         <a class="skill-project__media" href={section.repositoryUrl} target="_blank" rel="noopener noreferrer" aria-label={locale === 'zh' ? `查看 ${section.title.zh} 仓库` : `Visit the ${section.title.en} repository`}>
@@ -128,6 +144,7 @@ const skillCovers = import.meta.glob<ImageMetadata>('/public/uploads/skills/**/c
             <span>{locale === 'zh' ? '查看项目与使用说明' : 'Project and usage guide'}</span>
             <Icon name="catalog-external" role="meta" />
           </a>
+          <SkillResourceLinks sectionId={section.id} locale={locale} />
         </div>
       </section>
     ) : <section id={section.id} class:list={["catalog-section", { "catalog-section--media": section.image, "catalog-section--detailed": section.items.some((item) => item.description) }]} data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
@@ -157,6 +174,7 @@ const skillCovers = import.meta.glob<ImageMetadata>('/public/uploads/skills/**/c
       {section.projects && <div class="project-card-grid">
         {section.projects.map((item) => <ProjectCard href={`${projectRoot}/${item.id}`} item={item} locale={locale} />)}
       </div>}
+      {motionVariant === 'skills' && <SkillResourceLinks sectionId={section.id} locale={locale} />}
     </section>)}
   </div>
 )}

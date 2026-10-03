@@ -5,7 +5,7 @@
   "blogArchive": "/blog/archive",
   "projects": "/projects",
   "skills": "/skills",
-  "lab": "/lab",
+  "resources": "/resources",
   "photos": "/photos",
   "architecture": "/architecture",
   "partners": "/partners",
@@ -13,6 +13,6 @@
   "rss": "/rss.xml",
   "sitemap": "/sitemap.xml",
   "llms": "/llms.txt",
-  "static": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "lab", "photos", "architecture", "partners", "soundPreview"],
-  "localized": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "lab", "photos", "architecture", "partners", "soundPreview"]
+  "static": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "resources", "photos", "architecture", "partners", "soundPreview"],
+  "localized": ["home", "blog", "blogSeries", "blogArchive", "projects", "skills", "resources", "photos", "architecture", "partners", "soundPreview"]
 }

@@ -1,6 +1,7 @@
 import { z } from 'astro/zod'
 import catalogContent from '../../content/site/catalog.json'
 import { localizedCopySchema } from '../lib/i18n'
+import { getVisibleResourceSections, validateResourceReferences } from '../lib/resource-links'
 
 const catalogItemSchema = localizedCopySchema.extend({
   tag: localizedCopySchema.optional(),
@@ -89,7 +90,7 @@ const catalogProjectSectionSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   label: z.string().min(1),
   title: localizedCopySchema,
-  description: localizedCopySchema,
+  description: localizedCopySchema.optional(),
   items: z.array(catalogProjectItemSchema),
   videoLayout: z.enum(['grid', 'rail']).default('grid'),
   videos: z.array(catalogVideoSchema).min(1).optional(),
@@ -146,25 +147,75 @@ const skillTypeSectionSchema = z.object({
   presentation: z.literal('skill-type'),
 }).strict()
 
-const catalogSectionSchema = z.union([catalogListSectionSchema, catalogProjectSectionSchema, skillGallerySectionSchema, skillProjectSectionSchema, skillTypeSectionSchema])
+const learningPathSectionSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  label: z.string().min(1),
+  title: localizedCopySchema,
+  description: localizedCopySchema.optional(),
+  paths: z.array(z.object({
+    id: z.string().regex(/^[a-z0-9-]+$/),
+    title: localizedCopySchema,
+    description: localizedCopySchema.optional(),
+    // An optional published Blog slug for the path's representative cover.
+    cover: z.string().regex(/^[a-z0-9-]+$/).optional(),
+    // Blog post slugs in reading order; resolved against the blog collection at render time.
+    posts: z.array(z.string().regex(/^[a-z0-9-]+$/)).min(2),
+  }).strict()).min(1),
+  presentation: z.literal('paths'),
+}).strict()
+
+const resourceLinkItemSchema = localizedCopySchema.extend({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  description: localizedCopySchema.optional(),
+  image: z.union([z.string().startsWith('/'), z.object({
+    light: z.string().startsWith('/'),
+    dark: z.string().startsWith('/'),
+  }).strict()]).optional(),
+  imageAlt: localizedCopySchema.optional(),
+  url: z.union([z.url({ protocol: /^https?$/ }), z.string().regex(/^\/(?!\/)[^\s]*$/)]).optional(),
+  tag: localizedCopySchema.optional(),
+  status: z.enum(['live', 'beta']).optional(),
+  source: z.enum(['own', 'external']),
+  related: z.object({
+    skill: z.string().regex(/^[a-z0-9-]+$/).optional(),
+    post: z.string().regex(/^[a-z0-9-]+$/).optional(),
+    project: z.string().regex(/^[a-z0-9-]+$/).optional(),
+  }).strict().optional(),
+}).strict().refine((item) => Boolean(item.url || item.related?.post), 'A resource must have a URL or related.post.')
+
+const resourceLinkSectionSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  label: z.string().min(1),
+  title: localizedCopySchema,
+  description: localizedCopySchema.optional(),
+  presentation: z.literal('resource-links'),
+  groups: z.array(z.object({
+    id: z.string().regex(/^[a-z0-9-]+$/),
+    title: localizedCopySchema,
+    icon: z.enum(['resources-icons', 'resources-motion', 'resources-assets', 'resources-own-tools', 'resources-prompts', 'resources-workflows', 'resources-materials']),
+    items: z.array(resourceLinkItemSchema),
+  }).strict()),
+}).strict()
+
+const catalogSectionSchema = z.union([catalogListSectionSchema, catalogProjectSectionSchema, skillGallerySectionSchema, skillProjectSectionSchema, skillTypeSectionSchema, learningPathSectionSchema, resourceLinkSectionSchema])
 
 const catalogPageSchema = z.object({
   title: localizedCopySchema,
   description: localizedCopySchema,
   kicker: localizedCopySchema,
   heading: localizedCopySchema,
-  intro: localizedCopySchema,
+  intro: localizedCopySchema.optional(),
   indexLabel: localizedCopySchema,
 }).strict()
 
 const catalogSchema = z.object({
   projects: z.array(catalogSectionSchema),
   skills: z.array(catalogSectionSchema).min(1),
-  lab: z.array(catalogSectionSchema).min(1),
+  resources: z.array(catalogSectionSchema).min(1),
   pages: z.object({
     projects: catalogPageSchema,
     skills: catalogPageSchema,
-    lab: catalogPageSchema,
+    resources: catalogPageSchema,
   }).strict(),
 }).strict()
 
@@ -179,19 +230,23 @@ if (!result.success) {
 export type CatalogSection = z.infer<typeof catalogSectionSchema>
 export type CatalogPage = z.infer<typeof catalogPageSchema>
 export type CatalogProjectItem = z.infer<typeof catalogProjectItemSchema>
+export type LearningPathSection = z.infer<typeof learningPathSectionSchema>
+export type ResourceLinkSection = z.infer<typeof resourceLinkSectionSchema>
+export type ResourceLinkItem = z.infer<typeof resourceLinkItemSchema>
 
 export const projectSections = result.data.projects
 export const skillSections = result.data.skills
-export const labSections = result.data.lab
+export const resourceSections = result.data.resources
+export const visibleResourceSections: CatalogSection[] = getVisibleResourceSections(resourceSections)
 export const catalogPages = result.data.pages
-export const labProjectItems = labSections.flatMap((section) => section.presentation === 'projects' ? section.items : section.presentation === 'list' ? section.projects ?? [] : [])
-// Keep existing detail URLs available for cards moved into Explore.
-export const projectItems = [...projectSections.flatMap((section) => section.presentation === 'projects' ? section.items : []), ...labProjectItems]
+export const resourceProjectItems = resourceSections.flatMap((section) => section.presentation === 'projects' ? section.items : section.presentation === 'list' ? section.projects ?? [] : [])
+// Courses live under Resources but keep their /projects detail URLs.
+export const projectItems = [...projectSections.flatMap((section) => section.presentation === 'projects' ? section.items : []), ...resourceProjectItems]
 
 for (const [name, sections] of Object.entries({
   projects: projectSections,
   skills: skillSections,
-  lab: labSections,
+  resources: resourceSections,
 })) {
   const ids = sections.map((section) => section.id)
   if (new Set(ids).size !== ids.length) throw new Error(`Catalog content validation failed: duplicate ${name} section ids.`)
@@ -199,3 +254,5 @@ for (const [name, sections] of Object.entries({
 
 const projectIds = projectItems.map((project) => project.id)
 if (new Set(projectIds).size !== projectIds.length) throw new Error('Catalog content validation failed: duplicate project ids.')
+
+validateResourceReferences(resourceSections, skillSections, projectItems)

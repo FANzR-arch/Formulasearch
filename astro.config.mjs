@@ -78,6 +78,8 @@ export default defineConfig({
   site: siteConfig.siteUrl,
   output: 'static',
   trailingSlash: 'never',
+  // The former Explore page now lives at /resources.
+  redirects: { '/lab': '/resources', '/en/lab': '/en/resources' },
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
   experimental: { clientPrerender: true },
   integrations: contentStudioEnabled ? [react(), keystatic(), contentStudio()] : [],

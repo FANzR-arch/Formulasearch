@@ -24,6 +24,7 @@ const { section, locale } = Astro.props
   <div class="hover-type__stage" data-hover-type data-manifest={JSON.stringify(manifest)} data-locale={locale}>
     <p class="hover-type__title" data-type-title role="group" aria-label="Phil Carlos">Phil Carlos</p>
   </div>
+  <slot />
 </section>
 
 <script is:inline src="/scripts/generative-hover-type.js"></script>
