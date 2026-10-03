@@ -2,8 +2,8 @@
   "ariaLabel": { "zh": "博客分类", "en": "Blog categories" },
   "items": [
     { "id": "all", "href": "/blog", "label": { "zh": "全部", "en": "All" }, "categoryIds": [] },
-    { "id": "aesthetics", "href": "/blog/category/aesthetics", "label": { "zh": "美学拆解", "en": "Aesthetics" }, "categoryIds": ["prompt-aesthetic", "less-is-more", "prompt-sharing"] },
-    { "id": "ai-tools", "href": "/blog/category/ai-tools", "label": { "zh": "AI工具教程", "en": "AI Tutorials" }, "categoryIds": ["ai-knowledge", "ai-practice"] },
-    { "id": "personal-thinking", "href": "/blog/category/personal-thinking", "label": { "zh": "个人思考", "en": "Personal Notes" }, "categoryIds": ["personal-thinking"] }
+    { "id": "aesthetics", "href": "/blog/category/aesthetics", "label": { "zh": "美学拆解", "en": "Aesthetics" }, "description": { "zh": "Phil 博客的美学拆解：从新粗野主义、包豪斯到瑞士国际主义，拆解设计风格与视觉语言，并附上可直接复用的图像提示词。", "en": "Aesthetics on Phil's blog: design styles from Neo-Brutalism and Bauhaus to the Swiss International Style, broken down into visual language and reusable image prompts." }, "categoryIds": ["prompt-aesthetic", "less-is-more", "prompt-sharing"] },
+    { "id": "ai-tools", "href": "/blog/category/ai-tools", "label": { "zh": "AI工具教程", "en": "AI Tutorials" }, "description": { "zh": "Phil 博客的 AI 工具教程：ComfyUI、MiniMax、Claude Code、Obsidian 等工具的上手步骤与工作流搭建，以及真实使用中的经验和坑。", "en": "AI tutorials on Phil's blog: getting started with ComfyUI, MiniMax, Claude Code, Obsidian and more, building workflows around them, and lessons from real use." }, "categoryIds": ["ai-knowledge", "ai-practice"] },
+    { "id": "personal-thinking", "href": "/blog/category/personal-thinking", "label": { "zh": "个人思考", "en": "Personal Notes" }, "description": { "zh": "Phil 博客的个人思考：关于表达、职业转型、增长，以及在 AI 时代如何做事的判断与记录。", "en": "Personal notes on Phil's blog: on expression, changing careers, growth, and how to work well in the age of AI." }, "categoryIds": ["personal-thinking"] }
   ]
 }

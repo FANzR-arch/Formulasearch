@@ -2,29 +2,29 @@
   "home": {
     "title": { "zh": "Phil / Formula", "en": "Phil / Formula" },
     "description": {
-      "zh": "Phil 的 AI 工具、视觉系统、网站与写作实践。",
-      "en": "Phil builds AI tools, visual systems, websites, and writing."
+      "zh": "Phil（阿哲）的个人网站：前建筑师，现在用 AI 做商业影像、数字人、程序化动效、独立应用和网站，也在这里写提示词美学、AI 工具教程和个人思考。",
+      "en": "Phil's personal site. A former architect who now makes AI films, digital humans, motion graphics, apps and websites, and writes about prompt aesthetics, AI tools and the work behind them."
     }
   },
   "blog": {
     "title": { "zh": "博客", "en": "Blog" },
     "description": {
-      "zh": "Phil 关于 AI、设计、工具与实践的文章。",
-      "en": "Phil's writing on AI, design, tools, and practice."
+      "zh": "Phil 的博客：拆解设计风格与提示词美学，分享 ComfyUI、Claude、MiniMax 等 AI 工具的上手教程与实践经验，也记录关于表达与职业的个人思考。",
+      "en": "Phil's blog: prompt aesthetics and design-style breakdowns, hands-on tutorials for AI tools such as ComfyUI, Claude and MiniMax, and personal notes on work and expression."
     }
   },
   "blogArchive": {
     "title": { "zh": "博客归档", "en": "Blog Archive" },
     "description": {
-      "zh": "Phil 的全部文章归档。",
-      "en": "The complete archive of Phil's writing."
+      "zh": "按年份浏览 Phil 发布过的全部文章，涵盖提示词美学、AI 工具教程、实践经验和个人思考，每篇都标注日期、分类与原文发布平台。",
+      "en": "Every article Phil has published, by year: prompt aesthetics, AI tool tutorials, practice notes and personal essays, each with its date, category and original platform."
     }
   },
   "blogSeries": {
     "title": { "zh": "博客主题", "en": "Blog Topics" },
     "description": {
-      "zh": "按内容方向浏览 Phil 的文章。",
-      "en": "Browse Phil's writing by topic."
+      "zh": "按主题浏览 Phil 的文章：提示词美学解码、少即是多、提示词分享、AI 知识、AI 实践和个人思考，适合沿着一条线索连续阅读。",
+      "en": "Browse Phil's writing by series: Prompt Aesthetic Decode, Less Is More, prompt sharing, AI knowledge, AI practice and personal notes, to read one thread end to end."
     }
   },
   "soundPreview": {

@@ -9,8 +9,11 @@ export const getStaticPaths = () => blogSectionNavigation.items
   .map((item) => ({ params: { section: item.id }, props: { section: item.id } }))
 
 const { section } = Astro.props as { section: Exclude<BlogSectionId, 'all'> }
+const item = blogSectionNavigation.items.find((entry) => entry.id === section)!
+const description = item.description ?? pageMeta.blog.description
+const title = { zh: `${item.label.zh} · ${pageMeta.blog.title.zh}`, en: `${item.label.en} · ${pageMeta.blog.title.en}` }
 ---
 
-<BlogLayout locale="en" title={pageMeta.blog.title.en} titleEn={pageMeta.blog.title.en} description={pageMeta.blog.description.en} descriptionEn={pageMeta.blog.description.en}>
+<BlogLayout locale="en" title={title.en} titleEn={title.en} description={description.en} descriptionEn={description.en}>
   <BlogLatestView active={section} locale="en" />
 </BlogLayout>

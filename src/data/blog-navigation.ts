@@ -9,6 +9,8 @@ const blogNavigationItemSchema = z.object({
   id: blogSectionIdSchema,
   href: z.string().startsWith('/'),
   label: localizedCopySchema,
+  /** Search and share description for the category page. */
+  description: localizedCopySchema.optional(),
   categoryIds: z.array(z.string().min(1)),
 }).strict()
 
