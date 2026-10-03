@@ -294,7 +294,7 @@ AVOID: primary-color facade stickers, luxury villa, brutalist fortress, skyscrap
 
 这四个问题答清楚，提示词才不会停在风格表面。
 
-**非常感谢您能看到这里****👇**
+**非常感谢您能看到这里**👇
 
 除了上文中的多种固定提示词之外，这是更加灵活自由的skill版本： [FANzR-arch/image-prompt-skills](https://github.com/FANzR-arch/image-prompt-skills)
 

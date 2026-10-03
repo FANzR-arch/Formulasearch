@@ -21,7 +21,7 @@ externalLinks:
     url: "https://x.com/Formulasearch/status/2067479963268518337"
 ---
 
-Boris Cherny，Claude Code 的负责人，说了这么一句话： **"我不再 prompt Claude 了。我让一堆循环跑着，由它们去提示 Claude、去琢磨该干什么。我的工作变成了写循环。"**他不是在描述未来。他现在就这么干。
+Boris Cherny，Claude Code 的负责人，说了这么一句话： "**我不再 prompt Claude 了。我让一堆循环跑着，由它们去提示 Claude、去琢磨该干什么。我的工作变成了写循环**。"他不是在描述未来。他现在就这么干。
 
 ![手绘 Loop Engineering 示意图，坐在键盘前的人从 prompt 出发，橙色循环箭头标注自动触发和持续运转](/uploads/blog/2026-05-25/inline-HLBl8NlXQAA8eyR.jpg)
 

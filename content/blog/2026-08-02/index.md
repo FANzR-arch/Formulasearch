@@ -209,7 +209,7 @@ externalLinks:
 
 有，是 FDE；没有，那就只是其他职位换了个名字。
 
-**👉** **下篇讲如何上车：**三条入行路径、按薪资分层的能力清单、面试怎么准备，以及我自己在做的类似FDE的两项业务，也放在下篇。
+**👉** **下篇讲如何上车**：三条入行路径、按薪资分层的能力清单、面试怎么准备，以及我自己在做的类似FDE的两项业务，也放在下篇。
 
 ## 附：数据来源
 
@@ -219,6 +219,6 @@ externalLinks:
 
 **行业分析与从业者观点**：[腾讯云开发者社区](https://cloud.tencent.com/developer/article/2674646)、[53AI](https://www.53ai.com/news/Palantir/2026061023150.html)、[testerhome 讨论帖](https://testerhome.com/topics/44501)
 
-**🥳****感谢看到这里，我是阿哲, 前建筑师 → AIGC设计师&架构师**
+🥳**感谢看到这里，我是阿哲, 前建筑师 → AIGC设计师&架构师**
 
 欢迎关注我 [@Formulasearch](https://x.com/Formulasearch)，我会持续分享可实操的AI提示词，工具教程，实践经验。

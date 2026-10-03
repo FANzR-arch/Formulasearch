@@ -97,6 +97,6 @@ Signal 的浅调进 Support，剩下的进两个 Accent；凑不齐的角色留�
 
 ![Skill分享：配图](/uploads/blog/2026-08-01/inline-HOnMCSHWYAA_SJW.jpg)
 
-**🥳****感谢看到这里，我是阿哲, 前建筑师 → AIGC设计师&架构师**
+🥳**感谢看到这里，我是阿哲, 前建筑师 → AIGC设计师&架构师**
 
 欢迎关注我 [@Formulasearch](https://x.com/Formulasearch)，我会持续分享可实操的AI提示词，工具教程，实践经验。

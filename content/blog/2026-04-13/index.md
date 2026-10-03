@@ -151,6 +151,6 @@ externalLinks:
 
 **想下载试用工具可以到这里下载试用，也欢迎提出更多的建议：** [FANzR-arch/Seedo: Seedo 是一款极简的电脑使用时长追踪工具，旨在帮助独立开发者和终身学习者复盘时间，找回专注。](https://github.com/FANzR-arch/Seedo)
 
-**🥳****感谢看到这里，我是Phil，前建筑师 → AI产品**
+🥳**感谢看到这里，我是Phil，前建筑师 → AI产品**
 
 如果这篇文章对你有帮助，欢迎关注我的 X 账号 [@Formulasearch](https://x.com/@Formulasearch) ，我会持续分享跨界思考、AI 工具与产品方法论。

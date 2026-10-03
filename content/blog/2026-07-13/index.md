@@ -182,7 +182,7 @@ npx petdex submit ~/.codex/pets/你的宠物名称
 
 现在就来试试吧，做一个自己的卡通分身，或者把家里的猫猫狗狗也做成桌宠~
 
-**🥳****感谢看到这里，我是 Phil，前建筑师 → AI 产品。**
+🥳**感谢看到这里，我是 Phil，前建筑师 → AI 产品**。
 
 如果这篇文章对你有帮助，欢迎关注我 [@Formulasearch](https://x.com/@Formulasearch)。
 

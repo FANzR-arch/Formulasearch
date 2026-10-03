@@ -388,7 +388,7 @@ AVOID — over-broken layout; Bauhaus module matrix / pattern board; De Stijl pr
 QUALITY — authentic 1950s Swiss offset print, sharp edges, precise alignment, flat color.
 ```
 
-**非常感谢您能看到这里****👇**
+**非常感谢您能看到这里**👇
 
 除了上文中的多种固定提示词之外，这是更加灵活自由的skill版本： [FANzR-arch/image-prompt-skills](https://github.com/FANzR-arch/image-prompt-skills)
 

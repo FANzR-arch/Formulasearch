@@ -103,7 +103,7 @@ externalLinks:
 
 [https://github.com/FANzR-arch/image-prompt-skills](https://github.com/FANzR-arch/image-prompt-skills)
 
-自带**"可调参数 + 自动补全 + 输出前自检"**，能拓展到任何城市和节日、出图更稳。
+自带"**可调参数 + 自动补全 + 输出前自检**"，能拓展到任何城市和节日、出图更稳。
 
 配好后，你只用输入比如：**"成都"，它就把整段提示词配好；输入 "嘉兴 端午"** ,它自动切端午版。
 

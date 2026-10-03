@@ -160,6 +160,6 @@ image-prompt-skills/acid-depth-poster at main · FANzR-arch/image-prompt-skills
 用 acid-depth-poster，给这篇文章做一张横版 5：2 封面，标题是：前进色×后退色
 ```
 
-**🥳****感谢看到这里，我是阿哲Phil，"一个自由的提示词诗人"**
+🥳**感谢看到这里，我是阿哲Phil，"一个自由的提示词诗人**"
 
 欢迎关注我[@Formulasearch](https://x.com/Formulasearch)，我会持续分享：用AI解码美学 × AI实践 × 增长心得，欢迎与我交流~

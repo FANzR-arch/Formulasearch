@@ -152,6 +152,6 @@ AI 客服可以先完成基础信息收集、问题分类和规则说明，再�
 
 前面提到的五个顾虑，不必成为拒绝尝试的理由。更合适的做法，是把它们变成试用阶段的五项检查。
 
-**一个 AI** **同事****，管好你所有社区渠道。**[https://luciusai.com/](https://luciusai.com/)
+**一个 AI** **同事**，**管好你所有社区渠道。**[https://luciusai.com/](https://luciusai.com/)
 
-**🥳****感谢看到这里，我是阿哲，欢迎关注我** [@Formulasearch](https://x.com/Formulasearch)**，我会持续输出 AI 相关的实践和思考。**
+🥳**感谢看到这里，我是阿哲，欢迎关注我** [@Formulasearch](https://x.com/Formulasearch)**，我会持续输出 AI 相关的实践和思考。**
