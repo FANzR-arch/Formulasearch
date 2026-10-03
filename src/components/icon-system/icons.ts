@@ -36,7 +36,6 @@ import {
   MousePointer2,
   Plus,
   Play,
-  Pause,
   RefreshCw,
   Rss,
   Rocket,
@@ -56,7 +55,6 @@ import type { AstroComponent } from '@lucide/astro'
 export const iconRegistry = {
   'chat': MessageCircle,
   'video-play': Play,
-  'video-pause': Pause,
   'cursor-default': MousePointer2,
   'cursor-interactive': ArrowUpRight,
   'cursor-text': TextCursorInput,
