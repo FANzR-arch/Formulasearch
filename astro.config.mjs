@@ -6,6 +6,7 @@ import contentStudio from './src/content-studio/integration.ts'
 import { unified } from '@astrojs/markdown-remark'
 import siteConfig from './content/site/site.json' with { type: 'json' }
 import blogImageDimensions from './content/site/blog-image-dimensions.json' with { type: 'json' }
+import typography from './scripts/typography-integration.mjs'
 
 const normalizeImageUrl = (value) => {
   try {
@@ -82,7 +83,7 @@ export default defineConfig({
   redirects: { '/lab': '/resources', '/en/lab': '/en/resources' },
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
   experimental: { clientPrerender: true },
-  integrations: contentStudioEnabled ? [react(), keystatic(), contentStudio()] : [],
+  integrations: [typography(), ...(contentStudioEnabled ? [react(), keystatic(), contentStudio()] : [])],
   vite: {
     plugins: [tailwindcss()],
   },

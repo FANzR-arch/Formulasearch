@@ -47,7 +47,7 @@ async function readUtf8(relativePath) {
 const checkLocalAsset = async (source, relativePath) => {
   if (!source.startsWith('/') || source.startsWith('//')) return
   const sourcePath = source.split(/[?#]/, 1)[0]
-  const assetRoot = sourcePath.startsWith('/_astro/') ? distRoot : publicRoot
+  const assetRoot = sourcePath.startsWith('/_astro/') || sourcePath.startsWith('/fonts/') ? distRoot : publicRoot
   const relativeAsset = sourcePath.slice(1).replaceAll('/', sep)
   const target = resolve(assetRoot, relativeAsset)
   const root = resolve(assetRoot)
@@ -201,6 +201,21 @@ for (const path of htmlFiles) {
     if (!html.includes('<meta name="robots" content="noindex">')) failures.push(`static redirect missing noindex: ${relativePath}`)
     if (!html.includes(`<a href="${redirectDestination}">`)) failures.push(`static redirect missing fallback link: ${relativePath}`)
     continue
+  }
+  const fontStyles = [...html.matchAll(/<style\b[^>]*\bdata-production-fonts\b[^>]*>([\s\S]*?)<\/style>/g)]
+  if (fontStyles.length !== 1) failures.push(`expected one generated production font declaration: ${relativePath}`)
+  for (const [, css] of fontStyles) {
+    for (const [, source] of css.matchAll(/url\(['"]?([^'"\)]+)['"]?\)/g)) {
+      if (!/^\/fonts\/[a-f0-9]{64}\.woff2$/.test(source)) failures.push(`unexpected production font source: ${relativePath} -> ${source}`)
+      await checkLocalAsset(source, relativePath)
+    }
+    for (const [, family] of css.matchAll(/font-family:['"]([^'"]+)['"]/g)) {
+      if (!['FS Geist', 'FS Geist Mono', 'FS Noto Sans SC'].includes(family)) failures.push(`preview font entered production: ${relativePath} -> ${family}`)
+    }
+  }
+  for (const [, attributes] of html.matchAll(/<link\b([^>]*\bas="font"[^>]*)>/g)) {
+    if (!/\bcrossorigin(?:\s|=|$)/.test(attributes)) failures.push(`font preload missing crossorigin: ${relativePath}`)
+    await checkLocalAsset(getAttribute(attributes, 'href'), relativePath)
   }
   const idCounts = new Map()
   for (const [, id] of html.matchAll(/\bid="([^"]+)"/g)) idCounts.set(id, (idCounts.get(id) || 0) + 1)

@@ -1,6 +1,6 @@
 # 排印方向对比
 
-独立开发工具，复用主站 global.css、blog.css 和真实内容，生产仍使用系统字体。
+独立开发工具，复用主站 global.css、blog.css 和真实内容。`current` 保留正式接入前的系统字体基准；主站已于 2026-10-03 采用 `tech` 方向，实际生产规格见 [Geist 排印接入](../../docs/25_Geist排印接入.md)。
 
 ```sh
 npm run fonts:preview
@@ -30,4 +30,4 @@ npm run fonts:preview
 
 ## 生产边界
 
-全部字体仅为 devDependencies，导入仅存在 refs/font-preview。主站构建不包含本预览，也不复制 node_modules 字体。运行 npm run build 与 npm run site:check 后，检查 dist 无预览页面和 woff / woff2 / ttf / otf 文件。
+字体来源包均为 devDependencies。本工具的预览页和其他备选字体不进入主站构建；生产集成只输出已选定的 Geist、Geist Mono 和 Noto Sans SC 标题子集及其许可证。运行 npm run build 与 npm run site:check 会核对 dist 中的生产字体白名单、声明和预载，并检查没有预览页面。实现与实际体积见 [Geist 排印接入](../../docs/25_Geist排印接入.md)。

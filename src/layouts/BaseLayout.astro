@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import '../styles/typography.css'
 import { siteConfig } from '../data/site-config'
 import { getLocalizedRoute, isLocalizedSiteRoute, siteRoutes } from '../data/site-routes'
 import { uiCopy } from '../data/ui-copy'
@@ -73,6 +74,7 @@ const analyticsEnabled = import.meta.env.PROD && /^G-[A-Z0-9]+$/.test(analyticsI
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    {import.meta.env.DEV && <link rel="stylesheet" href="/fonts/development.css" data-production-fonts />}
     <meta name="theme-color" content={siteConfig.themeColors.light} />
     <meta name="description" content={initialDescription} />
     <link rel="icon" href="/brand/logo.svg" type="image/svg+xml" />

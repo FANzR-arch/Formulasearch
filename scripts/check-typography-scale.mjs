@@ -2,8 +2,8 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-const css = readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
-const root = css.match(/:root\s*\{([^}]+)\}/)?.[1];
+const css = ['global.css', 'typography.css'].map(name => readFileSync(new URL(`../src/styles/${name}`, import.meta.url), 'utf8')).join('\n');
+const root = [...css.matchAll(/:root\s*\{([^}]+)\}/g)].map(match => match[1]).join('\n');
 assert(root, 'The production :root tokens must exist.');
 const tokens = ['--text-page-title', '--text-2xl', '--text-xl', '--text-lg'];
 const rootSize = 16;
@@ -11,7 +11,7 @@ const minimumRatio = 1.25;
 const widths = [375, 768, 1024, 1280, 1440, 1920];
 
 function parseClamp(token) {
-  const value = root.match(new RegExp(`${token}:\\s*([^;]+);`))?.[1];
+  const value = [...root.matchAll(new RegExp(`${token}:\\s*([^;]+);`, 'g'))].at(-1)?.[1];
   const match = value?.match(/^clamp\((\d*\.?\d+)rem,\s*(\d*\.?\d+)vw,\s*(\d*\.?\d+)rem\)$/);
   assert(match, `${token} must be a rem/vw/rem clamp; received ${value}.`);
   return { token, expression: value, min: Number(match[1]) * rootSize, fluid: Number(match[2]) / 100, max: Number(match[3]) * rootSize };

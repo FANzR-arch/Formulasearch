@@ -1,6 +1,6 @@
 # 排印方向规格与验证
 
-记录日期：2026-10-02。方向定义以 `src/data/directions.ts` 为准，字体家族与入口以 `src/data/fonts.ts`、`src/scripts/font-loaders.ts` 和 [fonts-sources.md](./fonts-sources.md) 为准。生产站点继续使用系统字体；网页字体仅进入独立开发预览。
+记录日期：2026-10-02。本文件保留选择前的方向规格、验收与体积估算；其中 `current` 是正式接入前的系统字体基准。方向定义以 `src/data/directions.ts` 为准，字体家族与入口以 `src/data/fonts.ts`、`src/scripts/font-loaders.ts` 和 [fonts-sources.md](./fonts-sources.md) 为准。主站已于 2026-10-03 采用 `tech` 方向，当前生产规格与实测体积见 [Geist 排印接入](../../docs/25_Geist排印接入.md)。
 
 下表的像素值按 `1rem = 16px`、未开启大小协调、未使用高级覆盖计算。切换方向通过示例容器的 `data-direction` 和生产排印变量生效；真实示例沿用主站类名。
 

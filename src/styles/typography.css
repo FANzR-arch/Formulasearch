@@ -1,0 +1,82 @@
+/* The selected Geist direction. Kept separate so the reference preview retains
+   its original system-font baseline; generated font faces are route-specific. */
+:root {
+  --font-latin-body: "FS Geist";
+  --font-latin-heading: "FS Geist";
+  --font-cjk-heading: "FS Noto Sans SC";
+  --font-sans: var(--font-latin-body), "Segoe UI Variable Text", "Segoe UI", var(--font-cjk-sans), sans-serif;
+  --font-heading: var(--font-latin-heading), var(--font-cjk-heading), "Segoe UI", var(--font-cjk-sans), sans-serif;
+  --font-display: var(--font-heading);
+  --font-serif: var(--font-sans);
+  --font-mono: "FS Geist Mono", "Cascadia Code", "SF Mono", Consolas, var(--font-cjk-sans), monospace;
+  --font-label: var(--font-mono);
+
+  --text-page-title: clamp(2.75rem, 4.5vw, 4.5rem);
+  --text-home-title: var(--text-page-title);
+  --text-article-title: var(--text-page-title);
+  --text-archive-title: var(--text-page-title);
+  --text-2xl: clamp(2rem, 3.2vw, 3.2rem);
+  --text-feature-title: var(--text-2xl);
+  --text-skill-feature-title: var(--text-2xl);
+  --text-skill-project-title: var(--text-2xl);
+  --text-xl: clamp(1.5rem, 2.2vw, 2.2rem);
+  --text-lg: clamp(1.125rem, 1.5vw, 1.375rem);
+  --text-lead: var(--text-lg);
+  --text-description: 1rem;
+  --text-base: 1rem;
+  --text-sm: .875rem;
+  --text-xs: .875rem;
+  --text-2xs: .75rem;
+
+  --weight-heading: 600;
+  --weight-cjk-heading: 600;
+  --weight-display: 600;
+  --weight-body: 400;
+  --weight-label: 500;
+  --weight-meta: 400;
+  --tracking-heading: -.03em;
+  --tracking-tight: var(--tracking-heading);
+  --tracking-cjk-heading: 0;
+  --tracking-label: .06em;
+  --tracking-cjk-label: .02em;
+  --leading-heading: 1.25;
+  --leading-cjk-heading: 1.25;
+  --leading-subheading: 1.3;
+  --leading-cjk-subheading: 1.3;
+  --leading-body: 1.7;
+  --leading-lead: 1.7;
+  --leading-home-copy: 1.7;
+  --leading-home-copy-zh: 1.7;
+  --leading-article-body: 1.7;
+  --leading-article-body-en: 1.7;
+  --leading-description: 1.7;
+  --label-ink: var(--muted);
+  --label-transform: uppercase;
+}
+
+/* Include scoped component headings and display titles in the same role. */
+:root[data-locale] :is(h1, h2, h3, h4, .partner-entry__identity strong, .resource-card__title) {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--tracking-heading);
+  font-synthesis: none;
+  text-wrap: balance;
+}
+:root[data-locale] :is(h1, h2) { line-height: var(--leading-heading); }
+:root[data-locale] :is(h3, h4, .partner-entry__identity strong, .resource-card__title) { line-height: var(--leading-subheading); }
+:root:lang(zh) :is(h1, h2, h3, h4, .partner-entry__identity strong, .resource-card__title) {
+  letter-spacing: var(--tracking-cjk-heading);
+  font-feature-settings: "palt";
+}
+/* Phil Carlos is Western text in both interface languages. */
+:root .intro h1 { --tracking-cjk-heading: var(--tracking-heading); }
+/* Article content keeps its own language when the surrounding UI is switched. */
+:root[data-locale] .article-prose :is(h1, h2, h3, h4):lang(zh) {
+  letter-spacing: var(--tracking-cjk-heading);
+  font-feature-settings: "palt";
+}
+:root :is(.sound-preview-hero__kicker, .sound-preview-section__eyebrow) {
+  font-family: var(--font-label);
+  font-weight: var(--weight-label);
+  color: var(--label-ink);
+}

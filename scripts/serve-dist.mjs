@@ -56,7 +56,7 @@ const server = createServer((request, response) => {
   const headers = {
     'Content-Type': contentTypes[extname(filePath)] || 'application/octet-stream',
     // Optional production-like document caching for prefetch verification.
-    'Cache-Control': filePath.startsWith(join(distRoot, '_astro') + sep)
+    'Cache-Control': filePath.startsWith(join(distRoot, '_astro') + sep) || /^\/fonts\/[a-f0-9]{64}\.woff2$/.test(pathname)
       ? 'public, max-age=31536000, immutable'
       : extname(filePath) === '.html' ? (process.env.HTML_CACHE_CONTROL || 'no-cache') : 'no-cache',
     'Accept-Ranges': 'bytes',
