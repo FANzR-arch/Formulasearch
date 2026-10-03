@@ -81,7 +81,7 @@ if (motionVariant === 'resources' || motionVariant === 'skills') {
           ))}
         </dl>
         <div class="skill-gallery__stage">
-          <ul id={`skill-gallery-${section.id}`} class="skill-gallery" data-skill-gallery aria-roledescription={locale === 'zh' ? '卡片组' : 'card stack'} aria-label={locale === 'zh' ? 'Phil Design Skills 风格样例' : 'Phil Design Skills style previews'}>
+          <ul id={`skill-gallery-${section.id}`} class="skill-gallery" data-skill-gallery aria-roledescription={locale === 'zh' ? '卡片组' : 'card stack'} aria-label={locale === 'zh' ? 'Phil Design Skills 风格样例' : 'Phil Design Skills style previews'} data-aria-zh="Phil Design Skills 风格样例" data-aria-en="Phil Design Skills style previews">
             {section.gallery.map((item, itemIndex) => (
               <li data-skill-card data-skill-title={item.title[locale]}>
                 <figure class="skill-gallery__item">
@@ -91,8 +91,10 @@ if (motionVariant === 'resources' || motionVariant === 'skills') {
                     role="button"
                     tabindex="0"
                     aria-label={locale === 'zh' ? `拖动或轻点切换：${item.title.zh}` : `Drag or tap to cycle: ${item.title.en}`}
+                    data-aria-zh={`拖动或轻点切换：${item.title.zh}`}
+                    data-aria-en={`Drag or tap to cycle: ${item.title.en}`}
                   >
-                    <img src={item.image} alt={item.imageAlt[locale]} loading={itemIndex < 3 ? 'eager' : 'lazy'} decoding="async" />
+                    <img src={item.image} alt={item.imageAlt[locale]} data-alt-zh={item.imageAlt.zh} data-alt-en={item.imageAlt.en} loading={itemIndex < 3 ? 'eager' : 'lazy'} decoding="async" />
                   </div>
                   <figcaption>
                     <a class="skill-gallery__open" data-skill-open href={item.externalUrl} target="_blank" rel="noopener noreferrer">
@@ -112,6 +114,10 @@ if (motionVariant === 'resources' || motionVariant === 'skills') {
               aria-controls={`skill-gallery-${section.id}`}
               aria-label={locale === 'zh' ? '洗牌' : 'Shuffle'}
               title={locale === 'zh' ? '洗牌' : 'Shuffle'}
+              data-aria-zh="洗牌"
+              data-aria-en="Shuffle"
+              data-title-zh="洗牌"
+              data-title-en="Shuffle"
               data-skill-shuffle
               data-status-zh="已完成第 {count} 次洗牌"
               data-status-en="Shuffle {count} complete"
@@ -133,7 +139,7 @@ if (motionVariant === 'resources' || motionVariant === 'skills') {
       </GenerativeHoverType>
     ) : section.presentation === 'skill-project' ? (
       <section id={section.id} class="skill-project" data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
-        <a class="skill-project__media" href={section.repositoryUrl} target="_blank" rel="noopener noreferrer" aria-label={locale === 'zh' ? `查看 ${section.title.zh} 仓库` : `Visit the ${section.title.en} repository`}>
+        <a class="skill-project__media" href={section.repositoryUrl} target="_blank" rel="noopener noreferrer" aria-label={locale === 'zh' ? `查看 ${section.title.zh} 仓库` : `Visit the ${section.title.en} repository`} data-aria-zh={`查看 ${section.title.zh} 仓库`} data-aria-en={`Visit the ${section.title.en} repository`}>
           <ThemeImage class="skill-project__cover" light={skillCovers[`/public${section.cover.light}`]} dark={skillCovers[`/public${section.cover.dark}`]} widths={[480, 800, 1200]} sizes="auto, (max-width: 820px) calc(100vw - 72px), 540px" alt={section.coverAlt[locale]} altZh={section.coverAlt.zh} altEn={section.coverAlt.en} />
         </a>
         <div class="skill-project__content">
@@ -150,7 +156,7 @@ if (motionVariant === 'resources' || motionVariant === 'skills') {
     ) : <section id={section.id} class:list={["catalog-section", { "catalog-section--media": section.image, "catalog-section--detailed": section.items.some((item) => item.description) }]} data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
       {section.image && section.imageAlt && (
         <figure class="catalog-section__media">
-          <img src={section.image} alt={section.imageAlt[locale]} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+          <img src={section.image} alt={section.imageAlt[locale]} data-alt-zh={section.imageAlt.zh} data-alt-en={section.imageAlt.en} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
         </figure>
       )}
       <div class="catalog-section__content">

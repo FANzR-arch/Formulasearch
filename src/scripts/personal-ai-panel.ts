@@ -3,7 +3,10 @@ export function mountPanelInteraction(card:HTMLDialogElement){
  const header=card.querySelector<HTMLElement>('.pai-header')!;
  const controller=new AbortController(),options={signal:controller.signal};
  const key='pai-panel-position';let dragging:{id:number;dx:number;dy:number}|undefined;
- header.tabIndex=0;header.setAttribute('aria-label','拖动聊天窗口 / Move chat window');header.title='拖动调整位置；方向键移动，双击复位 / Drag or use arrow keys; double-click to reset';
+ // One language at a time; the site's locale switch swaps these through the data-* pairs.
+ const english=document.documentElement.dataset.locale==='en';
+ Object.assign(header.dataset,{ariaZh:'拖动聊天窗口',ariaEn:'Move chat window',titleZh:'拖动调整位置；方向键移动，双击复位',titleEn:'Drag or use arrow keys; double-click to reset'});
+ header.tabIndex=0;header.setAttribute('aria-label',english?header.dataset.ariaEn!:header.dataset.ariaZh!);header.title=english?header.dataset.titleEn!:header.dataset.titleZh!;
  const clamp=(v:number,max:number)=>Math.max(8,Math.min(v,Math.max(8,max)));
  const place=(x:number,y:number)=>{const r=card.getBoundingClientRect();card.style.left=clamp(x,innerWidth-r.width-8)+'px';card.style.top=clamp(y,innerHeight-r.height-8)+'px';card.style.right='auto';card.style.bottom='auto';};
  const save=()=>{const r=card.getBoundingClientRect();try{sessionStorage.setItem(key,JSON.stringify({x:r.left/Math.max(1,innerWidth-r.width),y:r.top/Math.max(1,innerHeight-r.height)}));}catch{}};

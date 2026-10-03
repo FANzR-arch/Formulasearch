@@ -37,7 +37,7 @@ const githubProfileLabel = interpolateLocalizedCopy(uiCopy.navigation.githubProf
     <Icon name="nav-close" role="control" class="mobile-nav-toggle__close" />
   </button>
 
-  <nav class="mobile-nav-shortcuts" aria-label={locale === 'en' ? 'Quick navigation' : '快捷导航'}>
+  <nav class="mobile-nav-shortcuts" aria-label={locale === 'en' ? 'Quick navigation' : '快捷导航'} data-aria-zh="快捷导航" data-aria-en="Quick navigation">
     {primaryNavigation.map((section) => (
       <a data-astro-prefetch="hover" class:list={['mobile-nav-shortcut', { 'is-active': active === section.id }]} href={localizedRoute(section.href)} aria-current={active === section.id ? 'page' : undefined}><LocalizedText {...section.label} /></a>
     ))}

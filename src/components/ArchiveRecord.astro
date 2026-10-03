@@ -73,6 +73,8 @@ const photoAspectRatio = active === 'photos' && item.width && item.height ? `${i
       data-photo-location-zh={item.location?.zh || undefined}
       data-photo-location-en={item.location?.en || undefined}
       aria-label={locale === 'en' ? `View photograph ${item.index}: ${photoTitle.en}` : `查看照片 ${item.index}：${photoTitle.zh}`}
+      data-aria-zh={`查看照片 ${item.index}：${photoTitle.zh}`}
+      data-aria-en={`View photograph ${item.index}: ${photoTitle.en}`}
     >
       <Image src={resolvePhotoImage(item.image)} widths={[400, 640, 960]} format="webp" quality={82} alt={localizedAlt} data-alt-zh={item.alt.zh} data-alt-en={item.alt.en} loading={eager ? 'eager' : 'lazy'} decoding="async" sizes={`${eager ? '' : 'auto, '}(max-width: 680px) calc((100vw - 90px) / 2), 360px`} />
     </button>

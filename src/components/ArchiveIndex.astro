@@ -82,7 +82,7 @@ const featuredPhotos = active === 'photos' ? featuredPhotoFiles.map((number) => 
   </div>
 
   {active === 'photos' && (
-    <dialog class="photo-lightbox" data-photo-lightbox aria-label={locale === 'en' ? 'Photograph viewer' : '照片查看器'}>
+    <dialog class="photo-lightbox" data-photo-lightbox aria-label={locale === 'en' ? 'Photograph viewer' : '照片查看器'} data-aria-zh="照片查看器" data-aria-en="Photograph viewer">
       <div class="photo-lightbox__frame">
         <button class="photo-lightbox__close" type="button" data-photo-lightbox-close data-no-sound aria-label={locale === 'en' ? 'Close photo viewer' : '关闭照片查看器'} data-aria-en="Close photo viewer" data-aria-zh="关闭照片查看器">
           <Icon name="cursor-photo-close" role="control" />

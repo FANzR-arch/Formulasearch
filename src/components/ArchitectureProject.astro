@@ -20,7 +20,7 @@ const root = locale === 'en' ? '/en/architecture' : '/architecture'
   <a class="architecture-project__back" href={root}><LocalizedText {...architecturePage.backLabel} /></a>
   <PageHero id="architecture-project-title" title={project.title} description={project.summary} />
   {project.links?.length ? (
-    <nav class="architecture-project__links" aria-label={locale === 'en' ? 'Project links' : '项目链接'}>
+    <nav class="architecture-project__links" aria-label={locale === 'en' ? 'Project links' : '项目链接'} data-aria-zh="项目链接" data-aria-en="Project links">
       {project.links.map((link) => (
         <a href={link.href} target="_blank" rel="noreferrer noopener"><LocalizedText {...link.label} /></a>
       ))}
@@ -35,6 +35,8 @@ const root = locale === 'en' ? '/en/architecture' : '/architecture'
           format="webp"
           quality={85}
           alt={getLocalizedValue(item.alt, locale)}
+          data-alt-zh={item.alt.zh}
+          data-alt-en={item.alt.en}
           loading={index === 0 ? 'eager' : 'lazy'}
           fetchpriority={index === 0 ? 'high' : undefined}
           sizes="(max-width: 820px) 100vw, 1180px"

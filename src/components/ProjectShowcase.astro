@@ -30,21 +30,21 @@ const showcaseImages = await Promise.all(showcase.map(async (entry) => {
       <span>{String(showcase.length).padStart(2, '0')}</span>
     </p>
     <div class="project-showcase__controls">
-      <button type="button" data-project-showcase-previous aria-label={locale === 'en' ? 'Previous work' : '上一项作品'}>
+      <button type="button" data-project-showcase-previous aria-label={locale === 'en' ? 'Previous work' : '上一项作品'} data-aria-zh="上一项作品" data-aria-en="Previous work">
         <Icon name="project-gallery-previous" role="control" />
       </button>
-      <button type="button" data-project-showcase-next aria-label={locale === 'en' ? 'Next work' : '下一项作品'}>
+      <button type="button" data-project-showcase-next aria-label={locale === 'en' ? 'Next work' : '下一项作品'} data-aria-zh="下一项作品" data-aria-en="Next work">
         <Icon name="project-gallery-next" role="control" />
       </button>
     </div>
   </div>
 
-  <div class="project-showcase__viewport" data-project-showcase-viewport tabindex="0" role="region" aria-roledescription={locale === 'en' ? 'carousel' : '轮播图'} aria-label={locale === 'en' ? `${item.en} showcase` : `${item.zh}作品集`}>
+  <div class="project-showcase__viewport" data-project-showcase-viewport tabindex="0" role="region" aria-roledescription={locale === 'en' ? 'carousel' : '轮播图'} aria-label={locale === 'en' ? `${item.en} showcase` : `${item.zh}作品集`} data-aria-zh={`${item.zh}作品集`} data-aria-en={`${item.en} showcase`}>
     <div class="project-showcase__track">
       {showcase.map((entry, index) => (
-        <a class="project-showcase__card" href={href} data-project-showcase-card aria-label={`${getLocalizedValue(entry.title, locale)} · ${locale === 'en' ? 'View project' : '查看项目'}`}>
+        <a class="project-showcase__card" href={href} data-project-showcase-card aria-label={`${getLocalizedValue(entry.title, locale)} · ${locale === 'en' ? 'View project' : '查看项目'}`} data-aria-zh={`${entry.title.zh} · 查看项目`} data-aria-en={`${entry.title.en} · View project`}>
           <figure class="project-showcase__media">
-            <img src={showcaseImages[index].src} srcset={showcaseImages[index].srcset} sizes={showcaseImages[index].sizes} width={showcaseImages[index].width} height={showcaseImages[index].height} alt={getLocalizedValue(entry.alt, locale)} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} decoding="async" />
+            <img src={showcaseImages[index].src} srcset={showcaseImages[index].srcset} sizes={showcaseImages[index].sizes} width={showcaseImages[index].width} height={showcaseImages[index].height} alt={getLocalizedValue(entry.alt, locale)} data-alt-zh={entry.alt.zh} data-alt-en={entry.alt.en} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : undefined} decoding="async" />
             <span class="project-showcase__ordinal" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
           </figure>
           <div class="project-showcase__copy">

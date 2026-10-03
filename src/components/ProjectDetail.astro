@@ -39,7 +39,7 @@ const gallerySizes = '(max-width: 792px) calc(100vw - 32px), 760px'
         </a>
       )}
     </div>
-    <ul class="project-detail__keywords" aria-label={locale === 'en' ? 'Project keywords' : '项目关键词'}>
+    <ul class="project-detail__keywords" aria-label={locale === 'en' ? 'Project keywords' : '项目关键词'} data-aria-zh="项目关键词" data-aria-en="Project keywords">
       {detail.keywords.map((keyword) => <li><LocalizedText {...keyword} /></li>)}
     </ul>
   </div>

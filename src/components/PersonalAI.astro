@@ -5,6 +5,8 @@ import { personalAiEndpoint as endpoint } from '../lib/personal-ai-config'
 import '../styles/personal-ai.css'
 import '../styles/personal-ai-glow.css'
 const home = ['/', '/en', '/en/'].includes(Astro.url.pathname)
+const english = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/')
+const closeLabel = home ? { zh: '返回介绍', en: 'Back to introduction' } : { zh: '关闭聊天', en: 'Close chat' }
 const Surface = home ? 'section' : 'dialog'
 ---
 {endpoint && <div data-personal-ai data-endpoint={endpoint} data-home={String(home)}>
@@ -16,7 +18,7 @@ const Surface = home ? 'section' : 'dialog'
     </>}
     <header class="pai-header">
       <span class="pai-title">Phil AI</span>
-      <button type="button" class="pai-close" aria-label={home ? "返回介绍" : "关闭聊天"}><Icon name={home ? 'blog-back' : 'nav-close'} role="control" />{home && <><span class="localized-text__zh">返回介绍</span><span class="localized-text__en">Back to introduction</span></>}</button>
+      <button type="button" class="pai-close" aria-label={english ? closeLabel.en : closeLabel.zh} data-aria-zh={closeLabel.zh} data-aria-en={closeLabel.en}><Icon name={home ? 'blog-back' : 'nav-close'} role="control" />{home && <><span class="localized-text__zh">返回介绍</span><span class="localized-text__en">Back to introduction</span></>}</button>
     </header>
     <div class="pai-status" role="status"><span class="pai-status-text"></span><button type="button" class="pai-retry" hidden><span class="localized-text__zh">重试连接</span><span class="localized-text__en">Retry</span></button></div>
     <iframe title="Phil AI" allow="clipboard-write" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe>
