@@ -10,12 +10,25 @@ const manifestPath = join(repoRoot, 'content', 'site', 'blog-media.json')
 const optimizedRoot = join(repoRoot, 'public', 'uploads', 'blog-optimized')
 const imageExtensions = new Set(['.avif', '.jpeg', '.jpg', '.png', '.webp'])
 const variantWidths = [480, 768, 1080]
+// Article images sit in a 720px column: one width for standard screens, one for high-density ones.
+// They are AVIF only; the original file stays the <img> fallback, which keeps the variant folder small.
+const inlineVariantWidths = [720, 1440]
 
 const readCover = (markdownPath) => {
   const markdown = readFileSync(markdownPath, 'utf8')
   const match = markdown.match(/^cover:\s*["']?([^\r\n"']+)["']?\s*$/m)
   if (!match?.[1]) throw new Error(`Blog markdown is missing cover: ${markdownPath}`)
   return match[1].trim()
+}
+
+// Local images placed in the article body, in Markdown or as raw <img>.
+const readInlineImages = (markdownPath) => {
+  const markdown = readFileSync(markdownPath, 'utf8').replace(/^---[\s\S]*?\n---/, '')
+  const sources = [
+    ...markdown.matchAll(/!\[[^\]]*\]\((\/uploads\/blog\/[^)\s]+)/g),
+    ...markdown.matchAll(/<img\b[^>]*\ssrc=["'](\/uploads\/blog\/[^"']+)["']/g),
+  ].map((match) => match[1])
+  return sources.filter((source) => imageExtensions.has(extname(source).toLowerCase()))
 }
 
 const getCoverPaths = () => readdirSync(contentRoot, { withFileTypes: true })
@@ -38,11 +51,17 @@ const getVariant = (cover, width, format) => {
 
 const buildManifest = async () => {
   const manifest = {}
+  const entries = []
   for (const markdownPath of getCoverPaths()) {
     const cover = readCover(markdownPath)
     if (!cover.startsWith('/uploads/blog/')) {
       throw new Error(`Blog cover must be under /uploads/blog/: ${cover}`)
     }
+    entries.push([cover, variantWidths])
+    for (const source of readInlineImages(markdownPath)) entries.push([source, inlineVariantWidths])
+  }
+  for (const [cover, sizes] of entries) {
+    if (manifest[cover]) continue
 
     const sourcePath = join(mediaRoot, ...cover.slice(1).split('/'))
     if (!existsSync(sourcePath)) throw new Error(`Blog cover file is missing: ${sourcePath}`)
@@ -55,7 +74,10 @@ const buildManifest = async () => {
     const height = metadata.height
     if (!width || !height) throw new Error(`Blog cover has no intrinsic dimensions: ${sourcePath}`)
 
-    const widths = [...new Set([...variantWidths, width].filter((variantWidth) => variantWidth <= width))]
+    const inline = sizes === inlineVariantWidths
+    // Covers keep a native-width variant; article images stop at the column's largest width.
+    const nativeWidth = inline && width >= Math.max(...sizes) ? [] : [width]
+    const widths = [...new Set([...sizes, ...nativeWidth].filter((variantWidth) => variantWidth <= width))].sort((a, b) => a - b)
 
     manifest[cover] = {
       bytes: statSync(sourcePath).size,
@@ -64,7 +86,7 @@ const buildManifest = async () => {
         const { src, width: variantWidthValue } = getVariant(cover, variantWidth, 'avif')
         return { src, width: variantWidthValue }
       }),
-      optimized: widths.map((variantWidth) => {
+      optimized: inline ? [] : widths.map((variantWidth) => {
         const { src, width: variantWidthValue } = getVariant(cover, variantWidth, 'webp')
         return { src, width: variantWidthValue }
       }),
@@ -94,11 +116,13 @@ const writeOptimizedImages = async (manifest) => {
     const sourcePath = join(mediaRoot, ...cover.slice(1).split('/'))
     for (const variant of [...media.avif, ...media.optimized]) {
       const variantPath = join(mediaRoot, ...variant.src.slice(1).split('/'))
+      // Encoding is slow; keep variants that are already newer than their source.
+      if (existsSync(variantPath) && statSync(variantPath).mtimeMs >= statSync(sourcePath).mtimeMs) continue
       mkdirSync(dirname(variantPath), { recursive: true })
       const image = sharp(sourcePath)
         .resize({ width: variant.width, withoutEnlargement: true })
       const format = variant.src.endsWith('.avif')
-        ? image.avif({ quality: 50, effort: 6 })
+        ? image.avif({ quality: 50, effort: 4 })
         : image.webp({ quality: 78 })
       await format.toFile(variantPath)
     }
@@ -138,8 +162,12 @@ if (mode === '--write') {
   orphanedFiles.forEach((file) => unlinkSync(file))
   await writeOptimizedImages(expected)
   writeFileSync(manifestPath, serialized, 'utf8')
+  // Rendered articles are cached by their Markdown alone; drop the build cache so the next build picks up the
+  // new variants. (The dev server keeps its own cache in .astro/ and needs a restart to see them.)
+  const buildCache = join(repoRoot, 'node_modules', '.astro', 'data-store.json')
+  if (existsSync(buildCache)) unlinkSync(buildCache)
   const variantCount = Object.values(expected).reduce((count, media) => count + media.optimized.length + media.avif.length, 0)
-  console.log(`Blog media manifest written: ${Object.keys(expected).length} covers, ${variantCount} responsive variants (WebP + AVIF).`)
+  console.log(`Blog media manifest written: ${Object.keys(expected).length} images (covers and article images), ${variantCount} responsive variants (WebP + AVIF).`)
 } else {
   if (!existsSync(manifestPath)) throw new Error(`Blog media manifest is missing: ${manifestPath}`)
   const actual = readFileSync(manifestPath, 'utf8')
@@ -148,5 +176,5 @@ if (mode === '--write') {
   }
   await checkOptimizedImages(expected)
   const variantCount = Object.values(expected).reduce((count, media) => count + media.optimized.length + media.avif.length, 0)
-  console.log(`Blog media manifest check passed: ${Object.keys(expected).length} covers, ${variantCount} responsive variants (WebP + AVIF).`)
+  console.log(`Blog media manifest check passed: ${Object.keys(expected).length} images (covers and article images), ${variantCount} responsive variants (WebP + AVIF).`)
 }

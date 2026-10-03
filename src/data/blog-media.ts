@@ -15,7 +15,8 @@ const blogMediaItemSchema = z.object({
   avif: z.array(avifVariantSchema).min(1),
   bytes: z.number().int().positive(),
   height: z.number().int().positive(),
-  optimized: z.array(webpVariantSchema).min(1),
+  // Covers carry WebP as well; article images are AVIF only, with the original as fallback.
+  optimized: z.array(webpVariantSchema),
   width: z.number().int().positive(),
 }).strict()
 

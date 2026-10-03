@@ -6,6 +6,7 @@ import contentStudio from './src/content-studio/integration.ts'
 import { unified } from '@astrojs/markdown-remark'
 import siteConfig from './content/site/site.json' with { type: 'json' }
 import blogImageDimensions from './content/site/blog-image-dimensions.json' with { type: 'json' }
+import blogMedia from './content/site/blog-media.json' with { type: 'json' }
 import typography from './scripts/typography-integration.mjs'
 
 const normalizeImageUrl = (value) => {
@@ -73,6 +74,36 @@ const addRenderedImageAttributes = () => (tree) => {
   visit(tree)
 }
 
+// Local article images are served as AVIF / WebP at the column's widths (scripts/prepare-blog-media.mjs);
+// the original file stays as the fallback <img>, so failed-media handling and alt text are unchanged.
+const articleImageSizes = '(max-width: 820px) calc(100vw - 32px), 720px'
+const serveOptimizedArticleImages = () => (tree) => {
+  const visit = (node) => {
+    node.children?.forEach((child, index) => {
+      if (child.type === 'element' && child.tagName === 'img' && node.tagName !== 'picture') {
+        const media = blogMedia[typeof child.properties?.src === 'string' ? child.properties.src : '']
+        if (media) {
+          const srcset = (variants) => variants.map((variant) => `${variant.src} ${variant.width}w`).join(', ')
+          node.children[index] = {
+            type: 'element',
+            tagName: 'picture',
+            properties: {},
+            children: [
+              { type: 'element', tagName: 'source', properties: { type: 'image/avif', srcSet: srcset(media.avif), sizes: articleImageSizes }, children: [] },
+              ...(media.optimized.length ? [{ type: 'element', tagName: 'source', properties: { type: 'image/webp', srcSet: srcset(media.optimized), sizes: articleImageSizes }, children: [] }] : []),
+              { ...child, properties: { width: media.width, height: media.height, ...child.properties } },
+            ],
+          }
+          return
+        }
+      }
+      visit(child)
+    })
+  }
+
+  visit(tree)
+}
+
 const contentStudioEnabled = process.env.CONTENT_STUDIO === '1'
 
 export default defineConfig({
@@ -90,7 +121,7 @@ export default defineConfig({
   markdown: {
     processor: unified({
       remarkPlugins: [addArticleImageAttributes],
-      rehypePlugins: [addRenderedImageAttributes],
+      rehypePlugins: [addRenderedImageAttributes, serveOptimizedArticleImages],
     }),
   },
 })
