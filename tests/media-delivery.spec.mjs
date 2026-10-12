@@ -10,48 +10,83 @@ const getResponsiveImageSources = (image) => image.evaluate(element => {
 })
 
 for (const width of [1280, 390]) {
-  test(`video rail arrows replace scrollbars at ${width}px`, async ({ page }) => {
+  test(`video collections expand downward and collapse to one row at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 })
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/projects')
-    for (const stage of await page.locator('[data-video-rail]').all()) {
-      const rail = stage.locator('.project-videos--rail')
-      await expect(rail).toHaveCSS('scrollbar-width', 'none')
-      const overflow = await rail.evaluate(el => el.scrollWidth > el.clientWidth + 2)
-      const nav = stage.locator('[data-video-navigation]')
-      if (!overflow) { await expect(nav).toBeHidden(); continue }
-      await expect(nav).toBeVisible()
-      const next = stage.locator('[data-video-next]')
-      const previous = stage.locator('[data-video-previous]')
-      await expect(previous).toBeDisabled()
-      await next.click()
-      await expect.poll(() => rail.evaluate(el => el.scrollLeft)).toBeGreaterThan(0)
-      await expect(previous).toBeEnabled()
-      await previous.click()
-      await expect(previous).toBeDisabled()
-      await rail.evaluate(el => el.scrollTo({ left: el.scrollWidth, behavior: 'instant' }))
-      await expect(next).toBeDisabled()
+    await expect(page.locator('[data-video-rail], [data-video-navigation]')).toHaveCount(0)
+    for (const stage of await page.locator('[data-video-collection]').all()) {
+      const cards = stage.locator('.project-video')
+      const visible = stage.locator('.project-video:visible')
+      const count = await cards.count()
+      const initialCount = await visible.count()
+      const more = stage.locator('[data-video-more]')
+      expect(initialCount).toBeGreaterThan(0)
+      const tops = await visible.evaluateAll(els => els.map(el => Math.round(el.getBoundingClientRect().top)))
+      expect(new Set(tops).size).toBe(1)
+      if (initialCount === count) { await expect(more).toBeHidden(); continue }
+      await expect(more).toHaveAttribute('aria-expanded', 'false')
+      await more.click()
+      await expect(visible).toHaveCount(count)
+      await expect(more).toHaveAttribute('aria-expanded', 'true')
+      const positions = await cards.evaluateAll(els => els.map(el => el.getBoundingClientRect().top))
+      expect(positions.at(-1)).toBeGreaterThan(positions[0])
+      if (await stage.locator('#brand-concept-videos').count()) await stage.screenshot({ path: `output/playwright/video-expanded-${width}.png` })
+      await more.click()
+      await expect(visible).toHaveCount(initialCount)
+      await expect(more).toHaveAttribute('aria-expanded', 'false')
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false)
   })
-}
 
-for (const width of [1280, 390]) {
-  test(`native video controls handle playback at ${width}px`, async ({ page }) => {
+  test(`static posters load without requesting videos until play at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 })
+    const requested = []
+    page.on('request', request => { if (request.url().endsWith('.mp4')) requested.push(request.url()) })
+    await page.goto('/projects')
+    const hero = page.locator('#personal-films')
+    await expect(page.locator('.project-group').first()).toHaveAttribute('id', 'personal-films')
+    await hero.scrollIntoViewIfNeeded()
+    await expect.poll(() => hero.locator('[data-video-start] img').evaluate(el => el.complete && el.naturalWidth > 0)).toBe(true)
+    await hero.screenshot({ path: `output/playwright/video-personal-hero-${width}.png` })
+    const group = page.locator('#story-ads')
+    await group.scrollIntoViewIfNeeded()
+    const start = group.locator('[data-video-start]').first()
+    await expect(start).toBeVisible()
+    await expect.poll(() => start.locator('img').evaluate(el => el.complete && el.naturalWidth > 0)).toBe(true)
+    await page.waitForLoadState('networkidle')
+    expect(requested).toEqual([])
+    await expect(group.locator('video').first()).toBeHidden()
+    await expect(page.locator('[data-video-error]:visible')).toHaveCount(0)
+    await group.screenshot({ path: `output/playwright/video-posters-${width}.png` })
+    await start.click()
+    const video = group.locator('video').first()
+    await expect(video).toBeVisible()
+    await expect(video).toHaveJSProperty('paused', false)
+    await expect.poll(() => video.evaluate(el => el.currentTime)).toBeGreaterThan(0)
+    expect(requested.length).toBeGreaterThan(0)
+    expect(requested.every(url => url.endsWith('/proxy-interview.mp4'))).toBe(true)
+    await video.evaluate(el => el.pause())
+  })
+
+  test(`native video controls handle playback after opening the poster at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 })
     await page.goto('/projects')
-    await expect(page.locator('[data-video-expand], [data-video-dialog], [data-video-toggle]')).toHaveCount(0)
-    const video = page.locator('[data-video-player] video').first()
-    await video.scrollIntoViewIfNeeded()
+    const player = page.locator('[data-video-player]').first()
+    const start = player.locator('[data-video-start]')
+    await start.focus()
+    await start.press('Enter')
+    const video = player.locator('video')
     await expect(video).toHaveAttribute('controls', '')
+    await expect(video).toHaveJSProperty('paused', false)
     await video.hover()
     await expect(page.locator('html')).not.toHaveAttribute('data-cursor-mode', 'custom')
     await video.focus()
     await video.press('Space')
-    await expect(video).toHaveJSProperty('paused', false)
-    await video.press('Space')
     await expect(video).toHaveJSProperty('paused', true)
-    await page.screenshot({ path: `output/playwright/video-native-${width}.png` })
+    await video.press('Space')
+    await expect(video).toHaveJSProperty('paused', false)
+    await video.evaluate(el => el.pause())
     if (width === 1280) {
       await video.evaluate(el => el.requestFullscreen())
       await expect.poll(() => video.evaluate(el => document.fullscreenElement === el)).toBe(true)
@@ -60,11 +95,43 @@ for (const width of [1280, 390]) {
   })
 }
 
-test('video loading errors offer a working retry', async ({ page }) => {
+test('featured film title fits its column without overlapping the video in either locale', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  for (const locale of ['en', 'zh']) {
+    await page.goto(locale === 'en' ? '/en/projects' : '/projects')
+    for (const width of [1570, 1280, 1024, 768, 390, 320]) {
+      await page.setViewportSize({ width, height: 1244 })
+      await page.evaluate(() => document.fonts.ready)
+      const hero = page.locator('#personal-films')
+      await hero.scrollIntoViewIfNeeded()
+      const bounds = await hero.evaluate((element, language) => {
+        const copy = element.querySelector('.project-video__copy').getBoundingClientRect()
+        const player = element.querySelector('[data-video-player]').getBoundingClientRect()
+        const range = document.createRange()
+        range.selectNodeContents(element.querySelector(`h2 .localized-text__${language}`))
+        return [...range.getClientRects()].filter(rect => rect.width > 0).map(rect => ({
+          inside: rect.left >= copy.left - 1 && rect.right <= copy.right + 1,
+          overlapsVideo: rect.left < player.right && rect.right > player.left && rect.top < player.bottom && rect.bottom > player.top,
+        }))
+      }, locale)
+      expect(bounds.length).toBeGreaterThan(0)
+      expect(bounds.every(line => line.inside && !line.overlapsVideo), `${locale} title at ${width}px`).toBe(true)
+      if (locale === 'en' && [1570, 390].includes(width)) {
+        await expect.poll(() => hero.locator('[data-video-start] img').evaluate(el => el.complete && el.naturalWidth > 0)).toBe(true)
+        await hero.screenshot({ path: `output/playwright/video-title-en-${width}.png` })
+      }
+    }
+    await expect(page.locator('#personal-films .project-video__category, #personal-films .project-video__description')).toHaveCount(0)
+  }
+})
+
+test('video loading errors appear only after play and offer a working retry', async ({ page }) => {
   await page.route('**/brand-concept-01.mp4', route => route.abort())
   await page.goto('/projects')
-  const player = page.locator('[data-video-player]').first()
+  const player = page.locator('#brand-concept [data-video-player]').first()
   await player.scrollIntoViewIfNeeded()
+  await expect(player.locator('[data-video-error]')).toBeHidden()
+  await player.locator('[data-video-start]').click()
   await expect(player.locator('[data-video-error]')).toBeVisible()
   await page.unroute('**/brand-concept-01.mp4')
   await player.locator('[data-video-retry]').click()
@@ -75,10 +142,10 @@ test('video loading errors offer a working retry', async ({ page }) => {
 test('native mouse controls change mute and fullscreen, and a new video pauses the old one', async ({ page }) => {
   await page.setViewportSize({ width: 1483, height: 1272 })
   await page.goto('/projects')
-  const videos = page.locator('#brand-concept video')
-  const first = videos.nth(0)
-  const second = videos.nth(1)
-  await first.scrollIntoViewIfNeeded()
+  const players = page.locator('#brand-concept [data-video-player]')
+  await players.nth(0).locator('[data-video-start]').click()
+  const first = players.nth(0).locator('video')
+  const second = players.nth(1).locator('video')
   const box = await first.boundingBox()
   await expect.poll(() => first.evaluate(el => el.readyState)).toBeGreaterThanOrEqual(2)
   await page.mouse.click(box.x + box.width - 120, box.y + box.height - 50)
@@ -86,86 +153,116 @@ test('native mouse controls change mute and fullscreen, and a new video pauses t
   await page.mouse.click(box.x + box.width - 72, box.y + box.height - 50)
   await expect.poll(() => first.evaluate(el => document.fullscreenElement === el)).toBe(true)
   await page.evaluate(() => document.exitFullscreen())
-  await first.evaluate(async el => { if (el instanceof HTMLVideoElement) { el.currentTime = 0; await el.play() } })
-  const nextBox = await second.boundingBox()
-  await page.mouse.click(nextBox.x + 26, nextBox.y + nextBox.height - 50)
+  await players.nth(1).locator('[data-video-start]').click()
   await expect(second).toHaveJSProperty('paused', false)
   await expect(first).toHaveJSProperty('paused', true)
 })
 
 for (const width of [1280, 390]) {
-  test(`AI films are grouped, keep their proportions, and play at ${width}px`, async ({ page }) => {
+  test(`AI films have the requested categories, preserve their proportions, and play at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 })
     await page.goto('/projects')
     const section = page.locator('#ai-imagery')
     await expect(section.locator('.project-video-group')).toHaveCount(4)
-    await expect(section.locator('.project-showcase')).toHaveCount(0)
-    for (const [id, count] of [['brand-concept', 4], ['story-ads', 2], ['product-ads', 3], ['animated-shorts', 5]]) {
-      const videos = section.locator(`#${id} video`)
-      await expect(videos).toHaveCount(count)
-      const heights = await videos.evaluateAll((els) => els.map(el => el.getBoundingClientRect().height))
-      expect(Math.max(...heights) - Math.min(...heights)).toBeLessThan(3)
-      for (const video of await videos.all()) {
-        await expect(video).toHaveAttribute('preload', /^(none|metadata)$/)
-        await video.scrollIntoViewIfNeeded()
-        await video.evaluate(async el => { el.muted = true; await el.play() })
+    await expect(section.locator('#selected-films')).toHaveCount(0)
+    await expect(section.locator('#story-ads > h3')).toHaveText('商业剧情广告', { useInnerText: true })
+    await expect(page.locator('#personal-films h2')).toHaveText('初觉', { useInnerText: true })
+    await expect(page.locator('#personal-films source')).toHaveAttribute('src', /first-awareness.mp4$/)
+    for (const [id, count] of [['story-ads', 5], ['brand-concept', 4], ['product-ads', 3], ['animated-shorts', 5]]) {
+      const group = section.locator(`#${id}`)
+      const more = group.locator('[data-video-more]')
+      if (await more.isVisible()) await more.click()
+      const players = group.locator('[data-video-player]')
+      await expect(players).toHaveCount(count)
+      for (const player of await players.all()) {
+        const video = player.locator('video')
+        const ratio = await video.evaluate(el => {
+          const box = el.getBoundingClientRect()
+          return { actual: box.width / box.height, expected: Number(el.getAttribute('width')) / Number(el.getAttribute('height')) }
+        })
+        expect(ratio.actual).toBeCloseTo(ratio.expected, 2)
+        await expect(video).toHaveAttribute('preload', 'none')
+        await player.locator('[data-video-start]').click()
         await expect.poll(() => video.evaluate(el => el.currentTime)).toBeGreaterThan(0)
         await expect(video).toHaveJSProperty('error', null)
-        await video.evaluate(el => { if (el instanceof HTMLVideoElement) el.pause() })
+        await video.evaluate(el => el.pause())
       }
     }
     await expect(section.locator('.project-video__source[href="https://x.com/luciusknockin/status/2098078092191465902"]')).toHaveCount(1)
     await expect(section.locator('.project-video__source[href="https://x.com/luciusknockin/status/2097011324777910578"]')).toHaveCount(1)
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false)
   })
-}
 
-for (const width of [1280, 390]) {
-  test(`digital human videos stay in one scrollable row and play at ${width}px`, async ({ page }) => {
+  test(`digital human videos expand downwards, play, and pause when collapsed at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 })
     await page.goto('/projects')
-    const rail = page.locator('#digital-humans .project-videos--rail')
-    const videos = rail.locator('video')
-    await expect(videos).toHaveCount(9)
-    await expect(rail.locator('source[src$="digital-human-06.mp4"]')).toHaveCount(0)
-    await expect(page.locator('#digital-humans .project-showcase')).toHaveCount(0)
-    const layout = await rail.evaluate((element) => ({
-      overflows: element.scrollWidth > element.clientWidth,
-      tops: [...element.querySelectorAll('.project-video')].map((card) => card.getBoundingClientRect().top),
-    }))
-    expect(layout.overflows).toBe(true)
-    expect(new Set(layout.tops).size).toBe(1)
-    await rail.scrollIntoViewIfNeeded()
-    await rail.focus()
-    await rail.press('ArrowRight')
-    await expect.poll(() => rail.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0)
+    const group = page.locator('#digital-humans')
+    const players = group.locator('[data-video-player]')
+    await expect(players).toHaveCount(9)
+    const more = group.locator('[data-video-more]')
+    await more.click()
     const clipNumbers = [1, 2, 3, 4, 5, 7, 8, 9, 10]
     for (let index = 0; index < clipNumbers.length; index++) {
-      const video = videos.nth(index)
+      const player = players.nth(index)
+      const video = player.locator('video')
       const number = String(clipNumbers[index]).padStart(2, '0')
       await expect(video.locator('source')).toHaveAttribute('src', `/uploads/projects/digital-human-videos/digital-human-${number}.mp4`)
-      await expect(video).toHaveAttribute('preload', /^(none|metadata)$/)
+      await expect(video).toHaveAttribute('preload', 'none')
       await expect(video).toHaveJSProperty('autoplay', false)
-      await video.scrollIntoViewIfNeeded()
-      await video.evaluate(async (element) => {
-        if (!(element instanceof HTMLVideoElement)) throw new Error('Expected a video player')
-        element.muted = true
-        await element.play()
-      })
-      await expect.poll(() => video.evaluate((element) => element.currentTime)).toBeGreaterThan(0)
+      await player.locator('[data-video-start]').click()
+      await expect.poll(() => video.evaluate(el => el.currentTime)).toBeGreaterThan(0)
       await expect(video).toHaveJSProperty('videoWidth', 720)
       await expect(video).toHaveJSProperty('videoHeight', 1280)
-      await video.evaluate((element) => { if (element instanceof HTMLVideoElement) element.pause() })
       await expect(video).toHaveJSProperty('error', null)
     }
-    const pageOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)
-    expect(pageOverflow).toBe(false)
+    await more.click()
+    await expect(players.last().locator('video')).toHaveJSProperty('paused', true)
+    await expect(players.last()).toBeHidden()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false)
   })
 }
 
+test('video collections remain usable without JavaScript and localize their controls', async ({ browser, baseURL, page }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, baseURL })
+  try {
+    const fallback = await context.newPage()
+    await fallback.goto('/projects')
+    await expect(fallback.locator('#digital-humans .project-video:visible')).toHaveCount(9)
+    await expect(fallback.locator('[data-video-more]:visible, [data-video-start]:visible')).toHaveCount(0)
+    const video = fallback.locator('#story-ads video').first()
+    await expect(video).toBeVisible()
+    await video.evaluate(async el => { el.muted = true; await el.play() })
+    await expect.poll(() => video.evaluate(el => el.currentTime)).toBeGreaterThan(0)
+  } finally { await context.close() }
+  await page.goto('/en/projects')
+  await expect(page.locator('#story-ads > h3')).toHaveText('Story-led Commercials', { useInnerText: true })
+  await expect(page.locator('#personal-films h2')).toHaveText('First Awareness', { useInnerText: true })
+  const more = page.locator('#brand-concept [data-video-more]')
+  await expect(more).toHaveText('Show more', { useInnerText: true })
+  await more.focus()
+  await more.press('Space')
+  await expect(more).toHaveText('Show less', { useInnerText: true })
+  await expect(page.locator('#story-ads [data-video-start]').first()).toHaveAccessibleName('Play: Proxy Interview')
+  await page.locator('#language-toggle').click()
+  await expect(more).toHaveText('收起', { useInnerText: true })
+})
+
+test('resizing a collapsed video collection recalculates its first row', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 844 })
+  await page.goto('/projects')
+  const visible = page.locator('#brand-concept .project-video:visible')
+  await expect(visible).toHaveCount(2)
+  await page.setViewportSize({ width: 390, height: 844 })
+  await expect(visible).toHaveCount(1)
+  await page.locator('#brand-concept [data-video-more]').click()
+  await expect(visible).toHaveCount(4)
+  await page.setViewportSize({ width: 1280, height: 844 })
+  await expect(visible).toHaveCount(4)
+})
+
 test('project motion videos load on demand, play, and link to their original posts', async ({ page }) => {
   const videoRequests = []
-  page.on('request', (request) => {
+  page.on('request', request => {
     if (request.url().includes('/code-motion/') && request.url().endsWith('.mp4')) videoRequests.push(request.url())
   })
   await page.goto('/projects')
@@ -181,21 +278,18 @@ test('project motion videos load on demand, play, and link to their original pos
     const card = cards.nth(index)
     const video = card.locator('video')
     await expect(card.locator('.project-video__source')).toHaveAttribute('href', sourceUrl)
-    await expect(video).toHaveAttribute('preload', /^(none|metadata)$/)
-    await expect(video).toHaveJSProperty('autoplay', false)
-    await video.scrollIntoViewIfNeeded()
-    await video.evaluate(async (element) => { element.muted = true; await element.play() })
-    await expect.poll(() => video.evaluate((element) => element.currentTime)).toBeGreaterThan(0)
+    await expect(video).toHaveAttribute('preload', 'none')
+    await card.locator('[data-video-start]').click()
+    await expect.poll(() => video.evaluate(el => el.currentTime)).toBeGreaterThan(0)
     await expect(video).toHaveJSProperty('videoWidth', 1920)
     await expect(video).toHaveJSProperty('videoHeight', 1080)
-    const midpoint = await video.evaluate((element) => {
-      if (!(element instanceof HTMLVideoElement)) throw new Error('Expected a video player')
-      element.pause()
-      element.currentTime = element.duration / 2
-      return element.duration / 2
+    const midpoint = await video.evaluate(el => {
+      el.pause()
+      el.currentTime = el.duration / 2
+      return el.duration / 2
     })
-    await expect.poll(() => video.evaluate((element) => element instanceof HTMLVideoElement && element.seeking)).toBe(false)
-    await expect.poll(() => video.evaluate((element) => element.currentTime)).toBeCloseTo(midpoint, 0)
+    await expect.poll(() => video.evaluate(el => el.seeking)).toBe(false)
+    await expect.poll(() => video.evaluate(el => el.currentTime)).toBeCloseTo(midpoint, 0)
     await expect(video).toHaveJSProperty('error', null)
   }
 })

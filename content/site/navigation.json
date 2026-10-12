@@ -52,6 +52,17 @@
       },
       "menu": [
         {
+          "href": "/projects#personal-films",
+          "label": {
+            "zh": "个人创作",
+            "en": "Personal Films"
+          },
+          "note": {
+            "zh": "初觉 · AI 实验短片",
+            "en": "First Awareness · An AI short film"
+          }
+        },
+        {
           "href": "/projects#ai-imagery",
           "label": {
             "zh": "AI 商业与叙事影像",

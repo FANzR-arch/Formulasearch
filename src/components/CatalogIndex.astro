@@ -37,15 +37,15 @@ if (motionVariant === 'resources' || motionVariant === 'skills') {
   <div class:list={['catalog-sections', { 'catalog-sections--resources': motionVariant === 'resources' }]}>
     {sections.map((section, index) => section.presentation === 'projects' ? (
       <section id={section.id} class:list={['project-group', { 'project-group--intro': section.items.length === 0 && !section.videos?.length }]} data-site-reveal data-site-reveal-delay={String((index % 2) * 70)}>
-        <header class="project-group__heading">
+        {section.videoLayout !== 'featured' && <header class="project-group__heading">
           <h2><LocalizedText {...section.title} /></h2>
           {motionVariant !== 'resources' && section.description && <p><LocalizedText {...section.description} /></p>}
-        </header>
-        {section.videos && <ProjectVideos videos={section.videos} layout={section.videoLayout} locale={locale} />}
+        </header>}
+        {section.videos && <ProjectVideos id={`${section.id}-videos`} videos={section.videos} layout={section.videoLayout} locale={locale} />}
         {section.videoGroups?.map((group) => (
           <section id={group.id} class="project-video-group" aria-labelledby={`${group.id}-title`}>
             <h3 id={`${group.id}-title`}><LocalizedText {...group.title} /></h3>
-            <ProjectVideos videos={group.videos} layout="filmstrip" locale={locale} />
+            <ProjectVideos id={`${group.id}-videos`} videos={group.videos} layout="filmstrip" locale={locale} />
           </section>
         ))}
         {!section.videos && !section.videoGroups && (section.items.length === 1 && section.items[0].showcase ? (

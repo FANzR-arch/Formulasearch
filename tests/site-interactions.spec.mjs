@@ -228,7 +228,7 @@ test('page, section and card titles preserve the Chinese hierarchy at every supp
     await page.setViewportSize({ width, height: 900 })
     await page.goto('/projects')
     const title = await page.locator('.page-hero h1').evaluate(headingStyle)
-    const section = await page.locator('.project-group h2').first().evaluate(headingStyle)
+    const section = await page.locator('.project-group__heading h2').first().evaluate(headingStyle)
     const card = await page.locator('.project-card h3').first().evaluate(headingStyle)
     expect(title.size / section.size).toBeGreaterThanOrEqual(1.249)
     expect(section.size / card.size).toBeGreaterThanOrEqual(1.249)
@@ -1022,7 +1022,7 @@ test('static preview server rejects paths outside dist', async () => {
 })
 test('catalog pages omit index navigation and section numbers', async ({ page }) => {
   const catalogPages = [
-    { route: '/projects', catalogSections: 0, skillFeatures: 0, skillProjects: 0, projectGroups: 8 },
+    { route: '/projects', catalogSections: 0, skillFeatures: 0, skillProjects: 0, projectGroups: 9 },
     { route: '/skills', catalogSections: 1, skillFeatures: 1, skillProjects: 1, projectGroups: 0 },
     { route: '/resources', catalogSections: 0, skillFeatures: 0, skillProjects: 0, projectGroups: 3 },
   ]

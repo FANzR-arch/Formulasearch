@@ -1,6 +1,29 @@
 {
   "projects": [
     {
+      "id": "personal-films",
+      "label": "Personal Film",
+      "title": {
+        "zh": "个人创作",
+        "en": "Personal Films"
+      },
+      "items": [],
+      "videoLayout": "featured",
+      "videos": [
+        {
+          "src": "/uploads/projects/ai-films/first-awareness.mp4",
+          "poster": "/uploads/projects/ai-films/first-awareness.jpg",
+          "title": {
+            "zh": "初觉",
+            "en": "First Awareness"
+          },
+          "width": 1440,
+          "height": 1080
+        }
+      ],
+      "presentation": "projects"
+    },
+    {
       "id": "ai-imagery",
       "label": "01",
       "title": {
@@ -216,6 +239,67 @@
       ],
       "videoGroups": [
         {
+          "id": "story-ads",
+          "title": {
+            "zh": "商业剧情广告",
+            "en": "Story-led Commercials"
+          },
+          "videos": [
+            {
+              "src": "/uploads/projects/ai-films/proxy-interview.mp4",
+              "poster": "/uploads/projects/ai-films/proxy-interview.jpg",
+              "title": {
+                "zh": "代理面试",
+                "en": "Proxy Interview"
+              },
+              "width": 1080,
+              "height": 1920
+            },
+            {
+              "src": "/uploads/projects/ai-films/stories-of-the-past.mp4",
+              "poster": "/uploads/projects/ai-films/stories-of-the-past.jpg",
+              "title": {
+                "zh": "往事 · The Other Side",
+                "en": "Stories of the Past · The Other Side"
+              },
+              "width": 1080,
+              "height": 1920
+            },
+            {
+              "src": "/uploads/projects/ai-films/book-meeting.mp4",
+              "poster": "/uploads/projects/ai-films/book-meeting.jpg",
+              "title": {
+                "zh": "预约见面",
+                "en": "Book Meeting"
+              },
+              "width": 720,
+              "height": 1280
+            },
+            {
+              "src": "/uploads/projects/ai-films/story-ads-01.mp4",
+              "poster": "/uploads/projects/ai-films/story-ads-01.jpg",
+              "title": {
+                "zh": "剧情式广告 01",
+                "en": "Story-led Ads 01"
+              },
+              "width": 720,
+              "height": 1280,
+              "sourceUrl": "https://x.com/luciusknockin/status/2098078092191465902"
+            },
+            {
+              "src": "/uploads/projects/ai-films/story-ads-02.mp4",
+              "poster": "/uploads/projects/ai-films/story-ads-02.jpg",
+              "title": {
+                "zh": "剧情式广告 02",
+                "en": "Story-led Ads 02"
+              },
+              "width": 720,
+              "height": 1280,
+              "sourceUrl": "https://x.com/luciusknockin/status/2097011324777910578"
+            }
+          ]
+        },
+        {
           "id": "brand-concept",
           "title": {
             "zh": "品牌概念片",
@@ -261,37 +345,6 @@
               },
               "width": 864,
               "height": 480
-            }
-          ]
-        },
-        {
-          "id": "story-ads",
-          "title": {
-            "zh": "剧情式广告",
-            "en": "Story-led Ads"
-          },
-          "videos": [
-            {
-              "src": "/uploads/projects/ai-films/story-ads-01.mp4",
-              "poster": "/uploads/projects/ai-films/story-ads-01.jpg",
-              "title": {
-                "zh": "剧情式广告 01",
-                "en": "Story-led Ads 01"
-              },
-              "width": 720,
-              "height": 1280,
-              "sourceUrl": "https://x.com/luciusknockin/status/2098078092191465902"
-            },
-            {
-              "src": "/uploads/projects/ai-films/story-ads-02.mp4",
-              "poster": "/uploads/projects/ai-films/story-ads-02.jpg",
-              "title": {
-                "zh": "剧情式广告 02",
-                "en": "Story-led Ads 02"
-              },
-              "width": 720,
-              "height": 1280,
-              "sourceUrl": "https://x.com/luciusknockin/status/2097011324777910578"
             }
           ]
         },
@@ -407,7 +460,7 @@
         "en": "Presenter videos, product explanations, tutorials, and series built around consistent characters and voices."
       },
       "presentation": "projects",
-      "videoLayout": "rail",
+      "videoLayout": "compact",
       "videos": [
         {
           "src": "/uploads/projects/digital-human-videos/digital-human-01.mp4",
@@ -2612,7 +2665,7 @@
       },
       "description": {
         "zh": "Phil 整理的学习资源：SEO × GEO 入门课、K 线课程、按主题编排的 AI 学习路径，以及做 AI、设计和内容创作时常用的工具与网站。",
-        "en": "Learning resources curated by Phil: an SEO \u00d7 GEO starter course, a price-action course, AI learning paths by topic, and the tools and sites used for AI, design and content work."
+        "en": "Learning resources curated by Phil: an SEO × GEO starter course, a price-action course, AI learning paths by topic, and the tools and sites used for AI, design and content work."
       },
       "kicker": {
         "zh": "从这里开始",

@@ -1,65 +1,75 @@
 (() => {
-  // Load visible clips' metadata so native volume/fullscreen controls are ready before play.
-  const metadataObserver = new IntersectionObserver(entries => {
-    entries.forEach(({ target, isIntersecting }) => {
-      if (!isIntersecting) return
-      target.preload = 'metadata'
-      metadataObserver.unobserve(target)
-    })
-  })
-  document.querySelectorAll('[data-video-rail]').forEach((stage) => {
-    if (stage.dataset.railInitialized) return
-    stage.dataset.railInitialized = 'true'
-    const rail = stage.querySelector('.project-videos--rail')
-    const nav = stage.querySelector('[data-video-navigation]')
-    const previous = stage.querySelector('[data-video-previous]')
-    const next = stage.querySelector('[data-video-next]')
+  // Compact collections reveal additional rows on demand, without horizontal scrolling.
+  document.querySelectorAll('[data-video-collection]').forEach(stage => {
+    if (stage.dataset.initialized) return
+    stage.dataset.initialized = 'true'
+    const list = stage.querySelector('.project-videos')
+    const cards = [...list.querySelectorAll('.project-video')]
+    const more = stage.querySelector('[data-video-more]')
+    let expanded = false
+    let lastWidth = 0
     const update = () => {
-      const end = rail.scrollWidth - rail.clientWidth
-      nav.hidden = end <= 2
-      previous.disabled = rail.scrollLeft <= 2
-      next.disabled = rail.scrollLeft >= end - 2
-      const player = rail.querySelector('[data-video-player]')
-      if (player) stage.style.setProperty('--video-navigation-y', `${player.getBoundingClientRect().height / 2}px`)
+      cards.forEach(card => { card.hidden = false })
+      const firstTop = cards[0]?.offsetTop
+      const nextRow = cards.findIndex(card => card.offsetTop > firstTop + 2)
+      const firstRowCount = nextRow === -1 ? cards.length : nextRow
+      more.hidden = firstRowCount === cards.length
+      more.setAttribute('aria-expanded', String(expanded))
+      cards.forEach((card, index) => {
+        if (expanded || index < firstRowCount) return
+        if (card.contains(document.activeElement)) more.focus({ preventScroll: true })
+        card.hidden = true
+        card.querySelector('video')?.pause()
+      })
     }
-    const move = (direction) => {
-      const current = rail.scrollLeft
-      const end = rail.scrollWidth - rail.clientWidth
-      const origin = rail.getBoundingClientRect().left
-      const stops = [...rail.querySelectorAll('.project-video')].map(card => Math.min(end, card.getBoundingClientRect().left - origin + current))
-      const target = direction > 0 ? stops.find(left => left > current + 2) ?? end : stops.reverse().find(left => left < current - 2) ?? 0
-      rail.scrollTo({ left: target, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })
-    }
-    previous.addEventListener('click', () => move(-1))
-    next.addEventListener('click', () => move(1))
-    rail.addEventListener('scroll', update, { passive: true })
-    new ResizeObserver(update).observe(rail)
+    more.addEventListener('click', () => {
+      expanded = !expanded
+      update()
+      if (!expanded) more.scrollIntoView({ block: 'nearest', behavior: 'instant' })
+    })
+    new ResizeObserver(([entry]) => {
+      const width = entry.contentRect.width
+      if (width <= 0 || Math.abs(width - lastWidth) < 1) return
+      lastWidth = width
+      update()
+    }).observe(list)
     update()
   })
-  document.querySelectorAll('[data-video-player]').forEach((player) => {
+
+  document.querySelectorAll('[data-video-player]').forEach(player => {
     if (player.dataset.initialized) return
     player.dataset.initialized = 'true'
     const video = player.querySelector('video')
-    video.addEventListener('play', () => {
-      document.querySelectorAll('video').forEach(other => {
-        if (other !== video && !other.paused) other.pause()
-      })
-    })
+    const start = player.querySelector('[data-video-start]')
     const error = player.querySelector('[data-video-error]')
     const retry = player.querySelector('[data-video-retry]')
+    start.hidden = false
+    const reveal = () => {
+      player.dataset.started = 'true'
+      start.hidden = true
+    }
     const failed = () => { error.hidden = false }
     const play = async () => {
+      reveal()
+      video.focus({ preventScroll: true })
       try { await video.play() } catch (cause) {
         if (cause.name !== 'AbortError' && cause.name !== 'NotAllowedError') failed()
       }
     }
+    start.addEventListener('click', play)
     retry.addEventListener('click', () => {
       error.hidden = true
       video.load()
       play()
     })
+    video.addEventListener('play', () => {
+      reveal()
+      document.querySelectorAll('video').forEach(other => {
+        if (other !== video && !other.paused) other.pause()
+      })
+    })
     video.addEventListener('error', failed)
     video.querySelector('source')?.addEventListener('error', failed)
-    metadataObserver.observe(video)
+    // No metadata preloading: the static poster stays visible until the visitor presses play.
   })
 })()

@@ -92,7 +92,7 @@ const catalogProjectSectionSchema = z.object({
   title: localizedCopySchema,
   description: localizedCopySchema.optional(),
   items: z.array(catalogProjectItemSchema),
-  videoLayout: z.enum(['grid', 'rail']).default('grid'),
+  videoLayout: z.enum(['grid', 'compact', 'featured']).default('grid'),
   videos: z.array(catalogVideoSchema).min(1).optional(),
   videoGroups: z.array(z.object({
     id: z.string().regex(/^[a-z0-9-]+$/),
