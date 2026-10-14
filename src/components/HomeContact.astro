@@ -26,6 +26,10 @@ const socialHandle = `@${new URL(socialUrl).pathname.split('/').filter(Boolean)[
     <img class="contact-brand contact-brand--wechat" src="/brand/wechat-logo.svg" width="22" height="18" alt="" aria-hidden="true" />
     <span class="contact-tooltip" id="contact-wechat-tooltip" role="tooltip">wechat</span>
   </button>
+  <a class="contact-icon" href="https://app.knockin.info/phil-carlos" target="_blank" rel="noopener noreferrer" aria-label={localized('打开我的 AI 名片', 'Open my AI business card')} data-aria-zh="打开我的 AI 名片" data-aria-en="Open my AI business card" aria-describedby="contact-ai-card-tooltip">
+    <Icon name="contact-ai-card" role="control" />
+    <span class="contact-tooltip" id="contact-ai-card-tooltip" role="tooltip">嗨 👋 来通过我的 AI 名片认识我</span>
+  </a>
 </div>
 
 <dialog id="wechat-contact-dialog" class="wechat-dialog" aria-label={localized('微信二维码', 'WeChat QR code')} data-aria-zh="微信二维码" data-aria-en="WeChat QR code">
